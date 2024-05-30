@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 기본 컬러 -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#008000</color>
+    <color name="blue">#0000FF</color>
+    <color name="violet">#9400D3</color>
+    <color name="pink">#FF69B4</color>
+    <color name="gray">#808080</color>
+
+
+    <!-- 컬러 코드 -->
+    <color name="arctic">#A9DFED</color>
+    <color name="bright_lilac">#EBD6E8</color>
+    <color name="malibu">#84C0E9</color>
+    <color name="blue_violet">#37419A</color>
+
+</resources>
