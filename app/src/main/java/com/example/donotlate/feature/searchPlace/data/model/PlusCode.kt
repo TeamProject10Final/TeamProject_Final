@@ -7,8 +7,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PlusCode(
-    @SerializedName("compoundCode")
-    val compound_code: String,
-    @SerializedName("globalCode")
-    val global_code: String
+    @SerializedName("compound_code")
+    val compoundCode: String,
+    @SerializedName("global_code")
+    val globalCode: String
 ): Parcelable

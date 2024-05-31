@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class OpeningHours(
-    @SerializedName("openNow")
+    @SerializedName("open_now")
     //현재 시간에 해당 장소가 열려 있는지 여부
-    val open_now: Boolean
+    val openNow: Boolean
 ): Parcelable

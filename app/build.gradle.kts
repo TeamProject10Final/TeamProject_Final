@@ -84,8 +84,8 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
 
     //google places
-    implementation ("com.google.android.gms:play-services-places:15.0.0")
-    implementation ("com.google.android.libraries.places:places:2.4.0")
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.9.0"))
+    implementation ("com.google.android.libraries.places:places:3.3.0")
     implementation(libs.volley)
 
 }

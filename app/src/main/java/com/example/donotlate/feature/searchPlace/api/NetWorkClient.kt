@@ -23,11 +23,11 @@ object NetWorkClient {
             .build()
     }
 
-    private val kakaoRetrofit = Retrofit.Builder()
+    private val googleRetrofit = Retrofit.Builder()
         .baseUrl(GOOGLE_BASE_URL).addConverterFactory(GsonConverterFactory.create()).client(
             createOkHttpClient()
         ).build()
 
-    val googleNetWork: GooglePlacesApiService = kakaoRetrofit.create(GooglePlacesApiService::class.java)
+    val googleNetWork: GooglePlacesApiService = googleRetrofit.create(GooglePlacesApiService::class.java)
 
 }

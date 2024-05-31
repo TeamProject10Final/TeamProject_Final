@@ -1,6 +1,6 @@
 package com.example.donotlate.feature.searchPlace.data.remote
 
-import com.example.donotlate.feature.searchPlace.data.model.Result
+import com.example.donotlate.feature.searchPlace.data.model.GooglePlace
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -12,6 +12,6 @@ interface GooglePlacesApiService {
         @Query("location") location: String,
         @Query("radius") radius: Int,
         @Query("type") type: String
-    ): Result
+    ): GooglePlace
 
 }
