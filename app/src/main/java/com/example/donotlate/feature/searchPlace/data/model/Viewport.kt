@@ -1,4 +1,4 @@
-package com.example.donotlate.searchPlace.searchplace
+package com.example.donotlate.feature.searchPlace.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
