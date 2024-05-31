@@ -38,6 +38,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
 }
 
 dependencies {
@@ -67,4 +68,19 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.androidx.room.paging)
     kapt(libs.room.compiler)
+
+    //google map
+    implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
+
+    //chip
+    implementation("com.google.android.material:material:1.4.0")
+
+    //json
+    implementation("com.google.code.gson:gson:2.8.9")
+
+    //google places
+    implementation ("com.google.android.gms:play-services-places:15.0.0")
+    implementation ("com.google.android.libraries.places:places:2.4.0")
+
 }
