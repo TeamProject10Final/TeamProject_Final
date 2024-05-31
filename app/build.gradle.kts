@@ -52,6 +52,10 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //viewpager2
+    implementation(libs.androidx.viewpager2)
+    implementation("com.tbuonomo:dotsindicator:5.0")
+
     //recyclerview
     implementation(libs.androidx.recyclerview)
 
@@ -82,5 +86,6 @@ dependencies {
     //google places
     implementation ("com.google.android.gms:play-services-places:15.0.0")
     implementation ("com.google.android.libraries.places:places:2.4.0")
+    implementation(libs.volley)
 
 }

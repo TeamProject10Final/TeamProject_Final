@@ -1,6 +1,6 @@
-package com.example.donotlate.searchPlace.service
+package com.example.donotlate.feature.searchPlace.data.remote
 
-import com.example.donotlate.searchPlace.searchplace.Result
+import com.example.donotlate.feature.searchPlace.data.model.Result
 import retrofit2.http.GET
 import retrofit2.http.Query
 

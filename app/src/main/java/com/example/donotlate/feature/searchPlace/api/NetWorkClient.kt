@@ -1,6 +1,6 @@
-package com.example.donotlate.searchPlace.api
+package com.example.donotlate.feature.searchPlace.api
 
-import com.example.donotlate.searchPlace.service.GooglePlacesApiService
+import com.example.donotlate.feature.searchPlace.data.remote.GooglePlacesApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

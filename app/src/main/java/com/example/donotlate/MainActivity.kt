@@ -7,6 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.donotlate.databinding.ActivityMainBinding
+import com.example.donotlate.feature.login.presentation.LoginFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +23,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        changeFragment(LoginFragment())
     }
 
+    fun changeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame, fragment)
+            .commit()
+    }
 }
