@@ -9,13 +9,13 @@ data class Photo(
     //사진높이
     val height: Int,
 
-    @SerializedName("htmlAttributions")
+    @SerializedName("html_attributions")
     //사진 HTML
-    val html_attributions: List<String>,
+    val htmlAttributions: List<String>,
 
-    @SerializedName("photoReference")
+    @SerializedName("photo_reference")
     //사진요청
-    val photo_reference: String,
+    val photoReference: String,
     //사진너비
     val width: Int
 ) : Parcelable

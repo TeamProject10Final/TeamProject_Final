@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.databinding.ActivityMainBinding
 import com.example.donotlate.feature.login.presentation.LoginFragment
+import com.example.donotlate.feature.searchPlace.api.NetWorkClient
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +27,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         changeFragment(LoginFragment())
+
+        lifecycleScope.launch {
+            NetWorkClient.googleNetWork.requestSearch(
+                location = "-33.8670522,151.1957362",
+                radius = 1500,
+                type = "restaurant"
+            )
+        }
+
     }
 
     fun changeFragment(fragment: Fragment) {
