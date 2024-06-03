@@ -30,13 +30,13 @@ class MainActivity : AppCompatActivity() {
             changeFragment(LoginFragment())
         }
 
-        lifecycleScope.launch {
-            NetWorkClient.googleNetWork.requestSearch(
-                location = "-33.8670522,151.1957362",
-                radius = 1500,
-                type = "restaurant"
-            )
-        }
+//        lifecycleScope.launch {
+//            NetWorkClient.googleNetWork.requestSearch(
+//                location = "-33.8670522,151.1957362",
+//                radius = 1500,
+//                type = "restaurant"
+//            )
+//        }
     }
 
     fun changeFragment(fragment: Fragment) {
