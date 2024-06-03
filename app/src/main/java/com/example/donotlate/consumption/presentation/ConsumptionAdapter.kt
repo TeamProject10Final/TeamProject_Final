@@ -1,9 +1,9 @@
-package com.example.donotlate.consumption
+package com.example.donotlate.consumption.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.donotlate.consumption.ConsumptionActivity.Companion.addCommas
+import com.example.donotlate.consumption.presentation.ConsumptionActivity.Companion.addCommas
 import com.example.donotlate.databinding.ItemConsumptionBinding
 
 class ConsumptionAdapter : RecyclerView.Adapter<ConsumptionAdapter.ViewHolder>() {

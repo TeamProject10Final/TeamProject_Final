@@ -13,6 +13,6 @@ class DoNotLateApplication: Application() {
 
     companion object{
         private var APPINSTANCE: DoNotLateApplication?= null
-        fun getInstance() = APPINSTANCE
+        fun getInstance() = APPINSTANCE!!
     }
 }

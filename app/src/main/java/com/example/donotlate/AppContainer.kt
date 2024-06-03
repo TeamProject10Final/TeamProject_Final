@@ -1,6 +1,6 @@
 package com.example.donotlate
 
-import com.example.donotlate.consumption.SharedViewModelFactory
+import com.example.donotlate.consumption.presentation.SharedViewModelFactory
 import com.example.donotlate.consumption.data.repository.ConsumptionRepositoryImpl
 import com.example.donotlate.consumption.domain.repository.ConsumptionRepository
 import com.example.donotlate.consumption.domain.usecase.GetFinishedConsumptionUseCase
@@ -10,7 +10,7 @@ import com.example.donotlate.consumption.domain.usecase.InsertConsumptionUseCase
 class AppContainer {
 
     val consumptionRepository: ConsumptionRepository by lazy {
-        ConsumptionRepositoryImpl(DoNotLateApplication.getInstance()!!)
+        ConsumptionRepositoryImpl(DoNotLateApplication.getInstance())
     }
 
     var calculationContainer: CalculationContainer? = null

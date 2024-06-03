@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/consumption">
 
     <Button
@@ -122,6 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="20dp"
+                android:minHeight="100dp"
                 android:background="@drawable/rounded_edittext1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvExpense">
@@ -151,10 +153,12 @@
                     android:id="@+id/rvCalculateProgress"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    tools:listitem="@layout/item_consumption"
+                    tools:itemCount="0"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv01"
-                    android:layout_marginBottom="20dp"/>
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

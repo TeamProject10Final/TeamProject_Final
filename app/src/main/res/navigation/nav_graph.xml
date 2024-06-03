@@ -8,7 +8,7 @@
     <!-- Fragment1 -->
     <fragment
         android:id="@+id/fragment1"
-        android:name="com.example.donotlate.consumption.CalculationFragment1"
+        android:name="com.example.donotlate.consumption.presentation.CalculationFragment1"
         android:label="fragment_fragment1"
         tools:layout="@layout/fragment_calculation1">
         <action
@@ -19,7 +19,7 @@
     <!-- Fragment2 -->
     <fragment
         android:id="@+id/fragment2"
-        android:name="com.example.donotlate.consumption.CalculationFragment2"
+        android:name="com.example.donotlate.consumption.presentation.CalculationFragment2"
         android:label="fragment_fragment2"
         tools:layout="@layout/fragment_calculation2">
         <action
@@ -30,7 +30,7 @@
     <!-- Fragment3 -->
     <fragment
         android:id="@+id/fragment3"
-        android:name="com.example.donotlate.consumption.CalculationFragment3"
+        android:name="com.example.donotlate.consumption.presentation.CalculationFragment3"
         android:label="fragment_fragment3"
         tools:layout="@layout/fragment_calculation3" />
 

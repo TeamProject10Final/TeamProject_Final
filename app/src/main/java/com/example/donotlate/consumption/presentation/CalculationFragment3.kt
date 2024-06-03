@@ -1,4 +1,4 @@
-package com.example.donotlate.consumption
+package com.example.donotlate.consumption.presentation
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
-import com.example.donotlate.consumption.ConsumptionActivity.Companion.addCommas
+import com.example.donotlate.consumption.presentation.ConsumptionActivity.Companion.addCommas
 import com.example.donotlate.databinding.FragmentCalculation3Binding
 
 class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {

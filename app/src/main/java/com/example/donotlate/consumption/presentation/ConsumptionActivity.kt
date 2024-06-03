@@ -1,4 +1,4 @@
-package com.example.donotlate.consumption
+package com.example.donotlate.consumption.presentation
 
 import android.content.Context
 import android.content.Intent

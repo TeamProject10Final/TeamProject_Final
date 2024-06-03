@@ -6,7 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.donotlate.consumption.ConsumptionActivity
+import com.example.donotlate.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

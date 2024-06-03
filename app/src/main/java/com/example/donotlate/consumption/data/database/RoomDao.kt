@@ -36,6 +36,7 @@ interface RoomDao {
 
     @Query("SELECT * FROM calculation_history WHERE isFinished = 1 ORDER BY date DESC LIMIT 5")
     fun getRecentFinishedConsumptions(): LiveData<List<ConsumptionEntity>>
+    //Flow
 
     @Query("SELECT * FROM calculation_history WHERE isFinished = 0 ORDER BY date")
     fun getRecentUnfinishedConsumptions(): LiveData<List<ConsumptionEntity>>

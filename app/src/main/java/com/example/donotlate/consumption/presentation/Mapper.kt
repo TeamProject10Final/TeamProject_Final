@@ -1,4 +1,4 @@
-package com.example.donotlate.consumption
+package com.example.donotlate.consumption.presentation
 
 import com.example.donotlate.consumption.domain.entity.ConsumptionEntity
 
@@ -56,5 +56,5 @@ fun List<ConsumptionEntity>.toModelList(): List<ConsumptionModel> {
             entity.isFinished
         )
     }
-}
+}}
 

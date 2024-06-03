@@ -1,4 +1,4 @@
-package com.example.donotlate.consumption
+package com.example.donotlate.consumption.presentation
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.consumption.ConsumptionActivity.Companion.addCommas
+import com.example.donotlate.consumption.presentation.ConsumptionActivity.Companion.addCommas
 import com.example.donotlate.consumption.domain.repository.ConsumptionRepository
 import kotlinx.coroutines.launch
 
@@ -75,11 +75,11 @@ class SharedViewModel(
 
     // nullable을 어디까지 넣어줘야 하지...??? 리스트 안에만 넣어주면 되나...? 아닌데...
 
-    private val _finishedConsumption: MutableLiveData<List<ConsumptionModel>?> = MutableLiveData()
-    val finishedConsumption: MutableLiveData<List<ConsumptionModel>?> get() = _finishedConsumption
+    private val _finishedConsumption: MutableLiveData<List<ConsumptionModel>> = MutableLiveData()
+    val finishedConsumption: MutableLiveData<List<ConsumptionModel>> get() = _finishedConsumption
 
-    private val _unfinishedConsumption: MutableLiveData<List<ConsumptionModel>?> = MutableLiveData()
-    val unfinishedConsumption: MutableLiveData<List<ConsumptionModel>?> get() = _unfinishedConsumption
+    private val _unfinishedConsumption: MutableLiveData<List<ConsumptionModel>> = MutableLiveData()
+    val unfinishedConsumption: MutableLiveData<List<ConsumptionModel>> get() = _unfinishedConsumption
 
     init {
         fetchFinishedConsumption()
@@ -92,7 +92,7 @@ class SharedViewModel(
                 val finishedEntities = repository.getRecentFinishedConsumption()
                 finishedEntities.observeForever { entities ->
                     val models = entities?.map { mapper.toModel(it) }
-                    _finishedConsumption.value = models
+                    _finishedConsumption.value = models ?: emptyList()
                 }
             } catch (e: Exception) {
                 _error.postValue(e.message)
@@ -106,7 +106,7 @@ class SharedViewModel(
                 val unfinishedEntities = repository.getRecentUnfinishedConsumption()
                 unfinishedEntities.observeForever { entities ->
                     val models = entities?.map { mapper.toModel(it) }
-                    _unfinishedConsumption.value = models
+                    _unfinishedConsumption.value = models ?: emptyList()
                 }
             } catch (e: Exception) {
                 _error.postValue(e.message)
@@ -216,7 +216,7 @@ class SharedViewModel(
             _isPenalty.value ?: false,
             _penalty.value ?: "",
             _number.value ?: "",
-            _price.value!!,
+            _price.value?: 0,
             _isFinished.value ?: false
         ).toEntity()
         viewModelScope.launch {
