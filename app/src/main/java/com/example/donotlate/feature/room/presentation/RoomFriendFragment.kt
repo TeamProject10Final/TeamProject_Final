@@ -36,7 +36,7 @@ class RoomFriendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        movePage()
+
 
     }
 
@@ -47,18 +47,5 @@ class RoomFriendFragment : Fragment() {
             setSpan(RelativeSizeSpan(1.5f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         binding.tvRoomFriendTitle.text = title
-    }
-
-    private fun movePage() {
-        val viewPager = ViewPagerFragment()
-
-        binding.btnRoomFriend.setOnClickListener {
-
-        }
-
-        //이전 페이지
-        binding.ivRoomFriendBack.setOnClickListener {
-            viewPager.prevPage()
-        }
     }
 }

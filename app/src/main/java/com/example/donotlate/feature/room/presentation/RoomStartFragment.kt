@@ -37,8 +37,7 @@ class RoomStartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        movePage()
-        backButton()
+
     }
 
 
@@ -48,21 +47,5 @@ class RoomStartFragment : Fragment() {
             setSpan(RelativeSizeSpan(1.5f), 10, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         binding.tvRoomStartTitle.text = title
-    }
-
-    private fun movePage() {
-        val viewPager = ViewPagerFragment()
-
-        //다음 페이지
-        binding.btnRoomStart.setOnClickListener {
-            viewPager.nextPage()
-        }
-    }
-
-    private fun backButton() {
-        binding.ivRoomStartBack.setOnClickListener {
-            val dialog = BackFragmentDialog()
-            dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
-        }
     }
 }

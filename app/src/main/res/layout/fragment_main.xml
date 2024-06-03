@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
     tools:context=".core.presentation.MainFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +21,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            android:src="@color/black"
+            android:scaleX="-1"
+            android:src="@drawable/logout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +31,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            android:src="@color/black"
+            android:src="@drawable/settings"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,7 +40,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            android:src="@color/black"
+            android:src="@drawable/notification"
             app:layout_constraintEnd_toStartOf="@id/iv_Main_Setting"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,27 +57,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+<!--        <TextView-->
+<!--            android:id="@+id/tv_Main_Title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="TEXT"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="34.5sp"-->
+<!--            app:layout_constraintStart_toStartOf="@id/tv_Main1"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tv_Main1" />-->
+
         <TextView
             android:id="@+id/tv_Main_Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TEXT"
+            android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="34.5sp"
+            android:textSize="23sp"
             app:layout_constraintStart_toStartOf="@id/tv_Main1"
             app:layout_constraintTop_toBottomOf="@id/tv_Main1" />
+
 
         <TextView
             android:id="@+id/tv_Main2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:text="님 어서오세요."
             android:textColor="@color/black"
             android:textSize="23sp"
-            app:layout_constraintStart_toEndOf="@id/tv_Main_Title"
-            app:layout_constraintBottom_toBottomOf="@id/tv_Main_Title" />
+            app:layout_constraintBottom_toBottomOf="@id/tv_Main_Title"
+            app:layout_constraintStart_toEndOf="@id/tv_Main_Title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -94,223 +109,216 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/layout_Main_Room"
                 android:layout_width="150dp"
                 android:layout_height="250dp"
-                android:background="@drawable/item_main"
-                android:backgroundTint="@color/arctic"
                 android:layout_marginStart="35dp"
+                android:backgroundTint="@color/arctic"
+                app:cornerRadius="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:rippleColor="#51CFEF" />
 
-                <ImageView
-                    android:id="@+id/iv_Main1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginTop="80dp"
-                    android:layout_marginBottom="80dp"
-                    android:src="@drawable/google"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+            <ImageView
+                android:id="@+id/iv_Main1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="80dp"
+                android:src="@drawable/google"
+                app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Room"
+                app:layout_constraintEnd_toEndOf="@+id/layout_Main_Room"
+                app:layout_constraintStart_toStartOf="@+id/layout_Main_Room"
+                app:layout_constraintTop_toTopOf="@+id/layout_Main_Room" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="약속 잡기"
-                    android:layout_marginTop="5dp"
-                    android:textSize="20sp"
-                    app:layout_constraintTop_toBottomOf="@id/iv_Main1"
-                    app:layout_constraintStart_toStartOf="@id/iv_Main1"
-                    app:layout_constraintEnd_toEndOf="@id/iv_Main1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="약속 잡기"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@id/iv_Main1"
+                app:layout_constraintStart_toStartOf="@id/iv_Main1"
+                app:layout_constraintTop_toBottomOf="@id/iv_Main1" />
 
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/layout_Main_Place"
                 android:layout_width="150dp"
                 android:layout_height="180dp"
-                android:background="@drawable/item_main"
-                android:backgroundTint="@color/blue_violet"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="15dp"
+                android:backgroundTint="@color/blue_violet"
+                app:cornerRadius="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_Main_Room">
+                app:layout_constraintTop_toBottomOf="@id/layout_Main_Room"
+                app:rippleColor="#4A5297" />
 
-                <ImageView
-                    android:id="@+id/iv_Main2"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="50dp"
-                    android:src="@drawable/google"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+            <ImageView
+                android:id="@+id/iv_Main2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="50dp"
+                android:src="@drawable/google"
+                app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Place"
+                app:layout_constraintEnd_toEndOf="@+id/layout_Main_Place"
+                app:layout_constraintStart_toStartOf="@+id/layout_Main_Place"
+                app:layout_constraintTop_toTopOf="@+id/layout_Main_Place" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="놀거리"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintTop_toBottomOf="@id/iv_Main2"
-                    app:layout_constraintStart_toStartOf="@id/iv_Main2"
-                    app:layout_constraintEnd_toEndOf="@id/iv_Main2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="놀거리"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@id/iv_Main2"
+                app:layout_constraintStart_toStartOf="@id/iv_Main2"
+                app:layout_constraintTop_toBottomOf="@id/iv_Main2" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/layout_Main_Game"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:background="@drawable/item_main"
-                android:backgroundTint="@color/bright_lilac"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="20dp"
+                android:backgroundTint="@color/bright_lilac"
+                app:cornerRadius="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_Main_Place">
+                app:layout_constraintTop_toBottomOf="@+id/layout_Main_Place"
+                app:rippleColor="#FF77BB" />
 
-                <ImageView
-                    android:id="@+id/iv_Main3"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="50dp"
-                    android:src="@drawable/google"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+            <ImageView
+                android:id="@+id/iv_Main3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="50dp"
+                android:src="@drawable/google"
+                app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Game"
+                app:layout_constraintEnd_toEndOf="@+id/layout_Main_Game"
+                app:layout_constraintStart_toStartOf="@+id/layout_Main_Game"
+                app:layout_constraintTop_toTopOf="@+id/layout_Main_Game" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="미니 게임"
-                    android:layout_marginTop="5dp"
-                    android:textSize="20sp"
-                    app:layout_constraintTop_toBottomOf="@id/iv_Main3"
-                    app:layout_constraintStart_toStartOf="@id/iv_Main3"
-                    app:layout_constraintEnd_toEndOf="@id/iv_Main3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="미니 게임"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@id/iv_Main3"
+                app:layout_constraintStart_toStartOf="@id/iv_Main3"
+                app:layout_constraintTop_toBottomOf="@id/iv_Main3" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/layout_Main_Reservation"
                 android:layout_width="150dp"
                 android:layout_height="220dp"
-                android:background="@drawable/item_main"
-                android:backgroundTint="@color/bright_lilac"
                 android:layout_marginEnd="35dp"
+                android:backgroundTint="@color/bright_lilac"
+                app:cornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:rippleColor="#FF77BB" />
 
-                <ImageView
-                    android:id="@+id/iv_Main4"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginTop="80dp"
-                    android:layout_marginBottom="80dp"
-                    android:src="@drawable/google"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+            <ImageView
+                android:id="@+id/iv_Main4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="80dp"
+                android:src="@drawable/google"
+                app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Reservation"
+                app:layout_constraintEnd_toEndOf="@+id/layout_Main_Reservation"
+                app:layout_constraintStart_toStartOf="@+id/layout_Main_Reservation"
+                app:layout_constraintTop_toTopOf="@+id/layout_Main_Reservation" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="내 약속"
-                    android:layout_marginTop="5dp"
-                    android:textSize="20sp"
-                    app:layout_constraintTop_toBottomOf="@id/iv_Main4"
-                    app:layout_constraintStart_toStartOf="@id/iv_Main4"
-                    app:layout_constraintEnd_toEndOf="@id/iv_Main4" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="내 약속"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@id/iv_Main4"
+                app:layout_constraintStart_toStartOf="@id/iv_Main4"
+                app:layout_constraintTop_toBottomOf="@id/iv_Main4" />
 
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/layout_Main_Settle"
                 android:layout_width="150dp"
                 android:layout_height="190dp"
-                android:background="@drawable/item_main"
-                android:backgroundTint="@color/malibu"
-                android:layout_marginEnd="35dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginEnd="35dp"
+                android:backgroundTint="@color/malibu"
+                app:cornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_Main_Reservation">
+                app:layout_constraintTop_toBottomOf="@id/layout_Main_Reservation"
+                app:rippleColor="#2196F3" />
 
-                <ImageView
-                    android:id="@+id/iv_Main5"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="50dp"
-                    android:src="@drawable/google"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+            <ImageView
+                android:id="@+id/iv_Main5"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="50dp"
+                android:src="@drawable/google"
+                app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Settle"
+                app:layout_constraintEnd_toEndOf="@+id/layout_Main_Settle"
+                app:layout_constraintStart_toStartOf="@+id/layout_Main_Settle"
+                app:layout_constraintTop_toTopOf="@+id/layout_Main_Settle" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="정산하기"
-                    android:textSize="20sp"
-                    app:layout_constraintTop_toBottomOf="@id/iv_Main5"
-                    app:layout_constraintStart_toStartOf="@id/iv_Main5"
-                    app:layout_constraintEnd_toEndOf="@id/iv_Main5" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="정산하기"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@id/iv_Main5"
+                app:layout_constraintStart_toStartOf="@id/iv_Main5"
+                app:layout_constraintTop_toBottomOf="@id/iv_Main5" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/layout_Main_Friend"
                 android:layout_width="150dp"
                 android:layout_height="170dp"
-                android:background="@drawable/item_main"
-                android:backgroundTint="@color/arctic"
-                android:layout_marginEnd="35dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="35dp"
+                android:backgroundTint="@color/arctic"
+                app:cornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_Main_Settle">
+                app:layout_constraintTop_toBottomOf="@+id/layout_Main_Settle"
+                app:rippleColor="#51CFEF" />
 
-                <ImageView
-                    android:id="@+id/iv_Main6"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="50dp"
-                    android:src="@drawable/google"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+            <ImageView
+                android:id="@+id/iv_Main6"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="50dp"
+                android:src="@drawable/google"
+                app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Friend"
+                app:layout_constraintEnd_toEndOf="@+id/layout_Main_Friend"
+                app:layout_constraintStart_toStartOf="@+id/layout_Main_Friend"
+                app:layout_constraintTop_toTopOf="@+id/layout_Main_Friend" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="친구 관리"
-                    android:layout_marginTop="5dp"
-                    android:textSize="20sp"
-                    app:layout_constraintTop_toBottomOf="@id/iv_Main6"
-                    app:layout_constraintStart_toStartOf="@id/iv_Main6"
-                    app:layout_constraintEnd_toEndOf="@id/iv_Main6" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="친구 관리"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@id/iv_Main6"
+                app:layout_constraintStart_toStartOf="@id/iv_Main6"
+                app:layout_constraintTop_toBottomOf="@id/iv_Main6" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                app:layout_constraintTop_toBottomOf="@id/layout_Main_Game"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/layout_Main_Game" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
