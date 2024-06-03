@@ -34,7 +34,6 @@ class RoomMapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        movePage()
 
     }
 
@@ -45,18 +44,5 @@ class RoomMapFragment : Fragment() {
             setSpan(RelativeSizeSpan(1.5f), 7, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         binding.tvRoomMapTitle.text = title
-    }
-
-    private fun movePage() {
-        val viewPager = ViewPagerFragment()
-
-        //다음 페이지
-        binding.btnRoomMap.setOnClickListener {
-            viewPager.nextPage()
-        }
-        //이전 페이지
-        binding.ivRoomMapBack.setOnClickListener {
-            viewPager.prevPage()
-        }
     }
 }

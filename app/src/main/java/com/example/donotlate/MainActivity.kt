@@ -26,7 +26,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        changeFragment(LoginFragment())
+        if (savedInstanceState == null) {
+            changeFragment(LoginFragment())
+        }
 
         lifecycleScope.launch {
             NetWorkClient.googleNetWork.requestSearch(
@@ -35,10 +37,21 @@ class MainActivity : AppCompatActivity() {
                 type = "restaurant"
             )
         }
-
     }
 
     fun changeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.frame, fragment)
+            .commit()
+    }
+
+    fun removeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .remove(fragment)
+            .commit()
+    }
+
+    fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame, fragment)
             .commit()

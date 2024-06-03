@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.donotlate.databinding.FragmentViewPagerBinding
+import com.example.donotlate.feature.room.presentation.dialog.BackFragmentDialog
 
 class ViewPagerFragment : Fragment() {
 
-    private lateinit var binding : FragmentViewPagerBinding
+    private lateinit var binding: FragmentViewPagerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,19 +41,56 @@ class ViewPagerFragment : Fragment() {
         val viewPager = binding.viewPager
         val dotsIndicator = binding.indicator
         val viewPagerAdapter = ViewPagerAdapter(this)
+
         viewPager.adapter = viewPagerAdapter
         dotsIndicator.attachTo(viewPager)
+
+        with(binding) {
+            viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    when (position) {
+                        0 -> {
+                            btnRoomNext.text = "다음"
+                            btnRoomNext.setOnClickListener {
+                                nextPage()
+                            }
+                            ivRoomBack.setOnClickListener {
+                                val dialog = BackFragmentDialog()
+                                dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
+                            }
+                        }
+                        1 -> {
+                            btnRoomNext.text = "다음"
+                            btnRoomNext.setOnClickListener {
+                                nextPage()
+                            }
+                            ivRoomBack.setOnClickListener {
+                                prevPage()
+                            }
+                        }
+                        2 -> {
+                            btnRoomNext.text = "만들기"
+                            btnRoomNext.setOnClickListener {  }
+                            ivRoomBack.setOnClickListener {
+                                prevPage()
+                            }
+                        }
+                    }
+                }
+            })
+        }
     }
 
-    fun nextPage() {
-//        val viewPager = binding.viewPager
-//        val current = viewPager.currentItem
-//        viewPager.setCurrentItem(current+1, true)
+    private fun nextPage() {
+        val viewPager = binding.viewPager
+        val current = viewPager.currentItem
+        viewPager.setCurrentItem(current+1, true)
     }
 
-    fun prevPage() {
-//        val viewPager = binding.viewPager
-//        val current = viewPager.currentItem
-//        viewPager.setCurrentItem(current-1, true)
+    private fun prevPage() {
+        val viewPager = binding.viewPager
+        val current = viewPager.currentItem
+        viewPager.setCurrentItem(current-1, true)
     }
 }

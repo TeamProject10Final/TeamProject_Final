@@ -4,16 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature.room.presentation.RoomFriendFragment">
-
-    <ImageView
-        android:id="@+id/iv_Room_Friend_Back"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_margin="10dp"
-        android:src="@drawable/back"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+    tools:context=".feature.room.presentation.RoomFriendFragment"
+    android:background="@color/white"
+    android:clickable="true">
 
     <TextView
         android:id="@+id/tv_Room_Friend_Title"
@@ -34,13 +27,14 @@
         android:layout_marginEnd="10dp"
         android:layout_marginTop="50dp"
         android:paddingLeft="15dp"
+        android:fontFamily="@font/pretendard_regular"
         android:hint="친구를 검색해 주세요"
         android:background="@drawable/et_custom_blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_Room_Friend_Search"
         app:layout_constraintTop_toBottomOf="@id/tv_Room_Friend_Title"/>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <android.widget.Button
         android:id="@+id/btn_Room_Friend_Search"
         android:layout_width="50dp"
         android:layout_height="35dp"
@@ -61,7 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_Room_Friend_Search"
-        app:layout_constraintBottom_toTopOf="@+id/btn_Room_Friend">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/tv_Room_Friend1"
@@ -81,32 +75,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-
-
-
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_Room_Friend"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:text="만들기"
-        android:textSize="20dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/btn_radius"
-        android:backgroundTint="@color/arctic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

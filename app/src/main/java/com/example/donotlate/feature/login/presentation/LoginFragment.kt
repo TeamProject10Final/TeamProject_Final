@@ -3,30 +3,27 @@ package com.example.donotlate.feature.login.presentation
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.donotlate.MainActivity
+import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentLoginBinding
 import com.example.donotlate.core.presentation.MainFragment
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class LoginFragment : Fragment() {
 
-    private lateinit var binding: FragmentLoginBinding
-
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
         }
     }
 
@@ -34,7 +31,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         setTitle()
 
@@ -46,6 +43,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         startSignUp()
+        passwordHide()
 
         binding.btnLogin.setOnClickListener {
             val activity = activity as MainActivity
@@ -53,22 +51,11 @@ class LoginFragment : Fragment() {
         }
     }
 
-    companion object {
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 
     private fun setTitle() {
         val title = SpannableStringBuilder("환영합니다!\n로그인을 진행해주세요.")
         title.apply {
-            setSpan(RelativeSizeSpan(1.5f), 7, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(RelativeSizeSpan(1.1f), 7, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 
         binding.tvLoginTitle.text = title
@@ -80,5 +67,30 @@ class LoginFragment : Fragment() {
             val activity = activity as MainActivity
             activity.changeFragment(SignupFragment())
         }
+    }
+
+    private fun passwordHide() {
+        val password = binding.etLoginPassword
+        val hide = binding.ivLoginHide
+        hide.setImageResource(R.drawable.hide)
+        hide.setOnClickListener {
+            when(it.tag) {
+                "0" -> {
+                    hide.tag = "1"
+                    password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                    hide.setImageResource(R.drawable.show)
+                }
+                "1" -> {
+                    hide.tag = "0"
+                    password.transformationMethod = PasswordTransformationMethod.getInstance()
+                    hide.setImageResource(R.drawable.hide)
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

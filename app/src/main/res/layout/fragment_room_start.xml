@@ -4,16 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature.room.presentation.RoomStartFragment">
-
-    <ImageView
-        android:id="@+id/iv_Room_Start_Back"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_margin="10dp"
-        android:src="@drawable/back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".feature.room.presentation.RoomStartFragment"
+    android:background="@color/white"
+    android:clickable="true">
 
     <TextView
         android:id="@+id/tv_Room_Start_Title"
@@ -37,7 +30,8 @@
             android:id="@+id/et_Room_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="약속 제목"
+            android:hint="약속 제목"
+            android:textColorHint="@color/black"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:paddingBottom="15dp"
@@ -52,7 +46,8 @@
             android:id="@+id/et_Room_Date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="약속 날짜"
+            android:hint="약속 날짜"
+            android:textColorHint="@color/black"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:paddingBottom="15dp"
@@ -67,7 +62,8 @@
             android:id="@+id/et_Room_Time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="약속 시간"
+            android:hint="약속 시간"
+            android:textColorHint="@color/black"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:paddingBottom="15dp"
@@ -82,7 +78,8 @@
             android:id="@+id/et_Room_Penalty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="벌칙 내용"
+            android:hint="벌칙 내용"
+            android:textColorHint="@color/black"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:paddingBottom="15dp"
@@ -104,20 +101,5 @@
             app:layout_constraintStart_toStartOf="@id/et_Room_Penalty"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_Room_Start"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:text="다음"
-        android:textSize="20dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/btn_radius"
-        android:backgroundTint="@color/arctic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
