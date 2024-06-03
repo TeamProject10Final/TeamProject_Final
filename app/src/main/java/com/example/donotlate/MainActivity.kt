@@ -5,7 +5,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.databinding.ActivityMainBinding
+import com.example.donotlate.feature.login.presentation.LoginFragment
+import com.example.donotlate.feature.searchPlace.api.NetWorkClient
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,5 +25,35 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        if (savedInstanceState == null) {
+            changeFragment(LoginFragment())
+        }
+
+        lifecycleScope.launch {
+            NetWorkClient.googleNetWork.requestSearch(
+                location = "-33.8670522,151.1957362",
+                radius = 1500,
+                type = "restaurant"
+            )
+        }
+    }
+
+    fun changeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.frame, fragment)
+            .commit()
+    }
+
+    fun removeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .remove(fragment)
+            .commit()
+    }
+
+    fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame, fragment)
+            .commit()
     }
 }
