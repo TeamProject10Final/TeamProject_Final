@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.donotlate.MainActivity
-import com.example.donotlate.core.presentation.MainFragment
 import com.example.donotlate.databinding.BackDialogBinding
+import com.example.donotlate.feature.room.presentation.result.RoomResultFragment
 
-class BackFragmentDialog : DialogFragment() {
+class ResultFragmentDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,12 +37,15 @@ class BackFragmentDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.tvDl1.text = "수정이 불가능해요"
+        binding.tvDl2.text = "확인을 누르시면 수정이 불가능합니다!\n정말 이대로 진행할까요?"
+
         binding.tvDlCancel.setOnClickListener {
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
             val activity = activity as MainActivity
-            activity.changeFragment(MainFragment())
+            activity.replaceFragment(RoomResultFragment())
             dismiss()
         }
     }

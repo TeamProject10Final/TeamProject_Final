@@ -53,7 +53,7 @@
             android:layout_marginTop="40dp"
             android:text="약속왕이 될 상인가,"
             android:textColor="@color/black"
-            android:textSize="23sp"
+            android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,11 +72,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TEXT"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:textColor="@color/black"
-            android:textSize="23sp"
+            android:textSize="33.6sp"
+            android:layout_marginTop="33dp"
             app:layout_constraintStart_toStartOf="@id/tv_Main1"
-            app:layout_constraintTop_toBottomOf="@id/tv_Main1" />
+            app:layout_constraintTop_toTopOf="@id/tv_Main1" />
 
 
         <TextView
@@ -87,7 +88,7 @@
             android:layout_marginTop="5dp"
             android:text="님 어서오세요."
             android:textColor="@color/black"
-            android:textSize="23sp"
+            android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_Main_Title"
             app:layout_constraintStart_toEndOf="@id/tv_Main_Title" />
 
@@ -109,26 +110,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/layout_Main_Room"
                 android:layout_width="150dp"
-                android:layout_height="250dp"
+                android:layout_height="280dp"
                 android:layout_marginStart="35dp"
-                android:backgroundTint="@color/arctic"
-                app:cornerRadius="20dp"
+                android:background="@drawable/btn_radius_arctic"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:rippleColor="#51CFEF" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_Main1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="80dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="80dp"
-                android:src="@drawable/google"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_main_room"
                 app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Room"
                 app:layout_constraintEnd_toEndOf="@+id/layout_Main_Room"
                 app:layout_constraintStart_toStartOf="@+id/layout_Main_Room"
@@ -145,24 +140,21 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_Main1" />
 
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/layout_Main_Place"
                 android:layout_width="150dp"
-                android:layout_height="180dp"
+                android:layout_height="200dp"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="15dp"
-                android:backgroundTint="@color/blue_violet"
-                app:cornerRadius="20dp"
+                android:background="@drawable/btn_radius_violet"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_Main_Room"
-                app:rippleColor="#4A5297" />
+                app:layout_constraintTop_toBottomOf="@id/layout_Main_Room" />
 
             <ImageView
                 android:id="@+id/iv_Main2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="50dp"
-                android:src="@drawable/google"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_main_location"
                 app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Place"
                 app:layout_constraintEnd_toEndOf="@+id/layout_Main_Place"
                 app:layout_constraintStart_toStartOf="@+id/layout_Main_Place"
@@ -172,30 +164,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="놀거리"
+
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@id/iv_Main2"
                 app:layout_constraintStart_toStartOf="@id/iv_Main2"
                 app:layout_constraintTop_toBottomOf="@id/iv_Main2" />
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/layout_Main_Game"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="@color/bright_lilac"
-                app:cornerRadius="20dp"
+                android:background="@drawable/btn_radius_lilac"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_Main_Place"
-                app:rippleColor="#FF77BB" />
+                app:layout_constraintTop_toBottomOf="@+id/layout_Main_Place" />
 
             <ImageView
                 android:id="@+id/iv_Main3"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="50dp"
-                android:src="@drawable/google"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_main_game"
                 app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Game"
                 app:layout_constraintEnd_toEndOf="@+id/layout_Main_Game"
                 app:layout_constraintStart_toStartOf="@+id/layout_Main_Game"
@@ -204,7 +194,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:text="미니 게임"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@id/iv_Main3"
@@ -212,26 +201,20 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_Main3" />
 
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/layout_Main_Reservation"
                 android:layout_width="150dp"
-                android:layout_height="220dp"
-                android:layout_marginEnd="35dp"
-                android:backgroundTint="@color/bright_lilac"
-                app:cornerRadius="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:rippleColor="#FF77BB" />
+                android:layout_height="240dp"
+                android:layout_marginStart="40dp"
+                android:background="@drawable/btn_radius_lilac"
+                app:layout_constraintStart_toEndOf="@id/layout_Main_Room"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_Main4"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="80dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="80dp"
-                android:src="@drawable/google"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_main_calendar"
                 app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Reservation"
                 app:layout_constraintEnd_toEndOf="@+id/layout_Main_Reservation"
                 app:layout_constraintStart_toStartOf="@+id/layout_Main_Reservation"
@@ -248,24 +231,20 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_Main4" />
 
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/layout_Main_Settle"
                 android:layout_width="150dp"
-                android:layout_height="190dp"
+                android:layout_height="210dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="35dp"
-                android:backgroundTint="@color/malibu"
-                app:cornerRadius="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_Main_Reservation"
-                app:rippleColor="#2196F3" />
+                android:background="@drawable/btn_radius_malibu"
+                app:layout_constraintStart_toStartOf="@id/layout_Main_Reservation"
+                app:layout_constraintTop_toBottomOf="@id/layout_Main_Reservation" />
 
             <ImageView
                 android:id="@+id/iv_Main5"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="50dp"
-                android:src="@drawable/google"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_main_money"
                 app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Settle"
                 app:layout_constraintEnd_toEndOf="@+id/layout_Main_Settle"
                 app:layout_constraintStart_toStartOf="@+id/layout_Main_Settle"
@@ -275,29 +254,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="정산하기"
+                android:layout_marginTop="5dp"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@id/iv_Main5"
                 app:layout_constraintStart_toStartOf="@id/iv_Main5"
                 app:layout_constraintTop_toBottomOf="@id/iv_Main5" />
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/layout_Main_Friend"
                 android:layout_width="150dp"
-                android:layout_height="170dp"
+                android:layout_height="180dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="35dp"
-                android:backgroundTint="@color/arctic"
-                app:cornerRadius="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_Main_Settle"
-                app:rippleColor="#51CFEF" />
+                android:background="@drawable/btn_radius_arctic"
+                app:layout_constraintStart_toStartOf="@id/layout_Main_Settle"
+                app:layout_constraintTop_toBottomOf="@+id/layout_Main_Settle" />
 
             <ImageView
                 android:id="@+id/iv_Main6"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="50dp"
-                android:src="@drawable/google"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_main_friend"
                 app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Friend"
                 app:layout_constraintEnd_toEndOf="@+id/layout_Main_Friend"
                 app:layout_constraintStart_toStartOf="@+id/layout_Main_Friend"
@@ -306,8 +283,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:text="친구 관리"
+                android:layout_marginTop="5dp"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@id/iv_Main6"
                 app:layout_constraintStart_toStartOf="@id/iv_Main6"

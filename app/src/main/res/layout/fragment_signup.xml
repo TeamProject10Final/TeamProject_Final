@@ -16,7 +16,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
         android:textColor="@color/black"
-        android:textSize="23sp"
+        android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -170,20 +170,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_Login1">
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_SignUp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="35dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginBottom="25dp"
-            android:backgroundTint="@color/bright_lilac"
+            android:background="@drawable/btn_radius_lilac"
             android:text="회원가입"
             android:textSize="20dp"
-            android:fontFamily="@font/pretendard_regular"
-            app:cornerRadius="20dp"
-            app:rippleColor="#FF77BB"
             app:layout_constraintBottom_toTopOf="@+id/tv_Sign" />
 
 

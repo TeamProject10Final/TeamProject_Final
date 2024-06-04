@@ -12,7 +12,7 @@ import com.example.donotlate.MainActivity
 import com.example.donotlate.core.presentation.MainFragment
 import com.example.donotlate.databinding.BackDialogBinding
 
-class BackFragmentDialog : DialogFragment() {
+class CancelFragmentDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,12 +37,15 @@ class BackFragmentDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.tvDl1.text = "메인으로 돌아갈까요?"
+        binding.tvDl2.text = "작성중인 게시물이 삭제되고\n메인으로 돌아갑니다."
+
         binding.tvDlCancel.setOnClickListener {
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
             val activity = activity as MainActivity
-            activity.changeFragment(MainFragment())
+            activity.replaceFragment(MainFragment())
             dismiss()
         }
     }
