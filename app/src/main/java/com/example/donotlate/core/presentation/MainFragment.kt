@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.donotlate.MainActivity
+import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMainBinding
 import com.example.donotlate.feature.room.presentation.ViewPagerFragment
 import com.example.donotlate.feature.room.presentation.dialog.BackFragmentDialog
 import com.example.donotlate.feature.room.presentation.dialog.LogoutDialog
+import com.example.donotlate.feature.searchPlace.presentation.SearchPlacesFragment
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -48,6 +50,7 @@ class MainFragment : Fragment() {
 
         startRoom()
         logoutButton()
+        startPlace()
 
     }
 
@@ -74,6 +77,12 @@ class MainFragment : Fragment() {
             val dialog = LogoutDialog()
             dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
             //firebase 로그아웃 기능 추가
+        }
+    }
+
+    private fun startPlace(){
+        binding.layoutMainPlace.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.frame, SearchPlacesFragment()).addToBackStack("").commit()
         }
     }
 }
