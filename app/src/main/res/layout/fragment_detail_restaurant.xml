@@ -111,16 +111,16 @@
             app:layout_constraintTop_toBottomOf="@+id/textView8">
         </fragment>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btNavigation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="65dp"
-            android:layout_marginEnd="65dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_radius_lightblue"
+            android:background="@drawable/btn_radius_arctic"
             android:text="길찾기"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
