@@ -6,11 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".feature.searchPlace.presentation.SearchPlacesFragment">
 
-    <com.google.android.gms.maps.MapView
+<!--    <com.google.android.gms.maps.MapView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:id="@+id/fg_map"/>-->
+
+    <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/fg_map"/>
-<!--        android:name="com.google.android.gms.maps.SupportMapFragment"-->
 
 
         <ImageView
@@ -90,6 +96,14 @@
                 android:background="@drawable/et_custom_blue"
                 android:backgroundTint="@color/arctic"
                 android:text="공원" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_shoppingMall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_custom_blue"
+                android:backgroundTint="@color/arctic"
+                android:text="쇼핑몰" />
 
         </com.google.android.material.chip.ChipGroup>
 
