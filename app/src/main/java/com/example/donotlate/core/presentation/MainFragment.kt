@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.donotlate.MainActivity
 import com.example.donotlate.databinding.FragmentMainBinding
-import com.example.donotlate.feature.room.presentation.ViewPagerFragment
-import com.example.donotlate.feature.room.presentation.dialog.BackFragmentDialog
-import com.example.donotlate.feature.room.presentation.dialog.LogoutDialog
+import com.example.donotlate.feature.room.presentation.main.ViewPagerFragment
+import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
+import com.example.donotlate.map.SearchPlaceFragment
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -48,6 +48,7 @@ class MainFragment : Fragment() {
 
         startRoom()
         logoutButton()
+        placeButton()
 
     }
 
@@ -69,9 +70,16 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun placeButton() {
+        binding.layoutMainPlace.setOnClickListener {
+            val activity = activity as MainActivity
+            activity.changeFragment(SearchPlaceFragment())
+        }
+    }
+
     private fun logoutButton() {
         binding.ivMainLogout.setOnClickListener {
-            val dialog = LogoutDialog()
+            val dialog = LogoutFragmentDialog()
             dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
             //firebase 로그아웃 기능 추가
         }
