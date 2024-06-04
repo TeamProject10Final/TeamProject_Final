@@ -3,6 +3,10 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlin-kapt")
     id("kotlin-parcelize")
+    //firebase sdk
+    id("com.google.gms.google-services")
+
+
 }
 
 android {
@@ -49,6 +53,15 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.google.material)
+
+    // firebase - firestore, FCM
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.auth)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.activity.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -88,5 +101,13 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.9.0"))
     implementation ("com.google.android.libraries.places:places:3.3.0")
     implementation(libs.volley)
+
+    //firebase bom
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation("com.google.firebase:firebase-analytics")
+
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+    implementation ("androidx.fragment:fragment-ktx:1.3.6")
 
 }

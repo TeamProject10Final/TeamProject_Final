@@ -1,6 +1,5 @@
-package com.example.donotlate.feature.login.presentation.validation
+package com.example.donotlate.feature.auth.presentation.validation
 
-import android.graphics.Color
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.view.isVisible

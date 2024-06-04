@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.login.presentation
+package com.example.donotlate.feature.auth.presentation.view
 
 import android.graphics.Color
 import android.os.Bundle
@@ -12,18 +12,28 @@ import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.donotlate.MainActivity
+import com.example.donotlate.MyApp
 import com.example.donotlate.R
+import com.example.donotlate.core.presentation.MainFragment
 import com.example.donotlate.databinding.FragmentSignupBinding
-import com.example.donotlate.feature.login.presentation.validation.CheckValidation
+import com.example.donotlate.feature.auth.presentation.validation.CheckValidation
+import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewModel
+import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
 import com.google.android.material.snackbar.Snackbar
-
 
 class SignupFragment : Fragment(), CheckValidation {
 
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
+
+    private val signUpViewmodel: SignUpViewModel by viewModels {
+        val appContainer = (requireActivity().application as MyApp).appContainer
+        SignUpViewmodelFactory(appContainer.signUpUseCase)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +45,7 @@ class SignupFragment : Fragment(), CheckValidation {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
 
         setTitle()
@@ -49,9 +59,13 @@ class SignupFragment : Fragment(), CheckValidation {
         startLogin()
         checkSingup()
         passwordHide()
+        checkedSignUpResult()
+
+        binding.btnSignUp.setOnClickListener {
+            clickToSignUpButton()
+        }
 
     }
-
 
     private fun setTitle() {
         val title = SpannableStringBuilder("회원가입 후\n약속을 잡으러 가볼까요?")
@@ -165,19 +179,41 @@ class SignupFragment : Fragment(), CheckValidation {
     private fun passwordHide() {
         val password = binding.etSignPassword
         val hide = binding.ivSignHide
+        hide.tag = "0"
         hide.setImageResource(R.drawable.hide)
         hide.setOnClickListener {
-            when(it.tag) {
+            when (it.tag) {
                 "0" -> {
                     hide.tag = "1"
                     password.transformationMethod = HideReturnsTransformationMethod.getInstance()
                     hide.setImageResource(R.drawable.show)
                 }
+
                 "1" -> {
                     hide.tag = "0"
                     password.transformationMethod = PasswordTransformationMethod.getInstance()
                     hide.setImageResource(R.drawable.hide)
                 }
+            }
+        }
+    }
+
+    private fun clickToSignUpButton(){
+        val email = binding.etSignEmail.text.toString().trim()
+        val name = binding.etSignName.text.toString().trim()
+        val password = binding.etSignPassword.text.toString().trim()
+
+        signUpViewmodel.signUp(name,email,password)
+    }
+
+    private fun checkedSignUpResult(){
+        signUpViewmodel.signUpResult.observe(viewLifecycleOwner){result ->
+            if(result.isSuccess)  {
+                Toast.makeText(requireContext(), "회원 가입 성공!", Toast.LENGTH_SHORT).show()
+                val activity = activity as MainActivity
+                activity.changeFragment(MainFragment())
+            }else{
+                Toast.makeText(requireContext(), "회원 가입 실패!", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -9,9 +9,8 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.donotlate.MainActivity
-import com.example.donotlate.core.presentation.MainFragment
 import com.example.donotlate.databinding.BackDialogBinding
-import com.example.donotlate.feature.login.presentation.LoginFragment
+import com.example.donotlate.feature.auth.presentation.view.LoginFragment
 
 class LogoutDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
