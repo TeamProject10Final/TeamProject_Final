@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature.room.presentation.RoomMapFragment"
+    tools:context=".feature.room.presentation.map.RoomMapFragment"
     android:background="@color/white"
     android:clickable="true">
 
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
-        android:textSize="23sp"
+        android:textSize="28sp"
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -43,8 +43,7 @@
         android:textSize="15dp"
         android:textStyle="bold"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/et_custom_blue"
-        android:backgroundTint="@color/arctic"
+        android:background="@drawable/btn_radius_arctic"
         app:layout_constraintTop_toTopOf="@id/et_Room_Map_Search"
         app:layout_constraintBottom_toBottomOf="@id/et_Room_Map_Search"
         app:layout_constraintEnd_toEndOf="parent"/>
