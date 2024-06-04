@@ -90,4 +90,12 @@ dependencies {
     implementation ("com.google.android.libraries.places:places:3.3.0")
     implementation(libs.volley)
 
+    val lifecycle_version = "2.3.0"
+    // ViewModel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    // LiveData
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation("androidx.fragment:fragment-ktx:1.4.1")
 }
+
+
