@@ -11,6 +11,7 @@ import com.example.donotlate.databinding.FragmentMainBinding
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.main.ViewPagerFragment
 import com.example.donotlate.feature.searchPlace.presentation.SearchPlacesFragment
+import com.example.donotlate.feature.searchPlace.presentation.SearchPlacesFragment
 import com.example.donotlate.map.SearchPlaceFragment
 
 
@@ -51,11 +52,8 @@ class MainFragment : Fragment() {
 
         startRoom()
         logoutButton()
-
-        startPlace()
-
         placeButton()
-
+        startPlace()
 
     }
 
