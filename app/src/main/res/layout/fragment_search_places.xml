@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".feature.searchPlace.presentation.SearchPlacesFragment">
 
-<!--    <com.google.android.gms.maps.MapView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:id="@+id/fg_map"/>-->
-
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"

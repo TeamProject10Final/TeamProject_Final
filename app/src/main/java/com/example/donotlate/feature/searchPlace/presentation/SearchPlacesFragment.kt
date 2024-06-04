@@ -25,7 +25,6 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -45,7 +44,6 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
     private var document : Int = 0
 
     private lateinit var googleMap: GoogleMap
-//    private lateinit var mapView: MapView
     private lateinit var locationPermission: ActivityResultLauncher<Array<String>>
 
     //위치 서비스가 gps를 사용해서 위치를 확인
@@ -58,12 +56,6 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        val rootView = inflater.inflate(R.layout.fragment_search_places,container,false)
-//        mapView = rootView.findViewById(R.id.fg_map) as MapView
-//        mapView.onCreate(savedInstanceState)
-//        mapView.getMapAsync(this)
-//        return rootView
-
         return inflater.inflate(R.layout.fragment_search_places, container, false)
     }
 
@@ -72,45 +64,6 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
 
 
     }
-
-//    override fun onMapReady(p0: GoogleMap) {
-//        val myLocation = LatLng(37.514655, 126.979974)
-//        p0.moveCamera(CameraUpdateFactory.zoomTo(15f))
-//        p0.moveCamera(CameraUpdateFactory.newLatLng(myLocation))
-//
-//        val marker = MarkerOptions().position(myLocation).title("1").snippet("2")
-//        p0.addMarker(marker)
-//    }
-//
-//    override fun onStart() {
-//        super.onStart()
-//        mapView.onStart()
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//        mapView.onStop()
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        mapView.onResume()
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        mapView.onPause()
-//    }
-//
-//    override fun onLowMemory() {
-//        super.onLowMemory()
-//        mapView.onLowMemory()
-//    }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        mapView.onDestroy()
-//    }
 
 
     private fun clickChip(){
@@ -168,16 +121,9 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
         }
 
         viewModel.getSearchType.observe(viewLifecycleOwner){
-            //맵을 띄우는 뷰와 연결 (데이터와 같이 연결되는 것이지?)
+            //맵을 띄우는 뷰와 연결 (데이터와 같이 연결되는 것인지?)
         }
     }
-
-
-
-
-
-
-
 
     private fun getLocationPermission(){//위치 권한 확인
         locationPermission = registerForActivityResult(

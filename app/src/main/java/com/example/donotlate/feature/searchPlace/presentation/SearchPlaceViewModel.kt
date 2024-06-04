@@ -16,7 +16,7 @@ class SearchPlaceViewModel(
     val getSearchType: LiveData<GooglePlacesModel> get() = _getSearchType
 
     fun getSearchType(location:String, types: String) = viewModelScope.launch {
-        val result = googlePlacesRepository.getPlaceTypeList(location, types)
+        val result = googlePlacesRepository.getPlaceTypeList(location = location, types)
 
         result.toModel().let {
             _getSearchType.value
