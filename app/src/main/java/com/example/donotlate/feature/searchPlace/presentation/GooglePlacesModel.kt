@@ -1,22 +1,22 @@
-package com.example.donotlate.feature.searchPlace.domain.model
+package com.example.donotlate.feature.searchPlace.presentation
 
-data class GooglePlacesEntity(
+data class GooglePlacesModel(
 
     val htmlAttributions: List<String>,
     val nextPageToken: String,
-    val results: List<ResultEntity>,
+    val results: List<ResultModel>,
     val status: String
 )
 
-data class ResultEntity(
+data class ResultModel(
 
     val businessStatus: String,
     val icon: String,
     val iconBackgroundColor: String,
     val iconMaskBaseUri: String,
     val name: String,
-    val openingHours: OpeningHoursEntity,
-    val photos: List<PhotoEntity>,
+    val openingHours: OpeningHoursModel,
+    val photos: List<PhotoModel>,
     val placeId: String,
     val priceLevel: Int,
     val rating: Double,
@@ -25,7 +25,7 @@ data class ResultEntity(
 
     )
 
-data class PhotoEntity(
+data class PhotoModel(
 
     val height: Int,
     val htmlAttributions: List<String>,
@@ -34,15 +34,15 @@ data class PhotoEntity(
 
 )
 
-data class GeometryEntity(
-    val location: LocationEntity
+data class GeometryModel(
+    val location: LocationModel
 )
 
-data class LocationEntity(
+data class LocationModel(
     val lat: Double,
     val lng: Double
 )
 
-data class OpeningHoursEntity(
+data class OpeningHoursModel(
     val openNow: Boolean
 )
