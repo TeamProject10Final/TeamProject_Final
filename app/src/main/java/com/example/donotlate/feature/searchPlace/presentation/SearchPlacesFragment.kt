@@ -56,10 +56,8 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_search_places, container, false)
-
-//        _binding = FragmentDatailBinding.inflate(inflater, container, false)
-//        return binding.root
+        _binding = FragmentSearchPlacesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
