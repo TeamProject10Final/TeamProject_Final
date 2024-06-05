@@ -4,11 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.example.donotlate.MainActivity
-import com.example.donotlate.R
 import com.example.donotlate.databinding.ItemRvPlaceBinding
 import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 
