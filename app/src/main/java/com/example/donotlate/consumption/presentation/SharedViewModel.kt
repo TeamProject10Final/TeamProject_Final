@@ -1,15 +1,27 @@
 package com.example.donotlate.consumption.presentation
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.example.donotlate.consumption.presentation.ConsumptionActivity.Companion.addCommas
 import com.example.donotlate.consumption.domain.repository.ConsumptionRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
+//import kotlinx.coroutines.flow.internal.NopCollector.emit
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.time.Duration
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 class SharedViewModel(
     private val repository: ConsumptionRepository,
@@ -54,19 +66,19 @@ class SharedViewModel(
     val error: LiveData<String> get() = _error
 
     // 데이터베이스에서 데이터의 총 가격을 실시간으로 관찰
-    val totalPrice: LiveData<Long> = repository.getTotalPrice()
+    val totalPrice: LiveData<Long> = repository.getTotalPrice().asLiveData()
 
     // 데이터베이스에서 데이터의 개수를 실시간으로 관찰
-    val dataCount: LiveData<Int> = repository.getLiveDataCount()
+    val dataCount: LiveData<Int> = repository.getLiveDataCount().asLiveData()
 
 
     val recentFinishedConsumption: LiveData<List<ConsumptionModel>> =
-        repository.getRecentFinishedConsumption().map { entities ->
+        repository.getRecentFinishedConsumption().asLiveData().map { entities ->
             entities.map { mapper.toModel(it) }
         }
 
     val recentUnfinishedConsumption: LiveData<List<ConsumptionModel>> =
-        repository.getRecentUnfinishedConsumption().map { entities ->
+        repository.getRecentUnfinishedConsumption().asLiveData().map { entities ->
             entities.map { mapper.toModel(it) }
         }
 
@@ -78,18 +90,23 @@ class SharedViewModel(
     private val _finishedConsumption: MutableLiveData<List<ConsumptionModel>> = MutableLiveData()
     val finishedConsumption: MutableLiveData<List<ConsumptionModel>> get() = _finishedConsumption
 
+
+//    private val _finishedConsumption: MutableLiveData<List<ConsumptionModel>> = MutableLiveData()
+//    val finishedConsumption: MutableLiveData<List<ConsumptionModel>> get() = _finishedConsumption
+
     private val _unfinishedConsumption: MutableLiveData<List<ConsumptionModel>> = MutableLiveData()
     val unfinishedConsumption: MutableLiveData<List<ConsumptionModel>> get() = _unfinishedConsumption
 
-    init {
-        fetchFinishedConsumption()
-        fetchUnfinishedConsumption()
-    }
 
+    private fun fetchFinishedConsumption1(){
+        val finishedEntities = repository.getRecentFinishedConsumption()
+
+
+    }
     private fun fetchFinishedConsumption() {
         viewModelScope.launch {
             try {
-                val finishedEntities = repository.getRecentFinishedConsumption()
+                val finishedEntities = repository.getRecentFinishedConsumption().asLiveData()
                 finishedEntities.observeForever { entities ->
                     val models = entities?.map { mapper.toModel(it) }
                     _finishedConsumption.value = models ?: emptyList()
@@ -103,7 +120,7 @@ class SharedViewModel(
     private fun fetchUnfinishedConsumption() {
         viewModelScope.launch {
             try {
-                val unfinishedEntities = repository.getRecentUnfinishedConsumption()
+                val unfinishedEntities = repository.getRecentUnfinishedConsumption().asLiveData()
                 unfinishedEntities.observeForever { entities ->
                     val models = entities?.map { mapper.toModel(it) }
                     _unfinishedConsumption.value = models ?: emptyList()
@@ -161,6 +178,9 @@ class SharedViewModel(
         _number.value = null
         _price.value = 0
         _isFinished.value = false
+
+        fetchFinishedConsumption()
+        fetchUnfinishedConsumption()
     }
 
 

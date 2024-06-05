@@ -8,11 +8,13 @@ import com.example.donotlate.consumption.data.database.RoomDao
 import com.example.donotlate.consumption.data.database.RoomEntity
 import com.example.donotlate.consumption.domain.entity.ConsumptionEntity
 import com.example.donotlate.consumption.domain.repository.ConsumptionRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class ConsumptionRepositoryImpl(val context: Context) : ConsumptionRepository {
     private val roomDB: ConsumptionRoomDatabase = ConsumptionRoomDatabase.getInstance(context)!!
     private val roomDao: RoomDao = roomDB.getRoomDao()
-    override fun getConsumptionData(): LiveData<List<ConsumptionEntity>> {
+    override fun getConsumptionData(): Flow<List<ConsumptionEntity>> {
         val entityList = roomDao.getAllData().map { room ->
             room.map {
                 ConsumptionEntity(
@@ -107,7 +109,7 @@ class ConsumptionRepositoryImpl(val context: Context) : ConsumptionRepository {
     }
 
 
-    override fun getFinishedConsumption(): LiveData<List<ConsumptionEntity>> {
+    override fun getFinishedConsumption(): Flow<List<ConsumptionEntity>> {
         return roomDao.getFinishedData().map { roomEntities ->
             roomEntities.map { roomEntity ->
                 ConsumptionEntity(
@@ -127,7 +129,7 @@ class ConsumptionRepositoryImpl(val context: Context) : ConsumptionRepository {
     }
 
 
-    override fun getUnfinishedConsumption(): LiveData<List<ConsumptionEntity>> {
+    override fun getUnfinishedConsumption(): Flow<List<ConsumptionEntity>> {
         return roomDao.getUnfinishedData().map { roomEntities ->
             roomEntities.map { roomEntity ->
                 ConsumptionEntity(
@@ -146,21 +148,21 @@ class ConsumptionRepositoryImpl(val context: Context) : ConsumptionRepository {
         }
     }
 
-    override fun getRecentFinishedConsumption(): LiveData<List<ConsumptionEntity>> {
+    override fun getRecentFinishedConsumption(): Flow<List<ConsumptionEntity>> {
         return roomDao.getRecentFinishedConsumptions()
     }
 
-    override fun getRecentUnfinishedConsumption(): LiveData<List<ConsumptionEntity>> {
+    override fun getRecentUnfinishedConsumption(): Flow<List<ConsumptionEntity>> {
         return roomDao.getRecentUnfinishedConsumptions()
     }
 
     // 데이터베이스에서 데이터의 총 가격을 반환하는 메서드
-    override fun getTotalPrice(): LiveData<Long> {
+    override fun getTotalPrice(): Flow<Long> {
         return roomDao.getTotalPriceFromData()
     }
 
     // 데이터베이스에서 데이터의 개수를 반환하는 메서드... 인데 LIVEDATA
-    override fun getLiveDataCount(): LiveData<Int> {
+    override fun getLiveDataCount(): Flow<Int> {
         return roomDao.getDataCountFromData()
     }
 

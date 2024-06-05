@@ -2,10 +2,11 @@ package com.example.donotlate.consumption.domain.repository
 
 import androidx.lifecycle.LiveData
 import com.example.donotlate.consumption.domain.entity.ConsumptionEntity
+import kotlinx.coroutines.flow.Flow
 
 interface ConsumptionRepository {
 
-    fun getConsumptionData(): LiveData<List<ConsumptionEntity>>
+    fun getConsumptionData(): Flow<List<ConsumptionEntity>>
 
     suspend fun insertConsumptionData(consumption: ConsumptionEntity)
 
@@ -17,14 +18,14 @@ interface ConsumptionRepository {
 
     suspend fun getDataCount(): Int
 
-    fun getLiveDataCount(): LiveData<Int>
+    fun getLiveDataCount(): Flow<Int>
 
-    fun getFinishedConsumption(): LiveData<List<ConsumptionEntity>>
-    fun getUnfinishedConsumption(): LiveData<List<ConsumptionEntity>>
+    fun getFinishedConsumption(): Flow<List<ConsumptionEntity>>
+    fun getUnfinishedConsumption(): Flow<List<ConsumptionEntity>>
 
-    fun getRecentFinishedConsumption(): LiveData<List<ConsumptionEntity>>
-    fun getRecentUnfinishedConsumption(): LiveData<List<ConsumptionEntity>>
+    fun getRecentFinishedConsumption(): Flow<List<ConsumptionEntity>>
+    fun getRecentUnfinishedConsumption(): Flow<List<ConsumptionEntity>>
 
-    fun getTotalPrice(): LiveData<Long>
+    fun getTotalPrice(): Flow<Long>
 
 }

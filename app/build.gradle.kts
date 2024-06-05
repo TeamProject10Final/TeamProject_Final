@@ -38,6 +38,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
 }
 
 dependencies {
@@ -47,10 +48,18 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.google.material)
     implementation(libs.androidx.navigation.fragment)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //livedata, flow
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.1")
+
+    //viewpager2
+    implementation(libs.androidx.viewpager2)
+    implementation("com.tbuonomo:dotsindicator:5.0")
 
     //recyclerview
     implementation(libs.androidx.recyclerview)
@@ -68,4 +77,20 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.androidx.room.paging)
     kapt(libs.room.compiler)
+
+    //google map
+    implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
+
+    //chip
+    implementation("com.google.android.material:material:1.4.0")
+
+    //json
+    implementation("com.google.code.gson:gson:2.8.9")
+
+    //google places
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.9.0"))
+    implementation ("com.google.android.libraries.places:places:3.3.0")
+    implementation(libs.volley)
+
 }
