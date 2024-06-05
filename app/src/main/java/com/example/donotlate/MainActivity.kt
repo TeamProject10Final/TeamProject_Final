@@ -30,14 +30,15 @@ class MainActivity : AppCompatActivity() {
             changeFragment(LoginFragment())
         }
 
-//
+
 //        lifecycleScope.launch {
-//            NetWorkClient.googleNetWork.requestSearch(
-//                location = "-33.8670522,151.1957362",
+//            NetWorkClient.googleNetWork.requestDestination(
+//                query = "restaurants%20in%20Sydney",
 //                radius = 1500,
-//                type = "restaurant"
+//                language = "ko"
 //            )
-//        }
+//        }장소 통신 완
+
     }
 
     fun changeFragment(fragment: Fragment) {
