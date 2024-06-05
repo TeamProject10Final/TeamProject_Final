@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.room.presentation
+package com.example.donotlate.feature.room.presentation.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.donotlate.databinding.FragmentViewPagerBinding
 import com.example.donotlate.feature.room.presentation.dialog.BackFragmentDialog
+import com.example.donotlate.feature.room.presentation.dialog.ResultFragmentDialog
 
 class ViewPagerFragment : Fragment() {
 
@@ -71,7 +72,10 @@ class ViewPagerFragment : Fragment() {
                         }
                         2 -> {
                             btnRoomNext.text = "만들기"
-                            btnRoomNext.setOnClickListener {  }
+                            btnRoomNext.setOnClickListener {
+                                val dialog = ResultFragmentDialog()
+                                dialog.show(requireActivity().supportFragmentManager, "ResultFragmentDialog")
+                            }
                             ivRoomBack.setOnClickListener {
                                 prevPage()
                             }

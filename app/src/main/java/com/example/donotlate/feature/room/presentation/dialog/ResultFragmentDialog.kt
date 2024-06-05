@@ -10,9 +10,9 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.donotlate.MainActivity
 import com.example.donotlate.databinding.BackDialogBinding
-import com.example.donotlate.feature.auth.presentation.view.LoginFragment
+import com.example.donotlate.feature.room.presentation.result.RoomResultFragment
 
-class LogoutDialog : DialogFragment() {
+class ResultFragmentDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,15 +37,15 @@ class LogoutDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvDl1.text = "로그아웃"
-        binding.tvDl2.text = "로그아웃 하시겠습니까?"
+        binding.tvDl1.text = "수정이 불가능해요"
+        binding.tvDl2.text = "확인을 누르시면 수정이 불가능합니다!\n정말 이대로 진행할까요?"
 
         binding.tvDlCancel.setOnClickListener {
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
             val activity = activity as MainActivity
-            activity.replaceFragment(LoginFragment())
+            activity.replaceFragment(RoomResultFragment())
             dismiss()
         }
     }

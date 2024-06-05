@@ -70,7 +70,7 @@ class SignupFragment : Fragment(), CheckValidation {
     private fun setTitle() {
         val title = SpannableStringBuilder("회원가입 후\n약속을 잡으러 가볼까요?")
         title.apply {
-            setSpan(RelativeSizeSpan(1.5f), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(RelativeSizeSpan(1.2f), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         binding.tvSignTitle.text = title
 

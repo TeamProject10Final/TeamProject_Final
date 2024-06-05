@@ -68,7 +68,7 @@ class LoginFragment : Fragment() {
     private fun setTitle() {
         val title = SpannableStringBuilder("환영합니다!\n로그인을 진행해주세요.")
         title.apply {
-            setSpan(RelativeSizeSpan(1.1f), 7, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(RelativeSizeSpan(1.2f), 7, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 
         binding.tvLoginTitle.text = title
