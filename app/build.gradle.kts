@@ -42,7 +42,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -96,6 +95,9 @@ dependencies {
     // LiveData
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
     implementation("androidx.fragment:fragment-ktx:1.4.1")
+
+    //프로필 이미지뷰
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }
 
 

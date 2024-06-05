@@ -13,6 +13,7 @@ import com.example.donotlate.databinding.FragmentMainBinding
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.main.ViewPagerFragment
 import com.example.donotlate.feature.searchPlace.presentation.SearchPlacesFragment
+import com.example.donotlate.feature.setting.SettingFragment
 
 
 class MainFragment : Fragment() {
@@ -42,7 +43,7 @@ class MainFragment : Fragment() {
         startSearchPlace()
         startMyPromise()
         startMiniGame()
-
+        startSetting()
 
     }
 
@@ -52,6 +53,7 @@ class MainFragment : Fragment() {
             activity.changeFragment(ViewPagerFragment())
         }
     }
+
 
     private fun logoutButton() {
         binding.ivMainLogout.setOnClickListener {
@@ -76,6 +78,12 @@ class MainFragment : Fragment() {
     private fun startMiniGame(){
         binding.layoutMainGame.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.frame, MiniGameFragment()).addToBackStack("").commit()
+        }
+    }
+
+    private fun startSetting(){
+        binding.ivMainSetting.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.frame, SettingFragment()).addToBackStack("").commit()
         }
     }
 }
