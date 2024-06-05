@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.databinding.ActivityMainBinding
 import com.example.donotlate.feature.login.presentation.LoginFragment
 import com.example.donotlate.feature.searchPlace.api.NetWorkClient
+import com.example.donotlate.feature.searchPlace.presentation.SearchModel
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -57,5 +58,15 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame, fragment)
             .commit()
+    }
+
+    fun addFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.frame, fragment)
+            .commit()
+    }
+
+    fun mapData(map : SearchModel) {
+
     }
 }

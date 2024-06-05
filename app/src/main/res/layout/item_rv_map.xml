@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_Item_Map"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/btn_radius_arctic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_Item_Map_Title"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="성심당 본점"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/iv_Item_Map"
+        app:layout_constraintTop_toTopOf="@+id/iv_Item_Map" />
+
+    <ImageView
+        android:id="@+id/iv_Item1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:src="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_Item_Map_Title"
+        app:layout_constraintStart_toEndOf="@+id/tv_Item_Map_Title"/>
+
+    <TextView
+        android:id="@+id/tv_Item_Map_Rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="4.4"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_Item1"
+        app:layout_constraintStart_toEndOf="@+id/iv_Item1" />
+
+    <TextView
+        android:id="@+id/tv_Item_Map_Address"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="5dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="대전광역시 중구 대종로 480번길 15"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_Item_Map_Title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Item_Map_Title" />
+
+    <TextView
+        android:id="@+id/tv_Item_Map_Number"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="1588-8069"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_Item_Map_Address"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Item_Map_Address" />
+
+    <TextView
+        android:id="@+id/tv_Item_Map_Lat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/iv_Item_Map"
+        app:layout_constraintTop_toBottomOf="@+id/iv_Item_Map" />
+
+
+    <TextView
+        android:id="@+id/tv_Item_Map_Lng"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_Item_Map_Lat"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Item_Map_Lat" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#AEAEAE"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_Item_Map" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
