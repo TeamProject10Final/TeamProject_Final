@@ -149,7 +149,6 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(p0: GoogleMap) {
         googleMap = p0
 
-
         //설정 위치 좌표
         val seoul = LatLng(37.566610, 126.978403)
         googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL // default 노말 생략 가능

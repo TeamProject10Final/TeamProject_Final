@@ -54,6 +54,7 @@ class MainFragment : Fragment() {
         placeButton()
         startPlace()
 
+
     }
 
     companion object {
