@@ -62,6 +62,7 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        getLocationPermission()
 
     }
 
@@ -99,7 +100,7 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
             binding.tvDefaultText.isVisible = true
         }else{
             binding.tvDefaultText.isVisible = false
-            getLocationPermission()
+
         }
 
         when(type){

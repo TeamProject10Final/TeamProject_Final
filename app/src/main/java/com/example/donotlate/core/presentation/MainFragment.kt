@@ -52,9 +52,8 @@ class MainFragment : Fragment() {
         startRoom()
         logoutButton()
 
-        startPlace()
-
         placeButton()
+        startPlace()
 
 
     }

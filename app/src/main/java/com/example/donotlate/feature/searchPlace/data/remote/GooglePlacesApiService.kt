@@ -29,4 +29,14 @@ interface GooglePlacesApiService {
 
     ): GooglePlace
 
+
+    @GET("/maps/api/place/textsearch/json")
+    suspend fun requestDestination(
+
+        @Query("query")query: String,
+        @Query("radius")radius: Int = 1500,
+        @Query("key") apiKey: String = "AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U",
+        @Query("language") language: String = "ko"
+
+    ): GooglePlace
 }
