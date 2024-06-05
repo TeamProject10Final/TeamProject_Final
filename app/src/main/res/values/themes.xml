@@ -1,9 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.DoNotLate" parent="Theme.Material3.DayNight.NoActionBar">
-=======
 
->>>>>>> ea4e112dfa9f1dcedeeedaf4b8f6de5b84797ced
+
         <!--custom font-family 적용-->
         <item name="android:textViewStyle">@style/customTextViewFontStyle</item>
         <item name="android:buttonStyle">@style/customButtonFontStyle</item>
