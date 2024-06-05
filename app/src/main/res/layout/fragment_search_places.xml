@@ -9,13 +9,12 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/fg_map"/>
 
 
         <ImageView
-            android:id="@+id/btnback"
+            android:id="@+id/iv_search_back"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="15dp"
@@ -25,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/et_SeachBox"
+            android:id="@+id/et_seach_box"
             android:layout_width="280dp"
             android:layout_height="45dp"
             android:layout_marginStart="20dp"
@@ -36,10 +35,10 @@
             android:inputType="text"
             android:paddingHorizontal="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnback" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_search_back" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_SeachButton"
+            android:id="@+id/btn_seach_button"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_marginStart="20dp"
@@ -47,18 +46,18 @@
             android:background="@drawable/bg_radius_lightblue"
             android:text="검색"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/et_SeachBox"
+            app:layout_constraintBottom_toBottomOf="@+id/et_seach_box"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/et_SeachBox"
-            app:layout_constraintTop_toTopOf="@+id/et_SeachBox" />
+            app:layout_constraintStart_toEndOf="@+id/et_seach_box"
+            app:layout_constraintTop_toTopOf="@+id/et_seach_box" />
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/cg_chipGroup"
+            android:id="@+id/cg_chip_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="@id/et_SeachBox"
-            app:layout_constraintTop_toBottomOf="@id/et_SeachBox">
+            app:layout_constraintStart_toStartOf="@id/et_seach_box"
+            app:layout_constraintTop_toBottomOf="@id/et_seach_box">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/tv_restaurant"
@@ -101,28 +100,6 @@
                 android:text="쇼핑몰" />
 
         </com.google.android.material.chip.ChipGroup>
-
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_marginTop="150dp"
-            android:src="@drawable/ic_map_mark"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_SeachBox" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/tv_defaultText"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:text="길을 잃었다~★ 어딜 가야할까 "
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

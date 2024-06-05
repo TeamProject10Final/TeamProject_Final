@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.donotlate.MainActivity
+import com.example.donotlate.MypromiseListFragment
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMainBinding
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.main.ViewPagerFragment
 import com.example.donotlate.feature.searchPlace.presentation.SearchPlacesFragment
-import com.example.donotlate.map.SearchPlaceFragment
 
 
 private const val ARG_PARAM1 = "param1"
@@ -52,7 +52,8 @@ class MainFragment : Fragment() {
         startRoom()
         logoutButton()
         placeButton()
-        startPlace()
+        startSearchPlace()
+        startMyPromise()
 
 
     }
@@ -90,9 +91,15 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun startPlace(){
+    private fun startSearchPlace(){
         binding.layoutMainPlace.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.frame, SearchPlacesFragment()).addToBackStack("").commit()
+        }
+    }
+
+    private fun startMyPromise(){
+        binding.layoutMainReservation.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.frame, MypromiseListFragment()).addToBackStack("").commit()
         }
     }
 }

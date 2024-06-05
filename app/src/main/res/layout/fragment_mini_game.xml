@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MiniGameFragment">
+
+    <ImageView
+        android:id="@+id/iv_game_back"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_top_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:text="오늘의 당첨자를 정하는"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_top_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="미니 게임"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="@id/tv_top_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_top_title" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_game_background_wheel"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_radius_lightblue"
+        app:layout_constraintEnd_toStartOf="@id/btn_game_background_ladder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_top_user_name" />
+
+    <ImageView
+        android:id="@+id/iv_game_icon_wheel"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_game_wheel"
+        app:layout_constraintBottom_toTopOf="@id/tv_title_wheel"
+        app:layout_constraintEnd_toEndOf="@id/btn_game_background_wheel"
+        app:layout_constraintStart_toStartOf="@id/btn_game_background_wheel"
+        app:layout_constraintTop_toTopOf="@id/btn_game_background_wheel" />
+
+    <TextView
+        android:id="@+id/tv_title_wheel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="룰렛"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/btn_game_background_wheel"
+        app:layout_constraintEnd_toEndOf="@id/iv_game_icon_wheel"
+        app:layout_constraintStart_toStartOf="@id/iv_game_icon_wheel"
+        app:layout_constraintTop_toBottomOf="@id/iv_game_icon_wheel" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_game_background_ladder"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_radius_lightblue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_game_background_wheel"
+        app:layout_constraintTop_toBottomOf="@id/tv_top_user_name" />
+
+
+    <ImageView
+        android:id="@+id/iv_game_icon_ladder"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_game_ladder"
+        app:layout_constraintBottom_toTopOf="@id/tv_title_ladder"
+        app:layout_constraintEnd_toEndOf="@id/btn_game_background_ladder"
+        app:layout_constraintStart_toStartOf="@id/btn_game_background_ladder"
+        app:layout_constraintTop_toTopOf="@id/btn_game_background_ladder" />
+
+    <TextView
+        android:id="@+id/tv_title_ladder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사다리 타기"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/btn_game_background_ladder"
+        app:layout_constraintEnd_toEndOf="@id/iv_game_icon_ladder"
+        app:layout_constraintStart_toStartOf="@id/iv_game_icon_ladder"
+        app:layout_constraintTop_toBottomOf="@id/iv_game_icon_ladder" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

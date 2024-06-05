@@ -5,16 +5,40 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp">
 
-    <TextView
-        android:id="@+id/iv_itemText"
+    <ImageView
+        android:id="@+id/iv_item_background"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/bg_radius_lightblue"
-        android:gravity="center_vertical"
-        android:padding="10dp"
-        android:text="약속의 목록이 들어감"
-        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_promise_date"
+        android:layout_width="110dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="24.06.05"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_promis_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_promis_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:text="우리가 정한 약속들의 리스트가 보여질 공간"
+        android:textSize="23sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_promise_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/tv_promise_date"
+        app:layout_constraintTop_toTopOf="@id/tv_promise_date" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
