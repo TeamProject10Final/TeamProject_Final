@@ -9,20 +9,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.core.presentation.MainFragment
-import com.example.donotlate.databinding.FragmentSearchPlacesBinding
+import com.example.donotlate.databinding.FragmentPlaceSearchBinding
 import com.example.donotlate.feature.searchPlace.domain.adapter.MapAdapter
+import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
+import com.example.donotlate.feature.searchPlace.presentation.viewmodel.PlaceViewModel
+import com.example.donotlate.feature.searchPlace.presentation.viewmodel.SearchViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -31,28 +35,29 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 
-class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
+class PlaceSearchFragment : Fragment(), OnMapReadyCallback {
 
-    private var _binding: FragmentSearchPlacesBinding? = null
-    private val binding: FragmentSearchPlacesBinding
+    private var _binding: FragmentPlaceSearchBinding? = null
+    private val binding: FragmentPlaceSearchBinding
         get() = _binding!!
+
+
+    private val viewModel: PlaceViewModel by viewModels()
 
     private val searchViewModel by lazy {
         ViewModelProvider(
             requireActivity(),
-            SearchPlaceViewModel.SearchPlaceViewModelFactory()
-        )[SearchPlaceViewModel::class.java]
+            SearchViewModel.SearchViewModelFactory()
+        )[SearchViewModel::class.java]
     }
-    private lateinit var mapAdapter : MapAdapter
 
-    private val viewModel: SearchPlaceViewModel by viewModels()
+    private lateinit var mapAdapter : MapAdapter
 
     private var document: Int = 0
 
@@ -69,7 +74,7 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSearchPlacesBinding.inflate(inflater, container, false)
+        _binding = FragmentPlaceSearchBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -78,18 +83,25 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
 
 //        getLocationPermission()
-
-
         mapAdapter = MapAdapter()
+
+
         binding.btnSeachButton.setOnClickListener {
-            initViewModel()
+
+            initBottomSheet()
             initMapList()
-            binding.rvMap.isVisible = true
+            initViewModel()
         }
+
+
 
         backButton()
     }
 
+    private fun initBottomSheet() {
+        val bottomSheet = PlaceBottomFragment()
+        bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
+    }
     private fun backButton() {
         binding.ivPlaceBack.setOnClickListener {
             val activity = activity as MainActivity
@@ -97,31 +109,32 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-   private fun initViewModel() {
-       searchViewModel.searchMap.observe(viewLifecycleOwner) {
-           mapAdapter.itemList = it
-           with(binding.rvMap) {
-               adapter = mapAdapter
-               layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-           }
-       }
-   }
+    private fun initViewModel() {
+        searchViewModel.searchMapList.observe(viewLifecycleOwner) {
+            mapAdapter.itemList = it
+            with(binding.rvMap) {
+                adapter = mapAdapter
+                layoutManager = LinearLayoutManager(requireContext(), androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
+            }
+        }
+    }
 
     private fun initMapList() {
+
         mapAdapter.setOnItemClickListener(object : MapAdapter.OnItemClickListener {
-            override fun onItemClick(mapData: SearchModel) {
+            override fun onItemClick(mapData: PlaceModel) {
                 (requireActivity() as MainActivity).mapData(mapData)
             }
         })
-        searchViewModel.searchMap.observe(viewLifecycleOwner) { map ->
+        searchViewModel.searchMapList.observe(viewLifecycleOwner) { map ->
             mapAdapter.setItem(map)
         }
-        fetchMapList()
+        fetchMap()
     }
-
-    private fun fetchMapList() {
+    private fun fetchMap() {
         val query = binding.etSeachBox.text.toString()
-        searchViewModel.getSearchMap(query)
+        searchViewModel.getSearchMapList(query)
+
     }
 
 

@@ -10,8 +10,7 @@ import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMainBinding
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.main.ViewPagerFragment
-import com.example.donotlate.feature.searchPlace.presentation.SearchPlacesFragment
-import com.example.donotlate.map.SearchPlaceFragment
+import com.example.donotlate.feature.searchPlace.presentation.PlaceSearchFragment
 
 
 private const val ARG_PARAM1 = "param1"
@@ -79,7 +78,7 @@ class MainFragment : Fragment() {
     private fun placeButton() {
         binding.layoutMainPlace.setOnClickListener {
             val activity = activity as MainActivity
-            activity.changeFragment(SearchPlaceFragment())
+            activity.changeFragment(PlaceSearchFragment())
         }
     }
 
@@ -93,7 +92,9 @@ class MainFragment : Fragment() {
 
     private fun startPlace(){
         binding.layoutMainPlace.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, SearchPlacesFragment()).addToBackStack("").commit()
+            parentFragmentManager.beginTransaction().replace(R.id.frame,
+                com.example.donotlate.feature.searchPlace.presentation.PlaceSearchFragment()
+            ).addToBackStack("").commit()
         }
     }
 }

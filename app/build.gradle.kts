@@ -53,8 +53,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    //coil
+    //glide, coil
     implementation(libs.coil)
+
 
     //viewpager2
     implementation(libs.androidx.viewpager2)

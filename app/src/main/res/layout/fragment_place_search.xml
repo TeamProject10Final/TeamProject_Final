@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.searchPlace.presentation.SearchPlacesFragment">
+    tools:context=".feature.searchPlace.presentation.PlaceSearchFragment">
 
 <!--    <fragment-->
 <!--        android:layout_width="match_parent"-->
@@ -130,12 +130,11 @@
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:background="@color/white"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_rv_map" />
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/item_rv_place" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

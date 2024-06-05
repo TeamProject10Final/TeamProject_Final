@@ -1,27 +1,24 @@
 package com.example.donotlate.feature.searchPlace.domain.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.donotlate.MainActivity
-import com.example.donotlate.databinding.ItemRvMapBinding
-import com.example.donotlate.feature.searchPlace.presentation.PlaceDetailFragment
-import com.example.donotlate.feature.searchPlace.presentation.SearchModel
+import com.example.donotlate.R
+import com.example.donotlate.databinding.ItemRvPlaceBinding
+import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 
 class MapAdapter : RecyclerView.Adapter<MapAdapter.MyViewHolder>() {
 
-    var itemList: List<SearchModel> = listOf()
+    var itemList: List<PlaceModel> = listOf()
     private var activity: MainActivity? = null
 
     interface OnItemClickListener {
-        fun onItemClick(mapData: SearchModel)
+        fun onItemClick(mapData: PlaceModel)
     }
 
     private var listener: OnItemClickListener? = null
@@ -31,26 +28,36 @@ class MapAdapter : RecyclerView.Adapter<MapAdapter.MyViewHolder>() {
     }
 
     class MyViewHolder(
-        private val binding: ItemRvMapBinding,
+        private val binding: ItemRvPlaceBinding,
         private val onClick: OnItemClickListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
-            val title = binding.tvItemMapTitle
-            val rating = binding.tvItemMapRating
-            val address = binding.tvItemMapAddress
-        fun bind(item: SearchModel) {
 
-            with(binding.ivItemMap) {
-                load(item.img) {
-                    crossfade(true)
-                }
-                clipToOutline = true
+        fun bind(item: PlaceModel) {
+
+            binding.ivItemMap.load(item.img) {
+                crossfade(true)
             }
+            binding.ivItemMap.clipToOutline = true
+
+//            Glide.with(itemView.context)
+//                .load(item.img) //불러올 이미지 url
+//                .placeholder(R.drawable.bg_radius_lightblue) // 이미지 로딩 시작하기 전 표시할 이미지
+//                .error(R.drawable.bg_radius_lightblue) // 로딩 에러 발생 시 표시할 이미지
+//                .fallback(R.drawable.bg_radius_darkblue) // 로드할 url 이 비어있을(null 등) 경우 표시할 이미지
+//                .into(imageView) // 이미지를 넣을 뷰
+
             binding.tvItemMapTitle.text = item.name
-            binding.tvItemMapRating.text = item.rating
             binding.tvItemMapAddress.text = item.address
-            binding.tvItemMapLat.text = item.lat
-            binding.tvItemMapLng.text = item.lng
+            binding.tvItemMapNumber.text = item.phoneNumber
+
+            if (item.rating == null) {
+                binding.tvItemMapRating.text = "0.0"
+            } else binding.tvItemMapRating.text = item.rating.toString()
+
+            if (item.phoneNumber != null) {
+                binding.tvItemMapNumber.text = item.phoneNumber
+            } else binding.tvItemMapNumber.text = "번호가 제공되지 않습니다."
 
             itemView.setOnClickListener {
                 onClick.onItemClick(item)
@@ -61,7 +68,7 @@ class MapAdapter : RecyclerView.Adapter<MapAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding =
-            ItemRvMapBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemRvPlaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding, listener!!)
     }
 
@@ -76,7 +83,7 @@ class MapAdapter : RecyclerView.Adapter<MapAdapter.MyViewHolder>() {
         }
     }
 
-    fun setItem(data: List<SearchModel>) {
+    fun setItem(data: List<PlaceModel>) {
         this.itemList = data
         notifyDataSetChanged()
     }

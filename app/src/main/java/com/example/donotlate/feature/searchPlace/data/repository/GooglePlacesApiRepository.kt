@@ -1,6 +1,8 @@
 package com.example.donotlate.feature.searchPlace.data.repository
 
+import com.example.donotlate.feature.searchPlace.data.model.SearchPlaces
 import com.example.donotlate.feature.searchPlace.domain.model.GooglePlacesEntity
+import com.example.donotlate.feature.searchPlace.domain.model.SearchPlacesEntity
 import retrofit2.http.Query
 
 interface GooglePlacesRepository {
@@ -15,12 +17,9 @@ interface GooglePlacesRepository {
     //사용자 리뷰 수 받아오기
     suspend fun userRatingsTotalList(location:String): GooglePlacesEntity
 
-    suspend fun searchList(
+
+    suspend fun searchPlacesList(
         query: String,
-        radius: Int = 1500,
-        apiKey: String = "AIzaSyAl7nz1KScbyyDNKUeYz4rrePkFZBDvhkc",
-        language: String = "ko"
-    ): GooglePlacesEntity
-
-
+        language : String = "ko"
+    ): SearchPlacesEntity
 }

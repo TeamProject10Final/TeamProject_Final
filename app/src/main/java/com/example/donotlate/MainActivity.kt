@@ -6,12 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.databinding.ActivityMainBinding
 import com.example.donotlate.feature.login.presentation.LoginFragment
-import com.example.donotlate.feature.searchPlace.api.NetWorkClient
-import com.example.donotlate.feature.searchPlace.presentation.SearchModel
-import kotlinx.coroutines.launch
+import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -66,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun mapData(map : SearchModel) {
+    fun mapData(map : PlaceModel) {
 
     }
 }

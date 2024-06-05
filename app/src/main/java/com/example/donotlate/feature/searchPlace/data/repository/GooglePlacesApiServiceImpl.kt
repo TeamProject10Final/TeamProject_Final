@@ -1,9 +1,12 @@
 package com.example.donotlate.feature.searchPlace.data.repository
 
 import com.example.donotlate.feature.searchPlace.data.model.GooglePlace
+import com.example.donotlate.feature.searchPlace.data.model.SearchPlaces
 import com.example.donotlate.feature.searchPlace.data.model.toEntity
 import com.example.donotlate.feature.searchPlace.data.remote.GooglePlacesApiService
 import com.example.donotlate.feature.searchPlace.domain.model.GooglePlacesEntity
+import com.example.donotlate.feature.searchPlace.domain.model.SearchPlacesEntity
+import com.example.donotlate.feature.searchPlace.domain.model.toEntity
 import retrofit2.http.Query
 
 class GooglePlacesRepositoryImpl (
@@ -21,12 +24,12 @@ class GooglePlacesRepositoryImpl (
         return googlePlacesApiService.requestSearch(location).toEntity()
     }
 
-    override suspend fun searchList(
+
+    override suspend fun searchPlacesList(
         query: String,
-        radius: Int,
-        apiKey: String,
         language: String
-    ) = googlePlacesApiService.requestDestination(query, radius, apiKey, language).toEntity()
+    ) = googlePlacesApiService.requestSearchPlaces(query, language).toEntity()
+
 
 
 }
