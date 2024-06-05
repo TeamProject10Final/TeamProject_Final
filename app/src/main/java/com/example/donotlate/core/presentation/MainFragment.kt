@@ -43,10 +43,6 @@ class MainFragment : Fragment() {
         startSearchPlace()
         startMyPromise()
         startMiniGame()
-
-
-        placeButton()
-        startPlace()
         startSetting()
 
     }
@@ -58,12 +54,6 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun placeButton() {
-        binding.layoutMainPlace.setOnClickListener {
-            val activity = activity as MainActivity
-            activity.changeFragment(SearchPlacesFragment())
-        }
-    }
 
     private fun logoutButton() {
         binding.ivMainLogout.setOnClickListener {

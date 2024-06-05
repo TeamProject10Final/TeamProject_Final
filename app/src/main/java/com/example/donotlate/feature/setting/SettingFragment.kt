@@ -62,7 +62,6 @@ class SettingFragment : Fragment() {
 
         //뒤로가기
         binding.ivBack.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
             requireActivity().supportFragmentManager.popBackStack()
         }
         return binding.root
