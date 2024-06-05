@@ -30,6 +30,8 @@ recyclerview = "1.4.0-alpha01"
 viewpager2 = "1.1.0"
 volley = "1.2.1"
 materialVersion = "1.13.0-alpha02"
+fragmentKtx = "1.8.0-beta01"
+activityKtx = "1.9.0"
 navigationFragment = "2.7.7"
 
 [libraries]
@@ -63,6 +65,8 @@ androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview"
 androidx-viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 
 [plugins]

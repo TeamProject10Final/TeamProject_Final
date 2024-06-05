@@ -37,18 +37,20 @@ class MainActivity : AppCompatActivity() {
             changeFragment(LoginFragment())
         }
 
-        lifecycleScope.launch {
-            NetWorkClient.googleNetWork.requestSearch(
-                location = "-33.8670522,151.1957362",
-                radius = 1500,
-                type = "restaurant"
-            )
-        }
+
+//        lifecycleScope.launch {
+//            NetWorkClient.googleNetWork.requestDestination(
+//                query = "restaurants%20in%20Sydney",
+//                radius = 1500,
+//                language = "ko"
+//            )
+//        }장소 통신 완
+
     }
 
     fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .add(R.id.frame, fragment)
+            .replace(R.id.frame, fragment)
             .commit()
     }
 

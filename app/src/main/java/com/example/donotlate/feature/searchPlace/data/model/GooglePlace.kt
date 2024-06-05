@@ -14,7 +14,7 @@ data class GooglePlace(
     //최대20개 사용할수있는 토큰
     val nextPageToken: String,
     //장소검색
-    val results: List<Result>,
+    val results: List<ResultReponse>,
     //요청이 실패한 이유를 추적
     val status: String
 ): Parcelable

@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.google.material)
     implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.activity.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,6 +67,7 @@ dependencies {
 
     //fragment
     implementation(libs.androidx.fragment)
+    implementation(libs.androidx.fragment.ktx)
 
     //retrofit
     implementation(libs.retrofit)
@@ -93,4 +95,12 @@ dependencies {
     implementation ("com.google.android.libraries.places:places:3.3.0")
     implementation(libs.volley)
 
+    val lifecycle_version = "2.3.0"
+    // ViewModel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    // LiveData
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation("androidx.fragment:fragment-ktx:1.4.1")
 }
+
+

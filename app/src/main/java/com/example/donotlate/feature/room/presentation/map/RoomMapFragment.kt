@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.room.presentation
+package com.example.donotlate.feature.room.presentation.map
 
 import android.os.Bundle
 import android.text.Spannable
@@ -8,16 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.donotlate.databinding.FragmentRoomFriendBinding
+import com.example.donotlate.databinding.FragmentRoomMapBinding
 
-class RoomFriendFragment : Fragment() {
+class RoomMapFragment : Fragment() {
 
-    private lateinit var binding : FragmentRoomFriendBinding
+    private lateinit var binding: FragmentRoomMapBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
         }
     }
 
@@ -25,8 +24,7 @@ class RoomFriendFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        binding = FragmentRoomFriendBinding.inflate(inflater, container, false)
+        binding = FragmentRoomMapBinding.inflate(inflater, container, false)
 
         setTitle()
 
@@ -37,15 +35,14 @@ class RoomFriendFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
     }
 
 
     private fun setTitle() {
-        val title = SpannableStringBuilder("친구아이가!")
+        val title = SpannableStringBuilder("당장 만나,\n목적지를 정해주세요.")
         title.apply {
-            setSpan(RelativeSizeSpan(1.5f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(RelativeSizeSpan(1.2f), 7, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
-        binding.tvRoomFriendTitle.text = title
+        binding.tvRoomMapTitle.text = title
     }
 }
