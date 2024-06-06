@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.searchPlace.presentation.viewmodel
+package com.example.donotlate.feature.searchPlace.presentation.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,11 +10,11 @@ import com.example.donotlate.feature.searchPlace.api.NetWorkClient
 import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesRepository
 import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesRepositoryImpl
 import com.example.donotlate.feature.searchPlace.domain.model.toModel
-import com.example.donotlate.feature.searchPlace.presentation.GooglePlacesModel
+import com.example.donotlate.feature.searchPlace.presentation.data.GooglePlacesModel
 import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 import kotlinx.coroutines.launch
 
-class PlaceViewModel(
+class PlaceMainViewModel(
     private val googlePlacesRepository: GooglePlacesRepository
 ) : ViewModel() {
 
@@ -40,7 +40,7 @@ class PlaceViewModel(
         override fun <T : ViewModel> create(
             modelClass: Class<T>,
             extras: CreationExtras
-        ): T = PlaceViewModel(
+        ): T = PlaceMainViewModel(
             repository
         ) as T
 

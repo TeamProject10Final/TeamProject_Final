@@ -6,14 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.searchPlace.presentation.PlaceSearchFragment">
+    tools:context=".feature.searchPlace.presentation.search.PlaceSearchFragment">
 
-<!--    <fragment-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:visibility="invisible"-->
-<!--        android:name="com.google.android.gms.maps.SupportMapFragment"-->
-<!--        android:id="@+id/fg_map"/>-->
 
 
         <ImageView
@@ -125,16 +119,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_Map"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:background="@color/white"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/item_rv_place" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

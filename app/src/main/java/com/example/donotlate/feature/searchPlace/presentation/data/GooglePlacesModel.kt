@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.searchPlace.presentation
+package com.example.donotlate.feature.searchPlace.presentation.data
 
 data class GooglePlacesModel(
 

@@ -1,10 +1,13 @@
 package com.example.donotlate.feature.searchPlace.domain.adapter
 
 import android.view.LayoutInflater
+import android.view.RoundedCorner
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.example.donotlate.MainActivity
+import com.example.donotlate.R
 import com.example.donotlate.databinding.ItemRvPlaceBinding
 import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 
@@ -31,17 +34,11 @@ class MapAdapter : RecyclerView.Adapter<MapAdapter.MyViewHolder>() {
 
         fun bind(item: PlaceModel) {
 
+
             binding.ivItemMap.load(item.img) {
                 crossfade(true)
+                transformations(RoundedCornersTransformation(20f))
             }
-            binding.ivItemMap.clipToOutline = true
-
-//            Glide.with(itemView.context)
-//                .load(item.img) //불러올 이미지 url
-//                .placeholder(R.drawable.bg_radius_lightblue) // 이미지 로딩 시작하기 전 표시할 이미지
-//                .error(R.drawable.bg_radius_lightblue) // 로딩 에러 발생 시 표시할 이미지
-//                .fallback(R.drawable.bg_radius_darkblue) // 로드할 url 이 비어있을(null 등) 경우 표시할 이미지
-//                .into(imageView) // 이미지를 넣을 뷰
 
             binding.tvItemMapTitle.text = item.name
             binding.tvItemMapAddress.text = item.address
