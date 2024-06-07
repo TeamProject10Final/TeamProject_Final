@@ -1,18 +1,33 @@
 package com.example.donotlate.feature.setting
 
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.donotlate.MyApp
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentSettingBinding
+import com.example.donotlate.feature.main.presentation.MainPageViewModel
+import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
+import kotlinx.coroutines.launch
 
 class SettingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-
+    private val mainPageViewModel: MainPageViewModel by activityViewModels {
+        val appContainer = (requireActivity().application as MyApp).appContainer
+        MainPageViewModelFactory(
+            appContainer.getUserUseCase,
+            appContainer.getAllUsersUseCase,
+            appContainer.getCurrentUserUseCase
+        )
+    }
 
     private val binding: FragmentSettingBinding by lazy {
         FragmentSettingBinding.inflate(layoutInflater)
@@ -27,6 +42,7 @@ class SettingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         startMyPage()
+        observeViewModel()
 
         val settingItemList = arrayListOf("테마 변경", "폰트 변경")
         val settingItemList2 = arrayListOf("건의하기", "앱 정보")
@@ -71,6 +87,20 @@ class SettingFragment : Fragment() {
     private fun startMyPage(){
         binding.constraint.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.frame, MypageFragment()).addToBackStack("").commit()
+        }
+    }
+
+    //이름, 이메일 보여주기
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            mainPageViewModel.getUserData.collect { result ->
+                result?.onSuccess { myInfo ->
+                    binding.tvName.text = myInfo.name
+                    binding.tvEmail.text = myInfo.email
+                }?.onFailure { e ->
+                    throw e
+                }
+            }
         }
     }
 }
