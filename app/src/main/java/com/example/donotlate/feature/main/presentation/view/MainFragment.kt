@@ -19,7 +19,6 @@ import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
 import com.example.donotlate.feature.searchPlace.presentation.SearchPlacesFragment
-import com.example.donotlate.map.SearchPlaceFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -78,7 +77,7 @@ class MainFragment : Fragment() {
     private fun placeButton() {
         binding.layoutMainPlace.setOnClickListener {
             val activity = activity as MainActivity
-            activity.changeFragment(SearchPlaceFragment())
+            activity.changeFragment(SearchPlacesFragment())
         }
     }
 
@@ -128,6 +127,3 @@ class MainFragment : Fragment() {
         }
     }
 }
-
-
-

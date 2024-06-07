@@ -56,13 +56,18 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_search_places, container, false)
+        _binding = FragmentSearchPlacesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         getLocationPermission()
+
+        binding.ivSearchBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
 
     }
 
@@ -92,16 +97,6 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun getChipGroupType(type: ChipType){
-        //맵을 띄우는 뷰가 fragment라서 바인딩으로 연결이 되지 않음
-        //getLocationPermission() 맵을 연결?띄우는 메서드를 만들었지만 xml에 fragment를 isvisible로 하여도
-        //초기화 된 맵이 뜸
-
-        if (binding.etSeachBox.text.isEmpty()){
-            binding.tvDefaultText.isVisible = true
-        }else{
-            binding.tvDefaultText.isVisible = false
-
-        }
 
         when(type){
             ChipType.RESTAURANT -> {
@@ -148,7 +143,6 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
     //맵 연결
     override fun onMapReady(p0: GoogleMap) {
         googleMap = p0
-
 
         //설정 위치 좌표
         val seoul = LatLng(37.566610, 126.978403)

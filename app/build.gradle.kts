@@ -46,7 +46,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -114,6 +113,10 @@ dependencies {
     //firebase bom
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     implementation("com.google.firebase:firebase-analytics")
+
+    //프로필 이미지뷰
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
 
     implementation("com.google.firebase:firebase-auth-ktx")
 

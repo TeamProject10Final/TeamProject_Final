@@ -1,4 +1,4 @@
-package com.example.donotlate.map
+package com.example.donotlate.feature.setting
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.donotlate.R
+import com.example.donotlate.databinding.FragmentMypageBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -14,10 +15,13 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [SeachPlaceFragment.newInstance] factory method to
+ * Use the [MypageFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SearchPlaceFragment : Fragment() {
+class MypageFragment : Fragment() {
+    private val binding: FragmentMypageBinding by lazy {
+        FragmentMypageBinding.inflate(layoutInflater)
+    }
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -34,8 +38,13 @@ class SearchPlaceFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_place, container, false)
+
+        //뒤로가기
+        binding.ivBack.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+        return binding.root
     }
 
     companion object {
@@ -45,12 +54,12 @@ class SearchPlaceFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment SeachPlacetFragment.
+         * @return A new instance of fragment MypageFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            SearchPlaceFragment().apply {
+            MypageFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
