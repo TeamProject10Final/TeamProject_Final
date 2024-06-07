@@ -10,6 +10,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.donotlate.feature.searchPlace.api.NetWorkClient
 import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesRepository
 import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesRepositoryImpl
+import com.example.donotlate.feature.searchPlace.domain.model.PlacesEntity
 import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 import kotlinx.coroutines.launch
 
@@ -21,6 +22,9 @@ class PlaceSearchViewModel(
     val searchMapList: LiveData<List<PlaceModel>> = _searchMapList
 
     private var inputText: MutableLiveData<String> = MutableLiveData()
+
+
+
 
     fun getData(): MutableLiveData<String> = inputText
 

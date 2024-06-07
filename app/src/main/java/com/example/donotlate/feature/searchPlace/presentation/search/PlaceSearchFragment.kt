@@ -11,16 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.app.ActivityCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.donotlate.MainActivity
-import com.example.donotlate.R
 import com.example.donotlate.core.presentation.MainFragment
 import com.example.donotlate.databinding.FragmentPlaceSearchBinding
 import com.example.donotlate.feature.searchPlace.domain.adapter.MapAdapter
-import com.example.donotlate.feature.searchPlace.presentation.data.ChipType
 import com.example.donotlate.feature.searchPlace.presentation.main.PlaceMainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -54,8 +51,6 @@ class PlaceSearchFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var mapAdapter : MapAdapter
 
-    private var document: Int = 0
-
     private lateinit var googleMap: GoogleMap
     private lateinit var locationPermission: ActivityResultLauncher<Array<String>>
 
@@ -83,9 +78,7 @@ class PlaceSearchFragment : Fragment(), OnMapReadyCallback {
 
 
         binding.btnSeachButton.setOnClickListener {
-
             initBottomSheet()
-
         }
 
 
@@ -113,10 +106,15 @@ class PlaceSearchFragment : Fragment(), OnMapReadyCallback {
         binding.ivPlaceBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
-
     }
 
 
+    private fun clickChip(){
+        binding.tvRestaurant.setOnClickListener {
+            val types = binding.tvRestaurant.text.toString()
+            viewModel.getClickMapList(types = "restaurant")
+        }
+    }
 
 
 

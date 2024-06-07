@@ -12,18 +12,10 @@ import retrofit2.http.Query
 class GooglePlacesRepositoryImpl (
     private val googlePlacesApiService: GooglePlacesApiService
 ) : GooglePlacesRepository {
-    override suspend fun getPlaceTypeList(location: String, types: String): GooglePlacesEntity {
-        return googlePlacesApiService.requestSearchWithType(location, types).toEntity()
-    }
-
-    override suspend fun businessStatusList(location: String): GooglePlacesEntity {
-        return googlePlacesApiService.requestSearch(location).toEntity()
-    }
-
-    override suspend fun userRatingsTotalList(location: String): GooglePlacesEntity {
-        return googlePlacesApiService.requestSearch(location).toEntity()
-    }
-
+    override suspend fun clickChipList(
+        types: String,
+        language: String
+    ) = googlePlacesApiService.requestSearchPlaces(types, language).toEntity()
 
     override suspend fun searchPlacesList(
         query: String,

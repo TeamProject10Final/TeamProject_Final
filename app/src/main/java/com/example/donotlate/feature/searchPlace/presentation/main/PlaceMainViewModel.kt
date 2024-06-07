@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.donotlate.feature.searchPlace.api.NetWorkClient
 import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesRepository
 import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesRepositoryImpl
+import com.example.donotlate.feature.searchPlace.domain.model.PlacesEntity
 import com.example.donotlate.feature.searchPlace.domain.model.toModel
 import com.example.donotlate.feature.searchPlace.presentation.data.GooglePlacesModel
 import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
@@ -18,19 +19,22 @@ class PlaceMainViewModel(
     private val googlePlacesRepository: GooglePlacesRepository
 ) : ViewModel() {
 
-    private val _getSearchType = MutableLiveData<GooglePlacesModel>()
-    val getSearchType: LiveData<GooglePlacesModel> get() = _getSearchType
-
     private val _searchMap = MutableLiveData<List<PlaceModel>>()
     val searchMap: LiveData<List<PlaceModel>> = _searchMap
 
-    fun getSearchType(location: String, types: String) = viewModelScope.launch {
-        val result = googlePlacesRepository.getPlaceTypeList(location = location, types)
+    private val _clickList = MutableLiveData<PlacesEntity>()
+    val clickList: LiveData<PlacesEntity> = _clickList
 
-        result.toModel().let {
-            _getSearchType.value
+    fun getClickMapList(types: String){
+        viewModelScope.launch {
+            runCatching{//에러 캐칭
+                val response = googlePlacesRepository.clickChipList(
+                    types = types,
+                    language = "ko"
+                )
+            }
         }
-    }
+    }//에러처리를 맞추는?
 
 
     class SearchPlaceViewModelFactory : ViewModelProvider.Factory {

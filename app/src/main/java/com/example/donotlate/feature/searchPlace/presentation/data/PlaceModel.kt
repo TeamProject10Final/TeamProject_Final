@@ -16,3 +16,5 @@ data class PlaceModel(
     val phoneNumber: String?,
     val img: String?
 ) : Parcelable
+
+
