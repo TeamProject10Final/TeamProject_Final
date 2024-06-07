@@ -19,6 +19,7 @@ import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
 import com.example.donotlate.feature.searchPlace.presentation.SearchPlacesFragment
+import com.example.donotlate.feature.setting.SettingFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -65,6 +66,7 @@ class MainFragment : Fragment() {
         startPlace()
         logoutButton()
         observeViewModel()
+        startSetting()
 
     }
 
@@ -96,9 +98,16 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun startSetting() {
+        binding.ivMainSetting.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.frame, SettingFragment())
+                .addToBackStack("").commit()
+        }
+    }
+
     private fun observeViewModel() {
         lifecycleScope.launch {
-            mainPageViewModel.getUserData.collect() { result ->
+            mainPageViewModel.getUserData.collect { result ->
                 result?.onSuccess { myInfo ->
                     binding.tvMainTitle.text = myInfo.name
                     Log.d("observeViewModel", "${myInfo.name}")
