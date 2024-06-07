@@ -22,4 +22,5 @@ interface GooglePlacesRepository {
         query: String,
         language : String = "ko"
     ): SearchPlacesEntity
+
 }

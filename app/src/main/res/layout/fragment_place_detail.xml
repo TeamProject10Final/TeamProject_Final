@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context=".map.SearchPlaceDetailFragment">
+=======
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".feature.searchPlace.presentation.detail.PlaceDetailFragment">
+>>>>>>> 195ec9ba6b142a4504588a8a063bcb7e4caf9135
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,6 +38,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+<<<<<<< HEAD
                 android:id="@+id/iv_place_detail"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
@@ -42,6 +48,16 @@
 
         <TextView
             android:id="@+id/tv_place_title"
+=======
+                android:id="@+id/iv_Place_Detail_Title"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/no_picture_background"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_Place_Detail_Title"
+>>>>>>> 195ec9ba6b142a4504588a8a063bcb7e4caf9135
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -60,10 +76,17 @@
             android:layout_marginTop="25dp"
             android:src="@drawable/ic_map_pin"
             app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
             app:layout_constraintTop_toBottomOf="@+id/tv_place_title" />
 
         <TextView
             android:id="@+id/tv_place_address"
+=======
+            app:layout_constraintTop_toBottomOf="@+id/tv_Place_Detail_Title" />
+
+        <TextView
+            android:id="@+id/tv_Place_Detail_Address"
+>>>>>>> 195ec9ba6b142a4504588a8a063bcb7e4caf9135
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -84,7 +107,11 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
         <TextView
+<<<<<<< HEAD
             android:id="@+id/tv_place_phone_number"
+=======
+            android:id="@+id/tv_Place_Detail_PhoneNumber"
+>>>>>>> 195ec9ba6b142a4504588a8a063bcb7e4caf9135
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -105,6 +132,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
+<<<<<<< HEAD
         <RatingBar
             android:id="@+id/rb_rating_bar"
             style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
@@ -138,6 +166,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_location_information" />
+=======
+
+>>>>>>> 195ec9ba6b142a4504588a8a063bcb7e4caf9135
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_navigation"

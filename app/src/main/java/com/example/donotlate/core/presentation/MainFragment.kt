@@ -13,6 +13,7 @@ import com.example.donotlate.databinding.FragmentMainBinding
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.main.ViewPagerFragment
 import com.example.donotlate.feature.setting.SettingFragment
+import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 
 
 class MainFragment : Fragment() {
@@ -65,7 +66,7 @@ class MainFragment : Fragment() {
     private fun startSearchPlace(){
         binding.layoutMainPlace.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.frame,
-                com.example.donotlate.feature.searchPlace.presentation.PlaceSearchFragment()
+                PlaceSearchFragment()
             ).addToBackStack("").commit()
         }
     }

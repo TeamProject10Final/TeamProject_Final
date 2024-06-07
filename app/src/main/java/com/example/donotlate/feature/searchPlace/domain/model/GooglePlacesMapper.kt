@@ -1,11 +1,11 @@
 package com.example.donotlate.feature.searchPlace.domain.model
 
-import com.example.donotlate.feature.searchPlace.presentation.GeometryModel
-import com.example.donotlate.feature.searchPlace.presentation.GooglePlacesModel
-import com.example.donotlate.feature.searchPlace.presentation.LocationModel
-import com.example.donotlate.feature.searchPlace.presentation.OpeningHoursModel
-import com.example.donotlate.feature.searchPlace.presentation.PhotoModel
-import com.example.donotlate.feature.searchPlace.presentation.ResultsModel
+import com.example.donotlate.feature.searchPlace.presentation.data.GeometryModel
+import com.example.donotlate.feature.searchPlace.presentation.data.GooglePlacesModel
+import com.example.donotlate.feature.searchPlace.presentation.data.LocationModel
+import com.example.donotlate.feature.searchPlace.presentation.data.OpeningHoursModel
+import com.example.donotlate.feature.searchPlace.presentation.data.PhotoModel
+import com.example.donotlate.feature.searchPlace.presentation.data.ResultsModel
 
 fun GooglePlacesEntity.toModel() = GooglePlacesModel(
     htmlAttributions, nextPageToken, results?.toModelResult(), status

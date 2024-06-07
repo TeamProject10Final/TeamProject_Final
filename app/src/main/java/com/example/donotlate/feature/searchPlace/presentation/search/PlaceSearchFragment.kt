@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.searchPlace.presentation
+package com.example.donotlate.feature.searchPlace.presentation.search
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -11,22 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.app.ActivityCompat
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.core.presentation.MainFragment
 import com.example.donotlate.databinding.FragmentPlaceSearchBinding
 import com.example.donotlate.feature.searchPlace.domain.adapter.MapAdapter
-import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
-import com.example.donotlate.feature.searchPlace.presentation.viewmodel.PlaceViewModel
-import com.example.donotlate.feature.searchPlace.presentation.viewmodel.SearchViewModel
+import com.example.donotlate.feature.searchPlace.presentation.data.ChipType
+import com.example.donotlate.feature.searchPlace.presentation.main.PlaceMainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -48,13 +43,13 @@ class PlaceSearchFragment : Fragment(), OnMapReadyCallback {
         get() = _binding!!
 
 
-    private val viewModel: PlaceViewModel by viewModels()
+    private val viewModel: PlaceMainViewModel by viewModels()
 
     private val searchViewModel by lazy {
         ViewModelProvider(
             requireActivity(),
-            SearchViewModel.SearchViewModelFactory()
-        )[SearchViewModel::class.java]
+            PlaceSearchViewModel.SearchViewModelFactory()
+        )[PlaceSearchViewModel::class.java]
     }
 
     private lateinit var mapAdapter : MapAdapter
@@ -90,8 +85,7 @@ class PlaceSearchFragment : Fragment(), OnMapReadyCallback {
         binding.btnSeachButton.setOnClickListener {
 
             initBottomSheet()
-            initMapList()
-            initViewModel()
+
         }
 
 
@@ -102,6 +96,8 @@ class PlaceSearchFragment : Fragment(), OnMapReadyCallback {
     private fun initBottomSheet() {
         val bottomSheet = PlaceBottomFragment()
         bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
+
+        fetchMap()
     }
     private fun backButton() {
         binding.ivPlaceBack.setOnClickListener {
@@ -110,31 +106,9 @@ class PlaceSearchFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun initViewModel() {
-        searchViewModel.searchMapList.observe(viewLifecycleOwner) {
-            mapAdapter.itemList = it
-            with(binding.rvMap) {
-                adapter = mapAdapter
-                layoutManager = LinearLayoutManager(requireContext(), androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
-            }
-        }
-    }
-
-    private fun initMapList() {
-
-        mapAdapter.setOnItemClickListener(object : MapAdapter.OnItemClickListener {
-            override fun onItemClick(mapData: PlaceModel) {
-                (requireActivity() as MainActivity).mapData(mapData)
-            }
-        })
-        searchViewModel.searchMapList.observe(viewLifecycleOwner) { map ->
-            mapAdapter.setItem(map)
-        }
-        fetchMap()
-    }
     private fun fetchMap() {
         val query = binding.etSeachBox.text.toString()
-        searchViewModel.getSearchMapList(query)
+        searchViewModel.updateText(query)
 
         binding.ivPlaceBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()

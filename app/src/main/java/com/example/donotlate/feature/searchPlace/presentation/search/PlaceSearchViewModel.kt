@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.searchPlace.presentation.viewmodel
+package com.example.donotlate.feature.searchPlace.presentation.search
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -13,12 +13,21 @@ import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesRep
 import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 import kotlinx.coroutines.launch
 
-class SearchViewModel(
+class PlaceSearchViewModel(
     private val googlePlacesRepository: GooglePlacesRepository
 ) : ViewModel() {
 
     private val _searchMapList = MutableLiveData<List<PlaceModel>>()
     val searchMapList: LiveData<List<PlaceModel>> = _searchMapList
+
+    private var inputText: MutableLiveData<String> = MutableLiveData()
+
+    fun getData(): MutableLiveData<String> = inputText
+
+    fun updateText(input: String) {
+        inputText.value = input
+    }
+
 
     fun getSearchMapList(query: String) {
         viewModelScope.launch {
@@ -55,9 +64,8 @@ class SearchViewModel(
         override fun <T : ViewModel> create(
             modelClass: Class<T>,
             extras: CreationExtras
-        ): T = SearchViewModel(
+        ): T = PlaceSearchViewModel(
             repository
         ) as T
-
     }
 }

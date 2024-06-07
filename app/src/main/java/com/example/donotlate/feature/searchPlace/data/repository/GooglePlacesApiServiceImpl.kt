@@ -31,5 +31,4 @@ class GooglePlacesRepositoryImpl (
     ) = googlePlacesApiService.requestSearchPlaces(query, language).toEntity()
 
 
-
 }
