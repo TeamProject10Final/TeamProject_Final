@@ -5,49 +5,58 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ResultReponse(
+data class results(
 
     @SerializedName("business_status")
     //영업상태
-    val businessStatus: String,
+    val businessStatus: String?,
+
+    @SerializedName("formatted_address")
+    val formattedAddress: String?,
+
+    @SerializedName("geometry")
+    val geometry: Geometry?,
 
     //지도에 표시될 아이콘(URL 포험)
-    val icon: String,
+    val icon: String?,
 
     @SerializedName("icon_background_color")
     //장소 카테고리의 색깔 코드
-    val iconBackgroundColor: String,
+    val iconBackgroundColor: String?,
 
     @SerializedName("icon_mask_base_uri")
     //svg,png를 뺀 권장 아이콘
-    val iconMaskBaseUri: String,
+    val iconMaskBaseUri: String?,
 
     //싱호명
-    val name: String,
+    val name: String?,
 
     @SerializedName("opening_hours")
     //오픈시간
-    val openingHours: OpeningHours,
+    val openingHours: OpeningHours?,
 
     //참조에 대한 사진 최대 10장
-    val photos: List<Photo>,
+    val photos: List<Photo>?,
 
     @SerializedName("place_id")
     //장소 고유 식별자
-    val placeId: String,
+    val placeId: String?,
 
     @SerializedName("price_level")
     //가격 수준 0 = 무료
-    val priceLevel: Int,
+    val priceLevel: Int?,
 
     //사용자 리뷰
-    val rating: Double,
+    val rating: Double?,
 
     //장소 유형(카테고리) > bakery, bar, cafe, gym, zoo, university, shopping_mall, restaurant, park, museum, movie_theater
-    val types: List<String>,
+    val types: List<String>?,
 
     @SerializedName("user_ratings_total")
     //리뷰 수
-    val userRatingsTotal: Int,
+    val userRatingsTotal: Int?,
+
+    @SerializedName("international_phone_number")
+    val phoneNumber: String?
 
     ): Parcelable

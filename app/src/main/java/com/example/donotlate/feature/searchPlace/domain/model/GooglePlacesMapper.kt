@@ -5,35 +5,38 @@ import com.example.donotlate.feature.searchPlace.presentation.GooglePlacesModel
 import com.example.donotlate.feature.searchPlace.presentation.LocationModel
 import com.example.donotlate.feature.searchPlace.presentation.OpeningHoursModel
 import com.example.donotlate.feature.searchPlace.presentation.PhotoModel
-import com.example.donotlate.feature.searchPlace.presentation.ResultModel
+import com.example.donotlate.feature.searchPlace.presentation.ResultsModel
 
 fun GooglePlacesEntity.toModel() = GooglePlacesModel(
-    htmlAttributions, nextPageToken, results.toModelResult(), status
+    htmlAttributions, nextPageToken, results?.toModelResult(), status
 )
 
-fun List<ResultEntity>.toModelResult(): List<ResultModel> {
+fun List<ResultsEntity>.toModelResult(): List<ResultsModel> {
 
     return map {
-        ResultModel(
+        ResultsModel(
+            it.formattedAddress,
+            it.geometry?.toModel(),
             it.businessStatus,
             it.icon,
             it.iconMaskBaseUri,
             it.iconBackgroundColor,
             it.name,
-            it.openingHours.toModel(),
-            it.photos.toModelPhoto(),
+            it.openingHours?.toModel(),
+            it.photos?.map { it.toModel() },
             it.placeId,
             it.priceLevel,
             it.rating,
             it.types,
-            it.userRatingsTotal
+            it.userRatingsTotal,
+            it.phoneNumber
         )
     }
 }
 
-fun ResultEntity.toModel() = ResultModel(
-    businessStatus, icon, iconBackgroundColor, iconMaskBaseUri, name, openingHours.toModel(),
-    photos.toModelPhoto(), placeId, priceLevel, rating, types, userRatingsTotal
+fun ResultsEntity.toModel() = ResultsModel(
+    formattedAddress,  geometry?.toModel(),businessStatus, icon, iconBackgroundColor, iconMaskBaseUri, name, openingHours?.toModel(),
+    photos?.map { it.toModel() }, placeId, priceLevel, rating, types, userRatingsTotal, phoneNumber
 )
 
 fun List<PhotoEntity>.toModelPhoto(): List<PhotoModel> {
@@ -51,7 +54,7 @@ fun PhotoEntity.toModel() = PhotoModel(
 
 
 fun GeometryEntity.toModel() = GeometryModel(
-    location.toModel()
+    location?.toModel()
 )
 
 fun LocationEntity.toModel() = LocationModel(

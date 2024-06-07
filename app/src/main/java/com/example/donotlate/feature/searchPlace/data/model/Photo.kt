@@ -7,15 +7,15 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Photo(
     //사진높이
-    val height: Int,
+    val height: Int?,
 
     @SerializedName("html_attributions")
     //사진 HTML
-    val htmlAttributions: List<String>,
+    val htmlAttributions: List<String>?,
 
     @SerializedName("photo_reference")
     //사진요청
-    val photoReference: String,
+    val photoReference: String?,
     //사진너비
-    val width: Int
+    val width: Int?
 ) : Parcelable

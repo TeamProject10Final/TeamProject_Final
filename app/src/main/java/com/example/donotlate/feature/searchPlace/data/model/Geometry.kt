@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Geometry(
-    val location: Location
+    val location: Location?
 ) :Parcelable

@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.searchPlace.presentation.SearchPlacesFragment">
+    tools:context=".feature.searchPlace.presentation.PlaceSearchFragment">
 
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:id="@+id/fg_map"/>
+
+<!--    <fragment-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="invisible"-->
+<!--        android:name="com.google.android.gms.maps.SupportMapFragment"-->
+<!--        android:id="@+id/fg_map"/>-->
 
 
         <ImageView
-            android:id="@+id/iv_search_back"
+            android:id="@+id/iv_Place_Back"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="15dp"
@@ -36,7 +39,8 @@
             android:inputType="text"
             android:paddingHorizontal="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_search_back" />
+
+            app:layout_constraintTop_toBottomOf="@+id/iv_Place_Back" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_seach_button"
@@ -101,6 +105,18 @@
                 android:text="쇼핑몰" />
 
         </com.google.android.material.chip.ChipGroup>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_Map"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@color/white"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/item_rv_place" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
