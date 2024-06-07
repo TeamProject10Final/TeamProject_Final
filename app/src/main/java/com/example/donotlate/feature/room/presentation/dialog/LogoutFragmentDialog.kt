@@ -1,5 +1,6 @@
 package com.example.donotlate.feature.room.presentation.dialog
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,9 +11,14 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.donotlate.MainActivity
 import com.example.donotlate.databinding.BackDialogBinding
-import com.example.donotlate.feature.login.presentation.LoginFragment
+import com.example.donotlate.feature.auth.presentation.view.LoginFragment
+import com.google.firebase.auth.FirebaseAuth
 
 class LogoutFragmentDialog : DialogFragment() {
+
+    private val auth by lazy {
+        FirebaseAuth.getInstance()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,9 +50,14 @@ class LogoutFragmentDialog : DialogFragment() {
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
-            val activity = activity as MainActivity
-            activity.replaceFragment(LoginFragment())
-            dismiss()
+            logOut()
         }
     }
+    private fun logOut(){
+        auth.signOut()
+        val activity = activity as MainActivity
+        activity.replaceFragment(LoginFragment())
+        dismiss()
+    }
 }
+
