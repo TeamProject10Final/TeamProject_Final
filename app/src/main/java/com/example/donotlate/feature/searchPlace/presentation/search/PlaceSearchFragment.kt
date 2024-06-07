@@ -73,8 +73,12 @@ class PlaceSearchFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+<<<<<<< HEAD:app/src/main/java/com/example/donotlate/feature/searchPlace/presentation/search/PlaceSearchFragment.kt
 //        getLocationPermission()
         mapAdapter = MapAdapter()
+=======
+        getLocationPermission()
+>>>>>>> c62443e9d51ab1f8c2b5f1a53667786c4a6d05ce:app/src/main/java/com/example/donotlate/feature/searchPlace/presentation/SearchPlacesFragment.kt
 
 
         binding.btnSeachButton.setOnClickListener {
