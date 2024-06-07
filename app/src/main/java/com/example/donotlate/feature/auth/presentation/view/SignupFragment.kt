@@ -18,7 +18,7 @@ import androidx.fragment.app.viewModels
 import com.example.donotlate.MainActivity
 import com.example.donotlate.MyApp
 import com.example.donotlate.R
-import com.example.donotlate.core.presentation.MainFragment
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.databinding.FragmentSignupBinding
 import com.example.donotlate.feature.auth.presentation.validation.CheckValidation
 import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewModel

@@ -1,6 +1,8 @@
 package com.example.donotlate.feature.auth.data.repository
 
 import android.content.Context
+import android.util.Log
+import com.example.donotlate.core.domain.model.UserEntity
 import com.example.donotlate.feature.auth.data.model.RegisterUserDTO
 import com.example.donotlate.feature.auth.domain.repository.AuthRepository
 import com.google.firebase.Firebase
@@ -8,6 +10,8 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
 class AuthRepositoryImpl(
@@ -15,6 +19,8 @@ class AuthRepositoryImpl(
     private val db: FirebaseFirestore,
     val context: Context
 ) : AuthRepository {
+
+    val mAuth = auth.currentUser?.uid
 
     override suspend fun signUp(name: String, email: String, password: String): Result<String> {
         return try {
@@ -34,6 +40,17 @@ class AuthRepositoryImpl(
             return Result.success("LogIn Success")
         } catch (e: Exception){
             Result.failure(e)
+        }
+    }
+
+    override suspend fun getCurrentUser(): Flow<String> = flow {
+        try {
+            val currentUserUId: String = auth.currentUser?.uid ?: ""
+            emit(currentUserUId)
+
+        } catch (e: Exception) {
+            Result.failure<Exception>(e)
+
         }
     }
 

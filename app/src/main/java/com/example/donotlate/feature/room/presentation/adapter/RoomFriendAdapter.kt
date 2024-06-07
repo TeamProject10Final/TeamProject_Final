@@ -1,16 +1,17 @@
-package com.example.donotlate.feature.room.presentation.friend
+package com.example.donotlate.feature.room.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.donotlate.databinding.ItemRvFriendBinding
+import com.example.donotlate.feature.room.presentation.model.FriendListModel
+import com.example.donotlate.feature.room.presentation.model.UserModel
 
-class RoomFriendAdapter : ListAdapter<FriendListModel, RoomFriendAdapter.ListHolder>(diffUtil) {
+class RoomFriendAdapter : ListAdapter<UserModel, RoomFriendAdapter.ListHolder>(diffUtil) {
 
     interface ItemClick {
         fun onClick(view: View, position: Int)
@@ -21,10 +22,10 @@ class RoomFriendAdapter : ListAdapter<FriendListModel, RoomFriendAdapter.ListHol
 
     inner class ListHolder(var binding: ItemRvFriendBinding) :
             RecyclerView.ViewHolder(binding.root) {
-                fun bind(item: FriendListModel) {
+                fun bind(item: UserModel) {
                     binding.apply {
-                        ivItemFriend.setImageURI(item.url.toUri())
-                        tvItemFriend.text = item.id
+                        ivItemFriend.setImageURI(item.profileImgUrl.toUri())
+                        tvItemFriend.text = item.name
                     }
                     itemView.setOnClickListener {
                         itemClick?.onClick(it, adapterPosition)
@@ -32,17 +33,17 @@ class RoomFriendAdapter : ListAdapter<FriendListModel, RoomFriendAdapter.ListHol
                 }
             }
     companion object {
-        private val diffUtil = object : DiffUtil.ItemCallback<FriendListModel>() {
+        private val diffUtil = object : DiffUtil.ItemCallback<UserModel>() {
             override fun areItemsTheSame(
-                oldItem: FriendListModel,
-                newItem: FriendListModel
+                oldItem: UserModel,
+                newItem: UserModel
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: FriendListModel,
-                newItem: FriendListModel
+                oldItem: UserModel,
+                newItem: UserModel
             ): Boolean {
                 return oldItem == newItem
             }

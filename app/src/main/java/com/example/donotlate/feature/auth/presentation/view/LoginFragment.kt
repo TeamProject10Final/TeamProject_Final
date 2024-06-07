@@ -6,6 +6,7 @@ import android.text.SpannableStringBuilder
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.text.style.RelativeSizeSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,19 +16,24 @@ import androidx.fragment.app.activityViewModels
 import com.example.donotlate.MainActivity
 import com.example.donotlate.MyApp
 import com.example.donotlate.R
-import com.example.donotlate.core.presentation.MainFragment
 import com.example.donotlate.databinding.FragmentLoginBinding
 import com.example.donotlate.feature.auth.presentation.viewmodel.LogInViewModel
 import com.example.donotlate.feature.auth.presentation.viewmodel.LogInViewModelFactory
+import com.example.donotlate.feature.main.presentation.view.MainFragment
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment() {
+
+    private val auth by lazy{
+        FirebaseAuth.getInstance()
+    }
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
     private val logInViewModel: LogInViewModel by activityViewModels {
         val appContainer = (requireActivity().application as MyApp).appContainer
-        LogInViewModelFactory(appContainer.authRepository)
+        LogInViewModelFactory(appContainer.logInUseCase)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +51,7 @@ class LoginFragment : Fragment() {
         setTitle()
         observedLogInResult()
 
+
         return binding.root
 
     }
@@ -52,6 +59,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("FirebaseAuth", "${auth.currentUser?.uid}")
         startSignUp()
         passwordHide()
 

@@ -1,15 +1,17 @@
 package com.example.donotlate.core.domain.model
 
-import java.sql.Timestamp
+import com.google.firebase.Timestamp
 
-data class User(
+
+data class UserEntity(
     val name: String,
     val email: String,
     val uId: String,
     val friend: List<String>,
     val count:Int,
-    val currentCount:Int,
-    val createdAt: Timestamp
+    val continuousCounter:Int,
+    val createdAt: Timestamp,
+    val profileImgUrl: String = ""
 )
 
 data class Location(

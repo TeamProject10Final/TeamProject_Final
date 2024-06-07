@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.room.presentation.map
+package com.example.donotlate.feature.room.presentation.view
 
 import android.os.Bundle
 import android.text.Spannable
@@ -8,11 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.example.donotlate.MyApp
 import com.example.donotlate.databinding.FragmentRoomMapBinding
+import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
+import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 
 class RoomMapFragment : Fragment() {
 
     private lateinit var binding: FragmentRoomMapBinding
+
+    private val roomViewModel: RoomViewModel by viewModels {
+        val appContainer = (requireActivity().application as MyApp).appContainer
+        RoomViewModelFactory(appContainer.getAllUsersUseCase)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

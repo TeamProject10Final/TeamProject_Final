@@ -62,7 +62,7 @@ class SearchPlacesFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        getLocationPermission()
+        getLocationPermission()
 
     }
 

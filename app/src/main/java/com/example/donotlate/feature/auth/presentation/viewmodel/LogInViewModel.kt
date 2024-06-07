@@ -6,28 +6,29 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.donotlate.feature.auth.domain.repository.AuthRepository
+import com.example.donotlate.feature.auth.domain.useCase.LogInUseCase
 import kotlinx.coroutines.launch
 
-class LogInViewModel(private val authRepository: AuthRepository) : ViewModel() {
+class LogInViewModel(private val logInUseCase: LogInUseCase) : ViewModel() {
 
     private val _logInResult = MutableLiveData<Result<String>>()
     val logInResult: LiveData<Result<String>> get() = _logInResult
 
     fun logIn(email: String, password: String) {
         viewModelScope.launch {
-            val result = authRepository.logIn(email, password)
+            val result = logInUseCase(email, password)
             _logInResult.value = result
         }
     }
 }
 
-class LogInViewModelFactory(private val authRepository: AuthRepository) :
+class LogInViewModelFactory(private val logInUseCase: LogInUseCase) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LogInViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return LogInViewModel(authRepository) as T
+            return LogInViewModel(logInUseCase) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

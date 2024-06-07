@@ -1,10 +1,10 @@
-package com.example.donotlate.feature.room.presentation.main
+package com.example.donotlate.feature.room.presentation.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.donotlate.feature.room.presentation.friend.RoomFriendFragment
-import com.example.donotlate.feature.room.presentation.map.RoomMapFragment
-import com.example.donotlate.feature.room.presentation.start.RoomStartFragment
+import com.example.donotlate.feature.room.presentation.view.RoomFriendFragment
+import com.example.donotlate.feature.room.presentation.view.RoomMapFragment
+import com.example.donotlate.feature.room.presentation.view.RoomStartFragment
 
 class ViewPagerAdapter (fragment: Fragment): FragmentStateAdapter(fragment){
     val fragments = listOf<Fragment>(

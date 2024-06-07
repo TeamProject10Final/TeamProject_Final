@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.donotlate.MainActivity
-import com.example.donotlate.core.presentation.MainFragment
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.databinding.BackDialogBinding
 
 

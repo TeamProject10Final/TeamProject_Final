@@ -1,15 +1,15 @@
-package com.example.donotlate.feature.room.presentation.main
+package com.example.donotlate.feature.room.presentation.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.donotlate.databinding.FragmentViewPagerBinding
 import com.example.donotlate.feature.room.presentation.dialog.BackFragmentDialog
 import com.example.donotlate.feature.room.presentation.dialog.ResultFragmentDialog
+import com.example.donotlate.feature.room.presentation.adapter.ViewPagerAdapter
 
 class ViewPagerFragment : Fragment() {
 

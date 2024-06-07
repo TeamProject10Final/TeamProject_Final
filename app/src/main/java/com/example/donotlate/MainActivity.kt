@@ -2,17 +2,12 @@ package com.example.donotlate
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.databinding.ActivityMainBinding
-import com.example.donotlate.feature.auth.presentation.view.LoginFragment
-import com.example.donotlate.feature.auth.presentation.viewmodel.LogInViewModel
-import com.example.donotlate.feature.searchPlace.api.NetWorkClient
-import kotlinx.coroutines.launch
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (savedInstanceState == null) {
-            changeFragment(LoginFragment())
+            changeFragment(MainFragment())
         }
 
 

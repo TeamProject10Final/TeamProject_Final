@@ -18,7 +18,7 @@
         android:theme="@style/Theme.DoNotLate"
         tools:targetApi="31">
         <activity
-            android:name=".feature.room.presentation.RoomActivity"
+            android:name=".feature.room.presentation.view.RoomActivity"
             android:exported="false" />
 
         <uses-library

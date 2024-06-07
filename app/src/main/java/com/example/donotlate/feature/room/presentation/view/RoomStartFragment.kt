@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.room.presentation.start
+package com.example.donotlate.feature.room.presentation.view
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -12,16 +12,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import com.example.donotlate.MyApp
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomStartBinding
-import com.example.donotlate.feature.room.RoomViewModel
+import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
+import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 import java.util.Calendar
 
 class RoomStartFragment : Fragment() {
 
     private lateinit var binding: FragmentRoomStartBinding
 
-    private val roomViewModel : RoomViewModel by activityViewModels()
+    private val roomViewModel: RoomViewModel by viewModels {
+        val appContainer = (requireActivity().application as MyApp).appContainer
+        RoomViewModelFactory(appContainer.getAllUsersUseCase)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

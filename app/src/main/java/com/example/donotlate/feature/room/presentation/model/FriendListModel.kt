@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.room.presentation.friend
+package com.example.donotlate.feature.room.presentation.model
 
 data class FriendListModel (
     val id: String,
