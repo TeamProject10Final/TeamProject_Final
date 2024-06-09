@@ -67,10 +67,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    //glide, coil
-    implementation(libs.coil)
-
-
     //viewpager2
     implementation(libs.androidx.viewpager2)
     implementation("com.tbuonomo:dotsindicator:5.0")
@@ -124,6 +120,7 @@ dependencies {
 
     implementation("com.google.firebase:firebase-auth-ktx")
 
-    implementation ("androidx.fragment:fragment-ktx:1.3.6")
+    implementation ("androidx.fragment:fragment-kx:1.3.6")
 
+    implementation ("com.google.maps.android:android-maps-utils:0.5")
 }

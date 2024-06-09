@@ -9,12 +9,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.donotlate.MainActivity
+import com.example.donotlate.R
 import com.example.donotlate.core.presentation.MainFragment
 import com.example.donotlate.databinding.FragmentPlaceSearchBinding
 import com.example.donotlate.feature.searchPlace.domain.adapter.MapAdapter
@@ -27,6 +29,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -39,8 +42,14 @@ class PlaceSearchFragment : Fragment(), OnMapReadyCallback {
     private val binding: FragmentPlaceSearchBinding
         get() = _binding!!
 
+    private var document : Int = 0
+    private val mainViewModel by lazy {
+        ViewModelProvider(
+            requireActivity(),
+            PlaceMainViewModel.SearchChipPlaceViewModelFactory()
+        )[PlaceMainViewModel::class.java]
+    }
 
-    private val viewModel: PlaceMainViewModel by viewModels()
 
     private val searchViewModel by lazy {
         ViewModelProvider(
@@ -73,20 +82,14 @@ class PlaceSearchFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-<<<<<<< HEAD:app/src/main/java/com/example/donotlate/feature/searchPlace/presentation/search/PlaceSearchFragment.kt
-//        getLocationPermission()
-        mapAdapter = MapAdapter()
-=======
         getLocationPermission()
->>>>>>> c62443e9d51ab1f8c2b5f1a53667786c4a6d05ce:app/src/main/java/com/example/donotlate/feature/searchPlace/presentation/SearchPlacesFragment.kt
-
+        mapAdapter = MapAdapter()
 
         binding.btnSeachButton.setOnClickListener {
             initBottomSheet()
         }
 
-
-
+        clickChipGroupType()
         backButton()
     }
 
@@ -95,6 +98,7 @@ class PlaceSearchFragment : Fragment(), OnMapReadyCallback {
         bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
 
         fetchMap()
+        clickChipGroupType()
     }
     private fun backButton() {
         binding.ivPlaceBack.setOnClickListener {
@@ -112,38 +116,71 @@ class PlaceSearchFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private fun clickChipGroupType(){
 
-    private fun clickChip(){
-        binding.tvRestaurant.setOnClickListener {
-            val types = binding.tvRestaurant.text.toString()
-            viewModel.getClickMapList(types = "restaurant")
+        binding.cgChipGroup.setOnCheckedStateChangeListener { chipGroup, ints ->
+            val selectChip = chipGroup.checkedChipId
+            document = selectChip
+            when(selectChip){
+                R.id.tv_restaurant -> {
+                    chipGroupType(ChipType.RESTAURANT)
+                    Log.d("식당", "${ChipType.RESTAURANT}")
+                }
+                R.id.tv_cafe -> {
+                    chipGroupType(ChipType.CAFE)
+                }
+                R.id.tv_cinema -> {
+                    chipGroupType(ChipType.CINEMA)
+                }
+                R.id.tv_park -> {
+                    chipGroupType(ChipType.CINEMA)
+                }
+                R.id.tv_shoppingMall -> {
+                    chipGroupType(ChipType.SOPPINGMALL)
+                }
+            }
+//            binding.rvMap.adapter = mapAdapter
         }
+    }
+
+
+    private fun chipGroupType(type: ChipType){
+//        if (binding.etSeachBox.text.isEmpty()) {
+//        getLocationPermission()
+//        }else{
+//            initBottomSheet()
+//            }
+
+        mainViewModel.getClickMapList(types = type)
+
     }
 
 
 
 
-//    private fun getLocationPermission() {//위치 권한 확인
-//        locationPermission = registerForActivityResult(
-//            ActivityResultContracts.RequestMultiplePermissions()
-//        ) { results ->
-//            if (results.all { it.value }) {//맵 연결
-//                (childFragmentManager.findFragmentById(R.id.fg_map) as SupportMapFragment)!!.getMapAsync(
-//                    this
-//                )
-//            } else { //문제가 발생했을 때
-//                Toast.makeText(context, "권한 승인이 필요합니다.", Toast.LENGTH_LONG).show()
-//            }
-//        }
-//
-//        //권한 요청
-//        locationPermission.launch(
-//            arrayOf(
-//                Manifest.permission.ACCESS_COARSE_LOCATION,
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            )
-//        )
-//    }
+
+
+    private fun getLocationPermission() {//위치 권한 확인
+        locationPermission = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { results ->
+            if (results.all { it.value }) {//맵 연결
+                (childFragmentManager.findFragmentById(R.id.fg_map) as SupportMapFragment)!!.getMapAsync(
+                    this
+                )
+            } else { //문제가 발생했을 때
+                Toast.makeText(context, "권한 승인이 필요합니다.", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        //권한 요청
+        locationPermission.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        )
+    }
 
     //맵 연결
     override fun onMapReady(p0: GoogleMap) {

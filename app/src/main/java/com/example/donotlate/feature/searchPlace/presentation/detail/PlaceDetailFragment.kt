@@ -1,16 +1,11 @@
 package com.example.donotlate.feature.searchPlace.presentation.detail
 
-import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import coil.load
-import com.example.donotlate.MainActivity
 import com.example.donotlate.databinding.FragmentPlaceDetailBinding
 import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 
@@ -64,7 +59,7 @@ class PlaceDetailFragment : Fragment() {
         detailViewModel.data.observe(viewLifecycleOwner) {
             if (it != null) {
                 with(binding) {
-                    ivPlaceDetailTitle.load(it.img)
+//                    ivPlaceDetailTitle.load(it.img)
                     tvPlaceDetailTitle.text = it.name
                     tvPlaceDetailAddress.text = it.address
                     tvPlaceDetailPhoneNumber.text = it.phoneNumber

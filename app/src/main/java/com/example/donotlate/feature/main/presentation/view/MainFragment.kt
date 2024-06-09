@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.donotlate.ExampleActivity
 import com.example.donotlate.MainActivity
 import com.example.donotlate.MyApp
 import com.example.donotlate.R
@@ -18,7 +19,7 @@ import com.example.donotlate.feature.main.presentation.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
-import com.example.donotlate.feature.searchPlace.presentation.SearchPlacesFragment
+import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -65,6 +66,7 @@ class MainFragment : Fragment() {
         startPlace()
         logoutButton()
         observeViewModel()
+        startActivity()
 
     }
 
@@ -77,7 +79,7 @@ class MainFragment : Fragment() {
     private fun placeButton() {
         binding.layoutMainPlace.setOnClickListener {
             val activity = activity as MainActivity
-            activity.changeFragment(SearchPlacesFragment())
+            activity.changeFragment(PlaceSearchFragment())
         }
     }
 
@@ -91,7 +93,7 @@ class MainFragment : Fragment() {
 
     private fun startPlace() {
         binding.layoutMainPlace.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, SearchPlacesFragment())
+            parentFragmentManager.beginTransaction().replace(R.id.frame, PlaceSearchFragment())
                 .addToBackStack("").commit()
         }
     }
@@ -125,5 +127,10 @@ class MainFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun startActivity(){
+        val intent = Intent(getActivity(), ExampleActivity::class.java)
+        startActivity(intent)
     }
 }

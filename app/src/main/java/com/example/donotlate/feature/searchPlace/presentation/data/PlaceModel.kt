@@ -18,3 +18,16 @@ data class PlaceModel(
 ) : Parcelable
 
 
+@Entity(tableName = "SearchChipList")
+@Parcelize
+data class PlacesChipModel(
+
+    val types : List<String>?,
+    val lat: String?,
+    val lng: String?,
+    val name: String?,
+    val address: String?,
+    val rating: Double?,
+    val phoneNumber: String?,
+    val img: String?
+): Parcelable

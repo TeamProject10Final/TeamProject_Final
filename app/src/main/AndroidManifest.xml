@@ -18,9 +18,11 @@
         android:theme="@style/Theme.DoNotLate"
         tools:targetApi="31">
         <activity
+            android:name=".ExampleActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.room.presentation.view.RoomActivity"
             android:exported="false" />
-
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -32,7 +34,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
 
         <activity
             android:name=".MainActivity"

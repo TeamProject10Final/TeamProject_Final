@@ -9,12 +9,12 @@
     tools:context=".feature.searchPlace.presentation.search.PlaceSearchFragment">
 
 
-<!--    <fragment-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:visibility="invisible"-->
-<!--        android:name="com.google.android.gms.maps.SupportMapFragment"-->
-<!--        android:id="@+id/fg_map"/>-->
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/fg_map"/>
 
 
 
