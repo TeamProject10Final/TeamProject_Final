@@ -3,6 +3,7 @@ package com.example.donotlate.feature.room.presentation.view
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.service.autofill.UserData
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.RelativeSizeSpan
@@ -13,22 +14,34 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import com.example.donotlate.MyApp
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomStartBinding
+import com.example.donotlate.feature.room.presentation.model.RoomModel
+import com.example.donotlate.feature.room.presentation.model.UserModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 import java.util.Calendar
 
 class RoomStartFragment : Fragment() {
 
-    private lateinit var binding: FragmentRoomStartBinding
+    private var titleData = ""
+    private var timeData = ""
+    private var dateData = ""
+    private var penaltyData = ""
 
-    private val roomViewModel: RoomViewModel by viewModels {
+    private lateinit var binding: FragmentRoomStartBinding
+//    private val roomViewModel: RoomViewModel by viewModels {
+//        val appContainer = (requireActivity().application as MyApp).appContainer
+//        RoomViewModelFactory(appContainer.getAllUsersUseCase)
+//    }
+
+    //수정
+    private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as MyApp).appContainer
         RoomViewModelFactory(appContainer.getAllUsersUseCase)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +67,13 @@ class RoomStartFragment : Fragment() {
         setDate()
         setTime()
         sendData()
+
     }
 
+    override fun onPause() {
+        super.onPause()
+        sendToResult()
+    }
 
     private fun setTitle() {
         val title = SpannableStringBuilder("우리 지금 만나,\n약속을 잡아주세요.")
@@ -78,7 +96,8 @@ class RoomStartFragment : Fragment() {
                 //result로 보낼 날짜 데이터
                 val dateData = dateText.text.toString()
                 Log.d("test2", "${dateData}")
-                roomViewModel.updateText(dateData)
+//                roomViewModel.updateText(dateData)
+                timeData = dateText.text.toString()
             }
         }
 
@@ -112,9 +131,7 @@ class RoomStartFragment : Fragment() {
                 timeText.text = "${h}시 ${m}분"
 
                 //result로 보낼 시간
-                val timeData = timeText.text.toString()
-                Log.d("test2", "${timeData}")
-
+                timeData = timeText.text.toString()
             }
         }
 
@@ -142,11 +159,16 @@ class RoomStartFragment : Fragment() {
         Log.d("test", "${titleData}")
         val penaltyData = binding.etRoomPenalty.text.toString()
         Log.d("test", "${penaltyData}")
+    }
 
+    private fun sendToResult(){
+        val roomList = (RoomModel(
+            binding.etRoomTitle.text.toString(),
+            binding.tvRoomDate.text.toString(),
+            binding.tvRoomTime.text.toString(),
+            binding.etRoomPenalty.text.toString()))
+        roomViewModel.updateText(roomList)
 
-
-
-
-
+        Log.d("뷰모델 리스트확인","${roomViewModel.inputText.value}")
     }
 }

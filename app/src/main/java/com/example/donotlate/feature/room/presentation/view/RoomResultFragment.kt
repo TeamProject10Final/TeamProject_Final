@@ -1,10 +1,12 @@
 package com.example.donotlate.feature.room.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.donotlate.MyApp
 import com.example.donotlate.databinding.FragmentRoomResultBinding
@@ -18,7 +20,7 @@ private const val ARG_PARAM2 = "param2"
 
 class RoomResultFragment : Fragment() {
 
-    private val roomViewModel: RoomViewModel by viewModels {
+    private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as MyApp).appContainer
         RoomViewModelFactory(appContainer.getAllUsersUseCase)
     }
@@ -28,6 +30,7 @@ class RoomResultFragment : Fragment() {
 
     private var _binding : FragmentRoomResultBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,15 @@ class RoomResultFragment : Fragment() {
     ): View? {
         _binding = FragmentRoomResultBinding.inflate(inflater, container, false)
 
+
+        roomViewModel.inputText.observe(viewLifecycleOwner) { newValue ->
+            newValue?.let {
+                Log.d("뷰모델 데이터 확인", "${roomViewModel.inputText.value} roomviewmodel input")
+                binding.apply {
+
+                }
+            }
+        }
         return binding.root
     }
 
