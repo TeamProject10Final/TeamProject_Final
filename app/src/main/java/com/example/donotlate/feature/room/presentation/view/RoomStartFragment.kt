@@ -32,11 +32,16 @@ class RoomStartFragment : Fragment() {
     private var penaltyData = ""
 
     private lateinit var binding: FragmentRoomStartBinding
-    private val roomViewModel: RoomViewModel by viewModels {
+//    private val roomViewModel: RoomViewModel by viewModels {
+//        val appContainer = (requireActivity().application as MyApp).appContainer
+//        RoomViewModelFactory(appContainer.getAllUsersUseCase)
+//    }
+
+    //수정
+    private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as MyApp).appContainer
         RoomViewModelFactory(appContainer.getAllUsersUseCase)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +67,7 @@ class RoomStartFragment : Fragment() {
         setDate()
         setTime()
         sendData()
+
     }
 
     override fun onPause() {
@@ -163,6 +169,6 @@ class RoomStartFragment : Fragment() {
             binding.etRoomPenalty.text.toString()))
         roomViewModel.updateText(roomList)
 
-        Log.d("뷰모델 리스트확인",roomViewModel.inputText.toString())
+        Log.d("뷰모델 리스트확인","${roomViewModel.inputText.value}")
     }
 }
