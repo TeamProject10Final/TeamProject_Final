@@ -8,7 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.example.donotlate.consumption.presentation.ConsumptionActivity
+import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.databinding.ActivityMainBinding
 import com.example.donotlate.feature.login.presentation.LoginFragment
 import com.example.donotlate.feature.searchPlace.api.NetWorkClient

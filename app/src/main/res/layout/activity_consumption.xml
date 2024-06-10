@@ -121,7 +121,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clCalculateProgress"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:minHeight="100dp"
                 android:background="@drawable/rounded_edittext1"
@@ -152,9 +152,9 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvCalculateProgress"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     tools:listitem="@layout/item_consumption"
-                    tools:itemCount="0"
+                    tools:itemCount="10"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv01"

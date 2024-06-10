@@ -55,9 +55,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    //livedata, flow
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.1")
-
     //viewpager2
     implementation(libs.androidx.viewpager2)
     implementation("com.tbuonomo:dotsindicator:5.0")
@@ -95,7 +92,7 @@ dependencies {
     implementation ("com.google.android.libraries.places:places:3.3.0")
     implementation(libs.volley)
 
-    val lifecycle_version = "2.3.0"
+    val lifecycle_version = "2.8.1"
     // ViewModel
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     // LiveData
