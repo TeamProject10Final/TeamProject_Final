@@ -23,15 +23,9 @@ import kotlinx.coroutines.launch
 
 class RoomMapFragment : Fragment() {
 
-    private var _binding : FragmentRoomMapBinding? = null
+    private var _binding: FragmentRoomMapBinding? = null
     private val binding get() = _binding!!
 
-//    private val roomViewModel: RoomViewModel by viewModels {
-//        val appContainer = (requireActivity().application as MyApp).appContainer
-//        RoomViewModelFactory(appContainer.getAllUsersUseCase)
-//    }
-
-//수정
     private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as MyApp).appContainer
         RoomViewModelFactory(appContainer.getAllUsersUseCase)
@@ -51,56 +45,24 @@ class RoomMapFragment : Fragment() {
 
         setTitle()
 
-
-
-
         return binding.root
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        Log.d("확인","onViewStateRestored")
+        Log.d("확인", "onViewStateRestored")
 
     }
 
     override fun onResume() {
         super.onResume()
 
-        Log.d("확인","onResume")
-
-
-//        roomViewModel.viewModelScope.launch {
-//           roomViewModel.inputText.observe(viewLifecycleOwner){
-//                binding.tvTest1.text = it.title
-//            }
-//        }
-
-//        roomViewModel.inputText.observe(viewLifecycleOwner) { newValue ->
-//            binding.apply {
-//                tvTest1.text = newValue.title
-//                tvTest2.text = newValue.date
-//                tvTest3.text = newValue.time
-//                tvTest4.text = newValue.penalty.toString()
-//            }
-//        }
-        roomViewModel.inputText.observe(viewLifecycleOwner) { newValue ->
-            newValue?.let {
-                Log.d("확인", "${roomViewModel.inputText.value} roomviewmodel input")
-                binding.apply {
-                    Log.d("확인", it.title)
-                    tvTest1.text = it.title
-                    tvTest2.text = it.date
-                    tvTest3.text = it.time
-                    tvTest4.text = it.penalty.toString()
-                }
-
-            }
-        }
+        Log.d("확인", "onResume")
 
         roomViewModel.getAllUserData()
         lifecycleScope.launch {
-            roomViewModel.getAllUserData.collect{userList ->
-                userList.forEach{ user ->
+            roomViewModel.getAllUserData.collect { userList ->
+                userList.forEach { user ->
                     Log.d("User", user.name)
                 }
             }
@@ -110,7 +72,7 @@ class RoomMapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("확인","onViewCreated")
+        Log.d("확인", "onViewCreated")
     }
 
     override fun onDestroyView() {
@@ -125,5 +87,4 @@ class RoomMapFragment : Fragment() {
         }
         binding.tvRoomMapTitle.text = title
     }
-
 }

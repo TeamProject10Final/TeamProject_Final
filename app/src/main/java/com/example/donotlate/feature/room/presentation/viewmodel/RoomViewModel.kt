@@ -32,19 +32,6 @@ class RoomViewModel(
         _inputText.value = input
     }
 
-//    fun getAllUserData() {
-//        try {
-//            viewModelScope.launch {
-//                getAllUsersUseCase().collect { userEntity ->
-//                    val userModelList = userEntity.map { it.toModel() }
-//                    _getAllUserData.value = userModelList
-//
-//                }
-//            }
-//        } catch (e: Exception) {
-//            _getAllUserData.value = listOf()
-//        }
-//    }
     fun getAllUserData(){
         viewModelScope.launch {
             try {
@@ -57,7 +44,6 @@ class RoomViewModel(
             }
         }
     }
-
 }
 
 class RoomViewModelFactory(
