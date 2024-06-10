@@ -1,20 +1,17 @@
 package com.example.donotlate
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.donotlate.databinding.ActivityExampleBinding
-//import com.example.donotlate.feature.setting.DirectionResponses
 import com.example.donotlate.feature.setting.MapData
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -25,16 +22,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.libraries.places.api.Places
 import com.google.gson.Gson
-import com.google.maps.android.PolyUtil
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Query
 
 class ExampleActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -60,11 +49,13 @@ class ExampleActivity : AppCompatActivity(), OnMapReadyCallback {
             insets
         }
 
+        //래핑한 API_KEY 가져오기
         val ai: ApplicationInfo = applicationContext.packageManager
             .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
         val value = ai.metaData["com.google.android.geo.AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U"]
         val apiKey = value.toString()
 
+        //API_KEY의 도움으로 Places API 초기화
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, apiKey)
         }
