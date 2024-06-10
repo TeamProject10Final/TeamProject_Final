@@ -8,7 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import com.example.donotlate.MyApp
+import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.ActivityRoomBinding
 import com.example.donotlate.feature.room.presentation.view.ViewPagerFragment
@@ -18,7 +18,7 @@ import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFa
 class RoomActivity : AppCompatActivity() {
 
     private val roomViewModel: RoomViewModel by viewModels {
-        val appContainer = (application as MyApp).appContainer
+        val appContainer = (application as DoNotLateApplication).appContainer
         RoomViewModelFactory(appContainer.getAllUsersUseCase)
     }
 

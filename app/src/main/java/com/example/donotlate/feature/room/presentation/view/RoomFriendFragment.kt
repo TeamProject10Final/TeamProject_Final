@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.donotlate.MyApp
+import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentRoomFriendBinding
 import com.example.donotlate.feature.room.presentation.model.FriendListModel
 import com.example.donotlate.feature.room.presentation.adapter.RoomFriendAdapter
@@ -32,7 +32,7 @@ class RoomFriendFragment : Fragment() {
     }
 
     private val roomViewModel: RoomViewModel by viewModels {
-        val appContainer = (requireActivity().application as MyApp).appContainer
+        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         RoomViewModelFactory(appContainer.getAllUsersUseCase)
     }
 

@@ -52,6 +52,8 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.google.material)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.google.material)
 
     // firebase - firestore, FCM
     implementation(libs.firebase.firestore)
@@ -104,7 +106,7 @@ dependencies {
     implementation ("com.google.android.libraries.places:places:3.3.0")
     implementation(libs.volley)
 
-    val lifecycle_version = "2.3.0"
+    val lifecycle_version = "2.8.1"
     // ViewModel
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     // LiveData

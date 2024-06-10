@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import com.example.donotlate.MyApp
+import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentRoomResultBinding
 import com.example.donotlate.feature.room.presentation.dialog.CancelFragmentDialog
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
@@ -21,7 +21,7 @@ private const val ARG_PARAM2 = "param2"
 class RoomResultFragment : Fragment() {
 
     private val roomViewModel: RoomViewModel by activityViewModels {
-        val appContainer = (requireActivity().application as MyApp).appContainer
+        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         RoomViewModelFactory(appContainer.getAllUsersUseCase)
     }
 
