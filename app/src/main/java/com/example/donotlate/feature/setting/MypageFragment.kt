@@ -47,14 +47,16 @@ class MypageFragment : Fragment() {
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) { //이미지를 선택할 경우
             selectedUri = uri
+            Log.d("uri확인",selectedUri.toString())
+
             val imageBitmap = uriToBitmap(requireContext(), uri)//uri -> bitMap으로 변경
             binding.ivProfileImage.setImageBitmap(imageBitmap)
+
         }
     }
+    private var _binding : FragmentMypageBinding? = null
+    private val binding get() = _binding!!
 
-    private val binding: FragmentMypageBinding by lazy {
-        FragmentMypageBinding.inflate(layoutInflater)
-    }
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -71,6 +73,7 @@ class MypageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentMypageBinding.inflate(inflater, container, false)
 
         setUpProfile()
         observeViewModel()
@@ -81,6 +84,11 @@ class MypageFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
         return binding.root
+    }
+
+        override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
@@ -128,10 +136,13 @@ class MypageFragment : Fragment() {
         }
     }
 }
+
+//val profileImgUrl: String = ""
 fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
     return try {
         val inputStream = context.contentResolver.openInputStream(uri)
         BitmapFactory.decodeStream(inputStream)
+
     } catch (e: IOException) {
         e.printStackTrace()
         null
