@@ -17,12 +17,14 @@ class RoomViewModel(
     private val getAllUsersUseCase: GetAllUsersUseCase
 ) : ViewModel() {
 
-    private val _getAllUserData = MutableStateFlow<List<UserModel>>(listOf())
+//    private val _getAllUserData = MutableStateFlow<List<UserModel>>(listOf())
+//    val getAllUserData: StateFlow<List<UserModel>> = _getAllUserData
+    private val _getAllUserData = MutableStateFlow<List<UserModel>>(emptyList())
     val getAllUserData: StateFlow<List<UserModel>> = _getAllUserData
 
     private val _inputText = MutableLiveData<RoomModel>()
-    val inputText: LiveData<RoomModel>
-        get() = _inputText
+//    val inputText: LiveData<RoomModel> get() = _inputText
+    val inputText: LiveData<RoomModel> = _inputText
 
     fun getData(): MutableLiveData<RoomModel> = _inputText
 
@@ -30,19 +32,32 @@ class RoomViewModel(
         _inputText.value = input
     }
 
-    fun getAllUserData() {
-        try {
-            viewModelScope.launch {
-                getAllUsersUseCase().collect { userEntity ->
-                    val userModelList = userEntity.map { it.toModel() }
+//    fun getAllUserData() {
+//        try {
+//            viewModelScope.launch {
+//                getAllUsersUseCase().collect { userEntity ->
+//                    val userModelList = userEntity.map { it.toModel() }
+//                    _getAllUserData.value = userModelList
+//
+//                }
+//            }
+//        } catch (e: Exception) {
+//            _getAllUserData.value = listOf()
+//        }
+//    }
+    fun getAllUserData(){
+        viewModelScope.launch {
+            try {
+                getAllUsersUseCase().collect{ userEntity ->
+                    val userModelList = userEntity.map {it.toModel()}
                     _getAllUserData.value = userModelList
-
                 }
+            }catch (e:Exception){
+                _getAllUserData.value = emptyList()
             }
-        } catch (e: Exception) {
-            _getAllUserData.value = listOf()
         }
     }
+
 }
 
 class RoomViewModelFactory(
