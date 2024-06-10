@@ -9,10 +9,8 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.donotlate.MainActivity
-import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.databinding.BackDialogBinding
-import com.example.donotlate.feature.room.presentation.start.RoomStartFragment
-import com.example.donotlate.feature.room.presentation.main.ViewPagerFragment
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 
 
 class BackFragmentDialog : DialogFragment() {
@@ -47,6 +45,7 @@ class BackFragmentDialog : DialogFragment() {
             val activity = activity as MainActivity
             activity.changeFragment(MainFragment())
             dismiss()
+            //수정 필요
         }
     }
 }

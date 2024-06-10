@@ -15,7 +15,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.MyApp
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMypageBinding
 import com.example.donotlate.feature.main.presentation.MainPageViewModel

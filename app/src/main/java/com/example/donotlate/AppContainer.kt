@@ -1,5 +1,6 @@
 package com.example.donotlate
 
+import com.example.donotlate.core.data.repository.FirebaseDataSourceImpl
 import com.example.donotlate.feature.consumption.presentation.SharedViewModelFactory
 import com.example.donotlate.feature.consumption.data.repository.ConsumptionRepositoryImpl
 import com.example.donotlate.feature.consumption.domain.repository.ConsumptionRepository
@@ -37,9 +38,18 @@ class AppContainer {
         ConsumptionRepositoryImpl(DoNotLateApplication.getInstance())
     }
 
+    val authRepository by lazy {
+        AuthRepositoryImpl(firebaseAuth, firebaseFireStore, DoNotLateApplication.getInstance())
+    }
+
     var calculationContainer: CalculationContainer? = null
 
     var consumptionContainer: ConsumptionContainer?=null
+
+
+    var logInContainer: LogInContainer? = null
+    var signUpContainer: SignUpContainer? = null
+
 
     val getFinishedConsumptionUseCase: GetFinishedConsumptionUseCase by lazy {
         GetFinishedConsumptionUseCase(consumptionRepository)
@@ -82,8 +92,73 @@ class AppContainer {
     val toggleIsFinishedUseCase: ToggleIsFinishedUseCase by lazy {
         ToggleIsFinishedUseCase(consumptionRepository)
     }
+
+
+    private val firebaseAuth by lazy {
+        FirebaseAuth.getInstance()
+    }
+
+    private val firebaseFireStore by lazy {
+        FirebaseFirestore.getInstance()
+    }
+
+    private val userRepository by lazy {
+        FirebaseDataSourceImpl(firebaseFireStore)
+    }
+//    val getUserUseCase1 by lazy {
+//        GetUserUseCase(userRepository)
+//    }
+
+    val getUserUseCase by lazy{
+        GetUserUseCase(userRepository)
+    }
+
+    val getAllUsersUseCase by lazy {
+        GetAllUsersUseCase(userRepository)
+    }
+
+    val getCurrentUserUseCase by lazy {
+        GetCurrentUserUseCase(authRepository)
+    }
+
+
+    val logInUseCase by lazy {
+        LogInUseCase(authRepository)
+    }
+
+    val signUpUseCase by lazy {
+        SignUpUseCase(authRepository)
+    }
+
 }
 
+class LogInContainer(
+    private val logInUseCase: LogInUseCase
+) {
+    val logInViewModelFactory = LogInViewModelFactory(logInUseCase)
+}
+
+class SignUpContainer(
+    private val signUpUseCase: SignUpUseCase
+) {
+    val signUpViewModelFactory = SignUpViewmodelFactory(signUpUseCase)
+}
+
+class MainPageContainer(
+    private val getUserUseCase: GetUserUseCase,
+    private val getAllUsersUseCase: GetAllUsersUseCase,
+    private val getCurrentUserUseCase: GetCurrentUserUseCase
+){
+    val mainPageViewModelFactory = MainPageViewModelFactory(
+        getUserUseCase, getAllUsersUseCase, getCurrentUserUseCase
+    )
+}
+
+class RoomContainer(
+    private val getAllUsersUseCase: GetAllUsersUseCase
+) {
+    val roomViewModelFactory = RoomViewModelFactory(getAllUsersUseCase)
+}
 
 class CalculationContainer(
 //    private val consumptionRepository: ConsumptionRepository,

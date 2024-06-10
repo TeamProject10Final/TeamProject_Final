@@ -14,6 +14,7 @@ import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMainBinding
 import com.example.donotlate.feature.auth.presentation.view.LoginFragment
+import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.feature.main.presentation.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
@@ -67,6 +68,7 @@ class MainFragment : Fragment() {
         logoutButton()
         observeViewModel()
         startSetting()
+        startConsumption()
 
     }
 
@@ -102,6 +104,13 @@ class MainFragment : Fragment() {
         binding.ivMainSetting.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.frame, SettingFragment())
                 .addToBackStack("").commit()
+        }
+    }
+
+    private fun startConsumption(){
+        binding.layoutMainSettle.setOnClickListener{
+            val intent = Intent(requireContext(), ConsumptionActivity::class.java)
+            startActivity(intent)
         }
     }
 
