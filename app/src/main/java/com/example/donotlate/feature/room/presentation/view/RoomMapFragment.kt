@@ -65,15 +65,6 @@ class RoomMapFragment : Fragment() {
 //                binding.tvTest1.text = it.title
 //            }
 //        }
-
-        roomViewModel.inputText.observe(viewLifecycleOwner) { newValue ->
-            binding.apply {
-                tvTest1.text = newValue.title
-                tvTest2.text = newValue.date
-                tvTest3.text = newValue.time
-                tvTest4.text = newValue.penalty.toString()
-            }
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

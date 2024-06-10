@@ -29,6 +29,7 @@ class RoomResultFragment : Fragment() {
     private var _binding : FragmentRoomResultBinding? = null
     private val binding get() = _binding!!
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -42,6 +43,9 @@ class RoomResultFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRoomResultBinding.inflate(inflater, container, false)
+
+        binding.apply {
+        }
 
         return binding.root
     }
