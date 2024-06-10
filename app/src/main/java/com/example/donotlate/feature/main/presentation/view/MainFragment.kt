@@ -17,9 +17,8 @@ import com.example.donotlate.feature.auth.presentation.view.LoginFragment
 import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.feature.main.presentation.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
-import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
-import com.example.donotlate.feature.searchPlace.presentation.SearchPlacesFragment
+import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import com.example.donotlate.feature.setting.SettingFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -65,7 +64,6 @@ class MainFragment : Fragment() {
         startRoom()
         placeButton()
         startPlace()
-        logoutButton()
         observeViewModel()
         startSetting()
         startConsumption()
@@ -81,21 +79,22 @@ class MainFragment : Fragment() {
     private fun placeButton() {
         binding.layoutMainPlace.setOnClickListener {
             val activity = activity as MainActivity
-            activity.changeFragment(SearchPlacesFragment())
+            activity.changeFragment(PlaceSearchFragment())
         }
     }
 
-    private fun logoutButton() {
-        binding.ivMainLogout.setOnClickListener {
-            val dialog = LogoutFragmentDialog()
-            dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
-            //firebase 로그아웃 기능 추가
-        }
-    }
+    //로그아웃 버튼
+//    private fun logoutButton() {
+//        binding.ivMainLogout.setOnClickListener {
+//            val dialog = LogoutFragmentDialog()
+//            dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
+//            //firebase 로그아웃 기능 추가
+//        }
+//    }
 
     private fun startPlace() {
         binding.layoutMainPlace.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, SearchPlacesFragment())
+            parentFragmentManager.beginTransaction().replace(R.id.frame, PlaceSearchFragment())
                 .addToBackStack("").commit()
         }
     }
