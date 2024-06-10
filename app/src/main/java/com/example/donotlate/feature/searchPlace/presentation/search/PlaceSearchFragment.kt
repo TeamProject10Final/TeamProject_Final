@@ -77,6 +77,13 @@ class PlaceSearchFragment : Fragment() {
             fetchMap()
             hideKeyboard(view)
 
+            binding.etSearchBox.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus) {
+                    binding.etSearchBox.clearFocus()
+                    ConsumptionActivity.hideKeyboard(view)
+                }
+            }
+
         }
 
         hideKey(view)
