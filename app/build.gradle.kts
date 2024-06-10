@@ -54,6 +54,14 @@ dependencies {
     implementation(libs.google.material)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.google.material)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.navigation.runtime.ktx)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+    //coil
+    implementation(libs.coil)
 
     // firebase - firestore, FCM
     implementation(libs.firebase.firestore)
@@ -63,11 +71,6 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.activity.ktx)
 
-    implementation(libs.androidx.activity.ktx)
-    implementation(libs.androidx.navigation.runtime.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 
     //viewpager2
     implementation(libs.androidx.viewpager2)
