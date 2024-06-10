@@ -15,6 +15,21 @@ import com.example.donotlate.feature.consumption.domain.usecase.GetUnfinishedCon
 import com.example.donotlate.feature.consumption.domain.usecase.InsertConsumptionUseCase
 import com.example.donotlate.feature.consumption.domain.usecase.ToggleIsFinishedUseCase
 import com.example.donotlate.feature.consumption.presentation.ConsumptionViewModelFactory
+import com.example.donotlate.feature.auth.data.repository.AuthRepositoryImpl
+import com.example.donotlate.feature.auth.domain.repository.AuthRepository
+import com.example.donotlate.feature.auth.domain.useCase.LogInUseCase
+import com.example.donotlate.feature.auth.domain.useCase.SignUpUseCase
+import com.example.donotlate.feature.auth.presentation.viewmodel.LogInViewModelFactory
+import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
+import com.example.donotlate.feature.main.domain.usecase.GetCurrentUserUseCase
+import com.example.donotlate.feature.main.domain.usecase.GetUserUseCase
+import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
+import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
+import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+
+
 
 class AppContainer {
 

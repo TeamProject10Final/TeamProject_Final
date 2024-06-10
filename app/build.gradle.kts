@@ -3,6 +3,10 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlin-kapt")
     id("kotlin-parcelize")
+    //firebase sdk
+    id("com.google.gms.google-services")
+
+
 }
 
 android {
@@ -42,7 +46,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -50,7 +53,18 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.google.material)
     implementation(libs.androidx.navigation.fragment)
+    implementation(libs.google.material)
+
+    // firebase - firestore, FCM
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.auth)
+    implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.activity.ktx)
+
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.navigation.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -98,6 +112,16 @@ dependencies {
     // LiveData
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
     implementation("androidx.fragment:fragment-ktx:1.4.1")
+    //firebase bom
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation("com.google.firebase:firebase-analytics")
+
+    //프로필 이미지뷰
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
+
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+    implementation ("androidx.fragment:fragment-ktx:1.3.6")
+
 }
-
-

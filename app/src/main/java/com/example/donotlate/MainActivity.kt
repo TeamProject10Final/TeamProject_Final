@@ -10,11 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.databinding.ActivityMainBinding
-import com.example.donotlate.feature.login.presentation.LoginFragment
-import com.example.donotlate.feature.searchPlace.api.NetWorkClient
-import kotlinx.coroutines.launch
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 
 class MainActivity : AppCompatActivity() {
+
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (savedInstanceState == null) {
-            changeFragment(LoginFragment())
+            changeFragment(MainFragment())
         }
 
 

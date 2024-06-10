@@ -10,7 +10,7 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.donotlate.MainActivity
 import com.example.donotlate.databinding.BackDialogBinding
-import com.example.donotlate.feature.room.presentation.result.RoomResultFragment
+import com.example.donotlate.feature.room.presentation.view.RoomResultFragment
 
 class ResultFragmentDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {

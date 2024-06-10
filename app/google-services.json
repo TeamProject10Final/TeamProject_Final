@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "215723156742",
+    "project_id": "donotlate-d9799",
+    "storage_bucket": "donotlate-d9799.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215723156742:android:2dd3a9fc32dcc82fb42a87",
+        "android_client_info": {
+          "package_name": "com.example.donotlate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk9crINDSSHppRCS_pLPPRfcuKnnjOgbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
