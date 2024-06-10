@@ -1,5 +1,6 @@
 package com.example.donotlate.core.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMainBinding
+import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.main.ViewPagerFragment
 import com.example.donotlate.feature.searchPlace.presentation.SearchPlacesFragment
@@ -54,9 +56,11 @@ class MainFragment : Fragment() {
 
         placeButton()
         startPlace()
+        startConsumption()
 
 
     }
+
 
     companion object {
         @JvmStatic
@@ -96,4 +100,13 @@ class MainFragment : Fragment() {
             parentFragmentManager.beginTransaction().replace(R.id.frame, SearchPlacesFragment()).addToBackStack("").commit()
         }
     }
+
+    private fun startConsumption(){
+        binding.layoutMainSettle.setOnClickListener{
+            val intent = Intent(requireContext(), ConsumptionActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+
 }

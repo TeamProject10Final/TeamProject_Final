@@ -28,9 +28,7 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCalculation3Binding.bind(view)
 
-        //이 아래로 observe 안써도 되는거 아닌가... 혹시 몰라 일단 남겨둠
         with(binding) {
-            //tvRes31.text = viewModel.detail.value.toString()
             viewModel.detail.observe(viewLifecycleOwner, { detail ->
                 tvRes31.text = detail ?: ""
                 tvRes31.setText(detail)

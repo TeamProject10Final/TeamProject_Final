@@ -73,6 +73,10 @@ class ConsumptionActivity : AppCompatActivity() {
         setupRecyclerViews()
         observeViewModel()
 
+        binding.btnBackActivity.setOnClickListener {
+            onBackPressed()
+        }
+
 //        //지각 여부를 채팅창에서 받아와야 할듯... livedata로... 그거로 tvNickname 바꾸기!
     }
 
@@ -127,11 +131,9 @@ class ConsumptionActivity : AppCompatActivity() {
     private fun setupRecyclerViews() {
         finishedAdapter = ConsumptionAdapter { model ->
             showConfirmationDialog(model)
-//            consumptionViewModel.toggleIsFinished(model)
         }
         unfinishedAdapter = ConsumptionAdapter { model ->
             showConfirmationDialog(model)
-//            consumptionViewModel.toggleIsFinished(model)
         }
 
         binding.rvCalculateFinish.apply {
@@ -145,14 +147,6 @@ class ConsumptionActivity : AppCompatActivity() {
         }
     }
 
-//    private fun toggleIsFinished(position: Int, isFinishedTabSelected: Boolean) {
-//        val adapter = if (isFinishedTabSelected) finishedAdapter else unfinishedAdapter
-//        val item = adapter.getItemAtPosition(position)
-//        item.let { consumption ->
-//            consumptionViewModel.toggleIsFinished(consumption)
-//        }
-//    }
-
     private fun showConfirmationDialog(item: ConsumptionModel) {
         AlertDialog.Builder(this)
             .setMessage("정산 상태를 변경할까요?\n\n${item.isFinished} -> ${!item.isFinished}")
@@ -163,6 +157,7 @@ class ConsumptionActivity : AppCompatActivity() {
             .show()
     }
 
+    //utils로 빼내기!!!!
     companion object {
 
         fun Int.addCommas(): String {

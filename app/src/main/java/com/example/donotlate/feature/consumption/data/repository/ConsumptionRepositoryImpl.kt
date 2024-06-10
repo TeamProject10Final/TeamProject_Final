@@ -113,6 +113,5 @@ class ConsumptionRepositoryImpl(val context: Context) : ConsumptionRepository {
             isFinished = !consumption.isFinished
         )
         roomDao.updateData(roomData)
-
     }
 }

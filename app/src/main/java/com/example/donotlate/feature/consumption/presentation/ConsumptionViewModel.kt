@@ -126,18 +126,6 @@ class ConsumptionViewModel(
 //나중에 category 등 처리 여기서 하기!!!!
 
 
-//    private suspend fun updateConsumption(consumption: ConsumptionModel) {
-//        val toggledConsumption = consumption.copy(isFinished = !consumption.isFinished)
-//        viewModelScope.launch {
-//            try {
-//                deleteConsumptionUseCase(consumption.toEntity())
-//                insertConsumptionUseCase(toggledConsumption.toEntity())
-//            } catch (e: Exception) {
-//                _error.value = e.message ?: "An unexpected error occurred"
-//            }
-//        }
-//    }
-
 }
 
 class ConsumptionViewModelFactory(

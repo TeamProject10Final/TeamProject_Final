@@ -28,11 +28,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        binding.button.setOnClickListener{
-            val intent = Intent(this, ConsumptionActivity::class.java)
-            startActivity(intent)
-        }
-
         if (savedInstanceState == null) {
             changeFragment(LoginFragment())
         }
@@ -65,4 +60,5 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.frame, fragment)
             .commit()
     }
+
 }
