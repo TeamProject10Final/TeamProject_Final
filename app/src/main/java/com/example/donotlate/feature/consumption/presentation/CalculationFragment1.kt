@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -62,9 +63,10 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
             showDatePickerDialog()
         }
 
-        binding.etDes11.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+        binding.etDes11.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
-                ConsumptionActivity.hideKeyboard(view)
+                binding.etDes11.clearFocus()
+                ConsumptionActivity.hideKeyboard(v)
             }
         }
 

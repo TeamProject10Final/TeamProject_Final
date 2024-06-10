@@ -57,7 +57,8 @@
         android:paddingTop="13dp"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="@+id/tvDes21"
-        app:layout_constraintTop_toBottomOf="@id/tvDes21" />
+        app:layout_constraintTop_toBottomOf="@id/tvDes21"
+        android:focusableInTouchMode="true"/>
 
 
     <TextView
@@ -96,6 +97,7 @@
         android:paddingHorizontal="20dp"
         android:paddingTop="16dp"
         android:textSize="32sp"
+        android:focusableInTouchMode="true"
         app:layout_constraintStart_toStartOf="@+id/tvDes22"
         app:layout_constraintTop_toBottomOf="@id/tvDes22" />
 
@@ -143,6 +145,7 @@
         android:paddingHorizontal="20dp"
         android:paddingTop="13dp"
         android:textSize="32sp"
+        android:focusableInTouchMode="true"
         app:layout_constraintStart_toStartOf="@+id/tvDes23"
         app:layout_constraintTop_toBottomOf="@id/tvDes23" />
 

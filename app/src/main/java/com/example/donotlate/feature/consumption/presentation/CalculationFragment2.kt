@@ -56,18 +56,21 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
 
         binding.etDes21.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
+                binding.etDes21.clearFocus()
                 ConsumptionActivity.hideKeyboard(view)
             }
         }
 
         binding.etDes22.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
+                binding.etDes22.clearFocus()
                 ConsumptionActivity.hideKeyboard(view)
             }
         }
 
         binding.etDes23.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
+                binding.etDes23.clearFocus()
                 ConsumptionActivity.hideKeyboard(view)
             }
         }

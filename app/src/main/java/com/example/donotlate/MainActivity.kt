@@ -59,5 +59,4 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.frame, fragment)
             .commit()
     }
-
 }
