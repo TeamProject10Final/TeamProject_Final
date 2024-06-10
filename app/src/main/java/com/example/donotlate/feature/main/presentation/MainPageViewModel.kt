@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.MyApp
+import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.feature.auth.data.repository.AuthRepositoryImpl
 import com.example.donotlate.feature.auth.domain.repository.AuthRepository
 import com.example.donotlate.feature.main.domain.usecase.GetCurrentUserUseCase

@@ -2,7 +2,7 @@ package com.example.donotlate
 
 import android.app.Application
 
-class DoNotLateApplication: Application() {
+class DoNotLateApplication:Application() {
 
     val appContainer = AppContainer()
 
@@ -10,9 +10,8 @@ class DoNotLateApplication: Application() {
         APPINSTANCE = this
         super.onCreate()
     }
-
     companion object{
-        private var APPINSTANCE: DoNotLateApplication?= null
+        private var APPINSTANCE: DoNotLateApplication?=null
         fun getInstance() = APPINSTANCE!!
     }
 }

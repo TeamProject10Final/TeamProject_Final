@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.MyApp
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentSettingBinding
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 
 class SettingFragment : Fragment() {
     private val mainPageViewModel: MainPageViewModel by activityViewModels {
-        val appContainer = (requireActivity().application as MyApp).appContainer
+        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MainPageViewModelFactory(
             appContainer.getUserUseCase,
             appContainer.getAllUsersUseCase,
