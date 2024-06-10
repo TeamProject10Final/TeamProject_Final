@@ -3,10 +3,8 @@ package com.example.donotlate.feature.searchPlace.data.remote
 import com.example.donotlate.feature.searchPlace.api.NetWorkClient
 import com.example.donotlate.feature.searchPlace.data.model.GooglePlace
 import com.example.donotlate.feature.searchPlace.data.model.SearchPlaces
-import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -51,6 +49,7 @@ interface GooglePlacesApiService {
         @Header("X-Goog-FieldMask") hours: String = "places.regularOpeningHours",
         @Header("X-Goog-FieldMask") phoneNumber: String = "places.nationalPhoneNumber",
     ): SearchPlaces
+
 
     //    @Headers(
 //        "Content-Type: application/json",

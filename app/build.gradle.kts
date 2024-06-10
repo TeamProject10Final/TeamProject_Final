@@ -6,6 +6,8 @@ plugins {
     //firebase sdk
     id("com.google.gms.google-services")
 
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+
 
 }
 
@@ -120,7 +122,7 @@ dependencies {
 
     implementation("com.google.firebase:firebase-auth-ktx")
 
-    implementation ("androidx.fragment:fragment-kx:1.3.6")
+    implementation ("androidx.fragment:fragment-ktx:1.3.6")
 
     implementation ("com.google.maps.android:android-maps-utils:0.5")
 }

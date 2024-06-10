@@ -1,7 +1,7 @@
 package com.example.donotlate.feature.setting
 
-import com.google.gson.annotations.SerializedName
-
+//import com.google.gson.annotations.SerializedName
+//
 //data class GeocodedWaypoint(
 //    @SerializedName("geocoder_status")
 //    var geocoderStatus: String?,

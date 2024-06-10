@@ -1,7 +1,7 @@
 package com.example.donotlate.feature.setting
 
-import com.google.gson.annotations.SerializedName
-
+//import com.google.gson.annotations.SerializedName
+//
 //data class StartLocation(
 //    @SerializedName("lat")
 //    var lat: Double?,
