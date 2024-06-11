@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.donotlate.feature.searchPlace.api.NetWorkClient
-import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesRepository
-import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesRepositoryImpl
+import com.example.donotlate.feature.searchPlace.domain.repository.GooglePlacesApiRepository
+import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesApiRepositoryImpl
 import com.example.donotlate.feature.searchPlace.presentation.data.GooglePlacesModel
 import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 
 class PlaceMainViewModel(
-    private val googlePlacesRepository: GooglePlacesRepository
+    private val googlePlacesApiRepository: GooglePlacesApiRepository
 ) : ViewModel() {
 
     private val _getSearchType = MutableLiveData<GooglePlacesModel>()
@@ -23,9 +23,9 @@ class PlaceMainViewModel(
 
 
 
-    class SearchPlaceViewModelFactory : ViewModelProvider.Factory {
+    class PlaceMainViewModelFactory : ViewModelProvider.Factory {
         private val repository =
-            GooglePlacesRepositoryImpl(googlePlacesApiService = NetWorkClient.googleNetWork)
+            GooglePlacesApiRepositoryImpl(googlePlacesApiService = NetWorkClient.googleNetWork)
 
         override fun <T : ViewModel> create(
             modelClass: Class<T>,

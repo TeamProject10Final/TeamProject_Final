@@ -11,11 +11,14 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.MainActivity
 import com.example.donotlate.R
+import com.example.donotlate.SearchPlaceContainer
 import com.example.donotlate.databinding.FragmentPlaceSearchBinding
 import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.feature.main.presentation.view.MainFragment
@@ -34,11 +37,11 @@ class PlaceSearchFragment : Fragment() {
     private lateinit var mapAdapter: MapAdapter
 
 
-    private val searchViewModel by lazy {
-        ViewModelProvider(
-            requireActivity(),
-            PlaceSearchViewModel.SearchViewModelFactory()
-        )[PlaceSearchViewModel::class.java]
+    private val searchViewModel: PlaceSearchViewModel by activityViewModels {
+        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
+        PlaceSearchViewModelFactory(
+            appContainer.getSearchListUseCase
+            )
     }
 
     //    private val viewModel: PlaceMainViewModel by viewModels()
