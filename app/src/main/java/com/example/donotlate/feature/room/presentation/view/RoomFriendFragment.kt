@@ -74,9 +74,9 @@ class RoomFriendFragment : Fragment() {
 
 
     private fun setTitle() {
-        val title = SpannableStringBuilder("친구아이가!")
+        val title = SpannableStringBuilder("친구 아이가!")
         title.apply {
-            setSpan(RelativeSizeSpan(1.2f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(RelativeSizeSpan(1.4f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         binding.tvRoomFriendTitle.text = title
     }
