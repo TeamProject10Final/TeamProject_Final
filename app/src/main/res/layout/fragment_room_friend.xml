@@ -23,14 +23,13 @@
     <EditText
         android:id="@+id/et_Room_Friend_Search"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="50dp"
         android:paddingLeft="15dp"
         android:fontFamily="@font/pretendard_regular"
         android:hint="친구를 검색해 주세요"
-        android:background="@drawable/et_custom_blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_Room_Friend_Search"
         app:layout_constraintTop_toBottomOf="@id/tv_Room_Friend_Title"/>

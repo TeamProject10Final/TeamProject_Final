@@ -60,6 +60,7 @@ class ViewPagerFragment : Fragment() {
                                 val dialog = BackFragmentDialog()
                                 dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
                             }
+
                         }
                         1 -> {
                             btnRoomNext.text = "다음"
