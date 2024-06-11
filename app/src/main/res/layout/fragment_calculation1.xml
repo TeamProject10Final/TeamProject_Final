@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_calculation1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv11"
+        android:layout_width="357dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="33dp"
+        android:text="정산을 시작해볼까요?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="정산이력"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/tv11"
+        app:layout_constraintTop_toBottomOf="@+id/tv11" />
+
+    <TextView
+        android:id="@+id/tv13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="을 입력해주세요."
+        app:layout_constraintBottom_toBottomOf="@+id/tv12"
+        app:layout_constraintStart_toEndOf="@+id/tv12" />
+
+    <TextView
+        android:id="@+id/tvDes11"
+        android:layout_width="234dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="135dp"
+        android:text="지출 설명을 입력해주세요."
+        app:layout_constraintStart_toStartOf="@+id/tv12"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etDes11"
+        android:layout_width="336dp"
+        android:layout_height="74.5dp"
+        android:layout_marginTop="6dp"
+        android:paddingTop="13dp"
+        android:gravity="end"
+        android:background="@drawable/rounded_edittext1"
+        android:ems="10"
+        android:paddingHorizontal="20dp"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="@+id/tvDes11"
+        app:layout_constraintTop_toBottomOf="@id/tvDes11"
+        android:focusableInTouchMode="true"/>
+
+
+
+
+
+
+    <!--이 밑으로 다 수정하기-->
+
+
+
+
+
+
+    <TextView
+        android:id="@+id/tvDes12"
+        android:layout_width="234dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="250dp"
+        android:text="지출한 날짜를 입력하세요."
+        app:layout_constraintStart_toStartOf="@+id/tvDes11"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/etDes12"
+        android:layout_width="336dp"
+        android:layout_height="74.5dp"
+        android:layout_marginTop="6dp"
+        android:paddingTop="13dp"
+        android:gravity="end"
+        android:background="@drawable/rounded_edittext2"
+        android:ems="10"
+        android:paddingHorizontal="20dp"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="@+id/tvDes12"
+        app:layout_constraintTop_toBottomOf="@id/tvDes12" />
+
+
+
+
+    <TextView
+        android:id="@+id/tvDes13"
+        android:layout_width="234dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="350dp"
+        android:text="카테고리를 선택해주세요."
+        app:layout_constraintStart_toStartOf="@+id/tvDes12"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/consumptionSpinner"
+        android:layout_width="336dp"
+        android:layout_height="74.6dp"
+        android:layout_marginTop="6dp"
+        android:entries="@array/consumptionCategoryArray"
+        android:spinnerMode="dropdown"
+        android:background="@drawable/rounded_edittext3"
+        android:ems="10"
+        android:paddingStart="150dp"
+        android:gravity="end"
+        app:layout_constraintStart_toStartOf="@+id/tvDes13"
+        app:layout_constraintTop_toBottomOf="@id/tvDes13"/>
+
+
+<!--    <EditText-->
+<!--        android:id="@+id/etDes13"-->
+<!--        android:layout_width="336dp"-->
+<!--        android:layout_height="74.5dp"-->
+<!--        android:layout_marginTop="6dp"-->
+<!--        android:background="@drawable/rounded_edittext3"-->
+<!--        android:ems="10"-->
+<!--        android:gravity="end"-->
+<!--        android:inputType="text"-->
+<!--        android:paddingTop="13dp"-->
+<!--        android:paddingHorizontal="20dp"-->
+<!--        android:textSize="32sp"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/tvDes13"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tvDes13" />-->
+
+    <android.widget.Button
+        android:id="@+id/btnCalNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다음"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="30dp"
+ />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
-import com.example.donotlate.MyApp
+import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomStartBinding
 import com.example.donotlate.feature.room.presentation.model.RoomModel
@@ -39,7 +39,7 @@ class RoomStartFragment : Fragment() {
 
     //수정
     private val roomViewModel: RoomViewModel by activityViewModels {
-        val appContainer = (requireActivity().application as MyApp).appContainer
+        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         RoomViewModelFactory(appContainer.getAllUsersUseCase)
     }
 

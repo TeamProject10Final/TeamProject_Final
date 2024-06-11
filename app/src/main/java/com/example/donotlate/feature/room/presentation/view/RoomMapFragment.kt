@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.MyApp
+import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentRoomMapBinding
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
@@ -27,7 +27,7 @@ class RoomMapFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val roomViewModel: RoomViewModel by activityViewModels {
-        val appContainer = (requireActivity().application as MyApp).appContainer
+        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         RoomViewModelFactory(appContainer.getAllUsersUseCase)
     }
 

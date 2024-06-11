@@ -14,7 +14,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.donotlate.MyApp
+import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMypageBinding
 import com.example.donotlate.feature.main.presentation.MainPageViewModel
@@ -34,7 +34,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class MypageFragment : Fragment() {
     private val mainPageViewModel: MainPageViewModel by activityViewModels {
-        val appContainer = (requireActivity().application as MyApp).appContainer
+        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MainPageViewModelFactory(
             appContainer.getUserUseCase,
             appContainer.getAllUsersUseCase,

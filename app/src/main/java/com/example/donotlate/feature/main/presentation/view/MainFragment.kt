@@ -9,16 +9,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.MainActivity
-import com.example.donotlate.MyApp
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMainBinding
 import com.example.donotlate.feature.auth.presentation.view.LoginFragment
+import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.feature.main.presentation.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
-import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
-import com.example.donotlate.feature.searchPlace.presentation.SearchPlacesFragment
+import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import com.example.donotlate.feature.setting.SettingFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 class MainFragment : Fragment() {
 
     private val mainPageViewModel: MainPageViewModel by activityViewModels {
-        val appContainer = (requireActivity().application as MyApp).appContainer
+        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MainPageViewModelFactory(
             appContainer.getUserUseCase,
             appContainer.getAllUsersUseCase,
@@ -66,6 +66,7 @@ class MainFragment : Fragment() {
         startPlace()
         observeViewModel()
         startSetting()
+        startConsumption()
 
     }
 
@@ -78,13 +79,22 @@ class MainFragment : Fragment() {
     private fun placeButton() {
         binding.layoutMainPlace.setOnClickListener {
             val activity = activity as MainActivity
-            activity.changeFragment(SearchPlacesFragment())
+            activity.changeFragment(PlaceSearchFragment())
         }
     }
 
+    //로그아웃 버튼
+//    private fun logoutButton() {
+//        binding.ivMainLogout.setOnClickListener {
+//            val dialog = LogoutFragmentDialog()
+//            dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
+//            //firebase 로그아웃 기능 추가
+//        }
+//    }
+
     private fun startPlace() {
         binding.layoutMainPlace.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, SearchPlacesFragment())
+            parentFragmentManager.beginTransaction().replace(R.id.frame, PlaceSearchFragment())
                 .addToBackStack("").commit()
         }
     }
@@ -93,6 +103,13 @@ class MainFragment : Fragment() {
         binding.ivMainSetting.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.frame, SettingFragment())
                 .addToBackStack("").commit()
+        }
+    }
+
+    private fun startConsumption(){
+        binding.layoutMainSettle.setOnClickListener{
+            val intent = Intent(requireContext(), ConsumptionActivity::class.java)
+            startActivity(intent)
         }
     }
 
