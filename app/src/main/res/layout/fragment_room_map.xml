@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature.room.presentation.view.RoomMapFragment"
     android:background="@color/white"
-    android:clickable="true">
+    android:clickable="true"
+    tools:context=".feature.room.presentation.view.RoomMapFragment">
 
 
     <TextView
@@ -15,47 +15,48 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
+        android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/et_Room_Map_Search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginTop="50dp"
-        android:paddingLeft="15dp"
-        android:hint="목적지를 검색해주세요"
+        android:layout_marginEnd="10dp"
         android:fontFamily="@font/pretendard_regular"
-        app:layout_constraintStart_toStartOf="parent"
+        android:hint="목적지를 검색해주세요"
+        android:paddingLeft="15dp"
         app:layout_constraintEnd_toStartOf="@+id/btn_Room_Map_Search"
-        app:layout_constraintTop_toBottomOf="@id/tv_Room_Map_Title"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_Room_Map_Title" />
 
     <android.widget.Button
         android:id="@+id/btn_Room_Map_Search"
         android:layout_width="50dp"
         android:layout_height="35dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/btn_radius_arctic"
         android:text="검색"
         android:textSize="15dp"
         android:textStyle="bold"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/btn_radius_arctic"
-        app:layout_constraintTop_toTopOf="@id/et_Room_Map_Search"
         app:layout_constraintBottom_toBottomOf="@id/et_Room_Map_Search"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_Room_Map_Search" />
 
-    <FrameLayout
+    <fragment
         android:id="@+id/layout_Room_Map"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="20dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_Room_Map_Search"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_Room_Map_Search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
