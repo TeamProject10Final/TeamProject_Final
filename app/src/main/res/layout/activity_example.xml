@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/example"
@@ -9,21 +8,30 @@
     tools:context=".ExampleActivity">
 
     <fragment
+        android:id="@+id/maps_view"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        tools:context=".ExampleActivity"
-        android:id="@+id/maps_view"/>
+        tools:context=".ExampleActivity" />
 
     <Button
+        android:id="@+id/directions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="click"
-        android:id="@+id/directions"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="80dp"
+        android:text="transit"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="80dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/directionsWalk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="walking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/directions"
+        app:layout_constraintTop_toTopOf="@id/directions" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
