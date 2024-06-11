@@ -53,21 +53,6 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
             btnCalFinish.setOnClickListener {
                 handleSaveConsumption(true)
             }
-            btnCalShare.setOnClickListener {
-
-                val message = viewModel.buildShareMessage()
-
-                val sendIntent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, message)
-                    type = "text/plain"
-                }
-
-                val shareIntent = Intent.createChooser(sendIntent, null)
-                startActivity(shareIntent)
-                // 이미지로 저장, intent 넘기기, 다시 여기로 돌아오게 하기 등등...
-                // 여기에 추가 코드 작성하기!
-            }
         }
 
 

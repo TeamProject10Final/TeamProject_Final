@@ -59,7 +59,7 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
             }
         }
 
-        binding.etDes12.setOnClickListener{
+        binding.ivDate.setOnClickListener{
             showDatePickerDialog()
         }
 
@@ -70,7 +70,7 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
             }
         }
 
-        binding.etDes12.setOnClickListener {
+        binding.ivDate.setOnClickListener {
             showDatePickerDialog()
             ConsumptionActivity.hideKeyboard(view)
         }

@@ -153,29 +153,15 @@
         app:layout_constraintTop_toBottomOf="@+id/tvDes35"
         app:layout_constraintEnd_toEndOf="@+id/tvDes35"/>
 
-
-
-    <android.widget.Button
-        android:id="@+id/btnCalShare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="공유하기"
-        app:layout_constraintBottom_toTopOf="@id/btnCalExit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="5dp"
-        />
-
     <android.widget.Button
         android:id="@+id/btnCalFinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:text="정산완료"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnCalExit"
-        android:layout_marginBottom="30dp"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.widget.Button
         android:id="@+id/btnCalExit"
