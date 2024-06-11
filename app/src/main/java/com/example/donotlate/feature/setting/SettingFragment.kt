@@ -17,6 +17,7 @@ import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentSettingBinding
 import com.example.donotlate.feature.main.presentation.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
+import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import kotlinx.coroutines.launch
 
 class SettingFragment : Fragment() {
@@ -49,7 +50,7 @@ class SettingFragment : Fragment() {
         startMyPage()
         observeViewModel()
         val settingItemList = arrayListOf("테마 변경", "폰트 변경")
-        val settingItemList2 = arrayListOf("건의하기", "앱 정보")
+        val settingItemList2 = arrayListOf("건의하기", "앱 정보", "로그아웃")
 
         val adapter1 = SettingAdapter(settingItemList)
         binding.recyclerSetting.adapter = adapter1
@@ -76,6 +77,7 @@ class SettingFragment : Fragment() {
                 when (position) {
                     0 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
                     1 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
+                    2 -> logoutButton()
                 }
             }
         }
@@ -111,5 +113,11 @@ class SettingFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun logoutButton() {
+            val dialog = LogoutFragmentDialog()
+            dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
+            //firebase 로그아웃 기능 추가
     }
 }

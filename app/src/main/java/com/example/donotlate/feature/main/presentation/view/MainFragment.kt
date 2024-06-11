@@ -64,7 +64,6 @@ class MainFragment : Fragment() {
         startRoom()
         placeButton()
         startPlace()
-        logoutButton()
         observeViewModel()
         startSetting()
 
@@ -80,14 +79,6 @@ class MainFragment : Fragment() {
         binding.layoutMainPlace.setOnClickListener {
             val activity = activity as MainActivity
             activity.changeFragment(SearchPlacesFragment())
-        }
-    }
-
-    private fun logoutButton() {
-        binding.ivMainLogout.setOnClickListener {
-            val dialog = LogoutFragmentDialog()
-            dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
-            //firebase 로그아웃 기능 추가
         }
     }
 

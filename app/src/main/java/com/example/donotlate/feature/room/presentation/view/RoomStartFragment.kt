@@ -78,7 +78,7 @@ class RoomStartFragment : Fragment() {
     private fun setTitle() {
         val title = SpannableStringBuilder("우리 지금 만나,\n약속을 잡아주세요.")
         title.apply {
-            setSpan(RelativeSizeSpan(1.2f), 10, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(RelativeSizeSpan(1.4f), 10, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         binding.tvRoomStartTitle.text = title
     }
