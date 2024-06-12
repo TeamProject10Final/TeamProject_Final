@@ -37,6 +37,7 @@
         app:layout_constraintStart_toStartOf="@id/tv_Result_Title"
         app:layout_constraintTop_toBottomOf="@id/tv_Result_Title" />
 
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/sc_Result"
         android:layout_width="match_parent"

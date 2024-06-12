@@ -23,6 +23,7 @@
 
     <EditText
         android:id="@+id/et_Room_Map_Search"
+        style="@style/EditTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -33,7 +34,8 @@
         android:paddingLeft="15dp"
         app:layout_constraintEnd_toStartOf="@+id/btn_Room_Map_Search"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_Room_Map_Title" />
+        app:layout_constraintTop_toBottomOf="@id/tv_Room_Map_Title"
+        app:theme="@style/EditTextStyle" />
 
     <android.widget.Button
         android:id="@+id/btn_Room_Map_Search"
