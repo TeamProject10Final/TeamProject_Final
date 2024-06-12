@@ -81,15 +81,6 @@ class MainFragment : Fragment() {
         }
     }
 
-//    로그아웃 버튼
-    private fun logoutButton() {
-        binding.ivMainLogout.setOnClickListener {
-            val dialog = LogoutFragmentDialog()
-            dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
-            //firebase 로그아웃 기능 추가
-        }
-    }
-
     private fun initButton(){
         startRoom()
         placeButton()
@@ -97,7 +88,6 @@ class MainFragment : Fragment() {
         startSetting()
         startConsumption()
         startFriends()
-        logoutButton()
     }
 
     private fun startPlace() {

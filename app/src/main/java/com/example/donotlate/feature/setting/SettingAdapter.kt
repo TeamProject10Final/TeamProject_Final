@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.donotlate.databinding.ItemSettingBinding
 
-class SettingAdapter(val settingItem:ArrayList<String>):RecyclerView.Adapter<SettingAdapter.Holder>() {
+class SettingAdapter(private val settingItem:ArrayList<String>):RecyclerView.Adapter<SettingAdapter.Holder>() {
 
     interface ItemClick{
         fun onClick(view : View, position: Int)
@@ -24,6 +24,7 @@ class SettingAdapter(val settingItem:ArrayList<String>):RecyclerView.Adapter<Set
             itemClick?.onClick(it,position)
         }
         holder.tvItem.text = settingItem[position]
+
     }
 
     override fun getItemCount(): Int {
@@ -32,5 +33,6 @@ class SettingAdapter(val settingItem:ArrayList<String>):RecyclerView.Adapter<Set
 
     inner class Holder(binding: ItemSettingBinding):RecyclerView.ViewHolder(binding.root){
         val tvItem = binding.tvItem
+        val nextImage = binding.imageView
     }
 }

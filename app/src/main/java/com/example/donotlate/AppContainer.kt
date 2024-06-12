@@ -34,8 +34,15 @@ import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewM
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
+import com.example.donotlate.feature.searchPlace.api.NetWorkClient
+import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesApiRepositoryImpl
+import com.example.donotlate.feature.searchPlace.domain.repository.GooglePlacesApiRepository
+import com.example.donotlate.feature.searchPlace.domain.usecase.GetSearchListUseCase
+import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchViewModel
+import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+
 
 
 class AppContainer {
@@ -48,6 +55,10 @@ class AppContainer {
         AuthRepositoryImpl(firebaseAuth, firebaseFireStore, DoNotLateApplication.getInstance())
     }
 
+    val googlePlacesApiRepository : GooglePlacesApiRepository by lazy {
+        GooglePlacesApiRepositoryImpl(googleApiService)
+    }
+
     var calculationContainer: CalculationContainer? = null
 
     var consumptionContainer: ConsumptionContainer?=null
@@ -57,6 +68,8 @@ class AppContainer {
     var signUpContainer: SignUpContainer? = null
 
     var friendsContainer: FriendsContainer? = null
+
+
 
 
     val getFinishedConsumptionUseCase: GetFinishedConsumptionUseCase by lazy {
@@ -101,6 +114,7 @@ class AppContainer {
         ToggleIsFinishedUseCase(consumptionRepository)
     }
 
+    private val googleApiService = NetWorkClient.searchNetWork
 
     private val firebaseAuth by lazy {
         FirebaseAuth.getInstance()
@@ -164,6 +178,10 @@ class AppContainer {
 
     val signUpUseCase by lazy {
         SignUpUseCase(authRepository)
+    }
+
+    val getSearchListUseCase by lazy {
+        GetSearchListUseCase(googlePlacesApiRepository)
     }
 
 }
@@ -247,6 +265,14 @@ class ConsumptionContainer(
         getDataCountUseCase,
         getLiveDataCountUseCase,
         toggleIsFinishedUseCase
+    )
+}
+
+class SearchPlaceContainer(
+    val getSearchListUseCase: GetSearchListUseCase
+){
+    val placeSearchViewModelFactory = PlaceSearchViewModelFactory(
+        getSearchListUseCase
     )
 }
 
