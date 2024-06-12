@@ -73,7 +73,6 @@ class PlaceSearchFragment : Fragment() {
         mapAdapter = MapAdapter()
 
 
-
         binding.btnSearchButton.setOnClickListener {
             initMapList()
             initViewModel()
@@ -86,7 +85,6 @@ class PlaceSearchFragment : Fragment() {
                     ConsumptionActivity.hideKeyboard(view)
                 }
             }
-
         }
 
         hideKey(view)
