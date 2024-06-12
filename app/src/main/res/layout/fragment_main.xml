@@ -8,6 +8,8 @@
     android:clickable="true"
     tools:context=".feature.main.presentation.view.MainFragment">
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_Main1"
         android:layout_width="match_parent"
@@ -15,6 +17,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/iv_main_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그아웃"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
 
         <ImageView

@@ -6,7 +6,7 @@ import com.example.donotlate.feature.main.presentation.model.ChatRoomModel
 import com.example.donotlate.feature.main.presentation.model.UserModel
 
 fun UserEntity.toModel() = UserModel(
-    name,email,uId,friend,count,continuousCounter,createdAt,profileImgUrl
+    name, email, uid, friends, count, continuousCounter, createdAt, profileImgUrl
 )
 
 fun ChatRoomEntity.toModel() = ChatRoomModel(

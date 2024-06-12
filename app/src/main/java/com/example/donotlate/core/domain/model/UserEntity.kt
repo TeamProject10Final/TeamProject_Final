@@ -6,8 +6,8 @@ import com.google.firebase.Timestamp
 data class UserEntity(
     val name: String,
     val email: String,
-    val uId: String,
-    val friend: List<String>,
+    val uid: String,
+    val friends: List<String>,
     val count:Int,
     val continuousCounter:Int,
     val createdAt: Timestamp,

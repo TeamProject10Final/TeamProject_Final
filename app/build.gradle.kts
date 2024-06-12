@@ -5,8 +5,6 @@ plugins {
     id("kotlin-parcelize")
     //firebase sdk
     id("com.google.gms.google-services")
-
-
 }
 
 android {
@@ -42,7 +40,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
 }
 
 dependencies {
@@ -54,11 +51,16 @@ dependencies {
     implementation(libs.google.material)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.google.material)
-    implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.navigation.runtime.ktx)
+    testImplementation(libs.junit)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.fragment)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.fragment.ktx.v136)
+    implementation(libs.androidx.fragment.ktx.v171)
 
     //coil
     implementation(libs.coil)
@@ -68,25 +70,18 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.auth)
-    implementation(libs.androidx.fragment.ktx)
-    implementation(libs.androidx.activity.ktx)
+    implementation(libs.google.firebase.auth.ktx)
 
-    implementation(libs.androidx.activity.ktx)
-    implementation(libs.androidx.navigation.runtime.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    //firebase bom
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
 
     //viewpager2
     implementation(libs.androidx.viewpager2)
-    implementation("com.tbuonomo:dotsindicator:5.0")
+    implementation(libs.dotsindicator)
 
     //recyclerview
     implementation(libs.androidx.recyclerview)
-
-    //fragment
-    implementation(libs.androidx.fragment)
-    implementation(libs.androidx.fragment.ktx)
 
     //retrofit
     implementation(libs.retrofit)
@@ -100,36 +95,22 @@ dependencies {
     kapt(libs.room.compiler)
 
     //google map
-    implementation ("com.google.android.gms:play-services-maps:18.1.0")
-    implementation ("com.google.android.gms:play-services-location:21.0.1")
-
-    //chip
-    implementation("com.google.android.material:material:1.4.0")
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
 
     //json
-    implementation("com.google.code.gson:gson:2.8.9")
+    implementation(libs.gson)
 
     //google places
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.9.0"))
-    implementation ("com.google.android.libraries.places:places:3.3.0")
+    implementation(platform(libs.kotlin.bom))
+    implementation(libs.places)
     implementation(libs.volley)
 
-    val lifecycle_version = "2.8.1"
-    // ViewModel
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    // LiveData
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
-    implementation("androidx.fragment:fragment-ktx:1.4.1")
-    //firebase bom
-    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
-    implementation("com.google.firebase:firebase-analytics")
-
     //프로필 이미지뷰
-    implementation("de.hdodenhof:circleimageview:3.1.0")
-
-
-    implementation("com.google.firebase:firebase-auth-ktx")
-
-    implementation ("androidx.fragment:fragment-ktx:1.3.6")
+    implementation(libs.circleimageview)
 
 }
+
+
+
+

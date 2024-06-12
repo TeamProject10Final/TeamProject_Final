@@ -1,0 +1,165 @@
+package com.example.donotlate.feature.friends.presentation.view
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import com.example.donotlate.DoNotLateApplication
+import com.example.donotlate.R
+import com.example.donotlate.core.util.toFormattedString
+import com.example.donotlate.databinding.FragmentRequestDialogBinding
+import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
+import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
+import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
+import kotlinx.coroutines.launch
+
+class FriendsRequestDialogFragment : DialogFragment() {
+
+    private val friendsViewModel: FriendsViewModel by activityViewModels {
+        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
+        FriendsViewModelFactory(
+            appContainer.getFriendsListFromFirebaseUseCase,
+            appContainer.getCurrentUserUseCase,
+            appContainer.searchUserByIdUseCase,
+            appContainer.makeAFriendRequestUseCase,
+            appContainer.getUserDataUseCase,
+            appContainer.getFriendRequestsStatusUseCase,
+            appContainer.getFriendRequestListUseCase,
+            appContainer.acceptFriendRequestsUseCase
+        )
+    }
+
+    private var _binding: FragmentRequestDialogBinding? = null
+    private val binding get() = _binding!!
+
+    private var fromId: String = ""
+    private var fromUserName: String = ""
+    private var requestID: String = ""
+    private var user: FriendsUserModel? = null
+    private var toId: String = ""
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        user = arguments?.getParcelable(ARG_USER)
+
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        currentUserData()
+        _binding = FragmentRequestDialogBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        user?.let { user ->
+            toId = user.uid
+            requestID =
+                if (fromId > toId) "${fromId}_${toId}" else "${toId}_${fromId} "// 요청 ID 생성
+            friendsViewModel.checkFriendRequestStatus(requestID) // 친구 요청 상태 확인
+
+            binding.tvNameTitle.text = user.name
+            binding.tvEmail.text = user.email
+            binding.tvCreateAt.text = user.createdAt.toFormattedString()
+
+            binding.btnFriendRequest.setOnClickListener {
+                sendFriendRequest(toId, fromId, fromUserName, requestID)
+                dismiss()
+            }
+        }
+
+        observeViewModel() // ViewModel 상태 관찰
+
+        super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    private fun sendFriendRequest(
+        toId: String,
+        fromId: String,
+        fromUserName: String,
+        requestId: String
+    ) {
+        friendsViewModel.sendFriendRequest(toId, fromId, fromUserName, requestId)
+    }
+
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            friendsViewModel.checkRequestStatus.collect { status ->
+                status[requestID]?.let {
+                    when (it.status) {
+                        "request" -> {
+                            binding.btnFriendRequest.text = "x"
+                            binding.btnFriendRequest.isClickable = false
+                            binding.btnFriendRequest.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.gray
+                                )
+                            )
+                        }
+
+                        "accept" -> {
+                            binding.btnFriendRequest.text = "x"
+                            binding.btnFriendRequest.isClickable = false
+                            binding.btnFriendRequest.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.gray
+                                )
+                            )
+                        }
+
+                        else -> {
+                            binding.btnFriendRequest.text = "o"
+                            binding.btnFriendRequest.isClickable = true
+                            binding.btnFriendRequest.setBackgroundColor(
+                                ContextCompat.getColor(requireContext(), R.color.blue)
+                            )
+                        }
+                    }
+                } ?: run {
+                    binding.btnFriendRequest.text = "친구 요청"
+                    binding.btnFriendRequest.isClickable = true
+                    binding.btnFriendRequest.setBackgroundColor(
+                        ContextCompat.getColor(requireContext(), R.color.blue)
+                    )
+                }
+            }
+        }
+    }
+
+    private fun currentUserData() {
+        lifecycleScope.launch {
+            friendsViewModel.currentUserData.collect { currentUser ->
+                fromId = currentUser?.uid ?: ""
+                fromUserName = currentUser?.name ?: ""
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    companion object {
+        private const val ARG_USER = "user"
+
+        fun newInstance(user: FriendsUserModel): FriendsRequestDialogFragment {
+            val fragment = FriendsRequestDialogFragment()
+            val args = Bundle()
+            args.putParcelable(ARG_USER, user)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+}
