@@ -29,6 +29,7 @@
         android:hint="장소를 입력해 주세요"
         android:inputType="text"
         android:paddingHorizontal="15dp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_Place_Back"
         app:theme="@style/EditTextStyle" />
