@@ -8,6 +8,7 @@ data class SearchPlaces(
 )
 
 data class Places(
+
     @SerializedName("types")
     val types : List<String>?,
 

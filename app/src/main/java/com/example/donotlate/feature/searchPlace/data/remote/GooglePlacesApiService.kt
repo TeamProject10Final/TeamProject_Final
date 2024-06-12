@@ -14,6 +14,7 @@ interface GooglePlacesApiService {
     suspend fun requestSearchPlaces(
         @Query("textQuery") textQuery: String,
         @Query("languageCode") language: String = "ko",
+        @Query("pageSize") pageSize: Int,
         @Header("Content-Type") contentType: String = "application/json",
         @Header("X-Goog-Api-Key") apiKey: String = NetWorkClient.API_KEY,
         @Header("X-Goog-FieldMask") displayName: String = "places.displayName",
@@ -26,3 +27,4 @@ interface GooglePlacesApiService {
         @Header("X-Goog-FieldMask") phoneNumber: String = "places.nationalPhoneNumber",
     ): SearchPlaces
 }
+
