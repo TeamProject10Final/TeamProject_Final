@@ -17,6 +17,8 @@ import com.example.donotlate.feature.auth.presentation.view.LoginFragment
 import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.feature.main.presentation.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
+import com.example.donotlate.feature.minigame.MiniGameFragment
+import com.example.donotlate.feature.mypromise.MypromiseListFragment
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import com.example.donotlate.feature.setting.SettingFragment
@@ -62,11 +64,12 @@ class MainFragment : Fragment() {
 
         getCurrentUserData()
         startRoom()
-        placeButton()
         startPlace()
         observeViewModel()
         startSetting()
         startConsumption()
+        startMiniGame()
+        startMyPromise()
 
     }
 
@@ -76,12 +79,6 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun placeButton() {
-        binding.layoutMainPlace.setOnClickListener {
-            val activity = activity as MainActivity
-            activity.changeFragment(PlaceSearchFragment())
-        }
-    }
 
     //로그아웃 버튼
 //    private fun logoutButton() {
@@ -141,6 +138,20 @@ class MainFragment : Fragment() {
                         .commit()
                 }
             }
+        }
+    }
+
+    private fun startMiniGame() {
+        binding.layoutMainGame.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.frame, MiniGameFragment())
+                .addToBackStack("").commit()
+        }
+    }
+
+    private fun startMyPromise() {
+        binding.layoutMainReservation.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.frame, MypromiseListFragment())
+                .addToBackStack("").commit()
         }
     }
 }

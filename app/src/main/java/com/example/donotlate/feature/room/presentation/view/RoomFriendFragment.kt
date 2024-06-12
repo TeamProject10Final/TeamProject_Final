@@ -1,5 +1,6 @@
 package com.example.donotlate.feature.room.presentation.view
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -8,6 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -69,6 +72,7 @@ class RoomFriendFragment : Fragment() {
 
 //        initFriendList()
         getAllUserList()
+        editTextProcess()
 
     }
 
@@ -124,6 +128,25 @@ class RoomFriendFragment : Fragment() {
         }catch (e:Exception){
             Log.e("RecyclerVuewSetupError", "Error: ${e.message}")
         }
+    }
+
+    private fun editTextProcess() {
+        binding.etRoomFriendSearch.setOnEditorActionListener { textView, action, keyEvent ->
+            var handled = false
+
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard()
+                requireActivity().currentFocus!!.clearFocus()
+                handled = true
+            }
+            handled
+        }
+    }
+
+    private fun hideKeyboard() {
+        val imm =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
 
     override fun onDestroyView() {
