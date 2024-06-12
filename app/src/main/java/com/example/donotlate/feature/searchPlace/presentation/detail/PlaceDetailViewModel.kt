@@ -5,12 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
-import com.example.donotlate.feature.searchPlace.api.NetWorkClient
-import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesRepository
-import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesRepositoryImpl
 import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 
-class PlaceDetailViewModel(private val repository: GooglePlacesRepository) : ViewModel() {
+class PlaceDetailViewModel : ViewModel() {
 
     private val _data = MutableLiveData<PlaceModel>()
     val data: LiveData<PlaceModel> get() = _data
@@ -22,15 +19,15 @@ class PlaceDetailViewModel(private val repository: GooglePlacesRepository) : Vie
         _data.value = selectedItem
     }
 
-    class PlaceDetailViewModelFactory: ViewModelProvider.Factory {
-        private val repository =
-            GooglePlacesRepositoryImpl(googlePlacesApiService = NetWorkClient.searchNetWork)
-
+    class PlaceDetailViewModelFactory : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(
             modelClass: Class<T>,
             extras: CreationExtras
-        ): T = PlaceDetailViewModel(
-            repository
-        ) as T
+        ): T {
+            if (modelClass.isAssignableFrom(PlaceDetailViewModel::class.java)) {
+                return PlaceDetailViewModel() as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
     }
 }

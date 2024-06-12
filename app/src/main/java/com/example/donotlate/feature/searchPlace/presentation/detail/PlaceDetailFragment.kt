@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import coil.transform.RoundedCornersTransformation
@@ -30,12 +31,7 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentPlaceDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val searchViewModel by lazy {
-        ViewModelProvider(
-            requireActivity(),
-            PlaceDetailViewModel.PlaceDetailViewModelFactory()
-        )[PlaceDetailViewModel::class.java]
-    }
+    private val searchViewModel: PlaceDetailViewModel by viewModels()
 
     private lateinit var mGoogleMap: GoogleMap
 
