@@ -3,7 +3,6 @@ package com.example.donotlate.feature.room.presentation.view
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.service.autofill.UserData
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.RelativeSizeSpan
@@ -13,13 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomStartBinding
 import com.example.donotlate.feature.room.presentation.model.RoomModel
-import com.example.donotlate.feature.room.presentation.model.UserModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 import java.util.Calendar
@@ -109,7 +105,6 @@ class RoomStartFragment : Fragment() {
 //        dateText.text = "${year}-${m}-${d}"
 
         binding.ivDate.setOnClickListener {
-
             DatePickerDialog(
                 requireContext(),
                 R.style.DatePickerStyle,

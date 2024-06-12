@@ -116,82 +116,6 @@ class FirebaseDataSourceImpl(
         } catch (e: Exception) {
             Log.e("accept Info", "Error updating document: $requestId", e)
         }
-//        try {
-//            val requestRef = db.collection("FriendRequests").document(requestId)
-//            Log.d("accept Info", "requestId: ${requestId}")
-//            Log.d("accept Info", "Checking document for requestId: $requestId at path: ${requestRef.path}")
-//            db.runTransaction { transaction ->
-//                val requestDoc = transaction.get(requestRef)
-//                Log.d("accept Info", "requestDoc: ${requestDoc}")
-//                if (requestDoc.exists()) {
-//                    val fromId = requestDoc.getString("fromId") ?: throw IllegalStateException("fromId is missing")
-//                    val toId = requestDoc.getString("toId") ?: throw IllegalStateException("toId is missing")
-//
-//                    Log.d("accept Info", "fromId: ${fromId}, toId: ${toId}")
-//
-//                    Log.d("FriendRequest", "Updating request status to 'accept'")
-//                    transaction.update(requestRef, "status", "accept")
-//
-//                    val fromUserRef = db.collection("users").document(fromId)
-//                    val toUserRef = db.collection("users").document(toId)
-//
-//                    Log.d("FriendRequest", "Adding toId: $toId to fromId: $fromId friends list")
-//                    transaction.update(fromUserRef, "friends", FieldValue.arrayUnion(toId))
-//                    Log.d("FriendRequest", "Adding fromId: $fromId to toId: $toId friends list")
-//                    transaction.update(toUserRef, "friends", FieldValue.arrayUnion(fromId))
-//
-//                }else {
-//                    throw IllegalStateException("Friend request document does not exist")
-//                }
-//            }.await()
-//            emit(true)
-//        }catch (e: Exception){
-//            Log.e("FriendRequest", "Error accepting friend request", e)
-//            emit(false)
-//        }
-
-
-//        try {
-//            val requestRef =
-//                FirebaseFirestore.getInstance().collection("FriendRequests").document(requestId)
-//            Log.d("accept Info", "requestId: $requestId, requestRef path: ${requestRef.path}")
-//
-//            // 비동기로 문서 존재 확인
-//            val requestDoc = requestRef.get(Source.SERVER).await()
-//            Log.d("accept Info", "requestDoc: $requestDoc")
-//
-//            if (requestDoc.exists()) {
-//                val fromId = requestDoc.getString("fromId") ?: throw IllegalStateException("fromId is missing")
-//                val toId = requestDoc.getString("toId") ?: throw IllegalStateException("toId is missing")
-//                Log.d("accept Info", "fromId: $fromId, toId: $toId")
-//
-//                db.runTransaction { transaction ->
-//                    transaction.update(requestRef, "status", "accept")
-//
-//                    val fromUserRef =
-//                        FirebaseFirestore.getInstance().collection("users").document(fromId)
-//                    val toUserRef =
-//                        FirebaseFirestore.getInstance().collection("users").document(toId)
-//
-//                    Log.d("FriendRequest", "Adding toId: $toId to fromId: $fromId friends list")
-//                    transaction.update(fromUserRef, "friends", FieldValue.arrayUnion(toId))
-//
-//                    Log.d("FriendRequest", "Adding fromId: $fromId to toId: $toId friends list")
-//                    transaction.update(toUserRef, "friends", FieldValue.arrayUnion(fromId))
-//                }.await()
-//
-//                emit(true)
-//            } else {
-//                Log.e(
-//                    "accept Info",
-//                    "Friend request document does not exist for requestId: $requestId"
-//                )
-//                throw IllegalStateException("Friend request document does not exist")
-//            }
-//        } catch (e: Exception) {
-//            Log.e("FriendRequest", "Error accepting friend request", e)
-//            emit(false)
-//        }
     }
 
     override suspend fun searchUserById(searchId: String): Flow<List<UserEntity>> = flow {
@@ -221,15 +145,16 @@ class FirebaseDataSourceImpl(
             }
         }
 
-    override suspend fun getFriendRequestsList(toId: String): Flow<List<FriendRequestEntity>> =
-        flow {
+    override suspend fun getFriendRequestsList(toId: String): Flow<List<FriendRequestEntity>> = flow {
             val documents = db.collection("FriendRequests")
                 .whereEqualTo("toId", toId)
                 .whereEqualTo("status", "request")
                 .get()
                 .await()
 
-            val requestList = documents.map { it.toObject(FriendRequestDTO::class.java) }
+            val requestList = documents.map {
+                it.toObject(FriendRequestDTO::class.java)
+            }
             emit(requestList.toEntityList())
         }
 }

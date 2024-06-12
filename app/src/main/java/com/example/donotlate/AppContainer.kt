@@ -42,7 +42,7 @@ import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearch
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-
+import com.google.firebase.storage.FirebaseStorage
 
 
 class AppContainer {
@@ -122,6 +122,10 @@ class AppContainer {
 
     private val firebaseFireStore by lazy {
         FirebaseFirestore.getInstance()
+    }
+
+    private val firebaseStorage by lazy {
+        FirebaseStorage.getInstance()
     }
 
     private val firebaseDataRepository by lazy {

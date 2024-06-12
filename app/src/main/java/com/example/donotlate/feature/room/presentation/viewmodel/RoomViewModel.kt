@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
 import com.example.donotlate.feature.room.presentation.mapper.toModel
 import com.example.donotlate.feature.room.presentation.model.RoomModel
-import com.example.donotlate.feature.room.presentation.model.UserModel
+import com.example.donotlate.feature.room.presentation.model.RoomUserModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,8 +19,8 @@ class RoomViewModel(
 
 //    private val _getAllUserData = MutableStateFlow<List<UserModel>>(listOf())
 //    val getAllUserData: StateFlow<List<UserModel>> = _getAllUserData
-    private val _getAllUserData = MutableStateFlow<List<UserModel>>(emptyList())
-    val getAllUserData: StateFlow<List<UserModel>> = _getAllUserData
+    private val _getAllUserData = MutableStateFlow<List<RoomUserModel>>(emptyList())
+    val getAllUserData: StateFlow<List<RoomUserModel>> = _getAllUserData
 
     private val _inputText = MutableLiveData<RoomModel>()
 //    val inputText: LiveData<RoomModel> get() = _inputText
