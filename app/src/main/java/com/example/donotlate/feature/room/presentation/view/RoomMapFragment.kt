@@ -31,7 +31,7 @@ class RoomMapFragment : Fragment() {
 
     private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        RoomViewModelFactory(appContainer.getAllUsersUseCase)
+        RoomViewModelFactory(appContainer.getAllUsersUseCase, appContainer.makeAPromiseRoomUseCase)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
