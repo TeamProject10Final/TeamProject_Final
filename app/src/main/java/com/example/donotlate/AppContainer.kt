@@ -14,6 +14,7 @@ import com.example.donotlate.feature.auth.domain.useCase.LogInUseCase
 import com.example.donotlate.feature.auth.domain.useCase.SignUpUseCase
 import com.example.donotlate.feature.auth.presentation.viewmodel.LogInViewModelFactory
 import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
+import com.example.donotlate.feature.chatroom.domain.usecase.MakeAPromiseRoomUseCase
 import com.example.donotlate.feature.consumption.data.repository.ConsumptionRepositoryImpl
 import com.example.donotlate.feature.consumption.domain.repository.ConsumptionRepository
 import com.example.donotlate.feature.consumption.domain.usecase.DeleteConsumptionUseCase
@@ -56,21 +57,19 @@ class AppContainer {
         AuthRepositoryImpl(firebaseAuth, firebaseFireStore, DoNotLateApplication.getInstance())
     }
 
-    val googlePlacesApiRepository : GooglePlacesApiRepository by lazy {
+    val googlePlacesApiRepository: GooglePlacesApiRepository by lazy {
         GooglePlacesApiRepositoryImpl(googleApiService)
     }
 
     var calculationContainer: CalculationContainer? = null
 
-    var consumptionContainer: ConsumptionContainer?=null
+    var consumptionContainer: ConsumptionContainer? = null
 
 
     var logInContainer: LogInContainer? = null
     var signUpContainer: SignUpContainer? = null
 
     var friendsContainer: FriendsContainer? = null
-
-
 
 
     val getFinishedConsumptionUseCase: GetFinishedConsumptionUseCase by lazy {
@@ -138,13 +137,17 @@ class AppContainer {
     }
 
     val friendRequestRepository by lazy {
-        FriendRequestRepositoryImpl(firebaseFireStore, firebaseAuth, DoNotLateApplication.getInstance())
+        FriendRequestRepositoryImpl(
+            firebaseFireStore,
+            firebaseAuth,
+            DoNotLateApplication.getInstance()
+        )
     }
 //    val getUserUseCase1 by lazy {
 //        GetUserUseCase(userRepository)
 //    }
 
-    val getUserDataUseCase by lazy{
+    val getUserDataUseCase by lazy {
         GetUserDataUseCase(firebaseDataRepository)
     }
 
@@ -197,6 +200,10 @@ class AppContainer {
         ImageUploadUseCase(settingRepository)
     }
 
+    val makeAPromiseRoomUseCase by lazy {
+        MakeAPromiseRoomUseCase(firebaseDataRepository)
+    }
+
 }
 
 class LogInContainer(
@@ -216,7 +223,7 @@ class MainPageContainer(
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val imageUploadUseCase: ImageUploadUseCase,
-){
+) {
     val mainPageViewModelFactory = MainPageViewModelFactory(
         getUserDataUseCase,
         getAllUsersUseCase,
@@ -226,9 +233,10 @@ class MainPageContainer(
 }
 
 class RoomContainer(
-    private val getAllUsersUseCase: GetAllUsersUseCase
+    private val getAllUsersUseCase: GetAllUsersUseCase,
+    private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase
 ) {
-    val roomViewModelFactory = RoomViewModelFactory(getAllUsersUseCase)
+    val roomViewModelFactory = RoomViewModelFactory(getAllUsersUseCase, makeAPromiseRoomUseCase)
 }
 
 class CalculationContainer(
@@ -269,7 +277,7 @@ class ConsumptionContainer(
     val getDataCountUseCase: GetDataCountUseCase,
     val getLiveDataCountUseCase: GetLiveDataCountUseCase,
     val toggleIsFinishedUseCase: ToggleIsFinishedUseCase
-){
+) {
     val consumptionViewModelFactory = ConsumptionViewModelFactory(
         getFinishedConsumptionUseCase,
         getUnfinishedConsumptionUseCase,
@@ -287,7 +295,7 @@ class ConsumptionContainer(
 
 class SearchPlaceContainer(
     val getSearchListUseCase: GetSearchListUseCase
-){
+) {
     val placeSearchViewModelFactory = PlaceSearchViewModelFactory(
         getSearchListUseCase
     )
@@ -302,7 +310,7 @@ class FriendsContainer(
     val getFriendRequestsStatusUseCase: GetFriendRequestsStatusUseCase,
     val getFriendRequestsListUseCase: GetFriendRequestsListUseCase,
     val acceptFriendRequestsUseCase: AcceptFriendRequestsUseCase
-){
+) {
     val friendsViewModelFactory = FriendsViewModelFactory(
         getFriendsListFromFirebaseUseCase,
         getCurrentUserUseCase,

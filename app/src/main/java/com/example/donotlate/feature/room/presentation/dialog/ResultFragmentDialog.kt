@@ -9,7 +9,11 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.donotlate.MainActivity
+import com.example.donotlate.R
 import com.example.donotlate.databinding.BackDialogBinding
+import com.example.donotlate.feature.chatroom.presentation.view.ChatRoomActivity
+import com.example.donotlate.feature.chatroom.presentation.view.ChatRoomFragment
+import com.example.donotlate.feature.room.presentation.view.RoomActivity
 import com.example.donotlate.feature.room.presentation.view.RoomResultFragment
 
 class ResultFragmentDialog : DialogFragment() {
@@ -44,8 +48,8 @@ class ResultFragmentDialog : DialogFragment() {
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
-            val activity = activity as MainActivity
-            activity.replaceFragment(RoomResultFragment())
+            val activity = activity as RoomActivity
+            activity.supportFragmentManager.beginTransaction().replace(R.id.frame_room,RoomResultFragment()).commit()
             dismiss()
         }
     }
