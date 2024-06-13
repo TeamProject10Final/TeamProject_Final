@@ -1,32 +1,31 @@
-package com.example.donotlate.feature.setting
+package com.example.donotlate.feature.setting.presentation.view
 
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentSettingBinding
-import com.example.donotlate.feature.main.presentation.MainPageViewModel
-import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
+import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
+import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
+import com.example.donotlate.feature.setting.presentation.adapter.SettingAdapter
 import kotlinx.coroutines.launch
 
 class SettingFragment : Fragment() {
     private val mainPageViewModel: MainPageViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MainPageViewModelFactory(
-            appContainer.getUserUseCase,
+            appContainer.getUserDataUseCase,
             appContainer.getAllUsersUseCase,
-            appContainer.getCurrentUserUseCase
+            appContainer.getCurrentUserUseCase,
+            appContainer.imageUploadUseCase
         )
     }
 

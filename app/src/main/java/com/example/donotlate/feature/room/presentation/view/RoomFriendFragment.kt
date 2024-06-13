@@ -1,5 +1,6 @@
 package com.example.donotlate.feature.room.presentation.view
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -8,6 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,21 +18,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentRoomFriendBinding
-import com.example.donotlate.feature.room.presentation.model.FriendListModel
 import com.example.donotlate.feature.room.presentation.adapter.RoomFriendAdapter
-import com.example.donotlate.feature.room.presentation.model.UserModel
+import com.example.donotlate.feature.room.presentation.model.RoomUserModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class RoomFriendFragment : Fragment() {
-
-    private val auth by lazy {
-        FirebaseAuth.getInstance()
-    }
 
     private val roomViewModel: RoomViewModel by viewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
@@ -39,9 +34,11 @@ class RoomFriendFragment : Fragment() {
     private var _binding : FragmentRoomFriendBinding? = null
     private val binding get() = _binding!!
 
-    private val friendAdapter: RoomFriendAdapter by lazy {
+    private val friendAdapter by lazy {
         RoomFriendAdapter()
     }
+
+    private val selectedUsers = mutableListOf<RoomUserModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,8 +64,8 @@ class RoomFriendFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-//        initFriendList()
         getAllUserList()
+        editTextProcess()
 
     }
 
@@ -80,25 +77,6 @@ class RoomFriendFragment : Fragment() {
         }
         binding.tvRoomFriendTitle.text = title
     }
-
-//    private fun initFriendList() {
-//        val data = listOf<FriendListModel>(
-//            FriendListModel("길동아","",""),
-//            FriendListModel("길동이","",""),
-//            FriendListModel("길동이1","",""),
-//            FriendListModel("길동아2","",""),
-//            FriendListModel("홍길동","",""),
-//            FriendListModel("홀홍홍","",""),
-//        )
-//
-//        binding.rvFriend.apply {
-//            adapter = friendAdapter
-//            layoutManager = GridLayoutManager(requireContext(), 4)
-//        }
-//        friendAdapter.submitList(data)
-//
-//
-//    }
 
     private fun getAllUserList(){
         try {
@@ -114,16 +92,48 @@ class RoomFriendFragment : Fragment() {
         }
     }
 
-    private fun setUpRecyclerView(userList:List<UserModel>){
+    private fun setUpRecyclerView(userList:List<RoomUserModel>){
         try{
             binding.rvFriend.apply {
                 adapter = friendAdapter
                 layoutManager = GridLayoutManager(requireContext(), 4)
             }
             friendAdapter.submitList(userList)
+            friendAdapter.itemClick = object : RoomFriendAdapter.ItemClick{
+                override fun onClick(view: View, position: Int) {
+                    val selectedUser = friendAdapter.currentList[position]
+                    if(selectedUsers.contains(selectedUser)){
+                        selectedUsers.remove(selectedUser)
+                        Log.d("RRRR", "${selectedUsers}")
+                    }else{
+                        selectedUsers.add(selectedUser)
+                        Log.d("RRRR", "${selectedUsers}")
+                    }
+                }
+
+            }
         }catch (e:Exception){
             Log.e("RecyclerVuewSetupError", "Error: ${e.message}")
         }
+    }
+
+    private fun editTextProcess() {
+        binding.etRoomFriendSearch.setOnEditorActionListener { textView, action, keyEvent ->
+            var handled = false
+
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard()
+                requireActivity().currentFocus!!.clearFocus()
+                handled = true
+            }
+            handled
+        }
+    }
+
+    private fun hideKeyboard() {
+        val imm =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
 
     override fun onDestroyView() {

@@ -24,14 +24,16 @@
     <EditText
         android:id="@+id/et_Room_Map_Search"
         style="@style/EditTextStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="45dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"
+        android:imeOptions="actionDone"
         android:fontFamily="@font/pretendard_regular"
         android:hint="목적지를 검색해주세요"
         android:paddingLeft="15dp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/btn_Room_Map_Search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_Room_Map_Title"
@@ -39,12 +41,12 @@
 
     <android.widget.Button
         android:id="@+id/btn_Room_Map_Search"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/btn_radius_arctic"
         android:text="검색"
-        android:textSize="15dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/et_Room_Map_Search"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,11 +54,10 @@
 
     <fragment
         android:id="@+id/layout_Room_Map"
-        class="com.google.android.gms.maps.SupportMapFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="450dp"
         android:layout_margin="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_Room_Map_Search" />

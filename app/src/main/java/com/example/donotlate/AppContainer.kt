@@ -1,7 +1,19 @@
 package com.example.donotlate
 
 import com.example.donotlate.core.data.repository.FirebaseDataSourceImpl
-import com.example.donotlate.feature.consumption.presentation.SharedViewModelFactory
+import com.example.donotlate.core.domain.usecase.AcceptFriendRequestsUseCase
+import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
+import com.example.donotlate.core.domain.usecase.GetFriendRequestsListUseCase
+import com.example.donotlate.core.domain.usecase.GetFriendRequestsStatusUseCase
+import com.example.donotlate.core.domain.usecase.GetFriendsListFromFirebaseUseCase
+import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
+import com.example.donotlate.core.domain.usecase.MakeAFriendRequestUseCase
+import com.example.donotlate.core.domain.usecase.SearchUserByIdUseCase
+import com.example.donotlate.feature.auth.data.repository.AuthRepositoryImpl
+import com.example.donotlate.feature.auth.domain.useCase.LogInUseCase
+import com.example.donotlate.feature.auth.domain.useCase.SignUpUseCase
+import com.example.donotlate.feature.auth.presentation.viewmodel.LogInViewModelFactory
+import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
 import com.example.donotlate.feature.consumption.data.repository.ConsumptionRepositoryImpl
 import com.example.donotlate.feature.consumption.domain.repository.ConsumptionRepository
 import com.example.donotlate.feature.consumption.domain.usecase.DeleteConsumptionUseCase
@@ -16,26 +28,22 @@ import com.example.donotlate.feature.consumption.domain.usecase.GetUnfinishedCon
 import com.example.donotlate.feature.consumption.domain.usecase.InsertConsumptionUseCase
 import com.example.donotlate.feature.consumption.domain.usecase.ToggleIsFinishedUseCase
 import com.example.donotlate.feature.consumption.presentation.ConsumptionViewModelFactory
-import com.example.donotlate.feature.auth.data.repository.AuthRepositoryImpl
-import com.example.donotlate.feature.auth.domain.repository.AuthRepository
-import com.example.donotlate.feature.auth.domain.useCase.LogInUseCase
-import com.example.donotlate.feature.auth.domain.useCase.SignUpUseCase
-import com.example.donotlate.feature.auth.presentation.viewmodel.LogInViewModelFactory
-import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
-import com.example.donotlate.feature.main.domain.usecase.GetCurrentUserUseCase
-import com.example.donotlate.feature.main.domain.usecase.GetUserUseCase
-import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
+import com.example.donotlate.feature.consumption.presentation.SharedViewModelFactory
+import com.example.donotlate.feature.friends.data.repository.FriendRequestRepositoryImpl
+import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
+import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 import com.example.donotlate.feature.searchPlace.api.NetWorkClient
 import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesApiRepositoryImpl
 import com.example.donotlate.feature.searchPlace.domain.repository.GooglePlacesApiRepository
 import com.example.donotlate.feature.searchPlace.domain.usecase.GetSearchListUseCase
-import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchViewModel
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchViewModelFactory
+import com.example.donotlate.feature.setting.data.repository.SettingRepositoryImpl
+import com.example.donotlate.feature.setting.domain.usecase.ImageUploadUseCase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-
+import com.google.firebase.storage.FirebaseStorage
 
 
 class AppContainer {
@@ -59,6 +67,8 @@ class AppContainer {
 
     var logInContainer: LogInContainer? = null
     var signUpContainer: SignUpContainer? = null
+
+    var friendsContainer: FriendsContainer? = null
 
 
 
@@ -115,23 +125,59 @@ class AppContainer {
         FirebaseFirestore.getInstance()
     }
 
-    private val userRepository by lazy {
-        FirebaseDataSourceImpl(firebaseFireStore)
+    private val firebaseStorage by lazy {
+        FirebaseStorage.getInstance()
+    }
+
+    private val firebaseDataRepository by lazy {
+        FirebaseDataSourceImpl(firebaseFireStore, firebaseAuth)
+    }
+
+    private val settingRepository by lazy {
+        SettingRepositoryImpl(firebaseAuth, firebaseFireStore, firebaseStorage)
+    }
+
+    val friendRequestRepository by lazy {
+        FriendRequestRepositoryImpl(firebaseFireStore, firebaseAuth, DoNotLateApplication.getInstance())
     }
 //    val getUserUseCase1 by lazy {
 //        GetUserUseCase(userRepository)
 //    }
 
-    val getUserUseCase by lazy{
-        GetUserUseCase(userRepository)
+    val getUserDataUseCase by lazy{
+        GetUserDataUseCase(firebaseDataRepository)
     }
 
     val getAllUsersUseCase by lazy {
-        GetAllUsersUseCase(userRepository)
+        GetAllUsersUseCase(firebaseDataRepository)
     }
 
     val getCurrentUserUseCase by lazy {
         GetCurrentUserUseCase(authRepository)
+    }
+
+    val getFriendsListFromFirebaseUseCase by lazy {
+        GetFriendsListFromFirebaseUseCase(firebaseDataRepository)
+    }
+
+    val searchUserByIdUseCase by lazy {
+        SearchUserByIdUseCase(firebaseDataRepository)
+    }
+
+    val makeAFriendRequestUseCase by lazy {
+        MakeAFriendRequestUseCase(firebaseDataRepository)
+    }
+
+    val getFriendRequestsStatusUseCase by lazy {
+        GetFriendRequestsStatusUseCase(firebaseDataRepository)
+    }
+
+    val getFriendRequestListUseCase by lazy {
+        GetFriendRequestsListUseCase(firebaseDataRepository)
+    }
+
+    val acceptFriendRequestsUseCase by lazy {
+        AcceptFriendRequestsUseCase(firebaseDataRepository)
     }
 
 
@@ -145,6 +191,10 @@ class AppContainer {
 
     val getSearchListUseCase by lazy {
         GetSearchListUseCase(googlePlacesApiRepository)
+    }
+
+    val imageUploadUseCase by lazy {
+        ImageUploadUseCase(settingRepository)
     }
 
 }
@@ -162,12 +212,16 @@ class SignUpContainer(
 }
 
 class MainPageContainer(
-    private val getUserUseCase: GetUserUseCase,
+    private val getUserDataUseCase: GetUserDataUseCase,
     private val getAllUsersUseCase: GetAllUsersUseCase,
-    private val getCurrentUserUseCase: GetCurrentUserUseCase
+    private val getCurrentUserUseCase: GetCurrentUserUseCase,
+    private val imageUploadUseCase: ImageUploadUseCase,
 ){
     val mainPageViewModelFactory = MainPageViewModelFactory(
-        getUserUseCase, getAllUsersUseCase, getCurrentUserUseCase
+        getUserDataUseCase,
+        getAllUsersUseCase,
+        getCurrentUserUseCase,
+        imageUploadUseCase
     )
 }
 
@@ -236,5 +290,27 @@ class SearchPlaceContainer(
 ){
     val placeSearchViewModelFactory = PlaceSearchViewModelFactory(
         getSearchListUseCase
+    )
+}
+
+class FriendsContainer(
+    val getCurrentUserUseCase: GetCurrentUserUseCase,
+    val getFriendsListFromFirebaseUseCase: GetFriendsListFromFirebaseUseCase,
+    val searchUserByIdUseCase: SearchUserByIdUseCase,
+    val makeAFriendRequestUseCase: MakeAFriendRequestUseCase,
+    val getUserDataUseCase: GetUserDataUseCase,
+    val getFriendRequestsStatusUseCase: GetFriendRequestsStatusUseCase,
+    val getFriendRequestsListUseCase: GetFriendRequestsListUseCase,
+    val acceptFriendRequestsUseCase: AcceptFriendRequestsUseCase
+){
+    val friendsViewModelFactory = FriendsViewModelFactory(
+        getFriendsListFromFirebaseUseCase,
+        getCurrentUserUseCase,
+        searchUserByIdUseCase,
+        makeAFriendRequestUseCase,
+        getUserDataUseCase,
+        getFriendRequestsStatusUseCase,
+        getFriendRequestsListUseCase,
+        acceptFriendRequestsUseCase
     )
 }

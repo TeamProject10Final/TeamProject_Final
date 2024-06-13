@@ -1,33 +1,27 @@
-package com.example.donotlate.feature.main.presentation
+package com.example.donotlate.feature.main.presentation.viewmodel
 
-import android.app.Application
-import android.content.Context
+import android.net.Uri
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.feature.auth.data.repository.AuthRepositoryImpl
-import com.example.donotlate.feature.auth.domain.repository.AuthRepository
-import com.example.donotlate.feature.main.domain.usecase.GetCurrentUserUseCase
+import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
+import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
 import com.example.donotlate.feature.main.domain.usecase.GetUserUseCase
 import com.example.donotlate.feature.main.presentation.mapper.toModel
 import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.flow.Flow
+import com.example.donotlate.feature.setting.domain.usecase.ImageUploadUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MainPageViewModel(
-    private val getUserUseCase: GetUserUseCase,
+    private val getUserDataUseCase: GetUserDataUseCase,
     private val getAllUsersUseCase: GetAllUsersUseCase,
-    private val getCurrentGetUserUseCase: GetCurrentUserUseCase
+    private val getCurrentGetUserUseCase: GetCurrentUserUseCase,
+    private val imageUploadUseCase: ImageUploadUseCase,
 ) : ViewModel() {
 
     private val _getUserData = MutableStateFlow<Result<UserModel>?>(null)
@@ -39,11 +33,14 @@ class MainPageViewModel(
     private val _getAllUserData = MutableStateFlow<List<UserModel>>(listOf())
     val getAllUserData: StateFlow<List<UserModel>> = _getAllUserData
 
+    private val _profileImageUrl = MutableStateFlow<String>("")
+    val profileImageUrl: StateFlow<String> get() = _profileImageUrl
+
     fun getUserFromFireStore(uId: String?) {
         try {
             viewModelScope.launch {
-                if(uId != null){getUserUseCase(uId).collect { userEntity ->
-                    val userModel = userEntity.toModel()
+                if(uId != null){getUserDataUseCase(uId).collect { userEntity ->
+                    val userModel = userEntity?.toModel()!!
                     _getUserData.value = Result.success(userModel)}
                 }
             }
@@ -79,21 +76,31 @@ class MainPageViewModel(
             _getAllUserData.value = listOf()
         }
     }
+
+    fun updateProfile(uri: Uri){
+
+        viewModelScope.launch {
+//            imageUploadUseCase(uri)
+
+        }
+    }
 }
 
 class MainPageViewModelFactory(
-    private val getUserUseCase: GetUserUseCase,
+    private val getUserDataUseCase: GetUserDataUseCase,
     private val getAllUsersUseCase: GetAllUsersUseCase,
-    private val getCurrentGetUserUseCase: GetCurrentUserUseCase
+    private val getCurrentGetUserUseCase: GetCurrentUserUseCase,
+    private val imageUploadUseCase: ImageUploadUseCase,
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainPageViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return MainPageViewModel(
-                getUserUseCase,
+                getUserDataUseCase,
                 getAllUsersUseCase,
-                getCurrentGetUserUseCase
+                getCurrentGetUserUseCase,
+                imageUploadUseCase
 
             ) as T
         }

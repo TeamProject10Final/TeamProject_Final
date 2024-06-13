@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature.room.presentation.view.RoomStartFragment"
     android:background="@color/white"
-    android:clickable="true">
+    android:clickable="true"
+    tools:context=".feature.room.presentation.view.RoomStartFragment">
 
     <TextView
         android:id="@+id/tv_Room_Start_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
         android:textColor="@color/black"
-        android:textSize="26sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,127 +23,117 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Room_Start_Title"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tv_Room_Start_Title">
 
         <EditText
             android:id="@+id/et_Room_Title"
+            style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="40dp"
             android:hint="제목을 입력해 주세요"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             android:paddingBottom="15dp"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:theme="@style/EditTextStyle" />
 
         <TextView
             android:id="@+id/tv_Room_Date"
+            style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="55dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="40dp"
             android:gravity="start"
-            android:hint="달력 아이콘을 눌러 날짜를 선택 해주세요"
+            android:hint="아이콘을 눌러 날짜를 선택 해주세요"
             android:paddingStart="3dp"
             android:paddingBottom="10dp"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_Room_Title"
+            app:theme="@style/EditTextStyle"
             tools:ignore="RtlSymmetry" />
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="0dp"
-            android:layout_height="0.8dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="-4dp"
-            android:layout_marginEnd="3dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/tv_Room_Date"
-            app:layout_constraintStart_toStartOf="@id/tv_Room_Date"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Room_Date" />
 
 
         <ImageView
             android:id="@+id/iv_Date"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="3dp"
             android:background="@drawable/ic_calendar"
-            app:layout_constraintBottom_toBottomOf="@+id/view"
-            app:layout_constraintEnd_toEndOf="@+id/tv_Room_Date" />
+            app:layout_constraintEnd_toEndOf="@+id/tv_Room_Date"
+            app:layout_constraintTop_toBottomOf="@id/textView6" />
 
         <TextView
             android:id="@+id/tv_Room_Time"
+            style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="61dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="40dp"
             android:gravity="start"
-            android:hint="시계 아이콘을 눌러 시간을 선택 해주세요"
+            android:hint="아이콘을 눌러 시간을 선택 해주세요"
             android:paddingStart="3dp"
             android:paddingBottom="10dp"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_Room_Date"
+            app:theme="@style/EditTextStyle"
             tools:ignore="RtlSymmetry" />
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="0dp"
-            android:layout_height="0.8dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="-4dp"
-            android:layout_marginEnd="3dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/tv_Room_Time"
-            app:layout_constraintStart_toStartOf="@id/tv_Room_Time"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Room_Time" />
 
         <ImageView
             android:id="@+id/iv_Time"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="3dp"
             android:background="@drawable/ic_time"
-            app:layout_constraintBottom_toBottomOf="@+id/view2"
-            app:layout_constraintEnd_toEndOf="@+id/tv_Room_Time" />
+            app:layout_constraintEnd_toEndOf="@+id/tv_Room_Time"
+            app:layout_constraintTop_toBottomOf="@id/textView7" />
 
         <EditText
             android:id="@+id/et_Room_Penalty"
+            style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="40dp"
             android:hint="예) 교통비 내주기"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             android:paddingBottom="15dp"
             android:textColor="@color/black"
-            android:textSize="16dp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Room_Time" />
-
+            app:layout_constraintTop_toBottomOf="@+id/tv_Room_Time"
+            app:theme="@style/EditTextStyle" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:text="늦는 친구에게 주어질 벌칙을 정해 주세요!"
             android:textColor="@color/gray"
-            android:textSize="12dp"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/et_Room_Penalty"
             app:layout_constraintTop_toBottomOf="@id/et_Room_Penalty" />
 
@@ -188,7 +178,6 @@
             app:layout_constraintStart_toStartOf="@+id/et_Room_Penalty" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

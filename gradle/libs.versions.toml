@@ -1,26 +1,31 @@
 [versions]
 agp = "8.3.1"
+androidxFragmentKtx = "1.3.6"
+androidxFragmentKtxVersion = "1.7.1"
+circleimageview = "3.1.0"
+coilTransformations = "2.1.0"
+coilVersion = "2.1.0"
+dotsindicator = "5.0"
+firebaseBom = "33.1.0"
+gson = "2.10.1"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 appcompat = "1.6.1"
+kotlinBom = "1.9.0"
 material = "1.12.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
-
-hiltAndroid = "2.51.1"
-hiltCompiler = "2.51.1"
-hiltAndroidCompiler = "2.51.1"
+places = "3.5.0"
+playServicesLocation = "21.3.0"
+playServicesMaps = "18.2.0"
 roomRuntime = "2.7.0-alpha02"
 roomPaging = "2.7.0-alpha02"
 roomCompilerVersion = "2.7.0-alpha02"
 ksp = "1.9.0-1.0.13"
 loggingInterceptor = "5.0.0-alpha.14"
-firebaseAuthKtx = "23.0.0"
-firebaseDatabaseKtx = "21.0.0"
-firebaseFirestoreKtx = "25.0.0"
 firebaseFirestore = "25.0.0"
 fragment = "1.8.0-beta01"
 retrofit = "2.11.0"
@@ -33,35 +38,40 @@ materialVersion = "1.13.0-alpha02"
 fragmentKtx = "1.8.0-beta01"
 activityKtx = "1.9.0"
 navigationFragment = "2.7.7"
-googleGmsGoogleServices = "4.4.2"
 firebaseStorage = "21.0.0"
 firebaseMessaging = "24.0.0"
 firebaseAuth = "23.0.0"
 navigationRuntimeKtx = "2.7.7"
 coil = "2.6.0"
+googleGmsGoogleServices = "4.4.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-fragment-ktx-v136 = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragmentKtx" }
+androidx-fragment-ktx-v171 = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragmentKtxVersion" }
+circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
+coil-transformations = { module = "io.coil-kt:coil-transformations", version.ref = "coilTransformations" }
+coil-v210 = { module = "io.coil-kt:coil", version.ref = "coilVersion" }
+dotsindicator = { module = "com.tbuonomo:dotsindicator", version.ref = "dotsindicator" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+google-firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlinBom" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-
-
+places = { module = "com.google.android.libraries.places:places", version.ref = "places" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
 androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "roomPaging"}
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompilerVersion"}
-
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltCompiler" }
-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor" }
-firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
-firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
-firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 androidx-fragment = { group = "androidx.fragment", name = "fragment", version.ref = "fragment" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }

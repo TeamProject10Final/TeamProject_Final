@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.setting
+package com.example.donotlate.feature.setting.presentation.view
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -15,10 +15,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMypageBinding
-import com.example.donotlate.feature.main.presentation.MainPageViewModel
-import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
+import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
+import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -36,9 +35,11 @@ class MypageFragment : Fragment() {
     private val mainPageViewModel: MainPageViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MainPageViewModelFactory(
-            appContainer.getUserUseCase,
+            appContainer.getUserDataUseCase,
             appContainer.getAllUsersUseCase,
-            appContainer.getCurrentUserUseCase
+            appContainer.getCurrentUserUseCase,
+            appContainer.imageUploadUseCase
+
         )
     }
 
