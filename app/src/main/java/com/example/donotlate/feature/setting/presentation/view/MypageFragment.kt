@@ -39,6 +39,7 @@ class MypageFragment : Fragment() {
             appContainer.getAllUsersUseCase,
             appContainer.getCurrentUserUseCase,
             appContainer.imageUploadUseCase
+
         )
     }
 

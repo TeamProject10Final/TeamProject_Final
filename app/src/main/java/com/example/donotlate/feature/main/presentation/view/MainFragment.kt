@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMainBinding
 import com.example.donotlate.feature.auth.presentation.view.LoginFragment
@@ -18,6 +17,8 @@ import com.example.donotlate.feature.consumption.presentation.ConsumptionActivit
 import com.example.donotlate.feature.friends.presentation.view.FriendsActivity
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
+import com.example.donotlate.feature.minigame.MiniGameFragment
+import com.example.donotlate.feature.mypromise.MypromiseListFragment
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import com.example.donotlate.feature.setting.presentation.view.SettingFragment
@@ -31,7 +32,8 @@ class MainFragment : Fragment() {
         MainPageViewModelFactory(
             appContainer.getUserDataUseCase,
             appContainer.getAllUsersUseCase,
-            appContainer.getCurrentUserUseCase
+            appContainer.getCurrentUserUseCase,
+            appContainer.imageUploadUseCase
         )
     }
 
@@ -73,19 +75,14 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun placeButton() {
-        binding.layoutMainPlace.setOnClickListener {
-            val activity = activity as MainActivity
-            activity.changeFragment(PlaceSearchFragment())
-        }
-    }
 
     private fun initButton(){
         startRoom()
-        placeButton()
         startPlace()
         startSetting()
         startConsumption()
+        startMiniGame()
+        startMyPromise()
         startFriends()
     }
 
@@ -145,6 +142,20 @@ class MainFragment : Fragment() {
                         .commit()
                 }
             }
+        }
+    }
+
+    private fun startMiniGame() {
+        binding.layoutMainGame.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.frame, MiniGameFragment())
+                .addToBackStack("").commit()
+        }
+    }
+
+    private fun startMyPromise() {
+        binding.layoutMainReservation.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.frame, MypromiseListFragment())
+                .addToBackStack("").commit()
         }
     }
 }

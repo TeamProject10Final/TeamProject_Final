@@ -80,7 +80,7 @@ class MainPageViewModel(
     fun updateProfile(uri: Uri){
 
         viewModelScope.launch {
-            imageUploadUseCase(uri)
+//            imageUploadUseCase(uri)
 
         }
     }

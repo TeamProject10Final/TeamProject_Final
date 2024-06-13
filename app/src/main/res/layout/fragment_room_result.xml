@@ -176,7 +176,7 @@
 
             <fragment
                 android:id="@+id/fg_Result_Promise_Map"
-                class="com.google.android.gms.maps.SupportMapFragment"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_marginEnd="20dp"

@@ -38,12 +38,9 @@ import com.example.donotlate.feature.searchPlace.api.NetWorkClient
 import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesApiRepositoryImpl
 import com.example.donotlate.feature.searchPlace.domain.repository.GooglePlacesApiRepository
 import com.example.donotlate.feature.searchPlace.domain.usecase.GetSearchListUseCase
-import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchViewModel
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchViewModelFactory
 import com.example.donotlate.feature.setting.data.repository.SettingRepositoryImpl
 import com.example.donotlate.feature.setting.domain.usecase.ImageUploadUseCase
-import com.example.donotlate.feature.setting.presentation.viewmodel.SettingViewModel
-import com.example.donotlate.feature.setting.presentation.viewmodel.SettingViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -315,17 +312,5 @@ class FriendsContainer(
         getFriendRequestsStatusUseCase,
         getFriendRequestsListUseCase,
         acceptFriendRequestsUseCase
-    )
-}
-
-class SettingContainer(
-    private val getUserDataUseCase: GetUserDataUseCase,
-    private val imageUploadUseCase: ImageUploadUseCase,
-    private val getCurrentUserUseCase: GetCurrentUserUseCase
-){
-    val settingViewModelFactory = SettingViewModelFactory(
-        getUserDataUseCase,
-        imageUploadUseCase,
-        getCurrentUserUseCase
     )
 }
