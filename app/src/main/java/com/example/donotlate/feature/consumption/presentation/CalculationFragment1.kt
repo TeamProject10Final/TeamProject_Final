@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -49,7 +50,7 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
 
         // 이전에 입력한 내용이 있다면 해당 내용을 EditText에 설정
         viewModel.detail.value?.let { binding.etDes11.setText(it) }
-        viewModel.date.value?.let { binding.etDes12.setText(it) }
+        viewModel.date.value?.let { binding.etDes12.text = it }
         // 이전에 입력한 카테고리 설정
         viewModel.category.value?.let { category ->
             val categories = resources.getStringArray(R.array.consumptionCategoryArray)
@@ -88,15 +89,16 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
             val date = binding.etDes12.text.toString()
             val category = if (binding.consumptionSpinner.selectedItemPosition != binding.consumptionSpinner.adapter.count - 1) {
                 binding.consumptionSpinner.selectedItem.toString()
+
             } else {
                 ""
             }
-
             if (detail.isNotBlank() && date.isNotBlank() && category.isNotBlank()) {
                 viewModel.setDetail(detail)
                 viewModel.setDate(date)
                 viewModel.setCategory(category)
-                findNavController().navigate(R.id.action_fragment1_to_fragment2)
+                viewModel.setCurrentItem(current = 1)
+                //findNavController().navigate(R.id.action_fragment1_to_fragment2)
             } else {
                 Toast.makeText(requireContext(), "모든 필드를 입력하세요.", Toast.LENGTH_SHORT).show()
             }

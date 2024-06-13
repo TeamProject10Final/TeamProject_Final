@@ -51,9 +51,9 @@ class MypageFragment : Fragment() {
 
             val imageBitmap = uriToBitmap(requireContext(), uri)//uri -> bitMap으로 변경
             binding.ivProfileImage.setImageBitmap(imageBitmap)
-
         }
     }
+
     private var _binding : FragmentMypageBinding? = null
     private val binding get() = _binding!!
 

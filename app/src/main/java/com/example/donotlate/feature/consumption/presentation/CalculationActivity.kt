@@ -2,6 +2,7 @@ package com.example.donotlate.feature.consumption.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -52,12 +53,13 @@ class CalculationActivity : AppCompatActivity() {
 //        navController = navHostFragment.navController
 
 
-
 //        //뒤로가기
 //        binding.btnBack.setOnClickListener {
 //            onBackPressed()
 //        }
         initViewPager()
+        nextPage()
+
     }
 
 
@@ -92,17 +94,22 @@ class CalculationActivity : AppCompatActivity() {
 
                     when (position) {
                         0 -> {
+                            binding.btnCalShare.visibility = View.GONE
                             ivRoomBack.setOnClickListener {
-                                onBackPressed()                            }
+                                onBackPressed()
                             }
+                        }
+
                         1 -> {
+                            binding.btnCalShare.visibility = View.GONE
                             ivRoomBack.setOnClickListener {
                                 prevPage()
                             }
                         }
+
                         2 -> {
+                            binding.btnCalShare.visibility = View.VISIBLE
                             ivRoomBack.setOnClickListener {
-                                binding.btnCalShare.visibility = View.VISIBLE
                                 prevPage()
                                 share()
                             }
@@ -113,14 +120,23 @@ class CalculationActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun nextPage() {
+        viewModel.modelCurrent.observe(this) {
+            val viewPager = binding.viewPager
+            val current = viewPager.currentItem
+            viewPager.setCurrentItem(current + 1, true)
+        }
+    }
+
     private fun prevPage() {
         val viewPager = binding.viewPager
         val current = viewPager.currentItem
-        viewPager.setCurrentItem(current-1, true)
+        viewPager.setCurrentItem(current - 1, true)
     }
 
     //공유
-    private fun share(){
+    private fun share() {
         binding.btnCalShare.setOnClickListener {
             val message = viewModel.buildShareMessage()
             val sendIntent = Intent().apply {

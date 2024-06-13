@@ -3,7 +3,9 @@ package com.example.donotlate.feature.consumption.presentation
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
@@ -29,23 +31,30 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
         binding = FragmentCalculation3Binding.bind(view)
 
         with(binding) {
-            viewModel.detail.observe(viewLifecycleOwner, { detail ->
+            viewModel.detail.observe(viewLifecycleOwner) { detail ->
                 tvRes31.text = detail ?: ""
-                tvRes31.setText(detail)
-            })
-            viewModel.date.observe(viewLifecycleOwner, { date ->
-                tvRes32.text = date ?: ""
-            })
-            viewModel.number.observe(viewLifecycleOwner, { number ->
-                tvRes33.text = "$number 명"
-            })
-            viewModel.category.observe(viewLifecycleOwner, { category ->
-                tvRes34.text = category ?: ""
-            })
-            calculate()?.let {
-                tvRes35.text = it.addCommas()
-                viewModel.setPrice(it)
+                tvRes31.text = detail
             }
+            viewModel.date.observe(viewLifecycleOwner) { date ->
+                tvRes32.text = date ?: ""
+            }
+            viewModel.number.observe(viewLifecycleOwner) { number ->
+                tvRes33.text = "$number 명"
+            }
+            viewModel.category.observe(viewLifecycleOwner) { category ->
+                tvRes34.text = category ?: ""
+            }
+
+            viewModel.mediatorLiveData.observe(viewLifecycleOwner) {
+                calculate()?.let {
+                    binding.tvRes35.text = it.addCommas()
+                    viewModel.setPrice(it)
+                    Log.d("확인", "calculate() 실행")
+                }
+            }
+
+
+
 
             btnCalExit.setOnClickListener {
                 handleSaveConsumption(false)
@@ -58,7 +67,34 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
 
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
+
+
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+
+//        Log.d("3번 페이지 데이터 확인", "${viewModel.total.value}, ${viewModel.number.value}, ${viewModel.penalty.value}, ${viewModel.isPenalty.value}")
+//        viewModel.price.observe(viewLifecycleOwner, { price ->
+//            Log.d("확인","viewModel.price.observe 실행")
+//            if (binding.tvRes35.text.isNullOrEmpty())
+//            calculate()?.let {
+//                binding.tvRes35.text = it.addCommas()
+//                viewModel.setPrice(it)
+//                Log.d("확인","calculate() 실행")
+//            }
+//        })
+    }
+
     private fun calculate(): Int? {
+
         val total = viewModel.total.value?.toIntOrNull() ?: return null
         val number = viewModel.number.value?.toIntOrNull() ?: return null
         val penaltyString = viewModel.penalty.value
@@ -72,14 +108,22 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
             return null
         }
 
-        if (isPenalty == true && penalty != 0) {
-            val result = ((total - penalty) / number) + penalty
-            Log.d("penalty", "00")
-            return result ?: 0
-        } else {
-            val result = (total - penalty) / number
-            Log.d("penalty", "xx")
-            return result ?: 0
+        if (number == 2){
+            if (isPenalty == true && penalty != 0) {
+                val result = (total / number) + penalty
+                return result ?: 0
+            } else {
+                val result = (total / number) - penalty
+                return result ?: 0
+            }
+        }else{
+            if (isPenalty == true && penalty != 0) {
+                val result = ((total - penalty) / number) + penalty
+                return result ?: 0
+            } else {
+                val result = (total - penalty) / number
+                return result ?: 0
+            }
         }
     }
 
@@ -94,5 +138,3 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
         }
     }
 }
-
-
