@@ -38,12 +38,12 @@ class AuthRepositoryImpl(
         return try {
             auth.signInWithEmailAndPassword(email, password).await()
             return Result.success("LogIn Success")
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    override suspend fun getCurrentUser(): Flow<String> = flow {
+    override suspend fun getCurrentUser(): Flow<String> = flow{
         try {
             val currentUserUId: String = auth.currentUser?.uid ?: ""
             emit(currentUserUId)

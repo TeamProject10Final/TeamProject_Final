@@ -2,7 +2,7 @@ package com.example.donotlate.feature.room.presentation.model
 
 import com.google.firebase.Timestamp
 
-data class UserModel(
+data class RoomUserModel(
     val name: String,
     val email: String,
     val uId: String,

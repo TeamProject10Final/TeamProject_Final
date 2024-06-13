@@ -42,8 +42,8 @@ class BackFragmentDialog : DialogFragment() {
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
-            val activity = activity as MainActivity
-            activity.changeFragment(MainFragment())
+            val activity = requireActivity()
+            activity.finish()
             dismiss()
             //수정 필요
         }

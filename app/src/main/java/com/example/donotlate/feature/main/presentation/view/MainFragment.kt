@@ -10,18 +10,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMainBinding
 import com.example.donotlate.feature.auth.presentation.view.LoginFragment
 import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
-import com.example.donotlate.feature.main.presentation.MainPageViewModel
-import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
+import com.example.donotlate.feature.friends.presentation.view.FriendsActivity
+import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
+import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import com.example.donotlate.feature.minigame.MiniGameFragment
 import com.example.donotlate.feature.mypromise.MypromiseListFragment
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
-import com.example.donotlate.feature.setting.SettingFragment
+import com.example.donotlate.feature.setting.presentation.view.SettingFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -30,9 +30,10 @@ class MainFragment : Fragment() {
     private val mainPageViewModel: MainPageViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MainPageViewModelFactory(
-            appContainer.getUserUseCase,
+            appContainer.getUserDataUseCase,
             appContainer.getAllUsersUseCase,
-            appContainer.getCurrentUserUseCase
+            appContainer.getCurrentUserUseCase,
+            appContainer.imageUploadUseCase
         )
     }
 
@@ -63,13 +64,8 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         getCurrentUserData()
-        startRoom()
-        startPlace()
         observeViewModel()
-        startSetting()
-        startConsumption()
-        startMiniGame()
-        startMyPromise()
+        initButton()
 
     }
 
@@ -80,14 +76,15 @@ class MainFragment : Fragment() {
     }
 
 
-    //로그아웃 버튼
-//    private fun logoutButton() {
-//        binding.ivMainLogout.setOnClickListener {
-//            val dialog = LogoutFragmentDialog()
-//            dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
-//            //firebase 로그아웃 기능 추가
-//        }
-//    }
+    private fun initButton(){
+        startRoom()
+        startPlace()
+        startSetting()
+        startConsumption()
+        startMiniGame()
+        startMyPromise()
+        startFriends()
+    }
 
     private fun startPlace() {
         binding.layoutMainPlace.setOnClickListener {
@@ -103,9 +100,16 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun startConsumption(){
-        binding.layoutMainSettle.setOnClickListener{
+    private fun startConsumption() {
+        binding.layoutMainSettle.setOnClickListener {
             val intent = Intent(requireContext(), ConsumptionActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun startFriends() {
+        binding.layoutMainFriend.setOnClickListener {
+            val intent = Intent(requireContext(), FriendsActivity::class.java)
             startActivity(intent)
         }
     }

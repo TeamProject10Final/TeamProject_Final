@@ -1,22 +1,19 @@
 package com.example.donotlate.feature.mypromise
 
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentMypromiseListBinding
-import com.example.donotlate.feature.main.presentation.MainPageViewModel
-import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
+import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
+import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 
 
 class MypromiseListFragment : Fragment() {
@@ -24,9 +21,10 @@ class MypromiseListFragment : Fragment() {
     private val mainPageViewModel: MainPageViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MainPageViewModelFactory(
-            appContainer.getUserUseCase,
+            appContainer.getUserDataUseCase,
             appContainer.getAllUsersUseCase,
-            appContainer.getCurrentUserUseCase
+            appContainer.getCurrentUserUseCase,
+            appContainer.imageUploadUseCase
         )
     }
 
