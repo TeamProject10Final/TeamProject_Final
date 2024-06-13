@@ -40,6 +40,10 @@ import com.example.donotlate.feature.searchPlace.domain.repository.GooglePlacesA
 import com.example.donotlate.feature.searchPlace.domain.usecase.GetSearchListUseCase
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchViewModel
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchViewModelFactory
+import com.example.donotlate.feature.setting.data.repository.SettingRepositoryImpl
+import com.example.donotlate.feature.setting.domain.usecase.ImageUploadUseCase
+import com.example.donotlate.feature.setting.presentation.viewmodel.SettingViewModel
+import com.example.donotlate.feature.setting.presentation.viewmodel.SettingViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -132,6 +136,10 @@ class AppContainer {
         FirebaseDataSourceImpl(firebaseFireStore, firebaseAuth)
     }
 
+    private val settingRepository by lazy {
+        SettingRepositoryImpl(firebaseAuth, firebaseFireStore, firebaseStorage)
+    }
+
     val friendRequestRepository by lazy {
         FriendRequestRepositoryImpl(firebaseFireStore, firebaseAuth, DoNotLateApplication.getInstance())
     }
@@ -188,6 +196,10 @@ class AppContainer {
         GetSearchListUseCase(googlePlacesApiRepository)
     }
 
+    val imageUploadUseCase by lazy {
+        ImageUploadUseCase(settingRepository)
+    }
+
 }
 
 class LogInContainer(
@@ -205,10 +217,14 @@ class SignUpContainer(
 class MainPageContainer(
     private val getUserDataUseCase: GetUserDataUseCase,
     private val getAllUsersUseCase: GetAllUsersUseCase,
-    private val getCurrentUserUseCase: GetCurrentUserUseCase
+    private val getCurrentUserUseCase: GetCurrentUserUseCase,
+    private val imageUploadUseCase: ImageUploadUseCase,
 ){
     val mainPageViewModelFactory = MainPageViewModelFactory(
-        getUserDataUseCase, getAllUsersUseCase, getCurrentUserUseCase
+        getUserDataUseCase,
+        getAllUsersUseCase,
+        getCurrentUserUseCase,
+        imageUploadUseCase
     )
 }
 
@@ -299,5 +315,17 @@ class FriendsContainer(
         getFriendRequestsStatusUseCase,
         getFriendRequestsListUseCase,
         acceptFriendRequestsUseCase
+    )
+}
+
+class SettingContainer(
+    private val getUserDataUseCase: GetUserDataUseCase,
+    private val imageUploadUseCase: ImageUploadUseCase,
+    private val getCurrentUserUseCase: GetCurrentUserUseCase
+){
+    val settingViewModelFactory = SettingViewModelFactory(
+        getUserDataUseCase,
+        imageUploadUseCase,
+        getCurrentUserUseCase
     )
 }

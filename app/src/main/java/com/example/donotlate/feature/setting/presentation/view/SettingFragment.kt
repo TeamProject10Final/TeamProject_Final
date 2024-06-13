@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.setting
+package com.example.donotlate.feature.setting.presentation.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,6 +15,7 @@ import com.example.donotlate.databinding.FragmentSettingBinding
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
+import com.example.donotlate.feature.setting.presentation.adapter.SettingAdapter
 import kotlinx.coroutines.launch
 
 class SettingFragment : Fragment() {
@@ -23,7 +24,8 @@ class SettingFragment : Fragment() {
         MainPageViewModelFactory(
             appContainer.getUserDataUseCase,
             appContainer.getAllUsersUseCase,
-            appContainer.getCurrentUserUseCase
+            appContainer.getCurrentUserUseCase,
+            appContainer.imageUploadUseCase
         )
     }
 

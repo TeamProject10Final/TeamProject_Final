@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.setting
+package com.example.donotlate.feature.setting.presentation.view
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -37,7 +37,8 @@ class MypageFragment : Fragment() {
         MainPageViewModelFactory(
             appContainer.getUserDataUseCase,
             appContainer.getAllUsersUseCase,
-            appContainer.getCurrentUserUseCase
+            appContainer.getCurrentUserUseCase,
+            appContainer.imageUploadUseCase
         )
     }
 

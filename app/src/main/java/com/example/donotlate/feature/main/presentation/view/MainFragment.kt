@@ -18,10 +18,9 @@ import com.example.donotlate.feature.consumption.presentation.ConsumptionActivit
 import com.example.donotlate.feature.friends.presentation.view.FriendsActivity
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
-import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
-import com.example.donotlate.feature.setting.SettingFragment
+import com.example.donotlate.feature.setting.presentation.view.SettingFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 

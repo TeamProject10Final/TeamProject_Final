@@ -1,5 +1,6 @@
 package com.example.donotlate.feature.main.presentation.viewmodel
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +11,7 @@ import com.example.donotlate.feature.main.domain.usecase.GetUserUseCase
 import com.example.donotlate.feature.main.presentation.mapper.toModel
 import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
+import com.example.donotlate.feature.setting.domain.usecase.ImageUploadUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -18,7 +20,8 @@ import kotlinx.coroutines.launch
 class MainPageViewModel(
     private val getUserDataUseCase: GetUserDataUseCase,
     private val getAllUsersUseCase: GetAllUsersUseCase,
-    private val getCurrentGetUserUseCase: GetCurrentUserUseCase
+    private val getCurrentGetUserUseCase: GetCurrentUserUseCase,
+    private val imageUploadUseCase: ImageUploadUseCase,
 ) : ViewModel() {
 
     private val _getUserData = MutableStateFlow<Result<UserModel>?>(null)
@@ -29,6 +32,9 @@ class MainPageViewModel(
 
     private val _getAllUserData = MutableStateFlow<List<UserModel>>(listOf())
     val getAllUserData: StateFlow<List<UserModel>> = _getAllUserData
+
+    private val _profileImageUrl = MutableStateFlow<String>("")
+    val profileImageUrl: StateFlow<String> get() = _profileImageUrl
 
     fun getUserFromFireStore(uId: String?) {
         try {
@@ -70,12 +76,21 @@ class MainPageViewModel(
             _getAllUserData.value = listOf()
         }
     }
+
+    fun updateProfile(uri: Uri){
+
+        viewModelScope.launch {
+            imageUploadUseCase(uri)
+
+        }
+    }
 }
 
 class MainPageViewModelFactory(
     private val getUserDataUseCase: GetUserDataUseCase,
     private val getAllUsersUseCase: GetAllUsersUseCase,
-    private val getCurrentGetUserUseCase: GetCurrentUserUseCase
+    private val getCurrentGetUserUseCase: GetCurrentUserUseCase,
+    private val imageUploadUseCase: ImageUploadUseCase,
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -84,7 +99,8 @@ class MainPageViewModelFactory(
             return MainPageViewModel(
                 getUserDataUseCase,
                 getAllUsersUseCase,
-                getCurrentGetUserUseCase
+                getCurrentGetUserUseCase,
+                imageUploadUseCase
 
             ) as T
         }

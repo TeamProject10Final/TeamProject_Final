@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.setting
+package com.example.donotlate.feature.setting.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +12,14 @@ class SettingAdapter(private val settingItem:ArrayList<String>):RecyclerView.Ada
         fun onClick(view : View, position: Int)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SettingAdapter.Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ItemSettingBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return Holder(binding)
     }
 
     var itemClick : ItemClick? = null
 
-    override fun onBindViewHolder(holder: SettingAdapter.Holder, position: Int) {
+    override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.itemView.setOnClickListener {
             itemClick?.onClick(it,position)
         }
