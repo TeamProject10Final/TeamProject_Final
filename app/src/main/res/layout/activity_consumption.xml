@@ -156,6 +156,8 @@
                     android:id="@+id/rvCalculateProgress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -170,7 +172,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="20dp"
-
                 android:background="@drawable/rounded_edittext1"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -198,11 +199,13 @@
                     app:layout_constraintStart_toEndOf="@+id/tv03" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:minHeight="100dp"
                     android:id="@+id/rvCalculateFinish"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:minHeight="100dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv03" />

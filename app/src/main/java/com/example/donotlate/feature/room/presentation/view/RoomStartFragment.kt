@@ -74,7 +74,7 @@ class RoomStartFragment : Fragment() {
 
     }
 
-    private fun editTextProcess(){
+    private fun editTextProcess() {
         binding.etRoomTitle.setOnEditorActionListener { textView, action, keyEvent ->
             var handled = false
 
@@ -103,7 +103,6 @@ class RoomStartFragment : Fragment() {
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
-
 
 
     override fun onPause() {
@@ -196,14 +195,13 @@ class RoomStartFragment : Fragment() {
         Log.d("test", "${penaltyData}")
     }
 
-    private fun sendToResult(){
+    private fun sendToResult() {
         val roomList = (RoomModel(
             binding.etRoomTitle.text.toString(),
             binding.tvRoomDate.text.toString(),
             binding.tvRoomTime.text.toString(),
-            binding.etRoomPenalty.text.toString()))
+            binding.etRoomPenalty.text.toString()
+        ))
         roomViewModel.updateText(roomList)
-
-        Log.d("뷰모델 리스트확인","${roomViewModel.inputText.value}")
     }
 }
