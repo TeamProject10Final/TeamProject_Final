@@ -16,6 +16,7 @@ import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 
 class FriendsRequestDialogFragment : DialogFragment() {
 
@@ -80,6 +81,14 @@ class FriendsRequestDialogFragment : DialogFragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnCancel.setOnClickListener {
+            dismiss()
+        }
+
+        val currentTime : Long = System.currentTimeMillis()
+        val dataFormat1 = SimpleDateFormat("yyyy-MM-dd")
+        binding.tvCreateAt.text = dataFormat1.format(currentTime).toString()
+
     }
 
     private fun sendFriendRequest(
@@ -130,7 +139,7 @@ class FriendsRequestDialogFragment : DialogFragment() {
                     binding.btnFriendRequest.text = "친구 요청"
                     binding.btnFriendRequest.isClickable = true
                     binding.btnFriendRequest.setBackgroundColor(
-                        ContextCompat.getColor(requireContext(), R.color.blue)
+                        ContextCompat.getColor(requireContext(), R.color.white)
                     )
                 }
             }

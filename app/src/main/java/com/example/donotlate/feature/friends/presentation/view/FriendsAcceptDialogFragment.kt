@@ -73,6 +73,10 @@ class FriendsAcceptDialogFragment : DialogFragment() {
                 Log.d("requestIdTest", "${requestId}")
                 dismiss()
             }
+
+            binding.btnCancel.setOnClickListener {
+                dismiss()
+            }
         }
     }
 

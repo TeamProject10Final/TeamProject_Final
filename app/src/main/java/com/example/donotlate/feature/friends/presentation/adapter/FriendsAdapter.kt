@@ -63,7 +63,7 @@ class FriendsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(onAddFriendClick: () -> Unit) {
             binding.tvItemFriend.text = "친구 추가"
-            binding.ivItemFriend.load(R.drawable.ic_main_friend){
+            binding.ivItemFriend.load(R.drawable.ic_user){
                 transformations(CircleCropTransformation())
             }
             binding.root.setOnClickListener {

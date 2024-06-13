@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
+import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentFriendsRequestListBinding
 import com.example.donotlate.databinding.FragmentRequestDialogBinding
@@ -17,6 +18,7 @@ import com.example.donotlate.feature.friends.presentation.adapter.FriendRequests
 import com.example.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -56,8 +58,13 @@ class FriendsRequestListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.ivFriendRequestListBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+
         setupRecyclerView()
         observeViewModel()
+
 
     }
 
@@ -77,10 +84,12 @@ class FriendsRequestListFragment : Fragment() {
             }
         }
     }
+
     private fun onFriendRequestClick(item: FriendRequestWithUserDataModel){
         val dialog = FriendsAcceptDialogFragment.newInstance(item)
         dialog.show(parentFragmentManager, "RequestDialogFragment")
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

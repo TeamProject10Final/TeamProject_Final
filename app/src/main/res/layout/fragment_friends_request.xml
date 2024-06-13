@@ -6,6 +6,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".feature.friends.presentation.view.FriendsRequestFragment">
 
+    <ImageView
+        android:id="@+id/iv_friend_request_back"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_Friend_Title"
         android:layout_width="wrap_content"
@@ -18,26 +27,30 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <EditText
+        style="@style/EditTextStyle"
+        app:theme="@style/EditTextStyle"
         android:id="@+id/et_Friend_Search"
-        android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_width="280dp"
+        android:layout_height="45dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="50dp"
         android:paddingLeft="15dp"
         android:fontFamily="@font/pretendard_regular"
         android:hint="친구를 검색해 주세요"
-        android:background="@drawable/et_custom_blue"
+        android:inputType="text"
+        android:maxLines="1"
+        android:imeOptions="actionSearch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_Friend_Search"
         app:layout_constraintTop_toBottomOf="@id/tv_Friend_Title"/>
 
     <android.widget.Button
         android:id="@+id/btn_Friend_Search"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
         android:text="검색"
-        android:textSize="15dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginEnd="20dp"
         android:background="@drawable/btn_radius_arctic"
