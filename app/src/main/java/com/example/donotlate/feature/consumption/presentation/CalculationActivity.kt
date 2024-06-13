@@ -109,9 +109,9 @@ class CalculationActivity : AppCompatActivity() {
 
                         2 -> {
                             binding.btnCalShare.visibility = View.VISIBLE
+                            share()
                             ivRoomBack.setOnClickListener {
                                 prevPage()
-                                share()
                             }
                         }
                     }

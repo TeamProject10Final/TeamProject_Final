@@ -19,8 +19,6 @@ import com.example.donotlate.ConsumptionContainer
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.ActivityConsumptionBinding
-import com.example.donotlate.feature.main.presentation.MainPageViewModel
-import com.example.donotlate.feature.main.presentation.MainPageViewModelFactory
 import kotlinx.coroutines.launch
 
 class ConsumptionActivity : AppCompatActivity() {
