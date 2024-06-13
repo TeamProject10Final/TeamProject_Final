@@ -12,12 +12,16 @@ import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
 import com.example.donotlate.feature.room.presentation.mapper.toModel
 import com.example.donotlate.feature.room.presentation.model.RoomModel
 import com.example.donotlate.feature.room.presentation.model.RoomUserModel
+import com.example.donotlate.feature.searchPlace.api.NetWorkClient
+import com.example.donotlate.feature.searchPlace.domain.usecase.GetSearchListUseCase
+import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class RoomViewModel(
     private val getAllUsersUseCase: GetAllUsersUseCase,
+    private val getSearchListUseCase: GetSearchListUseCase,
     private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase
 ) : ViewModel() {
 
@@ -29,14 +33,29 @@ class RoomViewModel(
     private val _makeARoomResult = MutableStateFlow<Boolean>(false)
     val makeARoomResult: StateFlow<Boolean> get() = _makeARoomResult
 
+
+    private val _searchMapList = MutableLiveData<List<PlaceModel>>()
+    val searchMapList: LiveData<List<PlaceModel>> = _searchMapList
+
+    //검색 쿼리
+    private var inputQuery: MutableLiveData<String> = MutableLiveData()
+    fun getQuery(): LiveData<String> = inputQuery
+    fun updateQuery(input: String) {
+        inputQuery.value = input
+    }
+
+    //텍스트 정보
     private val _inputText = MutableLiveData<RoomModel>()
-//    val inputText: LiveData<RoomModel> get() = _inputText
-    val inputText: LiveData<RoomModel> = _inputText
-
-    fun getData(): MutableLiveData<RoomModel> = _inputText
-
+    val inputText: LiveData<RoomModel> get() = _inputText
     fun updateText(input: RoomModel) {
         _inputText.value = input
+    }
+
+    //넘겨준 위치 정보
+    private val _locationData = MutableLiveData<PlaceModel>()
+    val locationData: LiveData<PlaceModel> get() = _locationData
+    fun setMapData(location: PlaceModel) {
+        _locationData.value = location
     }
 
     fun getAllUserData(){
@@ -48,6 +67,33 @@ class RoomViewModel(
                 }
             }catch (e:Exception){
                 _getAllUserData.value = emptyList()
+            }
+        }
+    }
+
+    fun getSearchMapList(query: String) {
+        viewModelScope.launch {
+            runCatching {
+                val response = getSearchListUseCase.invoke(
+                    query = query,
+                    language = "ko",
+                    pageSize = 10,
+                )
+                val models = response.places!!.map {
+                    PlaceModel(
+                        lat = it.location?.latitude!!,
+                        lng = it.location?.longitude!!,
+                        name = it.displayName?.text,
+                        address = it.formattedAddress,
+                        rating = it.rating,
+                        phoneNumber = it.nationalPhoneNumber,
+                        img = "https://places.googleapis.com/v1/${it.photos?.get(0)?.name}/media?key=${NetWorkClient.API_KEY}&maxHeightPx=500&maxWidthPx=750",
+                        description = it.regularOpeningHours?.weekdayDescriptions
+                    )
+                }
+                _searchMapList.postValue(models)
+            }.onFailure { e ->
+                Log.d("실패", e.toString())
             }
         }
     }
@@ -82,6 +128,7 @@ class RoomViewModel(
 
 class RoomViewModelFactory(
     private val getAllUsersUseCase: GetAllUsersUseCase,
+    private val getSearchListUseCase: GetSearchListUseCase,
     private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase
 ) : ViewModelProvider.Factory {
 
@@ -90,6 +137,7 @@ class RoomViewModelFactory(
             @Suppress("UNCHECKED_CAST")
             return RoomViewModel(
                 getAllUsersUseCase,
+                getSearchListUseCase,
                 makeAPromiseRoomUseCase
             ) as T
         }

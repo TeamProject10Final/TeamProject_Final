@@ -234,9 +234,11 @@ class MainPageContainer(
 
 class RoomContainer(
     private val getAllUsersUseCase: GetAllUsersUseCase,
+    private val getSearchListUseCase: GetSearchListUseCase,
     private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase
+
 ) {
-    val roomViewModelFactory = RoomViewModelFactory(getAllUsersUseCase, makeAPromiseRoomUseCase)
+    val roomViewModelFactory = RoomViewModelFactory(getAllUsersUseCase, getSearchListUseCase, makeAPromiseRoomUseCase)
 }
 
 class CalculationContainer(
