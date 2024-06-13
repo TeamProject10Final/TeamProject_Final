@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.mypromise
+package com.example.donotlate.feature.mypromise.presentation.view
 
 import android.os.Bundle
 import android.util.Log
