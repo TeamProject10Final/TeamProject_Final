@@ -9,7 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.donotlate.databinding.FragmentViewPagerBinding
 import com.example.donotlate.feature.room.presentation.dialog.BackFragmentDialog
 import com.example.donotlate.feature.room.presentation.dialog.ResultFragmentDialog
-import com.example.donotlate.feature.room.presentation.adapter.ViewPagerAdapter
+import com.example.donotlate.feature.room.presentation.adapter.RoomViewPagerAdapter
 
 class ViewPagerFragment : Fragment() {
 
@@ -40,11 +40,12 @@ class ViewPagerFragment : Fragment() {
     }
 
     private fun initViewPager() {
+        binding.viewPager.isUserInputEnabled = false //뷰 페이저 슬라이드로 페이지 못넘기게 하기
         val viewPager = binding.viewPager
         val dotsIndicator = binding.indicator
-        val viewPagerAdapter = ViewPagerAdapter(this)
+        val roomViewPagerAdapter = RoomViewPagerAdapter(this)
 
-        viewPager.adapter = viewPagerAdapter
+        viewPager.adapter = roomViewPagerAdapter
         dotsIndicator.attachTo(viewPager)
 
         with(binding) {

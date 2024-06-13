@@ -2,9 +2,11 @@ package com.example.donotlate.feature.consumption.presentation
 
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -85,6 +87,14 @@ constructor(
     private val _errorState = MutableSharedFlow<String>()
     val errorState = _errorState.asSharedFlow()
 
+    private val _modelCurrent = MutableLiveData<Int>()
+    val modelCurrent: LiveData<Int> = _modelCurrent
+
+
+    private val _mediatorLiveData = MediatorLiveData<String>()
+    val mediatorLiveData : MediatorLiveData<String> = _mediatorLiveData
+
+
     init {
         //historyId 는 database의 개수 세어서 넣기!!!!
         viewModelScope.launch {
@@ -99,8 +109,25 @@ constructor(
         _number.value = null
         _price.value = 0
         _isFinished.value = false
+        setMediatorLiveData()
     }
 
+    //mediatorLiveData에 데이터 추가
+    private fun setMediatorLiveData(){
+        mediatorLiveData.addSource(total) {
+            mediatorLiveData.value = it
+        }
+        mediatorLiveData.addSource(penalty) {
+            mediatorLiveData.value = it
+        }
+        mediatorLiveData.addSource(number) {
+            mediatorLiveData.value = it
+        }
+    }
+
+    fun setCurrentItem(current: Int) {
+        _modelCurrent.value = current
+    }
 
     fun setDetail(detail: String) {
         _detail.value = detail
