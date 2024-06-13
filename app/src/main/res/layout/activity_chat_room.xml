@@ -5,6 +5,6 @@
     android:id="@+id/chat_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.chatroom.presentation.view.ChatRoomActivity">
+    tools:context=".feature.mypromise.presentation.view.MyPromiseAdapter">
 
 </FrameLayout>

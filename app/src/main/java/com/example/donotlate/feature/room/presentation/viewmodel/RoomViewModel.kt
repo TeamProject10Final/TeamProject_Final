@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.feature.chatroom.domain.usecase.MakeAPromiseRoomUseCase
+import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
 import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
 import com.example.donotlate.feature.room.presentation.mapper.toModel

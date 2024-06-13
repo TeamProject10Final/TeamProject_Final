@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.chatroom.presentation.view
+package com.example.donotlate.feature.mypromise.presentation.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,19 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentChatRoomBinding
-import com.example.donotlate.feature.chatroom.presentation.viewmodel.ChatRoomViewModel
-import com.example.donotlate.feature.chatroom.presentation.viewmodel.ChatRoomViewModelFactory
-import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
-import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
+import com.example.donotlate.feature.mypromise.presentation.viewmodel.ChatRoomViewModel
+import com.example.donotlate.feature.mypromise.presentation.viewmodel.ChatRoomViewModelFactory
 import com.example.donotlate.feature.main.presentation.model.UserModel
-import com.google.firebase.Timestamp
 import kotlinx.coroutines.launch
 
-class ChatRoomFragment : Fragment() {
+class MyPromiseRoomFragment : Fragment() {
 
     private val chatRoomViewModel: ChatRoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer

@@ -1,12 +1,10 @@
-package com.example.donotlate.feature.chatroom.presentation.model
+package com.example.donotlate.feature.mypromise.presentation.model
 
-import android.os.Parcelable
 import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.google.firebase.Timestamp
-import kotlinx.parcelize.Parcelize
 
 
-data class ChatRoomModel(
+data class PromiseModel(
     val roomTitle: String,
     val roomCreatedAt: Timestamp,
     val promiseTime: String,

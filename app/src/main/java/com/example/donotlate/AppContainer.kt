@@ -14,7 +14,7 @@ import com.example.donotlate.feature.auth.domain.useCase.LogInUseCase
 import com.example.donotlate.feature.auth.domain.useCase.SignUpUseCase
 import com.example.donotlate.feature.auth.presentation.viewmodel.LogInViewModelFactory
 import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
-import com.example.donotlate.feature.chatroom.domain.usecase.MakeAPromiseRoomUseCase
+import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
 import com.example.donotlate.feature.consumption.data.repository.ConsumptionRepositoryImpl
 import com.example.donotlate.feature.consumption.domain.repository.ConsumptionRepository
 import com.example.donotlate.feature.consumption.domain.usecase.DeleteConsumptionUseCase
