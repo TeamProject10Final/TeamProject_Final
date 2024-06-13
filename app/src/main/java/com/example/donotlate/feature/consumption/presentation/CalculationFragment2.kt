@@ -94,15 +94,15 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
             }
         }
 
-//        binding.root.setOnTouchListener { _, event ->
-//            if (event.action == MotionEvent.ACTION_DOWN) {
-//                ConsumptionActivity.hideKeyboard(view)
-//                binding.etDes21.clearFocus()
-//                binding.etDes22.clearFocus()
-//                binding.etDes23.clearFocus()
-//            }
-//            false
-//        }
+        binding.root.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                ConsumptionActivity.hideKeyboard(view)
+                binding.etDes21.clearFocus()
+                binding.etDes22.clearFocus()
+                binding.etDes23.clearFocus()
+            }
+            false
+        }
     }
 
     private fun updateIsPenaltyButton(isPenalty: Boolean) {
