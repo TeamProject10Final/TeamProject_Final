@@ -36,7 +36,8 @@ class ChatRoomViewModel(
                 destinationLat,
                 destinationLng,
                 penalty,
-                participants).collect {
+                participants
+            ).collect {
                 _makeARoomResult.value = it
             }
         }

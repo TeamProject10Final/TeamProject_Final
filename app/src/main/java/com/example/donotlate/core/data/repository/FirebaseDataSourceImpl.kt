@@ -187,7 +187,7 @@ class FirebaseDataSourceImpl(
             )
             val roomId = UUID.randomUUID().toString()
             Log.d("makeAChatRoom3", "title: ${participants}")
-             db.collection("PromiseRooms").document(roomId).set(roomData).await()
+            db.collection("PromiseRooms").document(roomId).set(roomData).await()
             Log.d("makeAChatRoom4", "title: ${participants}")
             emit(true)
         } catch (e: Exception) {

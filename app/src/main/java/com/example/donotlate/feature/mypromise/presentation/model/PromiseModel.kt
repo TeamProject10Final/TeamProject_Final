@@ -13,9 +13,9 @@ data class PromiseModel(
     val destinationLat: Double, // <-- 위도
     val destinationLng: Double, // <-- 경도
     val penalty: String,
-    val participants:List<UserModel>
-){
-    constructor(): this("", Timestamp.now(), "", "", "", 0.0, 0.0, "", listOf())
+    val participants: List<UserModel>
+) {
+    constructor() : this("", Timestamp.now(), "", "", "", 0.0, 0.0, "", listOf())
 }
 
 private var roomTitle = "" //"약속잡기"

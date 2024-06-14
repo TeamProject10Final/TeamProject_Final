@@ -43,7 +43,7 @@ class RoomViewModel(
     private val _selectedUserNames = MutableLiveData<List<String>>()
     val selectedUserNames: LiveData<List<String>> get() = _selectedUserNames
 
-    fun updateSelectedUserNames(userNames:List<String>){
+    fun updateSelectedUserNames(userNames: List<String>) {
         _selectedUserNames.value = userNames
     }
 
@@ -83,7 +83,7 @@ class RoomViewModel(
         }
     }
 
-    fun setSelectedUserUIds(uIds: List<String>){
+    fun setSelectedUserUIds(uIds: List<String>) {
         _selectedUserUIds.value = uIds
         Log.d("selectUid", "${_selectedUserUIds.value}")
     }
