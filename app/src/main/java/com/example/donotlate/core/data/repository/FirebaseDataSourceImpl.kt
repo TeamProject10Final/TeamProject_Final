@@ -11,6 +11,8 @@ import com.example.donotlate.core.data.response.UserResponse
 import com.example.donotlate.core.domain.model.FriendRequestEntity
 import com.example.donotlate.core.domain.model.UserEntity
 import com.example.donotlate.core.domain.repository.FirebaseDataRepository
+import com.example.donotlate.feature.main.presentation.model.UserModel
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,6 +21,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
+import java.util.UUID
 
 
 class FirebaseDataSourceImpl(
@@ -145,7 +148,8 @@ class FirebaseDataSourceImpl(
             }
         }
 
-    override suspend fun getFriendRequestsList(toId: String): Flow<List<FriendRequestEntity>> = flow {
+    override suspend fun getFriendRequestsList(toId: String): Flow<List<FriendRequestEntity>> =
+        flow {
             val documents = db.collection("FriendRequests")
                 .whereEqualTo("toId", toId)
                 .whereEqualTo("status", "request")
@@ -157,5 +161,39 @@ class FirebaseDataSourceImpl(
             }
             emit(requestList.toEntityList())
         }
+
+    override suspend fun makeAPromiseRoom(
+        roomTitle: String,
+        promiseTime: String,
+        promiseDate: String,
+        destination: String,
+        destinationLat: Double,
+        destinationLng: Double,
+        penalty: String,
+        participants: List<String>
+
+    ): Flow<Boolean> = flow {
+        try {
+            val roomData = hashMapOf(
+                "roomTitle" to roomTitle,
+                "roomCreatedAt" to Timestamp.now(),
+                "promiseTime" to promiseTime,
+                "promiseDate" to promiseDate,
+                "destination" to destination,
+                "destinationLat" to destinationLat,
+                "destinationLng" to destinationLng,
+                "penalty" to penalty,
+                "participants" to participants
+            )
+            val roomId = UUID.randomUUID().toString()
+            Log.d("makeAChatRoom3", "title: ${participants}")
+            db.collection("PromiseRooms").document(roomId).set(roomData).await()
+            Log.d("makeAChatRoom4", "title: ${participants}")
+            emit(true)
+        } catch (e: Exception) {
+            Log.d("makeAChatRoom", "실패 이유: ${e.message}")
+            emit(false)
+        }
+    }
 }
 

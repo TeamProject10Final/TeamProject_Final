@@ -42,7 +42,11 @@ class RoomStartFragment : Fragment() {
     //수정
     private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        RoomViewModelFactory(appContainer.getAllUsersUseCase)
+        RoomViewModelFactory(
+            appContainer.getAllUsersUseCase,
+            appContainer.getSearchListUseCase,
+            appContainer.makeAPromiseRoomUseCase
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +72,7 @@ class RoomStartFragment : Fragment() {
 
         setDate()
         setTime()
-        sendData()
+        sendToResult()
 
         editTextProcess()
 
@@ -188,13 +192,6 @@ class RoomStartFragment : Fragment() {
         }
     }
 
-    private fun sendData() {
-
-        val titleData = binding.etRoomTitle.text.toString()
-        Log.d("test", "${titleData}")
-        val penaltyData = binding.etRoomPenalty.text.toString()
-        Log.d("test", "${penaltyData}")
-    }
 
     private fun sendToResult(){
         val roomList = (RoomModel(

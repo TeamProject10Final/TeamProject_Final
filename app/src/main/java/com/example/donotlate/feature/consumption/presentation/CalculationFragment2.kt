@@ -2,6 +2,7 @@ package com.example.donotlate.feature.consumption.presentation
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -41,7 +42,11 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
 
         // 이전에 입력한 내용이 있다면 해당 내용을 EditText에 설정
         viewModel.total.value?.let { binding.etDes21.setText(it) }
-        viewModel.isPenalty.value?.let { if(it) binding.btnPenalty.setText("나") else binding.btnPenalty.setText("나 아님") }
+        viewModel.isPenalty.value?.let {
+            if (it) binding.btnPenalty.setText("나의 벌금추가") else binding.btnPenalty.setText(
+                "동료의 벌금추가"
+            )
+        }
         viewModel.penalty.value?.let { binding.etDes22.setText(it) }
         viewModel.number.value?.let { binding.etDes23.setText(it) }
 
@@ -86,7 +91,8 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
                 viewModel.setPenalty(penalty)
                 viewModel.setIsPenalty(viewModel.isPenalty.value!!)
                 viewModel.setNumber(number)
-                findNavController().navigate(R.id.action_fragment2_to_fragment3)
+                viewModel.setCurrentItem(current = 2)
+//                findNavController().navigate(R.id.action_fragment2_to_fragment3)
             } else {
                 Toast.makeText(requireContext(), "필수 항목을 입력하세요.", Toast.LENGTH_SHORT).show()
             }
@@ -105,11 +111,9 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
 
     private fun updateIsPenaltyButton(isPenalty: Boolean) {
         if(isPenalty) {
-            binding.btnPenalty.text = "나"
-            binding.btnPenalty.setBackgroundResource(R.drawable.rounded_edittext3)
+            binding.btnPenalty.text = "나의 벌금추가"
         }else{
-            binding.btnPenalty.text = "나 아님"
-            binding.btnPenalty.setBackgroundResource(R.drawable.rounded_edittext1)
+            binding.btnPenalty.text = "동료의 벌금추가"
         }
 
     }

@@ -10,9 +10,11 @@
         android:id="@+id/tv31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
         android:text="정산결과"
-        android:textSize="30sp"
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,7 +22,9 @@
         android:id="@+id/tv32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="26sp"
         android:text="입니다."
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tv31"
         app:layout_constraintStart_toEndOf="@+id/tv31" />
     <TextView
@@ -28,18 +32,19 @@
         android:layout_width="357dp"
         android:layout_height="wrap_content"
         android:text="확인해주세요."
+        android:textSize="26sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tv31"
         app:layout_constraintTop_toBottomOf="@id/tv31"/>
 
     <TextView
         android:id="@+id/tvDes31"
-        android:layout_width="234dp"
+        android:layout_width="wrap_content"
         android:layout_height="18dp"
-        android:layout_marginTop="135dp"
+        android:layout_marginTop="20dp"
         android:text="지출내역"
-        app:layout_constraintStart_toStartOf="@+id/tv31"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintStart_toStartOf="@+id/tv33"
+        app:layout_constraintTop_toBottomOf="@+id/tv33" />
 
     <TextView
         android:id="@+id/tvRes31"
@@ -53,27 +58,16 @@
         app:layout_constraintTop_toBottomOf="@+id/tvDes31" />
 
 
-
-
-
-
-
     <!--이 밑으로 다 수정하기 날짜 폰트 간격 top 등등 다-->
-
-
-
-
-
 
     <TextView
         android:id="@+id/tvDes32"
-        android:layout_width="234dp"
+        android:layout_width="wrap_content"
         android:layout_height="18dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="10dp"
         android:text="날짜"
-        app:layout_constraintStart_toStartOf="@+id/tvDes31"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintStart_toStartOf="@+id/tvRes31"
+        app:layout_constraintTop_toBottomOf="@+id/tvRes31" />
 
     <TextView
         android:id="@+id/tvRes32"
@@ -85,16 +79,14 @@
         app:layout_constraintStart_toStartOf="@id/tvDes32"
         app:layout_constraintTop_toBottomOf="@+id/tvDes32" />
 
-
     <TextView
         android:id="@+id/tvDes33"
-        android:layout_width="234dp"
+        android:layout_width="wrap_content"
         android:layout_height="18dp"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="10dp"
         android:text="정산 인원"
-        app:layout_constraintStart_toStartOf="@+id/tvDes32"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintStart_toStartOf="@+id/tvRes32"
+        app:layout_constraintTop_toBottomOf="@+id/tvRes32" />
 
     <TextView
         android:id="@+id/tvRes33"
@@ -108,12 +100,12 @@
 
     <TextView
         android:id="@+id/tvDes34"
-        android:layout_width="234dp"
+        android:layout_width="wrap_content"
         android:layout_height="18dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="10dp"
         android:text="카테고리"
-        app:layout_constraintStart_toStartOf="@+id/tvDes33"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/tvRes33"
+        app:layout_constraintTop_toBottomOf="@+id/tvRes33" />
 
 
     <TextView
@@ -146,46 +138,40 @@
         android:background="@drawable/rounded_edittext3"
         android:ems="10"
         android:gravity="end"
-        android:inputType="text"
+        android:textColor="@color/black"
         android:paddingHorizontal="20dp"
         android:textDirection="rtl"
         android:textSize="32sp"
         app:layout_constraintTop_toBottomOf="@+id/tvDes35"
         app:layout_constraintEnd_toEndOf="@+id/tvDes35"/>
 
-
-
-    <android.widget.Button
-        android:id="@+id/btnCalShare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="공유하기"
-        app:layout_constraintBottom_toTopOf="@id/btnCalExit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="5dp"
-        />
-
     <android.widget.Button
         android:id="@+id/btnCalFinish"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="정산완료"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnCalExit"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="30dp"
-        />
+        android:background="@drawable/bg_radius_lightblue"
+        android:text="정산완료"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCalExit"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.widget.Button
         android:id="@+id/btnCalExit"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="나가기"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnCalFinish"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
-        />
+        android:background="@drawable/bg_radius_lightblue"
+        android:text="나가기"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnCalFinish" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@ import com.example.donotlate.feature.room.presentation.view.RoomFriendFragment
 import com.example.donotlate.feature.room.presentation.view.RoomMapFragment
 import com.example.donotlate.feature.room.presentation.view.RoomStartFragment
 
-class ViewPagerAdapter (fragment: Fragment): FragmentStateAdapter(fragment){
+class RoomViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     val fragments = listOf<Fragment>(
         RoomStartFragment(),
         RoomMapFragment(),

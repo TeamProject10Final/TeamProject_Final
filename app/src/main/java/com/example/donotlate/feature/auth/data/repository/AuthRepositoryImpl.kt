@@ -20,8 +20,6 @@ class AuthRepositoryImpl(
     val context: Context
 ) : AuthRepository {
 
-    val mAuth = auth.currentUser?.uid
-
     override suspend fun signUp(name: String, email: String, password: String): Result<String> {
         return try {
             val result = auth.createUserWithEmailAndPassword(email, password).await()

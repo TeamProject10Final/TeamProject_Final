@@ -16,7 +16,7 @@ data class Places(
     val nationalPhoneNumber : String?,
 
     @SerializedName("formattedAddress")
-    val formattedAddress : String?,
+    val formattedAddress: String,
 
     @SerializedName("location")
     val location : SearchLocation?,

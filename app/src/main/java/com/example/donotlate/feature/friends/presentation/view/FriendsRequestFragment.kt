@@ -1,23 +1,23 @@
 package com.example.donotlate.feature.friends.presentation.view
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentFriendsBinding
 import com.example.donotlate.databinding.FragmentFriendsRequestBinding
 import com.example.donotlate.feature.friends.presentation.adapter.SearchUserAdapter
 import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class FriendsRequestFragment : Fragment() {
@@ -69,8 +69,40 @@ class FriendsRequestFragment : Fragment() {
 
         }
 
+        binding.ivFriendRequestBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+
         observeViewModel()
+        editTextProcess()
+
     }
+
+
+    private fun editTextProcess() {
+
+        binding.etFriendSearch.setOnEditorActionListener { textView, action, keyEvent ->
+            var handled = false
+
+            if (action == EditorInfo.IME_ACTION_SEARCH) {
+                hideKeyboard()
+                requireActivity().currentFocus!!.clearFocus()
+                handled = true
+
+                val searchId = binding.etFriendSearch.text.toString().trim()
+                Log.d("FriendsRequestFragment", "Search ID: $searchId")
+                friendsViewModel.searchUserById(searchId)
+            }
+            handled
+        }
+    }
+
+    private fun hideKeyboard() {
+        val imm =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+    }
+
 
     private fun observeViewModel(){
         lifecycleScope.launch {
@@ -80,6 +112,7 @@ class FriendsRequestFragment : Fragment() {
             }
         }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
