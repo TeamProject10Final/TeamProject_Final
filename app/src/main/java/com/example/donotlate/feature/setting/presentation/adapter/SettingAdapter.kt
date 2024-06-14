@@ -13,8 +13,11 @@ import com.example.donotlate.feature.setting.model.SettingListItemType1
 import com.example.donotlate.feature.setting.model.SettingListItemType2
 
 class SettingAdapter(private val settingItem: MutableList<ListType>) :
+
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var itemClick: ItemClick? = null
+
+//    private val vm: SettingViewModel by viewModels()
 
     interface ItemClick {
         fun onClick(view: View, position: Int)
@@ -89,6 +92,7 @@ class SettingAdapter(private val settingItem: MutableList<ListType>) :
              모드 변경이 될 때 뷰가 새로고침이 되어서 스위치가 제대로 움직이지 않음 -> 뷰모델에 스위치 상태 변수를 만들고 변수를 옵저빙하여 다크모드 변경*/
             binding.switch1.setOnCheckedChangeListener { compoundButton, isChecked ->
                 if (isChecked){
+
                     //스위치 on
                     Log.d("스위치 동작","스위치 on 다크모드")
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
