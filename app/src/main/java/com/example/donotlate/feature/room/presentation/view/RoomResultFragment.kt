@@ -2,22 +2,18 @@ package com.example.donotlate.feature.room.presentation.view
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentRoomResultBinding
-import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.example.donotlate.feature.room.presentation.dialog.CancelFragmentDialog
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 
@@ -47,75 +43,45 @@ class RoomResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        Log.d("RoomResultFragment", "onCreateView called")
+
         _binding = FragmentRoomResultBinding.inflate(inflater, container, false)
-
-
-        roomViewModel.inputText.observe(viewLifecycleOwner) { newValue ->
-            newValue?.let {
-                val title1 = newValue.title
-                val time1 = newValue.time
-
-                roomViewModel.inputText.observe(viewLifecycleOwner){newnew ->
-                    val date = newnew.title
-
-
-
-                }
-            }
-
-        }
-
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        Log.d("RoomResultFragment", "onViewCreated called")
         initCancel()
-
-        binding.btnRoomResult.setOnClickListener {
-            roomViewModel.inputText.observe(viewLifecycleOwner) {inputDate ->
-                val title = inputDate.title
-                val time = inputDate.time
-                val penalty = inputDate?.penalty ?: ""
-                val date = inputDate.date
-
-                roomViewModel.inputText.observe(viewLifecycleOwner) {locate ->
-                    val destination = locate.time
-                    val lat = 0.0
-                    val lng = 0.0
-                    val participants = listOf<UserModel>()
-
-                    makeARoom(
-                        roomTitle = title,
-                        promiseTime = time,
-                        promiseDate = date,
-                        destination = destination,
-                        destinationLat = lat,
-                        destinationLng = lng,
-                        penalty = penalty ?: "",
-                        participants = participants
-                    )
-                }
-                Log.d("makeAChatRoom", "title: ${title}, time: ${time}")
-                observeViewModel()
-            }
+        roomViewModel.selectedUserUIds.observe(viewLifecycleOwner) { uids ->
+            Log.d("SelectedUserIds", uids.toString())
+            Log.d("asdasdasd", "ㅠㅠ")
         }
+
+        roomViewModel.selectedUserNames.observe(viewLifecycleOwner) {userName ->
+
+        }
+        observeViewmodel()
+
+
     }
 
     private fun observeViewModel() {
 
         lifecycleScope.launch {
-            roomViewModel.makeARoomResult.collect{ it ->
-                if(it){
+            roomViewModel.makeARoomResult.collect { it ->
+                if (it) {
                     Toast.makeText(requireContext(), "성공?", Toast.LENGTH_SHORT).show()
-                }else {
+                } else {
                     Toast.makeText(requireContext(), "실패 ㅠㅠ", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
+
 
     companion object {
         @JvmStatic
@@ -143,7 +109,7 @@ class RoomResultFragment : Fragment() {
         destinationLat: Double,
         destinationLng: Double,
         penalty: String,
-        participants: List<UserModel>
+        participants: List<String>
     ) {
         lifecycleScope.launch {
             roomViewModel.makeAPromiseRoom(
@@ -158,6 +124,21 @@ class RoomResultFragment : Fragment() {
             )
         }
     }
+
+    fun observeViewmodel() {
+
+    }
+
+//    fun observeViewmodel(){
+//        lifecycleScope.launch {
+//            roomViewModel.selectedUserUIds.collect {
+//                val uids = it
+//
+//                val resultUid = uids
+//                Log.d("resultUid", "${resultUid}")
+//            }
+//        }
+//    }
 
 
     override fun onDestroyView() {

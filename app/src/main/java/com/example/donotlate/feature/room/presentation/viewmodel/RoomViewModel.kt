@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
-import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
+import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
 import com.example.donotlate.feature.room.presentation.mapper.toModel
 import com.example.donotlate.feature.room.presentation.model.RoomModel
 import com.example.donotlate.feature.room.presentation.model.RoomUserModel
@@ -29,6 +29,25 @@ class RoomViewModel(
     private val _makeARoomResult = MutableStateFlow<Boolean>(false)
     val makeARoomResult: StateFlow<Boolean> get() = _makeARoomResult
 
+    private val _selectedUserNames = MutableLiveData<List<String>>()
+    val selectedUserNames: LiveData<List<String>> get() = _selectedUserNames
+
+    fun updateSelectedUserNames(userNames:List<String>){
+        _selectedUserNames.value = userNames
+    }
+
+    private val _selectedUserUIds = MutableLiveData<List<String>>()
+    val selectedUserUIds: LiveData<List<String>> get() = _selectedUserUIds
+
+    fun updateSelectedUserUIds(userIds: List<String>) {
+        _selectedUserUIds.value = userIds
+
+        Log.d("seletededed", "${userIds}")
+        Log.d("seletededed", "${_selectedUserUIds.value}")
+        Log.d("seletededed", "${selectedUserUIds.value}")
+
+    }
+
     private val _inputText = MutableLiveData<RoomModel>()
 //    val inputText: LiveData<RoomModel> get() = _inputText
     val inputText: LiveData<RoomModel> = _inputText
@@ -37,7 +56,10 @@ class RoomViewModel(
 
     fun updateText(input: RoomModel) {
         _inputText.value = input
+        Log.d("selectededed", "$input")
     }
+
+
 
     fun getAllUserData(){
         viewModelScope.launch {
@@ -60,7 +82,7 @@ class RoomViewModel(
         destinationLat: Double,
         destinationLng: Double,
         penalty: String,
-        participants: List<UserModel>
+        participants: List<String>
     ) {
         viewModelScope.launch {
             Log.d("makeAChatroom2", "title: ${roomTitle}")

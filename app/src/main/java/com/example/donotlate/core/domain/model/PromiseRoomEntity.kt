@@ -1,10 +1,8 @@
-package com.example.donotlate.feature.mypromise.presentation.model
+package com.example.donotlate.core.domain.model
 
-import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.google.firebase.Timestamp
 
-
-data class PromiseModel(
+data class PromiseRoomEntity (
     val roomTitle: String,
     val roomCreatedAt: Timestamp,
     val promiseTime: String,
@@ -13,13 +11,5 @@ data class PromiseModel(
     val destinationLat: Double, // <-- 위도
     val destinationLng: Double, // <-- 경도
     val penalty: String,
-    val participants:List<UserModel>
-){
-    constructor(): this("", Timestamp.now(), "", "", "", 0.0, 0.0, "", listOf())
-}
-
-
-
-
-
-
+    val participants:List<String>
+)

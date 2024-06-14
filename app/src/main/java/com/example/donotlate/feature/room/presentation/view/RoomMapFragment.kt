@@ -13,15 +13,12 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentRoomMapBinding
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
-import kotlinx.coroutines.flow.collect
+import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 import kotlinx.coroutines.launch
 
 class RoomMapFragment : Fragment() {
@@ -37,6 +34,9 @@ class RoomMapFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+            val data = it.getParcelable("data", PlaceModel::class.java)
+            if(data != null)
+                roomViewModel
         }
     }
 

@@ -11,9 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
@@ -26,25 +25,34 @@ import kotlinx.coroutines.launch
 
 class RoomFriendFragment : Fragment() {
 
-    private val roomViewModel: RoomViewModel by viewModels {
+    private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        RoomViewModelFactory(appContainer.getAllUsersUseCase, appContainer.makeAPromiseRoomUseCase)
+        RoomViewModelFactory(
+            appContainer.getAllUsersUseCase,
+            appContainer.makeAPromiseRoomUseCase
+        )
     }
 
-    private var _binding : FragmentRoomFriendBinding? = null
+    private var _binding: FragmentRoomFriendBinding? = null
     private val binding get() = _binding!!
 
     private val friendAdapter by lazy {
         RoomFriendAdapter()
     }
 
-    private val selectedUsers = mutableListOf<RoomUserModel>()
+    private val selectedUserUIds = mutableListOf<String>()
+    private val selectedUserNames = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
 
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
     }
 
     override fun onCreateView(
@@ -63,6 +71,13 @@ class RoomFriendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val userData = roomViewModel.selectedUserUIds
+
+
+        val datasize = userData.value ?: ""
+
+        Log.d("dasd", "${datasize}")
+
 
         getAllUserList()
         editTextProcess()
@@ -78,43 +93,61 @@ class RoomFriendFragment : Fragment() {
         binding.tvRoomFriendTitle.text = title
     }
 
-    private fun getAllUserList(){
+    private fun getAllUserList() {
         try {
             lifecycleScope.launch {
-                roomViewModel.getAllUserData.collect {result ->
+                roomViewModel.getAllUserData.collect { result ->
                     Log.d("RoomFriendFragment", "User Data: $result")
                     setUpRecyclerView(result)
 
                 }
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             Log.e("RoomFragmentError", "Error: ${e.message}")
         }
     }
 
-    private fun setUpRecyclerView(userList:List<RoomUserModel>){
-        try{
+    private fun setUpRecyclerView(userList: List<RoomUserModel>) {
+        try {
             binding.rvFriend.apply {
                 adapter = friendAdapter
                 layoutManager = GridLayoutManager(requireContext(), 4)
             }
             friendAdapter.submitList(userList)
-            friendAdapter.itemClick = object : RoomFriendAdapter.ItemClick{
+            friendAdapter.itemClick = object : RoomFriendAdapter.ItemClick {
                 override fun onClick(view: View, position: Int) {
                     val selectedUser = friendAdapter.currentList[position]
-                    if(selectedUsers.contains(selectedUser)){
-                        selectedUsers.remove(selectedUser)
-                        Log.d("RRRR", "${selectedUsers}")
-                    }else{
-                        selectedUsers.add(selectedUser)
-                        Log.d("RRRR", "${selectedUsers}")
+                    if (selectedUserUIds.contains(selectedUser.uId)) {
+                        selectedUserUIds.remove(selectedUser.uId)
+                        Log.d("RRRR", "${selectedUserUIds}")
+                    } else {
+                        selectedUserUIds.add(selectedUser.uId)
+                        Log.d("RRRR", "${selectedUserUIds}")
                     }
+                    if (selectedUserNames.contains(selectedUser.name)) {
+                        selectedUserNames.remove(selectedUser.name)
+                        Log.d("RRRR", "${selectedUserNames}")
+                    } else {
+                        selectedUserNames.add(selectedUser.name)
+                        Log.d("RRRR", "${selectedUserNames}")
+                    }
+                    saveToSelectedFriendsUIds()
+                    updateSelectedUserNames()
                 }
 
             }
-        }catch (e:Exception){
+
+            selectedUserNames
+        } catch (e: Exception) {
             Log.e("RecyclerVuewSetupError", "Error: ${e.message}")
         }
+    }
+
+    private fun saveToSelectedFriendsUIds() {
+        roomViewModel.updateSelectedUserUIds(selectedUserUIds)
+    }
+    private fun updateSelectedUserNames() {
+        roomViewModel.updateSelectedUserUIds(selectedUserNames)
     }
 
     private fun editTextProcess() {
@@ -135,6 +168,7 @@ class RoomFriendFragment : Fragment() {
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

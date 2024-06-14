@@ -2,6 +2,7 @@ package com.example.donotlate.core.domain.repository
 
 
 import com.example.donotlate.core.domain.model.FriendRequestEntity
+import com.example.donotlate.core.domain.model.PromiseRoomEntity
 import com.example.donotlate.core.domain.model.UserEntity
 import com.example.donotlate.feature.main.presentation.model.UserModel
 import kotlinx.coroutines.flow.Flow
@@ -15,5 +16,6 @@ interface FirebaseDataRepository {
     suspend fun searchUserById(searchId: String): Flow<List<UserEntity>>
     suspend fun getFriendRequestStatus(requestId: String): Flow<FriendRequestEntity?>
     suspend fun getFriendRequestsList(toId: String): Flow<List<FriendRequestEntity>>
-    suspend fun makeAPromiseRoom(roomTitle: String, promiseTime: String, promiseDate: String, destination: String, destinationLat: Double, destinationLng: Double, penalty: String, participants: List<UserModel>): Flow<Boolean>
+    suspend fun makeAPromiseRoom(roomTitle: String, promiseTime: String, promiseDate: String, destination: String, destinationLat: Double, destinationLng: Double, penalty: String, participants: List<String>): Flow<Boolean>
+    suspend fun getMyPromiseListFromFireBase(): Flow<List<PromiseRoomEntity>>
 }

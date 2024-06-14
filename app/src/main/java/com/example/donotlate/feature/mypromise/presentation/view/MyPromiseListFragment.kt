@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
 
-class MypromiseListFragment : Fragment() {
+class MyPromiseListFragment : Fragment() {
 
     private val mainPageViewModel: MainPageViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer

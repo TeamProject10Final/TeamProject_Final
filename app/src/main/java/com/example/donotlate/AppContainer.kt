@@ -7,6 +7,7 @@ import com.example.donotlate.core.domain.usecase.GetFriendRequestsListUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendRequestsStatusUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendsListFromFirebaseUseCase
 import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
+import com.example.donotlate.core.domain.usecase.LoadToMyPromiseListUseCase
 import com.example.donotlate.core.domain.usecase.MakeAFriendRequestUseCase
 import com.example.donotlate.core.domain.usecase.SearchUserByIdUseCase
 import com.example.donotlate.feature.auth.data.repository.AuthRepositoryImpl
@@ -14,7 +15,6 @@ import com.example.donotlate.feature.auth.domain.useCase.LogInUseCase
 import com.example.donotlate.feature.auth.domain.useCase.SignUpUseCase
 import com.example.donotlate.feature.auth.presentation.viewmodel.LogInViewModelFactory
 import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
-import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
 import com.example.donotlate.feature.consumption.data.repository.ConsumptionRepositoryImpl
 import com.example.donotlate.feature.consumption.domain.repository.ConsumptionRepository
 import com.example.donotlate.feature.consumption.domain.usecase.DeleteConsumptionUseCase
@@ -33,7 +33,9 @@ import com.example.donotlate.feature.consumption.presentation.SharedViewModelFac
 import com.example.donotlate.feature.friends.data.repository.FriendRequestRepositoryImpl
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
+import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModelFactory
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
+import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 import com.example.donotlate.feature.searchPlace.api.NetWorkClient
 import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesApiRepositoryImpl
@@ -204,6 +206,10 @@ class AppContainer {
         MakeAPromiseRoomUseCase(firebaseDataRepository)
     }
 
+    val loadToMyPromiseListUseCase by lazy {
+        LoadToMyPromiseListUseCase(firebaseDataRepository)
+    }
+
 }
 
 class LogInContainer(
@@ -320,5 +326,13 @@ class FriendsContainer(
         getFriendRequestsStatusUseCase,
         getFriendRequestsListUseCase,
         acceptFriendRequestsUseCase
+    )
+}
+
+class MyPromiseContainer(
+    val loadToMyPromiseListUseCase: LoadToMyPromiseListUseCase,
+){
+    val myPromiseViewModelFactory = MyPromiseViewModelFactory(
+        loadToMyPromiseListUseCase
     )
 }

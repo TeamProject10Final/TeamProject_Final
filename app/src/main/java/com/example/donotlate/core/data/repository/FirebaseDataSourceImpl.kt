@@ -4,19 +4,20 @@ package com.example.donotlate.core.data.repository
 import android.util.Log
 import com.example.donotlate.core.data.mapper.toEntity
 import com.example.donotlate.core.data.mapper.toEntityList
+import com.example.donotlate.core.data.mapper.toPromiseEntityList
 import com.example.donotlate.core.data.mapper.toUserEntity
 import com.example.donotlate.core.data.mapper.toUserEntityList
 import com.example.donotlate.core.data.response.FriendRequestDTO
+import com.example.donotlate.core.data.response.PromiseRoomResponse
 import com.example.donotlate.core.data.response.UserResponse
 import com.example.donotlate.core.domain.model.FriendRequestEntity
+import com.example.donotlate.core.domain.model.PromiseRoomEntity
 import com.example.donotlate.core.domain.model.UserEntity
 import com.example.donotlate.core.domain.repository.FirebaseDataRepository
-import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Source
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -170,7 +171,7 @@ class FirebaseDataSourceImpl(
         destinationLat: Double,
         destinationLng: Double,
         penalty: String,
-        participants: List<UserModel>
+        participants: List<String>
 
     ): Flow<Boolean> = flow {
         try {
@@ -187,7 +188,7 @@ class FirebaseDataSourceImpl(
             )
             val roomId = UUID.randomUUID().toString()
             Log.d("makeAChatRoom3", "title: ${roomTitle}")
-             db.collection("PromiseRooms").document(roomId).set(roomData).await()
+            db.collection("PromiseRooms").document(roomId).set(roomData).await()
             Log.d("makeAChatRoom4", "title: ${roomTitle}")
             emit(true)
         } catch (e: Exception) {
@@ -195,5 +196,20 @@ class FirebaseDataSourceImpl(
             emit(false)
         }
     }
+
+    override suspend fun getMyPromiseListFromFireBase(): Flow<List<PromiseRoomEntity>> = flow {
+        try {
+            val mAuth = auth.currentUser?.uid ?: ""
+            val documents =
+                db.collection("PromiseRooms").whereArrayContains("participants", mAuth).get()
+                    .await()
+            val document = documents.toObjects(PromiseRoomResponse::class.java)
+            emit(document.toPromiseEntityList())
+        } catch (e: Exception) {
+            Log.e("getMyPromiseListFromFireBase", "Error fetching promise list", e)
+            emit(emptyList())
+        }
+    }
 }
+
 
