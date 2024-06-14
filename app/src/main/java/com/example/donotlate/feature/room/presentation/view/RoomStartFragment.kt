@@ -188,11 +188,8 @@ class RoomStartFragment : Fragment() {
     }
 
     private fun sendData() {
-
         val titleData = binding.etRoomTitle.text.toString()
-        Log.d("test", "${titleData}")
         val penaltyData = binding.etRoomPenalty.text.toString()
-        Log.d("test", "${penaltyData}")
     }
 
     private fun sendToResult() {

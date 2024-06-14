@@ -15,6 +15,7 @@ import com.example.donotlate.databinding.FragmentSettingBinding
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
+import com.example.donotlate.feature.setting.model.ListType
 import com.example.donotlate.feature.setting.presentation.adapter.SettingAdapter
 import kotlinx.coroutines.launch
 
@@ -48,8 +49,21 @@ class SettingFragment : Fragment() {
 
         startMyPage()
         observeViewModel()
-        val settingItemList = arrayListOf("테마 변경", "폰트 변경")
-        val settingItemList2 = arrayListOf("건의하기", "앱 정보", "로그아웃")
+
+        val settingItemList = mutableListOf<ListType>()
+        val settingItemList2 = mutableListOf<ListType>()
+
+        settingItemList.apply {
+            add(ListType(title = "다크 모드", type = 2))
+            add(ListType(title = "폰트 변경", type = 1))
+
+        }
+
+        settingItemList2.apply {
+            add(ListType(title = "건의 하기", type = 1))
+            add(ListType(title = "앱 정보", type = 1))
+            add(ListType(title = "로그 아웃", type = 1))
+        }
 
         val adapter1 = SettingAdapter(settingItemList)
         binding.recyclerSetting.adapter = adapter1
@@ -64,7 +78,6 @@ class SettingFragment : Fragment() {
         adapter1.itemClick = object : SettingAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
                 when (position) {
-                    0 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
                     1 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -88,15 +101,16 @@ class SettingFragment : Fragment() {
         return binding.root
     }
 
-        override fun onDestroyView() {
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
     //마이페이지 이동
-    private fun startMyPage(){
+    private fun startMyPage() {
         binding.constraint.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, MypageFragment()).addToBackStack("").commit()
+            parentFragmentManager.beginTransaction().replace(R.id.frame, MypageFragment())
+                .addToBackStack("").commit()
         }
     }
 
@@ -115,8 +129,8 @@ class SettingFragment : Fragment() {
     }
 
     private fun logoutButton() {
-            val dialog = LogoutFragmentDialog()
-            dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
-            //firebase 로그아웃 기능 추가
+        val dialog = LogoutFragmentDialog()
+        dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
+        //firebase 로그아웃 기능 추가
     }
 }

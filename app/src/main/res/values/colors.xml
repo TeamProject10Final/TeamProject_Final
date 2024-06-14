@@ -19,4 +19,11 @@
     <color name="malibu">#84C0E9</color>
     <color name="blue_violet">#37419A</color>
 
+    <!-- 다크모드 컬러 -->
+    <color name="color_dark_000000_ffffff">#000000</color>
+    <color name="color_dark_ffffff_000000">#ffffff</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
 </resources>
