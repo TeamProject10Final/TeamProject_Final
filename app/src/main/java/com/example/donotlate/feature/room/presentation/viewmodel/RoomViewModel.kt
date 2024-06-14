@@ -40,6 +40,13 @@ class RoomViewModel(
     private val _searchMapList = MutableLiveData<List<PlaceModel>>()
     val searchMapList: LiveData<List<PlaceModel>> = _searchMapList
 
+    private val _selectedUserNames = MutableLiveData<List<String>>()
+    val selectedUserNames: LiveData<List<String>> get() = _selectedUserNames
+
+    fun updateSelectedUserNames(userNames:List<String>){
+        _selectedUserNames.value = userNames
+    }
+
     //검색 쿼리
     private var inputQuery: MutableLiveData<String> = MutableLiveData()
     fun getQuery(): LiveData<String> = inputQuery

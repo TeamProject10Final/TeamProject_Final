@@ -88,12 +88,19 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             binding.tvResultDetailPenalty.text = it.penalty
         }
 
-        roomViewModel.selectedUserUIds.observe(viewLifecycleOwner) {
-            binding.tvResultDetailFriend.text = it.joinToString { "," }
+        roomViewModel.selectedUserNames.observe(viewLifecycleOwner) { userNames ->
+
+            displayUserName(userNames)
+
         }
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.fg_Result_Promise_Map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+    }
+
+    private fun displayUserName(userNames: List<String>){
+        val formattedNames = userNames.joinToString(separator = "  ")
+        binding.tvResultDetailFriend.text = formattedNames
     }
 
 
@@ -153,18 +160,6 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
         val userData = roomViewModel.selectedUserUIds.value
         Log.d("data12", "${userData}")
 
-
-//            roomViewModel.inputText.observe(viewLifecycleOwner) { inputDate ->
-//                val title = inputDate.title
-//                val time = inputDate.time
-//                val date = inputDate.date
-//                val penalty = inputDate?.penalty ?: ""
-
-//                roomViewModel.locationData.observe(viewLifecycleOwner) { locate ->
-//                    val destination = locate.address
-//                    val lat = locate.lat
-//                    val lng = locate.lng
-//                    val participants = listOf<UserModel>()
 
         makeARoom(
             roomTitle = inputData?.title ?: "",

@@ -44,6 +44,7 @@ class RoomFriendFragment : Fragment() {
     }
 
     private val selectedUserUIds = mutableListOf<String>()
+    private val selectedUserNames = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,7 +120,15 @@ class RoomFriendFragment : Fragment() {
                         selectedUserUIds.add(selectedUser.uId)
                         Log.d("RRRR", "${selectedUserUIds}")
                     }
+                    if (selectedUserNames.contains(selectedUser.name)) {
+                        selectedUserNames.remove(selectedUser.name)
+                        Log.d("RRRR", "${selectedUserNames}")
+                    } else {
+                        selectedUserNames.add(selectedUser.name)
+                        Log.d("RRRR", "${selectedUserNames}")
+                    }
                     saveToSelectedFriendsUIds()
+                    updateSelectedUserNames()
                 }
             }
         } catch (e: Exception) {
@@ -130,6 +139,11 @@ class RoomFriendFragment : Fragment() {
     private fun saveToSelectedFriendsUIds() {
         roomViewModel.setSelectedUserUIds(selectedUserUIds)
         Log.d("data123", "${selectedUserUIds}")
+    }
+
+    private fun updateSelectedUserNames() {
+        roomViewModel.updateSelectedUserNames(selectedUserNames)
+        Log.d("data12", "${selectedUserNames}")
     }
 
     private fun editTextProcess() {
