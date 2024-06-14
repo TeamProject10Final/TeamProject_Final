@@ -69,6 +69,7 @@ class RoomMapBottomFragment : BottomSheetDialogFragment() {
             }
         }
     }
+
     private fun initMapList() {
 
         mapAdapter.setOnItemClickListener(object : MapAdapter.OnItemClickListener {

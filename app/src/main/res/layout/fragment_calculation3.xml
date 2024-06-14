@@ -13,8 +13,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
         android:text="정산결과"
-        android:textStyle="bold"
         android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

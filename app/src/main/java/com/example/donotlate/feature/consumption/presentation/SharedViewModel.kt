@@ -92,7 +92,7 @@ constructor(
 
 
     private val _mediatorLiveData = MediatorLiveData<String>()
-    val mediatorLiveData : MediatorLiveData<String> = _mediatorLiveData
+    val mediatorLiveData: MediatorLiveData<String> = _mediatorLiveData
 
 
     init {
@@ -113,7 +113,7 @@ constructor(
     }
 
     //mediatorLiveData에 데이터 추가
-    private fun setMediatorLiveData(){
+    private fun setMediatorLiveData() {
         mediatorLiveData.addSource(total) {
             mediatorLiveData.value = it
         }

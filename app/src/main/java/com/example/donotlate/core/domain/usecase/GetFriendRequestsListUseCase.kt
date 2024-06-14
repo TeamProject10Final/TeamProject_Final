@@ -12,7 +12,8 @@ class GetFriendRequestsListUseCase(private val firebaseDataRepository: FirebaseD
     suspend operator fun invoke(toId: String): Flow<List<FriendRequestWithUserDataEntity>> = flow {
         firebaseDataRepository.getFriendRequestsList(toId).collect() { requests ->
             val requestWithUserData = requests.mapNotNull { request ->
-                val userData = firebaseDataRepository.getUserDataById(request.fromId).toList().firstOrNull()
+                val userData =
+                    firebaseDataRepository.getUserDataById(request.fromId).toList().firstOrNull()
                 userData?.let { FriendRequestWithUserDataEntity(request, it) }
             }
             emit(requestWithUserData)

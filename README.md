@@ -4,19 +4,22 @@
 <br>
 
 # 팀 소개
-|[리더]김재현|[부리더]임채명|박혜란|정규식|최지원|
-|----|----|----|----|----|
-|![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/7387ac81-1509-412e-89ac-68807008dd2e)|![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/1a5bf764-2d05-4c2e-a8d7-0060659e94e3)|![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/8b7c1672-cc20-447a-bfe9-80c29d7b18c9)|![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/a274f21c-eb02-4933-a9cc-6d5cf44a142c)|![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/7156cd6c-cc5b-433f-975b-0f74f22beafc)|
-|<div align=center>[@onecoin789](https://github.com/onecoin789)</div>|<div align=center>[@LimChaem](https://github.com/LimChaem)</div>|<div align=center>[@lany159](https://github.com/lany159)</div>|<div align=center>[@JnagGyuSik](https://github.com/JnagGyuSik)</div>|<div align=center>[@ji-circle](https://github.com/ji-circle)</div>|
+
+| [리더]김재현                                                                                                                 | [부리더]임채명                                                                                                                | 박혜란                                                                                                                     | 정규식                                                                                                                     | 최지원                                                                                                                     |
+|-------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/7387ac81-1509-412e-89ac-68807008dd2e) | ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/1a5bf764-2d05-4c2e-a8d7-0060659e94e3) | ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/8b7c1672-cc20-447a-bfe9-80c29d7b18c9) | ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/a274f21c-eb02-4933-a9cc-6d5cf44a142c) | ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/7156cd6c-cc5b-433f-975b-0f74f22beafc) |
+| <div align=center>[@onecoin789](https://github.com/onecoin789)</div>                                                    | <div align=center>[@LimChaem](https://github.com/LimChaem)</div>                                                        | <div align=center>[@lany159](https://github.com/lany159)</div>                                                          | <div align=center>[@JnagGyuSik](https://github.com/JnagGyuSik)</div>                                                    | <div align=center>[@ji-circle](https://github.com/ji-circle)</div>                                                      |
 
 <br>
 
 # 프로젝트 소개
 > 학습 내용을 적용하여 어플리케이션 개발
 >   1. 약속 장소, 날짜, 시간을 정하고 사용자의 도착 예정 시간을 채팅방으로 공유
->      - 추후 계획 : 도착 예정 시간 뿐 아니라, 상대방의 위치를 실시간으로 지도에 띄어서 공유
+       >
+- 추후 계획 : 도착 예정 시간 뿐 아니라, 상대방의 위치를 실시간으로 지도에 띄어서 공유
 >   2. 약속 시간을 지키지 않는 사용자에게 벌칙을 부여하여 재미 요소 추가
->      - 추후 계획 : 설정한 시간 내에 도착하지 않은 사용자의 누적 횟수를 카운트하여 칭호 부여 
+       >
+- 추후 계획 : 설정한 시간 내에 도착하지 않은 사용자의 누적 횟수를 카운트하여 칭호 부여
 >   3. 놀거리릍 탐색하고, 다양한 약속을 정하여 관리하여 약속 후 정산 등의 기능으로 약속의 처음부터 끝까지 함께하는 약속 관리 어플리케이션
 
 <br>

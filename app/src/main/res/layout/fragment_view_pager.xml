@@ -6,8 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:clickable="true"
-    android:clipToPadding="false"
-    android:id="@+id/viewPagerConstraintLayout">
+    android:id="@+id/viewPagerConstraintLayout"
+    android:clipToPadding="false">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
@@ -32,9 +32,9 @@
         android:layout_margin="10dp"
         android:background="@drawable/ic_share"
         android:text="공유하기"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.appcompat.widget.AppCompatButton

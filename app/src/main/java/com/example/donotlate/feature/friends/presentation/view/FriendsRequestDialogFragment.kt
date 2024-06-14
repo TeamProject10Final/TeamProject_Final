@@ -1,9 +1,12 @@
 package com.example.donotlate.feature.friends.presentation.view
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
@@ -16,6 +19,7 @@ import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 
 class FriendsRequestDialogFragment : DialogFragment() {
 
@@ -55,6 +59,10 @@ class FriendsRequestDialogFragment : DialogFragment() {
     ): View? {
         currentUserData()
         _binding = FragmentRequestDialogBinding.inflate(layoutInflater)
+
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+
         return binding.root
     }
 
@@ -80,6 +88,14 @@ class FriendsRequestDialogFragment : DialogFragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnCancel.setOnClickListener {
+            dismiss()
+        }
+
+        val currentTime: Long = System.currentTimeMillis()
+        val dataFormat1 = SimpleDateFormat("yyyy-MM-dd")
+        binding.tvCreateAt.text = dataFormat1.format(currentTime).toString()
+
     }
 
     private fun sendFriendRequest(
@@ -97,32 +113,32 @@ class FriendsRequestDialogFragment : DialogFragment() {
                 status[requestID]?.let {
                     when (it.status) {
                         "request" -> {
-                            binding.btnFriendRequest.text = "x"
+                            binding.btnFriendRequest.text = "친구 상태"
                             binding.btnFriendRequest.isClickable = false
                             binding.btnFriendRequest.setBackgroundColor(
                                 ContextCompat.getColor(
                                     requireContext(),
-                                    R.color.gray
+                                    R.color.white
                                 )
                             )
                         }
 
                         "accept" -> {
-                            binding.btnFriendRequest.text = "x"
+                            binding.btnFriendRequest.text = "친구 상태"
                             binding.btnFriendRequest.isClickable = false
                             binding.btnFriendRequest.setBackgroundColor(
                                 ContextCompat.getColor(
                                     requireContext(),
-                                    R.color.gray
+                                    R.color.white
                                 )
                             )
                         }
 
                         else -> {
-                            binding.btnFriendRequest.text = "o"
+                            binding.btnFriendRequest.text = "친구 요청"
                             binding.btnFriendRequest.isClickable = true
                             binding.btnFriendRequest.setBackgroundColor(
-                                ContextCompat.getColor(requireContext(), R.color.blue)
+                                ContextCompat.getColor(requireContext(), R.color.white)
                             )
                         }
                     }
@@ -130,7 +146,7 @@ class FriendsRequestDialogFragment : DialogFragment() {
                     binding.btnFriendRequest.text = "친구 요청"
                     binding.btnFriendRequest.isClickable = true
                     binding.btnFriendRequest.setBackgroundColor(
-                        ContextCompat.getColor(requireContext(), R.color.blue)
+                        ContextCompat.getColor(requireContext(), R.color.white)
                     )
                 }
             }

@@ -70,7 +70,6 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
         }
 
 
-
     }
 
     private fun initView() {
@@ -91,7 +90,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
     }
 
-    private fun displayUserName(userNames: List<String>){
+    private fun displayUserName(userNames: List<String>) {
         val formattedNames = userNames.joinToString(separator = "  ")
         binding.tvResultDetailFriend.text = formattedNames
     }
