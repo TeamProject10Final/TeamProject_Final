@@ -14,10 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomMapBinding
@@ -32,7 +29,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class RoomMapFragment : Fragment(), OnMapReadyCallback {
@@ -45,7 +41,8 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         RoomViewModelFactory(
             appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
-            appContainer.makeAPromiseRoomUseCase
+            appContainer.makeAPromiseRoomUseCase,
+            appContainer.loadToCurrentUserDataUseCase
         )
     }
 

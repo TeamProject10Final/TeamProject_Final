@@ -2,23 +2,18 @@ package com.example.donotlate.feature.room.presentation.view
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.donotlate.AppContainer
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomMapBottomBinding
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 import com.example.donotlate.feature.searchPlace.domain.adapter.MapAdapter
 import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
-import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchViewModel
-import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class RoomMapBottomFragment : BottomSheetDialogFragment() {
@@ -31,7 +26,8 @@ class RoomMapBottomFragment : BottomSheetDialogFragment() {
         RoomViewModelFactory(
             appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
-            appContainer.makeAPromiseRoomUseCase
+            appContainer.makeAPromiseRoomUseCase,
+            appContainer.loadToCurrentUserDataUseCase
         )
     }
 

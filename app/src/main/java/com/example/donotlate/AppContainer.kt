@@ -7,6 +7,7 @@ import com.example.donotlate.core.domain.usecase.GetFriendRequestsListUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendRequestsStatusUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendsListFromFirebaseUseCase
 import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
+import com.example.donotlate.core.domain.usecase.LoadToCurrentUserDataUseCase
 import com.example.donotlate.core.domain.usecase.LoadToMyPromiseListUseCase
 import com.example.donotlate.core.domain.usecase.MakeAFriendRequestUseCase
 import com.example.donotlate.core.domain.usecase.SearchUserByIdUseCase
@@ -210,6 +211,9 @@ class AppContainer {
         LoadToMyPromiseListUseCase(firebaseDataRepository)
     }
 
+    val loadToCurrentUserDataUseCase by lazy {
+        LoadToCurrentUserDataUseCase(firebaseDataRepository)
+    }
 }
 
 class LogInContainer(
@@ -241,10 +245,17 @@ class MainPageContainer(
 class RoomContainer(
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getSearchListUseCase: GetSearchListUseCase,
-    private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase
+    private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase,
+    private val loadToCurrentUserDataUseCase: LoadToCurrentUserDataUseCase
 
 ) {
-    val roomViewModelFactory = RoomViewModelFactory(getAllUsersUseCase, getSearchListUseCase, makeAPromiseRoomUseCase)
+    val roomViewModelFactory =
+        RoomViewModelFactory(
+            getAllUsersUseCase,
+            getSearchListUseCase,
+            makeAPromiseRoomUseCase,
+            loadToCurrentUserDataUseCase
+        )
 }
 
 class CalculationContainer(
@@ -333,7 +344,7 @@ class FriendsContainer(
 
 class MyPromiseContainer(
     val loadToMyPromiseListUseCase: LoadToMyPromiseListUseCase,
-){
+) {
     val myPromiseViewModelFactory = MyPromiseViewModelFactory(
         loadToMyPromiseListUseCase
     )

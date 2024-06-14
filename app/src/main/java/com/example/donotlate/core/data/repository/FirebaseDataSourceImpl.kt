@@ -18,6 +18,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -29,6 +30,7 @@ class FirebaseDataSourceImpl(
     private val db: FirebaseFirestore,
     private val auth: FirebaseAuth
 ) : FirebaseDataRepository {
+    private val mAuth = auth.currentUser?.uid ?: throw NullPointerException("Not Load User Data")
 
     override suspend fun getUserDataById(userId: String): Flow<UserEntity> = flow {
         val documentSnapshot = db.collection("users").document(userId).get().await()
@@ -188,13 +190,46 @@ class FirebaseDataSourceImpl(
             )
             val roomId = UUID.randomUUID().toString()
             Log.d("makeAChatRoom3", "title: ${participants}")
-             db.collection("PromiseRooms").document(roomId).set(roomData).await()
+            db.collection("PromiseRooms").document(roomId).set(roomData).await()
             Log.d("makeAChatRoom4", "title: ${participants}")
             emit(true)
         } catch (e: Exception) {
             Log.d("makeAChatRoom", "실패 이유: ${e.message}")
             emit(false)
         }
+    }
+
+    override suspend fun getMyPromiseListFromFireBase(): Flow<List<PromiseRoomEntity>> = flow {
+        try {
+            val documents = db.collection("PromiseRooms")
+                .whereArrayContains("participants", mAuth)
+                .orderBy("promiseDate", Query.Direction.ASCENDING)
+                .get().await()
+
+            if (documents.isEmpty) {
+                Log.d("getMyPromiseListFromFireBase", "No documents found")
+            } else {
+                Log.d("getMyPromiseListFromFireBase", "Found ${documents.size()} documents")
+            }
+            val document = documents.toObjects(PromiseRoomResponse::class.java)
+            emit(document.toPromiseEntityList())
+        } catch (e: Exception) {
+            Log.e("getMyPromiseListFromFireBase", "Error fetching promise list")
+            Log.e("getMyPromiseListFromFireBase", "Error fetching promise list", e)
+            emit(emptyList())
+        }
+    }
+
+    override suspend fun getMyDataFromFireStore(): Flow<UserEntity?> = flow {
+        val documentSnapshot = db.collection("users").document(mAuth).get().await()
+        val userResponse = documentSnapshot.toObject(UserResponse::class.java)
+        if (userResponse != null) {
+            emit(userResponse.toUserEntity())
+        } else {
+            throw NullPointerException("User not found or userResponse is null")
+        }
+    }.catch { e ->
+        throw e
     }
 }
 

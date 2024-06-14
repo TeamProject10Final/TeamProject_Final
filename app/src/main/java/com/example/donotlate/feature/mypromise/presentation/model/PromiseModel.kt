@@ -1,6 +1,5 @@
 package com.example.donotlate.feature.mypromise.presentation.model
 
-import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.google.firebase.Timestamp
 
 
@@ -13,7 +12,7 @@ data class PromiseModel(
     val destinationLat: Double, // <-- 위도
     val destinationLng: Double, // <-- 경도
     val penalty: String,
-    val participants:List<UserModel>
+    val participants: List<String>
 ){
     constructor(): this("", Timestamp.now(), "", "", "", 0.0, 0.0, "", listOf())
 }

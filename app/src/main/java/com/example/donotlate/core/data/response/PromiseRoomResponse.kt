@@ -13,5 +13,15 @@ data class PromiseRoomResponse(
     val penalty: String,
     val participants:List<String>
 ) {
-    constructor(): this ("",Timestamp.now(), "","","",0.0,0.0,"", emptyList())
+    constructor() : this(
+        "",
+        Timestamp.now(),
+        "",
+        "",
+        "",
+        0.0,
+        0.0,
+        "",
+        listOf()
+    )
 }
