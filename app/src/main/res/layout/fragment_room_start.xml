@@ -56,7 +56,7 @@
             android:gravity="start"
             android:hint="아이콘을 눌러 날짜를 선택 해주세요"
             android:paddingStart="3dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="15dp"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,9 +70,8 @@
             android:id="@+id/iv_Date"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="3dp"
             android:background="@drawable/ic_calendar"
             app:layout_constraintEnd_toEndOf="@+id/tv_Room_Date"
             app:layout_constraintTop_toBottomOf="@id/textView6" />
@@ -88,7 +87,7 @@
             android:gravity="start"
             android:hint="아이콘을 눌러 시간을 선택 해주세요"
             android:paddingStart="3dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="15dp"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -101,9 +100,8 @@
             android:id="@+id/iv_Time"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="3dp"
             android:background="@drawable/ic_time"
             app:layout_constraintEnd_toEndOf="@+id/tv_Room_Time"
             app:layout_constraintTop_toBottomOf="@id/textView7" />
@@ -133,7 +131,7 @@
             android:layout_marginStart="5dp"
             android:text="늦는 친구에게 주어질 벌칙을 정해 주세요!"
             android:textColor="@color/gray"
-            android:textSize="12sp"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@id/et_Room_Penalty"
             app:layout_constraintTop_toBottomOf="@id/et_Room_Penalty" />
 
@@ -143,7 +141,7 @@
             android:layout_height="19dp"
             android:layout_marginBottom="-2dp"
             android:text="약속 제목"
-            android:textSize="12sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@+id/et_Room_Title"
             app:layout_constraintStart_toStartOf="@+id/et_Room_Title" />
 
@@ -153,7 +151,7 @@
             android:layout_height="19dp"
             android:layout_marginBottom="5dp"
             android:text="약속 날짜"
-            android:textSize="12sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_Room_Date"
             app:layout_constraintStart_toStartOf="@+id/tv_Room_Date" />
 
@@ -163,7 +161,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:text="약속 시간"
-            android:textSize="12sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_Room_Time"
             app:layout_constraintStart_toStartOf="@+id/tv_Room_Time" />
 
@@ -173,7 +171,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="-2dp"
             android:text="벌칙 내용"
-            android:textSize="12sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@+id/et_Room_Penalty"
             app:layout_constraintStart_toStartOf="@+id/et_Room_Penalty" />
 

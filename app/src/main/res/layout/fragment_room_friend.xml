@@ -32,7 +32,7 @@
         android:hint="친구를 검색해 주세요"
         android:paddingLeft="15dp"
         android:imeOptions="actionDone"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/btn_Room_Friend_Search"
         app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
         android:background="@drawable/btn_radius_arctic"
         android:text="검색"
         android:textSize="20sp"
-        android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/et_Room_Friend_Search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/et_Room_Friend_Search" />
@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:text="초대할 친구를 선택해 주세요."
             android:textSize="20sp"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

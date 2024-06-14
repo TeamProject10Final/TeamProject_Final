@@ -13,7 +13,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
         android:text="정산을 시작해볼까요?"
-        android:textSize="26sp"
+        android:textColor="@color/black"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="정산이력"
-        android:textSize="32sp"
+        android:textColor="@color/black"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tv11"
         app:layout_constraintTop_toBottomOf="@+id/tv11" />
@@ -33,7 +35,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="을 입력해주세요."
-        android:textSize="26sp"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tv12"
         app:layout_constraintStart_toEndOf="@+id/tv12" />
