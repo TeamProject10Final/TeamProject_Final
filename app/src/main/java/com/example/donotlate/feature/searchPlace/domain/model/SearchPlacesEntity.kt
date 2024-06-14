@@ -7,7 +7,7 @@ data class SearchPlacesEntity(
 data class PlacesEntity(
 
     val types : List<String>?,
-    val formattedAddress : String,
+    val formattedAddress: String,
     val nationalPhoneNumber: String?,
     val location : SearchLocationEntity?,
     val rating : Double?,

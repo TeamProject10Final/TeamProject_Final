@@ -92,7 +92,7 @@ class FriendsRequestDialogFragment : DialogFragment() {
             dismiss()
         }
 
-        val currentTime : Long = System.currentTimeMillis()
+        val currentTime: Long = System.currentTimeMillis()
         val dataFormat1 = SimpleDateFormat("yyyy-MM-dd")
         binding.tvCreateAt.text = dataFormat1.format(currentTime).toString()
 

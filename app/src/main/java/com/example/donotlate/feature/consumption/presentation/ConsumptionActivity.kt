@@ -24,7 +24,6 @@ import kotlinx.coroutines.launch
 class ConsumptionActivity : AppCompatActivity() {
 
 
-
     private lateinit var binding: ActivityConsumptionBinding
 
     private lateinit var finishedAdapter: ConsumptionAdapter

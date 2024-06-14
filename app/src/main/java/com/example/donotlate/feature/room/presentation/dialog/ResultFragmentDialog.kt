@@ -46,7 +46,8 @@ class ResultFragmentDialog : DialogFragment() {
         }
         binding.tvDlConfirm.setOnClickListener {
             val activity = activity as RoomActivity
-            activity.supportFragmentManager.beginTransaction().replace(R.id.frame_room,RoomResultFragment()).commit()
+            activity.supportFragmentManager.beginTransaction()
+                .replace(R.id.frame_room, RoomResultFragment()).commit()
             dismiss()
         }
     }

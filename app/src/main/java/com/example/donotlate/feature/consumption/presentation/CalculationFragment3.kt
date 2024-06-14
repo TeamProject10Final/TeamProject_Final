@@ -108,7 +108,7 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
             return null
         }
 
-        if (number == 2){
+        if (number == 2) {
             if (isPenalty == true && penalty != 0) {
                 val result = (total / number) + penalty
                 return result ?: 0
@@ -116,7 +116,7 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
                 val result = (total / number) - penalty
                 return result ?: 0
             }
-        }else{
+        } else {
             if (isPenalty == true && penalty != 0) {
                 val result = ((total - penalty) / number) + penalty
                 return result ?: 0

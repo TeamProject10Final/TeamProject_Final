@@ -87,7 +87,8 @@ class FriendsFragment : Fragment() {
     }
 
     private fun setFragment(fragment: Fragment) {
-        parentFragmentManager.beginTransaction().replace(R.id.frame_friends, fragment).addToBackStack("").commit()
+        parentFragmentManager.beginTransaction().replace(R.id.frame_friends, fragment)
+            .addToBackStack("").commit()
     }
 
     private fun initRecyclerView() {
@@ -118,7 +119,6 @@ class FriendsFragment : Fragment() {
             friendsViewModel.getFriendsList()
         }
     }
-
 
 
     override fun onDestroy() {

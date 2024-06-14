@@ -42,7 +42,11 @@ class RoomStartFragment : Fragment() {
     //수정
     private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        RoomViewModelFactory(appContainer.getAllUsersUseCase, appContainer.getSearchListUseCase, appContainer.makeAPromiseRoomUseCase)
+        RoomViewModelFactory(
+            appContainer.getAllUsersUseCase,
+            appContainer.getSearchListUseCase,
+            appContainer.makeAPromiseRoomUseCase
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

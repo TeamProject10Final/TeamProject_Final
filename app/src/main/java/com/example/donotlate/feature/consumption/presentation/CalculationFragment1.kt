@@ -60,7 +60,7 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
             }
         }
 
-        binding.ivDate.setOnClickListener{
+        binding.ivDate.setOnClickListener {
             showDatePickerDialog()
         }
 
