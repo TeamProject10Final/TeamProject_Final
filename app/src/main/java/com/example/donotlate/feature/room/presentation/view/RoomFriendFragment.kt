@@ -13,6 +13,8 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
@@ -29,6 +31,7 @@ class RoomFriendFragment : Fragment() {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         RoomViewModelFactory(
             appContainer.getAllUsersUseCase,
+            appContainer.getSearchListUseCase,
             appContainer.makeAPromiseRoomUseCase
         )
     }
@@ -50,11 +53,6 @@ class RoomFriendFragment : Fragment() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,15 +66,13 @@ class RoomFriendFragment : Fragment() {
         return binding.root
     }
 
+    override fun onPause() {
+        super.onPause()
+//        saveToSelectedFriendsUIds()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val userData = roomViewModel.selectedUserUIds
-
-
-        val datasize = userData.value ?: ""
-
-        Log.d("dasd", "${datasize}")
 
 
         getAllUserList()
@@ -134,20 +130,20 @@ class RoomFriendFragment : Fragment() {
                     saveToSelectedFriendsUIds()
                     updateSelectedUserNames()
                 }
-
             }
-
-            selectedUserNames
         } catch (e: Exception) {
             Log.e("RecyclerVuewSetupError", "Error: ${e.message}")
         }
     }
 
     private fun saveToSelectedFriendsUIds() {
-        roomViewModel.updateSelectedUserUIds(selectedUserUIds)
+        roomViewModel.setSelectedUserUIds(selectedUserUIds)
+        Log.d("data123", "${selectedUserUIds}")
     }
+
     private fun updateSelectedUserNames() {
-        roomViewModel.updateSelectedUserUIds(selectedUserNames)
+        roomViewModel.updateSelectedUserNames(selectedUserNames)
+        Log.d("data12", "${selectedUserNames}")
     }
 
     private fun editTextProcess() {
@@ -168,7 +164,6 @@ class RoomFriendFragment : Fragment() {
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

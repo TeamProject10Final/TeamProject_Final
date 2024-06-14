@@ -4,7 +4,6 @@ package com.example.donotlate.core.domain.repository
 import com.example.donotlate.core.domain.model.FriendRequestEntity
 import com.example.donotlate.core.domain.model.PromiseRoomEntity
 import com.example.donotlate.core.domain.model.UserEntity
-import com.example.donotlate.feature.main.presentation.model.UserModel
 import kotlinx.coroutines.flow.Flow
 
 interface FirebaseDataRepository {

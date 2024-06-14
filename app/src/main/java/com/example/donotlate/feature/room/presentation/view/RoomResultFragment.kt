@@ -2,36 +2,52 @@ package com.example.donotlate.feature.room.presentation.view
 
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
+import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomResultBinding
+import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.example.donotlate.feature.room.presentation.dialog.CancelFragmentDialog
+import com.example.donotlate.feature.room.presentation.model.RoomModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
+import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-class RoomResultFragment : Fragment() {
+class RoomResultFragment : Fragment(), OnMapReadyCallback {
 
     private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         RoomViewModelFactory(
             appContainer.getAllUsersUseCase,
+            appContainer.getSearchListUseCase,
             appContainer.makeAPromiseRoomUseCase
         )
     }
 
     private var _binding: FragmentRoomResultBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var mGoogleMap: GoogleMap
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,61 +59,68 @@ class RoomResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        Log.d("RoomResultFragment", "onCreateView called")
-
         _binding = FragmentRoomResultBinding.inflate(inflater, container, false)
-        return binding.root
 
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("RoomResultFragment", "onViewCreated called")
+
         initCancel()
-        roomViewModel.selectedUserUIds.observe(viewLifecycleOwner) { uids ->
-            Log.d("SelectedUserIds", uids.toString())
-            Log.d("asdasdasd", "ㅠㅠ")
+        initView()
+
+        binding.btnRoomResult.setOnClickListener {
+            dataToFirebase()
         }
 
-        roomViewModel.selectedUserNames.observe(viewLifecycleOwner) {userName ->
-
-        }
-        observeViewmodel()
 
 
     }
 
-    private fun observeViewModel() {
-
-        lifecycleScope.launch {
-            roomViewModel.makeARoomResult.collect { it ->
-                if (it) {
-                    Toast.makeText(requireContext(), "성공?", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "실패 ㅠㅠ", Toast.LENGTH_SHORT).show()
-                }
-            }
+    private fun initView() {
+        roomViewModel.inputText.observe(viewLifecycleOwner) {
+            binding.tvResultDetailTitle.text = it.title
+            binding.tvResultDetailDate.text = it.date
+            binding.tvResultDetailTime.text = it.time
+            binding.tvResultDetailPenalty.text = it.penalty
         }
+
+        roomViewModel.selectedUserNames.observe(viewLifecycleOwner) { userNames ->
+
+            displayUserName(userNames)
+
+        }
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.fg_Result_Promise_Map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
     }
 
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RoomResultFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun displayUserName(userNames: List<String>){
+        val formattedNames = userNames.joinToString(separator = "  ")
+        binding.tvResultDetailFriend.text = formattedNames
     }
+
 
     private fun initCancel() {
         binding.ivResultBack.setOnClickListener {
             val dialog = CancelFragmentDialog()
             dialog.show(requireActivity().supportFragmentManager, "CancelFragmentDialog")
+        }
+    }
+
+    private fun observeViewModel() {
+
+        lifecycleScope.launch {
+            roomViewModel.makeARoomResult.collect{ it ->
+                if(it){
+                    Toast.makeText(requireContext(), "성공?", Toast.LENGTH_SHORT).show()
+                }else {
+                    Toast.makeText(requireContext(), "실패 ㅠㅠ", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -123,23 +146,60 @@ class RoomResultFragment : Fragment() {
                 participants
             )
         }
+        observeViewModel()
     }
 
-    fun observeViewmodel() {
+    private fun dataToFirebase() {
 
-    }
+        val inputData = roomViewModel.inputText.value
+        Log.d("data12", "${inputData}")
 
-//    fun observeViewmodel(){
-//        lifecycleScope.launch {
-//            roomViewModel.selectedUserUIds.collect {
-//                val uids = it
-//
-//                val resultUid = uids
-//                Log.d("resultUid", "${resultUid}")
+        val locationData = roomViewModel.locationData.value
+        Log.d("data12", "${locationData}")
+
+        val userData = roomViewModel.selectedUserUIds.value
+        Log.d("data12", "${userData}")
+
+
+        makeARoom(
+            roomTitle = inputData?.title ?: "",
+            promiseDate = inputData?.date ?: "",
+            destination = locationData?.name ?: "",
+            destinationLat = locationData?.lat ?: 0.0,
+            destinationLng = locationData?.lng ?: 0.0,
+            penalty = inputData?.penalty ?: "",
+            participants = userData ?: emptyList(),
+            promiseTime = inputData?.time ?: ""
+        )
+//                }
 //            }
-//        }
-//    }
 
+    }
+
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        roomViewModel.locationData.observe(viewLifecycleOwner) {
+            mGoogleMap = googleMap
+
+            val lat = it.lat
+            val lng = it.lng
+            val title = it.name
+            Log.d("뷰모델", "${roomViewModel.locationData.value}")
+
+            val location = LatLng(lat, lng)
+            val cameraPosition = CameraPosition.Builder().target(location).zoom(15f).build()
+
+            mGoogleMap.mapType = GoogleMap.MAP_TYPE_NORMAL // default 노말 생략 가능
+            mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+            mGoogleMap.apply {
+                val markerOptions = MarkerOptions()
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                markerOptions.position(location)
+                markerOptions.title(title)
+                addMarker(markerOptions)
+            }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -187,27 +187,13 @@ class FirebaseDataSourceImpl(
                 "participants" to participants
             )
             val roomId = UUID.randomUUID().toString()
-            Log.d("makeAChatRoom3", "title: ${roomTitle}")
-            db.collection("PromiseRooms").document(roomId).set(roomData).await()
-            Log.d("makeAChatRoom4", "title: ${roomTitle}")
+            Log.d("makeAChatRoom3", "title: ${participants}")
+             db.collection("PromiseRooms").document(roomId).set(roomData).await()
+            Log.d("makeAChatRoom4", "title: ${participants}")
             emit(true)
         } catch (e: Exception) {
             Log.d("makeAChatRoom", "실패 이유: ${e.message}")
             emit(false)
-        }
-    }
-
-    override suspend fun getMyPromiseListFromFireBase(): Flow<List<PromiseRoomEntity>> = flow {
-        try {
-            val mAuth = auth.currentUser?.uid ?: ""
-            val documents =
-                db.collection("PromiseRooms").whereArrayContains("participants", mAuth).get()
-                    .await()
-            val document = documents.toObjects(PromiseRoomResponse::class.java)
-            emit(document.toPromiseEntityList())
-        } catch (e: Exception) {
-            Log.e("getMyPromiseListFromFireBase", "Error fetching promise list", e)
-            emit(emptyList())
         }
     }
 }
