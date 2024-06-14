@@ -42,50 +42,7 @@ class MyPromiseRoomFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val roomTitle = "집에가자"
-        val promiseTime = "13:34"
-        val promiseDate = "2024.10.22"
-        val destination = "서울시 마포구 청계천" //<-- 목적지 주소 <지번 등의 텍스트 주소>
-        val destinationLat = 0.0 // <-- 위도
-        val destinationLng = 0.0 // <-- 경도
-        val penalty = ""
-        val participants = listOf<UserModel>()
 
-        binding.btnSend.setOnClickListener {
-            makeARoom(roomTitle,
-                promiseTime,
-                promiseDate,
-                destination,
-                destinationLat,
-                destinationLng,
-                penalty,
-                participants)
-        }
-
-    }
-
-    private fun makeARoom(
-        roomTitle: String,
-        promiseTime: String,
-        promiseDate: String,
-        destination: String,
-        destinationLat: Double,
-        destinationLng: Double,
-        penalty: String,
-        participants: List<UserModel>
-    ) {
-        lifecycleScope.launch {
-            chatRoomViewModel.makeAPromiseRoom(
-                roomTitle,
-                promiseTime,
-                promiseDate,
-                destination,
-                destinationLat,
-                destinationLng,
-                penalty,
-                participants
-            )
-        }
     }
 }
 

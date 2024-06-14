@@ -170,7 +170,7 @@ class FirebaseDataSourceImpl(
         destinationLat: Double,
         destinationLng: Double,
         penalty: String,
-        participants: List<UserModel>
+        participants: List<String>
 
     ): Flow<Boolean> = flow {
         try {
@@ -186,9 +186,9 @@ class FirebaseDataSourceImpl(
                 "participants" to participants
             )
             val roomId = UUID.randomUUID().toString()
-            Log.d("makeAChatRoom3", "title: ${roomTitle}")
+            Log.d("makeAChatRoom3", "title: ${participants}")
              db.collection("PromiseRooms").document(roomId).set(roomData).await()
-            Log.d("makeAChatRoom4", "title: ${roomTitle}")
+            Log.d("makeAChatRoom4", "title: ${participants}")
             emit(true)
         } catch (e: Exception) {
             Log.d("makeAChatRoom", "실패 이유: ${e.message}")
