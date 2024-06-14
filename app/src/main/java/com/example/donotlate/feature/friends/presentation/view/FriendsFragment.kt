@@ -44,15 +44,6 @@ class FriendsFragment : Fragment() {
         )
     }
 
-    private val mainPageViewModel: MainPageViewModel by activityViewModels {
-        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        MainPageViewModelFactory(
-            appContainer.getUserDataUseCase,
-            appContainer.getAllUsersUseCase,
-            appContainer.getCurrentUserUseCase,
-            appContainer.imageUploadUseCase
-        )
-    }
 
     private var _binding: FragmentFriendsBinding? = null
     private val binding get() = _binding!!
@@ -85,7 +76,6 @@ class FriendsFragment : Fragment() {
         getFriendsList()
         observeViewModel()
         backButton()
-        observeViewModelUser()
 
     }
 
@@ -126,19 +116,6 @@ class FriendsFragment : Fragment() {
     private fun getFriendsList() {
         lifecycleScope.launch {
             friendsViewModel.getFriendsList()
-        }
-    }
-
-    private fun observeViewModelUser() {
-        lifecycleScope.launch {
-            mainPageViewModel.getUserData.collect { result ->
-                result?.onSuccess { myInfo ->
-                    binding.tvTopUserName.text = myInfo.name
-                    Log.d("observeViewModel", "${myInfo.name}")
-                }?.onFailure { e ->
-                    throw e
-                }
-            }
         }
     }
 

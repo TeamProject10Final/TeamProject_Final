@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -18,25 +19,46 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.example.donotlate.DoNotLateApplication
+import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomMapBinding
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
+import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class RoomMapFragment : Fragment() {
+class RoomMapFragment : Fragment(), OnMapReadyCallback {
 
     private var _binding: FragmentRoomMapBinding? = null
     private val binding get() = _binding!!
 
     private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        RoomViewModelFactory(appContainer.getAllUsersUseCase, appContainer.makeAPromiseRoomUseCase)
+        RoomViewModelFactory(
+            appContainer.getAllUsersUseCase,
+            appContainer.getSearchListUseCase,
+            appContainer.makeAPromiseRoomUseCase
+        )
     }
+
+    private lateinit var mGoogleMap: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+            val data = it.getParcelable("data", PlaceModel::class.java)
+            Log.d("debug3", "${data}")
+            if (data != null) {
+                roomViewModel.setMapData(data)
+            }
         }
     }
 
@@ -47,6 +69,7 @@ class RoomMapFragment : Fragment() {
         _binding = FragmentRoomMapBinding.inflate(inflater, container, false)
 
         setTitle()
+        initMap()
 
         return binding.root
     }
@@ -76,8 +99,28 @@ class RoomMapFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         editTextProcess()
+        sendQuery()
 
         Log.d("확인", "onViewCreated")
+    }
+
+    private fun initMap() {
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.layout_Room_Map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+    }
+
+    private fun sendQuery() {
+        binding.btnRoomMapSearch.setOnClickListener {
+            val etQuery = binding.etRoomMapSearch.text.toString()
+            if (etQuery.trim().isEmpty()) {
+                Toast.makeText(requireContext(), "검색어를 입력해 주세요", Toast.LENGTH_SHORT).show()
+            } else {
+                roomViewModel.updateQuery(etQuery)
+                val bottomFragment = RoomMapBottomFragment()
+                bottomFragment.show(parentFragmentManager, "tag")
+            }
+        }
     }
 
     private fun editTextProcess() {
@@ -99,9 +142,44 @@ class RoomMapFragment : Fragment() {
         imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onMapReady(googleMap: GoogleMap) {
+
+        //나중에 현재 위치로 변경
+        mGoogleMap = googleMap
+        val location = LatLng(37.5664056, 126.9778222)
+        val cameraPosition = CameraPosition.Builder().target(location).zoom(15f).build()
+
+        mGoogleMap.mapType = GoogleMap.MAP_TYPE_NORMAL // default 노말 생략 가능
+        mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        mGoogleMap.apply {
+            val markerOptions = MarkerOptions()
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+            markerOptions.position(location)
+            markerOptions.title("서울시청")
+            addMarker(markerOptions)
+        }
+
+        roomViewModel.locationData.observe(viewLifecycleOwner) {
+
+            mGoogleMap = googleMap
+            val lat = it.lat
+            val lng = it.lng
+            val title = it.name
+            Log.d("뷰모델", "${roomViewModel.locationData.value}")
+
+            val location = LatLng(lat, lng)
+            val cameraPosition = CameraPosition.Builder().target(location).zoom(15f).build()
+
+            mGoogleMap.mapType = GoogleMap.MAP_TYPE_NORMAL // default 노말 생략 가능
+            mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+            mGoogleMap.apply {
+                val markerOptions = MarkerOptions()
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                markerOptions.position(location)
+                markerOptions.title(title)
+                addMarker(markerOptions)
+            }
+        }
     }
 
     private fun setTitle() {
@@ -110,5 +188,10 @@ class RoomMapFragment : Fragment() {
             setSpan(RelativeSizeSpan(1.4f), 7, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         binding.tvRoomMapTitle.text = title
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
