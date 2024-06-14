@@ -1,9 +1,8 @@
-package com.example.donotlate.feature.mypromise.presentation.model
+package com.example.donotlate.core.data.response
 
 import com.google.firebase.Timestamp
 
-
-data class PromiseModel(
+data class PromiseRoomResponse(
     val roomTitle: String,
     val roomCreatedAt: Timestamp,
     val promiseTime: String,
@@ -12,13 +11,17 @@ data class PromiseModel(
     val destinationLat: Double, // <-- 위도
     val destinationLng: Double, // <-- 경도
     val penalty: String,
-    val participants: List<String>
-){
-    constructor(): this("", Timestamp.now(), "", "", "", 0.0, 0.0, "", listOf())
+    val participants:List<String>
+) {
+    constructor() : this(
+        "",
+        Timestamp.now(),
+        "",
+        "",
+        "",
+        0.0,
+        0.0,
+        "",
+        listOf()
+    )
 }
-
-
-
-
-
-

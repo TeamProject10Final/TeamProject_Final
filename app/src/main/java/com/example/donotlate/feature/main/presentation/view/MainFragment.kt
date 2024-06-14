@@ -18,11 +18,10 @@ import com.example.donotlate.feature.friends.presentation.view.FriendsActivity
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import com.example.donotlate.feature.minigame.MiniGameFragment
-import com.example.donotlate.feature.mypromise.presentation.view.MypromiseListFragment
+import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseListFragment
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import com.example.donotlate.feature.setting.presentation.view.SettingFragment
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
@@ -39,14 +38,10 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
 
-    private val auth by lazy {
-        FirebaseAuth.getInstance()
-    }
 
     private var name: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("FirebaseMyAuth", "${auth.currentUser?.uid}")
         mainPageViewModel.getCurrentUserUId()
         super.onCreate(savedInstanceState)
     }
@@ -154,7 +149,7 @@ class MainFragment : Fragment() {
 
     private fun startMyPromise() {
         binding.layoutMainReservation.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, MypromiseListFragment())
+            parentFragmentManager.beginTransaction().replace(R.id.frame, MyPromiseListFragment())
                 .addToBackStack("").commit()
         }
     }

@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
-import com.example.donotlate.feature.main.presentation.model.UserModel
+import com.example.donotlate.core.domain.usecase.LoadToCurrentUserDataUseCase
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
-import com.example.donotlate.feature.room.presentation.mapper.toModel
+import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
+import com.example.donotlate.feature.room.presentation.mapper.toRoomModel
 import com.example.donotlate.feature.room.presentation.model.RoomModel
 import com.example.donotlate.feature.room.presentation.model.RoomUserModel
 import com.example.donotlate.feature.searchPlace.api.NetWorkClient
@@ -22,7 +22,8 @@ import kotlinx.coroutines.launch
 class RoomViewModel(
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getSearchListUseCase: GetSearchListUseCase,
-    private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase
+    private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase,
+    private val loadToCurrentUserDataUseCase: LoadToCurrentUserDataUseCase
 ) : ViewModel() {
 
 //    private val _getAllUserData = MutableStateFlow<List<UserModel>>(listOf())
@@ -43,10 +44,16 @@ class RoomViewModel(
     private val _selectedUserNames = MutableLiveData<List<String>>()
     val selectedUserNames: LiveData<List<String>> get() = _selectedUserNames
 
-    fun updateSelectedUserNames(userNames: List<String>) {
+    private val _getCurrentUserData = MutableStateFlow<RoomUserModel?>(null)
+    val getCurrentUserData: StateFlow<RoomUserModel?> = _getCurrentUserData
+
+    fun updateSelectedUserNames(userNames:List<String>){
         _selectedUserNames.value = userNames
     }
 
+    init {
+        loadToCurrentUseData()
+    }
     //검색 쿼리
     private var inputQuery: MutableLiveData<String> = MutableLiveData()
     fun getQuery(): LiveData<String> = inputQuery
@@ -74,7 +81,7 @@ class RoomViewModel(
         viewModelScope.launch {
             try {
                 getAllUsersUseCase().collect{ userEntity ->
-                    val userModelList = userEntity.map {it.toModel()}
+                    val userModelList = userEntity.map { it.toRoomModel() }
                     _getAllUserData.value = userModelList
                 }
             }catch (e:Exception){
@@ -83,9 +90,18 @@ class RoomViewModel(
         }
     }
 
-    fun setSelectedUserUIds(uIds: List<String>) {
+    fun setSelectedUserUIds(uIds: List<String>){
         _selectedUserUIds.value = uIds
         Log.d("selectUid", "${_selectedUserUIds.value}")
+    }
+
+    private fun loadToCurrentUseData() {
+        viewModelScope.launch {
+            loadToCurrentUserDataUseCase().collect { currentUserData ->
+                val currentUser = currentUserData?.toRoomModel()
+                _getCurrentUserData.value = currentUser
+            }
+        }
     }
 
 
@@ -147,7 +163,8 @@ class RoomViewModel(
 class RoomViewModelFactory(
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getSearchListUseCase: GetSearchListUseCase,
-    private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase
+    private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase,
+    private val loadToCurrentUserDataUseCase: LoadToCurrentUserDataUseCase
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -156,7 +173,8 @@ class RoomViewModelFactory(
             return RoomViewModel(
                 getAllUsersUseCase,
                 getSearchListUseCase,
-                makeAPromiseRoomUseCase
+                makeAPromiseRoomUseCase,
+                loadToCurrentUserDataUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

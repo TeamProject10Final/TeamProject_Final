@@ -2,24 +2,19 @@ package com.example.donotlate.feature.room.presentation.view
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomResultBinding
-import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.example.donotlate.feature.room.presentation.dialog.CancelFragmentDialog
-import com.example.donotlate.feature.room.presentation.model.RoomModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
-import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -28,8 +23,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 
@@ -40,7 +33,8 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
         RoomViewModelFactory(
             appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
-            appContainer.makeAPromiseRoomUseCase
+            appContainer.makeAPromiseRoomUseCase,
+            appContainer.loadToCurrentUserDataUseCase
         )
     }
 
@@ -48,7 +42,6 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     private val binding get() = _binding!!
 
     private lateinit var mGoogleMap: GoogleMap
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,10 +106,10 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     private fun observeViewModel() {
 
         lifecycleScope.launch {
-            roomViewModel.makeARoomResult.collect { it ->
-                if (it) {
+            roomViewModel.makeARoomResult.collect{ it ->
+                if(it){
                     Toast.makeText(requireContext(), "성공?", Toast.LENGTH_SHORT).show()
-                } else {
+                }else {
                     Toast.makeText(requireContext(), "실패 ㅠㅠ", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -199,6 +192,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

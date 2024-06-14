@@ -1,15 +1,9 @@
-package com.example.donotlate.feature.main.presentation.mapper
+package com.example.donotlate.feature.mypromise.presentation.mapper
 
 import com.example.donotlate.core.domain.model.PromiseRoomEntity
-import com.example.donotlate.core.domain.model.UserEntity
-import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 
-fun UserEntity.toModel() = UserModel(
-    name, email, uid, friends, count, continuousCounter, createdAt, profileImgUrl
-)
-
-fun PromiseRoomEntity.toModel() = PromiseModel(
+fun PromiseRoomEntity.toPromiseModel() = PromiseModel(
     roomTitle,
     roomCreatedAt,
     promiseTime,
@@ -21,7 +15,7 @@ fun PromiseRoomEntity.toModel() = PromiseModel(
     participants
 )
 
-fun PromiseRoomEntity.toEntity() = PromiseRoomEntity(
+fun PromiseModel.toPromiseEntity() = PromiseRoomEntity(
     roomTitle,
     roomCreatedAt,
     promiseTime,
@@ -32,3 +26,11 @@ fun PromiseRoomEntity.toEntity() = PromiseRoomEntity(
     penalty,
     participants
 )
+
+fun List<PromiseRoomEntity>.toPromiseModelList(): List<PromiseModel> {
+    return this.map { it.toPromiseModel() }
+}
+
+fun List<PromiseModel>.toPromiseEntityList(): List<PromiseRoomEntity> {
+    return this.map { it.toPromiseEntity() }
+}
