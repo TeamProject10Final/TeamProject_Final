@@ -143,6 +143,8 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
+
+        //나중에 현재 위치로 변경
         mGoogleMap = googleMap
         val location = LatLng(37.5664056, 126.9778222)
         val cameraPosition = CameraPosition.Builder().target(location).zoom(15f).build()

@@ -33,6 +33,9 @@ class RoomViewModel(
     private val _makeARoomResult = MutableStateFlow<Boolean>(false)
     val makeARoomResult: StateFlow<Boolean> get() = _makeARoomResult
 
+    private val _selectedUserUIds = MutableLiveData<List<String>>(emptyList())
+    val selectedUserUIds: LiveData<List<String>> get() = _selectedUserUIds
+
 
     private val _searchMapList = MutableLiveData<List<PlaceModel>>()
     val searchMapList: LiveData<List<PlaceModel>> = _searchMapList
@@ -49,6 +52,7 @@ class RoomViewModel(
     val inputText: LiveData<RoomModel> get() = _inputText
     fun updateText(input: RoomModel) {
         _inputText.value = input
+        Log.d("data55", "${_inputText.value}")
     }
 
     //넘겨준 위치 정보
@@ -56,6 +60,7 @@ class RoomViewModel(
     val locationData: LiveData<PlaceModel> get() = _locationData
     fun setMapData(location: PlaceModel) {
         _locationData.value = location
+        Log.d("data55", "${_locationData.value}")
     }
 
     fun getAllUserData(){
@@ -70,6 +75,12 @@ class RoomViewModel(
             }
         }
     }
+
+    fun setSelectedUserUIds(uIds: List<String>){
+        _selectedUserUIds.value = uIds
+        Log.d("selectUid", "${_selectedUserUIds.value}")
+    }
+
 
     fun getSearchMapList(query: String) {
         viewModelScope.launch {
@@ -106,10 +117,10 @@ class RoomViewModel(
         destinationLat: Double,
         destinationLng: Double,
         penalty: String,
-        participants: List<UserModel>
+        participants: List<String>
     ) {
         viewModelScope.launch {
-            Log.d("makeAChatroom2", "title: ${roomTitle}")
+            Log.d("makeAChatroom2", "title: ${participants}")
             makeAPromiseRoomUseCase(
                 roomTitle,
                 promiseTime,

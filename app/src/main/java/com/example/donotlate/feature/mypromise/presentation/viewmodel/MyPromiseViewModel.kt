@@ -24,7 +24,7 @@ class ChatRoomViewModel(
         destinationLat: Double,
         destinationLng: Double,
         penalty: String,
-        participants: List<UserModel>
+        participants: List<String>
     ) {
         viewModelScope.launch {
 

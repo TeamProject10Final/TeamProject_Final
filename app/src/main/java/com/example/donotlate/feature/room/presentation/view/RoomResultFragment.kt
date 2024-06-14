@@ -9,14 +9,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomResultBinding
 import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.example.donotlate.feature.room.presentation.dialog.CancelFragmentDialog
+import com.example.donotlate.feature.room.presentation.model.RoomModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
+import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -68,7 +71,12 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
 
         initCancel()
         initView()
-        dataToFirebase()
+
+        binding.btnRoomResult.setOnClickListener {
+            dataToFirebase()
+        }
+
+
 
     }
 
@@ -78,6 +86,10 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             binding.tvResultDetailDate.text = it.date
             binding.tvResultDetailTime.text = it.time
             binding.tvResultDetailPenalty.text = it.penalty
+        }
+
+        roomViewModel.selectedUserUIds.observe(viewLifecycleOwner) {
+            binding.tvResultDetailFriend.text = it.joinToString { "," }
         }
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.fg_Result_Promise_Map) as SupportMapFragment
@@ -113,7 +125,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
         destinationLat: Double,
         destinationLng: Double,
         penalty: String,
-        participants: List<UserModel>
+        participants: List<String>
     ) {
         lifecycleScope.launch {
             roomViewModel.makeAPromiseRoom(
@@ -131,32 +143,42 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun dataToFirebase() {
-        binding.btnRoomResult.setOnClickListener {
-            roomViewModel.inputText.observe(viewLifecycleOwner) { inputDate ->
-                val title = inputDate.title
-                val time = inputDate.time
-                val date = inputDate.date
-                val penalty = inputDate?.penalty ?: ""
 
-                roomViewModel.locationData.observe(viewLifecycleOwner) { locate ->
-                    val destination = locate.address
-                    val lat = locate.lat
-                    val lng = locate.lng
-                    val participants = listOf<UserModel>()
+        val inputData = roomViewModel.inputText.value
+        Log.d("data12", "${inputData}")
 
-                    makeARoom(
-                        roomTitle = title,
-                        promiseDate = date,
-                        destination = destination,
-                        destinationLat = lat,
-                        destinationLng = lng,
-                        penalty = penalty ?: "",
-                        participants = participants,
-                        promiseTime = time
-                    )
-                }
-            }
-        }
+        val locationData = roomViewModel.locationData.value
+        Log.d("data12", "${locationData}")
+
+        val userData = roomViewModel.selectedUserUIds.value
+        Log.d("data12", "${userData}")
+
+
+//            roomViewModel.inputText.observe(viewLifecycleOwner) { inputDate ->
+//                val title = inputDate.title
+//                val time = inputDate.time
+//                val date = inputDate.date
+//                val penalty = inputDate?.penalty ?: ""
+
+//                roomViewModel.locationData.observe(viewLifecycleOwner) { locate ->
+//                    val destination = locate.address
+//                    val lat = locate.lat
+//                    val lng = locate.lng
+//                    val participants = listOf<UserModel>()
+
+        makeARoom(
+            roomTitle = inputData?.title ?: "",
+            promiseDate = inputData?.date ?: "",
+            destination = locationData?.name ?: "",
+            destinationLat = locationData?.lat ?: 0.0,
+            destinationLng = locationData?.lng ?: 0.0,
+            penalty = inputData?.penalty ?: "",
+            participants = userData ?: emptyList(),
+            promiseTime = inputData?.time ?: ""
+        )
+//                }
+//            }
+
     }
 
 
