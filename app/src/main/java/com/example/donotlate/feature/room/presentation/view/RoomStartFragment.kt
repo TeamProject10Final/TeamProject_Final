@@ -42,7 +42,7 @@ class RoomStartFragment : Fragment() {
     //수정
     private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        RoomViewModelFactory(appContainer.getAllUsersUseCase, appContainer.makeAPromiseRoomUseCase)
+        RoomViewModelFactory(appContainer.getAllUsersUseCase, appContainer.getSearchListUseCase, appContainer.makeAPromiseRoomUseCase)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,13 +68,13 @@ class RoomStartFragment : Fragment() {
 
         setDate()
         setTime()
-        sendData()
+        sendToResult()
 
         editTextProcess()
 
     }
 
-    private fun editTextProcess() {
+    private fun editTextProcess(){
         binding.etRoomTitle.setOnEditorActionListener { textView, action, keyEvent ->
             var handled = false
 
@@ -103,6 +103,7 @@ class RoomStartFragment : Fragment() {
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
+
 
 
     override fun onPause() {
@@ -187,18 +188,15 @@ class RoomStartFragment : Fragment() {
         }
     }
 
-    private fun sendData() {
-        val titleData = binding.etRoomTitle.text.toString()
-        val penaltyData = binding.etRoomPenalty.text.toString()
-    }
 
-    private fun sendToResult() {
+    private fun sendToResult(){
         val roomList = (RoomModel(
             binding.etRoomTitle.text.toString(),
             binding.tvRoomDate.text.toString(),
             binding.tvRoomTime.text.toString(),
-            binding.etRoomPenalty.text.toString()
-        ))
+            binding.etRoomPenalty.text.toString()))
         roomViewModel.updateText(roomList)
+
+        Log.d("뷰모델 리스트확인","${roomViewModel.inputText.value}")
     }
 }
