@@ -48,7 +48,7 @@
                 android:layout_marginTop="40dp"
                 android:text="약속왕이 될 상인가,"
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -70,7 +70,7 @@
                 android:layout_marginTop="33dp"
                 android:text="TEXT"
                 android:textColor="@color/black"
-                android:textSize="36sp"
+                android:textSize="35sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tv_Main1"
                 app:layout_constraintTop_toTopOf="@id/tv_Main1" />
@@ -83,7 +83,7 @@
                 android:layout_marginStart="5dp"
                 android:text="님 어서오세요."
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_Main_Title"
                 app:layout_constraintStart_toEndOf="@id/tv_Main_Title" />
@@ -93,7 +93,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,9 +108,11 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/layout_Main_Room"
-                    android:layout_width="157dp"
-                    android:layout_height="260dp"
+                    android:layout_width="0dp"
+                    android:layout_height="230dp"
                     android:layout_marginStart="35dp"
+                    android:layout_marginEnd="15dp"
+                    app:layout_constraintEnd_toStartOf="@id/layout_Main_Reservation"
                     android:background="@drawable/btn_radius_arctic"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -119,9 +121,8 @@
                     android:id="@+id/iv_Main1"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="-15dp"
+                    android:layout_marginTop="50dp"
                     android:src="@drawable/ic_main_room"
-                    app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Room"
                     app:layout_constraintEnd_toEndOf="@+id/layout_Main_Room"
                     app:layout_constraintStart_toStartOf="@+id/layout_Main_Room"
                     app:layout_constraintTop_toTopOf="@+id/layout_Main_Room" />
@@ -131,7 +132,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="약속 잡기"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
                     app:layout_constraintEnd_toEndOf="@id/iv_Main1"
                     app:layout_constraintStart_toStartOf="@id/iv_Main1"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main1" />
@@ -139,10 +141,10 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/layout_Main_Place"
-                    android:layout_width="157dp"
+                    android:layout_width="0dp"
                     android:layout_height="190dp"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/btn_radius_violet"
+                    android:background="@drawable/btn_radius_lilac"
                     app:layout_constraintEnd_toEndOf="@+id/layout_Main_Room"
                     app:layout_constraintStart_toStartOf="@+id/layout_Main_Room"
                     app:layout_constraintTop_toBottomOf="@id/layout_Main_Room" />
@@ -151,9 +153,8 @@
                     android:id="@+id/iv_Main2"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="-15dp"
+                    android:layout_marginTop="40dp"
                     android:src="@drawable/ic_main_location"
-                    app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Place"
                     app:layout_constraintEnd_toEndOf="@+id/layout_Main_Place"
                     app:layout_constraintStart_toStartOf="@+id/layout_Main_Place"
                     app:layout_constraintTop_toTopOf="@+id/layout_Main_Place" />
@@ -163,18 +164,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="놀거리"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
                     app:layout_constraintEnd_toEndOf="@id/iv_Main2"
                     app:layout_constraintStart_toStartOf="@id/iv_Main2"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main2" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/layout_Main_Game"
-                    android:layout_width="157dp"
-                    android:layout_height="157dp"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/btn_radius_lilac"
+                    android:background="@drawable/btn_radius_arctic"
                     app:layout_constraintEnd_toEndOf="@+id/layout_Main_Place"
                     app:layout_constraintStart_toStartOf="@+id/layout_Main_Place"
                     app:layout_constraintTop_toBottomOf="@+id/layout_Main_Place" />
@@ -183,9 +184,9 @@
                     android:id="@+id/iv_Main3"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="-15dp"
+                    android:layout_marginTop="15dp"
                     android:src="@drawable/ic_main_game"
-                    app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Game"
+
                     app:layout_constraintEnd_toEndOf="@+id/layout_Main_Game"
                     app:layout_constraintStart_toStartOf="@+id/layout_Main_Game"
                     app:layout_constraintTop_toTopOf="@+id/layout_Main_Game" />
@@ -195,7 +196,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="미니 게임"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
                     app:layout_constraintEnd_toEndOf="@id/iv_Main3"
                     app:layout_constraintStart_toStartOf="@id/iv_Main3"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main3" />
@@ -203,10 +205,12 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/layout_Main_Reservation"
-                    android:layout_width="157dp"
+                    android:layout_width="0dp"
                     android:layout_height="230dp"
                     android:layout_marginEnd="35dp"
+                    android:layout_marginStart="15dp"
                     android:background="@drawable/btn_radius_lilac"
+                    app:layout_constraintStart_toEndOf="@id/layout_Main_Room"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -214,9 +218,8 @@
                     android:id="@+id/iv_Main4"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="-15dp"
+                    android:layout_marginTop="50dp"
                     android:src="@drawable/ic_main_calendar"
-                    app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Reservation"
                     app:layout_constraintEnd_toEndOf="@+id/layout_Main_Reservation"
                     app:layout_constraintStart_toStartOf="@+id/layout_Main_Reservation"
                     app:layout_constraintTop_toTopOf="@+id/layout_Main_Reservation" />
@@ -226,7 +229,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="내 약속"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
                     app:layout_constraintEnd_toEndOf="@id/iv_Main4"
                     app:layout_constraintStart_toStartOf="@id/iv_Main4"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main4" />
@@ -234,10 +238,10 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/layout_Main_Settle"
-                    android:layout_width="157dp"
-                    android:layout_height="200dp"
+                    android:layout_width="0dp"
+                    android:layout_height="190dp"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/btn_radius_malibu"
+                    android:background="@drawable/btn_radius_arctic"
                     app:layout_constraintEnd_toEndOf="@+id/layout_Main_Reservation"
                     app:layout_constraintStart_toStartOf="@id/layout_Main_Reservation"
                     app:layout_constraintTop_toBottomOf="@+id/layout_Main_Reservation" />
@@ -246,9 +250,8 @@
                     android:id="@+id/iv_Main5"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="-15dp"
+                    android:layout_marginTop="40dp"
                     android:src="@drawable/ic_main_money"
-                    app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Settle"
                     app:layout_constraintEnd_toEndOf="@+id/layout_Main_Settle"
                     app:layout_constraintStart_toStartOf="@+id/layout_Main_Settle"
                     app:layout_constraintTop_toTopOf="@+id/layout_Main_Settle" />
@@ -258,17 +261,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="정산하기"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
                     app:layout_constraintEnd_toEndOf="@id/iv_Main5"
                     app:layout_constraintStart_toStartOf="@id/iv_Main5"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main5" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/layout_Main_Friend"
-                    android:layout_width="157dp"
-                    android:layout_height="177dp"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/btn_radius_arctic"
+                    android:background="@drawable/btn_radius_lilac"
                     app:layout_constraintEnd_toEndOf="@+id/layout_Main_Settle"
                     app:layout_constraintStart_toStartOf="@id/layout_Main_Settle"
                     app:layout_constraintTop_toBottomOf="@+id/layout_Main_Settle" />
@@ -277,9 +281,8 @@
                     android:id="@+id/iv_Main6"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="-15dp"
+                    android:layout_marginTop="15dp"
                     android:src="@drawable/ic_main_friend"
-                    app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Friend"
                     app:layout_constraintEnd_toEndOf="@+id/layout_Main_Friend"
                     app:layout_constraintStart_toStartOf="@+id/layout_Main_Friend"
                     app:layout_constraintTop_toTopOf="@+id/layout_Main_Friend" />
@@ -289,7 +292,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="친구 관리"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
                     app:layout_constraintEnd_toEndOf="@id/iv_Main6"
                     app:layout_constraintStart_toStartOf="@id/iv_Main6"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main6" />

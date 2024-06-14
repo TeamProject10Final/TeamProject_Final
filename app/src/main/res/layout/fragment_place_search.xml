@@ -28,8 +28,9 @@
         android:ems="10"
         android:hint="장소를 입력해 주세요"
         android:inputType="text"
+        android:imeOptions="actionSearch"
         android:paddingHorizontal="15dp"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_Place_Back"
         app:theme="@style/EditTextStyle" />
@@ -55,7 +56,6 @@
         android:layout_height="250dp"
         android:layout_marginTop="150dp"
         android:src="@drawable/ic_map_mark"
-        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_SearchBox" />
@@ -65,8 +65,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
-        android:text="길을 잃었다~★ 어딜 가야할까 "
-        android:visibility="invisible"
+        android:gravity="center"
+        android:text="길을 잃었다~★\n어딜 가야할까"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
@@ -85,12 +86,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/white"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_rv_place" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <!--        <com.google.android.material.chip.ChipGroup-->
     <!--            android:id="@+id/cg_chipGroup"-->
     <!--            android:layout_width="wrap_content"-->

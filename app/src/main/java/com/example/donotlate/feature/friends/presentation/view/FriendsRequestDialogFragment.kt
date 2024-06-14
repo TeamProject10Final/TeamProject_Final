@@ -13,13 +13,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
-import com.example.donotlate.core.util.toFormattedString
 import com.example.donotlate.databinding.FragmentRequestDialogBinding
 import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 
 class FriendsRequestDialogFragment : DialogFragment() {
 
@@ -76,7 +74,6 @@ class FriendsRequestDialogFragment : DialogFragment() {
 
             binding.tvNameTitle.text = user.name
             binding.tvEmail.text = user.email
-            binding.tvCreateAt.text = user.createdAt.toFormattedString()
 
             binding.btnFriendRequest.setOnClickListener {
                 sendFriendRequest(toId, fromId, fromUserName, requestID)
@@ -91,11 +88,6 @@ class FriendsRequestDialogFragment : DialogFragment() {
         binding.btnCancel.setOnClickListener {
             dismiss()
         }
-
-        val currentTime: Long = System.currentTimeMillis()
-        val dataFormat1 = SimpleDateFormat("yyyy-MM-dd")
-        binding.tvCreateAt.text = dataFormat1.format(currentTime).toString()
-
     }
 
     private fun sendFriendRequest(
