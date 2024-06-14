@@ -1,10 +1,12 @@
 package com.example.donotlate.core.data.mapper
 
-import com.example.donotlate.core.data.response.PromiseRoomResponse
 import com.example.donotlate.core.data.response.FriendRequestDTO
+import com.example.donotlate.core.data.response.MessageResponse
+import com.example.donotlate.core.data.response.PromiseRoomResponse
 import com.example.donotlate.core.data.response.UserResponse
-import com.example.donotlate.core.domain.model.PromiseRoomEntity
 import com.example.donotlate.core.domain.model.FriendRequestEntity
+import com.example.donotlate.core.domain.model.MessageEntity
+import com.example.donotlate.core.domain.model.PromiseRoomEntity
 import com.example.donotlate.core.domain.model.UserEntity
 
 fun List<UserResponse>.toUserEntityList(): List<UserEntity> {
@@ -55,4 +57,11 @@ fun List<PromiseRoomResponse>.toPromiseEntityList(): List<PromiseRoomEntity>{
     return this.map{it.toPromiseEntity()}
 }
 
+fun MessageResponse.toMessageEntity() = MessageEntity(
+    senderName, sendTimestamp, contents, senderProfileUrl
+)
+
+fun MessageEntity.toMessageResponse() = MessageResponse(
+    senderName, sendTimestamp, contents, senderProfileUrl
+)
 
