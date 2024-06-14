@@ -144,6 +144,10 @@ class FriendsRequestDialogFragment : DialogFragment() {
                 }
             }
         }
+
+        lifecycleScope.launch {
+            friendsViewModel.requestResult
+        }
     }
 
     private fun currentUserData() {

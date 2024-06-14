@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,6 +23,8 @@ import kotlinx.coroutines.launch
 
 class ConsumptionActivity : AppCompatActivity() {
 
+
+
     private lateinit var binding: ActivityConsumptionBinding
 
     private lateinit var finishedAdapter: ConsumptionAdapter
@@ -32,6 +35,8 @@ class ConsumptionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         enableEdgeToEdge()
         binding = ActivityConsumptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -183,7 +188,7 @@ class ConsumptionActivity : AppCompatActivity() {
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
-
 }
+
 
 

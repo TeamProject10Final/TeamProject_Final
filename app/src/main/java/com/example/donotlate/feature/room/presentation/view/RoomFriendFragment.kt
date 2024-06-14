@@ -28,7 +28,7 @@ class RoomFriendFragment : Fragment() {
 
     private val roomViewModel: RoomViewModel by viewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        RoomViewModelFactory(appContainer.getAllUsersUseCase)
+        RoomViewModelFactory(appContainer.getAllUsersUseCase, appContainer.makeAPromiseRoomUseCase)
     }
 
     private var _binding : FragmentRoomFriendBinding? = null

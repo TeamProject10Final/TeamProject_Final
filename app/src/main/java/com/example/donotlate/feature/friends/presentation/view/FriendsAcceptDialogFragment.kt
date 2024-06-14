@@ -88,11 +88,11 @@ class FriendsAcceptDialogFragment : DialogFragment() {
         }
     }
 
-    private fun observeViewModel(){
-        lifecycleScope.launch {
-            friendsViewModel.requestResult
-        }
-    }
+//    private fun observeViewModel(){
+//        lifecycleScope.launch {
+//            friendsViewModel.requestResult
+//        }
+//    }
 
     companion object {
         private const val ARG_ITEM = "item"

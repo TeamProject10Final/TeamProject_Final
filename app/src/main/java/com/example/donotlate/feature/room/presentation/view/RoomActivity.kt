@@ -19,7 +19,8 @@ class RoomActivity : AppCompatActivity() {
 
     private val roomViewModel: RoomViewModel by viewModels {
         val appContainer = (application as DoNotLateApplication).appContainer
-        RoomViewModelFactory(appContainer.getAllUsersUseCase)
+        RoomViewModelFactory(appContainer.getAllUsersUseCase,
+            appContainer.makeAPromiseRoomUseCase)
     }
 
     private val binding by lazy {

@@ -23,6 +23,8 @@ import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
 import com.example.donotlate.feature.main.presentation.view.MainFragment
+import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
+import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -39,6 +41,16 @@ class FriendsFragment : Fragment() {
             appContainer.getFriendRequestsStatusUseCase,
             appContainer.getFriendRequestListUseCase,
             appContainer.acceptFriendRequestsUseCase
+        )
+    }
+
+    private val mainPageViewModel: MainPageViewModel by activityViewModels {
+        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
+        MainPageViewModelFactory(
+            appContainer.getUserDataUseCase,
+            appContainer.getAllUsersUseCase,
+            appContainer.getCurrentUserUseCase,
+            appContainer.imageUploadUseCase
         )
     }
 
@@ -73,6 +85,7 @@ class FriendsFragment : Fragment() {
         getFriendsList()
         observeViewModel()
         backButton()
+        observeViewModelUser()
 
     }
 
@@ -113,6 +126,19 @@ class FriendsFragment : Fragment() {
     private fun getFriendsList() {
         lifecycleScope.launch {
             friendsViewModel.getFriendsList()
+        }
+    }
+
+    private fun observeViewModelUser() {
+        lifecycleScope.launch {
+            mainPageViewModel.getUserData.collect { result ->
+                result?.onSuccess { myInfo ->
+                    binding.tvTopUserName.text = myInfo.name
+                    Log.d("observeViewModel", "${myInfo.name}")
+                }?.onFailure { e ->
+                    throw e
+                }
+            }
         }
     }
 
