@@ -11,7 +11,6 @@ import androidx.navigation.NavController
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.ActivityRoomBinding
-import com.example.donotlate.feature.room.presentation.view.ViewPagerFragment
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 
@@ -20,8 +19,10 @@ class RoomActivity : AppCompatActivity() {
     private val roomViewModel: RoomViewModel by viewModels {
         val appContainer = (application as DoNotLateApplication).appContainer
         RoomViewModelFactory(
-            appContainer.getAllUsersUseCase, appContainer.getSearchListUseCase,
-            appContainer.makeAPromiseRoomUseCase
+            appContainer.getAllUsersUseCase,
+            appContainer.getSearchListUseCase,
+            appContainer.makeAPromiseRoomUseCase,
+            appContainer.loadToCurrentUserDataUseCase
         )
     }
 

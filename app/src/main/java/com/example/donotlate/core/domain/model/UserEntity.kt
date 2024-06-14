@@ -2,7 +2,6 @@ package com.example.donotlate.core.domain.model
 
 import com.google.firebase.Timestamp
 
-
 data class UserEntity(
     val name: String,
     val email: String,
@@ -14,8 +13,4 @@ data class UserEntity(
     val profileImgUrl: String = ""
 )
 
-data class Location(
-    val locationLatitude: Long,
-    val locationLongitude: Long
-)
 

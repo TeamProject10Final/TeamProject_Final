@@ -11,10 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
@@ -32,7 +30,8 @@ class RoomFriendFragment : Fragment() {
         RoomViewModelFactory(
             appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
-            appContainer.makeAPromiseRoomUseCase
+            appContainer.makeAPromiseRoomUseCase,
+            appContainer.loadToCurrentUserDataUseCase
         )
     }
 
@@ -45,6 +44,9 @@ class RoomFriendFragment : Fragment() {
 
     private val selectedUserUIds = mutableListOf<String>()
     private val selectedUserNames = mutableListOf<String>()
+
+    private lateinit var mAuth: String
+    private lateinit var mName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +76,7 @@ class RoomFriendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        loadToCurrentUserData()
         getAllUserList()
         editTextProcess()
 
@@ -137,11 +139,17 @@ class RoomFriendFragment : Fragment() {
     }
 
     private fun saveToSelectedFriendsUIds() {
+        if (!selectedUserUIds.contains(mAuth)) {
+            selectedUserUIds.add(mAuth)
+        }
         roomViewModel.setSelectedUserUIds(selectedUserUIds)
         Log.d("data123", "${selectedUserUIds}")
     }
 
     private fun updateSelectedUserNames() {
+        if (!selectedUserNames.contains(mName)) {
+            selectedUserNames.add(mName)
+        }
         roomViewModel.updateSelectedUserNames(selectedUserNames)
         Log.d("data12", "${selectedUserNames}")
     }
@@ -156,6 +164,15 @@ class RoomFriendFragment : Fragment() {
                 handled = true
             }
             handled
+        }
+    }
+
+    private fun loadToCurrentUserData() {
+        lifecycleScope.launch {
+            roomViewModel.getCurrentUserData.collect { currentUser ->
+                mAuth = currentUser?.uId ?: ""
+                mName = currentUser?.name ?: ""
+            }
         }
     }
 

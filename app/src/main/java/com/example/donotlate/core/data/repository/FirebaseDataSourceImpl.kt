@@ -4,30 +4,32 @@ package com.example.donotlate.core.data.repository
 import android.util.Log
 import com.example.donotlate.core.data.mapper.toEntity
 import com.example.donotlate.core.data.mapper.toEntityList
+import com.example.donotlate.core.data.mapper.toPromiseEntityList
 import com.example.donotlate.core.data.mapper.toUserEntity
 import com.example.donotlate.core.data.mapper.toUserEntityList
 import com.example.donotlate.core.data.response.FriendRequestDTO
+import com.example.donotlate.core.data.response.PromiseRoomResponse
 import com.example.donotlate.core.data.response.UserResponse
 import com.example.donotlate.core.domain.model.FriendRequestEntity
+import com.example.donotlate.core.domain.model.PromiseRoomEntity
 import com.example.donotlate.core.domain.model.UserEntity
 import com.example.donotlate.core.domain.repository.FirebaseDataRepository
-import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Source
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import java.util.UUID
 
-
 class FirebaseDataSourceImpl(
     private val db: FirebaseFirestore,
     private val auth: FirebaseAuth
 ) : FirebaseDataRepository {
+    private val mAuth = auth.currentUser?.uid ?: throw NullPointerException("Not Load User Data")
 
     override suspend fun getUserDataById(userId: String): Flow<UserEntity> = flow {
         val documentSnapshot = db.collection("users").document(userId).get().await()
@@ -40,7 +42,6 @@ class FirebaseDataSourceImpl(
     }.catch { e ->
         throw e
     }
-
 
     override suspend fun getAllUsers(): Flow<List<UserEntity>> = flow {
         val documentSnapshot = db.collection("users").get().await()
@@ -68,7 +69,6 @@ class FirebaseDataSourceImpl(
             emit(false)
         }
     }
-
 
     override suspend fun getFriendsListFromFirebase(uid: String): Flow<List<UserEntity>> = flow {
         try {
@@ -195,5 +195,49 @@ class FirebaseDataSourceImpl(
             emit(false)
         }
     }
+
+    override suspend fun getMyPromiseListFromFireBase(): Flow<List<PromiseRoomEntity>> = flow {
+        try {
+            val documents = db.collection("PromiseRooms")
+                .whereArrayContains("participants", mAuth)
+                .orderBy("promiseDate", Query.Direction.ASCENDING)
+                .get().await()
+
+            if (documents.isEmpty) {
+                Log.d("getMyPromiseListFromFireBase", "No documents found")
+            } else {
+                Log.d("getMyPromiseListFromFireBase", "Found ${documents.size()} documents")
+            }
+            val document = documents.toObjects(PromiseRoomResponse::class.java)
+            emit(document.toPromiseEntityList())
+        } catch (e: Exception) {
+            Log.e("getMyPromiseListFromFireBase", "Error fetching promise list")
+            Log.e("getMyPromiseListFromFireBase", "Error fetching promise list", e)
+            emit(emptyList())
+        }
+    }
+
+    override suspend fun getMyDataFromFireStore(): Flow<UserEntity?> = flow {
+        val documentSnapshot = db.collection("users").document(mAuth).get().await()
+        val userResponse = documentSnapshot.toObject(UserResponse::class.java)
+        if (userResponse != null) {
+            emit(userResponse.toUserEntity())
+        } else {
+            throw NullPointerException("User not found or userResponse is null")
+        }
+    }.catch { e ->
+        throw e
+    }
+
+//    override suspend fun loadToPromiseRoom(roomId: String): Flow<List<ChatRoomModel>> = flow {
+//        val documents = db.collection("PromiseRoom").document(roomId).collection("Massage")
+//            .orderBy("sendTimestamp")
+//            .get()
+//            .await()
+//
+//        val message = documents.toObjects(MessageResponse::class.java)
+//        emit(message.toMessageEntitiy)
+//    }
 }
+
 

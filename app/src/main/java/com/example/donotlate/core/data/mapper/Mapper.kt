@@ -1,10 +1,12 @@
 package com.example.donotlate.core.data.mapper
 
-import com.example.donotlate.core.data.response.ChatRoomResponse
 import com.example.donotlate.core.data.response.FriendRequestDTO
+import com.example.donotlate.core.data.response.MessageResponse
+import com.example.donotlate.core.data.response.PromiseRoomResponse
 import com.example.donotlate.core.data.response.UserResponse
-import com.example.donotlate.core.domain.model.ChatRoomEntity
 import com.example.donotlate.core.domain.model.FriendRequestEntity
+import com.example.donotlate.core.domain.model.MessageEntity
+import com.example.donotlate.core.domain.model.PromiseRoomEntity
 import com.example.donotlate.core.domain.model.UserEntity
 
 fun List<UserResponse>.toUserEntityList(): List<UserEntity> {
@@ -23,12 +25,12 @@ fun UserResponse.toUserEntity() = UserEntity(
     name, email, uid, friends, count, continuousCounter, createdAt, profileImgUrl
 )
 
-fun ChatRoomEntity.toChatRoomResponse() = ChatRoomResponse(
-    roomTitle, destination, date, time, penalty, participants
+fun PromiseRoomEntity.toPromiseRoomResponse() = PromiseRoomResponse(
+    roomTitle, roomCreatedAt, promiseTime, promiseDate, destination, destinationLat, destinationLng, penalty, participants
 )
 
-fun ChatRoomResponse.toChatRoomEntity() = ChatRoomEntity(
-    roomTitle, destination, date, time, penalty, participants
+fun PromiseRoomResponse.toPromiseEntity() = PromiseRoomEntity(
+    roomTitle, roomCreatedAt, promiseTime, promiseDate, destination, destinationLat, destinationLng, penalty, participants
 )
 
 fun FriendRequestDTO.toEntity() = FriendRequestEntity(
@@ -47,5 +49,19 @@ fun List<FriendRequestEntity>.toResponseList(): List<FriendRequestDTO>{
     return this.map { it.toDTO() }
 }
 
+fun List<PromiseRoomEntity>.toPromiseResponseList(): List<PromiseRoomResponse>{
+    return this.map{it.toPromiseRoomResponse()}
+}
 
+fun List<PromiseRoomResponse>.toPromiseEntityList(): List<PromiseRoomEntity>{
+    return this.map{it.toPromiseEntity()}
+}
+
+fun MessageResponse.toMessageEntity() = MessageEntity(
+    senderName, sendTimestamp, contents, senderProfileUrl
+)
+
+fun MessageEntity.toMessageResponse() = MessageResponse(
+    senderName, sendTimestamp, contents, senderProfileUrl
+)
 

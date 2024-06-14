@@ -4,9 +4,9 @@ import com.example.donotlate.core.domain.model.UserEntity
 import com.example.donotlate.feature.room.presentation.model.RoomUserModel
 
 fun List<UserEntity>.toModelList(): List<RoomUserModel> {
-    return this.map { it.toModel() }
+    return this.map { it.toRoomModel() }
 }
 
-fun UserEntity.toModel() = RoomUserModel(
+fun UserEntity.toRoomModel() = RoomUserModel(
     name, email, uid, friends, count, continuousCounter, createdAt, profileImgUrl
 )

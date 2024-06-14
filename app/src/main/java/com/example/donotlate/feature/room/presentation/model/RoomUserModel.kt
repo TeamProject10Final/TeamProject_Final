@@ -11,5 +11,7 @@ data class RoomUserModel(
     val continuousCounter:Int,
     val createdAt: Timestamp,
     val profileImgUrl: String = ""
-)
+) {
+    constructor() : this("", "", "", emptyList(), 0, 0, Timestamp.now(), "")
+}
 

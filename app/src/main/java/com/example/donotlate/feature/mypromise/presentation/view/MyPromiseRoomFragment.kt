@@ -1,25 +1,22 @@
 package com.example.donotlate.feature.mypromise.presentation.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentChatRoomBinding
-import com.example.donotlate.feature.mypromise.presentation.viewmodel.ChatRoomViewModel
-import com.example.donotlate.feature.mypromise.presentation.viewmodel.ChatRoomViewModelFactory
-import com.example.donotlate.feature.main.presentation.model.UserModel
-import kotlinx.coroutines.launch
+import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModel
+import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModelFactory
 
 class MyPromiseRoomFragment : Fragment() {
 
-    private val chatRoomViewModel: ChatRoomViewModel by activityViewModels {
+    private val myPromiseViewModel: MyPromiseViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        ChatRoomViewModelFactory(
-            appContainer.makeAPromiseRoomUseCase
+        MyPromiseViewModelFactory(
+            appContainer.loadToMyPromiseListUseCase
         )
     }
 

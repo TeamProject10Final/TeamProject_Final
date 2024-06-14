@@ -94,10 +94,6 @@ class SettingFragment : Fragment() {
             }
         }
 
-        //뒤로가기
-        binding.ivBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
         return binding.root
     }
 
