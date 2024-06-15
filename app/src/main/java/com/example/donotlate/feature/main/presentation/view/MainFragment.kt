@@ -21,7 +21,7 @@ import com.example.donotlate.feature.friends.presentation.view.FriendsActivity
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import com.example.donotlate.feature.minigame.MiniGameFragment
-import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomFragment
+import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseListFragment
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
@@ -163,7 +163,7 @@ class MainFragment : Fragment() {
 
     private fun startMyPromise() {
         binding.layoutMainReservation.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, MyPromiseRoomFragment())
+            parentFragmentManager.beginTransaction().replace(R.id.frame, MyPromiseListFragment())
                 .addToBackStack("").commit()
         }
     }

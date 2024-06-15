@@ -18,4 +18,5 @@ interface FirebaseDataRepository {
     suspend fun makeAPromiseRoom(roomTitle: String, promiseTime: String, promiseDate: String, destination: String, destinationLat: Double, destinationLng: Double, penalty: String, participants: List<String>): Flow<Boolean>
     suspend fun getMyPromiseListFromFireBase(): Flow<List<PromiseRoomEntity>>
     suspend fun getMyDataFromFireStore(): Flow<UserEntity?>
+
 }

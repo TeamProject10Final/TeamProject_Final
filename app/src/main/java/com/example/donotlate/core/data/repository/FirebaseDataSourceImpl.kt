@@ -25,7 +25,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import java.util.UUID
 
-
 class FirebaseDataSourceImpl(
     private val db: FirebaseFirestore,
     private val auth: FirebaseAuth
@@ -43,7 +42,6 @@ class FirebaseDataSourceImpl(
     }.catch { e ->
         throw e
     }
-
 
     override suspend fun getAllUsers(): Flow<List<UserEntity>> = flow {
         val documentSnapshot = db.collection("users").get().await()
@@ -71,7 +69,6 @@ class FirebaseDataSourceImpl(
             emit(false)
         }
     }
-
 
     override suspend fun getFriendsListFromFirebase(uid: String): Flow<List<UserEntity>> = flow {
         try {
@@ -231,6 +228,16 @@ class FirebaseDataSourceImpl(
     }.catch { e ->
         throw e
     }
+
+//    override suspend fun loadToPromiseRoom(roomId: String): Flow<List<ChatRoomModel>> = flow {
+//        val documents = db.collection("PromiseRoom").document(roomId).collection("Massage")
+//            .orderBy("sendTimestamp")
+//            .get()
+//            .await()
+//
+//        val message = documents.toObjects(MessageResponse::class.java)
+//        emit(message.toMessageEntitiy)
+//    }
 }
 
 
