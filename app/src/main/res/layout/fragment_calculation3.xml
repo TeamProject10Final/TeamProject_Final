@@ -44,11 +44,10 @@
     <ScrollView
         android:id="@+id/svConsumption"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="40dp"
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/rounded_edittext1"
-        app:layout_constraintBottom_toTopOf="@id/btnCalFinish"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv33">
@@ -163,6 +162,8 @@
                 android:ems="10"
                 android:gravity="end"
                 android:text="10,000"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="@id/tvDes35"
