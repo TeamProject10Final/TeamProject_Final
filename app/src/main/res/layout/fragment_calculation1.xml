@@ -10,8 +10,8 @@
         android:id="@+id/tv11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
         android:text="정산을 시작해볼까요?"
         android:textColor="@color/black"
         android:textSize="25sp"
@@ -27,151 +27,153 @@
         android:textColor="@color/black"
         android:textSize="35sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tv11"
-        app:layout_constraintTop_toBottomOf="@+id/tv11" />
+        app:layout_constraintStart_toStartOf="@id/tv11"
+        app:layout_constraintTop_toBottomOf="@id/tv11" />
 
     <TextView
         android:id="@+id/tv13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="을 입력해주세요."
         android:layout_marginStart="10dp"
+        android:text="을 입력해주세요."
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv12"
-        app:layout_constraintStart_toEndOf="@+id/tv12" />
-
-    <TextView
-        android:id="@+id/tvDes11"
-        android:layout_width="234dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="40dp"
-        android:text="지출 설명을 입력해주세요."
-        app:layout_constraintStart_toStartOf="@+id/tv12"
-        app:layout_constraintTop_toBottomOf="@+id/tv12" />
+        app:layout_constraintBottom_toBottomOf="@id/tv12"
+        app:layout_constraintStart_toEndOf="@id/tv12" />
 
 
-    <EditText
-        android:id="@+id/etDes11"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="-2dp"
-        android:layout_marginEnd="30dp"
-        android:focusableInTouchMode="true"
-        android:hint="제목을 입력해 주세요"
-        android:paddingBottom="15dp"
-        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDes11" />
+        app:layout_constraintTop_toBottomOf="@id/tv13">
 
 
+        <TextView
+            android:id="@+id/tvDes11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="지출 제목"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@id/etDes11"
+            app:layout_constraintStart_toStartOf="@id/etDes11" />
 
 
+        <EditText
+            android:id="@+id/etDes11"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="40dp"
+            android:focusableInTouchMode="true"
+            android:hint="지출 설명을 입력해주세요"
+            android:inputType="text"
+            android:paddingBottom="15dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:theme="@style/EditTextStyle" />
 
 
-    <!--이 밑으로 다 수정하기-->
-    <TextView
-        android:id="@+id/tvDes12"
-        android:layout_width="234dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="50dp"
-        android:text="지출한 날짜를 입력하세요."
-        app:layout_constraintStart_toStartOf="@+id/etDes11"
-        app:layout_constraintTop_toBottomOf="@+id/etDes11" />
+        <TextView
+            android:id="@+id/tvDes12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="지출 날짜"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@id/etDes12"
+            app:layout_constraintStart_toStartOf="@id/etDes11" />
 
-    <TextView
-        android:id="@+id/etDes12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="20dp"
-        android:gravity="start"
-        android:hint="달력 아이콘을 눌러 시간을 선택 해주세요"
-        android:paddingStart="3dp"
-        android:paddingBottom="10dp"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDes12"
-        tools:ignore="RtlSymmetry" />
+        <TextView
+            android:id="@+id/etDes12"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="40dp"
+            android:hint="아이콘을 눌러 날짜를 선택 해주세요"
+            android:paddingStart="3dp"
+            android:paddingBottom="15dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@id/etDes11"
+            app:layout_constraintStart_toStartOf="@id/etDes11"
+            app:layout_constraintTop_toBottomOf="@id/etDes11"
+            app:theme="@style/EditTextStyle"
+            tools:ignore="RtlSymmetry" />
 
-    <ImageView
-        android:id="@+id/iv_Date"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/ic_calendar"
-        app:layout_constraintBottom_toTopOf="@+id/view2"
-        app:layout_constraintEnd_toEndOf="@+id/view2" />
+        <ImageView
+            android:id="@+id/iv_Date"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_calendar"
+            app:layout_constraintEnd_toEndOf="@id/etDes12"
+            app:layout_constraintTop_toBottomOf="@id/tvDes12" />
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="0dp"
-        android:layout_height="0.8dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="-4dp"
-        android:layout_marginEnd="3dp"
-        android:background="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/etDes12"
-        app:layout_constraintStart_toStartOf="@id/etDes12"
-        app:layout_constraintTop_toBottomOf="@+id/etDes12" />
+        <View
+            android:id="@+id/view2"
+            android:layout_width="0dp"
+            android:layout_height="0.8dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="-4dp"
+            android:layout_marginEnd="3dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="@id/etDes12"
+            app:layout_constraintStart_toStartOf="@id/etDes12"
+            app:layout_constraintTop_toBottomOf="@+id/etDes12" />
 
 
-    <TextView
-        android:id="@+id/tvDes13"
-        android:layout_width="234dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="50dp"
-        android:text="카테고리를 선택해주세요."
-        app:layout_constraintStart_toStartOf="@+id/etDes12"
-        app:layout_constraintTop_toBottomOf="@+id/etDes12" />
+        <TextView
+            android:id="@+id/tvDes13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="5dp"
+            android:text="지출 카테고리"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@id/consumptionSpinner"
+            app:layout_constraintStart_toStartOf="@id/etDes12" />
 
-    <Spinner
-        android:id="@+id/consumptionSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="32.6dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:entries="@array/consumptionCategoryArray"
-        android:foregroundGravity="left"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDes13" />
+        <Spinner
+            android:id="@+id/consumptionSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="40dp"
+            android:ems="10"
+            android:entries="@array/consumptionCategoryArray"
+            android:foregroundGravity="left"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etDes12" />
 
-    <!--    <EditText-->
-<!--        android:id="@+id/etDes13"-->
-<!--        android:layout_width="336dp"-->
-<!--        android:layout_height="74.5dp"-->
-<!--        android:layout_marginTop="6dp"-->
-<!--        android:background="@drawable/rounded_edittext3"-->
-<!--        android:ems="10"-->
-<!--        android:gravity="end"-->
-<!--        android:inputType="text"-->
-<!--        android:paddingTop="13dp"-->
-<!--        android:paddingHorizontal="20dp"-->
-<!--        android:textSize="32sp"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/tvDes13"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/tvDes13" />-->
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="0.8dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.933"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/consumptionSpinner" />
 
-    <View
-        android:id="@+id/view3"
-        android:layout_width="0dp"
-        android:layout_height="0.8dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginEnd="23dp"
-        android:background="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.933"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/consumptionSpinner" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCalNext"
@@ -179,10 +181,10 @@
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/btn_radius_arctic"
         android:text="다음"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -26,7 +26,7 @@ class RoomFriendAdapter() : ListAdapter<RoomUserModel, RoomFriendAdapter.ListHol
             binding.apply {
                 ivItemFriend.setImageURI(item.profileImgUrl.toUri())
                 tvItemFriend.text = item.name
-                itemView.setBackgroundResource(if(isSelected) R.drawable.ic_main_friend else 0)
+                itemView.setBackgroundResource(if (isSelected) R.color.gray else 0)
             }
             itemView.setOnClickListener {
                 itemClick?.onClick(it, adapterPosition)

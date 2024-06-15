@@ -9,8 +9,8 @@
         android:id="@+id/tv21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
         android:text="현기증 난단 말이에요,"
         android:textColor="@color/black"
         android:textSize="25sp"
@@ -26,8 +26,8 @@
         android:textColor="@color/black"
         android:textSize="35sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tv21"
-        app:layout_constraintTop_toBottomOf="@+id/tv21" />
+        app:layout_constraintStart_toStartOf="@id/tv21"
+        app:layout_constraintTop_toBottomOf="@id/tv21" />
 
     <TextView
         android:id="@+id/tv23"
@@ -38,36 +38,39 @@
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv22"
-        app:layout_constraintStart_toEndOf="@+id/tv22" />
+        app:layout_constraintBottom_toBottomOf="@id/tv22"
+        app:layout_constraintStart_toEndOf="@id/tv22" />
 
     <TextView
         android:id="@+id/tvDes21"
+        android:layout_marginBottom="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:text="정산 총 금액"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv22" />
+        android:text="총 정산금액"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/etDes21"
+        app:layout_constraintStart_toStartOf="@id/etDes21" />
 
     <EditText
         android:id="@+id/etDes21"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="-2dp"
-        android:layout_marginEnd="20dp"
+        style="@style/EditTextStyle"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:hint="정산할 총 금액을 입력해주세요"
         android:ems="10"
+        android:paddingStart="3dp"
         android:focusableInTouchMode="true"
-        android:hint="정산할 총 금액을 입력해주세요."
+        android:textSize="18sp"
         android:inputType="number"
         android:paddingHorizontal="10dp"
         android:paddingBottom="15dp"
-        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tv23"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDes21" />
+        app:theme="@style/EditTextStyle" />
 
 
     <!--이 밑으로 다 수정하기-->
@@ -82,8 +85,8 @@
         android:text="원"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/etDes21"
-        app:layout_constraintEnd_toEndOf="@+id/etDes21"
-        app:layout_constraintTop_toTopOf="@+id/etDes21"
+        app:layout_constraintEnd_toEndOf="@id/etDes21"
+        app:layout_constraintTop_toTopOf="@id/etDes21"
         app:layout_constraintVertical_bias="0.647" />
 
 
@@ -91,29 +94,33 @@
         android:id="@+id/etDes22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="-2dp"
-        android:layout_marginEnd="20dp"
+        style="@style/EditTextStyle"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="55dp"
         android:ems="10"
-        android:hint="위의 텍스트를 터치하여 벌금자를 바꿀 수 있어요."
+        android:layout_marginEnd="40dp"
         android:inputType="number"
         android:paddingHorizontal="10dp"
+        android:hint="별금을 입력해주세요"
+        android:paddingStart="3dp"
         android:paddingBottom="15dp"
-        android:textSize="16sp"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/etDes21"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPenalty" />
+        app:theme="@style/EditTextStyle" />
 
     <TextView
         android:id="@+id/btnPenalty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-
-        android:text="나의 벌금추가"
-        app:layout_constraintStart_toStartOf="@+id/etDes21"
-        app:layout_constraintTop_toBottomOf="@+id/etDes21" />
+        android:layout_marginBottom="5dp"
+        android:text="벌금액"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/etDes22"
+        app:layout_constraintStart_toStartOf="@id/etDes21" />
 
     <TextView
         android:id="@+id/tvWon22"
@@ -121,9 +128,9 @@
         android:layout_height="wrap_content"
         android:text="원"
         android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="@+id/etDes22"
-        app:layout_constraintEnd_toEndOf="@+id/etDes22"
-        app:layout_constraintBottom_toBottomOf="@+id/etDes22"
+        app:layout_constraintBottom_toBottomOf="@id/etDes22"
+        app:layout_constraintEnd_toEndOf="@id/etDes22"
+        app:layout_constraintTop_toTopOf="@id/etDes22"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="6.5dp"/>
 
@@ -133,25 +140,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="정산할 인원수를 입력해주세요."
-        app:layout_constraintStart_toStartOf="@+id/etDes22"
-        app:layout_constraintTop_toBottomOf="@+id/etDes22" />
+        android:layout_marginBottom="5dp"
+        android:text="정산 인원수"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/etDes23"
+        app:layout_constraintStart_toStartOf="@id/etDes22" />
 
     <EditText
         android:id="@+id/etDes23"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="-2dp"
-        android:layout_marginEnd="20dp"
+        style="@style/EditTextStyle"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="55dp"
         android:ems="10"
+        android:layout_marginEnd="40dp"
+        android:hint="정산 인원을 입력해주세요"
         android:inputType="number"
+        android:paddingStart="3dp"
         android:paddingHorizontal="10dp"
+        android:textSize="18sp"
         android:paddingTop="13dp"
-        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/etDes22"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDes23" />
+        app:theme="@style/EditTextStyle" />
 
     <TextView
         android:id="@+id/tvWon23"
@@ -161,9 +174,9 @@
         android:layout_marginBottom="6.5dp"
         android:text="명"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/etDes23"
-        app:layout_constraintEnd_toEndOf="@+id/etDes23"
-        app:layout_constraintTop_toTopOf="@+id/etDes23" />
+        app:layout_constraintBottom_toBottomOf="@id/etDes23"
+        app:layout_constraintEnd_toEndOf="@id/etDes23"
+        app:layout_constraintTop_toTopOf="@id/etDes23" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCalEnd"
@@ -174,7 +187,7 @@
         android:layout_marginBottom="30dp"
         android:background="@drawable/btn_radius_arctic"
         android:text="다음"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -53,16 +53,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--        <TextView-->
-            <!--            android:id="@+id/tv_Main_Title"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:text="TEXT"-->
-            <!--            android:textColor="@color/black"-->
-            <!--            android:textSize="34.5sp"-->
-            <!--            app:layout_constraintStart_toStartOf="@id/tv_Main1"-->
-            <!--            app:layout_constraintTop_toBottomOf="@id/tv_Main1" />-->
-
             <TextView
                 android:id="@+id/tv_Main_Title"
                 android:layout_width="wrap_content"
@@ -110,8 +100,8 @@
                     android:id="@+id/layout_Main_Room"
                     android:layout_width="0dp"
                     android:layout_height="230dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="10dp"
                     app:layout_constraintEnd_toStartOf="@id/layout_Main_Reservation"
                     android:background="@drawable/btn_radius_arctic"
                     app:layout_constraintStart_toStartOf="parent"
@@ -123,9 +113,9 @@
                     android:layout_height="80dp"
                     android:layout_marginTop="50dp"
                     android:src="@drawable/ic_main_room"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Room"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Room"
-                    app:layout_constraintTop_toTopOf="@+id/layout_Main_Room" />
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Room"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Room"
+                    app:layout_constraintTop_toTopOf="@id/layout_Main_Room" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -143,10 +133,10 @@
                     android:id="@+id/layout_Main_Place"
                     android:layout_width="0dp"
                     android:layout_height="190dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/btn_radius_lilac"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Room"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Room"
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Room"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Room"
                     app:layout_constraintTop_toBottomOf="@id/layout_Main_Room" />
 
                 <ImageView
@@ -156,7 +146,7 @@
                     android:layout_marginTop="40dp"
                     android:src="@drawable/ic_main_location"
                     app:layout_constraintEnd_toEndOf="@+id/layout_Main_Place"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Place"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Place"
                     app:layout_constraintTop_toTopOf="@+id/layout_Main_Place" />
 
                 <TextView
@@ -174,11 +164,11 @@
                     android:id="@+id/layout_Main_Game"
                     android:layout_width="0dp"
                     android:layout_height="150dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/btn_radius_arctic"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Place"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Place"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Main_Place" />
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Place"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Place"
+                    app:layout_constraintTop_toBottomOf="@id/layout_Main_Place" />
 
                 <ImageView
                     android:id="@+id/iv_Main3"
@@ -187,9 +177,9 @@
                     android:layout_marginTop="15dp"
                     android:src="@drawable/ic_main_game"
 
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Game"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Game"
-                    app:layout_constraintTop_toTopOf="@+id/layout_Main_Game" />
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Game"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Game"
+                    app:layout_constraintTop_toTopOf="@id/layout_Main_Game" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -207,8 +197,8 @@
                     android:id="@+id/layout_Main_Reservation"
                     android:layout_width="0dp"
                     android:layout_height="230dp"
-                    android:layout_marginEnd="35dp"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="40dp"
                     android:background="@drawable/btn_radius_lilac"
                     app:layout_constraintStart_toEndOf="@id/layout_Main_Room"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -220,9 +210,9 @@
                     android:layout_height="80dp"
                     android:layout_marginTop="50dp"
                     android:src="@drawable/ic_main_calendar"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Reservation"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Reservation"
-                    app:layout_constraintTop_toTopOf="@+id/layout_Main_Reservation" />
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Reservation"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Reservation"
+                    app:layout_constraintTop_toTopOf="@id/layout_Main_Reservation" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -240,11 +230,11 @@
                     android:id="@+id/layout_Main_Settle"
                     android:layout_width="0dp"
                     android:layout_height="190dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/btn_radius_arctic"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Reservation"
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Reservation"
                     app:layout_constraintStart_toStartOf="@id/layout_Main_Reservation"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Main_Reservation" />
+                    app:layout_constraintTop_toBottomOf="@id/layout_Main_Reservation" />
 
                 <ImageView
                     android:id="@+id/iv_Main5"
@@ -252,9 +242,9 @@
                     android:layout_height="80dp"
                     android:layout_marginTop="40dp"
                     android:src="@drawable/ic_main_money"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Settle"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Settle"
-                    app:layout_constraintTop_toTopOf="@+id/layout_Main_Settle" />
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Settle"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Settle"
+                    app:layout_constraintTop_toTopOf="@id/layout_Main_Settle" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -271,11 +261,11 @@
                     android:id="@+id/layout_Main_Friend"
                     android:layout_width="0dp"
                     android:layout_height="150dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/btn_radius_lilac"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Settle"
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Settle"
                     app:layout_constraintStart_toStartOf="@id/layout_Main_Settle"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Main_Settle" />
+                    app:layout_constraintTop_toBottomOf="@id/layout_Main_Settle" />
 
                 <ImageView
                     android:id="@+id/iv_Main6"
@@ -283,9 +273,9 @@
                     android:layout_height="80dp"
                     android:layout_marginTop="15dp"
                     android:src="@drawable/ic_main_friend"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Friend"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Friend"
-                    app:layout_constraintTop_toTopOf="@+id/layout_Main_Friend" />
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Friend"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Friend"
+                    app:layout_constraintTop_toTopOf="@id/layout_Main_Friend" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -355,7 +345,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2">
+                app:layout_constraintTop_toBottomOf="@id/textView2">
 
                 <TextView
                     android:id="@+id/tvName"
@@ -379,7 +369,7 @@
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvName" />
+                    app:layout_constraintTop_toBottomOf="@id/tvName" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivProfileImage"
@@ -402,7 +392,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraint" />
+                app:layout_constraintTop_toBottomOf="@id/constraint" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerSetting"
@@ -413,7 +403,7 @@
                 android:paddingVertical="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintTop_toBottomOf="@id/textView3" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -425,7 +415,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerSetting" />
+                app:layout_constraintTop_toBottomOf="@id/recyclerSetting" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerSetting2"
@@ -437,7 +427,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                app:layout_constraintTop_toBottomOf="@id/textView4" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
