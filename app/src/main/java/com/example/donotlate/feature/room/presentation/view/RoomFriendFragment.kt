@@ -39,29 +39,6 @@ class RoomFriendFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var friendAdapter: RoomFriendAdapter
-//    private val friendAdapter by lazy {
-//        RoomFriendAdapter(
-//            onAddFriendClick = {val intent = Intent(requireContext(), FriendsActivity::class.java).apply {
-//                putExtra("show_friends_request_fragment", true)
-//            }
-//                startActivity(intent)
-//            },
-//            onItemClick = {selectedUser->
-//                val userUid = selectedUser.uId
-//                val userName = selectedUser.name
-//
-//                if(selectedUserUIds.contains(userUid)){
-//                    selectedUserUIds.remove(userUid)
-//                    selectedUserNames.remove(userName)
-//                }else{
-//                    selectedUserUIds.add(userUid)
-//                    selectedUserNames.add(userName)
-//                }
-//                saveToSelectedFriendsUIds()
-//            }
-//        )
-//    }
-
     private val selectedUserUIds = mutableListOf<String>()
     private val selectedUserNames = mutableListOf<String>()
 
@@ -90,7 +67,6 @@ class RoomFriendFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-//        saveToSelectedFriendsUIds()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,9 +78,7 @@ class RoomFriendFragment : Fragment() {
         getAllUserList()
         editTextProcess()
 
-
     }
-
 
 //    private fun setTitle() {
 //        val title = SpannableStringBuilder("친구 아이가!")
@@ -158,39 +132,6 @@ class RoomFriendFragment : Fragment() {
         binding.rvFriend.layoutManager = GridLayoutManager(requireContext(), 4)
         binding.rvFriend.adapter = friendAdapter
     }
-
-//    private fun setUpRecyclerView(userList: List<RoomUserModel>) {
-//        try {
-//            binding.rvFriend.apply {
-//                adapter = friendAdapter
-//                layoutManager = GridLayoutManager(requireContext(), 4)
-//            }
-//
-//            lifecycleScope.launch {
-//                roomViewModel.friendsList.collect{friends ->
-//                    friendAdapter.submitList(friends)
-//                }
-//            }
-//            friendAdapter.itemClick = object : RoomFriendAdapter.ItemClick {
-//                override fun onClick(view: View, position: Int) {
-//                    val selectedUser = friendAdapter.currentList[position]
-//                    val userUid = selectedUser.uId
-//                    val userName = selectedUser.name
-//
-//                    if(selectedUserUIds.contains(userUid)){
-//                        selectedUserUIds.remove(userUid)
-//                        selectedUserNames.remove(userName)
-//                    } else {
-//                        selectedUserUIds.add(userUid)
-//                        selectedUserNames.add(userName)
-//                    }
-//                    saveToSelectedFriendsUIds()
-//                }
-//            }
-//        } catch (e: Exception) {
-//            Log.e("RecyclerVuewSetupError", "Error: ${e.message}")
-//        }
-//    }
 
     private fun saveToSelectedFriendsUIds() {
         if (!selectedUserUIds.contains(mAuth) && selectedUserUIds.isNotEmpty()) {
