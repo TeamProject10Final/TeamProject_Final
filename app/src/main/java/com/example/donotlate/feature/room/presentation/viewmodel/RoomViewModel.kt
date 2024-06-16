@@ -57,6 +57,13 @@ class RoomViewModel(
     private val _getCurrentUser = MutableStateFlow<String?>("")
     val getCurrentUser: StateFlow<String?> get() = _getCurrentUser
 
+    private val _modelCurrent = MutableLiveData<Int>()
+    val modelCurrent: LiveData<Int> = _modelCurrent
+
+    fun setCurrentItem(current: Int) {
+        _modelCurrent.value = current
+    }
+
     fun updateSelectedUserNames(userNames: List<String>) {
         _selectedUserNames.value = userNames
     }
