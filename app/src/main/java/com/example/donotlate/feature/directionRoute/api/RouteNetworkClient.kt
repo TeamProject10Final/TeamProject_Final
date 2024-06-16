@@ -1,5 +1,6 @@
-package com.example.donotlate.feature.directionRoute
+package com.example.donotlate.feature.directionRoute.api
 
+import com.example.donotlate.feature.directionRoute.data.network.DirectionsApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -29,7 +30,7 @@ object RouteNetworkClient {
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-//
-//    val directionsApiService: DirectionsApiService =
-//        retrofit.create(DirectionsApiService::class.java)
+
+    val directionsApiService: DirectionsApiService =
+        retrofit.create(DirectionsApiService::class.java)
 }

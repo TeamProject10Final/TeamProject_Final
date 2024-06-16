@@ -31,6 +31,11 @@ import com.example.donotlate.feature.consumption.domain.usecase.InsertConsumptio
 import com.example.donotlate.feature.consumption.domain.usecase.ToggleIsFinishedUseCase
 import com.example.donotlate.feature.consumption.presentation.ConsumptionViewModelFactory
 import com.example.donotlate.feature.consumption.presentation.SharedViewModelFactory
+import com.example.donotlate.feature.directionRoute.api.RouteNetworkClient
+import com.example.donotlate.feature.directionRoute.data.DirectionsRepository
+import com.example.donotlate.feature.directionRoute.data.DirectionsRepositoryImpl
+import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
+import com.example.donotlate.feature.directionRoute.presentation.DirectionsViewModel1Factory
 import com.example.donotlate.feature.friends.data.repository.FriendRequestRepositoryImpl
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
@@ -214,6 +219,22 @@ class AppContainer {
     val loadToCurrentUserDataUseCase by lazy {
         LoadToCurrentUserDataUseCase(firebaseDataRepository)
     }
+
+    private val directionsApiService = RouteNetworkClient.directionsApiService
+
+    val directionsRepository : DirectionsRepository by lazy {
+        DirectionsRepositoryImpl(directionsApiService)
+    }
+
+    val getDirectionsUseCase: GetDirectionsUseCase by lazy {
+        GetDirectionsUseCase(directionsRepository)
+    }
+
+
+    val directions1Container : Directions1Container by lazy {
+        Directions1Container(getDirectionsUseCase)
+    }
+
 }
 
 class LogInContainer(
@@ -347,5 +368,13 @@ class MyPromiseContainer(
 ) {
     val myPromiseViewModelFactory = MyPromiseViewModelFactory(
         loadToMyPromiseListUseCase
+    )
+}
+
+class Directions1Container(
+    private val getDirectionsUseCase: GetDirectionsUseCase
+){
+    val directionsViewModel1Factory = DirectionsViewModel1Factory(
+        getDirectionsUseCase
     )
 }
