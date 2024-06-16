@@ -9,7 +9,7 @@
         android:id="@+id/iv_item_background"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/bg_radius_lightblue"
+        android:background="@drawable/rounded_edittext1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,8 +19,9 @@
         android:layout_height="0dp"
         android:gravity="center_vertical"
         android:padding="10dp"
-        android:text="24.06.05"
-        android:textSize="20sp"
+        android:text="2024.06.05"
+        android:textColor="@color/black"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_promis_title"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,13 +31,14 @@
         android:id="@+id/tv_promis_title"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:ellipsize="end"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:text="우리가 정한 약속들의 리스트가 보여질 공간"
-        android:textSize="23sp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_promise_date"
         app:layout_constraintEnd_toEndOf="parent"
-        android:maxLines="1"
-        android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@id/tv_promise_date"
         app:layout_constraintTop_toTopOf="@id/tv_promise_date" />
 

@@ -13,75 +13,115 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
+        android:text="우리, 친구 아이가!"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/et_Room_Friend_Search"
-        style="@style/EditTextStyle"
-        android:layout_width="280dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="10dp"
-        android:fontFamily="@font/pretendard_regular"
-        android:hint="친구를 검색해 주세요"
-        android:paddingLeft="15dp"
-        android:imeOptions="actionDone"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_Room_Friend_Search"
-        app:layout_constraintHorizontal_bias="0.571"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_Room_Friend_Title"
-        app:theme="@style/EditTextStyle" />
-
-    <android.widget.Button
-        android:id="@+id/btn_Room_Friend_Search"
+    <TextView
+        android:id="@+id/tv_Room_Friend_Title1"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/btn_radius_arctic"
-        android:text="검색"
-        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:text="친구"
+        android:textColor="@color/black"
+        android:textSize="35sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/et_Room_Friend_Search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/et_Room_Friend_Search" />
+        app:layout_constraintStart_toStartOf="@id/tv_Room_Friend_Title"
+        app:layout_constraintTop_toBottomOf="@id/tv_Room_Friend_Title" />
+
+    <TextView
+        android:id="@+id/tv_Room_Friend_Title12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="를 선택해 주세요."
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tv_Room_Friend_Title1"
+        app:layout_constraintStart_toEndOf="@id/tv_Room_Friend_Title1" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_Room_Friend_Search">
+        app:layout_constraintTop_toBottomOf="@+id/tv_Room_Friend_Title1">
+
+        <EditText
+            android:id="@+id/et_Room_Friend_Search"
+            style="@style/EditTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:hint="친구를 검색해 보세요"
+            android:imeOptions="actionDone"
+            android:paddingStart="3dp"
+            android:paddingBottom="15dp"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_Room_Friend_Search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:theme="@style/EditTextStyle" />
+
+        <android.widget.Button
+            android:id="@+id/btn_Room_Friend_Search"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/btn_radius_arctic"
+            android:text="검색"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/et_Room_Friend_Search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/et_Room_Friend_Search" />
 
         <TextView
             android:id="@+id/tv_Room_Friend1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="초대할 친구를 선택해 주세요."
+            android:layout_marginTop="20dp"
+            android:text="초대 가능한 친구 목록 입니다."
+            android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/et_Room_Friend_Search"
+            app:layout_constraintTop_toBottomOf="@id/et_Room_Friend_Search" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_Friend"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="450dp"
-            android:layout_marginTop="10dp"
             android:orientation="horizontal"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_Room_Friend1"
             tools:listitem="@layout/item_rv_friend" />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_margin="20dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/et_Room_Friend_Search">-->
+
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

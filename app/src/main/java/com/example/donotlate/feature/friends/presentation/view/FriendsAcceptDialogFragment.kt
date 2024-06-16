@@ -9,15 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.R
-import com.example.donotlate.core.util.toFormattedString
 import com.example.donotlate.databinding.FragmentRequestDialogBinding
 import com.example.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
-import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
 import kotlinx.coroutines.launch
@@ -66,7 +62,6 @@ class FriendsAcceptDialogFragment : DialogFragment() {
         item?.let {
             binding.tvNameTitle.text = it.friendRequestModel.fromUserName
             binding.tvEmail.text = it.userDataModel.email
-            binding.tvCreateAt.text = it.userDataModel.createdAt.toFormattedString()
 
             val toId = it.friendRequestModel.toId
             val fromId = it.friendRequestModel.fromId
