@@ -93,6 +93,8 @@ class ConsumptionActivity : AppCompatActivity() {
                         finishedAdapter.submitList(finishedList)
                     } else {
                         binding.tv04.visibility = View.INVISIBLE
+                        finishedAdapter.submitList(emptyList())
+                        finishedAdapter.notifyDataSetChanged()
                     }
                 }
             }
@@ -104,6 +106,8 @@ class ConsumptionActivity : AppCompatActivity() {
                         unfinishedAdapter.submitList(unfinishedList)
                     } else {
                         binding.tv02.visibility = View.INVISIBLE
+                        unfinishedAdapter.submitList(emptyList())
+                        unfinishedAdapter.notifyDataSetChanged()
                     }
                 }
             }
