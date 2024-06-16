@@ -80,7 +80,12 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             binding.tvResultDetailTitle.text = it.title
             binding.tvResultDetailDate.text = it.date
             binding.tvResultDetailTime.text = it.time
-            binding.tvResultDetailPenalty.text = it.penalty
+
+            if (it.penalty?.isNotEmpty() == true) {
+                binding.tvResultDetailPenalty.text = it.penalty
+            } else {
+                binding.tvResultDetailPenalty.text = "벌칙은 따로 없어요!"
+            }
         }
 
         roomViewModel.selectedUserNames.observe(viewLifecycleOwner) { userNames ->

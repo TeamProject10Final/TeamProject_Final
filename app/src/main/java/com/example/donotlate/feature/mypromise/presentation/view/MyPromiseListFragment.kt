@@ -66,6 +66,8 @@ class MyPromiseListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setPromiseList()
+        backButton()
         observeViewModel()
 
         binding.ivPromiseBack.setOnClickListener {
@@ -112,10 +114,19 @@ class MyPromiseListFragment : Fragment() {
         fragment.arguments = bundle
 
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.frame, fragment)
+            .add(R.id.frame, fragment)
             .addToBackStack(null)
             .commit()
 
+    }
+
+    private fun backButton() {
+        binding.ivPromiseBack.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .remove(this)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     fun observeViewModel() {

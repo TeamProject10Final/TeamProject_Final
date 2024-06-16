@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (savedInstanceState == null) {
-            changeFragment(MainFragment())
+            replaceFragment(MainFragment())
         }
 
 
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frame, fragment)
+            .add(R.id.frame, fragment)
             .commit()
     }
 

@@ -96,6 +96,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
 
         editTextProcess()
         sendQuery()
+        checkLocation()
 
         Log.d("확인", "onViewCreated")
     }
@@ -178,13 +179,17 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-//    private fun setTitle() {
-//        val title = SpannableStringBuilder("당장 만나,\n목적지를 정해주세요.")
-//        title.apply {
-//            setSpan(RelativeSizeSpan(1.4f), 7, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-//        }
-//        binding.tvRoomMapTitle.text = title
-//    }
+
+    private fun checkLocation() {
+        binding.btnRoomMapNext.setOnClickListener {
+            val location = roomViewModel.locationData.value
+            if (location != null) {
+                roomViewModel.setCurrentItem(current = 2)
+            } else {
+                Toast.makeText(requireContext(), "목적지를 검색해 주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

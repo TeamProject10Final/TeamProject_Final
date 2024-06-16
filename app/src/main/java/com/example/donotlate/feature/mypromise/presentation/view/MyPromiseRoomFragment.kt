@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
+import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
@@ -78,6 +79,7 @@ class MyPromiseRoomFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initAdapter()
+        backButton()
 //        getCurrentUserData()
 
         promiseRoom?.let { room ->
@@ -154,6 +156,15 @@ class MyPromiseRoomFragment : Fragment() {
                 Log.d("MyPromiseRoomFragment", "Collected messages: $message")
                 adapter.submitList(message)
             }
+        }
+    }
+
+    private fun backButton() {
+        binding.ivChatRoomBack.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .remove(this)
+                .addToBackStack(null)
+                .commit()
         }
     }
 }
