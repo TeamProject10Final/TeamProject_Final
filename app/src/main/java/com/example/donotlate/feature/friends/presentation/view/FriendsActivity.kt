@@ -31,7 +31,7 @@ class FriendsActivity : AppCompatActivity() {
 
     private fun setFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_friends, fragment)
+            .add(R.id.frame_friends, fragment)
             .addToBackStack("")
             .commit()
     }

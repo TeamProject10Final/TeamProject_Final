@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +18,7 @@ import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentRoomFriendBinding
 import com.example.donotlate.feature.friends.presentation.view.FriendsActivity
 import com.example.donotlate.feature.room.presentation.adapter.RoomFriendAdapter
+import com.example.donotlate.feature.room.presentation.dialog.ResultFragmentDialog
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 import kotlinx.coroutines.launch
@@ -60,7 +62,6 @@ class RoomFriendFragment : Fragment() {
 
         _binding = FragmentRoomFriendBinding.inflate(inflater, container, false)
         roomViewModel.getAllUserData()
-//        setTitle()
 
         return binding.root
     }
@@ -77,16 +78,10 @@ class RoomFriendFragment : Fragment() {
         loadToCurrentUserData()
         getAllUserList()
         editTextProcess()
+        checkSelectUser()
 
     }
 
-//    private fun setTitle() {
-//        val title = SpannableStringBuilder("친구 아이가!")
-//        title.apply {
-//            setSpan(RelativeSizeSpan(1.4f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-//        }
-//        binding.tvRoomFriendTitle.text = title
-//    }
 
     private fun getAllUserList() {
         try {
@@ -175,6 +170,19 @@ class RoomFriendFragment : Fragment() {
         val imm =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+    }
+
+    private fun checkSelectUser() {
+        binding.btnRoomFriendNext.setOnClickListener {
+            val userUId = roomViewModel.selectedUserUIds.value
+            Log.d("123123", "${userUId}")
+            if (userUId != null) {
+                val dialog = ResultFragmentDialog()
+                dialog.show(requireActivity().supportFragmentManager, "ResultFragmentDialog")
+            } else {
+                Toast.makeText(requireContext(), "친구를 선택해 주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onDestroyView() {

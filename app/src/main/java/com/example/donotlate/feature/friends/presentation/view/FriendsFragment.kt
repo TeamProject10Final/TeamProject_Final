@@ -81,8 +81,8 @@ class FriendsFragment : Fragment() {
 
     private fun backButton() {
         binding.ivFriendBack.setOnClickListener {
-            val activity = activity as MainActivity
-            activity.replaceFragment(MainFragment())
+            val activity = activity as FriendsActivity
+            activity.finish()
         }
     }
 

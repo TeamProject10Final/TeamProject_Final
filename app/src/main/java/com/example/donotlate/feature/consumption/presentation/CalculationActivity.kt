@@ -79,7 +79,7 @@ class CalculationActivity : AppCompatActivity() {
 
     private fun initViewPager() {
         binding.viewPager.isUserInputEnabled = false
-        binding.btnRoomNext.visibility = View.GONE
+//        binding.btnRoomNext.visibility = View.GONE
         val viewPager = binding.viewPager
         val dotsIndicator = binding.indicator
         val roomViewPagerAdapter = CalculationViewPagerAdapter(this)
