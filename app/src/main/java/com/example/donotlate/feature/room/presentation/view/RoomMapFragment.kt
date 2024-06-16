@@ -2,9 +2,6 @@ package com.example.donotlate.feature.room.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -67,7 +64,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         _binding = FragmentRoomMapBinding.inflate(inflater, container, false)
 
-        setTitle()
+//        setTitle()
         initMap()
 
         return binding.root
@@ -181,13 +178,13 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun setTitle() {
-        val title = SpannableStringBuilder("당장 만나,\n목적지를 정해주세요.")
-        title.apply {
-            setSpan(RelativeSizeSpan(1.4f), 7, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        }
-        binding.tvRoomMapTitle.text = title
-    }
+//    private fun setTitle() {
+//        val title = SpannableStringBuilder("당장 만나,\n목적지를 정해주세요.")
+//        title.apply {
+//            setSpan(RelativeSizeSpan(1.4f), 7, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        }
+//        binding.tvRoomMapTitle.text = title
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

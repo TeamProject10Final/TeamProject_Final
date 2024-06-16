@@ -4,9 +4,6 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -62,7 +59,7 @@ class RoomStartFragment : Fragment() {
     ): View? {
         binding = FragmentRoomStartBinding.inflate(inflater, container, false)
 
-        setTitle()
+//        setTitle()
 
         return binding.root
     }
@@ -115,13 +112,13 @@ class RoomStartFragment : Fragment() {
         sendToResult()
     }
 
-    private fun setTitle() {
-        val title = SpannableStringBuilder("우리 지금 만나,\n약속을 잡아주세요.")
-        title.apply {
-            setSpan(RelativeSizeSpan(1.4f), 10, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        }
-        binding.tvRoomStartTitle.text = title
-    }
+//    private fun setTitle() {
+//        val title = SpannableStringBuilder("우리 지금 만나,\n약속을 잡아주세요.")
+//        title.apply {
+//            setSpan(RelativeSizeSpan(1.4f), 10, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        }
+//        binding.tvRoomStartTitle.text = title
+//    }
 
     private fun setDate() {
         val calendar = Calendar.getInstance()

@@ -3,9 +3,6 @@ package com.example.donotlate.feature.room.presentation.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -86,7 +83,7 @@ class RoomFriendFragment : Fragment() {
 
         _binding = FragmentRoomFriendBinding.inflate(inflater, container, false)
         roomViewModel.getAllUserData()
-        setTitle()
+//        setTitle()
 
         return binding.root
     }
@@ -109,13 +106,13 @@ class RoomFriendFragment : Fragment() {
     }
 
 
-    private fun setTitle() {
-        val title = SpannableStringBuilder("친구 아이가!")
-        title.apply {
-            setSpan(RelativeSizeSpan(1.4f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        }
-        binding.tvRoomFriendTitle.text = title
-    }
+//    private fun setTitle() {
+//        val title = SpannableStringBuilder("친구 아이가!")
+//        title.apply {
+//            setSpan(RelativeSizeSpan(1.4f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        }
+//        binding.tvRoomFriendTitle.text = title
+//    }
 
     private fun getAllUserList() {
         try {

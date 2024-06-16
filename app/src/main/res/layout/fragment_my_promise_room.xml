@@ -15,50 +15,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/iv_title_background"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+
+    <ImageView
+        android:id="@+id/iv_top_title_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_title_border"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/bg_title_border"
+        app:layout_constraintBottom_toTopOf="@id/const_chat_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_chat_room_back">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_room_title"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="0dp"
-            android:autoSizeTextType="uniform"
-            android:gravity="center_vertical"
-            android:paddingStart="10dp"
-            android:text="안녕하세요"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/tv_room_promise_date"
-            app:layout_constraintEnd_toEndOf="@id/iv_title_background"
-            app:layout_constraintStart_toStartOf="@id/iv_title_background"
-            app:layout_constraintTop_toTopOf="@id/iv_title_background" />
+    <TextView
+        android:id="@+id/tv_room_title"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35sp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:text="아무 제목이나 계속 넣는 중입니다 길어지는 어떻게 되는 것인지? 쭉쭉 써보겠씁니다"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/iv_top_title_border"
+        app:layout_constraintStart_toStartOf="@id/iv_top_title_border"
+        app:layout_constraintTop_toTopOf="@id/iv_top_title_border" />
 
-        <TextView
-            android:id="@+id/tv_room_promise_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="30dp"
-            android:text="24.06.02"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@id/iv_title_background"
-            app:layout_constraintEnd_toEndOf="@id/iv_title_background" />
+    <TextView
+        android:id="@+id/tv_room_promise_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="25dp"
+        android:text="24.06.02"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_top_title_border"
+        app:layout_constraintEnd_toEndOf="@id/iv_top_title_border" />
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/const_chat_list"
@@ -66,58 +64,55 @@
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/rounded_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_title_background">
+        app:layout_constraintTop_toBottomOf="@id/iv_top_title_border">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_message"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="13dp"
-            android:background="@drawable/rounded_background"
+            android:layout_marginBottom="15dp"
             android:padding="15dp"
-            app:layout_constraintBottom_toTopOf="@id/dddd"
+            app:layout_constraintBottom_toTopOf="@id/btn_send"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/dddd"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/et_input_message"
+            style="@style/EditTextStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <EditText
-                android:id="@+id/et_input_message"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="15dp"
-                android:background="@drawable/bg_radius_stroke_lightblue"
-                android:maxLines="2"
-                android:scrollbars="vertical"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@id/btn_send"
-                app:layout_constraintEnd_toStartOf="@id/btn_send"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15dp"
+            android:maxLines="2"
+            android:paddingStart="3dp"
+            android:paddingBottom="15dp"
+            android:scrollbars="vertical"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/btn_send"
+            app:layout_constraintEnd_toStartOf="@id/btn_send"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_send"
+            app:theme="@style/EditTextStyle" />
 
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_send"
-                android:layout_width="78dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="30dp"
-                android:background="@drawable/btn_radius_arctic"
-                android:text="보내기"
-                android:textSize="23sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginEnd="15sp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/btn_radius_arctic"
+            android:text="보내기"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
