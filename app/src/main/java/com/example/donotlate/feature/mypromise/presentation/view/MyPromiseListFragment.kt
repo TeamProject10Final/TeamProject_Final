@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMypromiseListBinding
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.feature.mypromise.presentation.adapter.MyPromiseAdapter
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModel
@@ -71,9 +72,6 @@ class MyPromiseListFragment : Fragment() {
         backButton()
         observeViewModel()
 
-        binding.ivPromiseBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
         val adapter = MyPromiseAdapter { promiseRoom ->
             openPromiseRoomFragment(promiseRoom)
         }
@@ -124,8 +122,7 @@ class MyPromiseListFragment : Fragment() {
     private fun backButton() {
         binding.ivPromiseBack.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .remove(this)
-                .addToBackStack(null)
+                .replace(R.id.frame, MainFragment())
                 .commit()
         }
     }

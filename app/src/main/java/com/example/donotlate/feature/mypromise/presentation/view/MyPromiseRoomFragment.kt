@@ -2,7 +2,6 @@ package com.example.donotlate.feature.mypromise.presentation.view
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -10,17 +9,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.location.LocationManagerCompat.getCurrentLocation
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
-import com.example.donotlate.feature.directionRoute.presentation.DirectionRouteActivity
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
@@ -46,9 +41,7 @@ class MyPromiseRoomFragment : Fragment() {
             appContainer.getUserDataUseCase,
             appContainer.getMyDataFromFirebaseUseCase,
             appContainer.firebaseAuth,
-            appContainer.getDirectionsUseCase
-
-            appContainer.firebaseAuth
+            appContainer.getDirectionsUseCase,
         )
     }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
