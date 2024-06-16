@@ -8,24 +8,48 @@
     android:clickable="true"
     tools:context=".feature.auth.presentation.view.LoginFragment">
 
-
     <TextView
         android:id="@+id/tv_Login_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
         android:textColor="@color/black"
-        android:textSize="26sp"
+        android:text="환영합니다!"
+        android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_Login_Title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그인"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tv_Login_Title"
+        app:layout_constraintTop_toBottomOf="@id/tv_Login_Title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="을 진행해주세요"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tv_Login_Title2"
+        app:layout_constraintStart_toEndOf="@id/tv_Login_Title2" />
+
 
     <ImageView
         android:id="@+id/iv_Login"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="50dp"
-        android:src="@drawable/title"
+        android:src="@drawable/ic_main_Logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_Login_Title" />
@@ -43,9 +67,9 @@
             android:id="@+id/et_Login_Email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="40dp"
             android:background="@drawable/et_custom"
             android:fontFamily="@font/pretendard_regular"
             android:hint="이메일을 입력해 주세요."
@@ -71,9 +95,9 @@
             android:id="@+id/et_Login_Password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="30dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="40dp"
             android:background="@drawable/et_custom"
             android:fontFamily="@font/pretendard_regular"
             android:hint="비밀번호를 입력해 주세요."
@@ -111,9 +135,9 @@
             android:id="@+id/btn_Login"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="35dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="40dp"
             android:background="@drawable/btn_radius_lilac"
             android:text="로그인"
             android:textColor="@color/black"
