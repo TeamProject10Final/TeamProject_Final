@@ -1,5 +1,6 @@
 package com.example.donotlate.feature.searchPlace.presentation.detail
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentPlaceDetailBinding
+import com.example.donotlate.feature.directionRoute.DirectionRouteActivity
 import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -68,6 +70,12 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
             childFragmentManager.findFragmentById(R.id.layout_Place_Detail) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        binding.btnNavigation.setOnClickListener{
+            val intent = Intent(requireContext(), DirectionRouteActivity::class.java)
+            intent.putExtra("destination", "${searchViewModel.data.value?.name}")
+            Log.d("확인 확인 확인", "${searchViewModel.data.value?.name}")
+            startActivity(intent)
+        }
 
     }
 
