@@ -43,7 +43,9 @@ class RoomStartFragment : Fragment() {
             appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
             appContainer.makeAPromiseRoomUseCase,
-            appContainer.loadToCurrentUserDataUseCase
+            appContainer.loadToCurrentUserDataUseCase,
+            appContainer.getFriendsListFromFirebaseUseCase,
+            appContainer.getCurrentUserUseCase
         )
     }
 

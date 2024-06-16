@@ -1,6 +1,7 @@
 package com.example.donotlate.feature.room.presentation.view
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -17,8 +18,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentRoomFriendBinding
+import com.example.donotlate.feature.friends.presentation.view.FriendsActivity
 import com.example.donotlate.feature.room.presentation.adapter.RoomFriendAdapter
-import com.example.donotlate.feature.room.presentation.model.RoomUserModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 import kotlinx.coroutines.launch
@@ -31,16 +32,38 @@ class RoomFriendFragment : Fragment() {
             appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
             appContainer.makeAPromiseRoomUseCase,
-            appContainer.loadToCurrentUserDataUseCase
+            appContainer.loadToCurrentUserDataUseCase,
+            appContainer.getFriendsListFromFirebaseUseCase,
+            appContainer.getCurrentUserUseCase
         )
     }
 
     private var _binding: FragmentRoomFriendBinding? = null
     private val binding get() = _binding!!
 
-    private val friendAdapter by lazy {
-        RoomFriendAdapter()
-    }
+    private lateinit var friendAdapter: RoomFriendAdapter
+//    private val friendAdapter by lazy {
+//        RoomFriendAdapter(
+//            onAddFriendClick = {val intent = Intent(requireContext(), FriendsActivity::class.java).apply {
+//                putExtra("show_friends_request_fragment", true)
+//            }
+//                startActivity(intent)
+//            },
+//            onItemClick = {selectedUser->
+//                val userUid = selectedUser.uId
+//                val userName = selectedUser.name
+//
+//                if(selectedUserUIds.contains(userUid)){
+//                    selectedUserUIds.remove(userUid)
+//                    selectedUserNames.remove(userName)
+//                }else{
+//                    selectedUserUIds.add(userUid)
+//                    selectedUserNames.add(userName)
+//                }
+//                saveToSelectedFriendsUIds()
+//            }
+//        )
+//    }
 
     private val selectedUserUIds = mutableListOf<String>()
     private val selectedUserNames = mutableListOf<String>()
@@ -76,9 +99,12 @@ class RoomFriendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initRecyclerView()
+        getFriendsList()
         loadToCurrentUserData()
         getAllUserList()
         editTextProcess()
+
 
     }
 
@@ -94,9 +120,9 @@ class RoomFriendFragment : Fragment() {
     private fun getAllUserList() {
         try {
             lifecycleScope.launch {
-                roomViewModel.getAllUserData.collect { result ->
+                roomViewModel.friendsList.collect { result ->
                     Log.d("RoomFriendFragment", "User Data: $result")
-                    setUpRecyclerView(result)
+                    friendAdapter.submitList(result)
 
                 }
             }
@@ -105,53 +131,74 @@ class RoomFriendFragment : Fragment() {
         }
     }
 
-    private fun setUpRecyclerView(userList: List<RoomUserModel>) {
-        try {
-            binding.rvFriend.apply {
-                adapter = friendAdapter
-                layoutManager = GridLayoutManager(requireContext(), 4)
-            }
-            friendAdapter.submitList(userList)
-            friendAdapter.itemClick = object : RoomFriendAdapter.ItemClick {
-                override fun onClick(view: View, position: Int) {
-                    val selectedUser = friendAdapter.currentList[position]
-                    if (selectedUserUIds.contains(selectedUser.uId)) {
-                        selectedUserUIds.remove(selectedUser.uId)
-                        Log.d("RRRR", "${selectedUserUIds}")
-                    } else {
-                        selectedUserUIds.add(selectedUser.uId)
-                        Log.d("RRRR", "${selectedUserUIds}")
-                    }
-                    if (selectedUserNames.contains(selectedUser.name)) {
-                        selectedUserNames.remove(selectedUser.name)
-                        Log.d("RRRR", "${selectedUserNames}")
-                    } else {
-                        selectedUserNames.add(selectedUser.name)
-                        Log.d("RRRR", "${selectedUserNames}")
-                    }
-                    saveToSelectedFriendsUIds()
-                    updateSelectedUserNames()
+    private fun initRecyclerView() {
+        friendAdapter = RoomFriendAdapter(
+            onAddFriendClick = {
+                val intent = Intent(requireContext(), FriendsActivity::class.java).apply {
+                    putExtra("show_friends_request_fragment", true)
                 }
+                startActivity(intent)
+            },
+            onItemClick = { selectedUser ->
+                val userUid = selectedUser.uId
+                val userName = selectedUser.name
+
+                if (selectedUserUIds.contains(userUid)) {
+                    selectedUserUIds.remove(userUid)
+                    selectedUserNames.remove(userName)
+                } else {
+                    selectedUserUIds.add(userUid)
+                    selectedUserNames.add(userName)
+                }
+                saveToSelectedFriendsUIds()
             }
-        } catch (e: Exception) {
-            Log.e("RecyclerVuewSetupError", "Error: ${e.message}")
-        }
+        )
+
+        binding.rvFriend.layoutManager = GridLayoutManager(requireContext(), 4)
+        binding.rvFriend.adapter = friendAdapter
     }
+
+//    private fun setUpRecyclerView(userList: List<RoomUserModel>) {
+//        try {
+//            binding.rvFriend.apply {
+//                adapter = friendAdapter
+//                layoutManager = GridLayoutManager(requireContext(), 4)
+//            }
+//
+//            lifecycleScope.launch {
+//                roomViewModel.friendsList.collect{friends ->
+//                    friendAdapter.submitList(friends)
+//                }
+//            }
+//            friendAdapter.itemClick = object : RoomFriendAdapter.ItemClick {
+//                override fun onClick(view: View, position: Int) {
+//                    val selectedUser = friendAdapter.currentList[position]
+//                    val userUid = selectedUser.uId
+//                    val userName = selectedUser.name
+//
+//                    if(selectedUserUIds.contains(userUid)){
+//                        selectedUserUIds.remove(userUid)
+//                        selectedUserNames.remove(userName)
+//                    } else {
+//                        selectedUserUIds.add(userUid)
+//                        selectedUserNames.add(userName)
+//                    }
+//                    saveToSelectedFriendsUIds()
+//                }
+//            }
+//        } catch (e: Exception) {
+//            Log.e("RecyclerVuewSetupError", "Error: ${e.message}")
+//        }
+//    }
 
     private fun saveToSelectedFriendsUIds() {
         if (!selectedUserUIds.contains(mAuth)) {
             selectedUserUIds.add(mAuth)
-        }
-        roomViewModel.setSelectedUserUIds(selectedUserUIds)
-        Log.d("data123", "${selectedUserUIds}")
-    }
+            roomViewModel.setSelectedUserUIds(selectedUserUIds)
 
-    private fun updateSelectedUserNames() {
-        if (!selectedUserNames.contains(mName)) {
             selectedUserNames.add(mName)
+            roomViewModel.updateSelectedUserNames(selectedUserNames)
         }
-        roomViewModel.updateSelectedUserNames(selectedUserNames)
-        Log.d("data12", "${selectedUserNames}")
     }
 
     private fun editTextProcess() {
@@ -173,6 +220,12 @@ class RoomFriendFragment : Fragment() {
                 mAuth = currentUser?.uId ?: ""
                 mName = currentUser?.name ?: ""
             }
+        }
+    }
+
+    private fun getFriendsList() {
+        lifecycleScope.launch {
+            roomViewModel.getFriendsList()
         }
     }
 

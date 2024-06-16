@@ -10,6 +10,7 @@ fun UserEntity.toModel() = UserModel(
 )
 
 fun PromiseRoomEntity.toModel() = PromiseModel(
+    roomId,
     roomTitle,
     roomCreatedAt,
     promiseTime,
@@ -22,6 +23,7 @@ fun PromiseRoomEntity.toModel() = PromiseModel(
 )
 
 fun PromiseRoomEntity.toEntity() = PromiseRoomEntity(
+    roomId,
     roomTitle,
     roomCreatedAt,
     promiseTime,

@@ -1,14 +1,15 @@
-package com.example.donotlate.core.data.response
+package com.example.donotlate.feature.mypromise.presentation.model
 
 import com.google.firebase.Timestamp
 
-data class MessageResponse(
+
+data class MessageModel(
     val messageId: String,
     val senderId: String,
     val senderName: String,
     val sendTimestamp: Timestamp,
     val contents: String,
     val senderProfileUrl: String
-) {
-    constructor() : this("", "", "", Timestamp.now(), "", "")
-}
+)
+
+

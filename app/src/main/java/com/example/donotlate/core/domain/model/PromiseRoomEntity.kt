@@ -3,6 +3,7 @@ package com.example.donotlate.core.domain.model
 import com.google.firebase.Timestamp
 
 data class PromiseRoomEntity (
+    val roomId: String,
     val roomTitle: String,
     val roomCreatedAt: Timestamp,
     val promiseTime: String,

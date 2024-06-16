@@ -9,7 +9,7 @@
         android:id="@+id/iv_item_background"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/bg_radius_lightblue"
+        android:background="@drawable/rounded_edittext1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,7 +1,6 @@
 package com.example.donotlate.feature.friends.presentation.viewmodel
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -17,7 +16,6 @@ import com.example.donotlate.feature.friends.presentation.mapper.toModel
 import com.example.donotlate.feature.friends.presentation.mapper.toModelList
 import com.example.donotlate.feature.friends.presentation.model.FriendRequestModel
 import com.example.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
-
 import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -57,7 +55,7 @@ class FriendsViewModel(
         MutableStateFlow<List<FriendRequestWithUserDataModel>>(emptyList())
     val friendRequestList: StateFlow<List<FriendRequestWithUserDataModel>> get() = _friendRequestList
 
-    private val _requestsResult = MutableStateFlow<Boolean> (false)
+    private val _requestsResult = MutableStateFlow<Boolean>(false)
     val requestResult: StateFlow<Boolean> get() = _requestsResult
 
     init {
@@ -71,7 +69,6 @@ class FriendsViewModel(
                 _getCurrentUser.value = uid
 
                 if (uid.isNotBlank()) {
-                    Log.d("FriendsViewModel", "UID is not blank: $uid")
                     getFriendsListFromFirebaseUseCase(uid).collect { friends ->
                         Log.d("FriendsViewModel", "Fetched friends: $friends")
                         _friendsList.value = friends.map { it.toModel() }
@@ -129,14 +126,15 @@ class FriendsViewModel(
             }
         }
     }
-    fun acceptToFriendRequest(requestId: String){
+
+    fun acceptToFriendRequest(requestId: String) {
         viewModelScope.launch {
-            acceptFriendRequestsUseCase(requestId).collect{
-                }
+            acceptFriendRequestsUseCase(requestId).collect {
             }
-            Log.d("requestIdTest", "${requestId}")
         }
+        Log.d("requestIdTest", "${requestId}")
     }
+}
 
 
 class FriendsViewModelFactory(
