@@ -2,27 +2,16 @@ package com.example.donotlate.feature.consumption.presentation
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.R
-import com.example.donotlate.databinding.ActivityCalculationBinding
 import com.example.donotlate.databinding.FragmentViewPagerBinding
-import com.example.donotlate.feature.room.presentation.adapter.RoomViewPagerAdapter
-import com.example.donotlate.feature.room.presentation.dialog.BackFragmentDialog
-import com.example.donotlate.feature.room.presentation.dialog.ResultFragmentDialog
 
 class CalculationActivity : AppCompatActivity() {
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="modeArray">
+        <item>transit</item>
+        <item>driving</item>
+        <item>walking</item>
+        <item>bicycling</item>
+        <item>이용할 교통수단을 선택해주세요.</item>
+    </string-array>
+</resources>

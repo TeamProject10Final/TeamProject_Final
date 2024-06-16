@@ -22,17 +22,17 @@ class PlaceMainViewModel(
     val searchMap: LiveData<List<PlaceModel>> = _searchMap
 
 
-
-    class PlaceMainViewModelFactory : ViewModelProvider.Factory {
-        private val repository =
-            GooglePlacesApiRepositoryImpl(googlePlacesApiService = NetWorkClient.googleNetWork)
-
-        override fun <T : ViewModel> create(
-            modelClass: Class<T>,
-            extras: CreationExtras
-        ): T = PlaceMainViewModel(
-            repository
-        ) as T
-
-    }
+//
+//    class PlaceMainViewModelFactory : ViewModelProvider.Factory {
+//        private val repository =
+//            GooglePlacesApiRepositoryImpl(googlePlacesApiService = NetWorkClient.googleNetWork)
+//
+//        override fun <T : ViewModel> create(
+//            modelClass: Class<T>,
+//            extras: CreationExtras
+//        ): T = PlaceMainViewModel(
+//            repository
+//        ) as T
+//
+//    }
 }
