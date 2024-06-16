@@ -390,7 +390,8 @@ class MyPromiseContainer(
     val getCurrentUserUseCase: GetCurrentUserUseCase,
     val getUserDataUseCase: GetUserDataUseCase,
     val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase,
-    val firebaseAuth: FirebaseAuth
+    val firebaseAuth: FirebaseAuth,
+    private val getDirectionsUseCase: GetDirectionsUseCase
 
 ) {
     val myPromiseViewModelFactory = MyPromiseViewModelFactory(
@@ -400,7 +401,8 @@ class MyPromiseContainer(
         getCurrentUserUseCase,
         getUserDataUseCase,
         getMyDataFromFireStoreUseCase,
-        firebaseAuth
+        firebaseAuth,
+        getDirectionsUseCase
     )
 }
 
