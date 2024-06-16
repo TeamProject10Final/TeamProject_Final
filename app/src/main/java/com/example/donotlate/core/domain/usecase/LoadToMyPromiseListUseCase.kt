@@ -5,7 +5,7 @@ import com.example.donotlate.core.domain.repository.FirebaseDataRepository
 import kotlinx.coroutines.flow.Flow
 
 class LoadToMyPromiseListUseCase(private val firebaseDataRepository: FirebaseDataRepository) {
-    suspend operator fun invoke(): Flow<List<PromiseRoomEntity>>{
-        return firebaseDataRepository.getMyPromiseListFromFireBase()
+    suspend operator fun invoke(uid: String): Flow<List<PromiseRoomEntity>> {
+        return firebaseDataRepository.getMyPromiseListFromFireBase(uid)
     }
 }

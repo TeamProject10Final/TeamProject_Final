@@ -207,10 +207,11 @@ class FirebaseDataSourceImpl(
         }
     }
 
-    override suspend fun getMyPromiseListFromFireBase(): Flow<List<PromiseRoomEntity>> = flow {
+    override suspend fun getMyPromiseListFromFireBase(uid: String): Flow<List<PromiseRoomEntity>> =
+        flow {
         try {
             val documents = db.collection("PromiseRooms")
-                .whereArrayContains("participants", mAuth)
+                .whereArrayContains("participants", uid)
                 .orderBy("promiseDate", Query.Direction.ASCENDING)
                 .get().await()
 
@@ -291,7 +292,6 @@ class FirebaseDataSourceImpl(
             transaction.update(toUserRef, "friends", FieldValue.arrayUnion(fromId))
         }.await()
     }
-
 
 }
 

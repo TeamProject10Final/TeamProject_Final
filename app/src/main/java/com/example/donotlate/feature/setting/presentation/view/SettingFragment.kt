@@ -1,6 +1,7 @@
 package com.example.donotlate.feature.setting.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,8 @@ class SettingFragment : Fragment() {
             appContainer.getUserDataUseCase,
             appContainer.getAllUsersUseCase,
             appContainer.getCurrentUserUseCase,
-            appContainer.imageUploadUseCase
+            appContainer.imageUploadUseCase,
+            appContainer.firebaseAuth
         )
     }
 
@@ -37,6 +39,8 @@ class SettingFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
 
     }
@@ -45,6 +49,15 @@ class SettingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
+        Log.d("SettingFragment", "onCreateView called")
+
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
 
         startMyPage()
         observeViewModel()
@@ -81,7 +94,7 @@ class SettingFragment : Fragment() {
             }
         }
 
-        return binding.root
+
     }
 
         override fun onDestroyView() {
@@ -116,4 +129,6 @@ class SettingFragment : Fragment() {
             dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
             //firebase 로그아웃 기능 추가
     }
+
+
 }

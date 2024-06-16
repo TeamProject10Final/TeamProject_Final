@@ -73,9 +73,9 @@ class MyPromiseViewModel(
         }
     }
 
-    fun loadPromiseRooms() {
+    fun loadPromiseRooms(uid: String) {
         viewModelScope.launch {
-            loadToMyPromiseListUseCase().collect {
+            loadToMyPromiseListUseCase(uid).collect {
                 val promiseRooms = it.toPromiseModelList()
                 _promiseRoomList.value = promiseRooms
                 Log.d("PromiseList", "${_promiseRoomList.value}")

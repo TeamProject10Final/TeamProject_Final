@@ -8,9 +8,7 @@ import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
-import java.lang.IllegalStateException
 import java.util.UUID
-import kotlin.random.Random
 
 class SettingRepositoryImpl(private val auth: FirebaseAuth, private val db: FirebaseFirestore, private val storage: FirebaseStorage):SettingRepository {
 
@@ -24,7 +22,7 @@ class SettingRepositoryImpl(private val auth: FirebaseAuth, private val db: Fire
 
     override suspend fun updateProfileImage(uid: String, uri: String): Flow<Boolean> = flow{
         val userRef = db.collection("users").document(uid)
-        userRef.update("profile", uri).await()
+        userRef.update("profileImgUrl", uri).await()
         emit(true)
     }
 

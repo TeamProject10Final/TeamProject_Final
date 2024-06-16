@@ -229,6 +229,7 @@ class AppContainer {
     val getMyDataFromFirebaseUseCase by lazy {
         GetMyDataFromFireStoreUseCase(firebaseDataRepository)
     }
+
 }
 
 class LogInContainer(
@@ -248,12 +249,14 @@ class MainPageContainer(
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val imageUploadUseCase: ImageUploadUseCase,
+    private val firebaseAuth: FirebaseAuth,
 ) {
     val mainPageViewModelFactory = MainPageViewModelFactory(
         getUserDataUseCase,
         getAllUsersUseCase,
         getCurrentUserUseCase,
-        imageUploadUseCase
+        imageUploadUseCase,
+        firebaseAuth
     )
 }
 

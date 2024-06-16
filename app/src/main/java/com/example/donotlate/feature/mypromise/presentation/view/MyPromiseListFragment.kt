@@ -1,6 +1,7 @@
 package com.example.donotlate.feature.mypromise.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,13 +56,17 @@ class MyPromiseListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMypromiseListBinding.inflate(inflater, container, false)
+        lifecycleScope.launch {
+            myPromiseViewModel.getCurrentUserId()
+        }
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setPromiseList()
+        observeViewModel()
 
         binding.ivPromiseBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -94,9 +99,9 @@ class MyPromiseListFragment : Fragment() {
 
     }
 
-    private fun setPromiseList() {
+    private fun setPromiseList(uid: String) {
         lifecycleScope.launch {
-            myPromiseViewModel.loadPromiseRooms()
+            myPromiseViewModel.loadPromiseRooms(uid)
         }
     }
 
@@ -111,6 +116,17 @@ class MyPromiseListFragment : Fragment() {
             .addToBackStack(null)
             .commit()
 
+    }
+
+    fun observeViewModel() {
+        lifecycleScope.launch {
+            myPromiseViewModel.currentUserId.collect { uid ->
+                if (uid != null) {
+                    Log.d("asdasd", "$uid")
+                    setPromiseList(uid)
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
