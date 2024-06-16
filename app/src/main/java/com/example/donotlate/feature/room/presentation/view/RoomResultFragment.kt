@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 
 class RoomResultFragment : Fragment(), OnMapReadyCallback {
@@ -34,7 +35,9 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
             appContainer.makeAPromiseRoomUseCase,
-            appContainer.loadToCurrentUserDataUseCase
+            appContainer.loadToCurrentUserDataUseCase,
+            appContainer.getFriendsListFromFirebaseUseCase,
+            appContainer.getCurrentUserUseCase
         )
     }
 
@@ -117,6 +120,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun makeARoom(
+        roomId: String,
         roomTitle: String,
         promiseTime: String,
         promiseDate: String,
@@ -128,6 +132,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     ) {
         lifecycleScope.launch {
             roomViewModel.makeAPromiseRoom(
+                roomId,
                 roomTitle,
                 promiseTime,
                 promiseDate,
@@ -154,6 +159,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
 
 
         makeARoom(
+            roomId = UUID.randomUUID().toString(),
             roomTitle = inputData?.title ?: "",
             promiseDate = inputData?.date ?: "",
             destination = locationData?.name ?: "",
