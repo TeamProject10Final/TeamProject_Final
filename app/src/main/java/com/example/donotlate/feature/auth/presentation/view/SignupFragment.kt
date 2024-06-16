@@ -16,6 +16,7 @@ import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentSignupBinding
+import com.example.donotlate.feature.auth.presentation.dialog.InformationDialogFragment
 import com.example.donotlate.feature.auth.presentation.validation.CheckValidation
 import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewModel
 import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
@@ -45,7 +46,7 @@ class SignupFragment : Fragment(), CheckValidation {
     ): View {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
 
-//        setTitle()
+
 
         return binding.root
     }
@@ -57,30 +58,21 @@ class SignupFragment : Fragment(), CheckValidation {
         checkSingup()
         passwordHide()
         checkedSignUpResult()
+        infoDialog()
 
         binding.btnSignUp.setOnClickListener {
             clickToSignUpButton()
         }
 
+
     }
 
-//    private fun setTitle() {
-//        val title = SpannableStringBuilder("회원가입 후\n약속을 잡으러 가볼까요?")
-//        title.apply {
-//            setSpan(RelativeSizeSpan(1.2f), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-//        }
-//        binding.tvSignTitle.text = title
-//
-//    }
 
     private fun startLogin() {
         binding.tvSignLogin.setOnClickListener {
-            val activity = activity as MainActivity
-            activity.removeFragment(this)
-
-            //기존 코드로 로그인 눌렀을 경우 아무화면도 나타나지 않음.
-//            val intent = Intent(requireContext(), MainActivity::class.java)
-//            startActivity(intent)
+            requireActivity().supportFragmentManager.beginTransaction()
+                .remove(this)
+                .commit()
         }
     }
 
@@ -216,6 +208,11 @@ class SignupFragment : Fragment(), CheckValidation {
                 Toast.makeText(requireContext(), "회원 가입 실패!", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun infoDialog() {
+        val dialog = InformationDialogFragment()
+        dialog.show(requireActivity().supportFragmentManager, "InformationDialogFragment")
     }
 
     override fun onDestroyView() {
