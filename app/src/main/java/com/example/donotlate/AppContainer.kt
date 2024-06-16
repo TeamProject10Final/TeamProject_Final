@@ -250,6 +250,7 @@ class AppContainer {
     val getMyDataFromFirebaseUseCase by lazy {
         GetMyDataFromFireStoreUseCase(firebaseDataRepository)
     }
+
 }
 
 class LogInContainer(
@@ -269,12 +270,14 @@ class MainPageContainer(
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val imageUploadUseCase: ImageUploadUseCase,
+    private val firebaseAuth: FirebaseAuth,
 ) {
     val mainPageViewModelFactory = MainPageViewModelFactory(
         getUserDataUseCase,
         getAllUsersUseCase,
         getCurrentUserUseCase,
-        imageUploadUseCase
+        imageUploadUseCase,
+        firebaseAuth
     )
 }
 
@@ -336,7 +339,8 @@ class ConsumptionContainer(
     val getTotalPriceUseCase: GetTotalPriceUseCase,
     val getDataCountUseCase: GetDataCountUseCase,
     val getLiveDataCountUseCase: GetLiveDataCountUseCase,
-    val toggleIsFinishedUseCase: ToggleIsFinishedUseCase
+    val toggleIsFinishedUseCase: ToggleIsFinishedUseCase,
+    val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase
 ) {
     val consumptionViewModelFactory = ConsumptionViewModelFactory(
         getFinishedConsumptionUseCase,
@@ -349,7 +353,8 @@ class ConsumptionContainer(
         getTotalPriceUseCase,
         getDataCountUseCase,
         getLiveDataCountUseCase,
-        toggleIsFinishedUseCase
+        toggleIsFinishedUseCase,
+        getMyDataFromFireStoreUseCase
     )
 }
 
@@ -391,7 +396,7 @@ class MyPromiseContainer(
     val getUserDataUseCase: GetUserDataUseCase,
     val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase,
     val firebaseAuth: FirebaseAuth,
-    private val getDirectionsUseCase: GetDirectionsUseCase
+    private val getDirectionsUseCase: GetDirectionsUseCase,
 
 ) {
     val myPromiseViewModelFactory = MyPromiseViewModelFactory(

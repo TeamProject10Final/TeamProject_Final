@@ -2,7 +2,6 @@ package com.example.donotlate.feature.mypromise.presentation.view
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -10,16 +9,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.location.LocationManagerCompat.getCurrentLocation
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
-import com.example.donotlate.feature.directionRoute.presentation.DirectionRouteActivity
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
@@ -45,8 +41,7 @@ class MyPromiseRoomFragment : Fragment() {
             appContainer.getUserDataUseCase,
             appContainer.getMyDataFromFirebaseUseCase,
             appContainer.firebaseAuth,
-            appContainer.getDirectionsUseCase
-
+            appContainer.getDirectionsUseCase,
         )
     }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -74,16 +69,14 @@ class MyPromiseRoomFragment : Fragment() {
         lifecycleScope.launch {
             myPromiseViewModel.currentUserData.collect() { userData ->
                 currentUserData = userData
-                Log.d("tttt", "${userData}")
+
             }
         }
 
         arguments?.let { bundle ->
             promiseRoom = bundle.getParcelable("promiseRoom")
-            Log.d("promiseRoom", "Received promiseRoom: $promiseRoom")
 
         }
-
     }
 
     override fun onCreateView(
@@ -100,7 +93,6 @@ class MyPromiseRoomFragment : Fragment() {
 
         initAdapter()
         backButton()
-//        getCurrentUserData()
 
         promiseRoom?.let { room ->
 
@@ -121,9 +113,11 @@ class MyPromiseRoomFragment : Fragment() {
         binding.btnSend.setOnClickListener {
             val contents = binding.etInputMessage.text.toString()
             val roomId = roomId ?: throw NullPointerException("roomId is Null")
-            Log.d("ddddddd1", "$roomId")
-            sendMessage(roomId, contents)
-            binding.etInputMessage.text = null
+
+            if (contents.isNotBlank()) {
+                sendMessage(roomId, contents)
+                binding.etInputMessage.text = null
+            }
         }
 
         binding.ivRoomMap.setOnClickListener{
@@ -157,18 +151,8 @@ class MyPromiseRoomFragment : Fragment() {
             } catch (e: Exception) {
                 Log.e("sendMessage", "Error in sendMessage: $e")
             }
-
-
         }
     }
-
-//    fun getCurrentUserData() {
-//        lifecycleScope.launch {
-//            myPromiseViewModel.currentUserData.mapLatest { userData ->
-//                currentUserData = userData
-//            }
-//        }
-//    }
 
     private fun initAdapter() {
 

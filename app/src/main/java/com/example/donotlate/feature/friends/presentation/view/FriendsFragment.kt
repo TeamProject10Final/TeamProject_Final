@@ -48,14 +48,14 @@ class FriendsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFriendsBinding.inflate(layoutInflater)
+        initRecyclerView()
+        getFriendsList()
+        observeViewModel()
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.btnRequestList.setOnClickListener {
             setFragment(FriendsRequestListFragment())
         }
@@ -99,6 +99,13 @@ class FriendsFragment : Fragment() {
             friendsViewModel.friendsList.collect { friends ->
                 friendsAdapter.submitList(friends)
                 Log.d("FriendsFragment", "Observed friends: $friends")
+            }
+        }
+        lifecycleScope.launch {
+            friendsViewModel.currentUserData.collect{userData ->
+                userData?.let {
+                    binding.tvTopUserName.text = userData.name
+                }
             }
         }
     }

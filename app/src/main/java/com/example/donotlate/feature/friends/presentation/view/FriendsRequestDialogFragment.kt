@@ -105,12 +105,12 @@ class FriendsRequestDialogFragment : DialogFragment() {
                 status[requestID]?.let {
                     when (it.status) {
                         "request" -> {
-                            binding.btnFriendRequest.text = "친구 상태"
+                            binding.btnFriendRequest.text = "요청 중"
                             binding.btnFriendRequest.isClickable = false
                             binding.btnFriendRequest.setBackgroundColor(
                                 ContextCompat.getColor(
                                     requireContext(),
-                                    R.color.white
+                                    R.color.white_gray
                                 )
                             )
                         }

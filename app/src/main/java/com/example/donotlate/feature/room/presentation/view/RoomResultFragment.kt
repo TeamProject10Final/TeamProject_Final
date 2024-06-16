@@ -1,5 +1,6 @@
 package com.example.donotlate.feature.room.presentation.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomResultBinding
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.feature.room.presentation.dialog.CancelFragmentDialog
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
@@ -70,6 +72,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
 
         binding.btnRoomResult.setOnClickListener {
             dataToFirebase()
+
         }
 
 
@@ -116,9 +119,10 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
         lifecycleScope.launch {
             roomViewModel.makeARoomResult.collect{ it ->
                 if(it){
-                    Toast.makeText(requireContext(), "성공?", Toast.LENGTH_SHORT).show()
-                }else {
-                    Toast.makeText(requireContext(), "실패 ㅠㅠ", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(requireActivity(), MainFragment()::class.java)
+                    val activity = requireActivity()
+                    startActivity(intent)
+                    activity.finish()
                 }
             }
         }
@@ -154,14 +158,10 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     private fun dataToFirebase() {
 
         val inputData = roomViewModel.inputText.value
-        Log.d("data12", "${inputData}")
 
         val locationData = roomViewModel.locationData.value
-        Log.d("data12", "${locationData}")
 
         val userData = roomViewModel.selectedUserUIds.value
-        Log.d("data12", "${userData}")
-
 
         makeARoom(
             roomId = UUID.randomUUID().toString(),
@@ -174,9 +174,6 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             participants = userData ?: emptyList(),
             promiseTime = inputData?.time ?: ""
         )
-//                }
-//            }
-
     }
 
 

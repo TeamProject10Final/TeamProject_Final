@@ -8,5 +8,12 @@ fun List<UserEntity>.toModelList(): List<RoomUserModel> {
 }
 
 fun UserEntity.toRoomUserModel() = RoomUserModel(
-    name, email, uid, friends, count, continuousCounter, createdAt, profileImgUrl
+    name = name,
+    email = email,
+    uId = uid,
+    friend = friends,
+    count = count,
+    continuousCounter = continuousCounter,
+    createdAt = createdAt,
+    profileImgUrl = profileImgUrl
 )

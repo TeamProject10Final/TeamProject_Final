@@ -1,6 +1,7 @@
 package com.example.donotlate.feature.mypromise.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMypromiseListBinding
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.feature.mypromise.presentation.adapter.MyPromiseAdapter
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModel
 import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModelFactory
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
@@ -56,18 +59,19 @@ class MyPromiseListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMypromiseListBinding.inflate(inflater, container, false)
+        lifecycleScope.launch {
+            myPromiseViewModel.getCurrentUserId()
+        }
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setPromiseList()
         backButton()
+        observeViewModel()
 
-        binding.ivPromiseBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
         val adapter = MyPromiseAdapter { promiseRoom ->
             openPromiseRoomFragment(promiseRoom)
         }
@@ -96,9 +100,9 @@ class MyPromiseListFragment : Fragment() {
 
     }
 
-    private fun setPromiseList() {
+    private fun setPromiseList(uid: String) {
         lifecycleScope.launch {
-            myPromiseViewModel.loadPromiseRooms()
+            myPromiseViewModel.loadPromiseRooms(uid)
         }
     }
 
@@ -118,9 +122,31 @@ class MyPromiseListFragment : Fragment() {
     private fun backButton() {
         binding.ivPromiseBack.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .remove(this)
-                .addToBackStack(null)
+                .replace(R.id.frame, MainFragment())
                 .commit()
+        }
+    }
+
+    fun observeViewModel() {
+        lifecycleScope.launch {
+            myPromiseViewModel.currentUserId.collect { uid ->
+                if (uid != null) {
+                    Log.d("asdasd", "$uid")
+                    setPromiseList(uid)
+                }
+            }
+        }
+        lifecycleScope.launch {
+            myPromiseViewModel.currentUserData.collect{userData ->
+                userData?.let {
+                    binding.tvTopUserName.text = userData.name ?: throw NullPointerException("User Data Null")
+                }
+            }
+        }
+        lifecycleScope.launch {
+            myPromiseViewModel.closestPromiseTitle.collect{title ->
+                binding.tvTitleName.text = title
+            }
         }
     }
 

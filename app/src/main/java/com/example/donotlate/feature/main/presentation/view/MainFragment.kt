@@ -10,9 +10,11 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
+import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMainBinding
 import com.example.donotlate.feature.auth.presentation.view.LoginFragment
@@ -27,7 +29,6 @@ import com.example.donotlate.feature.room.presentation.view.RoomActivity
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import com.example.donotlate.feature.setting.presentation.adapter.SettingAdapter
 import com.example.donotlate.feature.setting.presentation.view.MyPageFragment
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
@@ -38,21 +39,27 @@ class MainFragment : Fragment() {
             appContainer.getUserDataUseCase,
             appContainer.getAllUsersUseCase,
             appContainer.getCurrentUserUseCase,
-            appContainer.imageUploadUseCase
+            appContainer.imageUploadUseCase,
+            appContainer.firebaseAuth
+
         )
     }
 
     private lateinit var binding: FragmentMainBinding
 
-    private val auth by lazy {
-        FirebaseAuth.getInstance()
-    }
-
     private var name: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("FirebaseMyAuth", "${auth.currentUser?.uid}")
         mainPageViewModel.getCurrentUserUId()
+        setFragmentResultListener("logoutRequestKey") { _, bundle ->
+            val result = bundle.getString("result")
+            if (result == "confirm") {
+                Log.d("SettingFragment", "Logout result: $result")
+                mainPageViewModel.logout()
+                navigateToMainActivity()
+            }
+        }
+
         super.onCreate(savedInstanceState)
     }
 
@@ -209,6 +216,14 @@ class MainFragment : Fragment() {
             parentFragmentManager.beginTransaction().add(R.id.main, MyPageFragment())
                 .addToBackStack("").commit()
         }
+    }
+
+    private fun navigateToMainActivity() {
+        Log.d("SettingFragment", "Navigating to MainActivity")
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        requireActivity().finish() // 현재 Activity 종료
     }
 
     private fun logoutButton() {

@@ -89,7 +89,7 @@
         android:maxLines="1"
         android:text="아무내용이나 계속 넣는 중입니다 어떻게 되는것인지"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@id/tv_title_defult"
         app:layout_constraintEnd_toEndOf="@id/tv_title_defult"
         app:layout_constraintStart_toStartOf="@id/tv_title_date"
