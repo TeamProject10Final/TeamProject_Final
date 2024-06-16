@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/iv_Item_Map"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
         android:layout_margin="10dp"
         android:background="@drawable/no_picture_background"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
         android:ellipsize="end"
         android:text="성심당 본점"
         android:textColor="@color/black"
-        android:textSize="22sp"
+        android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/iv_Item_Map"
         app:layout_constraintTop_toTopOf="@+id/iv_Item_Map" />
@@ -69,7 +69,7 @@
         android:text="1588-8069"
         android:maxLines="1"
         android:ellipsize="end"
-        android:textColor="@color/black"
+        android:textColor="@color/dark_gray"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/tv_Item_Map_Address"
         app:layout_constraintTop_toBottomOf="@+id/tv_Item_Map_Address" />
@@ -78,7 +78,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#AEAEAE"
+        android:background="@color/light_gray"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

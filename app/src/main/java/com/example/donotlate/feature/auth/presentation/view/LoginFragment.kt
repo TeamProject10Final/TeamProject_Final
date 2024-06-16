@@ -1,11 +1,8 @@
 package com.example.donotlate.feature.auth.presentation.view
 
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableStringBuilder
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +45,7 @@ class LoginFragment : Fragment() {
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        setTitle()
+//        setTitle()
         observedLogInResult()
 
 
@@ -73,15 +70,15 @@ class LoginFragment : Fragment() {
     }
 
 
-    private fun setTitle() {
-        val title = SpannableStringBuilder("환영합니다!\n로그인을 진행해주세요.")
-        title.apply {
-            setSpan(RelativeSizeSpan(1.2f), 7, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        }
-
-        binding.tvLoginTitle.text = title
-
-    }
+//    private fun setTitle() {
+//        val title = SpannableStringBuilder("환영합니다!\n로그인을 진행해주세요.")
+//        title.apply {
+//            setSpan(RelativeSizeSpan(1.2f), 7, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        }
+//
+//        binding.tvLoginTitle.text = title
+//
+//    }
 
     private fun startSignUp() {
         binding.tvLoginSign.setOnClickListener {

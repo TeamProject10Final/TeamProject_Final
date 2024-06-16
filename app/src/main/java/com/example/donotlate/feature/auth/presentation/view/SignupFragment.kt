@@ -4,12 +4,9 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
-import android.text.Spannable
-import android.text.SpannableStringBuilder
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,11 +16,11 @@ import androidx.fragment.app.viewModels
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.MainActivity
 import com.example.donotlate.R
-import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.databinding.FragmentSignupBinding
 import com.example.donotlate.feature.auth.presentation.validation.CheckValidation
 import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewModel
 import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.google.android.material.snackbar.Snackbar
 
 class SignupFragment : Fragment(), CheckValidation {
@@ -49,7 +46,7 @@ class SignupFragment : Fragment(), CheckValidation {
     ): View {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
 
-        setTitle()
+//        setTitle()
 
         return binding.root
     }
@@ -68,14 +65,14 @@ class SignupFragment : Fragment(), CheckValidation {
 
     }
 
-    private fun setTitle() {
-        val title = SpannableStringBuilder("회원가입 후\n약속을 잡으러 가볼까요?")
-        title.apply {
-            setSpan(RelativeSizeSpan(1.2f), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        }
-        binding.tvSignTitle.text = title
-
-    }
+//    private fun setTitle() {
+//        val title = SpannableStringBuilder("회원가입 후\n약속을 잡으러 가볼까요?")
+//        title.apply {
+//            setSpan(RelativeSizeSpan(1.2f), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        }
+//        binding.tvSignTitle.text = title
+//
+//    }
 
     private fun startLogin() {
         binding.tvSignLogin.setOnClickListener {
