@@ -17,6 +17,7 @@ import com.example.donotlate.feature.mypromise.presentation.adapter.MyPromiseAda
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModel
 import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModelFactory
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
@@ -66,7 +67,6 @@ class MyPromiseListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setPromiseList()
         backButton()
         observeViewModel()
 
@@ -136,6 +136,18 @@ class MyPromiseListFragment : Fragment() {
                     Log.d("asdasd", "$uid")
                     setPromiseList(uid)
                 }
+            }
+        }
+        lifecycleScope.launch {
+            myPromiseViewModel.currentUserData.collect{userData ->
+                userData?.let {
+                    binding.tvTopUserName.text = userData.name ?: throw NullPointerException("User Data Null")
+                }
+            }
+        }
+        lifecycleScope.launch {
+            myPromiseViewModel.closestPromiseTitle.collect{title ->
+                binding.tvTitleName.text = title
             }
         }
     }

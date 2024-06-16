@@ -33,7 +33,6 @@ class MyPromiseRoomFragment : Fragment() {
             appContainer.getUserDataUseCase,
             appContainer.getMyDataFromFirebaseUseCase,
             appContainer.firebaseAuth
-
         )
     }
 
@@ -62,9 +61,7 @@ class MyPromiseRoomFragment : Fragment() {
         arguments?.let { bundle ->
             promiseRoom = bundle.getParcelable("promiseRoom")
             Log.d("promiseRoom", "Received promiseRoom: $promiseRoom")
-
         }
-
     }
 
     override fun onCreateView(
@@ -80,7 +77,6 @@ class MyPromiseRoomFragment : Fragment() {
 
         initAdapter()
         backButton()
-//        getCurrentUserData()
 
         promiseRoom?.let { room ->
 
@@ -117,33 +113,19 @@ class MyPromiseRoomFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 val message = MessageModel(
-                    senderName = currentUserData?.name
-                        ?: throw NullPointerException("User Data Null!"),
+                    senderName = currentUserData?.name ?: throw NullPointerException("User Data Null!"),
                     sendTimestamp = Timestamp.now(),
-                    senderId = currentUserData?.uid
-                        ?: throw NullPointerException("User Data Null!"),
+                    senderId = currentUserData?.uid ?: throw NullPointerException("User Data Null!"),
                     contents = contents,
                     messageId = "",
-                    senderProfileUrl = currentUserData?.profileImgUrl ?: throw NullPointerException(
-                        "User Data Null!"
-                    )
+                    senderProfileUrl = currentUserData?.profileImgUrl ?: throw NullPointerException("User Data Null!")
                 )
                 myPromiseViewModel.sendMessage(roomId, message)
             } catch (e: Exception) {
                 Log.e("sendMessage", "Error in sendMessage: $e")
             }
-
-
         }
     }
-
-//    fun getCurrentUserData() {
-//        lifecycleScope.launch {
-//            myPromiseViewModel.currentUserData.mapLatest { userData ->
-//                currentUserData = userData
-//            }
-//        }
-//    }
 
     private fun initAdapter() {
 

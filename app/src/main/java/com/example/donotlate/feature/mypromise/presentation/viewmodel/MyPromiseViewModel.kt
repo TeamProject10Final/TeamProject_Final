@@ -36,6 +36,8 @@ class MyPromiseViewModel(
 
     private var currentUId: String? = null
 
+    private val _closestPromiseTitle = MutableStateFlow<String?>(null)
+    val closestPromiseTitle: StateFlow<String?> get() = _closestPromiseTitle
 
     private val _promiseRoomList = MutableStateFlow<List<PromiseModel>>(emptyList())
     val promiseRoomModel: StateFlow<List<PromiseModel>> get() = _promiseRoomList
@@ -79,6 +81,9 @@ class MyPromiseViewModel(
                 val promiseRooms = it.toPromiseModelList()
                 _promiseRoomList.value = promiseRooms
                 Log.d("PromiseList", "${_promiseRoomList.value}")
+
+                val closestPromise = promiseRooms.minByOrNull {  it.promiseDate }
+                _closestPromiseTitle.value = closestPromise?.roomTitle
             }
         }
     }
