@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -54,13 +55,13 @@ class MyPromiseRoomFragment : Fragment() {
         lifecycleScope.launch {
             myPromiseViewModel.currentUserData.collect() { userData ->
                 currentUserData = userData
-                Log.d("tttt", "${userData}")
+
             }
         }
 
         arguments?.let { bundle ->
             promiseRoom = bundle.getParcelable("promiseRoom")
-            Log.d("promiseRoom", "Received promiseRoom: $promiseRoom")
+
         }
     }
 
@@ -96,9 +97,11 @@ class MyPromiseRoomFragment : Fragment() {
         binding.btnSend.setOnClickListener {
             val contents = binding.etInputMessage.text.toString()
             val roomId = roomId ?: throw NullPointerException("roomId is Null")
-            Log.d("ddddddd1", "$roomId")
-            sendMessage(roomId, contents)
-            binding.etInputMessage.text = null
+
+            if (contents.isNotBlank()) {
+                sendMessage(roomId, contents)
+                binding.etInputMessage.text = null
+            }
         }
     }
 
@@ -113,12 +116,16 @@ class MyPromiseRoomFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 val message = MessageModel(
-                    senderName = currentUserData?.name ?: throw NullPointerException("User Data Null!"),
+                    senderName = currentUserData?.name
+                        ?: throw NullPointerException("User Data Null!"),
                     sendTimestamp = Timestamp.now(),
-                    senderId = currentUserData?.uid ?: throw NullPointerException("User Data Null!"),
+                    senderId = currentUserData?.uid
+                        ?: throw NullPointerException("User Data Null!"),
                     contents = contents,
                     messageId = "",
-                    senderProfileUrl = currentUserData?.profileImgUrl ?: throw NullPointerException("User Data Null!")
+                    senderProfileUrl = currentUserData?.profileImgUrl ?: throw NullPointerException(
+                        "User Data Null!"
+                    )
                 )
                 myPromiseViewModel.sendMessage(roomId, message)
             } catch (e: Exception) {
