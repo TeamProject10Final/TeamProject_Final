@@ -1,6 +1,5 @@
 package com.example.donotlate.feature.auth.presentation.view
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -80,8 +79,8 @@ class SignupFragment : Fragment(), CheckValidation {
             activity.removeFragment(this)
 
             //기존 코드로 로그인 눌렀을 경우 아무화면도 나타나지 않음.
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(requireContext(), MainActivity::class.java)
+//            startActivity(intent)
         }
     }
 

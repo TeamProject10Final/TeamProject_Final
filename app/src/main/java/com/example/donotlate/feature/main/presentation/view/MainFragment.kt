@@ -26,7 +26,7 @@ import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDial
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import com.example.donotlate.feature.setting.presentation.adapter.SettingAdapter
-import com.example.donotlate.feature.setting.presentation.view.MypageFragment
+import com.example.donotlate.feature.setting.presentation.view.MyPageFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -206,7 +206,7 @@ class MainFragment : Fragment() {
     //마이페이지 이동
     private fun startMyPage() {
         binding.constraint.setOnClickListener {
-            parentFragmentManager.beginTransaction().add(R.id.main, MypageFragment())
+            parentFragmentManager.beginTransaction().add(R.id.main, MyPageFragment())
                 .addToBackStack("").commit()
         }
     }

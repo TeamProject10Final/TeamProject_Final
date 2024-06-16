@@ -1,9 +1,12 @@
 package com.example.donotlate.feature.mypromise.presentation.model
 
+import android.os.Parcelable
 import com.google.firebase.Timestamp
+import kotlinx.parcelize.Parcelize
 
-
+@Parcelize
 data class PromiseModel(
+    val roomId: String,
     val roomTitle: String,
     val roomCreatedAt: Timestamp,
     val promiseTime: String,
@@ -13,8 +16,8 @@ data class PromiseModel(
     val destinationLng: Double, // <-- 경도
     val penalty: String,
     val participants: List<String>
-){
-    constructor(): this("", Timestamp.now(), "", "", "", 0.0, 0.0, "", listOf())
+) : Parcelable {
+    constructor() : this("", "", Timestamp.now(), "", "", "", 0.0, 0.0, "", listOf())
 }
 
 

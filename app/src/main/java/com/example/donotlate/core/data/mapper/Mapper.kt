@@ -26,11 +26,29 @@ fun UserResponse.toUserEntity() = UserEntity(
 )
 
 fun PromiseRoomEntity.toPromiseRoomResponse() = PromiseRoomResponse(
-    roomTitle, roomCreatedAt, promiseTime, promiseDate, destination, destinationLat, destinationLng, penalty, participants
+    roomId,
+    roomTitle,
+    roomCreatedAt,
+    promiseTime,
+    promiseDate,
+    destination,
+    destinationLat,
+    destinationLng,
+    penalty,
+    participants
 )
 
 fun PromiseRoomResponse.toPromiseEntity() = PromiseRoomEntity(
-    roomTitle, roomCreatedAt, promiseTime, promiseDate, destination, destinationLat, destinationLng, penalty, participants
+    roomId,
+    roomTitle,
+    roomCreatedAt,
+    promiseTime,
+    promiseDate,
+    destination,
+    destinationLat,
+    destinationLng,
+    penalty,
+    participants
 )
 
 fun FriendRequestDTO.toEntity() = FriendRequestEntity(
@@ -58,10 +76,27 @@ fun List<PromiseRoomResponse>.toPromiseEntityList(): List<PromiseRoomEntity>{
 }
 
 fun MessageResponse.toMessageEntity() = MessageEntity(
-    senderName, sendTimestamp, contents, senderProfileUrl
+    messageId = messageId,
+    senderId = senderId,
+    senderName = senderName,
+    sendTimestamp = sendTimestamp,
+    contents = contents,
+    senderProfileUrl = senderProfileUrl
 )
 
 fun MessageEntity.toMessageResponse() = MessageResponse(
-    senderName, sendTimestamp, contents, senderProfileUrl
+    messageId = messageId,
+    senderId = senderId,
+    senderName = senderName,
+    sendTimestamp = sendTimestamp,
+    contents = contents,
+    senderProfileUrl = senderProfileUrl
 )
 
+fun List<MessageEntity>.toMessageResponseList(): List<MessageResponse> {
+    return this.map { it.toMessageResponse() }
+}
+
+fun List<MessageResponse>.toMessageEntityList(): List<MessageEntity> {
+    return this.map { it.toMessageEntity() }
+}

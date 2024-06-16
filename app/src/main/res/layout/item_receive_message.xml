@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tv_sender_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="임채명"
+        app:layout_constraintStart_toEndOf="@id/iv_sender_profile_img"
+        app:layout_constraintTop_toTopOf="@id/iv_sender_profile_img" />
+
+    <ImageView
+        android:id="@+id/iv_sender_profile_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_Item2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/btn_radius_arctic"
+        android:backgroundTint="#D2EEF6"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_sender_id"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sender_id">
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:maxWidth="200dp"
+            android:text="안녕하세요"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_send_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="16:04"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@id/layout_Item2"
+        app:layout_constraintStart_toEndOf="@id/layout_Item2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

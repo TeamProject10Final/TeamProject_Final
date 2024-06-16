@@ -11,6 +11,11 @@ class DoNotLateApplication:Application() {
 
     override fun onCreate() {
         APPINSTANCE = this
+        FirebaseApp.initializeApp(this)
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(false)
+            .build()
+        FirebaseFirestore.getInstance().firestoreSettings = settings
 
         super.onCreate()
     }

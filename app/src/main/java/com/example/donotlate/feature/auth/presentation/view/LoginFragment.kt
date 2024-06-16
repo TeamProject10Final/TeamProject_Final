@@ -70,20 +70,12 @@ class LoginFragment : Fragment() {
     }
 
 
-//    private fun setTitle() {
-//        val title = SpannableStringBuilder("환영합니다!\n로그인을 진행해주세요.")
-//        title.apply {
-//            setSpan(RelativeSizeSpan(1.2f), 7, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-//        }
-//
-//        binding.tvLoginTitle.text = title
-//
-//    }
-
     private fun startSignUp() {
         binding.tvLoginSign.setOnClickListener {
             val activity = activity as MainActivity
-            activity.changeFragment(SignupFragment())
+            activity.supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_Login, SignupFragment())
+                .commit()
         }
     }
 
@@ -113,7 +105,7 @@ class LoginFragment : Fragment() {
         logInViewModel.logInResult.observe(viewLifecycleOwner) { result ->
             if (result.isSuccess) {
                 val activity = activity as MainActivity
-                activity.changeFragment(MainFragment())
+                activity.replaceFragment(MainFragment())
             } else {
                 Toast.makeText(requireContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
             }

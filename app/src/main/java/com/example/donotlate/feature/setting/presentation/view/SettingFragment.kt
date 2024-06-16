@@ -92,7 +92,8 @@ class SettingFragment : Fragment() {
     //마이페이지 이동
     private fun startMyPage(){
         binding.constraint.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, MypageFragment()).addToBackStack("").commit()
+            parentFragmentManager.beginTransaction().replace(R.id.frame, MyPageFragment())
+                .addToBackStack("").commit()
         }
     }
 

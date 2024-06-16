@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
 import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
-import com.example.donotlate.feature.main.domain.usecase.GetUserUseCase
 import com.example.donotlate.feature.main.presentation.mapper.toModel
 import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
@@ -35,6 +34,14 @@ class MainPageViewModel(
 
     private val _profileImageUrl = MutableStateFlow<String>("")
     val profileImageUrl: StateFlow<String> get() = _profileImageUrl
+
+    // flatMapLatest =>
+
+//    val userFromFireStore = getCurrentUser.flatMapLatest {result  ->
+//        result.onSuccess {
+//            getUserDataUseCase(it)
+//        }
+//    }
 
     fun getUserFromFireStore(uId: String?) {
         try {

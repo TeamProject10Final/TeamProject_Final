@@ -5,15 +5,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
+import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentViewPagerBinding
-import com.example.donotlate.feature.room.presentation.dialog.BackFragmentDialog
-import com.example.donotlate.feature.room.presentation.dialog.ResultFragmentDialog
 import com.example.donotlate.feature.room.presentation.adapter.RoomViewPagerAdapter
+import com.example.donotlate.feature.room.presentation.dialog.BackFragmentDialog
+import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
+import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 
 class ViewPagerFragment : Fragment() {
 
-    private lateinit var binding: FragmentViewPagerBinding
+    private var _binding: FragmentViewPagerBinding? = null
+    private val binding get() = _binding!!
+
+    private val roomViewModel: RoomViewModel by activityViewModels {
+        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
+        RoomViewModelFactory(
+            appContainer.getAllUsersUseCase,
+            appContainer.getSearchListUseCase,
+            appContainer.makeAPromiseRoomUseCase,
+            appContainer.loadToCurrentUserDataUseCase,
+            appContainer.getFriendsListFromFirebaseUseCase,
+            appContainer.getCurrentUserUseCase
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +42,7 @@ class ViewPagerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentViewPagerBinding.inflate(inflater, container, false)
+        _binding = FragmentViewPagerBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -34,7 +50,7 @@ class ViewPagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewPager.isUserInputEnabled = false
+        nextPage()
         initViewPager()
 
     }
@@ -54,10 +70,6 @@ class ViewPagerFragment : Fragment() {
                     super.onPageSelected(position)
                     when (position) {
                         0 -> {
-                            btnRoomNext.text = "다음"
-                            btnRoomNext.setOnClickListener {
-                                nextPage()
-                            }
                             ivRoomBack.setOnClickListener {
                                 val dialog = BackFragmentDialog()
                                 dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
@@ -65,20 +77,11 @@ class ViewPagerFragment : Fragment() {
 
                         }
                         1 -> {
-                            btnRoomNext.text = "다음"
-                            btnRoomNext.setOnClickListener {
-                                nextPage()
-                            }
                             ivRoomBack.setOnClickListener {
                                 prevPage()
                             }
                         }
                         2 -> {
-                            btnRoomNext.text = "만들기"
-                            btnRoomNext.setOnClickListener {
-                                val dialog = ResultFragmentDialog()
-                                dialog.show(requireActivity().supportFragmentManager, "ResultFragmentDialog")
-                            }
                             ivRoomBack.setOnClickListener {
                                 prevPage()
                             }
@@ -90,14 +93,21 @@ class ViewPagerFragment : Fragment() {
     }
 
     private fun nextPage() {
-        val viewPager = binding.viewPager
-        val current = viewPager.currentItem
-        viewPager.setCurrentItem(current+1, true)
+        roomViewModel.modelCurrent.observe(requireActivity()) {
+            val viewPager = binding.viewPager
+            val current = viewPager.currentItem
+            viewPager.setCurrentItem(current + 1, true)
+        }
     }
 
     private fun prevPage() {
         val viewPager = binding.viewPager
         val current = viewPager.currentItem
         viewPager.setCurrentItem(current-1, true)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
