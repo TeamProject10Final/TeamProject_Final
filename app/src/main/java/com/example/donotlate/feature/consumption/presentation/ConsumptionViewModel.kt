@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.donotlate.core.domain.usecase.GetMyDataFromFireStoreUseCase
 import com.example.donotlate.feature.consumption.domain.usecase.DeleteConsumptionUseCase
 import com.example.donotlate.feature.consumption.domain.usecase.GetConsumptionByCategoryUseCase
 import com.example.donotlate.feature.consumption.domain.usecase.GetConsumptionByIdUseCase
@@ -16,6 +17,8 @@ import com.example.donotlate.feature.consumption.domain.usecase.GetTotalPriceUse
 import com.example.donotlate.feature.consumption.domain.usecase.GetUnfinishedConsumptionUseCase
 import com.example.donotlate.feature.consumption.domain.usecase.InsertConsumptionUseCase
 import com.example.donotlate.feature.consumption.domain.usecase.ToggleIsFinishedUseCase
+import com.example.donotlate.feature.main.presentation.mapper.toModel
+import com.example.donotlate.feature.main.presentation.model.UserModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,7 +38,8 @@ class ConsumptionViewModel(
     private val getTotalPriceUseCase: GetTotalPriceUseCase,
     private val getDataCountUseCase: GetDataCountUseCase,
     private val getLiveDataCountUseCase: GetLiveDataCountUseCase,
-    private val toggleIsFinishedUseCase: ToggleIsFinishedUseCase
+    private val toggleIsFinishedUseCase: ToggleIsFinishedUseCase,
+    private val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase
 
 
 ) : ViewModel() {
@@ -58,13 +62,26 @@ class ConsumptionViewModel(
     private val _liveDataCount = MutableStateFlow(0)
     val liveDataCount: StateFlow<Int> get() = _liveDataCount
 
+    // 수정 하기
+    private val _currentUserData = MutableStateFlow<UserModel?>(null)
+    val currentUserData: StateFlow<UserModel?> get() = _currentUserData
+
     init {
 
         fetchFinishedConsumptions()
         fetchUnfinishedConsumptions()
         fetchTotalPrice()
         fetchLiveDataCount()
+        getCurrentUserData()
 
+    }
+
+    private fun getCurrentUserData(){
+        viewModelScope.launch {
+            getMyDataFromFireStoreUseCase().collect{ userData ->
+                _currentUserData.value = userData?.toModel() ?: throw NullPointerException("user data null")
+            }
+        }
     }
 
     private fun fetchFinishedConsumptions() {
@@ -139,7 +156,8 @@ class ConsumptionViewModelFactory(
     private val getTotalPriceUseCase: GetTotalPriceUseCase,
     private val getDataCountUseCase: GetDataCountUseCase,
     private val getLiveDataCountUseCase: GetLiveDataCountUseCase,
-    private val toggleIsFinishedUseCase: ToggleIsFinishedUseCase
+    private val toggleIsFinishedUseCase: ToggleIsFinishedUseCase,
+    private val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -155,7 +173,8 @@ class ConsumptionViewModelFactory(
                 getTotalPriceUseCase,
                 getDataCountUseCase,
                 getLiveDataCountUseCase,
-                toggleIsFinishedUseCase
+                toggleIsFinishedUseCase,
+                getMyDataFromFireStoreUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
