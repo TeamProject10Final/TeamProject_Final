@@ -62,6 +62,7 @@ class MyPromiseListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setPromiseList()
+        backButton()
 
         binding.ivPromiseBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -107,10 +108,19 @@ class MyPromiseListFragment : Fragment() {
         fragment.arguments = bundle
 
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.frame, fragment)
+            .add(R.id.frame, fragment)
             .addToBackStack(null)
             .commit()
 
+    }
+
+    private fun backButton() {
+        binding.ivPromiseBack.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .remove(this)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     override fun onDestroyView() {
