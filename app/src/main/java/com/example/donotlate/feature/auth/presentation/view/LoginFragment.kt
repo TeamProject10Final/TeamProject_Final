@@ -74,7 +74,7 @@ class LoginFragment : Fragment() {
         binding.tvLoginSign.setOnClickListener {
             val activity = activity as MainActivity
             activity.supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_Login,SignupFragment())
+                .add(R.id.fragment_Login, SignupFragment())
                 .commit()
         }
     }

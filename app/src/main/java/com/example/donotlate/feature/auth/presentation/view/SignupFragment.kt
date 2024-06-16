@@ -1,6 +1,5 @@
 package com.example.donotlate.feature.auth.presentation.view
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable

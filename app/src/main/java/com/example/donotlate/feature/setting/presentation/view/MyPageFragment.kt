@@ -40,8 +40,8 @@ class MyPageFragment : Fragment() {
             selectedUri = uri
             Log.d("uri확인",selectedUri.toString())
 
-            val imageBitmap = uriToBitmap(requireContext(), uri)//uri -> bitMap으로 변경
-            binding.ivProfileImage.setImageBitmap(imageBitmap)
+//            val imageBitmap = uriToBitmap(requireContext(), uri)//uri -> bitMap으로 변경
+//            binding.ivProfileImage.setImageBitmap(imageBitmap)
         }
     }
 
@@ -104,14 +104,14 @@ class MyPageFragment : Fragment() {
     }
 }
 
-//val profileImgUrl: String = ""
-fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
-    return try {
-        val inputStream = context.contentResolver.openInputStream(uri)
-        BitmapFactory.decodeStream(inputStream)
-
-    } catch (e: IOException) {
-        e.printStackTrace()
-        null
-    }
-}
+////val profileImgUrl: String = ""
+//fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
+//    return try {
+//        val inputStream = context.contentResolver.openInputStream(uri)
+//        BitmapFactory.decodeStream(inputStream)
+//
+//    } catch (e: IOException) {
+//        e.printStackTrace()
+//        null
+//    }
+//}

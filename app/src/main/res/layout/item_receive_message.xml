@@ -42,10 +42,10 @@
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
             android:maxWidth="200dp"
-            android:textColor="@color/black"
             android:text="안녕하세요"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

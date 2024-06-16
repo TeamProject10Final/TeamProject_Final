@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomsheetfragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <!--    <LinearLayout-->
+            <!--        android:id="@+id/optionsLayout"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:orientation="vertical">-->
+            <!--        &lt;!&ndash; 여기에 체크박스들&ndash;&gt;-->
+            <!--    </LinearLayout>-->
+
+            <TextView
+                android:id="@+id/routeDetailsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Routes Details"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/boundsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bounds"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/geocodedWaypointsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Geocoded Waypoints"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/routeDetailsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="여기에 경로 보여줌" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

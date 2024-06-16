@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 object NetWorkClient {
 
-    private const val GOOGLE_BASE_URL = "https://maps.googleapis.com"
+//    private const val GOOGLE_BASE_URL = "https://maps.googleapis.com"
     private const val SEARCH_BASE_URL = "https://places.googleapis.com"
 
     const val API_KEY = "AIzaSyAl7nz1KScbyyDNKUeYz4rrePkFZBDvhkc" // 김재현
@@ -28,12 +28,12 @@ object NetWorkClient {
             .build()
     }
 
-    private val googleRetrofit = Retrofit.Builder()
-        .baseUrl(GOOGLE_BASE_URL).addConverterFactory(GsonConverterFactory.create()).client(
-            createOkHttpClient()
-        ).build()
-
-    val googleNetWork: GooglePlacesApiService = googleRetrofit.create(GooglePlacesApiService::class.java)
+//    private val googleRetrofit = Retrofit.Builder()
+//        .baseUrl(GOOGLE_BASE_URL).addConverterFactory(GsonConverterFactory.create()).client(
+//            createOkHttpClient()
+//        ).build()
+//
+//    val googleNetWork: GooglePlacesApiService = googleRetrofit.create(GooglePlacesApiService::class.java)
 
     private val searchRetrofit = Retrofit.Builder()
         .baseUrl(SEARCH_BASE_URL).addConverterFactory(GsonConverterFactory.create()).client(
