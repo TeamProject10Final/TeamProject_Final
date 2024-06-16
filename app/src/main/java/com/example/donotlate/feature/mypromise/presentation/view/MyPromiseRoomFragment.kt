@@ -50,6 +50,7 @@ class MyPromiseRoomFragment : Fragment() {
         )
     }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    //아래 코드 지우면 안 됩니다!!!!
     private lateinit var locationCallback: LocationCallback
     private val LOCATION_PERMISSION_REQUEST_CODE = 1000
 
@@ -91,8 +92,6 @@ class MyPromiseRoomFragment : Fragment() {
     ): View {
         _binding = FragmentMyPromiseRoomBinding.inflate(layoutInflater)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-//        checkPermission()
-//        getCurrentLocation()
         return binding.root
     }
 
@@ -128,7 +127,6 @@ class MyPromiseRoomFragment : Fragment() {
         }
 
         binding.ivRoomMap.setOnClickListener{
-            //if
             checkPermissionAndProceed()
         }
     }
@@ -221,22 +219,6 @@ class MyPromiseRoomFragment : Fragment() {
             LOCATION_PERMISSION_REQUEST_CODE
         )
     }
-    private fun checkPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
-            return
-        }
-    }
 
     @SuppressLint("MissingPermission")
     private fun getCurrentLocation() {
@@ -245,49 +227,17 @@ class MyPromiseRoomFragment : Fragment() {
                 .addOnSuccessListener { location: Location? ->
                     location?.let {
                         val userLatLng = LatLng(it.latitude, it.longitude)
-                        // userLatLng를 ViewModel에 설정하고 메시지를 보여줌
                         myPromiseViewModel.setUserLocation(userLatLng)
                         shortMessage()
                     } ?: run {
-                        Toast.makeText(requireContext(), "1 위치 얻기 실패", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), "1 위치 얻기 실패", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .addOnFailureListener {
-                    Toast.makeText(requireContext(), "2 위치 얻기 실패", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "2 위치 얻기 실패", Toast.LENGTH_SHORT).show()
                 }
         }
     }
-//    private fun getCurrentLocation() {
-//        if (ActivityCompat.checkSelfPermission(
-//                requireContext(),
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-//                requireContext(),
-//                Manifest.permission.ACCESS_COARSE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            return
-//        }
-//
-//        fusedLocationClient.lastLocation
-//            .addOnSuccessListener { location: Location? ->
-//                location?.let {
-//                    val userLatLng = LatLng(it.latitude, it.longitude)
-//
-//                    myPromiseViewModel.setUserLocation(userLatLng)
-//                    shortMessage()
-//                    //
-//                } ?: run {
-//                    Toast.makeText(requireContext(), "1 위치 얻기 실패", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//            }
-//            .addOnFailureListener {
-//                Toast.makeText(requireContext(), "2 위치 얻기 실패", Toast.LENGTH_SHORT)
-//                    .show()
-//            }
-//    }
-
     private fun shortMessage() {
         val currentUserLocation = myPromiseViewModel.getUserLocationString()!!
         roomDestination?.let { it1 ->
@@ -319,8 +269,7 @@ class MyPromiseRoomFragment : Fragment() {
                 getCurrentLocation()
             } else {
                 Log.d("확인","3")
-                Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT)
-                    .show()
+
             }
         }
         Log.d("확인","4")
