@@ -40,7 +40,8 @@ class MyPromiseListFragment : Fragment() {
             appContainer.messageReceivingUseCase,
             appContainer.getCurrentUserUseCase,
             appContainer.getUserDataUseCase,
-            appContainer.getMyDataFromFirebaseUseCase
+            appContainer.getMyDataFromFirebaseUseCase,
+            appContainer.firebaseAuth
         )
     }
 

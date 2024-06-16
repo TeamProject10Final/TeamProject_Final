@@ -30,7 +30,8 @@ class MyPromiseViewModel(
     private val messageReceivingUseCase: MessageReceivingUseCase,
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val getUserDataUseCase: GetUserDataUseCase,
-    private val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase
+    private val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase,
+    private val firebaseAuth: FirebaseAuth
 ) : ViewModel() {
 
     private var currentUId: String? = null
@@ -51,7 +52,7 @@ class MyPromiseViewModel(
     private val _messageSendResults = MutableStateFlow<Boolean>(false)
     val messageSendResult: StateFlow<Boolean> get() = _messageSendResults
 
-    val mAuth = FirebaseAuth.getInstance().currentUser?.uid
+    val mAuth = firebaseAuth.currentUser?.uid
 
     init {
         getCurrentUId()
@@ -123,7 +124,8 @@ class MyPromiseViewModelFactory(
     private val messageReceivingUseCase: MessageReceivingUseCase,
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val getUserDataUseCase: GetUserDataUseCase,
-    private val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase
+    private val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase,
+    private val firebaseAuth: FirebaseAuth
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -135,7 +137,8 @@ class MyPromiseViewModelFactory(
                 messageReceivingUseCase,
                 getCurrentUserUseCase,
                 getUserDataUseCase,
-                getMyDataFromFireStoreUseCase
+                getMyDataFromFireStoreUseCase,
+                firebaseAuth
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

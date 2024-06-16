@@ -122,7 +122,7 @@ class AppContainer {
 
     private val googleApiService = NetWorkClient.searchNetWork
 
-    private val firebaseAuth by lazy {
+    val firebaseAuth by lazy {
         FirebaseAuth.getInstance()
     }
 
@@ -369,6 +369,7 @@ class MyPromiseContainer(
     val getCurrentUserUseCase: GetCurrentUserUseCase,
     val getUserDataUseCase: GetUserDataUseCase,
     val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase,
+    val firebaseAuth: FirebaseAuth
 
 ) {
     val myPromiseViewModelFactory = MyPromiseViewModelFactory(
@@ -377,6 +378,7 @@ class MyPromiseContainer(
         messageReceivingUseCase,
         getCurrentUserUseCase,
         getUserDataUseCase,
-        getMyDataFromFireStoreUseCase
+        getMyDataFromFireStoreUseCase,
+        firebaseAuth
     )
 }
