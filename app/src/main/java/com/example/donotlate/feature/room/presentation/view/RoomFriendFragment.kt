@@ -147,6 +147,10 @@ class RoomFriendFragment : Fragment() {
                     selectedUserUIds.add(userUid)
                     selectedUserNames.add(userName)
                 }
+                if (selectedUserUIds.isNotEmpty()) {
+                    selectedUserUIds.remove(mAuth)
+                    selectedUserNames.remove(mName)
+                }
                 saveToSelectedFriendsUIds()
             }
         )
@@ -189,7 +193,7 @@ class RoomFriendFragment : Fragment() {
 //    }
 
     private fun saveToSelectedFriendsUIds() {
-        if (!selectedUserUIds.contains(mAuth)) {
+        if (!selectedUserUIds.contains(mAuth) && selectedUserUIds.isNotEmpty()) {
             selectedUserUIds.add(mAuth)
             roomViewModel.setSelectedUserUIds(selectedUserUIds)
 
