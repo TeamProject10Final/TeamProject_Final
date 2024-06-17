@@ -41,7 +41,7 @@ class MainPageViewModel(
     private val _profileImageUrl = MutableStateFlow<String>("")
     val profileImageUrl: StateFlow<String> get() = _profileImageUrl
 
-    private val _dakeMode = MutableLiveData<Boolean>()
+    private val _dakeMode = MutableLiveData<Boolean>(true)
     val dakeMode: LiveData<Boolean> = _dakeMode
 
     fun dakeModeChange(boolean: Boolean) {

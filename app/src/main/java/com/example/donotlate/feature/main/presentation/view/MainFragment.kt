@@ -27,8 +27,10 @@ import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseListFr
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
+import com.example.donotlate.feature.setting.model.ListType
 import com.example.donotlate.feature.setting.presentation.adapter.SettingAdapter
 import com.example.donotlate.feature.setting.presentation.view.MyPageFragment
+import com.example.donotlate.feature.setting.presentation.view.SettingFragment
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {

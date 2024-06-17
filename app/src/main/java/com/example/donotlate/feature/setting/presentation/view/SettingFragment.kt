@@ -1,11 +1,16 @@
 package com.example.donotlate.feature.setting.presentation.view
 
+import android.annotation.SuppressLint
+import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -56,56 +61,11 @@ class SettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+        darkMode()
         startMyPage()
         observeViewModel()
-        val settingItemList = mutableListOf<ListType>()
-        val settingItemList2 = mutableListOf<ListType>()
-
-        settingItemList.apply {
-            add(ListType(title = "다크 모드", type = 2))
-            add(ListType(title = "폰트 변경", type = 1))
-
-        }
-
-        settingItemList2.apply {
-            add(ListType(title = "건의 하기", type = 1))
-            add(ListType(title = "앱 정보", type = 1))
-            add(ListType(title = "로그 아웃", type = 1))
-        }
-        val adapter1 = SettingAdapter(settingItemList)
-        binding.recyclerSetting.adapter = adapter1
-        binding.recyclerSetting.layoutManager = LinearLayoutManager(requireContext())
-
-        val adapter2 = SettingAdapter(settingItemList2)
-        binding.recyclerSetting2.adapter = adapter2
-        binding.recyclerSetting2.layoutManager = LinearLayoutManager(requireContext())
-
-
-        //앱 설정 아이템 클릭
-        adapter1.itemClick = object : SettingAdapter.ItemClick {
-            override fun onClick(view: View, position: Int) {
-                when (position) {
-                    0 -> {
-
-                    }
-                    1 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        //일반 아이템 클릭
-        adapter2.itemClick = object : SettingAdapter.ItemClick {
-            override fun onClick(view: View, position: Int) {
-                when (position) {
-                    0 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
-                    1 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
-                    2 -> logoutButton()
-                }
-            }
-        }
-
+        switchMode()
+        initView()
 
     }
 
@@ -137,8 +97,96 @@ class SettingFragment : Fragment() {
     }
 
     private fun logoutButton() {
-            val dialog = LogoutFragmentDialog()
-            dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
-            //firebase 로그아웃 기능 추가
+        val dialog = LogoutFragmentDialog()
+        dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
+        //firebase 로그아웃 기능 추가
+    }
+
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private fun darkMode() {
+        val switch = binding.swDarkMode
+
+
+        switch.setOnClickListener {
+
+            if (binding.swDarkMode.isChecked) {
+                //스위치 on
+                Log.d("스위치 동작", "스위치 on 다크모드")
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                },200)
+                mainPageViewModel.dakeModeChange(false)
+            } else {
+                //스위치 off
+                Log.d("스위치 동작", "스위치 off 라이트모드")
+                Handler(Looper.getMainLooper()).postDelayed({
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                },200)
+                mainPageViewModel.dakeModeChange(true)
+            }
+        }
+    }
+
+    //스위치 상태 지정
+    private fun switchMode(){
+        lifecycleScope.launch {
+            if (mainPageViewModel.dakeMode.value == true) {
+                Log.d("스위치", "스위치 위치 off")
+                binding.swDarkMode.setChecked(false)
+            } else {
+                Log.d("스위치", "스위치 위치 on")
+                binding.swDarkMode.setChecked(true)
+            }
+        }
+    }
+
+    private fun initView(){
+        val settingItemList = mutableListOf<ListType>()
+        val settingItemList2 = mutableListOf<ListType>()
+
+        settingItemList.apply {
+            add(ListType(title = "다크 모드", type = 2))
+            add(ListType(title = "폰트 변경", type = 1))
+
+        }
+
+        settingItemList2.apply {
+            add(ListType(title = "건의 하기", type = 1))
+            add(ListType(title = "앱 정보", type = 1))
+            add(ListType(title = "로그 아웃", type = 1))
+        }
+        val adapter1 = SettingAdapter(settingItemList)
+        binding.recyclerSetting.adapter = adapter1
+        binding.recyclerSetting.layoutManager = LinearLayoutManager(requireContext())
+
+        val adapter2 = SettingAdapter(settingItemList2)
+        binding.recyclerSetting2.adapter = adapter2
+        binding.recyclerSetting2.layoutManager = LinearLayoutManager(requireContext())
+
+
+        //앱 설정 아이템 클릭
+        adapter1.itemClick = object : SettingAdapter.ItemClick {
+            override fun onClick(view: View, position: Int) {
+                when (position) {
+                    0 -> {
+
+                    }
+
+                    1 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        //일반 아이템 클릭
+        adapter2.itemClick = object : SettingAdapter.ItemClick {
+            override fun onClick(view: View, position: Int) {
+                when (position) {
+                    0 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
+                    1 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
+                    2 -> logoutButton()
+                }
+            }
+        }
     }
 }
