@@ -78,6 +78,9 @@ class SettingFragment : Fragment() {
         adapter1.itemClick = object : SettingAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
                 when (position) {
+                    0 -> {
+
+                    }
                     1 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
                 }
             }

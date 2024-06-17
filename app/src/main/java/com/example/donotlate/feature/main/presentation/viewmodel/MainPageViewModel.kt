@@ -2,6 +2,8 @@ package com.example.donotlate.feature.main.presentation.viewmodel
 
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -35,6 +37,13 @@ class MainPageViewModel(
 
     private val _profileImageUrl = MutableStateFlow<String>("")
     val profileImageUrl: StateFlow<String> get() = _profileImageUrl
+
+    private val _dakeMode = MutableLiveData<Boolean>()
+    val dakeMode: LiveData<Boolean> = _dakeMode
+
+    fun dakeModeChange(boolean: Boolean) {
+        _dakeMode.value = boolean
+    }
 
     fun getUserFromFireStore(uId: String?) {
         try {

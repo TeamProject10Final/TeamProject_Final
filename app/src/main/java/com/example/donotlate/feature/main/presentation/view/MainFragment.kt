@@ -25,8 +25,10 @@ import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseListFr
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
+import com.example.donotlate.feature.setting.model.ListType
 import com.example.donotlate.feature.setting.presentation.adapter.SettingAdapter
 import com.example.donotlate.feature.setting.presentation.view.MypageFragment
+import com.example.donotlate.feature.setting.presentation.view.SettingFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -100,7 +102,9 @@ class MainFragment : Fragment() {
 
     private fun startSetting() {
         binding.ivMainSetting.setOnClickListener {
-            binding.fragmentMain.openDrawer(GravityCompat.END)
+            parentFragmentManager.beginTransaction().replace(R.id.frame, SettingFragment())
+                .addToBackStack("").commit()
+            //binding.fragmentMain.openDrawer(GravityCompat.END)
             startMyPage()
             initRecyclerview()
         }
@@ -169,8 +173,20 @@ class MainFragment : Fragment() {
     }
 
     private fun initRecyclerview() {
-        val settingItemList = arrayListOf("테마 변경", "폰트 변경")
-        val settingItemList2 = arrayListOf("건의하기", "앱 정보", "로그아웃")
+        val settingItemList = mutableListOf<ListType>()
+        val settingItemList2 = mutableListOf<ListType>()
+
+        settingItemList.apply {
+            add(ListType(title = "다크 모드", type = 2))
+            add(ListType(title = "폰트 변경", type = 1))
+
+        }
+
+        settingItemList2.apply {
+            add(ListType(title = "건의 하기", type = 1))
+            add(ListType(title = "앱 정보", type = 1))
+            add(ListType(title = "로그 아웃", type = 1))
+        }
 
         val adapter1 = SettingAdapter(settingItemList)
         binding.recyclerSetting.adapter = adapter1
