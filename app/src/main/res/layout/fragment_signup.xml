@@ -36,7 +36,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="약속을 잡으로 가볼까요?"
+        android:text="약속을 잡으러 가볼까요?"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -63,8 +63,9 @@
             android:background="@drawable/et_custom"
             android:hint="이름을 입력해 주세요"
             android:fontFamily="@font/pretendard_regular"
-
+            android:textCursorDrawable="@drawable/item_cursor"
             android:paddingLeft="15dp"
+            style="@style/EditTextCursorStyle."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -93,8 +94,9 @@
             android:background="@drawable/et_custom"
             android:hint="이메일을 입력해 주세요"
             android:fontFamily="@font/pretendard_regular"
-
+            android:textCursorDrawable="@drawable/item_cursor"
             android:paddingLeft="15dp"
+            style="@style/EditTextCursorStyle."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_Sign_Name" />
@@ -122,9 +124,11 @@
             android:background="@drawable/et_custom"
             android:inputType="textPassword"
             android:hint="비밀번호를 입력해 주세요"
+            android:maxLength="20"
             android:fontFamily="@font/pretendard_regular"
-
+            android:textCursorDrawable="@drawable/item_cursor"
             android:paddingLeft="15dp"
+            style="@style/EditTextCursorStyle."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_Sign_Email" />
@@ -162,9 +166,11 @@
             android:layout_marginEnd="40dp"
             android:background="@drawable/et_custom"
             android:hint="비밀번호를 다시 입력해 주세요"
+            android:maxLength="20"
             android:fontFamily="@font/pretendard_regular"
-
+            android:textCursorDrawable="@drawable/item_cursor"
             android:paddingLeft="15dp"
+            style="@style/EditTextCursorStyle."
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

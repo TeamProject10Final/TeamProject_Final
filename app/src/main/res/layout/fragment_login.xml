@@ -74,6 +74,8 @@
             android:fontFamily="@font/pretendard_regular"
             android:hint="이메일을 입력해 주세요."
             android:paddingLeft="15dp"
+            style="@style/EditTextCursorStyle."
+            android:textCursorDrawable="@drawable/item_cursor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -103,6 +105,9 @@
             android:hint="비밀번호를 입력해 주세요."
             android:inputType="textPassword"
             android:paddingLeft="15dp"
+            android:maxLength="20"
+            android:textCursorDrawable="@drawable/item_cursor"
+            style="@style/EditTextCursorStyle."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_Login_Email" />
