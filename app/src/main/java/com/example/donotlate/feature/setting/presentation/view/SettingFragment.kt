@@ -66,7 +66,7 @@ class SettingFragment : Fragment() {
         observeViewModel()
         switchMode()
         initView()
-
+        backBt()
     }
 
     override fun onDestroyView() {
@@ -102,13 +102,11 @@ class SettingFragment : Fragment() {
         //firebase 로그아웃 기능 추가
     }
 
+    //다크 모드 on/off
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private fun darkMode() {
         val switch = binding.swDarkMode
-
-
         switch.setOnClickListener {
-
             if (binding.swDarkMode.isChecked) {
                 //스위치 on
                 Log.d("스위치 동작", "스위치 on 다크모드")
@@ -141,21 +139,11 @@ class SettingFragment : Fragment() {
         }
     }
 
+    //어뎁터 연결
     private fun initView(){
-        val settingItemList = mutableListOf<ListType>()
-        val settingItemList2 = mutableListOf<ListType>()
+        val settingItemList = arrayListOf("폰트 변경")
+        val settingItemList2 = arrayListOf("건의 하기","앱 정보","로그 아웃")
 
-        settingItemList.apply {
-            add(ListType(title = "다크 모드", type = 2))
-            add(ListType(title = "폰트 변경", type = 1))
-
-        }
-
-        settingItemList2.apply {
-            add(ListType(title = "건의 하기", type = 1))
-            add(ListType(title = "앱 정보", type = 1))
-            add(ListType(title = "로그 아웃", type = 1))
-        }
         val adapter1 = SettingAdapter(settingItemList)
         binding.recyclerSetting.adapter = adapter1
         binding.recyclerSetting.layoutManager = LinearLayoutManager(requireContext())
@@ -169,11 +157,7 @@ class SettingFragment : Fragment() {
         adapter1.itemClick = object : SettingAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
                 when (position) {
-                    0 -> {
-
-                    }
-
-                    1 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
+                    0 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -187,6 +171,14 @@ class SettingFragment : Fragment() {
                     2 -> logoutButton()
                 }
             }
+        }
+    }
+
+    private fun backBt(){
+        //뒤로가기
+        binding.ivBack.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 }
