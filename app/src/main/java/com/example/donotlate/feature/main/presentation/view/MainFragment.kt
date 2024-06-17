@@ -41,7 +41,7 @@ class MainFragment : Fragment() {
             appContainer.getCurrentUserUseCase,
             appContainer.imageUploadUseCase,
             appContainer.firebaseAuth
-
+//
         )
     }
 
