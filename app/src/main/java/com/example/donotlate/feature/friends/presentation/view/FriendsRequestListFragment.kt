@@ -59,7 +59,7 @@ class FriendsRequestListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.ivFriendRequestListBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frame_friends, FriendsFragment()).commit()
         }
 
         setupRecyclerView()

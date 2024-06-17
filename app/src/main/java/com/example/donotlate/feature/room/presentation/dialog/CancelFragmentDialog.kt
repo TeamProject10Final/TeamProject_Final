@@ -8,9 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import com.example.donotlate.MainActivity
-import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.databinding.BackDialogBinding
+import com.example.donotlate.feature.room.presentation.view.RoomActivity
 
 class CancelFragmentDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +43,8 @@ class CancelFragmentDialog : DialogFragment() {
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
-            val activity = activity as MainActivity
-            activity.replaceFragment(MainFragment())
-            dismiss()
+            val activity = activity as RoomActivity
+            activity.finish()
         }
     }
 }

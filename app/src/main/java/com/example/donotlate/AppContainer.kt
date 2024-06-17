@@ -6,6 +6,7 @@ import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendRequestsListUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendRequestsStatusUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendsListFromFirebaseUseCase
+import com.example.donotlate.core.domain.usecase.GetMyDataFromFireStoreUseCase
 import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
 import com.example.donotlate.core.domain.usecase.LoadToCurrentUserDataUseCase
 import com.example.donotlate.core.domain.usecase.LoadToMyPromiseListUseCase
@@ -31,9 +32,16 @@ import com.example.donotlate.feature.consumption.domain.usecase.InsertConsumptio
 import com.example.donotlate.feature.consumption.domain.usecase.ToggleIsFinishedUseCase
 import com.example.donotlate.feature.consumption.presentation.ConsumptionViewModelFactory
 import com.example.donotlate.feature.consumption.presentation.SharedViewModelFactory
+import com.example.donotlate.feature.directionRoute.api.RouteNetworkClient
+import com.example.donotlate.feature.directionRoute.data.DirectionsRepository
+import com.example.donotlate.feature.directionRoute.data.DirectionsRepositoryImpl
+import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
+import com.example.donotlate.feature.directionRoute.presentation.DirectionsViewModel1Factory
 import com.example.donotlate.feature.friends.data.repository.FriendRequestRepositoryImpl
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
+import com.example.donotlate.feature.mypromise.domain.usecase.MessageReceivingUseCase
+import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseCase
 import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModelFactory
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
 import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
@@ -119,7 +127,7 @@ class AppContainer {
 
     private val googleApiService = NetWorkClient.searchNetWork
 
-    private val firebaseAuth by lazy {
+    val firebaseAuth by lazy {
         FirebaseAuth.getInstance()
     }
 
@@ -214,6 +222,35 @@ class AppContainer {
     val loadToCurrentUserDataUseCase by lazy {
         LoadToCurrentUserDataUseCase(firebaseDataRepository)
     }
+
+    private val directionsApiService = RouteNetworkClient.directionsApiService
+
+    val directionsRepository : DirectionsRepository by lazy {
+        DirectionsRepositoryImpl(directionsApiService)
+    }
+
+    val getDirectionsUseCase: GetDirectionsUseCase by lazy {
+        GetDirectionsUseCase(directionsRepository)
+    }
+
+
+    val directions1Container : Directions1Container by lazy {
+        Directions1Container(getDirectionsUseCase)
+    }
+
+
+    val messageSendingUseCase by lazy {
+        MessageSendingUseCase(firebaseDataRepository)
+    }
+
+    val messageReceivingUseCase by lazy {
+        MessageReceivingUseCase(firebaseDataRepository)
+    }
+
+    val getMyDataFromFirebaseUseCase by lazy {
+        GetMyDataFromFireStoreUseCase(firebaseDataRepository)
+    }
+
 }
 
 class LogInContainer(
@@ -233,12 +270,14 @@ class MainPageContainer(
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val imageUploadUseCase: ImageUploadUseCase,
+    private val firebaseAuth: FirebaseAuth,
 ) {
     val mainPageViewModelFactory = MainPageViewModelFactory(
         getUserDataUseCase,
         getAllUsersUseCase,
         getCurrentUserUseCase,
-        imageUploadUseCase
+        imageUploadUseCase,
+        firebaseAuth
     )
 }
 
@@ -246,7 +285,9 @@ class RoomContainer(
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getSearchListUseCase: GetSearchListUseCase,
     private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase,
-    private val loadToCurrentUserDataUseCase: LoadToCurrentUserDataUseCase
+    private val loadToCurrentUserDataUseCase: LoadToCurrentUserDataUseCase,
+    private val getFriendsListFromFirebaseUseCase: GetFriendsListFromFirebaseUseCase,
+    private val getCurrentUserUseCase: GetCurrentUserUseCase
 
 ) {
     val roomViewModelFactory =
@@ -254,8 +295,11 @@ class RoomContainer(
             getAllUsersUseCase,
             getSearchListUseCase,
             makeAPromiseRoomUseCase,
-            loadToCurrentUserDataUseCase
+            loadToCurrentUserDataUseCase,
+            getFriendsListFromFirebaseUseCase,
+            getCurrentUserUseCase
         )
+
 }
 
 class CalculationContainer(
@@ -295,7 +339,8 @@ class ConsumptionContainer(
     val getTotalPriceUseCase: GetTotalPriceUseCase,
     val getDataCountUseCase: GetDataCountUseCase,
     val getLiveDataCountUseCase: GetLiveDataCountUseCase,
-    val toggleIsFinishedUseCase: ToggleIsFinishedUseCase
+    val toggleIsFinishedUseCase: ToggleIsFinishedUseCase,
+    val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase
 ) {
     val consumptionViewModelFactory = ConsumptionViewModelFactory(
         getFinishedConsumptionUseCase,
@@ -308,7 +353,8 @@ class ConsumptionContainer(
         getTotalPriceUseCase,
         getDataCountUseCase,
         getLiveDataCountUseCase,
-        toggleIsFinishedUseCase
+        toggleIsFinishedUseCase,
+        getMyDataFromFireStoreUseCase
     )
 }
 
@@ -344,8 +390,31 @@ class FriendsContainer(
 
 class MyPromiseContainer(
     val loadToMyPromiseListUseCase: LoadToMyPromiseListUseCase,
+    val messageSendingUseCase: MessageSendingUseCase,
+    val messageReceivingUseCase: MessageReceivingUseCase,
+    val getCurrentUserUseCase: GetCurrentUserUseCase,
+    val getUserDataUseCase: GetUserDataUseCase,
+    val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase,
+    val firebaseAuth: FirebaseAuth,
+    private val getDirectionsUseCase: GetDirectionsUseCase,
+
 ) {
     val myPromiseViewModelFactory = MyPromiseViewModelFactory(
-        loadToMyPromiseListUseCase
+        loadToMyPromiseListUseCase,
+        messageSendingUseCase,
+        messageReceivingUseCase,
+        getCurrentUserUseCase,
+        getUserDataUseCase,
+        getMyDataFromFireStoreUseCase,
+        firebaseAuth,
+        getDirectionsUseCase
+    )
+}
+
+class Directions1Container(
+    private val getDirectionsUseCase: GetDirectionsUseCase
+){
+    val directionsViewModel1Factory = DirectionsViewModel1Factory(
+        getDirectionsUseCase
     )
 }

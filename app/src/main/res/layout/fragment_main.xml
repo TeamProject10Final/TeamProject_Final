@@ -48,29 +48,19 @@
                 android:layout_marginTop="40dp"
                 android:text="약속왕이 될 상인가,"
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <!--        <TextView-->
-            <!--            android:id="@+id/tv_Main_Title"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:text="TEXT"-->
-            <!--            android:textColor="@color/black"-->
-            <!--            android:textSize="34.5sp"-->
-            <!--            app:layout_constraintStart_toStartOf="@id/tv_Main1"-->
-            <!--            app:layout_constraintTop_toBottomOf="@id/tv_Main1" />-->
 
             <TextView
                 android:id="@+id/tv_Main_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="33dp"
-                android:text="TEXT"
+                android:text=""
                 android:textColor="@color/black"
-                android:textSize="36sp"
+                android:textSize="35sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tv_Main1"
                 app:layout_constraintTop_toTopOf="@id/tv_Main1" />
@@ -83,7 +73,7 @@
                 android:layout_marginStart="5dp"
                 android:text="님 어서오세요."
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_Main_Title"
                 app:layout_constraintStart_toEndOf="@id/tv_Main_Title" />
@@ -93,7 +83,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,9 +98,11 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/layout_Main_Room"
-                    android:layout_width="157dp"
-                    android:layout_height="260dp"
-                    android:layout_marginStart="35dp"
+                    android:layout_width="0dp"
+                    android:layout_height="230dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintEnd_toStartOf="@id/layout_Main_Reservation"
                     android:background="@drawable/btn_radius_arctic"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -119,19 +111,19 @@
                     android:id="@+id/iv_Main1"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="-15dp"
+                    android:layout_marginTop="50dp"
                     android:src="@drawable/ic_main_room"
-                    app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Room"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Room"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Room"
-                    app:layout_constraintTop_toTopOf="@+id/layout_Main_Room" />
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Room"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Room"
+                    app:layout_constraintTop_toTopOf="@id/layout_Main_Room" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="약속 잡기"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
                     app:layout_constraintEnd_toEndOf="@id/iv_Main1"
                     app:layout_constraintStart_toStartOf="@id/iv_Main1"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main1" />
@@ -139,23 +131,22 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/layout_Main_Place"
-                    android:layout_width="157dp"
+                    android:layout_width="0dp"
                     android:layout_height="190dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/btn_radius_violet"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Room"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Room"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/btn_radius_lilac"
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Room"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Room"
                     app:layout_constraintTop_toBottomOf="@id/layout_Main_Room" />
 
                 <ImageView
                     android:id="@+id/iv_Main2"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="-15dp"
+                    android:layout_marginTop="40dp"
                     android:src="@drawable/ic_main_location"
-                    app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Place"
                     app:layout_constraintEnd_toEndOf="@+id/layout_Main_Place"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Place"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Place"
                     app:layout_constraintTop_toTopOf="@+id/layout_Main_Place" />
 
                 <TextView
@@ -163,39 +154,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="놀거리"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
                     app:layout_constraintEnd_toEndOf="@id/iv_Main2"
                     app:layout_constraintStart_toStartOf="@id/iv_Main2"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main2" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/layout_Main_Game"
-                    android:layout_width="157dp"
-                    android:layout_height="157dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/btn_radius_lilac"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Place"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Place"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Main_Place" />
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/btn_radius_arctic"
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Place"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Place"
+                    app:layout_constraintTop_toBottomOf="@id/layout_Main_Place" />
 
                 <ImageView
                     android:id="@+id/iv_Main3"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="-15dp"
+                    android:layout_marginTop="15dp"
                     android:src="@drawable/ic_main_game"
-                    app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Game"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Game"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Game"
-                    app:layout_constraintTop_toTopOf="@+id/layout_Main_Game" />
+
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Game"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Game"
+                    app:layout_constraintTop_toTopOf="@id/layout_Main_Game" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="미니 게임"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
                     app:layout_constraintEnd_toEndOf="@id/iv_Main3"
                     app:layout_constraintStart_toStartOf="@id/iv_Main3"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main3" />
@@ -203,10 +195,12 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/layout_Main_Reservation"
-                    android:layout_width="157dp"
+                    android:layout_width="0dp"
                     android:layout_height="230dp"
-                    android:layout_marginEnd="35dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="40dp"
                     android:background="@drawable/btn_radius_lilac"
+                    app:layout_constraintStart_toEndOf="@id/layout_Main_Room"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -214,19 +208,19 @@
                     android:id="@+id/iv_Main4"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="-15dp"
+                    android:layout_marginTop="50dp"
                     android:src="@drawable/ic_main_calendar"
-                    app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Reservation"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Reservation"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Reservation"
-                    app:layout_constraintTop_toTopOf="@+id/layout_Main_Reservation" />
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Reservation"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Reservation"
+                    app:layout_constraintTop_toTopOf="@id/layout_Main_Reservation" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="내 약속"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
                     app:layout_constraintEnd_toEndOf="@id/iv_Main4"
                     app:layout_constraintStart_toStartOf="@id/iv_Main4"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main4" />
@@ -234,62 +228,62 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/layout_Main_Settle"
-                    android:layout_width="157dp"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/btn_radius_malibu"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Reservation"
+                    android:layout_width="0dp"
+                    android:layout_height="190dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/btn_radius_arctic"
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Reservation"
                     app:layout_constraintStart_toStartOf="@id/layout_Main_Reservation"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Main_Reservation" />
+                    app:layout_constraintTop_toBottomOf="@id/layout_Main_Reservation" />
 
                 <ImageView
                     android:id="@+id/iv_Main5"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="-15dp"
+                    android:layout_marginTop="40dp"
                     android:src="@drawable/ic_main_money"
-                    app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Settle"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Settle"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Settle"
-                    app:layout_constraintTop_toTopOf="@+id/layout_Main_Settle" />
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Settle"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Settle"
+                    app:layout_constraintTop_toTopOf="@id/layout_Main_Settle" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="정산하기"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
                     app:layout_constraintEnd_toEndOf="@id/iv_Main5"
                     app:layout_constraintStart_toStartOf="@id/iv_Main5"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main5" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/layout_Main_Friend"
-                    android:layout_width="157dp"
-                    android:layout_height="177dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/btn_radius_arctic"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Settle"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/btn_radius_lilac"
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Settle"
                     app:layout_constraintStart_toStartOf="@id/layout_Main_Settle"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Main_Settle" />
+                    app:layout_constraintTop_toBottomOf="@id/layout_Main_Settle" />
 
                 <ImageView
                     android:id="@+id/iv_Main6"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="-15dp"
+                    android:layout_marginTop="15dp"
                     android:src="@drawable/ic_main_friend"
-                    app:layout_constraintBottom_toBottomOf="@+id/layout_Main_Friend"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Friend"
-                    app:layout_constraintStart_toStartOf="@+id/layout_Main_Friend"
-                    app:layout_constraintTop_toTopOf="@+id/layout_Main_Friend" />
+                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Friend"
+                    app:layout_constraintStart_toStartOf="@id/layout_Main_Friend"
+                    app:layout_constraintTop_toTopOf="@id/layout_Main_Friend" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="친구 관리"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
                     app:layout_constraintEnd_toEndOf="@id/iv_Main6"
                     app:layout_constraintStart_toStartOf="@id/iv_Main6"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main6" />
@@ -307,6 +301,7 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation"
+        android:background="@drawable/item_side_sheet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end">
@@ -351,7 +346,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2">
+                app:layout_constraintTop_toBottomOf="@id/textView2">
 
                 <TextView
                     android:id="@+id/tvName"
@@ -375,7 +370,7 @@
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvName" />
+                    app:layout_constraintTop_toBottomOf="@id/tvName" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivProfileImage"
@@ -398,7 +393,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraint" />
+                app:layout_constraintTop_toBottomOf="@id/constraint" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerSetting"
@@ -409,7 +404,7 @@
                 android:paddingVertical="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintTop_toBottomOf="@id/textView3" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -421,7 +416,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerSetting" />
+                app:layout_constraintTop_toBottomOf="@id/recyclerSetting" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerSetting2"
@@ -433,7 +428,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                app:layout_constraintTop_toBottomOf="@id/textView4" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

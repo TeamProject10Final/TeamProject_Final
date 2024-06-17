@@ -1,6 +1,7 @@
 package com.example.donotlate.feature.setting.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,8 @@ class SettingFragment : Fragment() {
             appContainer.getUserDataUseCase,
             appContainer.getAllUsersUseCase,
             appContainer.getCurrentUserUseCase,
-            appContainer.imageUploadUseCase
+            appContainer.imageUploadUseCase,
+            appContainer.firebaseAuth
         )
     }
 
@@ -46,10 +48,18 @@ class SettingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
+        Log.d("SettingFragment", "onCreateView called")
+
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
 
         startMyPage()
         observeViewModel()
-
         val settingItemList = mutableListOf<ListType>()
         val settingItemList2 = mutableListOf<ListType>()
 
@@ -64,7 +74,6 @@ class SettingFragment : Fragment() {
             add(ListType(title = "앱 정보", type = 1))
             add(ListType(title = "로그 아웃", type = 1))
         }
-
         val adapter1 = SettingAdapter(settingItemList)
         binding.recyclerSetting.adapter = adapter1
         binding.recyclerSetting.layoutManager = LinearLayoutManager(requireContext())
@@ -97,7 +106,7 @@ class SettingFragment : Fragment() {
             }
         }
 
-        return binding.root
+
     }
 
     override fun onDestroyView() {
@@ -108,7 +117,7 @@ class SettingFragment : Fragment() {
     //마이페이지 이동
     private fun startMyPage() {
         binding.constraint.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, MypageFragment())
+            parentFragmentManager.beginTransaction().replace(R.id.frame, MyPageFragment())
                 .addToBackStack("").commit()
         }
     }
@@ -128,8 +137,8 @@ class SettingFragment : Fragment() {
     }
 
     private fun logoutButton() {
-        val dialog = LogoutFragmentDialog()
-        dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
-        //firebase 로그아웃 기능 추가
+            val dialog = LogoutFragmentDialog()
+            dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
+            //firebase 로그아웃 기능 추가
     }
 }

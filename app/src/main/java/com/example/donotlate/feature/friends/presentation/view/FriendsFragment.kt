@@ -1,31 +1,20 @@
 package com.example.donotlate.feature.friends.presentation.view
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentFriendsBinding
 import com.example.donotlate.feature.friends.presentation.adapter.FriendsAdapter
-import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
-import com.example.donotlate.feature.main.presentation.view.MainFragment
-import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
-import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class FriendsFragment : Fragment() {
@@ -59,14 +48,14 @@ class FriendsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFriendsBinding.inflate(layoutInflater)
+        initRecyclerView()
+        getFriendsList()
+        observeViewModel()
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.btnRequestList.setOnClickListener {
             setFragment(FriendsRequestListFragment())
         }
@@ -81,8 +70,8 @@ class FriendsFragment : Fragment() {
 
     private fun backButton() {
         binding.ivFriendBack.setOnClickListener {
-            val activity = activity as MainActivity
-            activity.replaceFragment(MainFragment())
+            val activity = activity as FriendsActivity
+            activity.finish()
         }
     }
 
@@ -110,6 +99,13 @@ class FriendsFragment : Fragment() {
             friendsViewModel.friendsList.collect { friends ->
                 friendsAdapter.submitList(friends)
                 Log.d("FriendsFragment", "Observed friends: $friends")
+            }
+        }
+        lifecycleScope.launch {
+            friendsViewModel.currentUserData.collect{userData ->
+                userData?.let {
+                    binding.tvTopUserName.text = userData.name
+                }
             }
         }
     }

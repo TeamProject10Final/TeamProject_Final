@@ -4,15 +4,13 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
@@ -25,16 +23,7 @@ import java.util.Calendar
 
 class RoomStartFragment : Fragment() {
 
-    private var titleData = ""
-    private var timeData = ""
-    private var dateData = ""
-    private var penaltyData = ""
-
     private lateinit var binding: FragmentRoomStartBinding
-//    private val roomViewModel: RoomViewModel by viewModels {
-//        val appContainer = (requireActivity().application as MyApp).appContainer
-//        RoomViewModelFactory(appContainer.getAllUsersUseCase)
-//    }
 
     //수정
     private val roomViewModel: RoomViewModel by activityViewModels {
@@ -43,7 +32,9 @@ class RoomStartFragment : Fragment() {
             appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
             appContainer.makeAPromiseRoomUseCase,
-            appContainer.loadToCurrentUserDataUseCase
+            appContainer.loadToCurrentUserDataUseCase,
+            appContainer.getFriendsListFromFirebaseUseCase,
+            appContainer.getCurrentUserUseCase
         )
     }
 
@@ -59,8 +50,6 @@ class RoomStartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRoomStartBinding.inflate(inflater, container, false)
-
-        setTitle()
 
         return binding.root
     }
@@ -113,13 +102,6 @@ class RoomStartFragment : Fragment() {
         sendToResult()
     }
 
-    private fun setTitle() {
-        val title = SpannableStringBuilder("우리 지금 만나,\n약속을 잡아주세요.")
-        title.apply {
-            setSpan(RelativeSizeSpan(1.4f), 10, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        }
-        binding.tvRoomStartTitle.text = title
-    }
 
     private fun setDate() {
         val calendar = Calendar.getInstance()
@@ -131,20 +113,8 @@ class RoomStartFragment : Fragment() {
                 val d = if (day < 10) "0${day}" else day
                 dateText.text = "${year}-${m}-${d}"
 
-                //result로 보낼 날짜 데이터
-                val dateData = dateText.text.toString()
-                Log.d("test2", "${dateData}")
-//                roomViewModel.updateText(dateData)
-                timeData = dateText.text.toString()
             }
         }
-
-//        val year = calendar.get(Calendar.YEAR)
-//        val month = calendar.get(Calendar.MONTH)
-//        val day = calendar.get(Calendar.DAY_OF_MONTH)
-//        val m = if (month + 1 < 10) "0${month + 1}" else month + 1
-//        val d = if (day < 10) "0${day}" else day
-//        dateText.text = "${year}-${m}-${d}"
 
         binding.ivDate.setOnClickListener {
             DatePickerDialog(
@@ -167,16 +137,8 @@ class RoomStartFragment : Fragment() {
                 val m = if (minute < 10) "0${minute}" else minute
                 timeText.text = "${h}시 ${m}분"
 
-                //result로 보낼 시간
-                timeData = timeText.text.toString()
             }
         }
-
-//        val hour = mCurrentTime.get(Calendar.HOUR)
-//        val min = mCurrentTime.get(Calendar.MINUTE)
-//        val h = if (hour < 10) "0${hour}" else hour
-//        val m = if (min < 10) "0${min}" else min
-//        timeText.text = "${h}시 ${m}분"
 
         binding.ivTime.setOnClickListener {
             TimePickerDialog(
@@ -192,12 +154,27 @@ class RoomStartFragment : Fragment() {
 
 
     private fun sendToResult(){
-        val roomList = (RoomModel(
-            binding.etRoomTitle.text.toString(),
-            binding.tvRoomDate.text.toString(),
-            binding.tvRoomTime.text.toString(),
-            binding.etRoomPenalty.text.toString()))
-        roomViewModel.updateText(roomList)
+        binding.btnRoomStartNext.setOnClickListener {
+
+            val title = binding.etRoomTitle.text.toString()
+            val date = binding.tvRoomDate.text.toString()
+            val time = binding.tvRoomTime.text.toString()
+            val penalty = binding.etRoomPenalty.text.toString()
+
+            val roomList = (RoomModel(
+                title,
+                date,
+                time,
+                penalty
+            ))
+            Log.d("123123", "${roomList}")
+            if (title.isNotBlank() && date.isNotBlank() && time.isNotBlank()) {
+                roomViewModel.updateText(roomList)
+                roomViewModel.setCurrentItem(current = 1)
+            } else {
+                Toast.makeText(requireContext(), "모든 필드를 입력하세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         Log.d("뷰모델 리스트확인","${roomViewModel.inputText.value}")
     }

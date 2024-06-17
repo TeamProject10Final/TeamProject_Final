@@ -9,11 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
 import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
-import com.example.donotlate.feature.main.domain.usecase.GetUserUseCase
 import com.example.donotlate.feature.main.presentation.mapper.toModel
 import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
 import com.example.donotlate.feature.setting.domain.usecase.ImageUploadUseCase
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -24,7 +24,10 @@ class MainPageViewModel(
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getCurrentGetUserUseCase: GetCurrentUserUseCase,
     private val imageUploadUseCase: ImageUploadUseCase,
+    private val firebaseAuth: FirebaseAuth
 ) : ViewModel() {
+
+    private val auth = firebaseAuth
 
     private val _getUserData = MutableStateFlow<Result<UserModel>?>(null)
     val getUserData: StateFlow<Result<UserModel>?> = _getUserData
@@ -89,9 +92,41 @@ class MainPageViewModel(
     fun updateProfile(uri: Uri){
 
         viewModelScope.launch {
-//            imageUploadUseCase(uri)
+            imageUploadUseCase(uri).collect { result ->
+                result.onSuccess { imageUrl ->
+                    _profileImageUrl.value = imageUrl
 
+                    val currentUserId = _getCurrentUser.value.getOrNull()
+                    if (currentUserId != null) {
+                        fetchUpdatedUserData(currentUserId)
+                    }
+                }.onFailure { e ->
+                    Log.e("ImageUpload", "Error uploading image :$e")
+                }
+            }
         }
+    }
+
+    private fun fetchUpdatedUserData(uId: String) {
+        viewModelScope.launch {
+            try {
+                getUserDataUseCase(uId).collect { userEntity ->
+                    val userModel = userEntity?.toModel()
+                    if (userModel != null) {
+                        _getUserData.value = Result.success(userModel)
+                    }
+                }
+            } catch (e: Exception) {
+                _getUserData.value = Result.failure(e)
+            }
+        }
+    }
+
+    fun logout() {
+        Log.d("MainPageViewModel", "Logging out") //
+        auth.signOut() // FirebaseAuth에서 로그아웃
+        _getUserData.value = null // 상태 초기화
+        _getCurrentUser.value = Result.success(null)
     }
 }
 
@@ -100,6 +135,7 @@ class MainPageViewModelFactory(
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getCurrentGetUserUseCase: GetCurrentUserUseCase,
     private val imageUploadUseCase: ImageUploadUseCase,
+    private val firebaseAuth: FirebaseAuth
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -109,7 +145,8 @@ class MainPageViewModelFactory(
                 getUserDataUseCase,
                 getAllUsersUseCase,
                 getCurrentGetUserUseCase,
-                imageUploadUseCase
+                imageUploadUseCase,
+                firebaseAuth
 
             ) as T
         }

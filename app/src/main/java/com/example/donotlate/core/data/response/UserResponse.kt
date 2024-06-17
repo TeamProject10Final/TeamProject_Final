@@ -11,7 +11,8 @@ data class UserResponse(
     val count:Int,
     val continuousCounter:Int,
     val createdAt: Timestamp,
-    val profileImgUrl: String = ""
+    val profileImgUrl: String = "",
+
 ){
     constructor(): this("","","", listOf(),0,0, Timestamp.now(),"")
 }

@@ -8,58 +8,111 @@
     android:clickable="true"
     tools:context=".feature.room.presentation.view.RoomMapFragment">
 
-
     <TextView
         android:id="@+id/tv_Room_Map_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:textColor="@color/black"
         android:textSize="25sp"
+        android:text="당장 만나,"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/et_Room_Map_Search"
-        style="@style/EditTextStyle"
-        android:layout_width="280dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="10dp"
-        android:imeOptions="actionDone"
-        android:fontFamily="@font/pretendard_regular"
-        android:hint="목적지를 검색해주세요"
-        android:paddingLeft="15dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_Room_Map_Search"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_Room_Map_Title"
-        app:theme="@style/EditTextStyle" />
-
-    <android.widget.Button
-        android:id="@+id/btn_Room_Map_Search"
+    <TextView
+        android:id="@+id/tv_Room_Map_Title2"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/btn_radius_arctic"
-        android:text="검색"
-        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:text="목적지"
+        android:textColor="@color/black"
+        android:textSize="35sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/et_Room_Map_Search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/et_Room_Map_Search" />
+        app:layout_constraintStart_toStartOf="@id/tv_Room_Map_Title"
+        app:layout_constraintTop_toBottomOf="@id/tv_Room_Map_Title" />
 
-    <fragment
-        android:id="@+id/layout_Room_Map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <TextView
+        android:id="@+id/tv_Room_Map_Titl3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="를 정해주세요."
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tv_Room_Map_Title2"
+        app:layout_constraintStart_toEndOf="@id/tv_Room_Map_Title2" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_margin="20dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_Room_Map_Search" />
+        app:layout_constraintBottom_toTopOf="@+id/btn_Room_Map_Next"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Room_Map_Title2">
+
+        <EditText
+            android:id="@+id/et_Room_Map_Search"
+            style="@style/EditTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:hint="목적지를 검색해주세요"
+            android:imeOptions="actionDone"
+            android:paddingStart="3dp"
+            android:paddingBottom="15dp"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_Room_Map_Search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:theme="@style/EditTextStyle" />
+
+        <android.widget.Button
+            android:id="@+id/btn_Room_Map_Search"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/btn_radius_arctic"
+            android:text="검색"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/et_Room_Map_Search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/et_Room_Map_Search" />
+
+        <fragment
+            android:id="@+id/layout_Room_Map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_Room_Map_Search" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_Room_Map_Next"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/btn_radius_arctic"
+        android:text="다음"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

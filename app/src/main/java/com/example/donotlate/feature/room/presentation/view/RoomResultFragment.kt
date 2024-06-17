@@ -1,5 +1,6 @@
 package com.example.donotlate.feature.room.presentation.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomResultBinding
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.feature.room.presentation.dialog.CancelFragmentDialog
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
@@ -24,6 +26,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 
 class RoomResultFragment : Fragment(), OnMapReadyCallback {
@@ -34,7 +37,9 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
             appContainer.makeAPromiseRoomUseCase,
-            appContainer.loadToCurrentUserDataUseCase
+            appContainer.loadToCurrentUserDataUseCase,
+            appContainer.getFriendsListFromFirebaseUseCase,
+            appContainer.getCurrentUserUseCase
         )
     }
 
@@ -67,6 +72,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
 
         binding.btnRoomResult.setOnClickListener {
             dataToFirebase()
+
         }
 
 
@@ -77,7 +83,12 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             binding.tvResultDetailTitle.text = it.title
             binding.tvResultDetailDate.text = it.date
             binding.tvResultDetailTime.text = it.time
-            binding.tvResultDetailPenalty.text = it.penalty
+
+            if (it.penalty?.isNotEmpty() == true) {
+                binding.tvResultDetailPenalty.text = it.penalty
+            } else {
+                binding.tvResultDetailPenalty.text = "벌칙은 따로 없어요!"
+            }
         }
 
         roomViewModel.selectedUserNames.observe(viewLifecycleOwner) { userNames ->
@@ -108,15 +119,17 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
         lifecycleScope.launch {
             roomViewModel.makeARoomResult.collect{ it ->
                 if(it){
-                    Toast.makeText(requireContext(), "성공?", Toast.LENGTH_SHORT).show()
-                }else {
-                    Toast.makeText(requireContext(), "실패 ㅠㅠ", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(requireActivity(), MainFragment()::class.java)
+                    val activity = requireActivity()
+                    startActivity(intent)
+                    activity.finish()
                 }
             }
         }
     }
 
     private fun makeARoom(
+        roomId: String,
         roomTitle: String,
         promiseTime: String,
         promiseDate: String,
@@ -128,6 +141,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     ) {
         lifecycleScope.launch {
             roomViewModel.makeAPromiseRoom(
+                roomId,
                 roomTitle,
                 promiseTime,
                 promiseDate,
@@ -144,16 +158,13 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     private fun dataToFirebase() {
 
         val inputData = roomViewModel.inputText.value
-        Log.d("data12", "${inputData}")
 
         val locationData = roomViewModel.locationData.value
-        Log.d("data12", "${locationData}")
 
         val userData = roomViewModel.selectedUserUIds.value
-        Log.d("data12", "${userData}")
-
 
         makeARoom(
+            roomId = UUID.randomUUID().toString(),
             roomTitle = inputData?.title ?: "",
             promiseDate = inputData?.date ?: "",
             destination = locationData?.name ?: "",
@@ -163,9 +174,6 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             participants = userData ?: emptyList(),
             promiseTime = inputData?.time ?: ""
         )
-//                }
-//            }
-
     }
 
 

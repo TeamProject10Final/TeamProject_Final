@@ -13,12 +13,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.MainActivity
 import com.example.donotlate.R
-import com.example.donotlate.SearchPlaceContainer
 import com.example.donotlate.databinding.FragmentPlaceSearchBinding
 import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.feature.main.presentation.view.MainFragment
@@ -105,6 +103,9 @@ class PlaceSearchFragment : Fragment() {
             binding.imageView2.isVisible = true
             binding.tvDefaultText.isVisible = true
         } else {
+            binding.rvMap.isVisible = true
+            binding.imageView2.isVisible = false
+            binding.tvDefaultText.isVisible = false
             searchViewModel.updateText(query)
         }
     }
@@ -148,8 +149,6 @@ class PlaceSearchFragment : Fragment() {
         })
 
     }
-
-
 
 
     @SuppressLint("ClickableViewAccessibility")

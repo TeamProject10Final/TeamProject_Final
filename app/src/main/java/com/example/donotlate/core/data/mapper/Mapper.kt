@@ -18,27 +18,67 @@ fun List<UserEntity>.toUserResponseList(): List<UserResponse> {
 }
 
 fun UserEntity.toUserResponse() = UserResponse(
-    name, email, uid, friends, count, continuousCounter, createdAt, profileImgUrl
+    name = name,
+    email = email,
+    uid = uid,
+    friends = friends,
+    count = count,
+    continuousCounter = continuousCounter,
+    createdAt = createdAt,
+    profileImgUrl = profileImgUrl
 )
 
 fun UserResponse.toUserEntity() = UserEntity(
-    name, email, uid, friends, count, continuousCounter, createdAt, profileImgUrl
+    name = name,
+    email = email,
+    uid = uid,
+    friends = friends,
+    count = count,
+    continuousCounter = continuousCounter,
+    createdAt = createdAt,
+    profileImgUrl = profileImgUrl
 )
 
 fun PromiseRoomEntity.toPromiseRoomResponse() = PromiseRoomResponse(
-    roomTitle, roomCreatedAt, promiseTime, promiseDate, destination, destinationLat, destinationLng, penalty, participants
+    roomId = roomId,
+    roomTitle = roomTitle,
+    roomCreatedAt = roomCreatedAt,
+    promiseTime = promiseTime,
+    promiseDate = promiseDate,
+    destination = destination,
+    destinationLat = destinationLat,
+    destinationLng = destinationLng,
+    penalty = penalty,
+    participants = participants
 )
 
 fun PromiseRoomResponse.toPromiseEntity() = PromiseRoomEntity(
-    roomTitle, roomCreatedAt, promiseTime, promiseDate, destination, destinationLat, destinationLng, penalty, participants
+    roomId = roomId,
+    roomTitle = roomTitle,
+    roomCreatedAt = roomCreatedAt,
+    promiseTime = promiseTime,
+    promiseDate = promiseDate,
+    destination = destination,
+    destinationLat = destinationLat,
+    destinationLng = destinationLng,
+    penalty = penalty,
+    participants = participants
 )
 
 fun FriendRequestDTO.toEntity() = FriendRequestEntity(
-    toId, fromId, status, requestTime, fromUserName
+    toId = toId,
+    fromId = fromId,
+    status = status,
+    requestTime = requestTime,
+    fromUserName = fromUserName
 )
 
 fun FriendRequestEntity.toDTO() = FriendRequestDTO(
-    toId, fromId, status, requestTime, fromUserName
+    toId = toId,
+    fromId = fromId,
+    status = status,
+    requestTime = requestTime,
+    fromUserName = fromUserName
 )
 
 fun List<FriendRequestDTO>.toEntityList() : List<FriendRequestEntity>{
@@ -58,10 +98,27 @@ fun List<PromiseRoomResponse>.toPromiseEntityList(): List<PromiseRoomEntity>{
 }
 
 fun MessageResponse.toMessageEntity() = MessageEntity(
-    senderName, sendTimestamp, contents, senderProfileUrl
+    messageId = messageId,
+    senderId = senderId,
+    senderName = senderName,
+    sendTimestamp = sendTimestamp,
+    contents = contents,
+    senderProfileUrl = senderProfileUrl
 )
 
 fun MessageEntity.toMessageResponse() = MessageResponse(
-    senderName, sendTimestamp, contents, senderProfileUrl
+    messageId = messageId,
+    senderId = senderId,
+    senderName = senderName,
+    sendTimestamp = sendTimestamp,
+    contents = contents,
+    senderProfileUrl = senderProfileUrl
 )
 
+fun List<MessageEntity>.toMessageResponseList(): List<MessageResponse> {
+    return this.map { it.toMessageResponse() }
+}
+
+fun List<MessageResponse>.toMessageEntityList(): List<MessageEntity> {
+    return this.map { it.toMessageEntity() }
+}

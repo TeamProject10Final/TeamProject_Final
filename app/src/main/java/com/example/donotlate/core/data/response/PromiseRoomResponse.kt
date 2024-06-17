@@ -3,6 +3,7 @@ package com.example.donotlate.core.data.response
 import com.google.firebase.Timestamp
 
 data class PromiseRoomResponse(
+    val roomId: String,
     val roomTitle: String,
     val roomCreatedAt: Timestamp,
     val promiseTime: String,
@@ -14,6 +15,7 @@ data class PromiseRoomResponse(
     val participants:List<String>
 ) {
     constructor() : this(
+        "",
         "",
         Timestamp.now(),
         "",

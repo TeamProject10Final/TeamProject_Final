@@ -6,29 +6,38 @@ import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 
 fun UserEntity.toModel() = UserModel(
-    name, email, uid, friends, count, continuousCounter, createdAt, profileImgUrl
+    name = name,
+    email = email,
+    uId = uid,
+    friend = friends,
+    count = count,
+    continuousCounter = continuousCounter,
+    createdAt = createdAt,
+    profileImgUrl = profileImgUrl
 )
 
 fun PromiseRoomEntity.toModel() = PromiseModel(
-    roomTitle,
-    roomCreatedAt,
-    promiseTime,
-    promiseDate,
-    destination,
-    destinationLat,
-    destinationLng,
-    penalty,
-    participants
+    roomId = roomId,
+    roomTitle = roomTitle,
+    roomCreatedAt = roomCreatedAt,
+    promiseTime = promiseTime,
+    promiseDate = promiseDate,
+    destination = destination,
+    destinationLat = destinationLat,
+    destinationLng = destinationLng,
+    penalty = penalty,
+    participants = participants
 )
 
 fun PromiseRoomEntity.toEntity() = PromiseRoomEntity(
-    roomTitle,
-    roomCreatedAt,
-    promiseTime,
-    promiseDate,
-    destination,
-    destinationLat,
-    destinationLng,
-    penalty,
-    participants
+    roomId = roomId,
+    roomTitle = roomTitle,
+    roomCreatedAt = roomCreatedAt,
+    promiseTime = promiseTime,
+    promiseDate = promiseDate,
+    destination = destination,
+    destinationLat = destinationLat,
+    destinationLng = destinationLng,
+    penalty = penalty,
+    participants = participants
 )

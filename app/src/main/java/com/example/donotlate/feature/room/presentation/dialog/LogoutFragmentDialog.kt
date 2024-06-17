@@ -1,6 +1,5 @@
 package com.example.donotlate.feature.room.presentation.dialog
 
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -8,17 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import com.example.donotlate.MainActivity
+import androidx.fragment.app.setFragmentResult
 import com.example.donotlate.databinding.BackDialogBinding
-import com.example.donotlate.feature.auth.presentation.view.LoginFragment
-import com.google.firebase.auth.FirebaseAuth
 
-class LogoutFragmentDialog : DialogFragment() {
+class LogoutFragmentDialog() : DialogFragment() {
 
-    private val auth by lazy {
-        FirebaseAuth.getInstance()
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,17 +42,19 @@ class LogoutFragmentDialog : DialogFragment() {
         binding.tvDl2.text = "로그아웃 하시겠습니까?"
 
         binding.tvDlCancel.setOnClickListener {
+            setFragmentResult("logoutRequestKey", bundleOf("result" to "cancel"))
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
-            logOut()
+            setFragmentResult("logoutRequestKey", bundleOf("result" to "confirm"))
+            dismiss()
         }
     }
-    private fun logOut(){
-        auth.signOut()
-        val activity = activity as MainActivity
-        activity.replaceFragment(LoginFragment())
-        dismiss()
-    }
+//    private fun logOut(){
+//        auth.signOut()
+//        val activity = activity as MainActivity
+//        activity.replaceFragment(LoginFragment())
+//        dismiss()
+//    }
 }
 

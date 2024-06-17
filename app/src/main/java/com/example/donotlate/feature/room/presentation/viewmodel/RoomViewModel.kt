@@ -6,10 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
+import com.example.donotlate.core.domain.usecase.GetFriendsListFromFirebaseUseCase
 import com.example.donotlate.core.domain.usecase.LoadToCurrentUserDataUseCase
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
 import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
-import com.example.donotlate.feature.room.presentation.mapper.toRoomModel
+import com.example.donotlate.feature.room.presentation.mapper.toRoomUserModel
 import com.example.donotlate.feature.room.presentation.model.RoomModel
 import com.example.donotlate.feature.room.presentation.model.RoomUserModel
 import com.example.donotlate.feature.searchPlace.api.NetWorkClient
@@ -23,10 +25,12 @@ class RoomViewModel(
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getSearchListUseCase: GetSearchListUseCase,
     private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase,
-    private val loadToCurrentUserDataUseCase: LoadToCurrentUserDataUseCase
+    private val loadToCurrentUserDataUseCase: LoadToCurrentUserDataUseCase,
+    private val getFriendsListFromFirebaseUseCase: GetFriendsListFromFirebaseUseCase,
+    private val getCurrentUserUseCase: GetCurrentUserUseCase,
 ) : ViewModel() {
 
-//    private val _getAllUserData = MutableStateFlow<List<UserModel>>(listOf())
+    //    private val _getAllUserData = MutableStateFlow<List<UserModel>>(listOf())
 //    val getAllUserData: StateFlow<List<UserModel>> = _getAllUserData
     private val _getAllUserData = MutableStateFlow<List<RoomUserModel>>(emptyList())
     val getAllUserData: StateFlow<List<RoomUserModel>> = _getAllUserData
@@ -47,13 +51,27 @@ class RoomViewModel(
     private val _getCurrentUserData = MutableStateFlow<RoomUserModel?>(null)
     val getCurrentUserData: StateFlow<RoomUserModel?> = _getCurrentUserData
 
-    fun updateSelectedUserNames(userNames:List<String>){
+    private val _friendsList = MutableStateFlow<List<RoomUserModel>>(listOf())
+    val friendsList: StateFlow<List<RoomUserModel>> get() = _friendsList
+
+    private val _getCurrentUser = MutableStateFlow<String?>("")
+    val getCurrentUser: StateFlow<String?> get() = _getCurrentUser
+
+    private val _modelCurrent = MutableLiveData<Int>()
+    val modelCurrent: LiveData<Int> = _modelCurrent
+
+    fun setCurrentItem(current: Int) {
+        _modelCurrent.value = current
+    }
+
+    fun updateSelectedUserNames(userNames: List<String>) {
         _selectedUserNames.value = userNames
     }
 
     init {
         loadToCurrentUseData()
     }
+
     //검색 쿼리
     private var inputQuery: MutableLiveData<String> = MutableLiveData()
     fun getQuery(): LiveData<String> = inputQuery
@@ -77,20 +95,20 @@ class RoomViewModel(
         Log.d("data55", "${_locationData.value}")
     }
 
-    fun getAllUserData(){
+    fun getAllUserData() {
         viewModelScope.launch {
             try {
-                getAllUsersUseCase().collect{ userEntity ->
-                    val userModelList = userEntity.map { it.toRoomModel() }
+                getAllUsersUseCase().collect { userEntity ->
+                    val userModelList = userEntity.map { it.toRoomUserModel() }
                     _getAllUserData.value = userModelList
                 }
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 _getAllUserData.value = emptyList()
             }
         }
     }
 
-    fun setSelectedUserUIds(uIds: List<String>){
+    fun setSelectedUserUIds(uIds: List<String>) {
         _selectedUserUIds.value = uIds
         Log.d("selectUid", "${_selectedUserUIds.value}")
     }
@@ -98,7 +116,7 @@ class RoomViewModel(
     private fun loadToCurrentUseData() {
         viewModelScope.launch {
             loadToCurrentUserDataUseCase().collect { currentUserData ->
-                val currentUser = currentUserData?.toRoomModel()
+                val currentUser = currentUserData?.toRoomUserModel()
                 _getCurrentUserData.value = currentUser
             }
         }
@@ -133,6 +151,7 @@ class RoomViewModel(
     }
 
     fun makeAPromiseRoom(
+        roomId: String,
         roomTitle: String,
         promiseTime: String,
         promiseDate: String,
@@ -145,6 +164,7 @@ class RoomViewModel(
         viewModelScope.launch {
             Log.d("makeAChatroom2", "title: ${participants}")
             makeAPromiseRoomUseCase(
+                roomId,
                 roomTitle,
                 promiseTime,
                 promiseDate,
@@ -158,13 +178,31 @@ class RoomViewModel(
             }
         }
     }
+
+    fun getFriendsList() {
+        viewModelScope.launch {
+            getCurrentUserUseCase().collect { uid ->
+                _getCurrentUser.value = uid
+
+                if (uid.isNotBlank()) {
+                    getFriendsListFromFirebaseUseCase(uid).collect { friends ->
+                        Log.d("FriendsViewModel1", "Fetched friends: $friends")
+                        _friendsList.value = friends.map { it.toRoomUserModel() }
+                    }
+                }
+            }
+        }
+    }
 }
+
 
 class RoomViewModelFactory(
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getSearchListUseCase: GetSearchListUseCase,
     private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase,
-    private val loadToCurrentUserDataUseCase: LoadToCurrentUserDataUseCase
+    private val loadToCurrentUserDataUseCase: LoadToCurrentUserDataUseCase,
+    private val getFriendsListFromFirebaseUseCase: GetFriendsListFromFirebaseUseCase,
+    private val getCurrentUserUseCase: GetCurrentUserUseCase,
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -174,9 +212,14 @@ class RoomViewModelFactory(
                 getAllUsersUseCase,
                 getSearchListUseCase,
                 makeAPromiseRoomUseCase,
-                loadToCurrentUserDataUseCase
+                loadToCurrentUserDataUseCase,
+                getFriendsListFromFirebaseUseCase,
+                getCurrentUserUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
+
+
+

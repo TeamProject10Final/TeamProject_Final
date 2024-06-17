@@ -108,6 +108,11 @@ dependencies {
 
     //프로필 이미지뷰
     implementation(libs.circleimageview)
+
+    //polyline?
+    implementation("com.google.maps.android:android-maps-utils:2.2.3")
+
+
 }
 
 

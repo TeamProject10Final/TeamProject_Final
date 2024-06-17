@@ -15,7 +15,7 @@ class FriendsAdapter(
     private val onAddFriendClick: () -> Unit,
     private val onItemClick: (FriendsUserModel) -> Unit
 ) :
-    ListAdapter<FriendsUserModel, RecyclerView.ViewHolder>(DIFF_CALLbACK) {
+    ListAdapter<FriendsUserModel, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     override fun getItemViewType(position: Int): Int {
         return if (position == 0) VIEW_TYPE_ADD_FRIEND else VIEW_TYPE_FRIEND
@@ -36,7 +36,6 @@ class FriendsAdapter(
             FriendsAdapterViewHolder(binding)
         }
     }
-
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is AddFriendViewHolder) {
@@ -63,7 +62,7 @@ class FriendsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(onAddFriendClick: () -> Unit) {
             binding.tvItemFriend.text = "친구 추가"
-            binding.ivItemFriend.load(R.drawable.ic_user) {
+            binding.ivItemFriend.load(R.drawable.ic_add_user) {
                 transformations(CircleCropTransformation())
             }
             binding.root.setOnClickListener {
@@ -77,7 +76,7 @@ class FriendsAdapter(
         private const val VIEW_TYPE_ADD_FRIEND = 0
         private const val VIEW_TYPE_FRIEND = 1
 
-        private val DIFF_CALLbACK = object : DiffUtil.ItemCallback<FriendsUserModel>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FriendsUserModel>() {
             override fun areItemsTheSame(
                 oldItem: FriendsUserModel,
                 newItem: FriendsUserModel

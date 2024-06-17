@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.donotlate.databinding.ItemRvMyPromiseBinding
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 
-class MyPromiseAdapter() :
+class MyPromiseAdapter(private val onItemClick: (PromiseModel) -> Unit) :
     ListAdapter<PromiseModel, MyPromiseAdapter.MyPromiseViewHolder>(DiffCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPromiseViewHolder {
         val binding =
             ItemRvMyPromiseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyPromiseViewHolder(binding)
+        return MyPromiseViewHolder(binding, onItemClick)
     }
 
     override fun onBindViewHolder(holder: MyPromiseViewHolder, position: Int) {
@@ -25,11 +25,15 @@ class MyPromiseAdapter() :
 
     class MyPromiseViewHolder(
         private val binding: ItemRvMyPromiseBinding,
+        private val onItemClick: (PromiseModel) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: PromiseModel) {
             binding.tvPromisTitle.text = item.roomTitle
             binding.tvPromiseDate.text = item.promiseDate
+            binding.root.setOnClickListener {
+                onItemClick(item)
+            }
         }
 
 

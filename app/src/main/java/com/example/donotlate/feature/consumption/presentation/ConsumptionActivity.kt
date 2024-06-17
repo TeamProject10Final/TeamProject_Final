@@ -19,6 +19,7 @@ import com.example.donotlate.ConsumptionContainer
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.ActivityConsumptionBinding
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ConsumptionActivity : AppCompatActivity() {
@@ -51,6 +52,10 @@ class ConsumptionActivity : AppCompatActivity() {
         }
 
 
+
+
+
+
         val appContainer = (application as DoNotLateApplication).appContainer
 
         appContainer.consumptionContainer = ConsumptionContainer(
@@ -64,7 +69,8 @@ class ConsumptionActivity : AppCompatActivity() {
             appContainer.getTotalPriceUseCase,
             appContainer.getDataCountUseCase,
             appContainer.getLiveDataCountUseCase,
-            appContainer.toggleIsFinishedUseCase
+            appContainer.toggleIsFinishedUseCase,
+            appContainer.getMyDataFromFirebaseUseCase
         )
 
         appContainer.consumptionContainer?.let {
@@ -93,6 +99,8 @@ class ConsumptionActivity : AppCompatActivity() {
                         finishedAdapter.submitList(finishedList)
                     } else {
                         binding.tv04.visibility = View.INVISIBLE
+                        finishedAdapter.submitList(emptyList())
+                        finishedAdapter.notifyDataSetChanged()
                     }
                 }
             }
@@ -104,6 +112,8 @@ class ConsumptionActivity : AppCompatActivity() {
                         unfinishedAdapter.submitList(unfinishedList)
                     } else {
                         binding.tv02.visibility = View.INVISIBLE
+                        unfinishedAdapter.submitList(emptyList())
+                        unfinishedAdapter.notifyDataSetChanged()
                     }
                 }
             }
@@ -127,6 +137,11 @@ class ConsumptionActivity : AppCompatActivity() {
             launch {
                 consumptionViewModel.liveDataCount.collect { count ->
                     binding.tvVisitNum.text = "총 $count 건"
+                }
+            }
+            launch {
+                consumptionViewModel.currentUserData.collect{ userData ->
+                    userData?.let { binding.tvUserName.text = userData.name  }
                 }
             }
         }

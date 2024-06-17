@@ -22,8 +22,10 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
         android:textSize="28sp"
+        android:text="새 친구를 찾아 보자!"
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <EditText
@@ -34,10 +36,11 @@
         android:imeOptions="actionSearch"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:paddingLeft="15dp"
         android:fontFamily="@font/pretendard_regular"
-        android:hint="친구를 검색해 주세요"
+        android:hint="요청할 친구를 검색해 주세요"
+        android:textSize="20dp"
         android:inputType="text"
         android:maxLines="1"
         app:theme="@style/EditTextStyle"
@@ -51,7 +54,6 @@
         android:layout_height="45dp"
         android:text="검색"
         android:textSize="20sp"
-        android:textStyle="bold"
         android:layout_marginEnd="20dp"
         android:background="@drawable/btn_radius_arctic"
         app:layout_constraintTop_toTopOf="@id/et_Friend_Search"
@@ -72,7 +74,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="초대할 친구를 선택해 주세요."
-            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
