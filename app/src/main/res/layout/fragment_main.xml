@@ -5,7 +5,6 @@
     android:id="@+id/fragment_Main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".feature.main.presentation.view.MainFragment">
 
 
@@ -47,7 +46,6 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="40dp"
                 android:text="약속왕이 될 상인가,"
-                android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +57,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="33dp"
                 android:text=""
-                android:textColor="@color/black"
                 android:textSize="35sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tv_Main1"
@@ -72,7 +69,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="님 어서오세요."
-                android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_Main_Title"
@@ -96,7 +92,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ImageView
                     android:id="@+id/layout_Main_Room"
                     android:layout_width="0dp"
                     android:layout_height="230dp"
@@ -129,7 +125,7 @@
                     app:layout_constraintTop_toBottomOf="@id/iv_Main1" />
 
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ImageView
                     android:id="@+id/layout_Main_Place"
                     android:layout_width="0dp"
                     android:layout_height="190dp"
@@ -160,7 +156,7 @@
                     app:layout_constraintStart_toStartOf="@id/iv_Main2"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main2" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ImageView
                     android:id="@+id/layout_Main_Game"
                     android:layout_width="0dp"
                     android:layout_height="150dp"
@@ -193,7 +189,7 @@
                     app:layout_constraintTop_toBottomOf="@id/iv_Main3" />
 
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ImageView
                     android:id="@+id/layout_Main_Reservation"
                     android:layout_width="0dp"
                     android:layout_height="230dp"
@@ -226,7 +222,7 @@
                     app:layout_constraintTop_toBottomOf="@id/iv_Main4" />
 
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ImageView
                     android:id="@+id/layout_Main_Settle"
                     android:layout_width="0dp"
                     android:layout_height="190dp"
@@ -257,7 +253,7 @@
                     app:layout_constraintStart_toStartOf="@id/iv_Main5"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main5" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ImageView
                     android:id="@+id/layout_Main_Friend"
                     android:layout_width="0dp"
                     android:layout_height="150dp"
