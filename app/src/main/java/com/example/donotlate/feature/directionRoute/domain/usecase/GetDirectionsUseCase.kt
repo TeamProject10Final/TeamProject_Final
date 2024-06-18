@@ -1,6 +1,6 @@
 package com.example.donotlate.feature.directionRoute.domain.usecase
 
-import com.example.donotlate.feature.directionRoute.data.DirectionsRepository
+import com.example.donotlate.feature.directionRoute.domain.DirectionsRepository
 
 class GetDirectionsUseCase
 constructor(private val repository: DirectionsRepository){
