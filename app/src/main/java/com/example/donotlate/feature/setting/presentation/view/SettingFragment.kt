@@ -37,10 +37,6 @@ class SettingFragment : Fragment() {
         )
     }
 
-//    private val binding: FragmentSettingBinding by lazy {
-//        FragmentSettingBinding.inflate(layoutInflater)
-//    }
-
     private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!
 
