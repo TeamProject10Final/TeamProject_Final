@@ -70,17 +70,8 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         return binding.root
     }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        Log.d("확인", "onViewStateRestored")
-
-    }
-
     override fun onResume() {
         super.onResume()
-
-        Log.d("확인", "onResume")
-
         roomViewModel.getAllUserData()
         lifecycleScope.launch {
             roomViewModel.getAllUserData.collect { userList ->
@@ -97,8 +88,6 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         editTextProcess()
         sendQuery()
         checkLocation()
-
-        Log.d("확인", "onViewCreated")
     }
 
     private fun initMap() {
