@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:clickable="true"
     tools:context=".feature.room.presentation.view.RoomFriendFragment">
 
@@ -15,7 +14,6 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:text="우리, 친구 아이가!"
-        android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="친구"
-        android:textColor="@color/black"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tv_Room_Friend_Title"
@@ -38,7 +35,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="를 선택해 주세요."
-        android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/tv_Room_Friend_Title1"
@@ -92,7 +88,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="초대 가능한 친구 목록 입니다."
-            android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/et_Room_Friend_Search"
             app:layout_constraintTop_toBottomOf="@id/et_Room_Friend_Search" />

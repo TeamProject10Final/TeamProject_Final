@@ -88,7 +88,6 @@ class DirectionsViewModel1(private val getDirectionsUseCase: GetDirectionsUseCas
     }
 
     fun updatePolyLineWithColors() {
-
         try {
             val routes = _directionsResult.value?.routes
             val polylines = mutableListOf<PolylineOptions>()

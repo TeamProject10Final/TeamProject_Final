@@ -22,7 +22,6 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:text="새싹"
-        android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +32,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="사용자 이름"
-        android:textColor="@color/black"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tv_top_title"
@@ -45,7 +43,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="님"
-        android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/tv_top_user_name"
@@ -62,6 +59,7 @@
         android:background="@drawable/btn_radius_arctic"
         android:text="요청된 친구 목록"
         android:textSize="20sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -72,7 +70,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="내 친구 목록"
-        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/tv_top_user_name"
         app:layout_constraintTop_toBottomOf="@id/tv_top_user_name" />
