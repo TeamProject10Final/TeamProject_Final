@@ -33,6 +33,5 @@ class SettingAdapter(private val settingItem:ArrayList<String>):RecyclerView.Ada
 
     inner class Holder(binding: ItemSettingBinding):RecyclerView.ViewHolder(binding.root){
         val tvItem = binding.tvItem
-        val nextImage = binding.imageView
     }
 }

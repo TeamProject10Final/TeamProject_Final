@@ -108,15 +108,15 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
             return null
         }
 
-        if (number == 2) {
-            if (isPenalty == true && penalty != 0) {
-                val result = (total / number) + penalty
-                return result ?: 0
-            } else {
-                val result = (total / number) - penalty
-                return result ?: 0
-            }
-        } else {
+//        if (number == 2) {
+//            if (isPenalty == true && penalty != 0) {
+//                val result = (total / number) + penalty
+//                return result ?: 0
+//            } else {
+//                val result = (total / number) - penalty
+//                return result ?: 0
+//            }
+//        } else {
             if (isPenalty == true && penalty != 0) {
                 val result = ((total - penalty) / number) + penalty
                 return result ?: 0
@@ -124,7 +124,7 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
                 val result = (total - penalty) / number
                 return result ?: 0
             }
-        }
+//        }
     }
 
     private fun handleSaveConsumption(isFinished: Boolean) {

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_Main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".feature.main.presentation.view.MainFragment">
 
 
@@ -47,7 +46,6 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="40dp"
                 android:text="약속왕이 될 상인가,"
-                android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +57,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="33dp"
                 android:text=""
-                android:textColor="@color/black"
                 android:textSize="35sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tv_Main1"
@@ -72,7 +69,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="님 어서오세요."
-                android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_Main_Title"
@@ -96,14 +92,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ImageView
                     android:id="@+id/layout_Main_Room"
                     android:layout_width="0dp"
                     android:layout_height="230dp"
                     android:layout_marginStart="40dp"
                     android:layout_marginEnd="10dp"
-                    app:layout_constraintEnd_toStartOf="@id/layout_Main_Reservation"
                     android:background="@drawable/btn_radius_arctic"
+                    app:layout_constraintEnd_toStartOf="@id/layout_Main_Reservation"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -129,7 +125,7 @@
                     app:layout_constraintTop_toBottomOf="@id/iv_Main1" />
 
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ImageView
                     android:id="@+id/layout_Main_Place"
                     android:layout_width="0dp"
                     android:layout_height="190dp"
@@ -160,7 +156,7 @@
                     app:layout_constraintStart_toStartOf="@id/iv_Main2"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main2" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ImageView
                     android:id="@+id/layout_Main_Game"
                     android:layout_width="0dp"
                     android:layout_height="150dp"
@@ -193,15 +189,15 @@
                     app:layout_constraintTop_toBottomOf="@id/iv_Main3" />
 
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ImageView
                     android:id="@+id/layout_Main_Reservation"
                     android:layout_width="0dp"
                     android:layout_height="230dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="40dp"
                     android:background="@drawable/btn_radius_lilac"
-                    app:layout_constraintStart_toEndOf="@id/layout_Main_Room"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/layout_Main_Room"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -226,7 +222,7 @@
                     app:layout_constraintTop_toBottomOf="@id/iv_Main4" />
 
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ImageView
                     android:id="@+id/layout_Main_Settle"
                     android:layout_width="0dp"
                     android:layout_height="190dp"
@@ -257,7 +253,7 @@
                     app:layout_constraintStart_toStartOf="@id/iv_Main5"
                     app:layout_constraintTop_toBottomOf="@id/iv_Main5" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ImageView
                     android:id="@+id/layout_Main_Friend"
                     android:layout_width="0dp"
                     android:layout_height="150dp"
@@ -298,141 +294,4 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation"
-        android:background="@drawable/item_side_sheet"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="end">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="설정"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="80dp"
-                android:text="프로필 설정"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/bg_radius_stroke_lightblue2"
-                android:paddingVertical="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView2">
-
-                <TextView
-                    android:id="@+id/tvName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp"
-                    android:text="UserName"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="UserEmail"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvName" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/ivProfileImage"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/ic_user"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="25dp"
-                android:text="앱 설정"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/constraint" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerSetting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:paddingVertical="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView3" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="25dp"
-                android:text="일반"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerSetting" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerSetting2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:paddingVertical="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView4" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.navigation.NavigationView>
-
-</androidx.drawerlayout.widget.DrawerLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
