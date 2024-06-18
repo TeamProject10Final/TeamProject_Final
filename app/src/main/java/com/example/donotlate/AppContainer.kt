@@ -33,7 +33,7 @@ import com.example.donotlate.feature.consumption.domain.usecase.ToggleIsFinished
 import com.example.donotlate.feature.consumption.presentation.ConsumptionViewModelFactory
 import com.example.donotlate.feature.consumption.presentation.SharedViewModelFactory
 import com.example.donotlate.feature.directionRoute.api.RouteNetworkClient
-import com.example.donotlate.feature.directionRoute.data.DirectionsRepository
+import com.example.donotlate.feature.directionRoute.domain.DirectionsRepository
 import com.example.donotlate.feature.directionRoute.data.DirectionsRepositoryImpl
 import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
 import com.example.donotlate.feature.directionRoute.presentation.DirectionsViewModel1Factory
