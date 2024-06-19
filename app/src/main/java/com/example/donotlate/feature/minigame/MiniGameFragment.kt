@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMiniGameBinding
 
 
@@ -34,7 +35,8 @@ class MiniGameFragment : Fragment() {
             Toast.makeText(requireContext(), "준비중인 기능입니다.", Toast.LENGTH_LONG).show()
         }
         binding.btnGameBackgroundWheel.setOnClickListener {
-            Toast.makeText(requireContext(), "준비중인 기능입니다.", Toast.LENGTH_LONG).show()
+            parentFragmentManager.beginTransaction().replace(R.id.frame, RouletteFragment())
+                .addToBackStack("").commit()
         }
     }
 
