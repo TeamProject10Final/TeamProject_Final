@@ -340,7 +340,6 @@ class PlaceSearchFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        parentFragmentManager.popBackStack()
         _binding = null
     }
 }

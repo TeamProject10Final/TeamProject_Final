@@ -26,8 +26,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:visibility="visible"
             tools:ignore="MissingConstraints" />
 
+<!--        여기부터 visibility 수정-->
         <Spinner
             android:id="@+id/spinner2tm"
             android:layout_width="match_parent"
@@ -57,10 +59,9 @@
             android:visibility="gone"/>
 
         <EditText
-            android:id="@+id/etDep"
-            android:layout_width="match_parent"
+            android:id="@+id/etTime"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:clickable="true"
@@ -69,26 +70,23 @@
             android:inputType="none"
             android:hint="출발 시간을 선택해주세요"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnSelectTime"
             app:layout_constraintTop_toBottomOf="@+id/spinner3rp"
             android:visibility="gone"/>
 
-        <EditText
-            android:id="@+id/etArr"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSelectTime"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:clickable="true"
-            android:focusable="false"
-            android:ems="10"
-            android:inputType="none"
-            android:hint="도착 시간을 선택해주세요"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/btn_radius_malibu"
+            android:text="출발"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/etTime"
+            app:layout_constraintEnd_toStartOf="@+id/etTime"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etDep"
-            android:visibility="gone"/>
+            app:layout_constraintBottom_toBottomOf="@+id/etTime"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSearchDirectionRoutes"
@@ -105,7 +103,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etArr"
+            app:layout_constraintTop_toBottomOf="@+id/etTime"
             tools:ignore="MissingConstraints"
             android:visibility="gone"/>
 

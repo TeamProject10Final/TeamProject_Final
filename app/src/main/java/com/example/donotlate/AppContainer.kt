@@ -55,6 +55,8 @@ import com.example.donotlate.feature.searchPlace.domain.usecase.GetSearchListUse
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchViewModelFactory
 import com.example.donotlate.feature.setting.data.repository.SettingRepositoryImpl
 import com.example.donotlate.feature.setting.domain.usecase.ImageUploadUseCase
+import com.example.finaldirectionexample01.domain.usecase.GetDirWithArrTmRpUseCase
+import com.example.finaldirectionexample01.domain.usecase.GetDirWithTmRpUseCase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -227,7 +229,7 @@ class AppContainer {
 
     private val directionsApiService = RouteNetworkClient.directionsApiService
 
-    val directionsRepository : DirectionsRepository by lazy {
+    val directionsRepository: DirectionsRepository by lazy {
         DirectionsRepositoryImpl(directionsApiService)
     }
 
@@ -235,15 +237,27 @@ class AppContainer {
         GetDirectionsUseCase(directionsRepository)
     }
 
+    val getDirWithTmRpUseCase: GetDirWithTmRpUseCase by lazy {
+        GetDirWithTmRpUseCase(directionsRepository)
+    }
 
-    val directions1Container : Directions1Container by lazy {
-        Directions1Container(getDirectionsUseCase, getDirWithDepTmRpUseCase)
+    val directions1Container: Directions1Container by lazy {
+        Directions1Container(
+            getDirectionsUseCase,
+            getDirWithDepTmRpUseCase,
+            getDirWithTmRpUseCase,
+            getDirWithArrTmRpUseCase
+        )
     }
 
     val getDirWithDepTmRpUseCase: GetDirWithDepTmRpUseCase by lazy {
         GetDirWithDepTmRpUseCase(directionsRepository)
     }
 
+
+    val getDirWithArrTmRpUseCase: GetDirWithArrTmRpUseCase by lazy {
+        GetDirWithArrTmRpUseCase(directionsRepository)
+    }
 
     val messageSendingUseCase by lazy {
         MessageSendingUseCase(firebaseDataRepository)
@@ -408,7 +422,7 @@ class MyPromiseContainer(
     val firebaseAuth: FirebaseAuth,
     private val getDirectionsUseCase: GetDirectionsUseCase,
 
-) {
+    ) {
     val myPromiseViewModelFactory = MyPromiseViewModelFactory(
         loadToMyPromiseListUseCase,
         messageSendingUseCase,
@@ -423,9 +437,14 @@ class MyPromiseContainer(
 
 class Directions1Container(
     private val getDirectionsUseCase: GetDirectionsUseCase,
-    private val getDirWithDepTmRpUseCase: GetDirWithDepTmRpUseCase
-){
+    private val getDirWithDepTmRpUseCase: GetDirWithDepTmRpUseCase,
+    private val getDirWithTmRpUseCase: GetDirWithTmRpUseCase,
+    private val getDirWithArrTmRpUseCase: GetDirWithArrTmRpUseCase
+) {
     val directionsViewModel1Factory = DirectionsViewModel1Factory(
-        getDirectionsUseCase, getDirWithDepTmRpUseCase
+        getDirectionsUseCase,
+        getDirWithDepTmRpUseCase,
+        getDirWithTmRpUseCase,
+        getDirWithArrTmRpUseCase
     )
 }
