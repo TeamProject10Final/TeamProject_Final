@@ -77,7 +77,7 @@ class DirectionsViewModel1(
     }
 
     fun setSelectedRouteIndex(indexNum: Int) {
-        _selectedRouteIndex.value = indexNum
+        _selectedRouteIndex.value = indexNum?:0
     }
 
     fun getUnixTimestamp(selectedTime: LocalTime): Long? {
@@ -124,15 +124,22 @@ class DirectionsViewModel1(
                 )
                 yield()
                 _directionsResult.value = result.toModel()
-                updatePolyLineWithColors()
-                updateBounds()
-                setShortDirectionsResult()
-                setDirectionsResult()
+//                updatePolyLineWithColors()
+//                updateBounds()
+//                setShortDirectionsResult()
+//                setDirectionsResult()
                 Log.d("확인", "viewmodel: ${_directionsResult.value}")
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }
         }
+    }
+
+    fun afterSelecting(){
+        updatePolyLineWithColors()
+        updateBounds()
+        setShortDirectionsResult()
+        setDirectionsResult()
     }
 
     fun getDirectionsWithDepartureTmRp() {

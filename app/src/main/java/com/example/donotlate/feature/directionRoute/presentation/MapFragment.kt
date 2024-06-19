@@ -186,16 +186,16 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val padding = 100
             googleMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
         }
-        sharedViewModel.mode.observe(viewLifecycleOwner, {mode ->
-            if (mode == "transit"){
+        sharedViewModel.mode.observe(viewLifecycleOwner, { mode ->
+            if (mode == "transit") {
                 binding.spinner2tm.visibility = View.VISIBLE
                 binding.spinner3rp.visibility = View.VISIBLE
                 binding.etDep.visibility = View.VISIBLE
                 binding.etArr.visibility = View.VISIBLE
                 binding.btnSearchDirectionRoutes.visibility = View.VISIBLE
-            }else if(mode == "이용할 교통수단을 선택해주세요."){
+            } else if (mode == "이용할 교통수단을 선택해주세요.") {
                 //
-            }else {
+            } else {
                 binding.spinner2tm.visibility = View.GONE
                 binding.spinner3rp.visibility = View.GONE
                 binding.etDep.visibility = View.GONE
@@ -211,28 +211,40 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private fun setUpSpinners() {
         val modeArray = resources.getStringArray(R.array.modeArray)
-        val adapterMode = object : ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, modeArray){
-            override fun getCount() : Int{
+        val adapterMode = object : ArrayAdapter<String>(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            modeArray
+        ) {
+            override fun getCount(): Int {
                 return super.getCount() - 1
             }
         }
         adapterMode.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinner1mode.adapter = adapterMode
-        binding.spinner1mode.setSelection(modeArray.size -1)
+        binding.spinner1mode.setSelection(modeArray.size - 1)
 
         val trafficModeArray = resources.getStringArray(R.array.trafficModeArray)
-        val adapterTm = object : ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, trafficModeArray){
-            override fun getCount() : Int{
+        val adapterTm = object : ArrayAdapter<String>(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            trafficModeArray
+        ) {
+            override fun getCount(): Int {
                 return super.getCount() - 1
             }
         }
         adapterTm.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinner2tm.adapter = adapterTm
-        binding.spinner2tm.setSelection(trafficModeArray.size -1)
+        binding.spinner2tm.setSelection(trafficModeArray.size - 1)
 
         val routingPreferenceArray = resources.getStringArray(R.array.transitRoutingPreferenceArray)
-        val adapterRp = object : ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, routingPreferenceArray){
-            override fun getCount() : Int{
+        val adapterRp = object : ArrayAdapter<String>(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            routingPreferenceArray
+        ) {
+            override fun getCount(): Int {
                 return super.getCount() - 1
             }
         }
@@ -240,7 +252,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         binding.spinner3rp.adapter = adapterRp
         binding.spinner3rp.setSelection(adapterRp.count)
 
-        binding.spinner1mode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        binding.spinner1mode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -256,8 +268,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
             }
         }
-        binding.etDep.setOnFocusChangeListener{_, hasFocus ->
-            if(!hasFocus){
+        binding.etDep.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
                 val enteredText = binding.etDep.text.toString()
                 //sharedViewModel.setDepartureTime()
             }
@@ -269,9 +281,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val bottomSheetDialogFragment = RouteDetailsBottomSheet()
             bottomSheetDialogFragment.show(parentFragmentManager, "tag")
         }
+        binding.btnSendIndex.setOnClickListener {
+            val selectedIndex = binding.etSelectionIndex.text.toString().toInt()
+            sharedViewModel.setSelectedRouteIndex(selectedIndex)
+        }
 
-        //binding.spinner1mode.selectedi
+        sharedViewModel.selectedRouteIndex.observe(viewLifecycleOwner, { index ->
+            sharedViewModel.afterSelecting()
 
+        })
     }
 
     private fun setupMapListeners() {
@@ -361,7 +379,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
 //        val bounds = latLngBounds.build()
 
-        if(sharedViewModel.latLngBounds.value != null){
+        if (sharedViewModel.latLngBounds.value != null) {
             val bounds = latLngBounds.build()
 //        if (bounds.southwest != null && bounds.northeast != null) {
             val padding = 100
