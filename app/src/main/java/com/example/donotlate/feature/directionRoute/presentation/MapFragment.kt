@@ -379,14 +379,17 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         when (isDepOrNone) {
             -1 -> {
                 binding.btnSelectTime.text = "출발시각"
+                binding.btnSelectTime.setBackgroundResource(R.drawable.btn_radius_malibu)
             }
 
             1 -> {
                 binding.btnSelectTime.text = "도착시각"
+                binding.btnSelectTime.setBackgroundResource(R.drawable.btn_radius_arctic)
             }
 
             else -> {
                 binding.btnSelectTime.text = "시간선택"
+                binding.btnSelectTime.setBackgroundResource(R.drawable.btn_radius_lilac)
             }
         }
     }
