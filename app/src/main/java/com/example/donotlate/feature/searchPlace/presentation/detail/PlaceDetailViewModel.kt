@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
-import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
+import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 import com.google.android.gms.maps.model.LatLng
 
 class PlaceDetailViewModel : ViewModel() {

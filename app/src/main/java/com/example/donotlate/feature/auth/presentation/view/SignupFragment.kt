@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.donotlate.DoNotLateApplication
@@ -17,13 +18,12 @@ import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentSignupBinding
 import com.example.donotlate.feature.auth.presentation.dialog.InformationDialogFragment
-import com.example.donotlate.feature.auth.presentation.validation.CheckValidation
 import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewModel
 import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
 import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.google.android.material.snackbar.Snackbar
 
-class SignupFragment : Fragment(), CheckValidation {
+class SignupFragment : Fragment() {
 
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
@@ -35,9 +35,7 @@ class SignupFragment : Fragment(), CheckValidation {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
 
-        }
     }
 
     override fun onCreateView(
@@ -89,82 +87,35 @@ class SignupFragment : Fragment(), CheckValidation {
         val confirmCheck = binding.tvConfirmCheck
 
 
-        name.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+        name.doAfterTextChanged { signUpViewmodel.checkName(name, nameCheck) }
+        email.doAfterTextChanged { signUpViewmodel.checkEmail(email, emailCheck) }
+        password.doAfterTextChanged { signUpViewmodel.checkPw(password, passwordCheck) }
+        confirm.doAfterTextChanged {
+            signUpViewmodel.checkConfirmPw(
+                password,
+                confirm,
+                confirmCheck
+            )
+        }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                checkName(name, nameCheck)
-            }
 
-            override fun afterTextChanged(s: Editable?) {
-                checkName(name, nameCheck)
-            }
-
-        })
-
-        email.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                checkEmail(email, emailCheck)
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                checkEmail(email, emailCheck)
-            }
-        })
-
-        password.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                checkPw(password, passwordCheck)
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                checkPw(password, passwordCheck)
-            }
-        })
-
-        confirm.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                checkConfirmPw(password, confirm, confirmCheck)
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                checkConfirmPw(password, confirm, confirmCheck)
-            }
-
-        })
 
         binding.btnSignUp.setOnClickListener {
-            if (nullCheck(name.toString()) || nullCheck(email.toString()) || nullCheck(password.toString()) || nullCheck(
-                    confirm.toString()
-                )
+
+            signUpViewmodel.checkSignUp(
+                name,
+                email,
+                password,
+                confirm,
+                nameCheck,
+                emailCheck,
+                passwordCheck,
+                confirmCheck,
+                it
             )
-            else if (!checkName(name, nameCheck))
-            else if (!checkEmail(email, emailCheck))
-            else if (!checkPw(password, passwordCheck))
-            else if (!checkConfirmPw(password, confirm, confirmCheck))
-            else {
-                val snackbar = Snackbar.make(it, "회원가입이 완료되었습니다!", Snackbar.LENGTH_SHORT)
-                snackbar.setTextColor(Color.WHITE)
-                snackbar.setBackgroundTint(Color.GRAY)
-                snackbar.animationMode = Snackbar.ANIMATION_MODE_FADE
-                snackbar.setActionTextColor(Color.WHITE)
-                snackbar.setAction("닫기") {
-                    snackbar.dismiss()
-                }
-                snackbar.show()
-                val activity = activity as MainActivity
-                activity.removeFragment(this)
-            }
+            requireActivity().supportFragmentManager.beginTransaction()
+                .remove(this)
+                .commit()
         }
     }
 
@@ -190,21 +141,21 @@ class SignupFragment : Fragment(), CheckValidation {
         }
     }
 
-    private fun clickToSignUpButton(){
+    private fun clickToSignUpButton() {
         val email = binding.etSignEmail.text.toString().trim()
         val name = binding.etSignName.text.toString().trim()
         val password = binding.etSignPassword.text.toString().trim()
 
-        signUpViewmodel.signUp(name,email,password)
+        signUpViewmodel.signUp(name, email, password)
     }
 
-    private fun checkedSignUpResult(){
-        signUpViewmodel.signUpResult.observe(viewLifecycleOwner){result ->
-            if(result.isSuccess)  {
+    private fun checkedSignUpResult() {
+        signUpViewmodel.signUpResult.observe(viewLifecycleOwner) { result ->
+            if (result.isSuccess) {
                 Toast.makeText(requireContext(), "회원 가입 성공!", Toast.LENGTH_SHORT).show()
                 val activity = activity as MainActivity
                 activity.changeFragment(MainFragment())
-            }else{
+            } else {
                 Toast.makeText(requireContext(), "회원 가입 실패!", Toast.LENGTH_SHORT).show()
             }
         }

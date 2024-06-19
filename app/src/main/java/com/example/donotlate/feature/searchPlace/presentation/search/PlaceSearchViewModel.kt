@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.donotlate.feature.searchPlace.api.NetWorkClient
 import com.example.donotlate.feature.searchPlace.domain.usecase.GetSearchListUseCase
-import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
+import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 import kotlinx.coroutines.launch
 
 class PlaceSearchViewModel(
@@ -33,11 +33,7 @@ class PlaceSearchViewModel(
     fun getSearchMapList(query: String) {
         viewModelScope.launch {
             runCatching {
-                val response = getSearchListUseCase.invoke(
-                    query = query,
-                    language = "ko",
-                    pageSize = 1,
-                )
+                val response = getSearchListUseCase(query, "ko", 10)
                 val models = response.places!!.map {
                     PlaceModel(
                         lat = it.location?.latitude!!,
@@ -46,7 +42,7 @@ class PlaceSearchViewModel(
                         address = it.formattedAddress,
                         rating = it.rating,
                         phoneNumber = it.nationalPhoneNumber,
-                        img = "https://places.googleapis.com/v1/${it.photos?.get(0)?.name}/media?key=${NetWorkClient.API_KEY}&maxHeightPx=500&maxWidthPx=750",
+                        img = it.photos?.get(0)?.name,
                         description = it.regularOpeningHours?.weekdayDescriptions
                     )
                 }

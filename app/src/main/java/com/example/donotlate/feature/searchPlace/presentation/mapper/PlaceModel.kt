@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.searchPlace.presentation.data
+package com.example.donotlate.feature.searchPlace.presentation.mapper
 
 import android.os.Parcelable
 import androidx.room.Entity

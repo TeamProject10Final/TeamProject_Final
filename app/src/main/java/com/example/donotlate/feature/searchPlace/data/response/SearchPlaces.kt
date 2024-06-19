@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.searchPlace.data.model
+package com.example.donotlate.feature.searchPlace.data.response
 
 import com.google.gson.annotations.SerializedName
 

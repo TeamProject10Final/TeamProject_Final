@@ -14,9 +14,8 @@ import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
 import com.example.donotlate.feature.room.presentation.mapper.toRoomUserModel
 import com.example.donotlate.feature.room.presentation.model.RoomModel
 import com.example.donotlate.feature.room.presentation.model.RoomUserModel
-import com.example.donotlate.feature.searchPlace.api.NetWorkClient
 import com.example.donotlate.feature.searchPlace.domain.usecase.GetSearchListUseCase
-import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
+import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -139,7 +138,7 @@ class RoomViewModel(
                         address = it.formattedAddress,
                         rating = it.rating,
                         phoneNumber = it.nationalPhoneNumber,
-                        img = "https://places.googleapis.com/v1/${it.photos?.get(0)?.name}/media?key=${NetWorkClient.API_KEY}&maxHeightPx=500&maxWidthPx=750",
+                        img = it.photos?.get(0)?.name,
                         description = it.regularOpeningHours?.weekdayDescriptions
                     )
                 }

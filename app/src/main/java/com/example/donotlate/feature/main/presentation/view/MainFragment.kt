@@ -93,16 +93,28 @@ class MainFragment : Fragment() {
     }
 
     private fun startPlace() {
+
         binding.layoutMainPlace.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, PlaceSearchFragment())
-                .addToBackStack("").commit()
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.slide_in,
+                    /* exit = */ R.anim.fade_out,
+                )
+                .replace(R.id.frame, PlaceSearchFragment())
+                .addToBackStack(null).commit()
+
         }
     }
 
     private fun startSetting() {
         binding.ivMainSetting.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, SettingFragment())
-                .addToBackStack("").commit()
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.slide_in,
+                    /* exit = */ R.anim.fade_out,
+                )
+                .replace(R.id.frame, SettingFragment())
+                .addToBackStack(null).commit()
         }
     }
 
@@ -154,15 +166,26 @@ class MainFragment : Fragment() {
 
     private fun startMiniGame() {
         binding.layoutMainGame.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, MiniGameFragment())
-                .addToBackStack("").commit()
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.slide_in,
+                    /* exit = */ R.anim.fade_out,
+                )
+                .replace(R.id.frame, MiniGameFragment())
+                .addToBackStack(null).commit()
+
         }
     }
 
     private fun startMyPromise() {
         binding.layoutMainReservation.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, MyPromiseListFragment())
-                .addToBackStack("").commit()
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.slide_in,
+                    /* exit = */ R.anim.fade_out,
+                )
+                .replace(R.id.frame, MyPromiseListFragment())
+                .addToBackStack(null).commit()
         }
     }
 

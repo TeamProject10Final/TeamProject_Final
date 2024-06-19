@@ -19,6 +19,7 @@ import coil.transform.CircleCropTransformation
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMypageBinding
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import kotlinx.coroutines.launch
@@ -74,8 +75,13 @@ class MyPageFragment : Fragment() {
 
         //뒤로가기
         binding.ivBack.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-            requireActivity().supportFragmentManager.popBackStack()
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, SettingFragment())
+                .commit()
         }
     }
 

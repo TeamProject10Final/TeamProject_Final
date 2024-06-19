@@ -12,8 +12,8 @@ import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentRoomMapBottomBinding
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
-import com.example.donotlate.feature.searchPlace.domain.adapter.MapAdapter
-import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
+import com.example.donotlate.feature.searchPlace.presentation.adapter.MapAdapter
+import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class RoomMapBottomFragment : BottomSheetDialogFragment() {
@@ -37,9 +37,7 @@ class RoomMapBottomFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
 
-        }
     }
 
     override fun onCreateView(

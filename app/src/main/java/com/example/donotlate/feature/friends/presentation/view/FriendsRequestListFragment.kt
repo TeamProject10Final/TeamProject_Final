@@ -65,6 +65,8 @@ class FriendsRequestListFragment : Fragment() {
         setupRecyclerView()
         observeViewModel()
 
+        initBackButton()
+
 
     }
 
@@ -88,6 +90,18 @@ class FriendsRequestListFragment : Fragment() {
     private fun onFriendRequestClick(item: FriendRequestWithUserDataModel){
         val dialog = FriendsAcceptDialogFragment.newInstance(item)
         dialog.show(parentFragmentManager, "RequestDialogFragment")
+    }
+
+    private fun initBackButton() {
+        binding.ivFriendRequestListBack.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame_friends, FriendsFragment())
+                .commit()
+        }
     }
 
 
