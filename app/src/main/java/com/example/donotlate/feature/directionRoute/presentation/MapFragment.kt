@@ -135,7 +135,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             Log.d("확인", "latLngBounds $list")
             // 경로를 포함하는 영역 계산하여 지도의 중심을 이동
 
-            //여기에서 터짐....
+            //여기에서 터짐.... transit 선택 후 1번 인덱스 선택 시
             if ((list?.isEmpty() != false) as Boolean) {
                 return@observe
             }
