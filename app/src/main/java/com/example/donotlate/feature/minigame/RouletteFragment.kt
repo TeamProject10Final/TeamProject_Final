@@ -16,6 +16,8 @@ import com.example.donotlate.databinding.FragmentRouletteBinding
 
 class RouletteFragment : Fragment(), Animation.AnimationListener {
 
+//    private val rouletteViewModel: RouletteViewModel by viewModels()
+
     private var count = 0
     private var flag = false
 
@@ -42,13 +44,18 @@ class RouletteFragment : Fragment(), Animation.AnimationListener {
         powerButton!!.setOnTouchListener(PowerTouchListener())
         intSpinner()
 //        editTextProcess()
+//
+//        binding.btnGameBottomSheet.setOnClickListener {
+//            val bottomFragment = BottomSheetDialogFragment()
+//            bottomFragment.show(parentFragmentManager, "")
+//        }
 
-        binding.btnGameBottomSheet.setOnClickListener {
-            val bottomFragment = BottomSheetDialogFragment()
-            bottomFragment.show(parentFragmentManager, "")
+        binding.ivGameRouletteBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
     }
+
 
     private fun intSpinner() {
         pointerImageView = binding.ivGameRoulette
@@ -78,7 +85,12 @@ class RouletteFragment : Fragment(), Animation.AnimationListener {
         val shift = 0
         val prizeIndex = (shift + end) % numOfPrizes
 
-        prizeText = "${prizes[prizeIndex]}번 경품"
+//        //화면에 뿌려쥼 > 데이터가 바뀌었을 때 대비
+//        rouletteViewModel.getData().observe(viewLifecycleOwner, Observer{
+//
+//        })
+
+        prizeText = "${prizes[prizeIndex]}번 당첨"
 
         val rotateAnim = RotateAnimation(
             0f, mSpinRevolution + end,
