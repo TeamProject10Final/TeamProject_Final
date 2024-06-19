@@ -35,6 +35,7 @@ import com.example.donotlate.feature.consumption.presentation.ConsumptionViewMod
 import com.example.donotlate.feature.consumption.presentation.SharedViewModelFactory
 import com.example.donotlate.feature.directionRoute.api.RouteNetworkClient
 import com.example.donotlate.feature.directionRoute.data.DirectionsRepositoryImpl
+import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirWithDepTmRpUseCase
 import com.example.donotlate.feature.directionRoute.domain.DirectionsRepository
 import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
 import com.example.donotlate.feature.directionRoute.presentation.DirectionsViewModel1Factory
@@ -236,7 +237,11 @@ class AppContainer {
 
 
     val directions1Container : Directions1Container by lazy {
-        Directions1Container(getDirectionsUseCase)
+        Directions1Container(getDirectionsUseCase, getDirWithDepTmRpUseCase)
+    }
+
+    val getDirWithDepTmRpUseCase: GetDirWithDepTmRpUseCase by lazy {
+        GetDirWithDepTmRpUseCase(directionsRepository)
     }
 
 
@@ -417,9 +422,10 @@ class MyPromiseContainer(
 }
 
 class Directions1Container(
-    private val getDirectionsUseCase: GetDirectionsUseCase
+    private val getDirectionsUseCase: GetDirectionsUseCase,
+    private val getDirWithDepTmRpUseCase: GetDirWithDepTmRpUseCase
 ){
     val directionsViewModel1Factory = DirectionsViewModel1Factory(
-        getDirectionsUseCase
+        getDirectionsUseCase, getDirWithDepTmRpUseCase
     )
 }

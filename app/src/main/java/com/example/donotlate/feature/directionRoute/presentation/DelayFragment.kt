@@ -40,21 +40,23 @@ class DelayFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            currentUserLocation = it.getString("currentUserLocation").toString()
+            //currentUserLocation = it.getString("currentUserLocation").toString()
             currentDestination = it.getString("destination").toString()
         }
 
-        searchDirections()
+        sharedViewModel.setDestination(currentDestination)
+
+        //searchDirections()
     }
 
-    private fun searchDirections() {
-        var origin = currentDestination
-        if (origin != null) {
-            var destination = currentDestination
-            val mode = "driving"//수정하기
-            sharedViewModel.getDirections(origin, destination, mode)
-        }
-    }
+//    private fun searchDirections() {
+//        var origin = currentDestination
+//        if (origin != null) {
+//            var destination = currentDestination
+//            val mode = "driving"//수정하기
+//            sharedViewModel.getDirections(origin, destination, mode)
+//        }
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
