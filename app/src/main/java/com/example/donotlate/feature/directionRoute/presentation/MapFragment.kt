@@ -134,7 +134,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         sharedViewModel.latLngBounds.observe(viewLifecycleOwner) { list ->
             Log.d("확인", "latLngBounds $list")
             // 경로를 포함하는 영역 계산하여 지도의 중심을 이동
-            if (list.isEmpty()) {
+
+            //여기에서 터짐....
+            if ((list?.isEmpty() != false) as Boolean) {
                 return@observe
             }
             val latLngBounds = LatLngBounds.builder()
