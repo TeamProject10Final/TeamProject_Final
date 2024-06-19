@@ -48,9 +48,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private var isUserInteracting = false
 
-    //lateinit var currentUserLocation: String
-    //var currentDestination: String = ""
-
     private val handler = Handler(Looper.getMainLooper())
     private var checkBoundsRunnable: Runnable? = null
 
@@ -187,7 +184,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val bounds = latLngBounds.build()
 
             val padding = 100
-            //googleMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
+            googleMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
         }
         sharedViewModel.mode.observe(viewLifecycleOwner, {mode ->
             if (mode == "transit"){
@@ -205,9 +202,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 binding.etArr.visibility = View.GONE
                 binding.btnSearchDirectionRoutes.visibility = View.GONE
 
-                Log.d("확인 user map", "${sharedViewModel.getUserLocationString().toString()}")
+                Log.d("확인 user map", sharedViewModel.getUserLocationString().toString())
                 //여기서 검색하기
-                sharedViewModel.getDirections(sharedViewModel.getUserLocationString().toString())
+                sharedViewModel.getDirections()
             }
         })
     }
@@ -304,7 +301,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                             routeBounds.southwest
                         )
                     ) {
-                        //focusMapOnBounds()
+                        focusMapOnBounds()
                     }
                 }
                 handler.postDelayed(checkBoundsRunnable!!, 3000)  // 3초 지연
@@ -357,19 +354,21 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun focusMapOnBounds() {
-//        // 경로를 포함하는 영역 계산하여 지도의 중심을 이동
-//        val latLngBounds = LatLngBounds.builder()
-//        sharedViewModel.latLngBounds.value?.forEach {
-//            latLngBounds.include(LatLng(it.lat, it.lng))
-//        }
+        // 경로를 포함하는 영역 계산하여 지도의 중심을 이동
+        val latLngBounds = LatLngBounds.builder()
+        sharedViewModel.latLngBounds.value?.forEach {
+            latLngBounds.include(LatLng(it.lat, it.lng))
+        }
 //        val bounds = latLngBounds.build()
-//
+
+        if(sharedViewModel.latLngBounds.value != null){
+            val bounds = latLngBounds.build()
 //        if (bounds.southwest != null && bounds.northeast != null) {
-//            val padding = 100
-//            googleMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
-//        } else {
-//            Log.e("확인 mapf", "LatLngBounds 실패")
-//        }
+            val padding = 100
+            googleMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
+        } else {
+            Log.e("확인 mapf", "LatLngBounds 실패")
+        }
     }
 
     private fun setLine(myMap: GoogleMap) {
@@ -386,10 +385,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(myMap: GoogleMap) {
         Log.d("확인", "onMapReady ${myMap}")
         googleMap = myMap
-//        setLine(myMap)
-//        setMarker(myMap)
+        setLine(myMap)
+        setMarker(myMap)
 //
-//        setupMapListeners()
+        setupMapListeners()
     }
 
 

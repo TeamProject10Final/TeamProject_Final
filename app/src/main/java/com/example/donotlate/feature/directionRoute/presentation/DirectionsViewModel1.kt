@@ -60,6 +60,13 @@ class DirectionsViewModel1(
     private val _routeSelectionText = MutableLiveData<List<String>>()
     val routeSelectionText: LiveData<List<String>> get() = _routeSelectionText
 
+    fun setTransitMode(tm: String){
+        _transitMode.value = tm
+    }
+
+    fun setRoutingPreference(rp: String){
+        _routingPreference.value = rp
+    }
     fun setArrivalTime(hour: Int, minute: Int) {
         _arrivalTime.value = LocalTime.of(hour, minute)
     }
@@ -102,15 +109,19 @@ class DirectionsViewModel1(
     private val _shortExplanations = MutableLiveData<String>()
     val shortExplanations: LiveData<String> get() = _shortExplanations
 
-    fun setDestination(destination: String){
+    fun setDestination(destination: String) {
         _destination.value = destination
     }
-    fun getDirections(origin: String, mode: String = _mode.value.toString()) {
-        Log.d("확인", "$origin, ${_destination.value.toString()}, $mode")
+
+    fun getDirections() {
+        Log.d("확인", "$origin, ${_destination.value.toString()}, ${_mode.value.toString()}")
         viewModelScope.launch {
             try {
-                updateODM(origin, _destination.value.toString(), mode)
-                val result = getDirectionsUseCase(origin, _destination.value.toString(), mode)
+                val result = getDirectionsUseCase(
+                    origin.value.toString(),
+                    destination.value.toString(),
+                    mode.value.toString()
+                )
                 yield()
                 _directionsResult.value = result.toModel()
                 updatePolyLineWithColors()
@@ -124,20 +135,42 @@ class DirectionsViewModel1(
         }
     }
 
+    fun getDirectionsWithDepartureTmRp() {
+        viewModelScope.launch {
+            try {
+                val result = getDirWithDepTmRpUseCase(
+                    _origin.value.toString(),
+                    _destination.value.toString(),
+                    _departureTime.value.toString().toInt(),
+                    _mode.value.toString(),
+                    _routingPreference.value.toString()
+                )
+                yield()
+                _directionsResult.value = result.toModel()
+                updatePolyLineWithColors()
+                updateBounds()
+                setShortDirectionsResult()
+                setDirectionsResult()
+                Log.d("확인", "viewmodel 2: ${_directionsResult.value}")
+            } catch (e: Exception) {
+                _error.postValue(e.message)
+            }
+        }
+    }
+
+    //아래 수정하기. 이름부터 다
     fun getDirectionsWithDepartureTmRp(
         origin: String,
-        mode: String = "transit",
+        destination: String,
         departureTime: Int,
         travelMode: String,
         transitRoutingPreference: String
     ) {
         viewModelScope.launch {
             try {
-                updateODM(origin, _destination.value.toString(), mode)
-                yield()
                 val result = getDirWithDepTmRpUseCase(
                     origin,
-                    _destination.value.toString(),
+                    destination,
                     departureTime,
                     travelMode,
                     transitRoutingPreference
@@ -167,13 +200,14 @@ class DirectionsViewModel1(
 
     fun setUserLocation(location: LatLng) {
         _userLocation.value = location
+        _origin.value = getUserLocationString()!!
     }
 
-    private fun updateODM(origin: String, destination: String, mode: String) {
-        _origin.value = origin
-        _destination.value = destination
-        _mode.value = mode
-    }
+//    private fun updateODM(origin: String, destination: String, mode: String) {
+//        _origin.value = origin
+//        _destination.value = destination
+//        _mode.value = mode
+//    }
 
     fun updatePolyLineWithColors() {
         try {
@@ -255,7 +289,8 @@ class DirectionsViewModel1(
             "${it.latitude}$delimiter${it.longitude}"
         }
     }
-    fun setMode(mode: String){
+
+    fun setMode(mode: String) {
         _mode.value = mode
     }
 
@@ -488,8 +523,6 @@ class DirectionsViewModel1(
             resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
             resultText.append("\n")
         }
-
-
         _shortExplanations.value = resultText.toString()
     }
 
