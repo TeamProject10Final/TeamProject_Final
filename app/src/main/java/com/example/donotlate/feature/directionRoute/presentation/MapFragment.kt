@@ -1,6 +1,11 @@
 package com.example.donotlate.feature.directionRoute.presentation
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Color
+import android.location.Location
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,9 +13,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -19,6 +28,9 @@ import com.example.donotlate.AppContainer
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMapBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -28,6 +40,7 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 
 class MapFragment : Fragment(), OnMapReadyCallback {
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
@@ -35,16 +48,16 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private var isUserInteracting = false
 
-    lateinit var currentUserLocation: String
-    lateinit var currentDestination: String
+    //lateinit var currentUserLocation: String
+    //var currentDestination: String = ""
 
     private val handler = Handler(Looper.getMainLooper())
     private var checkBoundsRunnable: Runnable? = null
 
 
     private lateinit var locationPermission: ActivityResultLauncher<Array<String>>
-//    private lateinit var locationCallback: LocationCallback
-//    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private val appContainer: AppContainer by lazy {
         (requireActivity().application as DoNotLateApplication).appContainer
@@ -54,6 +67,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private val directionsViewModel1Factory: DirectionsViewModel1Factory by lazy {
         appContainer.directions1Container.directionsViewModel1Factory
     }
+
 
     // SharedViewModel 가져오기
     private val sharedViewModel: DirectionsViewModel1 by activityViewModels { directionsViewModel1Factory }
@@ -70,13 +84,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 Toast.makeText(requireContext(), "권한 승인이 필요합니다.", Toast.LENGTH_LONG).show()
             }
         }
-
-        requestLocationPermission()
+        //checkPermission()
+        //requestLocationPermission()
 //
-//        arguments?.let {
-//            currentUserLocation = it.getString("currenUserLocation").toString()
-//            currentDestination = it.getString("destination").toString()
-//        }
 //
 //        searchDirections()
 
@@ -91,22 +101,62 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 //        }
 //    }
 
-    private fun requestLocationPermission() {
-        locationPermission.launch(
-            arrayOf(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        )
-    }
+//    private fun requestLocationPermission() {
+//        locationPermission.launch(
+//            arrayOf(
+//                Manifest.permission.ACCESS_COARSE_LOCATION,
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            )
+//        )
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
-
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        checkPermission()
+        getCurrentLocation()
         return binding.root
+    }
+
+//    private fun getCurrentLocation() {
+//
+//    }
+
+    private fun checkPermission() {
+        if (hasLocationPermission()) {
+            getCurrentLocation()
+        } else {
+            requestLocationPermission()
+        }
+    }
+
+    private fun hasLocationPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    //    private fun requestLocationPermission() {
+//        locationPermission.launch(
+//            arrayOf(
+//                Manifest.permission.ACCESS_COARSE_LOCATION,
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            )
+//        )
+//    }
+
+    private fun requestLocationPermission() {
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ), LOCATION_PERMISSION_REQUEST_CODE
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -114,16 +164,18 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         initializeMapView()
         setupClickListener()
+        setUpSpinners()
+
 
         binding.btnMapBottomSheet.setOnClickListener {
             val bottomSheetDialogFragment = RouteDetailsBottomSheet()
             bottomSheetDialogFragment.show(parentFragmentManager, "tag")
         }
-        sharedViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
-            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-        }
+//        sharedViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+//            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+//        }
         sharedViewModel.latLngBounds.observe(viewLifecycleOwner) { list ->
-            Log.d("확인","latLngBounds ${list}")
+            Log.d("확인", "latLngBounds ${list}")
             // 경로를 포함하는 영역 계산하여 지도의 중심을 이동
             if (list.isEmpty()) {
                 return@observe
@@ -137,6 +189,82 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val padding = 100
             //googleMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
         }
+        sharedViewModel.mode.observe(viewLifecycleOwner, {mode ->
+            if (mode == "transit"){
+                binding.spinner2tm.visibility = View.VISIBLE
+                binding.spinner3rp.visibility = View.VISIBLE
+                binding.etDep.visibility = View.VISIBLE
+                binding.etArr.visibility = View.VISIBLE
+                binding.btnSearchDirectionRoutes.visibility = View.VISIBLE
+            }else if(mode == "이용할 교통수단을 선택해주세요."){
+                //
+            }else {
+                binding.spinner2tm.visibility = View.GONE
+                binding.spinner3rp.visibility = View.GONE
+                binding.etDep.visibility = View.GONE
+                binding.etArr.visibility = View.GONE
+                binding.btnSearchDirectionRoutes.visibility = View.GONE
+
+                Log.d("확인 user map", "${sharedViewModel.getUserLocationString().toString()}")
+                //여기서 검색하기
+                sharedViewModel.getDirections(sharedViewModel.getUserLocationString().toString())
+            }
+        })
+    }
+
+    private fun setUpSpinners() {
+        val modeArray = resources.getStringArray(R.array.modeArray)
+        val adapterMode = object : ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, modeArray){
+            override fun getCount() : Int{
+                return super.getCount() - 1
+            }
+        }
+        adapterMode.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinner1mode.adapter = adapterMode
+        binding.spinner1mode.setSelection(modeArray.size -1)
+
+        val trafficModeArray = resources.getStringArray(R.array.trafficModeArray)
+        val adapterTm = object : ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, trafficModeArray){
+            override fun getCount() : Int{
+                return super.getCount() - 1
+            }
+        }
+        adapterTm.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinner2tm.adapter = adapterTm
+        binding.spinner2tm.setSelection(trafficModeArray.size -1)
+
+        val routingPreferenceArray = resources.getStringArray(R.array.transitRoutingPreferenceArray)
+        val adapterRp = object : ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, routingPreferenceArray){
+            override fun getCount() : Int{
+                return super.getCount() - 1
+            }
+        }
+        adapterRp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinner3rp.adapter = adapterRp
+        binding.spinner3rp.setSelection(adapterRp.count)
+
+        binding.spinner1mode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                var selectedMode = parent?.getItemAtPosition(position).toString()
+
+                sharedViewModel.setMode(selectedMode)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+        binding.etDep.setOnFocusChangeListener{_, hasFocus ->
+            if(!hasFocus){
+                val enteredText = binding.etDep.text.toString()
+                //sharedViewModel.setDepartureTime()
+            }
+        }
     }
 
     private fun setupClickListener() {
@@ -144,6 +272,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val bottomSheetDialogFragment = RouteDetailsBottomSheet()
             bottomSheetDialogFragment.show(parentFragmentManager, "tag")
         }
+
+        //binding.spinner1mode.selectedi
 
     }
 
@@ -254,7 +384,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(myMap: GoogleMap) {
-        Log.d("확인","onMapReady ${myMap}")
+        Log.d("확인", "onMapReady ${myMap}")
         googleMap = myMap
 //        setLine(myMap)
 //        setMarker(myMap)
@@ -263,4 +393,45 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
 
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocation() {
+        if (hasLocationPermission()) {
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    location?.let {
+                        val userLatLng = LatLng(it.latitude, it.longitude)
+
+                        sharedViewModel.setUserLocation(userLatLng)
+                    } ?: run {
+                        Toast.makeText(requireContext(), "1 위치 얻기 실패", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "2 위치 얻기 실패", Toast.LENGTH_SHORT)
+                        .show()
+                }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            Log.d("확인", "1")
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                Log.d("확인", "2")
+                // 권한이 부여되었으므로 현재 위치를 받아옴
+                getCurrentLocation()
+            } else {
+                Log.d("확인", "3")
+                Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+        Log.d("확인", "4")
+    }
 }

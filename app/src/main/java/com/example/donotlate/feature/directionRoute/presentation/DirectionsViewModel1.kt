@@ -7,16 +7,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirWithDepTmRpUseCase
 import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.PolyUtil
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
-class DirectionsViewModel1(private val getDirectionsUseCase: GetDirectionsUseCase) : ViewModel() {
+class DirectionsViewModel1(
+    private val getDirectionsUseCase: GetDirectionsUseCase,
+    private val getDirWithDepTmRpUseCase: GetDirWithDepTmRpUseCase
+) : ViewModel() {
     private val _directionsResult = MutableLiveData<DirectionsModel>()
     val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
+
+    private val _selectedRouteIndex = MutableLiveData<Int>()
+    val selectedRouteIndex: LiveData<Int> get() = _selectedRouteIndex
 
     //결과가 여러 개 나오고, 그 중 하나 선택하는 경우 로직 추가하기.. 리스트 추가하고 directionResult에 넣는 과정 추가하기
 
@@ -31,6 +42,50 @@ class DirectionsViewModel1(private val getDirectionsUseCase: GetDirectionsUseCas
 
     private val _mode = MutableLiveData<String>()
     val mode: LiveData<String> get() = _mode
+
+    //추가한것들
+
+    private val _transitMode = MutableLiveData<String>()
+    val transitMode: LiveData<String> get() = _transitMode
+
+    private val _routingPreference = MutableLiveData<String>()
+    val routingPreference: LiveData<String> get() = _routingPreference
+
+    private val _arrivalTime = MutableLiveData<LocalTime>()
+    val arrivalTime: LiveData<LocalTime> get() = _arrivalTime
+
+    private val _departureTime = MutableLiveData<LocalTime>()
+    val departureTime: LiveData<LocalTime> get() = _departureTime
+
+    private val _routeSelectionText = MutableLiveData<List<String>>()
+    val routeSelectionText: LiveData<List<String>> get() = _routeSelectionText
+
+    fun setArrivalTime(hour: Int, minute: Int) {
+        _arrivalTime.value = LocalTime.of(hour, minute)
+    }
+
+    fun setDepartureTime(hour: Int, minute: Int) {
+        _departureTime.value = LocalTime.of(hour, minute)
+
+    }
+
+    fun setSelectedRouteIndex(indexNum: Int) {
+        _selectedRouteIndex.value = indexNum
+    }
+
+    fun getUnixTimestamp(selectedTime: LocalTime): Long? {
+        val currentDate = LocalDateTime.now().toLocalDate()
+        val currentTime = LocalTime.now()
+        var dateTime = LocalDateTime.of(currentDate, selectedTime ?: return null)
+
+        if (dateTime.toLocalTime().isBefore(currentTime)) {
+            dateTime = dateTime.plusDays(1)
+        }
+
+        val zonedDateTime = ZonedDateTime.of(dateTime, ZoneId.systemDefault())
+        return zonedDateTime.toEpochSecond()
+    }
+
 
     private val _polyLine = MutableLiveData<List<PolylineOptions>>()
     val polyLine: LiveData<List<PolylineOptions>> get() = _polyLine
@@ -47,12 +102,15 @@ class DirectionsViewModel1(private val getDirectionsUseCase: GetDirectionsUseCas
     private val _shortExplanations = MutableLiveData<String>()
     val shortExplanations: LiveData<String> get() = _shortExplanations
 
-    fun getDirections(origin: String, destination: String, mode: String) {
-        Log.d("확인", "$origin, $destination, $mode")
+    fun setDestination(destination: String){
+        _destination.value = destination
+    }
+    fun getDirections(origin: String, mode: String = _mode.value.toString()) {
+        Log.d("확인", "$origin, ${_destination.value.toString()}, $mode")
         viewModelScope.launch {
             try {
-                updateODM(origin, destination, mode)
-                val result = getDirectionsUseCase(origin, destination, mode)
+                updateODM(origin, _destination.value.toString(), mode)
+                val result = getDirectionsUseCase(origin, _destination.value.toString(), mode)
                 yield()
                 _directionsResult.value = result.toModel()
                 updatePolyLineWithColors()
@@ -60,6 +118,36 @@ class DirectionsViewModel1(private val getDirectionsUseCase: GetDirectionsUseCas
                 setShortDirectionsResult()
                 setDirectionsResult()
                 Log.d("확인", "viewmodel: ${_directionsResult.value}")
+            } catch (e: Exception) {
+                _error.postValue(e.message)
+            }
+        }
+    }
+
+    fun getDirectionsWithDepartureTmRp(
+        origin: String,
+        mode: String = "transit",
+        departureTime: Int,
+        travelMode: String,
+        transitRoutingPreference: String
+    ) {
+        viewModelScope.launch {
+            try {
+                updateODM(origin, _destination.value.toString(), mode)
+                yield()
+                val result = getDirWithDepTmRpUseCase(
+                    origin,
+                    _destination.value.toString(),
+                    departureTime,
+                    travelMode,
+                    transitRoutingPreference
+                )
+                _directionsResult.value = result.toModel()
+                updatePolyLineWithColors()
+                updateBounds()
+                setShortDirectionsResult()
+                setDirectionsResult()
+                Log.d("확인", "viewmodel 2: ${_directionsResult.value}")
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }
@@ -92,8 +180,8 @@ class DirectionsViewModel1(private val getDirectionsUseCase: GetDirectionsUseCas
             val routes = _directionsResult.value?.routes
             val polylines = mutableListOf<PolylineOptions>()
 
-            routes?.forEach { route ->
-                route.legs.forEach { leg ->
+            if (routes != null) {
+                routes.get(_selectedRouteIndex.value!!).legs.forEach { leg ->
                     leg.steps.forEach { step ->
                         val decodedPoints = PolyUtil.decode(step.polyline.points ?: "")
                         val color = hexToColorInt(step.transitDetails.line.color)
@@ -107,6 +195,7 @@ class DirectionsViewModel1(private val getDirectionsUseCase: GetDirectionsUseCas
                     }
                 }
             }
+
 
             _polyLine.postValue(polylines)
 
@@ -128,12 +217,18 @@ class DirectionsViewModel1(private val getDirectionsUseCase: GetDirectionsUseCas
 
     fun getOrigin(): LatLng {
         val lat1 =
-            _directionsResult.value?.routes?.get(0)?.legs?.get(0)?.totalStartLocation?.lat ?: 0.0
+            _directionsResult.value?.routes?.get(_selectedRouteIndex.value!!)?.legs?.get(0)?.totalStartLocation?.lat
+                ?: 0.0
         val lng1 =
-            _directionsResult.value?.routes?.get(0)?.legs?.get(0)?.totalStartLocation?.lng ?: 0.0
+            _directionsResult.value?.routes?.get(_selectedRouteIndex.value!!)?.legs?.get(0)?.totalStartLocation?.lng
+                ?: 0.0
         Log.d(
             "확인",
-            "origin : ${_directionsResult.value?.routes?.get(0)?.legs?.get(0)?.totalStartLocation?.lat}"
+            "origin : ${
+                _directionsResult.value?.routes?.get(_selectedRouteIndex.value!!)?.legs?.get(
+                    0
+                )?.totalStartLocation?.lat
+            }"
         )
         return LatLng(lat1, lng1)
 
@@ -141,12 +236,14 @@ class DirectionsViewModel1(private val getDirectionsUseCase: GetDirectionsUseCas
 
     fun getDestination(): LatLng {
         val lat1 =
-            _directionsResult.value?.routes?.get(0)?.legs?.get(0)?.totalEndLocation?.lat ?: 0.0
+            _directionsResult.value?.routes?.get(_selectedRouteIndex.value!!)?.legs?.get(0)?.totalEndLocation?.lat
+                ?: 0.0
         val lng1 =
-            _directionsResult.value?.routes?.get(0)?.legs?.get(0)?.totalEndLocation?.lng ?: 0.0
+            _directionsResult.value?.routes?.get(_selectedRouteIndex.value!!)?.legs?.get(0)?.totalEndLocation?.lng
+                ?: 0.0
         Log.d(
             "확인",
-            "dest : ${_directionsResult.value?.routes?.get(0)?.legs?.get(0)?.totalEndLocation?.lat}"
+            "dest : ${_directionsResult.value?.routes?.get(_selectedRouteIndex.value!!)?.legs?.get(0)?.totalEndLocation?.lat}"
         )
         return LatLng(lat1, lng1)
     }
@@ -157,6 +254,9 @@ class DirectionsViewModel1(private val getDirectionsUseCase: GetDirectionsUseCas
         return location?.let {
             "${it.latitude}$delimiter${it.longitude}"
         }
+    }
+    fun setMode(mode: String){
+        _mode.value = mode
     }
 
     // directionsResult를 설정하는 메서드
@@ -173,57 +273,54 @@ class DirectionsViewModel1(private val getDirectionsUseCase: GetDirectionsUseCas
     private fun formatDirectionsExplanations(directions: DirectionsModel) {
         val resultText = StringBuilder()
 
-        directions.routes.forEach { route ->
-            route.legs.forEach { leg ->
-                resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
-                resultText.append("앞으로 ${leg.totalDuration.text} 뒤인\n")
-                resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
-                resultText.append("\n")
-                var num = 1
-                leg.steps.forEach { step ->
-                    resultText.append("🔷${num}:\n")
-                    resultText.append("  상세설명: ${step.htmlInstructions}\n")
-                    resultText.append("  소요시간: ${step.stepDuration.text}\n")
-                    resultText.append("  구간거리: ${step.distance.text}\n")
-                    resultText.append("  이동수단: ${step.travelMode}")
+        directions.routes.get(_selectedRouteIndex.value!!).legs.forEach { leg ->
+            resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
+            resultText.append("앞으로 ${leg.totalDuration.text} 뒤인\n")
+            resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
+            resultText.append("\n")
+            var num = 1
+            leg.steps.forEach { step ->
+                resultText.append("🔷${num}:\n")
+                resultText.append("  상세설명: ${step.htmlInstructions}\n")
+                resultText.append("  소요시간: ${step.stepDuration.text}\n")
+                resultText.append("  구간거리: ${step.distance.text}\n")
+                resultText.append("  이동수단: ${step.travelMode}")
 
-                    if (step.transitDetails != DirectionsTransitDetailsModel(
-                            DirectionsTransitStopModel(LatLngModel(0.0, 0.0), ""),
-                            TimeZoneTextValueObjectModel("", "", 0.0),
-                            DirectionsTransitStopModel(LatLngModel(0.0, 0.0), ""),
-                            TimeZoneTextValueObjectModel("", "", 0.0),
-                            (""),
-                            0,
-                            DirectionsTransitLineModel(
-                                emptyList(),
-                                "",
-                                "",
-                                "",
-                                "",
-                                "",
-                                "",
-                                DirectionsTransitVehicleModel("", "", "", "")
-                            ),
-                            0,
-                            ""
-                        )
-                    ) {
-                        resultText.append(" : ${step.transitDetails.line.shortName}, ${step.transitDetails.line.name}\n")
-                        resultText.append("    ${step.transitDetails.headSign} 행\n")
-                        resultText.append("    탑승 장소: ${step.transitDetails.departureStop.name}\n")
-                        resultText.append("    하차 장소: ${step.transitDetails.arrivalStop.name}\n")
-                        resultText.append("    ${step.transitDetails.numStops}")
-                        resultText.append(categorizeTransportation(step.transitDetails.line.vehicle.type))
-                        resultText.append("\n\n")
-                    } else {
-                        resultText.append("\n\n\n")
-                    }
-
-                    num++
+                if (step.transitDetails != DirectionsTransitDetailsModel(
+                        DirectionsTransitStopModel(LatLngModel(0.0, 0.0), ""),
+                        TimeZoneTextValueObjectModel("", "", 0.0),
+                        DirectionsTransitStopModel(LatLngModel(0.0, 0.0), ""),
+                        TimeZoneTextValueObjectModel("", "", 0.0),
+                        (""),
+                        0,
+                        DirectionsTransitLineModel(
+                            emptyList(),
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            DirectionsTransitVehicleModel("", "", "", "")
+                        ),
+                        0,
+                        ""
+                    )
+                ) {
+                    resultText.append(" : ${step.transitDetails.line.shortName}, ${step.transitDetails.line.name}\n")
+                    resultText.append("    ${step.transitDetails.headSign} 행\n")
+                    resultText.append("    탑승 장소: ${step.transitDetails.departureStop.name}\n")
+                    resultText.append("    하차 장소: ${step.transitDetails.arrivalStop.name}\n")
+                    resultText.append("    ${step.transitDetails.numStops}")
+                    resultText.append(categorizeTransportation(step.transitDetails.line.vehicle.type))
+                    resultText.append("\n\n")
+                } else {
+                    resultText.append("\n\n\n")
                 }
+
+                num++
             }
         }
-
         _directionExplanations.value = resultText.toString()
     }
 
@@ -308,6 +405,71 @@ class DirectionsViewModel1(private val getDirectionsUseCase: GetDirectionsUseCas
         }
     }
 
+    fun setRouteSelectionText() {
+        if (_directionsResult.value != null) {
+            formatRouteSelectionText(_directionsResult.value!!)
+        } else {
+            _error.postValue("_direction null")
+            Log.d("확인 setDirections", "null")
+        }
+    }
+
+    fun formatRouteSelectionText(directions: DirectionsModel) {
+        val resultsList = mutableListOf<String>()
+
+        directions.routes.size
+        var routeIndex = 1
+        directions.routes.forEach { route ->
+            val resultText = StringBuilder()
+            resultText.append("🔷경로 ${routeIndex}\n")
+            route.legs.forEach { leg ->
+                resultText.append("예상 소요 시간 : ${leg.totalDuration.text},\n")
+                resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예상.\n")
+                resultText.append("\n")
+                var num = 1
+                leg.steps.forEach { step ->
+                    resultText.append("🔷${num}:\n")
+                    resultText.append("  상세설명: ${step.htmlInstructions}\n")
+                    resultText.append("  소요시간: ${step.stepDuration.text}\n")
+                    resultText.append("  이동수단: ${step.travelMode}")
+
+                    if (step.transitDetails != DirectionsTransitDetailsModel(
+                            DirectionsTransitStopModel(LatLngModel(0.0, 0.0), ""),
+                            TimeZoneTextValueObjectModel("", "", 0.0),
+                            DirectionsTransitStopModel(LatLngModel(0.0, 0.0), ""),
+                            TimeZoneTextValueObjectModel("", "", 0.0),
+                            (""),
+                            0,
+                            DirectionsTransitLineModel(
+                                emptyList(),
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                DirectionsTransitVehicleModel("", "", "", "")
+                            ),
+                            0,
+                            ""
+                        )
+                    ) {
+                        resultText.append(" - ${step.transitDetails.line.shortName}, ${step.transitDetails.line.name}\n")
+                        resultText.append("\n\n")
+                    } else {
+                        resultText.append("\n\n\n")
+                    }
+                    resultsList.add(resultText.toString())
+                    num++
+                }
+            }
+
+            routeIndex++
+        }
+        _routeSelectionText.value = resultsList
+    }
+
+
     fun setShortDirectionsResult() {
         if (_directionsResult.value != null) {
             formatShortDirectionsExplanations(_directionsResult.value!!)
@@ -316,29 +478,32 @@ class DirectionsViewModel1(private val getDirectionsUseCase: GetDirectionsUseCas
             Log.d("확인 setDirections", "null")
         }
     }
+
     private fun formatShortDirectionsExplanations(directions: DirectionsModel) {
         val resultText = StringBuilder()
 
-        directions.routes.forEach { route ->
-            route.legs.forEach { leg ->
-                resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
-                resultText.append("앞으로 ${leg.totalDuration.text} 뒤인\n")
-                resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
-                resultText.append("\n")
-            }
+        directions.routes.get(_selectedRouteIndex.value!!).legs.forEach { leg ->
+            resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
+            resultText.append("앞으로 ${leg.totalDuration.text} 뒤인\n")
+            resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
+            resultText.append("\n")
         }
+
 
         _shortExplanations.value = resultText.toString()
     }
 
 }
 
-class DirectionsViewModel1Factory(private val getDirectionsUseCase: GetDirectionsUseCase) :
+class DirectionsViewModel1Factory(
+    private val getDirectionsUseCase: GetDirectionsUseCase,
+    private val getDirWithDepTmRpUseCase: GetDirWithDepTmRpUseCase
+) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DirectionsViewModel1::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return DirectionsViewModel1(getDirectionsUseCase) as T
+            return DirectionsViewModel1(getDirectionsUseCase, getDirWithDepTmRpUseCase) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

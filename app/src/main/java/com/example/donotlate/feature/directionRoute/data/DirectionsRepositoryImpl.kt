@@ -18,4 +18,16 @@ class DirectionsRepositoryImpl(
         Log.d("확인", "impl: $result")
         return result
     }
+
+    override suspend fun getDirectionsWithDepartureTmRp(
+        origin: String,
+        destination: String,
+        departureTime: Int,
+        transitMode: String,
+        transitRoutingPreference: String
+    ): DirectionsEntity {
+        val result = apiService.getDirectionsWithDepartureTmRp(origin, destination, departureTime, transitMode, transitRoutingPreference).toEntity()
+        Log.d("확인", "impl 8: $result")
+        return result
+    }
 }
