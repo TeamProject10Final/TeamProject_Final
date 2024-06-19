@@ -19,9 +19,8 @@ import coil.transform.CircleCropTransformation
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMypageBinding
-import com.example.donotlate.feature.main.presentation.view.MainFragment
-import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
-import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
+import com.example.donotlate.feature.main.presentation.view.MainPageViewModel
+import com.example.donotlate.feature.main.presentation.view.MainPageViewModelFactory
 import kotlinx.coroutines.launch
 import java.io.IOException
 

@@ -1,6 +1,7 @@
 package com.example.donotlate
 
 import com.example.donotlate.core.data.repository.FirebaseDataSourceImpl
+import com.example.donotlate.core.data.session.SessionManagerImpl
 import com.example.donotlate.core.domain.usecase.AcceptFriendRequestsUseCase
 import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendRequestsListUseCase
@@ -33,13 +34,13 @@ import com.example.donotlate.feature.consumption.domain.usecase.ToggleIsFinished
 import com.example.donotlate.feature.consumption.presentation.ConsumptionViewModelFactory
 import com.example.donotlate.feature.consumption.presentation.SharedViewModelFactory
 import com.example.donotlate.feature.directionRoute.api.RouteNetworkClient
-import com.example.donotlate.feature.directionRoute.domain.DirectionsRepository
 import com.example.donotlate.feature.directionRoute.data.DirectionsRepositoryImpl
+import com.example.donotlate.feature.directionRoute.domain.DirectionsRepository
 import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
 import com.example.donotlate.feature.directionRoute.presentation.DirectionsViewModel1Factory
 import com.example.donotlate.feature.friends.data.repository.FriendRequestRepositoryImpl
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
-import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
+import com.example.donotlate.feature.main.presentation.view.MainPageViewModelFactory
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageReceivingUseCase
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseCase
 import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModelFactory
@@ -249,6 +250,10 @@ class AppContainer {
 
     val getMyDataFromFirebaseUseCase by lazy {
         GetMyDataFromFireStoreUseCase(firebaseDataRepository)
+    }
+
+    val sessionManager by lazy {
+        SessionManagerImpl()
     }
 
 }
