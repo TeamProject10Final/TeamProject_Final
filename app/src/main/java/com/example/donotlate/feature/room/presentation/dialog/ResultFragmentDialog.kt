@@ -47,7 +47,12 @@ class ResultFragmentDialog : DialogFragment() {
         binding.tvDlConfirm.setOnClickListener {
             val activity = activity as RoomActivity
             activity.supportFragmentManager.beginTransaction()
-                .replace(R.id.frame_room, RoomResultFragment()).commit()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.slide_in,
+                    /* exit = */ R.anim.fade_out,
+                )
+                .replace(R.id.frame_room, RoomResultFragment())
+                .commit()
             dismiss()
         }
     }

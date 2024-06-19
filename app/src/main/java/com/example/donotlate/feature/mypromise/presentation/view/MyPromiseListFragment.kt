@@ -112,7 +112,11 @@ class MyPromiseListFragment : Fragment() {
         bundle.putParcelable("promiseRoom", roomInfo)
         fragment.arguments = bundle
 
-        requireActivity().supportFragmentManager.beginTransaction()
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                /* enter = */ R.anim.slide_in,
+                /* exit = */ R.anim.fade_out,
+            )
             .add(R.id.frame, fragment)
             .addToBackStack(null)
             .commit()
@@ -121,7 +125,11 @@ class MyPromiseListFragment : Fragment() {
 
     private fun backButton() {
         binding.ivPromiseBack.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
                 .replace(R.id.frame, MainFragment())
                 .commit()
         }
@@ -152,6 +160,7 @@ class MyPromiseListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        parentFragmentManager.popBackStack()
         _binding = null
     }
 

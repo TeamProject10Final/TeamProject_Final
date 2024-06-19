@@ -20,8 +20,8 @@ import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentPlaceSearchBinding
 import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.feature.main.presentation.view.MainFragment
-import com.example.donotlate.feature.searchPlace.domain.adapter.MapAdapter
-import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
+import com.example.donotlate.feature.searchPlace.presentation.adapter.MapAdapter
+import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 import com.example.donotlate.feature.searchPlace.presentation.detail.PlaceDetailFragment
 
 
@@ -39,7 +39,7 @@ class PlaceSearchFragment : Fragment() {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         PlaceSearchViewModelFactory(
             appContainer.getSearchListUseCase
-        )
+            )
     }
 
     //    private val viewModel: PlaceMainViewModel by viewModels()
@@ -65,7 +65,6 @@ class PlaceSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.layoutSearch.visibility = View.VISIBLE
 
 //        getLocationPermission()
         mapAdapter = MapAdapter()
@@ -91,8 +90,13 @@ class PlaceSearchFragment : Fragment() {
 
     private fun backButton() {
         binding.ivPlaceBack.setOnClickListener {
-            val activity = activity as MainActivity
-            activity.replaceFragment(MainFragment())
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, MainFragment())
+                .commit()
         }
     }
 
@@ -129,9 +133,14 @@ class PlaceSearchFragment : Fragment() {
                 bundle.putParcelable("data", mapData)
                 fragment.arguments = bundle
                 Log.d("debug2", "${mapData}")
-
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .add(R.id.layout_Search, fragment).commit()
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        /* enter = */ R.anim.slide_in,
+                        /* exit = */ R.anim.fade_out,
+                    )
+                    .add(R.id.fg_Search, fragment)
+                    .addToBackStack(null)
+                    .commit()
             }
         })
         searchViewModel.searchMapList.observe(viewLifecycleOwner) { map ->

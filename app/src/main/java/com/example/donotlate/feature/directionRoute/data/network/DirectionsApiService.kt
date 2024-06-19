@@ -16,4 +16,20 @@ interface DirectionsApiService {
 //        @Query("key") apiKey: String = "AIzaSyCAOdeHz6erGcY_sbcEqbEgAETVpirfiV8"
         @Query("key") apiKey: String = "AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U"
     ): DirectionsResponse
+    //출발시간 + 선호수단 + 선호방식
+    @GET("directions/json")
+    suspend fun getDirectionsWithDepartureTmRp(
+        @Query("origin") origin: String,
+        @Query("destination") destination: String,
+        @Query("departure_time") departureTime: Int,
+        @Query("transit_mode") transitMode: String,
+        @Query("transit_routing_preference") transitRoutingPreference: String,
+        @Query("mode") mode: String = "transit",
+        @Query("alternatives") alternatives: Boolean = true,
+        @Query("language") language: String = "ko",
+//        @Query("key") apiKey: String = "AIzaSyCAOdeHz6erGcY_sbcEqbEgAETVpirfiV8"
+        @Query("key") apiKey: String = "AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U"
+    ): DirectionsResponse
+
+
 }
