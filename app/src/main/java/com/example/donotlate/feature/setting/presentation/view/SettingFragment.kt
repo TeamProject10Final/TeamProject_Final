@@ -1,7 +1,7 @@
 package com.example.donotlate.feature.setting.presentation.view
 
 import android.annotation.SuppressLint
-import android.graphics.Typeface
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -21,7 +21,6 @@ import com.example.donotlate.databinding.FragmentSettingBinding
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
-import com.example.donotlate.feature.setting.model.ListType
 import com.example.donotlate.feature.setting.presentation.adapter.SettingAdapter
 import kotlinx.coroutines.launch
 
@@ -57,6 +56,7 @@ class SettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         darkMode()
         startMyPage()
         observeViewModel()
@@ -101,29 +101,43 @@ class SettingFragment : Fragment() {
     //다크 모드 on/off
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private fun darkMode() {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPrefValue = resources.getString(R.string.preference_file_key)
+        val darkModeValue =
+            sharedPref.getString(getString(R.string.preference_file_key), sharedPrefValue)
         val switch = binding.swDarkMode
         switch.setOnClickListener {
-            if (binding.swDarkMode.isChecked) {
+            if (darkModeValue == "darkModeOff") {
                 //스위치 on
                 Log.d("스위치 동작", "스위치 on 다크모드")
-
                 Handler(Looper.getMainLooper()).postDelayed({
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                },200)
+                }, 200)
+
+                //앱을 꺼도 다크모드on/off 적용
+                with(sharedPref.edit()) {
+                    putString(getString(R.string.preference_file_key), "darkModeOn")
+                    apply()
+                }
                 mainPageViewModel.dakeModeChange(false)
             } else {
                 //스위치 off
                 Log.d("스위치 동작", "스위치 off 라이트모드")
                 Handler(Looper.getMainLooper()).postDelayed({
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                },200)
+                }, 200)
+
+                with(sharedPref.edit()) {
+                    putString(getString(R.string.preference_file_key), "darkModeOff")
+                    apply()
+                }
                 mainPageViewModel.dakeModeChange(true)
             }
         }
     }
 
     //스위치 상태 지정
-    private fun switchMode(){
+    private fun switchMode() {
         lifecycleScope.launch {
             if (mainPageViewModel.dakeMode.value == true) {
                 Log.d("스위치", "스위치 위치 off")
@@ -136,9 +150,9 @@ class SettingFragment : Fragment() {
     }
 
     //어뎁터 연결
-    private fun initView(){
+    private fun initView() {
         val settingItemList = arrayListOf("폰트 변경")
-        val settingItemList2 = arrayListOf("건의 하기","앱 정보","로그 아웃")
+        val settingItemList2 = arrayListOf("건의 하기", "앱 정보", "로그 아웃")
 
         val adapter1 = SettingAdapter(settingItemList)
         binding.recyclerSetting.adapter = adapter1
@@ -170,7 +184,7 @@ class SettingFragment : Fragment() {
         }
     }
 
-    private fun backBt(){
+    private fun backBt() {
         //뒤로가기
         binding.ivBack.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()

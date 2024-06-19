@@ -1,8 +1,10 @@
 package com.example.donotlate.feature.searchPlace.presentation.detail
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
@@ -11,9 +13,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.core.location.LocationManagerCompat.getCurrentLocation
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
@@ -36,7 +39,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 
 class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
-
 
     private var _binding: FragmentPlaceDetailBinding? = null
     private val binding get() = _binding!!
@@ -72,6 +74,10 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 //        checkPermission()
 //        getCurrentLocation()
+
+        onBackPressed()
+
+
         return binding.root
     }
 
@@ -80,18 +86,16 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
 
         initView()
         initBackButton()
-
+        initBackground()
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.layout_Place_Detail) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        binding.btnNavigation.setOnClickListener{
+        binding.btnNavigation.setOnClickListener {
             //if
             checkPermission()
 
-
         }
-
     }
 
     private fun initBackButton() {
@@ -101,6 +105,30 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private fun onBackPressed() {
+        val onBackPressedCallback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .remove(requireParentFragment()).commit()
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), onBackPressedCallback)
+    }
+
+    //투명 배경 없애기
+    private fun initBackground() {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPrefValue = resources.getString(R.string.preference_file_key)
+        val darkModeValue =
+            sharedPref.getString(getString(R.string.preference_file_key), sharedPrefValue)
+
+        if (darkModeValue == "darkModeOn") {
+            binding.constraint.setBackgroundColor(Color.BLACK)
+        } else {
+            binding.constraint.setBackgroundColor(Color.WHITE)
+        }
+    }
 
     private fun initView() {
 
@@ -171,6 +199,7 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
 //        }
 //    }
     }
+
     private fun checkPermission() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -235,17 +264,17 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            Log.d("확인","1")
+            Log.d("확인", "1")
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                Log.d("확인","2")
+                Log.d("확인", "2")
                 // 권한이 부여되었으므로 현재 위치를 받아옴
                 getCurrentLocation()
             } else {
-                Log.d("확인","3")
+                Log.d("확인", "3")
                 Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT)
                     .show()
             }
         }
-        Log.d("확인","4")
+        Log.d("확인", "4")
     }
 }

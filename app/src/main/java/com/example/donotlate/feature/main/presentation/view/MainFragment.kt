@@ -1,11 +1,13 @@
 package com.example.donotlate.feature.main.presentation.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
@@ -72,7 +74,7 @@ class MainFragment : Fragment() {
         getCurrentUserData()
         observeViewModel()
         initButton()
-
+        initDarMode()
     }
 
     private fun startRoom() {
@@ -90,6 +92,19 @@ class MainFragment : Fragment() {
         startMiniGame()
         startMyPromise()
         startFriends()
+    }
+
+    private fun initDarMode(){
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+
+        val sharedPrefValue = resources.getString(R.string.preference_file_key)
+        val darkModeValue = sharedPref.getString(getString(R.string.preference_file_key), sharedPrefValue)
+
+        if (darkModeValue == "darkModeOn"){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 
     private fun startPlace() {

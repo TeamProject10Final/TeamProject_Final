@@ -39,7 +39,7 @@ class PlaceSearchFragment : Fragment() {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         PlaceSearchViewModelFactory(
             appContainer.getSearchListUseCase
-            )
+        )
     }
 
     //    private val viewModel: PlaceMainViewModel by viewModels()
@@ -56,8 +56,7 @@ class PlaceSearchFragment : Fragment() {
 //    private lateinit var locationCallback: LocationCallback
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPlaceSearchBinding.inflate(inflater, container, false)
 
@@ -66,6 +65,7 @@ class PlaceSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.layoutSearch.visibility = View.VISIBLE
 
 //        getLocationPermission()
         mapAdapter = MapAdapter()
@@ -88,7 +88,6 @@ class PlaceSearchFragment : Fragment() {
         hideKey(view)
         backButton()
     }
-
 
     private fun backButton() {
         binding.ivPlaceBack.setOnClickListener {
@@ -123,7 +122,6 @@ class PlaceSearchFragment : Fragment() {
     }
 
     private fun initMapList() {
-
         mapAdapter.setOnItemClickListener(object : MapAdapter.OnItemClickListener {
             override fun onItemClick(mapData: PlaceModel) {
                 val fragment = PlaceDetailFragment()
@@ -131,12 +129,11 @@ class PlaceSearchFragment : Fragment() {
                 bundle.putParcelable("data", mapData)
                 fragment.arguments = bundle
                 Log.d("debug2", "${mapData}")
+
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .add(R.id.layout_Search, fragment)
-                    .commit()
+                    .add(R.id.layout_Search, fragment).commit()
             }
         })
-
         searchViewModel.searchMapList.observe(viewLifecycleOwner) { map ->
             mapAdapter.setItem(map)
         }
@@ -147,9 +144,7 @@ class PlaceSearchFragment : Fragment() {
         searchViewModel.getData().observe(viewLifecycleOwner, Observer {
             searchViewModel.getSearchMapList(it)
         })
-
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     private fun hideKey(view: View) {
@@ -164,11 +159,9 @@ class PlaceSearchFragment : Fragment() {
     }
 
     private fun hideKeyboard(view: View) {
-        val imm =
-            view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
 
 //    private fun clickChip() {
 //        binding.cgChipGroup.setOnCheckedStateChangeListener { chipGroup, ints ->
