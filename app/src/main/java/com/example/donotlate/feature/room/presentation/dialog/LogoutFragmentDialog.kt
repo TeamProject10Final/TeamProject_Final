@@ -50,11 +50,5 @@ class LogoutFragmentDialog() : DialogFragment() {
             dismiss()
         }
     }
-//    private fun logOut(){
-//        auth.signOut()
-//        val activity = activity as MainActivity
-//        activity.replaceFragment(LoginFragment())
-//        dismiss()
-//    }
 }
 

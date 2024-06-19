@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.MainActivity
@@ -17,8 +16,6 @@ import com.example.donotlate.databinding.FragmentMainBinding
 import com.example.donotlate.feature.auth.presentation.view.LoginFragment
 import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.feature.friends.presentation.view.FriendsActivity
-import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
-import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import com.example.donotlate.feature.minigame.MiniGameFragment
 import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseListFragment
 import com.example.donotlate.feature.room.presentation.view.RoomActivity
@@ -45,15 +42,6 @@ class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mainPageViewModel.getCurrentUserUId()
-        setFragmentResultListener("logoutRequestKey") { _, bundle ->
-            val result = bundle.getString("result")
-            if (result == "confirm") {
-                Log.d("SettingFragment", "Logout result: $result")
-                mainPageViewModel.logout()
-                navigateToMainActivity()
-            }
-        }
-
         super.onCreate(savedInstanceState)
     }
 
@@ -114,7 +102,8 @@ class MainFragment : Fragment() {
                     /* exit = */ R.anim.fade_out,
                 )
                 .replace(R.id.frame, SettingFragment())
-                .addToBackStack(null).commit()
+                .addToBackStack("SettingFragment")
+                .commit()
         }
     }
 
