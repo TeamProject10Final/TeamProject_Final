@@ -10,156 +10,45 @@
         android:id="@+id/tv_game_manual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:text="1~8번까지 경품을 입력하여 \n 당첨자를 뽑는 게임입니다."
         android:textColor="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/et_prize_1"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/btn_game_bottom_sheet"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        android:ellipsize="end"
-        android:hint="1번"
-        android:inputType="text"
-        android:maxLines="1"
-        android:nextFocusDown="@id/et_prize_2"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@id/et_prize_2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_game_manual" />
-
-    <EditText
-        android:id="@+id/et_prize_2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:ellipsize="end"
-        android:hint="2번"
-        android:inputType="text"
-        android:maxLines="1"
-        android:nextFocusDown="@id/et_prize_3"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@id/et_prize_3"
-        app:layout_constraintStart_toEndOf="@id/et_prize_1"
-        app:layout_constraintTop_toTopOf="@id/et_prize_1" />
-
-    <EditText
-        android:id="@+id/et_prize_3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:ellipsize="end"
-        android:hint="3번"
-        android:inputType="text"
-        android:maxLines="1"
-        android:nextFocusDown="@id/et_prize_4"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@id/et_prize_4"
-        app:layout_constraintStart_toEndOf="@id/et_prize_2"
-        app:layout_constraintTop_toTopOf="@id/et_prize_1" />
-
-    <EditText
-        android:id="@+id/et_prize_4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:ellipsize="end"
-        android:hint="4번"
-        android:inputType="text"
-        android:maxLines="1"
-        android:nextFocusDown="@id/et_prize_5"
-        android:textSize="15sp"
+        android:backgroundTint="#A8B1A3"
+        android:text="경품 입력하기"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/et_prize_3"
-        app:layout_constraintTop_toTopOf="@id/et_prize_1" />
-
-    <EditText
-        android:id="@+id/et_prize_5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:ellipsize="end"
-        android:hint="5번"
-        android:inputType="text"
-        android:maxLines="1"
-        android:nextFocusDown="@id/et_prize_6"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@id/et_prize_6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_prize_1" />
-
-    <EditText
-        android:id="@+id/et_prize_6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:ellipsize="end"
-        android:hint="6번"
-        android:inputType="text"
-        android:maxLines="1"
-        android:nextFocusDown="@id/et_prize_7"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@id/et_prize_7"
-        app:layout_constraintStart_toEndOf="@id/et_prize_5"
-        app:layout_constraintTop_toTopOf="@id/et_prize_5" />
-
-    <EditText
-        android:id="@+id/et_prize_7"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:ellipsize="end"
-        android:hint="7번"
-        android:inputType="text"
-        android:maxLines="1"
-        android:nextFocusDown="@id/et_prize_8"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@id/et_prize_8"
-        app:layout_constraintStart_toEndOf="@id/et_prize_6"
-        app:layout_constraintTop_toTopOf="@id/et_prize_5" />
-
-    <EditText
-        android:id="@+id/et_prize_8"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:ellipsize="end"
-        android:hint="8번"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:maxLines="1"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/et_prize_7"
-        app:layout_constraintTop_toTopOf="@id/et_prize_5" />
+        app:layout_constraintTop_toBottomOf="@id/btn_game_button" />
 
 
     <TextView
         android:id="@+id/tv_game_infoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
         android:textColor="#A8B1A3"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/iv_game_roulette"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/tv_game_manual" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_game_roulette"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginTop="100dp"
         android:src="@drawable/ic_game_roulette"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -177,12 +66,15 @@
 
     <Button
         android:id="@+id/btn_game_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
         android:backgroundTint="#A8B1A3"
-        android:text="버튼"
+        android:text="돌리기"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_game_roulette" />

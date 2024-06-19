@@ -1,6 +1,5 @@
 package com.example.donotlate.feature.minigame
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -9,8 +8,6 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.RotateAnimation
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -44,7 +41,13 @@ class RouletteFragment : Fragment(), Animation.AnimationListener {
         powerButton = binding.btnGameButton
         powerButton!!.setOnTouchListener(PowerTouchListener())
         intSpinner()
-        editTextProcess()
+//        editTextProcess()
+
+        binding.btnGameBottomSheet.setOnClickListener {
+            val bottomFragment = BottomSheetDialogFragment()
+            bottomFragment.show(parentFragmentManager, "")
+        }
+
     }
 
     private fun intSpinner() {
@@ -143,25 +146,25 @@ class RouletteFragment : Fragment(), Animation.AnimationListener {
 
     }
 
-    private fun editTextProcess() {
-
-        binding.etPrize8.setOnEditorActionListener { textView, action, keyEvent ->
-            var handled = false
-
-            if (action == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard()
-                requireActivity().currentFocus!!.clearFocus()
-                handled = true
-            }
-            handled
-        }
-    }
-
-    private fun hideKeyboard() {
-        val imm =
-            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
-    }
+//    private fun editTextProcess() {
+//
+//        binding.etPrize8.setOnEditorActionListener { textView, action, keyEvent ->
+//            var handled = false
+//
+//            if (action == EditorInfo.IME_ACTION_DONE) {
+//                hideKeyboard()
+//                requireActivity().currentFocus!!.clearFocus()
+//                handled = true
+//            }
+//            handled
+//        }
+//    }
+//
+//    private fun hideKeyboard() {
+//        val imm =
+//            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    tools:context=".feature.minigame.BottomSheetDialogFragment">
+
+    <EditText
+        android:id="@+id/et_prize_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="1번"
+        android:inputType="text"
+        android:maxLines="1"
+        android:nextFocusDown="@id/et_prize_2"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@id/et_prize_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_prize_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:hint="2번"
+        android:inputType="text"
+        android:maxLines="1"
+        android:nextFocusDown="@id/et_prize_3"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/et_prize_1"
+        app:layout_constraintTop_toTopOf="@id/et_prize_1" />
+
+    <EditText
+        android:id="@+id/et_prize_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="3번"
+        android:inputType="text"
+        android:maxLines="1"
+        android:nextFocusDown="@id/et_prize_4"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@id/et_prize_4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_prize_1" />
+
+    <EditText
+        android:id="@+id/et_prize_4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:hint="4번"
+        android:inputType="text"
+        android:maxLines="1"
+        android:nextFocusDown="@id/et_prize_5"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/et_prize_3"
+        app:layout_constraintTop_toTopOf="@id/et_prize_3" />
+
+    <EditText
+        android:id="@+id/et_prize_5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="5번"
+        android:inputType="text"
+        android:maxLines="1"
+        android:nextFocusDown="@id/et_prize_6"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@id/et_prize_6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_prize_3" />
+
+    <EditText
+        android:id="@+id/et_prize_6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:hint="6번"
+        android:inputType="text"
+        android:maxLines="1"
+        android:nextFocusDown="@id/et_prize_7"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/et_prize_5"
+        app:layout_constraintTop_toTopOf="@id/et_prize_5" />
+
+    <EditText
+        android:id="@+id/et_prize_7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="7번"
+        android:inputType="text"
+        android:maxLines="1"
+        android:nextFocusDown="@id/et_prize_8"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@id/et_prize_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_prize_5" />
+
+    <EditText
+        android:id="@+id/et_prize_8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:hint="8번"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/et_prize_7"
+        app:layout_constraintTop_toTopOf="@id/et_prize_7" />
+
+    <Button
+        android:id="@+id/btn_game_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#A8B1A3"
+        android:text="입력 완료"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/et_prize_7" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

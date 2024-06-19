@@ -1,6 +1,7 @@
 package com.example.donotlate.feature.minigame
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,8 +37,11 @@ class MiniGameFragment : Fragment() {
             Toast.makeText(requireContext(), "준비중인 기능입니다.", Toast.LENGTH_LONG).show()
         }
         binding.btnGameBackgroundWheel.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, RouletteFragment())
-                .addToBackStack("").commit()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame, RouletteFragment())
+                .addToBackStack("")
+                .commit()
+            Log.d("입력", "왜 안됨?")
         }
     }
 
