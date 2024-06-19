@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:clickable="false"
     tools:context=".feature.searchPlace.presentation.detail.PlaceDetailFragment">
 
 
@@ -61,8 +60,8 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="25dp"
                 android:src="@drawable/ic_map_pin"
@@ -84,10 +83,10 @@
 
             <ImageView
                 android:id="@+id/imageView4"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
                 android:layout_marginTop="25dp"
-                android:src="@drawable/icon_phene"
+                android:src="@drawable/ic_phone"
                 app:layout_constraintStart_toStartOf="@+id/imageView3"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 

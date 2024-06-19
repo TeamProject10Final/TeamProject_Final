@@ -33,8 +33,7 @@ class ViewPagerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
+
     }
 
     override fun onCreateView(
@@ -72,7 +71,7 @@ class ViewPagerFragment : Fragment() {
                         0 -> {
                             ivRoomBack.setOnClickListener {
                                 val dialog = BackFragmentDialog()
-                                dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
+                                dialog.show(childFragmentManager, "BackFragmentDialog")
                             }
 
                         }
