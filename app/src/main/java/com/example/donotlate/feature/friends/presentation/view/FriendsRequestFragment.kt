@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
+import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentFriendsRequestBinding
 import com.example.donotlate.feature.friends.presentation.adapter.SearchUserAdapter
 import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
@@ -35,7 +36,7 @@ class FriendsRequestFragment : Fragment() {
         )
     }
 
-    private lateinit var fromId:String
+    private lateinit var fromId: String
 
     private lateinit var searchUserAdapter: SearchUserAdapter
 
@@ -55,9 +56,11 @@ class FriendsRequestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchUserAdapter = SearchUserAdapter {user ->
+        backButton()
+
+        searchUserAdapter = SearchUserAdapter { user ->
             val dialog = FriendsRequestDialogFragment.newInstance(user)
-            dialog.show(parentFragmentManager,"RequestDialogFragment")
+            dialog.show(parentFragmentManager, "RequestDialogFragment")
         }
         binding.rvFriend.layoutManager = GridLayoutManager(requireContext(), 4)
         binding.rvFriend.adapter = searchUserAdapter
@@ -69,13 +72,22 @@ class FriendsRequestFragment : Fragment() {
 
         }
 
-        binding.ivFriendRequestBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
 
         observeViewModel()
         editTextProcess()
 
+    }
+
+    private fun backButton() {
+        binding.ivFriendRequestBack.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .remove(this)
+                .commit()
+        }
     }
 
 
@@ -104,9 +116,9 @@ class FriendsRequestFragment : Fragment() {
     }
 
 
-    private fun observeViewModel(){
+    private fun observeViewModel() {
         lifecycleScope.launch {
-            friendsViewModel.searchUserList.collect{result ->
+            friendsViewModel.searchUserList.collect { result ->
                 Log.d("FriendsRequestFragment", "Observed Results: $result")
                 searchUserAdapter.submitList(result)
             }

@@ -15,6 +15,7 @@ import com.example.donotlate.databinding.FragmentFriendsBinding
 import com.example.donotlate.feature.friends.presentation.adapter.FriendsAdapter
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
+import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import kotlinx.coroutines.launch
 
 class FriendsFragment : Fragment() {
@@ -76,7 +77,12 @@ class FriendsFragment : Fragment() {
     }
 
     private fun setFragment(fragment: Fragment) {
-        parentFragmentManager.beginTransaction().replace(R.id.frame_friends, fragment)
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                /* enter = */ R.anim.slide_in,
+                /* exit = */ R.anim.fade_out,
+            )
+            .replace(R.id.frame_friends, fragment)
             .addToBackStack("").commit()
     }
 

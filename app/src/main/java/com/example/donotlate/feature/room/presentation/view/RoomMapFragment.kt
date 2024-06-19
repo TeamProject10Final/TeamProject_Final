@@ -17,7 +17,7 @@ import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomMapBinding
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
-import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
+import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -147,11 +147,9 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
 
         roomViewModel.locationData.observe(viewLifecycleOwner) {
 
-            mGoogleMap = googleMap
             val lat = it.lat
             val lng = it.lng
             val title = it.name
-            Log.d("뷰모델", "${roomViewModel.locationData.value}")
 
             val location = LatLng(lat, lng)
             val cameraPosition = CameraPosition.Builder().target(location).zoom(15f).build()

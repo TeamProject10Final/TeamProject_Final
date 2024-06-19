@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMiniGameBinding
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 
 
 class MiniGameFragment : Fragment() {
@@ -28,9 +29,9 @@ class MiniGameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.ivGameBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
+        backButton()
+
+
         binding.btnGameBackgroundLadder.setOnClickListener {
             Toast.makeText(requireContext(), "준비중인 기능입니다.", Toast.LENGTH_LONG).show()
         }
@@ -40,8 +41,21 @@ class MiniGameFragment : Fragment() {
         }
     }
 
+    private fun backButton() {
+        binding.ivGameBack.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, MainFragment())
+                .commit()
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        parentFragmentManager.popBackStack()
         _binding = null
     }
 

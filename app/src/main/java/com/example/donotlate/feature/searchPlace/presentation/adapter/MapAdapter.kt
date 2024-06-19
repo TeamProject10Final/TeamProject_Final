@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.searchPlace.domain.adapter
+package com.example.donotlate.feature.searchPlace.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.donotlate.databinding.ItemRvPlaceBinding
-import com.example.donotlate.feature.searchPlace.presentation.data.PlaceModel
+import com.example.donotlate.feature.searchPlace.api.NetWorkClient
+import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 
 class MapAdapter : RecyclerView.Adapter<MapAdapter.MyViewHolder>() {
 
@@ -31,7 +32,7 @@ class MapAdapter : RecyclerView.Adapter<MapAdapter.MyViewHolder>() {
         fun bind(item: PlaceModel) {
 
 
-            binding.ivItemMap.load(item.img) {
+            binding.ivItemMap.load("https://places.googleapis.com/v1/${item.img}/media?key=${NetWorkClient.API_KEY}&maxHeightPx=500&maxWidthPx=750") {
                 crossfade(true)
                 transformations(RoundedCornersTransformation(20f))
             }

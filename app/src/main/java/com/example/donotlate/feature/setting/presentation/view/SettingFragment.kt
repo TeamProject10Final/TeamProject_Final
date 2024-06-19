@@ -1,7 +1,6 @@
 package com.example.donotlate.feature.setting.presentation.view
 
 import android.annotation.SuppressLint
-import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -18,11 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentSettingBinding
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.viewmodel.MainPageViewModelFactory
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
-import com.example.donotlate.feature.setting.model.ListType
 import com.example.donotlate.feature.setting.presentation.adapter.SettingAdapter
+import com.example.donotlate.feature.setting.presentation.view.information.SettingInformationFragment
+import com.example.donotlate.feature.setting.presentation.view.question.SettingQuestionFragment
 import kotlinx.coroutines.launch
 
 class SettingFragment : Fragment() {
@@ -73,7 +74,12 @@ class SettingFragment : Fragment() {
     //마이페이지 이동
     private fun startMyPage() {
         binding.constraint.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.frame, MyPageFragment())
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.slide_in,
+                    /* exit = */ R.anim.fade_out
+                )
+                .replace(R.id.frame, MyPageFragment())
                 .addToBackStack("").commit()
         }
     }
@@ -137,44 +143,60 @@ class SettingFragment : Fragment() {
 
     //어뎁터 연결
     private fun initView(){
-        val settingItemList = arrayListOf("폰트 변경")
-        val settingItemList2 = arrayListOf("건의 하기","앱 정보","로그 아웃")
+//        val settingItemList = arrayListOf("폰트 변경")
+        val settingItemList2 = arrayListOf("문의 하기", "앱 정보", "로그 아웃")
 
-        val adapter1 = SettingAdapter(settingItemList)
-        binding.recyclerSetting.adapter = adapter1
-        binding.recyclerSetting.layoutManager = LinearLayoutManager(requireContext())
+//        val adapter1 = SettingAdapter(settingItemList, null)
+//        binding.recyclerSetting.adapter = adapter1
+//        binding.recyclerSetting.layoutManager = LinearLayoutManager(requireContext())
 
-        val adapter2 = SettingAdapter(settingItemList2)
+        val adapter2 = SettingAdapter(settingItemList2, null)
         binding.recyclerSetting2.adapter = adapter2
         binding.recyclerSetting2.layoutManager = LinearLayoutManager(requireContext())
 
 
         //앱 설정 아이템 클릭
-        adapter1.itemClick = object : SettingAdapter.ItemClick {
-            override fun onClick(view: View, position: Int) {
-                when (position) {
-                    0 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+//        adapter1.itemClick = object : SettingAdapter.ItemClick {
+//            override fun onClick(view: View, position: Int) {
+//                when (position) {
+//                    0 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }
 
         //일반 아이템 클릭
         adapter2.itemClick = object : SettingAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
                 when (position) {
-                    0 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
-                    1 -> Toast.makeText(requireActivity(), "기능 준비중입니다", Toast.LENGTH_SHORT).show()
+                    0 -> initFragment(SettingQuestionFragment())
+                    1 -> initFragment(SettingInformationFragment())
                     2 -> logoutButton()
                 }
             }
         }
     }
 
+    private fun initFragment(fragment: Fragment) {
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                /* enter = */ R.anim.slide_in,
+                /* exit = */ R.anim.fade_out
+            )
+            .replace(R.id.frame, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
     private fun backBt(){
         //뒤로가기
         binding.ivBack.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-            requireActivity().supportFragmentManager.popBackStack()
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, MainFragment())
+                .commit()
         }
     }
 }

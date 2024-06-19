@@ -11,10 +11,12 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentInformationDialogBinding
 import com.example.donotlate.feature.auth.presentation.view.LoginFragment
 import com.example.donotlate.feature.auth.presentation.view.SignupFragment
+import com.example.donotlate.feature.setting.presentation.view.viewmodel.SettingViewModel
 import java.time.Year
 import java.util.Calendar
 
@@ -24,6 +26,7 @@ class InformationDialogFragment : DialogFragment() {
     private var _binding: FragmentInformationDialogBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var viewModel: SettingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,11 +65,14 @@ class InformationDialogFragment : DialogFragment() {
         binding.btnInfoConfirm.setOnClickListener {
             dismiss()
 
+            viewModel = SettingViewModel()
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
-            Log.d("123123", "${year}, ${month}, ${day}")
+            val data = "${year}.${month}.${day}"
+            viewModel.showDate(data)
+
             Toast.makeText(requireContext(), "${year}.${month+1}.${day}\n개인정보 수집 동의되었습니다.", Toast.LENGTH_SHORT).show()
         }
 
