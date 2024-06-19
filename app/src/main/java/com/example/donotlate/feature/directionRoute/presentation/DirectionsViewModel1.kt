@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirWithDepTmRpUseCase
 import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
+import com.example.finaldirectionexample01.domain.usecase.GetDirWithArrTmRpUseCase
+import com.example.finaldirectionexample01.domain.usecase.GetDirWithTmRpUseCase
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.PolyUtil
@@ -21,7 +23,9 @@ import java.time.ZonedDateTime
 
 class DirectionsViewModel1(
     private val getDirectionsUseCase: GetDirectionsUseCase,
-    private val getDirWithDepTmRpUseCase: GetDirWithDepTmRpUseCase
+    private val getDirWithDepTmRpUseCase: GetDirWithDepTmRpUseCase,
+    private val getDirWithTmRpUseCase: GetDirWithTmRpUseCase,
+    private val getDirWithArrTmRpUseCase: GetDirWithArrTmRpUseCase
 ) : ViewModel() {
     private val _directionsResult = MutableLiveData<DirectionsModel>()
     val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
@@ -51,33 +55,54 @@ class DirectionsViewModel1(
     private val _routingPreference = MutableLiveData<String>()
     val routingPreference: LiveData<String> get() = _routingPreference
 
-    private val _arrivalTime = MutableLiveData<LocalTime>()
-    val arrivalTime: LiveData<LocalTime> get() = _arrivalTime
-
-    private val _departureTime = MutableLiveData<LocalTime>()
-    val departureTime: LiveData<LocalTime> get() = _departureTime
+    private val _selectedTime = MutableLiveData<LocalTime>()
+    val selectedTime: LiveData<LocalTime> get() = _selectedTime
 
     private val _routeSelectionText = MutableLiveData<List<String>>()
     val routeSelectionText: LiveData<List<String>> get() = _routeSelectionText
 
-    fun setTransitMode(tm: String){
-        _transitMode.value = tm
+    private val _isDepArrNone = MutableLiveData<Int>(0)
+    val isDepArrNone: LiveData<Int> get() = _isDepArrNone
+
+    fun setIsDepArrNone(status: Int) {
+        _isDepArrNone.value = status
     }
 
-    fun setRoutingPreference(rp: String){
-        _routingPreference.value = rp
-    }
-    fun setArrivalTime(hour: Int, minute: Int) {
-        _arrivalTime.value = LocalTime.of(hour, minute)
+    fun changeIsDepArrNone() {
+        if (_isDepArrNone.value!! <= 0) {
+            _isDepArrNone.value = isDepArrNone.value?.plus(1)
+        }else{
+            _isDepArrNone.value = -1
+        }
+
+
+        // -1 : 출발시각 (dep)
+        // 0 : 시간 조건 없이
+        // 1 : 도착시각 (arr)
     }
 
-    fun setDepartureTime(hour: Int, minute: Int) {
-        _departureTime.value = LocalTime.of(hour, minute)
+    fun setTransitMode(tm: String) {
+        if (tm == "선호하는 교통수단을 선택해주세요.") {
+            _transitMode.value = ""
+        } else {
+            _transitMode.value = tm
+        }
+    }
 
+    fun setRoutingPreference(rp: String) {
+        if (rp == "선호하는 경로 조건을 선택해주세요.") {
+            _routingPreference.value = ""
+        } else {
+            _routingPreference.value = rp
+        }
+    }
+
+    fun setTime(hour: Int, minute: Int) {
+        _selectedTime.value = LocalTime.of(hour, minute)
     }
 
     fun setSelectedRouteIndex(indexNum: Int) {
-        _selectedRouteIndex.value = indexNum?:0
+        _selectedRouteIndex.value = (indexNum - 1) ?: 0
     }
 
     fun getUnixTimestamp(selectedTime: LocalTime): Long? {
@@ -113,6 +138,7 @@ class DirectionsViewModel1(
         _destination.value = destination
     }
 
+    //세부사항 없이
     fun getDirections() {
         Log.d("확인", "$origin, ${_destination.value.toString()}, ${_mode.value.toString()}")
         viewModelScope.launch {
@@ -124,10 +150,8 @@ class DirectionsViewModel1(
                 )
                 yield()
                 _directionsResult.value = result.toModel()
-//                updatePolyLineWithColors()
-//                updateBounds()
-//                setShortDirectionsResult()
-//                setDirectionsResult()
+                Log.d("확인 index 개수", "${_directionsResult.value!!.routes.size}")
+                updateBounds()
                 Log.d("확인", "viewmodel: ${_directionsResult.value}")
             } catch (e: Exception) {
                 _error.postValue(e.message)
@@ -135,29 +159,27 @@ class DirectionsViewModel1(
         }
     }
 
-    fun afterSelecting(){
+    fun afterSelecting() {
         updatePolyLineWithColors()
         updateBounds()
         setShortDirectionsResult()
         setDirectionsResult()
     }
 
-    fun getDirectionsWithDepartureTmRp() {
+    //시간 없이 && 대중교통
+    fun getDirWithTmRp() {
         viewModelScope.launch {
             try {
-                val result = getDirWithDepTmRpUseCase(
-                    _origin.value.toString(),
-                    _destination.value.toString(),
-                    _departureTime.value.toString().toInt(),
-                    _mode.value.toString(),
-                    _routingPreference.value.toString()
+                val result = getDirWithTmRpUseCase(
+                    origin.value.toString(),
+                    destination.value.toString(),
+                    transitMode.value.toString(),
+                    routingPreference.value.toString()
                 )
                 yield()
                 _directionsResult.value = result.toModel()
-                updatePolyLineWithColors()
+                Log.d("확인 index 개수", "${_directionsResult.value!!.routes.size}")
                 updateBounds()
-                setShortDirectionsResult()
-                setDirectionsResult()
                 Log.d("확인", "viewmodel 2: ${_directionsResult.value}")
             } catch (e: Exception) {
                 _error.postValue(e.message)
@@ -165,28 +187,56 @@ class DirectionsViewModel1(
         }
     }
 
-    //아래 수정하기. 이름부터 다
-    fun getDirectionsWithDepartureTmRp(
-        origin: String,
-        destination: String,
-        departureTime: Int,
-        travelMode: String,
-        transitRoutingPreference: String
-    ) {
+    fun getDirByTransit() {
+        when (isDepArrNone.value) {
+            -1 -> {
+                getDirWithDep()
+            }
+
+            0 -> {
+                getDirWithTmRp()
+            }
+
+            else -> {
+                getDirWithArr()
+            }
+        }
+    }
+
+    // + 출발시간 && 대중교통
+    fun getDirWithDep() {
         viewModelScope.launch {
             try {
                 val result = getDirWithDepTmRpUseCase(
-                    origin,
-                    destination,
-                    departureTime,
-                    travelMode,
-                    transitRoutingPreference
+                    origin.value.toString(),
+                    destination.value.toString(),
+                    getUnixTimestamp(selectedTime.value!!).toString().toInt(),
+                    transitMode.value.toString(),
+                    routingPreference.value.toString()
+                )
+                yield()
+                _directionsResult.value = result.toModel()
+                updateBounds()
+                Log.d("확인", "viewmodel 2: ${_directionsResult.value}")
+            } catch (e: Exception) {
+                _error.postValue(e.message)
+            }
+        }
+    }
+
+    //도착시간 && 대중교통
+    fun getDirWithArr() {
+        viewModelScope.launch {
+            try {
+                val result = getDirWithArrTmRpUseCase(
+                    origin.value.toString(),
+                    destination.value.toString(),
+                    getUnixTimestamp(selectedTime.value!!).toString().toInt(),
+                    transitMode.value.toString(),
+                    routingPreference.value.toString()
                 )
                 _directionsResult.value = result.toModel()
-                updatePolyLineWithColors()
                 updateBounds()
-                setShortDirectionsResult()
-                setDirectionsResult()
                 Log.d("확인", "viewmodel 2: ${_directionsResult.value}")
             } catch (e: Exception) {
                 _error.postValue(e.message)
@@ -537,13 +587,20 @@ class DirectionsViewModel1(
 
 class DirectionsViewModel1Factory(
     private val getDirectionsUseCase: GetDirectionsUseCase,
-    private val getDirWithDepTmRpUseCase: GetDirWithDepTmRpUseCase
+    private val getDirWithDepTmRpUseCase: GetDirWithDepTmRpUseCase,
+    private val getDirWithTmRpUseCase: GetDirWithTmRpUseCase,
+    private val getDirWithArrTmRpUseCase: GetDirWithArrTmRpUseCase
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DirectionsViewModel1::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return DirectionsViewModel1(getDirectionsUseCase, getDirWithDepTmRpUseCase) as T
+            return DirectionsViewModel1(
+                getDirectionsUseCase,
+                getDirWithDepTmRpUseCase,
+                getDirWithTmRpUseCase,
+                getDirWithArrTmRpUseCase
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

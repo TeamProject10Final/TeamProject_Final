@@ -2,6 +2,7 @@ package com.example.donotlate.feature.directionRoute.presentation
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -38,6 +39,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.yield
+import java.util.Calendar
+import java.util.Locale
 
 class MapFragment : Fragment(), OnMapReadyCallback {
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -156,12 +160,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         )
     }
 
+    private fun updateTimeButton(isDepOrNone: Int) {
+        if(isDepOrNone == -1){
+            binding.btnSelectTime.text = "출발시각"
+        }else if(isDepOrNone == 1){
+            binding.btnSelectTime.text = "도착시각"
+        }else{
+            binding.btnSelectTime.text = "시간선택"
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initializeMapView()
         setupClickListener()
         setUpSpinners()
+        setUpTimePicker()
 
 
         binding.btnMapBottomSheet.setOnClickListener {
@@ -186,20 +201,21 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val padding = 100
             googleMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
         }
+
         sharedViewModel.mode.observe(viewLifecycleOwner, { mode ->
             if (mode == "transit") {
                 binding.spinner2tm.visibility = View.VISIBLE
                 binding.spinner3rp.visibility = View.VISIBLE
-                binding.etDep.visibility = View.VISIBLE
-                binding.etArr.visibility = View.VISIBLE
+                binding.btnSelectTime.visibility = View.VISIBLE
+                binding.etTime.visibility = View.VISIBLE
                 binding.btnSearchDirectionRoutes.visibility = View.VISIBLE
             } else if (mode == "이용할 교통수단을 선택해주세요.") {
                 //
             } else {
                 binding.spinner2tm.visibility = View.GONE
                 binding.spinner3rp.visibility = View.GONE
-                binding.etDep.visibility = View.GONE
-                binding.etArr.visibility = View.GONE
+                binding.btnSelectTime.visibility = View.GONE
+                binding.etTime.visibility = View.GONE
                 binding.btnSearchDirectionRoutes.visibility = View.GONE
 
                 Log.d("확인 user map", sharedViewModel.getUserLocationString().toString())
@@ -207,6 +223,48 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 sharedViewModel.getDirections()
             }
         })
+
+        sharedViewModel.selectedTime.observe(viewLifecycleOwner) { time ->
+            time?.let {
+                val selectedTime =
+                    String.format(Locale.getDefault(), "%02d:%02d", it.hour, it.minute)
+                binding.etTime.setText(selectedTime)
+
+                //시간 입력받는 부분 출발 도착 버튼으로 만들어서 바꾸기
+
+                // 출도착 채팅방 (매핑 - uid랑 bool이랑... 방 만들 때 매핑해두기)
+                // 목적지와의 거리 계산하고 버튼 누를 수 있게 visibility 바꿔주기
+
+                // 알람 (+ 출발버튼)
+
+
+            }
+        }
+        sharedViewModel.isDepArrNone.observe(viewLifecycleOwner){isDep ->
+            updateTimeButton(isDep)
+        }
+    }
+
+
+    private fun setUpTimePicker() {
+        binding.etTime.setOnClickListener {
+            showTimePickerDialog()
+        }
+
+    }
+
+    private fun showTimePickerDialog() {
+        val currentTime = Calendar.getInstance()
+        val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val currentMinute = currentTime.get(Calendar.MINUTE)
+
+        TimePickerDialog(requireContext(), { _, hourOfDay, minute ->
+            val selectedTime = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute)
+            binding.etTime.setText(selectedTime)
+
+            sharedViewModel.setTime(hourOfDay, minute)
+
+        }, currentHour, currentMinute, true).show()
     }
 
     private fun setUpSpinners() {
@@ -252,6 +310,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         binding.spinner3rp.adapter = adapterRp
         binding.spinner3rp.setSelection(adapterRp.count)
 
+
+
         binding.spinner1mode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -268,11 +328,62 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
             }
         }
-        binding.etDep.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                val enteredText = binding.etDep.text.toString()
-                //sharedViewModel.setDepartureTime()
+
+        binding.spinner2tm.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                var selectedMode = parent?.getItemAtPosition(position).toString()
+
+                sharedViewModel.setTransitMode(selectedMode)
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+
+        binding.spinner3rp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                var selectedMode = parent?.getItemAtPosition(position).toString()
+
+                sharedViewModel.setRoutingPreference(selectedMode)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+
+        binding.btnSelectTime.setOnClickListener{
+            sharedViewModel.changeIsDepArrNone()
+        }
+
+//        binding.etDep.setOnFocusChangeListener { _, hasFocus ->
+//            if (!hasFocus) {
+//                val enteredText = binding.etDep.text.toString()
+//                //sharedViewModel.setDepartureTime()
+//            }
+//        }
+        binding.btnSearchDirectionRoutes.setOnClickListener{
+            Log.d("확인 다른검색", "${sharedViewModel.routingPreference.value.toString()}")
+
+            sharedViewModel.getDirByTransit()
+
+            binding.spinner2tm.visibility = View.GONE
+            binding.spinner3rp.visibility = View.GONE
+            binding.btnSelectTime.visibility = View.GONE
+            binding.etTime.visibility = View.GONE
+            binding.btnSearchDirectionRoutes.visibility = View.GONE
+
         }
     }
 
@@ -286,10 +397,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             sharedViewModel.setSelectedRouteIndex(selectedIndex)
         }
 
-        sharedViewModel.selectedRouteIndex.observe(viewLifecycleOwner, { index ->
+        sharedViewModel.selectedRouteIndex.observe(viewLifecycleOwner) {
             sharedViewModel.afterSelecting()
 
-        })
+        }
     }
 
     private fun setupMapListeners() {
