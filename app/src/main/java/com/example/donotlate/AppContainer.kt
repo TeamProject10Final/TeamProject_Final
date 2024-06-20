@@ -279,39 +279,23 @@ class SignUpContainer(
 
 class MainPageContainer(
     private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase,
-    private val getUserDataUseCase: GetUserDataUseCase,
-    private val getAllUsersUseCase: GetAllUsersUseCase,
-    private val getCurrentUserUseCase: GetCurrentUserUseCase,
-    private val imageUploadUseCase: ImageUploadUseCase,
-    private val firebaseAuth: FirebaseAuth,
 ) {
     val mainPageViewModelFactory = MainPageViewModelFactory(
         getCurrentUserDataUseCase,
-        getUserDataUseCase,
-        getAllUsersUseCase,
-        getCurrentUserUseCase,
-        imageUploadUseCase,
-        firebaseAuth
     )
 }
 
 class RoomContainer(
-    private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getSearchListUseCase: GetSearchListUseCase,
     private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase,
-    private val loadToCurrentUserDataUseCase: LoadToCurrentUserDataUseCase,
     private val getFriendsListFromFirebaseUseCase: GetFriendsListFromFirebaseUseCase,
-    private val getCurrentUserUseCase: GetCurrentUserUseCase
 
 ) {
     val roomViewModelFactory =
         RoomViewModelFactory(
-            getAllUsersUseCase,
             getSearchListUseCase,
             makeAPromiseRoomUseCase,
-            loadToCurrentUserDataUseCase,
             getFriendsListFromFirebaseUseCase,
-            getCurrentUserUseCase
         )
 
 }
@@ -381,21 +365,17 @@ class SearchPlaceContainer(
 }
 
 class FriendsContainer(
-    val getCurrentUserUseCase: GetCurrentUserUseCase,
     val getFriendsListFromFirebaseUseCase: GetFriendsListFromFirebaseUseCase,
     val searchUserByIdUseCase: SearchUserByIdUseCase,
     val makeAFriendRequestUseCase: MakeAFriendRequestUseCase,
-    val getUserDataUseCase: GetUserDataUseCase,
     val getFriendRequestsStatusUseCase: GetFriendRequestsStatusUseCase,
     val getFriendRequestsListUseCase: GetFriendRequestsListUseCase,
     val acceptFriendRequestsUseCase: AcceptFriendRequestsUseCase
 ) {
     val friendsViewModelFactory = FriendsViewModelFactory(
         getFriendsListFromFirebaseUseCase,
-        getCurrentUserUseCase,
         searchUserByIdUseCase,
         makeAFriendRequestUseCase,
-        getUserDataUseCase,
         getFriendRequestsStatusUseCase,
         getFriendRequestsListUseCase,
         acceptFriendRequestsUseCase
@@ -403,24 +383,14 @@ class FriendsContainer(
 }
 
 class MyPromiseRoomContainer(
-    val loadToMyPromiseListUseCase: LoadToMyPromiseListUseCase,
     val messageSendingUseCase: MessageSendingUseCase,
     val messageReceivingUseCase: MessageReceivingUseCase,
-    val getCurrentUserUseCase: GetCurrentUserUseCase,
-    val getUserDataUseCase: GetUserDataUseCase,
-    val getCurrentUserDataUseCase: GetCurrentUserDataUseCase,
-    val firebaseAuth: FirebaseAuth,
     private val getDirectionsUseCase: GetDirectionsUseCase,
 
     ) {
     val myPromiseViewModelFactory = MyPromiseRoomViewModelFactory(
-        loadToMyPromiseListUseCase,
         messageSendingUseCase,
         messageReceivingUseCase,
-        getCurrentUserUseCase,
-        getUserDataUseCase,
-        getCurrentUserDataUseCase,
-        firebaseAuth,
         getDirectionsUseCase
     )
 }

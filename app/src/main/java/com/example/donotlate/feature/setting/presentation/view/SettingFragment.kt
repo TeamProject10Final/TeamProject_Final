@@ -35,11 +35,6 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MainPageViewModelFactory(
             appContainer.getCurrentUserDataUseCase,
-            appContainer.getUserDataUseCase,
-            appContainer.getAllUsersUseCase,
-            appContainer.getCurrentUserUseCase,
-            appContainer.imageUploadUseCase,
-            appContainer.firebaseAuth
         )
     }
 

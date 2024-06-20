@@ -22,10 +22,8 @@ class FriendsAcceptDialogFragment : DialogFragment() {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         FriendsViewModelFactory(
             appContainer.getFriendsListFromFirebaseUseCase,
-            appContainer.getCurrentUserUseCase,
             appContainer.searchUserByIdUseCase,
             appContainer.makeAFriendRequestUseCase,
-            appContainer.getUserDataUseCase,
             appContainer.getFriendRequestsStatusUseCase,
             appContainer.getFriendRequestListUseCase,
             appContainer.acceptFriendRequestsUseCase
@@ -87,12 +85,6 @@ class FriendsAcceptDialogFragment : DialogFragment() {
 
         }
     }
-
-//    private fun observeViewModel(){
-//        lifecycleScope.launch {
-//            friendsViewModel.requestResult
-//        }
-//    }
 
     companion object {
         private const val ARG_ITEM = "item"

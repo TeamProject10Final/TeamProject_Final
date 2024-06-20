@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
 import com.example.donotlate.feature.auth.presentation.view.LogInViewModel
 import com.example.donotlate.feature.auth.presentation.view.LogInViewModelFactory
@@ -35,13 +36,8 @@ class MyPromiseRoomFragment : Fragment() {
     private val myPromiseViewModel: MyPromiseRoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MyPromiseRoomViewModelFactory(
-            appContainer.loadToMyPromiseListUseCase,
             appContainer.messageSendingUseCase,
             appContainer.messageReceivingUseCase,
-            appContainer.getCurrentUserUseCase,
-            appContainer.getUserDataUseCase,
-            appContainer.getCurrentUserDataUseCase,
-            appContainer.firebaseAuth,
             appContainer.getDirectionsUseCase,
         )
     }
@@ -58,7 +54,7 @@ class MyPromiseRoomFragment : Fragment() {
     val binding get() = _binding!!
 
     private var promiseRoom: PromiseModel? = null
-    private var currentUserData: UserModel? = null
+    private var currentUserData = CurrentUser.userData
     private var roomTitle: String? = null
     private var promiseDate: String? = null
     private var roomId: String? = null
@@ -70,6 +66,8 @@ class MyPromiseRoomFragment : Fragment() {
 
         arguments?.let { bundle ->
             promiseRoom = bundle.getParcelable("promiseRoom")
+
+            Log.d("putParcelable", "2: $promiseRoom")
 
         }
     }
@@ -129,7 +127,7 @@ class MyPromiseRoomFragment : Fragment() {
                     senderName = currentUserData?.name
                         ?: throw NullPointerException("User Data Null!"),
                     sendTimestamp = Timestamp.now(),
-                    senderId = currentUserData?.uid
+                    senderId = currentUserData?.uId
                         ?: throw NullPointerException("User Data Null!"),
                     contents = contents,
                     messageId = "",

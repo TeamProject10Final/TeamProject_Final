@@ -24,17 +24,13 @@ class FriendsRequestFragment : Fragment() {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         FriendsViewModelFactory(
             appContainer.getFriendsListFromFirebaseUseCase,
-            appContainer.getCurrentUserUseCase,
             appContainer.searchUserByIdUseCase,
             appContainer.makeAFriendRequestUseCase,
-            appContainer.getUserDataUseCase,
             appContainer.getFriendRequestsStatusUseCase,
             appContainer.getFriendRequestListUseCase,
             appContainer.acceptFriendRequestsUseCase
         )
     }
-
-    private lateinit var fromId: String
 
     private lateinit var searchUserAdapter: SearchUserAdapter
 
@@ -54,14 +50,10 @@ class FriendsRequestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setAdapter()
         backButton()
-
-        searchUserAdapter = SearchUserAdapter { user ->
-            val dialog = FriendsRequestDialogFragment.newInstance(user)
-            dialog.show(parentFragmentManager, "RequestDialogFragment")
-        }
-        binding.rvFriend.layoutManager = GridLayoutManager(requireContext(), 4)
-        binding.rvFriend.adapter = searchUserAdapter
+        observeViewModel()
+        editTextProcess()
 
         binding.btnFriendSearch.setOnClickListener {
             val searchId = binding.etFriendSearch.text.toString().trim()
@@ -69,11 +61,6 @@ class FriendsRequestFragment : Fragment() {
             friendsViewModel.searchUserById(searchId)
 
         }
-
-
-        observeViewModel()
-        editTextProcess()
-
     }
 
     private fun backButton() {
@@ -83,7 +70,7 @@ class FriendsRequestFragment : Fragment() {
                     /* enter = */ R.anim.fade_in,
                     /* exit = */ R.anim.slide_out
                 )
-                .remove(this)
+                .replace(R.id.frame, FriendsFragment())
                 .commit()
         }
     }
@@ -113,7 +100,6 @@ class FriendsRequestFragment : Fragment() {
         imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
 
-
     private fun observeViewModel() {
         lifecycleScope.launch {
             friendsViewModel.searchUserList.collect { result ->
@@ -121,6 +107,16 @@ class FriendsRequestFragment : Fragment() {
                 searchUserAdapter.submitList(result)
             }
         }
+    }
+
+    private fun setAdapter(){
+        searchUserAdapter = SearchUserAdapter { user ->
+            val dialog = FriendsRequestDialogFragment.newInstance(user)
+            dialog.show(parentFragmentManager, "RequestDialogFragment")
+        }
+        binding.rvFriend.layoutManager = GridLayoutManager(requireContext(), 4)
+        binding.rvFriend.adapter = searchUserAdapter
+
     }
 
 

@@ -32,13 +32,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MyPromiseRoomViewModel(
-    private val loadToMyPromiseListUseCase: LoadToMyPromiseListUseCase,
     private val messageSendingUseCase: MessageSendingUseCase,
     private val messageReceivingUseCase: MessageReceivingUseCase,
-    private val getCurrentUserUseCase: GetCurrentUserUseCase,
-    private val getUserDataUseCase: GetUserDataUseCase,
-    private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase,
-    private val firebaseAuth: FirebaseAuth,
     private val getDirectionsUseCase: GetDirectionsUseCase
 ) : ViewModel() {
 
@@ -170,13 +165,8 @@ class MyPromiseRoomViewModel(
 }
 
 class MyPromiseRoomViewModelFactory(
-    private val loadToMyPromiseListUseCase: LoadToMyPromiseListUseCase,
     private val messageSendingUseCase: MessageSendingUseCase,
     private val messageReceivingUseCase: MessageReceivingUseCase,
-    private val getCurrentUserUseCase: GetCurrentUserUseCase,
-    private val getUserDataUseCase: GetUserDataUseCase,
-    private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase,
-    private val firebaseAuth: FirebaseAuth,
     private val getDirectionsUseCase: GetDirectionsUseCase
 ) :
     ViewModelProvider.Factory {
@@ -184,13 +174,8 @@ class MyPromiseRoomViewModelFactory(
         if (modelClass.isAssignableFrom(MyPromiseRoomViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return MyPromiseRoomViewModel(
-                loadToMyPromiseListUseCase,
                 messageSendingUseCase,
                 messageReceivingUseCase,
-                getCurrentUserUseCase,
-                getUserDataUseCase,
-                getCurrentUserDataUseCase,
-                firebaseAuth,
                 getDirectionsUseCase
             ) as T
         }

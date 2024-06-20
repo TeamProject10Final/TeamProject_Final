@@ -24,11 +24,6 @@ import kotlinx.coroutines.launch
 
 class MainPageViewModel(
     private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase,
-    private val getUserDataUseCase: GetUserDataUseCase,
-    private val getAllUsersUseCase: GetAllUsersUseCase,
-    private val getCurrentGetUserUseCase: GetCurrentUserUseCase,
-    private val imageUploadUseCase: ImageUploadUseCase,
-    private val firebaseAuth: FirebaseAuth
 ) : ViewModel() {
 
     private val _currentUserData = MutableStateFlow<UserModel?>(null)
@@ -100,24 +95,13 @@ class MainPageViewModel(
 
 class MainPageViewModelFactory(
     private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase,
-    private val getUserDataUseCase: GetUserDataUseCase,
-    private val getAllUsersUseCase: GetAllUsersUseCase,
-    private val getCurrentGetUserUseCase: GetCurrentUserUseCase,
-    private val imageUploadUseCase: ImageUploadUseCase,
-    private val firebaseAuth: FirebaseAuth
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainPageViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return MainPageViewModel(
-                getCurrentUserDataUseCase,
-                getUserDataUseCase,
-                getAllUsersUseCase,
-                getCurrentGetUserUseCase,
-                imageUploadUseCase,
-                firebaseAuth
-
+                getCurrentUserDataUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

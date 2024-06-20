@@ -15,8 +15,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
+import com.example.donotlate.R
+import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.databinding.FragmentRoomFriendBinding
-import com.example.donotlate.feature.friends.presentation.view.FriendsActivity
+import com.example.donotlate.feature.friends.presentation.view.FriendsRequestFragment
+
 import com.example.donotlate.feature.room.presentation.adapter.RoomFriendAdapter
 import com.example.donotlate.feature.room.presentation.dialog.ResultFragmentDialog
 import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
@@ -28,12 +31,9 @@ class RoomFriendFragment : Fragment() {
     private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         RoomViewModelFactory(
-            appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
             appContainer.makeAPromiseRoomUseCase,
-            appContainer.loadToCurrentUserDataUseCase,
             appContainer.getFriendsListFromFirebaseUseCase,
-            appContainer.getCurrentUserUseCase
         )
     }
 
@@ -44,28 +44,17 @@ class RoomFriendFragment : Fragment() {
     private val selectedUserUIds = mutableListOf<String>()
     private val selectedUserNames = mutableListOf<String>()
 
-    private lateinit var mAuth: String
-    private lateinit var mName: String
+    private val userData = CurrentUser.userData
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private val mAuth = userData?.uId ?: ""
+    private val mName = userData?.name ?: ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         _binding = FragmentRoomFriendBinding.inflate(inflater, container, false)
-        roomViewModel.getAllUserData()
-
         return binding.root
-    }
-
-    override fun onPause() {
-        super.onPause()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,7 +62,6 @@ class RoomFriendFragment : Fragment() {
 
         initRecyclerView()
         getFriendsList()
-        loadToCurrentUserData()
         getAllUserList()
         editTextProcess()
         checkSelectUser()
@@ -98,10 +86,7 @@ class RoomFriendFragment : Fragment() {
     private fun initRecyclerView() {
         friendAdapter = RoomFriendAdapter(
             onAddFriendClick = {
-                val intent = Intent(requireContext(), FriendsActivity::class.java).apply {
-                    putExtra("show_friends_request_fragment", true)
-                }
-                startActivity(intent)
+                setFragment(FriendsRequestFragment())
             },
             onItemClick = { selectedUser ->
                 val userUid = selectedUser.uId
@@ -149,15 +134,6 @@ class RoomFriendFragment : Fragment() {
         }
     }
 
-    private fun loadToCurrentUserData() {
-        lifecycleScope.launch {
-            roomViewModel.getCurrentUserData.collect { currentUser ->
-                mAuth = currentUser?.uId ?: ""
-                mName = currentUser?.name ?: ""
-            }
-        }
-    }
-
     private fun getFriendsList() {
         lifecycleScope.launch {
             roomViewModel.getFriendsList()
@@ -181,6 +157,16 @@ class RoomFriendFragment : Fragment() {
                 Toast.makeText(requireContext(), "친구를 선택해 주세요.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun setFragment(fragment: Fragment) {
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                /* enter = */ R.anim.slide_in,
+                /* exit = */ R.anim.fade_out,
+            )
+            .add(R.id.frame, fragment)
+            .addToBackStack("").commit()
     }
 
     override fun onDestroyView() {

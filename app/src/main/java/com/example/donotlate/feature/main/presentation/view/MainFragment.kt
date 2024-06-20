@@ -8,19 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMainBinding
-import com.example.donotlate.feature.auth.presentation.view.LoginFragment
 import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
-import com.example.donotlate.feature.friends.presentation.view.FriendsActivity
+import com.example.donotlate.feature.friends.presentation.view.FriendsFragment
 import com.example.donotlate.feature.minigame.MiniGameFragment
 import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseListFragment
-import com.example.donotlate.feature.room.presentation.view.RoomActivity
+import com.example.donotlate.feature.room.presentation.view.ViewPagerFragment
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import com.example.donotlate.feature.setting.presentation.view.SettingFragment
 import kotlinx.coroutines.launch
@@ -31,11 +27,6 @@ class MainFragment : Fragment() {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MainPageViewModelFactory(
             appContainer.getCurrentUserDataUseCase,
-            appContainer.getUserDataUseCase,
-            appContainer.getAllUsersUseCase,
-            appContainer.getCurrentUserUseCase,
-            appContainer.imageUploadUseCase,
-            appContainer.firebaseAuth
         )
     }
 
@@ -70,7 +61,13 @@ class MainFragment : Fragment() {
 
     private fun startRoom() {
         binding.layoutMainRoom.setOnClickListener {
-            startActivity(Intent(requireActivity(), RoomActivity::class.java))
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.slide_in,
+                    /* exit = */ R.anim.fade_out,
+                )
+                .replace(R.id.frame, ViewPagerFragment())
+                .addToBackStack(null).commit()
         }
     }
 
@@ -121,8 +118,14 @@ class MainFragment : Fragment() {
 
     private fun startFriends() {
         binding.layoutMainFriend.setOnClickListener {
-            val intent = Intent(requireContext(), FriendsActivity::class.java)
-            startActivity(intent)
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.slide_in,
+                    /* exit = */ R.anim.fade_out,
+                )
+                .replace(R.id.frame, FriendsFragment())
+                .addToBackStack(null).commit()
+
         }
     }
 

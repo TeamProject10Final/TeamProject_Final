@@ -16,7 +16,6 @@ import com.example.donotlate.core.domain.model.MessageEntity
 import com.example.donotlate.core.domain.model.PromiseRoomEntity
 import com.example.donotlate.core.domain.model.UserEntity
 import com.example.donotlate.core.domain.repository.FirebaseDataRepository
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
@@ -181,37 +180,12 @@ class FirebaseDataSourceImpl(
             awaitClose { listener.remove() }
         }
 
-    override suspend fun makeAPromiseRoom(
-        roomId: String,
-        roomTitle: String,
-        promiseTime: String,
-        promiseDate: String,
-        destination: String,
-        destinationLat: Double,
-        destinationLng: Double,
-        penalty: String,
-        participants: List<String>
-
-    ): Flow<Boolean> = flow {
+    override suspend fun makeAPromiseRoom(roomInfo: PromiseRoomEntity): Flow<Boolean> = flow {
         try {
-            val roomData = hashMapOf(
-                "roomId" to roomId,
-                "roomTitle" to roomTitle,
-                "roomCreatedAt" to Timestamp.now(),
-                "promiseTime" to promiseTime,
-                "promiseDate" to promiseDate,
-                "destination" to destination,
-                "destinationLat" to destinationLat,
-                "destinationLng" to destinationLng,
-                "penalty" to penalty,
-                "participants" to participants
-            )
-            Log.d("makeAChatRoom3", "title: ${participants}")
-            db.collection("PromiseRooms").document(roomId).set(roomData).await()
-            Log.d("makeAChatRoom4", "title: ${participants}")
+            val roomId = roomInfo.roomId
+            db.collection("PromiseRooms").document(roomId).set(roomInfo).await()
             emit(true)
         } catch (e: Exception) {
-            Log.d("makeAChatRoom", "실패 이유: ${e.message}")
             emit(false)
         }
     }
@@ -274,7 +248,7 @@ class FirebaseDataSourceImpl(
         awaitClose { listener.remove() }
     }
 
-    override suspend fun sendToMessage(roomId: String, message: MessageResponse): Flow<Boolean> =
+    override suspend fun sendToMessage(roomId: String, message: MessageEntity): Flow<Boolean> =
         flow {
             try {
                 db.collection("PromiseRooms").document(roomId).collection("Messages")
@@ -287,6 +261,7 @@ class FirebaseDataSourceImpl(
                 emit(false)
             }
         }
+
 
     private suspend fun readRequest(requestId: String): DocumentSnapshot {
         val requestRef = db.collection("FriendRequests").document(requestId)

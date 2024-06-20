@@ -36,12 +36,9 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
     private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         RoomViewModelFactory(
-            appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
             appContainer.makeAPromiseRoomUseCase,
-            appContainer.loadToCurrentUserDataUseCase,
             appContainer.getFriendsListFromFirebaseUseCase,
-            appContainer.getCurrentUserUseCase
         )
     }
 
@@ -72,14 +69,14 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
-        roomViewModel.getAllUserData()
-        lifecycleScope.launch {
-            roomViewModel.getAllUserData.collect { userList ->
-                userList.forEach { user ->
-                    Log.d("User", user.name)
-                }
-            }
-        }
+//        roomViewModel.getAllUserData()
+//        lifecycleScope.launch {
+//            roomViewModel.getAllUserData.collect { userList ->
+//                userList.forEach { user ->
+//                    Log.d("User", user.name)
+//                }
+//            }
+//        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

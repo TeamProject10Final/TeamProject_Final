@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.databinding.FragmentRequestDialogBinding
 import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
 import kotlinx.coroutines.launch
@@ -23,10 +24,8 @@ class FriendsRequestDialogFragment : DialogFragment() {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         FriendsViewModelFactory(
             appContainer.getFriendsListFromFirebaseUseCase,
-            appContainer.getCurrentUserUseCase,
             appContainer.searchUserByIdUseCase,
             appContainer.makeAFriendRequestUseCase,
-            appContainer.getUserDataUseCase,
             appContainer.getFriendRequestsStatusUseCase,
             appContainer.getFriendRequestListUseCase,
             appContainer.acceptFriendRequestsUseCase
@@ -35,10 +34,11 @@ class FriendsRequestDialogFragment : DialogFragment() {
 
     private var _binding: FragmentRequestDialogBinding? = null
     private val binding get() = _binding!!
+    private val userData = CurrentUser.userData
 
-    private var fromId: String = ""
-    private var fromUserName: String = ""
-    private var requestID: String = ""
+    private var fromId = userData?.uId ?: ""
+    private var fromUserName = userData?.name ?: ""
+    private lateinit var requestID: String
     private var user: FriendsUserModel? = null
     private var toId: String = ""
 
@@ -46,29 +46,28 @@ class FriendsRequestDialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         user = arguments?.getParcelable(ARG_USER)
-
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        currentUserData()
         _binding = FragmentRequestDialogBinding.inflate(layoutInflater)
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         user?.let { user ->
             toId = user.uid
             requestID =
                 if (fromId > toId) "${fromId}_${toId}" else "${toId}_${fromId} "// 요청 ID 생성
-            friendsViewModel.checkFriendRequestStatus(requestID) // 친구 요청 상태 확인
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                friendsViewModel.checkFriendRequestStatus(requestID)
+            }
+             // 친구 요청 상태 확인
 
             binding.tvNameTitle.text = user.name
             binding.tvEmail.text = user.email
@@ -144,15 +143,6 @@ class FriendsRequestDialogFragment : DialogFragment() {
 
         lifecycleScope.launch {
             friendsViewModel.requestResult
-        }
-    }
-
-    private fun currentUserData() {
-        lifecycleScope.launch {
-            friendsViewModel.currentUserData.collect { currentUser ->
-                fromId = currentUser?.uid ?: ""
-                fromUserName = currentUser?.name ?: ""
-            }
         }
     }
 

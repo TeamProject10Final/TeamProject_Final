@@ -24,12 +24,9 @@ class RoomMapBottomFragment : BottomSheetDialogFragment() {
     private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         RoomViewModelFactory(
-            appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
             appContainer.makeAPromiseRoomUseCase,
-            appContainer.loadToCurrentUserDataUseCase,
             appContainer.getFriendsListFromFirebaseUseCase,
-            appContainer.getCurrentUserUseCase
         )
     }
 

@@ -21,10 +21,8 @@ class FriendsRequestListFragment : Fragment() {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         FriendsViewModelFactory(
             appContainer.getFriendsListFromFirebaseUseCase,
-            appContainer.getCurrentUserUseCase,
             appContainer.searchUserByIdUseCase,
             appContainer.makeAFriendRequestUseCase,
-            appContainer.getUserDataUseCase,
             appContainer.getFriendRequestsStatusUseCase,
             appContainer.getFriendRequestListUseCase,
             appContainer.acceptFriendRequestsUseCase
@@ -36,15 +34,12 @@ class FriendsRequestListFragment : Fragment() {
     private var _binding: FragmentFriendsRequestListBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentFriendsRequestListBinding.inflate(layoutInflater)
+
         return binding.root
     }
 
@@ -52,14 +47,13 @@ class FriendsRequestListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.ivFriendRequestListBack.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frame_friends, FriendsFragment()).commit()
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frame, FriendsFragment()).commit()
         }
 
+        getFriendRequestList()
         setupRecyclerView()
         observeViewModel()
-
         initBackButton()
-
 
     }
 
@@ -70,6 +64,18 @@ class FriendsRequestListFragment : Fragment() {
         }
         binding.rvFriendRequestList.layoutManager = LinearLayoutManager(requireContext())
         binding.rvFriendRequestList.adapter = friendRequestsAdapter
+    }
+
+    private fun initBackButton() {
+        binding.ivFriendRequestListBack.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, FriendsFragment())
+                .commit()
+        }
     }
 
     private fun observeViewModel(){
@@ -85,18 +91,11 @@ class FriendsRequestListFragment : Fragment() {
         dialog.show(parentFragmentManager, "RequestDialogFragment")
     }
 
-    private fun initBackButton() {
-        binding.ivFriendRequestListBack.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    /* enter = */ R.anim.fade_in,
-                    /* exit = */ R.anim.slide_out
-                )
-                .replace(R.id.frame_friends, FriendsFragment())
-                .commit()
+    private fun getFriendRequestList(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            friendsViewModel.loadFriendRequestList()
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
