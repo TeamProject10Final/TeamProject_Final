@@ -94,10 +94,24 @@ class MyPromiseViewModel(
         _selectedRouteIndex.value = indexNum ?: 0
     }
 
-    //여기에서 목적지에 대한 위도 경도를 저장해야 함
-    //fun setDestinationLatLng(){
-    //observe 하다가 가져오던가...
-    // }
+    private val _directionsResult = MutableLiveData<DirectionsModel>()
+    val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
+    private val _origin = MutableLiveData<String>()
+    val origin: LiveData<String> get() = _origin
+
+    private val _destination = MutableLiveData<String>()
+    val destination: LiveData<String> get() = _destination
+
+    private val _mode = MutableLiveData<String>()
+    val mode: LiveData<String> get() = _mode
+
+    private val _shortExplanations = MutableLiveData<String>()
+    val shortExplanations: LiveData<String> get() = _shortExplanations
+
+    //경로 선택하기 전 보여줄 간단한 소개들
+    private val _routeSelectionText = MutableLiveData<List<String>>()
+    val routeSelectionText: LiveData<List<String>> get() = _routeSelectionText
+
 
     fun setDestinationLatLng() {
 
@@ -165,23 +179,6 @@ class MyPromiseViewModel(
     }
 
 
-    private val _directionsResult = MutableLiveData<DirectionsModel>()
-    val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
-    private val _origin = MutableLiveData<String>()
-    val origin: LiveData<String> get() = _origin
-
-    private val _destination = MutableLiveData<String>()
-    val destination: LiveData<String> get() = _destination
-
-    private val _mode = MutableLiveData<String>()
-    val mode: LiveData<String> get() = _mode
-
-    private val _shortExplanations = MutableLiveData<String>()
-    val shortExplanations: LiveData<String> get() = _shortExplanations
-
-    //경로 선택하기 전 보여줄 간단한 소개들
-    private val _routeSelectionText = MutableLiveData<List<String>>()
-    val routeSelectionText: LiveData<List<String>> get() = _routeSelectionText
     fun setUserLocation(location: LatLng) {
         _userLocation.value = location
     }

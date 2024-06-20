@@ -423,6 +423,7 @@ class DirectionsViewModel1(
 
                 num++
             }
+            resultText.append(resultText1)
         }
         _directionExplanations.value = resultText.toString()
     }

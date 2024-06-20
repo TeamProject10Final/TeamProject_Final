@@ -101,7 +101,9 @@ class MyPromiseRoomFragment : Fragment() {
                 for (location in locationResult.locations) {
                     location?.let {
                         val userLatLng = LatLng(it.latitude, it.longitude)
+                        Log.d("확인 userlocation", "${location.latitude}, ${location.longitude}")
                         myPromiseViewModel.setUserLocation(userLatLng)
+                        //myPromiseViewModel.
                         shortMessage()
                     }
                 }
@@ -118,7 +120,7 @@ class MyPromiseRoomFragment : Fragment() {
                     fastestInterval = 5000 //5초
                     priority = LocationRequest.PRIORITY_HIGH_ACCURACY
                 }
-            fusedLocationClient?.requestLocationUpdates(
+            fusedLocationClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,
                 Looper.getMainLooper()
@@ -143,6 +145,8 @@ class MyPromiseRoomFragment : Fragment() {
 
         initAdapter()
         backButton()
+
+        observeViewModel()
 
         promiseRoom?.let { room ->
 
@@ -172,6 +176,17 @@ class MyPromiseRoomFragment : Fragment() {
 
         binding.ivRoomMap.setOnClickListener {
             checkPermissionAndProceed()
+        }
+    }
+
+    private fun observeViewModel() {
+        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner) {
+            if (it <= 0.01) {
+                //도착 버튼이 보이게
+                //binding.~~
+            } else {
+                //도착 버튼 보이지 않게 유지
+            }
         }
     }
 
@@ -268,6 +283,7 @@ class MyPromiseRoomFragment : Fragment() {
                     location?.let {
                         val userLatLng = LatLng(it.latitude, it.longitude)
                         myPromiseViewModel.setUserLocation(userLatLng)
+                        Log.d("확인 userlocation", "${location.latitude}, ${location.longitude}")
                         shortMessage()
                     } ?: run {
                         //                        Toast.makeText(requireContext(), "1 위치 얻기 실패", Toast.LENGTH_SHORT).show()
@@ -290,7 +306,7 @@ class MyPromiseRoomFragment : Fragment() {
 //        sharedViewModel.setSelectedRouteIndex(thisIndex)
 
         // 경로 선택 후에는 afterSelecting()
-
+        myPromiseViewModel.setShortDirectionsResult()
 //        roomDestination?.let { it1 ->
 //            myPromiseViewModel.getDirections(
 //                currentUserLocation,
