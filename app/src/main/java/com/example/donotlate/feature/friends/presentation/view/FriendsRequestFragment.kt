@@ -90,8 +90,9 @@ class FriendsRequestFragment : Fragment() {
                     /* enter = */ R.anim.fade_in,
                     /* exit = */ R.anim.slide_out
                 )
-//                .remove(this)
-                .replace(R.id.frame, FriendsFragment())
+                .remove(this)
+//  FriendsActivity 삭제 시, 아래 코드 사용
+//                .replace(R.id.frame, FriendsFragment())
                 .commit()
         }
     }

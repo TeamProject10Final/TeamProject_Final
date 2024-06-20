@@ -120,7 +120,7 @@ class MainFragment : Fragment() {
             val intent = Intent(requireContext(), FriendsActivity::class.java)
             startActivity(intent)
         }
-
+//  FriendsActivity 삭제 시, 아래 코드 사용
 //        binding.layoutMainGame.setOnClickListener {
 //            parentFragmentManager.beginTransaction()
 //                .setCustomAnimations(
