@@ -108,7 +108,11 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
                 viewModel.setCurrentItem(current = 1)
                 //findNavController().navigate(R.id.action_fragment1_to_fragment2)
             } else {
-                Toast.makeText(requireContext(), "모든 필드를 입력하세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "${resources.getString(R.string.cal_frgment_text1)}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
         //바깥 터치 시 키보드 숨기는 부분...

@@ -48,8 +48,8 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
         // 이전에 입력한 내용이 있다면 해당 내용을 EditText에 설정
         viewModel.total.value?.let { binding.etDes21.setText(it) }
         viewModel.isPenalty.value?.let {
-            if (it) binding.btnPenalty.setText("나의 벌금추가") else binding.btnPenalty.setText(
-                "동료의 벌금추가"
+            if (it) binding.btnPenalty.setText("${resources.getString(R.string.cal1_frgment_text1)}") else binding.btnPenalty.setText(
+                "${resources.getString(R.string.cal1_frgment_text2)}"
             )
         }
         viewModel.penalty.value?.let { binding.etDes22.setText(it) }
@@ -102,7 +102,11 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
                 viewModel.setCurrentItem(current = 2)
 //                findNavController().navigate(R.id.action_fragment2_to_fragment3)
             } else {
-                Toast.makeText(requireContext(), "필수 항목을 입력하세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "${resources.getString(R.string.cal_frgment_text1)}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -133,9 +137,9 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
 
     private fun updateIsPenaltyButton(isPenalty: Boolean) {
         if(isPenalty) {
-            binding.btnPenalty.text = "나의 벌금추가"
+            binding.btnPenalty.text = "${resources.getString(R.string.cal1_frgment_text1)}"
         }else{
-            binding.btnPenalty.text = "동료의 벌금추가"
+            binding.btnPenalty.text = "${resources.getString(R.string.cal1_frgment_text2)}"
         }
 
     }
