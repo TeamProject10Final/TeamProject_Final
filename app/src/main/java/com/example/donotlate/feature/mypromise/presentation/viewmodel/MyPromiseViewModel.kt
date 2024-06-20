@@ -188,11 +188,19 @@ class MyPromiseViewModel(
     private fun formatShortDirectionsExplanations(directions: DirectionsModel) {
         val resultText = StringBuilder()
 
+        //선택하면 그거에 대해 1번 출력되게
         directions.routes.forEach { route ->
             route.legs.forEach { leg ->
+
+                resultText.append("${leg.totalStartLocation.lat}, ${leg.totalStartLocation.lng}\n")
+                resultText.append("출발 주소 ${leg.totalStartAddress}\n")
+
                 resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
                 resultText.append("앞으로 ${leg.totalDuration.text} 뒤인\n")
                 resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.")
+
+                //마지막에 \n 제거 확인하기!!!
+                resultText.append("\n\n\n")
             }
         }
 
