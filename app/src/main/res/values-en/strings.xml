@@ -105,6 +105,15 @@
     <string name="main_text5">Mini\n game</string>
     <string name="main_text6">Friend\n management</string>
 
+    <!--친구 페이지-->
+    <string name="friend_text1">My friends list</string>
+    <string name="friend_btn_text">Requested friend list</string>
+
+    <!--친구요청 페이지-->
+    <string name="friend_request_top_title">Shall we find a new friend?</string>
+    <string name="friend_request_edit_text">Please search for the friend you\nwould like to request.</string>
+    <string name="friend_request_btn_text">Click</string>
+    <string name="friend_request_text">Please select the friends\nyou would like to invite.</string>
 
     <string name="time"> </string>
     <string name="info"> </string>

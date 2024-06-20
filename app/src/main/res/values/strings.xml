@@ -105,6 +105,15 @@
     <string name="main_text5">미니 게임</string>
     <string name="main_text6">친구 관리</string>
 
+    <!--친구 페이지-->
+    <string name="friend_text1">내 친구 목록</string>
+    <string name="friend_btn_text">요청된 친구 목록</string>
+
+    <!--친구요청 페이지-->
+    <string name="friend_request_top_title">새로운 친구를 찾아볼까요?</string>
+    <string name="friend_request_edit_text">요청할 친구를 검색해 주세요.</string>
+    <string name="friend_request_btn_text">검색</string>
+    <string name="friend_request_text">초대할 친구를 선택해 주세요.</string>
 
 
 
