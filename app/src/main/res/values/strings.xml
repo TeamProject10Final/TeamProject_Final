@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DoNotLate</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--로그인 페이지-->
     <string name="login_top_title1">환영합니다</string>
@@ -24,6 +25,12 @@
     <string name="sign_up_text2">비밀번호는 8~20자의 영문과 숫자로 조합해 주세요</string>
     <string name="sign_up_text3">이미 계정이 있으세요?</string>
     <string name="sign_up_login_line"><u>로그인</u></string>
+
+    <!--정산하기 페이지-->
+    <string name="cal_top_title1">님</string>
+    <string name="cal_text1">소비 분석</string>
+    <string name="cal_text2">총 지출\n\n</string>
+    <string name="cal_text3">진행 약속\n\n</string>
 
 
     <string name="time"><u>월요일: 오후 5:00 ~ 오전 2:00\n화요일: 오후 5:00 ~ 오전 2:00\n수요일: 오후 5:00 ~ 오전 2:00\n목요일: 오후 5:00 ~ 오전 2:00\n금요일: 오후 5:00 ~ 오전 3:00\n토요일: 오후 5:00 ~ 오전 2:00\n일요일: 오후 5:00 ~ 오전 2:00</u></string>
