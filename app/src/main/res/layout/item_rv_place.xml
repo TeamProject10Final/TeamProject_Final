@@ -21,7 +21,6 @@
         android:maxLines="1"
         android:ellipsize="end"
         android:text="성심당 본점"
-        android:textColor="@color/black"
         android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/iv_Item_Map"
@@ -42,7 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:text="0.0"
-        android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_Item1"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -56,7 +54,6 @@
         android:maxLines="1"
         android:ellipsize="end"
         android:text="대전광역시 중구 대종로 480번길 15"
-        android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/tv_Item_Map_Title"
         app:layout_constraintTop_toBottomOf="@+id/tv_Item_Map_Title" />
@@ -69,7 +66,6 @@
         android:text="1588-8069"
         android:maxLines="1"
         android:ellipsize="end"
-        android:textColor="@color/dark_gray"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/tv_Item_Map_Address"
         app:layout_constraintTop_toBottomOf="@+id/tv_Item_Map_Address" />

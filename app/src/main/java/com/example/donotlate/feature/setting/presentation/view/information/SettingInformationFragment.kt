@@ -103,7 +103,7 @@ class SettingInformationFragment : Fragment() {
             .commit()
     }
 
-    private fun backButton(){
+    private fun backButton() {
         //뒤로가기
         binding.ivSettingInfoBack.setOnClickListener {
             parentFragmentManager.beginTransaction()

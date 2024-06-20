@@ -14,7 +14,7 @@ import com.example.donotlate.feature.main.presentation.view.MainFragment
 
 class SettingEmailFragment : Fragment() {
 
-    private var _binding : FragmentSettingEmailBinding? = null
+    private var _binding: FragmentSettingEmailBinding? = null
     private val binding get() = _binding!!
 
 

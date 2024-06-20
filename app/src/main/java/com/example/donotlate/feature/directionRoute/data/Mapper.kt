@@ -266,4 +266,3 @@ fun Fare.toEntity() = FareEntity(
     text = text ?: "",
     value = value ?: 0.0
 )
-

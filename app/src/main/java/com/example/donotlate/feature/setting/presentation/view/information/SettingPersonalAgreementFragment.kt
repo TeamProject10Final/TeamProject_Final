@@ -12,7 +12,7 @@ import com.example.donotlate.feature.setting.presentation.view.SettingFragment
 
 class SettingPersonalAgreementFragment : Fragment() {
 
-    private var _binding : FragmentSettingPersonalAgreementBinding? = null
+    private var _binding: FragmentSettingPersonalAgreementBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +40,7 @@ class SettingPersonalAgreementFragment : Fragment() {
         _binding = null
     }
 
-    private fun backButton(){
+    private fun backButton() {
         //뒤로가기
         binding.ivSettingInfoPersonalBack.setOnClickListener {
             parentFragmentManager.beginTransaction()
