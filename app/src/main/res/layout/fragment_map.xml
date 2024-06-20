@@ -29,7 +29,8 @@
             android:visibility="visible"
             tools:ignore="MissingConstraints" />
 
-<!--        여기부터 visibility 수정-->
+
+        <!--        여기부터 visibility 수정-->
         <Spinner
             android:id="@+id/spinner2tm"
             android:layout_width="match_parent"
@@ -68,25 +69,26 @@
             android:focusable="false"
             android:ems="10"
             android:inputType="none"
-            android:hint="출발 시간을 선택해주세요"
+            android:hint="시간을 선택해주세요"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnSelectTime"
             app:layout_constraintTop_toBottomOf="@+id/spinner3rp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSelectTime"
             android:visibility="gone"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSelectTime"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/btn_radius_malibu"
             android:text="출발"
             android:textColor="@color/black"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@+id/etTime"
-            app:layout_constraintEnd_toStartOf="@+id/etTime"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/etTime"/>
+            app:layout_constraintTop_toBottomOf="@+id/spinner3rp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSearchDirectionRoutes"
@@ -103,7 +105,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etTime"
+            app:layout_constraintTop_toBottomOf="@+id/btnSelectTime"
             tools:ignore="MissingConstraints"
             android:visibility="gone"/>
 
@@ -122,6 +124,16 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/ivDetailView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/baseline_arrow_circle_down_24"
+            android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnMapBottomSheet"

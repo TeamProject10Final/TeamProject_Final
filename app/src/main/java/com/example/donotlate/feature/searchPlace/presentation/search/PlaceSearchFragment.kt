@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -27,20 +26,17 @@ class PlaceSearchFragment : Fragment() {
     private val binding: FragmentPlaceSearchBinding
         get() = _binding!!
 
-
     private lateinit var mapAdapter: MapAdapter
-
 
     private val searchViewModel: PlaceSearchViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         PlaceSearchViewModelFactory(
             appContainer.getSearchListUseCase
-            )
+        )
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPlaceSearchBinding.inflate(inflater, container, false)
 
@@ -57,16 +53,27 @@ class PlaceSearchFragment : Fragment() {
 
         mapAdapter = MapAdapter()
 
+        initMapList()
+        initViewModel()
 
         binding.btnSearchButton.setOnClickListener {
-            initMapList()
-            initViewModel()
-            fetchMap()
+
             hideKeyboard()
         }
 
+        searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
+        binding.rvMap.visibility = View.VISIBLE
+        binding.imageView2.visibility = View.INVISIBLE
+        binding.tvDefaultText.visibility = View.INVISIBLE
+
         editTextProcess()
         backButton()
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        fetchMap()
     }
 
     private fun editTextProcess() {
@@ -78,15 +85,15 @@ class PlaceSearchFragment : Fragment() {
                 requireActivity().currentFocus!!.clearFocus()
                 handled = true
 
-                initMapList()
-                initViewModel()
-                fetchMap()
+                searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
+                binding.rvMap.visibility = View.VISIBLE
+                binding.imageView2.visibility = View.INVISIBLE
+                binding.tvDefaultText.visibility = View.INVISIBLE
 
             }
             handled
         }
     }
-
 
     private fun backButton() {
         binding.ivPlaceBack.setOnClickListener {
@@ -100,21 +107,23 @@ class PlaceSearchFragment : Fragment() {
         }
     }
 
+    //검색 결과에 따라 뷰 나타냄
     private fun fetchMap() {
         val query = binding.etSearchBox.text.toString()
-        if (query.trim().isEmpty()) {
-            binding.imageView2.isVisible = true
-            binding.tvDefaultText.isVisible = true
+        if (query.trim().isNotEmpty()) {
+            binding.imageView2.visibility = View.INVISIBLE
+            binding.tvDefaultText.visibility = View.INVISIBLE
+            binding.rvMap.visibility = View.VISIBLE
         } else {
-            binding.rvMap.isVisible = true
-            binding.imageView2.isVisible = false
-            binding.tvDefaultText.isVisible = false
+            binding.imageView2.visibility = View.VISIBLE
+            binding.tvDefaultText.visibility = View.VISIBLE
+            binding.rvMap.visibility = View.INVISIBLE
             searchViewModel.updateText(query)
         }
     }
 
-    private fun initViewModel() {
 
+    private fun initViewModel() {
         searchViewModel.searchMapList.observe(viewLifecycleOwner) {
             mapAdapter.itemList = it
             with(binding.rvMap) {
@@ -126,7 +135,6 @@ class PlaceSearchFragment : Fragment() {
     }
 
     private fun initMapList() {
-
         mapAdapter.setOnItemClickListener(object : MapAdapter.OnItemClickListener {
             override fun onItemClick(mapData: PlaceModel) {
                 val fragment = PlaceDetailFragment()
@@ -139,12 +147,11 @@ class PlaceSearchFragment : Fragment() {
                         /* enter = */ R.anim.slide_in,
                         /* exit = */ R.anim.fade_out,
                     )
-                    .add(R.id.fg_Search, fragment)
-                    .addToBackStack(null)
+                    .replace(R.id.frame, fragment) //replace는 교체, add는 추가
+                    .addToBackStack("PlaceDetailFragment")
                     .commit()
             }
         })
-
         searchViewModel.searchMapList.observe(viewLifecycleOwner) { map ->
             mapAdapter.setItem(map)
         }
@@ -155,7 +162,6 @@ class PlaceSearchFragment : Fragment() {
         searchViewModel.getData().observe(viewLifecycleOwner, Observer {
             searchViewModel.getSearchMapList(it)
         })
-
     }
 
 
@@ -220,7 +226,6 @@ class PlaceSearchFragment : Fragment() {
 //
 //        바텀시트와 연결
 //    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

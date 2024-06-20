@@ -29,6 +29,12 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlin.math.acos
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.pow
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 class MyPromiseViewModel(
     private val loadToMyPromiseListUseCase: LoadToMyPromiseListUseCase,
@@ -69,6 +75,65 @@ class MyPromiseViewModel(
     private val _userLocation = MutableLiveData<LatLng>()
     val userLocation: LiveData<LatLng> get() = _userLocation
 
+    private val _destinationLatLng = MutableLiveData<LatLng>()
+    val destinationLatLng: LiveData<LatLng> get() = _destinationLatLng
+
+    private val _distanceBetween = MutableLiveData<Double>()
+    val distanceBetween: LiveData<Double> get() = _distanceBetween
+
+    //여기에서 목적지에 대한 위도 경도를 저장해야 함
+    //fun setDestinationLatLng(){
+    //observe 하다가 가져오던가...
+    // }
+
+    private fun calDistance2() {
+        //지구 반지름 (km)
+        val earthRadius = 6371.0
+
+        val userLocationVal = userLocation.value
+        val destinationLatLngVal = destinationLatLng.value
+        if (userLocationVal != null && destinationLatLngVal != null) {
+            val latDist = Math.toRadians(userLocationVal.latitude - destinationLatLngVal.latitude)
+            val lngDist =
+                Math.toRadians(userLocationVal.longitude - (destinationLatLngVal.longitude))
+
+            val a = sin(latDist / 2).pow(2.0) + cos(Math.toRadians(userLocationVal.latitude)) * cos(
+                Math.toRadians(destinationLatLngVal.latitude)
+            ) * sin(lngDist / 2).pow(2.0)
+
+            val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+            _distanceBetween.value = earthRadius * c
+        }
+    }
+
+
+    private fun calDistance(): Long {
+        //지구 반지름 (m)
+        val EARTH_R = 6371000.0
+        val rad = Math.PI / 180
+
+        val radLat1 = rad * (userLocation.value?.latitude.toString().toLong())
+        val radLat2 = rad * (destinationLatLng.value?.latitude.toString().toLong())
+
+        val radDist = rad * (userLocation.value?.longitude.toString()
+            .toLong() - destinationLatLng.value?.longitude.toString().toLong())
+
+        var distance = sin(radLat1) * sin(radLat2)
+        distance += cos(radLat1) * cos(radLat2) * cos(radDist)
+
+        val ret = EARTH_R * acos(distance)
+        Log.d("확인 거리", "$ret")
+        return Math.round(ret)
+    }
+
+    private fun checkDistance() {
+        val currentDistance = calDistance()
+
+        if (currentDistance <= 10) {
+            // 10미터 남음
+        }
+    }
+
 
     private val _directionsResult = MutableLiveData<DirectionsModel>()
     val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
@@ -90,7 +155,7 @@ class MyPromiseViewModel(
 
     // 사용자 위치를 문자열로 반환하는 메서드 추가
     fun getUserLocationString(delimiter: String = ","): String? {
-        val location = _userLocation.value
+        val location = userLocation.value
         return location?.let {
             "${it.latitude}$delimiter${it.longitude}"
         }
@@ -110,6 +175,7 @@ class MyPromiseViewModel(
             }
         }
     }
+
     fun setShortDirectionsResult() {
         if (_directionsResult.value != null) {
             formatShortDirectionsExplanations(_directionsResult.value!!)
@@ -118,14 +184,23 @@ class MyPromiseViewModel(
             Log.d("확인 setDirections", "null")
         }
     }
+
     private fun formatShortDirectionsExplanations(directions: DirectionsModel) {
         val resultText = StringBuilder()
 
+        //선택하면 그거에 대해 1번 출력되게
         directions.routes.forEach { route ->
             route.legs.forEach { leg ->
+
+                resultText.append("${leg.totalStartLocation.lat}, ${leg.totalStartLocation.lng}\n")
+                resultText.append("출발 주소 ${leg.totalStartAddress}\n")
+
                 resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
                 resultText.append("앞으로 ${leg.totalDuration.text} 뒤인\n")
                 resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.")
+
+                //마지막에 \n 제거 확인하기!!!
+                resultText.append("\n\n\n")
             }
         }
 
@@ -137,6 +212,7 @@ class MyPromiseViewModel(
         _destination.value = destination
         _mode.value = mode
     }
+
     init {
         getCurrentUId()
         getCurrentUserData()
@@ -163,7 +239,7 @@ class MyPromiseViewModel(
                 _promiseRoomList.value = promiseRooms
                 Log.d("PromiseList", "${_promiseRoomList.value}")
 
-                val closestPromise = promiseRooms.minByOrNull {  it.promiseDate }
+                val closestPromise = promiseRooms.minByOrNull { it.promiseDate }
                 _closestPromiseTitle.value = closestPromise?.roomTitle
             }
         }

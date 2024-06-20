@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -102,7 +103,9 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
 
     private fun sendQuery() {
         binding.btnRoomMapSearch.setOnClickListener {
+
             searchQuery()
+
         }
     }
 
@@ -133,7 +136,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         mGoogleMap.apply {
             val markerOptions = MarkerOptions()
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
             markerOptions.position(location)
             markerOptions.title("서울시청")
             addMarker(markerOptions)

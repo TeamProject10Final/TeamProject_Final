@@ -1,5 +1,7 @@
 package com.example.donotlate.feature.consumption.presentation
 
+
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -87,6 +89,7 @@ class ConsumptionActivity : AppCompatActivity() {
 //        //지각 여부를 채팅창에서 받아와야 할듯... livedata로... 그거로 tvNickname 바꾸기!
     }
 
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     private fun observeViewModel() {
         lifecycleScope.launch {
             launch {
@@ -117,12 +120,14 @@ class ConsumptionActivity : AppCompatActivity() {
 
             launch {
                 consumptionViewModel.errorState.collect { error ->
-                    Toast.makeText(
-                        this@ConsumptionActivity,
-                        "Error: $error",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    Log.d("확인 에러", "$error")
+                    if (error.isNotEmpty()) {
+                        Toast.makeText(
+                            this@ConsumptionActivity,
+                            "Error: $error",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    Log.d("확인 에러", error)
                 }
             }
 

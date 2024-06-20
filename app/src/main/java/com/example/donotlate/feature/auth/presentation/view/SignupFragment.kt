@@ -164,8 +164,8 @@ class SignupFragment : Fragment() {
         signUpViewmodel.signUpResult.observe(viewLifecycleOwner) { result ->
             if (result.isSuccess) {
                 Toast.makeText(requireContext(), "회원 가입 성공!", Toast.LENGTH_SHORT).show()
-                val activity = activity as MainActivity
-                activity.changeFragment(MainFragment())
+                parentFragmentManager.beginTransaction().replace(R.id.frame, LoginFragment())
+                    .commit()
             } else {
                 Toast.makeText(requireContext(), "회원 가입 실패!", Toast.LENGTH_SHORT).show()
             }
