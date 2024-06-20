@@ -91,6 +91,7 @@ class DirectionsViewModel1(
     fun setIsDepArrNone(set: Int) {
         _isDepArrNone.value = set
     }
+
     fun changeIsDepArrNone() {
         if (_isDepArrNone.value!! <= 0) {
             _isDepArrNone.value = isDepArrNone.value?.plus(1)
@@ -138,7 +139,8 @@ class DirectionsViewModel1(
     }
 
     fun setSelectedRouteIndex(indexNum: Int) {
-        _selectedRouteIndex.value = (indexNum - 1) ?: 0
+        _selectedRouteIndex.value = indexNum ?: 0
+        Log.d("123123", "${indexNum}")
     }
 
     fun setTime(hour: Int, minute: Int) {
@@ -377,6 +379,7 @@ class DirectionsViewModel1(
     // directionsResult를 기반으로 directionExplanations을 설정하는 메서드
     private fun formatDirectionsExplanations(directions: DirectionsModel) {
         val resultText = StringBuilder()
+        val finalText = StringBuilder()
 
         directions.routes.get(_selectedRouteIndex.value!!).legs.forEach { leg ->
             resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
@@ -384,12 +387,13 @@ class DirectionsViewModel1(
             resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
             resultText.append("\n")
             var num = 1
+            val resultText1 = StringBuilder()
             leg.steps.forEach { step ->
-                resultText.append("🔷${num}:\n")
-                resultText.append("*  상세설명: ${step.htmlInstructions}\n")
-                resultText.append("*  소요시간: ${step.stepDuration.text}\n")
-                resultText.append("*  구간거리: ${step.distance.text}\n")
-                resultText.append("*  이동수단: ${step.travelMode}")
+                resultText1.append("🔷${num}:\n")
+                resultText1.append("*  상세설명: ${step.htmlInstructions}\n")
+                resultText1.append("*  소요시간: ${step.stepDuration.text}\n")
+                resultText1.append("*  구간거리: ${step.distance.text}\n")
+                resultText1.append("*  이동수단: ${step.travelMode}")
 
                 if (step.transitDetails != DirectionsTransitDetailsModel(
                         DirectionsTransitStopModel(LatLngModel(0.0, 0.0), ""),
@@ -412,15 +416,15 @@ class DirectionsViewModel1(
                         ""
                     )
                 ) {
-                    resultText.append(" : ${step.transitDetails.line.shortName}, ${step.transitDetails.line.name}\n")
-                    resultText.append("|    ${step.transitDetails.headSign} 행\n")
-                    resultText.append("|    탑승 장소: ${step.transitDetails.departureStop.name}\n")
-                    resultText.append("|    하차 장소: ${step.transitDetails.arrivalStop.name}\n")
-                    resultText.append("|    ${step.transitDetails.numStops}")
-                    resultText.append(categorizeTransportation(step.transitDetails.line.vehicle.type))
-                    resultText.append("\n\n")
+                    resultText1.append(" : ${step.transitDetails.line.shortName}, ${step.transitDetails.line.name}\n")
+                    resultText1.append("|    ${step.transitDetails.headSign} 행\n")
+                    resultText1.append("|    탑승 장소: ${step.transitDetails.departureStop.name}\n")
+                    resultText1.append("|    하차 장소: ${step.transitDetails.arrivalStop.name}\n")
+                    resultText1.append("|    ${step.transitDetails.numStops}")
+                    resultText1.append(categorizeTransportation(step.transitDetails.line.vehicle.type))
+                    resultText1.append("\n\n")
                 } else {
-                    resultText.append("\n\n\n")
+                    resultText1.append("\n\n\n")
                 }
 
                 num++
@@ -513,65 +517,49 @@ class DirectionsViewModel1(
     //
     private suspend fun setRouteSelectionText() {
         if (_directionsResult.value != null) {
+            Log.d("확인 setDirections", "${_directionsResult.value}")
             formatRouteSelectionText(_directionsResult.value!!)
         } else {
             _error.postValue("_direction null")
             Log.d("확인 setDirections", "null")
+            _routeSelectionText.postValue(emptyList())
+            //emptyOrNull
         }
     }
 
     private fun formatRouteSelectionText(directions: DirectionsModel) {
         val resultsList = mutableListOf<String>()
 
+
         directions.routes.size
         var routeIndex = 1
         directions.routes.forEach { route ->
             val resultText = StringBuilder()
-            resultText.append("🔷경로 ${routeIndex}\n")
+            val resultText1 = StringBuilder()
+
+            resultText.append("🔵경로 ${routeIndex}\n")
             route.legs.forEach { leg ->
-                resultText.append("예상 소요 시간 : ${leg.totalDuration.text},\n")
-                resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예상.\n")
-                resultText.append("\n")
+                resultText1.append("  예상 소요 시간 : ${leg.totalDuration.text},\n")
+                resultText1.append("🕐${leg.totalArrivalTime.text}에 도착 예상.\n")
+                resultText1.append("\n")
+
+                val resultText2 = StringBuilder()
+
                 var num = 1
                 leg.steps.forEach { step ->
-                    resultText.append("🔷${num}:\n")
-                    resultText.append("*  상세설명: ${step.htmlInstructions}\n")
-                    resultText.append("*  소요시간: ${step.stepDuration.text}\n")
-                    resultText.append("*  이동수단: ${step.travelMode}")
-
-                    if (step.transitDetails != DirectionsTransitDetailsModel(
-                            DirectionsTransitStopModel(LatLngModel(0.0, 0.0), ""),
-                            TimeZoneTextValueObjectModel("", "", 0.0),
-                            DirectionsTransitStopModel(LatLngModel(0.0, 0.0), ""),
-                            TimeZoneTextValueObjectModel("", "", 0.0),
-                            (""),
-                            0,
-                            DirectionsTransitLineModel(
-                                emptyList(),
-                                "",
-                                "",
-                                "",
-                                "",
-                                "",
-                                "",
-                                DirectionsTransitVehicleModel("", "", "", "")
-                            ),
-                            0,
-                            ""
-                        )
-                    ) {
-                        resultText.append(" - ${step.transitDetails.line.shortName}, ${step.transitDetails.line.name}\n")
-                        resultText.append("\n\n")
-                    } else {
-                        resultText.append("\n\n\n")
-                    }
-                    resultsList.add(resultText.toString())
+                    resultText2.append("🔷${num}: ${step.htmlInstructions} (${step.stepDuration.text})\n")
                     num++
                 }
+                resultText1.append(resultText2)
             }
+            resultText.append(resultText1)
+            resultsList.add(resultText.toString())
             routeIndex++
         }
+        Log.d("확인 리스트 인덱스", "${resultsList.size}")
         _routeSelectionText.value = resultsList
+        Log.d("확인 setDirections", "stringbuilder ${resultsList}")
+        Log.d("확인 setDirections 1", "${resultsList[2]}")
     }
 
 
