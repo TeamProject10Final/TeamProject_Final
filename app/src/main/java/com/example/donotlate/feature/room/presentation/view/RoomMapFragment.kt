@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -104,6 +105,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
             } else {
                 roomViewModel.updateQuery(etQuery)
                 val bottomFragment = RoomMapBottomFragment()
+                bottomFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
                 bottomFragment.show(parentFragmentManager, "tag")
             }
         }
