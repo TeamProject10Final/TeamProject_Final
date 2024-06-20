@@ -54,13 +54,12 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
     private lateinit var locationCallback: LocationCallback
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
             val data = it.getParcelable("data", PlaceModel::class.java)
-            Log.d("debug1", "${data}")
+            Log.d("debug1", "$data")
             if (data != null) {
                 searchViewModel.setSelectedItem(data)
             }
@@ -88,6 +87,7 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
 
         initView()
         initBackground()
+
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.layout_Place_Detail) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -97,9 +97,6 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
         }
 
         binding.btnNavigation.setOnClickListener {
-            //checkPermission()
-
-            //checkPermissionStatus()
             passDestination()
         }
 
@@ -153,7 +150,10 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
                     backButton()
                 }
             }
-        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), onBackPressedCallback)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            requireActivity(),
+            onBackPressedCallback
+        )
     }
 
     //투명 배경 없애기
@@ -176,7 +176,8 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
             if (it != null) {
                 with(binding) {
                     ivPlaceDetailTitle.load(
-                        "https://places.googleapis.com/v1/${it.img}/media?key=${NetWorkClient.API_KEY}&maxHeightPx=500&maxWidthPx=750") {
+                        "https://places.googleapis.com/v1/${it.img}/media?key=${NetWorkClient.API_KEY}&maxHeightPx=500&maxWidthPx=750"
+                    ) {
                         crossfade(true)
                         transformations(RoundedCornersTransformation(30f))
                     }
@@ -228,80 +229,11 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
                 addMarker(markerOptions)
             }
         }
-
-
-//    private fun initCall() {
-//        searchViewModel.data.observe(viewLifecycleOwner) {
-//            val number = it.phoneNumber
-//            binding.tvPlaceDetailPhoneNumber.setOnClickListener {
-//                val call = Uri.parse("tel:${number}")
-//                requireActivity().startActivity(Intent(Intent.ACTION_CALL, call))
-//            }
-//        }
-//    }
     }
 
-    private fun checkPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
-            return
-        }
-    }
-
-//    @SuppressLint("MissingPermission")
-//    private fun passDestination() {
-//        if (hasLocationPermission()) {
-//            fusedLocationClient.lastLocation
-//                .addOnSuccessListener { location: Location? ->
-//                    location?.let {
-//                        val intent = Intent(requireContext(), DirectionRouteActivity::class.java)
-//                        intent.putExtra("destination", "${searchViewModel.data.value?.name}")
-//                        Log.d("확인 확인 확인", "${searchViewModel.data.value?.name}")
-//                        startActivity(intent)
-//                    } ?: run {
-//                        Toast.makeText(requireContext(), "1 위치 얻기 실패", Toast.LENGTH_SHORT)
-//                            .show()
-//                    }
-//                }
-//                .addOnFailureListener {
-//                    Toast.makeText(requireContext(), "2 위치 얻기 실패", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//        }
-//    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-//            Log.d("확인", "1")
-//            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-//                Log.d("확인", "2")
-//                // 권한이 부여되었으므로 현재 위치를 받아옴
-//                passDestination()
-//            } else {
-//                Log.d("확인", "3")
-//                Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT)
-//                    .show()
-//            }
-//        }
-//        Log.d("확인", "4")
-//    }
 }

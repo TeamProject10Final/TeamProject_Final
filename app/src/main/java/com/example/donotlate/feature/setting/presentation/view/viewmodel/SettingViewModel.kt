@@ -18,21 +18,25 @@ class SettingViewModel : ViewModel() {
                 "Pager Dots Indicator", "https://github.com/tommybuonomo/dotsindicator"
             ),
             LicenseModel(
-                "Android Developer ViewPager2", "https://developer.android.com/reference/androidx/viewpager2/widget/ViewPager2"
+                "Android Developer ViewPager2",
+                "https://developer.android.com/reference/androidx/viewpager2/widget/ViewPager2"
             ),
             LicenseModel(
                 "Android Developer MVVM", "https://developer.android.com/topic/architecture?hl=ko"
             ),
             LicenseModel(
-                "Android Developer Clean Architecture", "https://developer.android.com/topic/architecture?hl=ko"
+                "Android Developer Clean Architecture",
+                "https://developer.android.com/topic/architecture?hl=ko"
             ),
             LicenseModel(
-                "Google Places API", "https://developers.google.com/maps/documentation/places/web-service?hl=ko"
+                "Google Places API",
+                "https://developers.google.com/maps/documentation/places/web-service?hl=ko"
             ),
             LicenseModel(
-                "Google Directions API", "https://developers.google.com/maps/documentation/directions/get-directions?hl=ko"
+                "Google Directions API",
+                "https://developers.google.com/maps/documentation/directions/get-directions?hl=ko"
             ),
-            )
+        )
     }
 
 }

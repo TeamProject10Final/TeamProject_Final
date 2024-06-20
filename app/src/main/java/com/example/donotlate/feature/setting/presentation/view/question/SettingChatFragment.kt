@@ -14,7 +14,7 @@ import com.example.donotlate.databinding.FragmentSettingEmailBinding
 
 class SettingChatFragment : Fragment() {
 
-    private var _binding : FragmentSettingChatBinding? = null
+    private var _binding: FragmentSettingChatBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +43,7 @@ class SettingChatFragment : Fragment() {
         _binding = null
 
     }
+
     private fun backButton() {
         binding.ivSettingChatBack.setOnClickListener {
             parentFragmentManager.beginTransaction()
