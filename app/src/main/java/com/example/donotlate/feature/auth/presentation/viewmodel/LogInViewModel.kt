@@ -1,25 +1,33 @@
 package com.example.donotlate.feature.auth.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.feature.auth.domain.repository.AuthRepository
 import com.example.donotlate.feature.auth.domain.useCase.LogInUseCase
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class LogInViewModel(private val logInUseCase: LogInUseCase) : ViewModel() {
 
-    private val _logInResult = MutableLiveData<Result<String>>()
-    val logInResult: LiveData<Result<String>> get() = _logInResult
+    private val _channel = Channel<LoginEvent> { }
+    val channel = _channel.receiveAsFlow()
 
     fun logIn(email: String, password: String) {
         viewModelScope.launch {
-            val result = logInUseCase(email, password)
-            _logInResult.value = result
+            val result = logInUseCase(email = email, password = password)
+            if (result.isSuccess) {
+                _channel.send(element = LoginEvent.LoginSuccess)
+            } else {
+                _channel.send(element = LoginEvent.LoginFail)
+            }
         }
     }
+}
+
+sealed interface LoginEvent {
+    data object LoginFail : LoginEvent
+    data object LoginSuccess : LoginEvent
 }
 
 class LogInViewModelFactory(private val logInUseCase: LogInUseCase) :

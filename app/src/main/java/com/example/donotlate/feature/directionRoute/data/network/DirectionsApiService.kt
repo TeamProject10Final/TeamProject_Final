@@ -16,4 +16,5 @@ interface DirectionsApiService {
 //        @Query("key") apiKey: String = "AIzaSyCAOdeHz6erGcY_sbcEqbEgAETVpirfiV8"
         @Query("key") apiKey: String = "AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U"
     ): DirectionsResponse
+
 }

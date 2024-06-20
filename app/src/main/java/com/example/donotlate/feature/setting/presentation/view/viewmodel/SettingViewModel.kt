@@ -3,7 +3,7 @@ package com.example.donotlate.feature.setting.presentation.view.viewmodel
 import androidx.lifecycle.ViewModel
 import com.example.donotlate.feature.setting.presentation.view.model.LicenseModel
 
-class SettingViewModel() : ViewModel() {
+class SettingViewModel : ViewModel() {
 
 
     var date: String = ""

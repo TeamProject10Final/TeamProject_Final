@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.main.presentation.viewmodel
+package com.example.donotlate.feature.main.presentation.view
 
 import android.net.Uri
 import android.util.Log
