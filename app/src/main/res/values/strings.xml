@@ -95,6 +95,17 @@
     <string name="roulette_text1">번 당첨</string>
     <string name="roulette_text2">결과는...?</string>
 
+    <!--메인 페이지-->
+    <string name="main_top_title1">약속왕이 될 상인가,</string>
+    <string name="main_top_title2">님 어서오세요.</string>
+    <string name="main_text1">약속 잡기</string>
+    <string name="main_text2">내 약속</string>
+    <string name="main_text3">놀거리</string>
+    <string name="main_text4">정산 하기</string>
+    <string name="main_text5">미니 게임</string>
+    <string name="main_text6">친구 관리</string>
+
+
 
 
 

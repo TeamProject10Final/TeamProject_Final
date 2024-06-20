@@ -95,6 +95,16 @@
     <string name="roulette_text1">winning</string>
     <string name="roulette_text2">Spinning...?</string>
 
+    <!--메인 페이지-->
+    <string name="main_top_title1">You can become the promised king,</string>
+    <string name="main_top_title2"></string>
+    <string name="main_text1">Make\n an\n appointment</string>
+    <string name="main_text2">My\n promise</string>
+    <string name="main_text3">Place\n search</string>
+    <string name="main_text4">Calculate</string>
+    <string name="main_text5">Mini\n game</string>
+    <string name="main_text6">Friend\n management</string>
+
 
     <string name="time"> </string>
     <string name="info"> </string>
