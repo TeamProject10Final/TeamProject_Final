@@ -30,8 +30,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlin.math.acos
+import kotlin.math.atan2
 import kotlin.math.cos
+import kotlin.math.pow
 import kotlin.math.sin
+import kotlin.math.sqrt
 
 class MyPromiseViewModel(
     private val loadToMyPromiseListUseCase: LoadToMyPromiseListUseCase,
@@ -75,17 +78,33 @@ class MyPromiseViewModel(
     private val _destinationLatLng = MutableLiveData<LatLng>()
     val destinationLatLng: LiveData<LatLng> get() = _destinationLatLng
 
+    private val _distanceBetween = MutableLiveData<Double>()
+    val distanceBetween: LiveData<Double> get() = _distanceBetween
+
     //여기에서 목적지에 대한 위도 경도를 저장해야 함
     //fun setDestinationLatLng(){
+    //observe 하다가 가져오던가...
     // }
 
-//    private fun calDistance2(): Double{
-//        //지구 반지름 (km)
-//        val earthRadius = 6371.0
-//
-//        val latDist = Math.toRadians(userLocation.value.latitude - destinationLatLng.value.latitude)
-//        val lngDist = Math.
-//    }
+    private fun calDistance2() {
+        //지구 반지름 (km)
+        val earthRadius = 6371.0
+
+        val userLocationVal = userLocation.value
+        val destinationLatLngVal = destinationLatLng.value
+        if (userLocationVal != null && destinationLatLngVal != null) {
+            val latDist = Math.toRadians(userLocationVal.latitude - destinationLatLngVal.latitude)
+            val lngDist =
+                Math.toRadians(userLocationVal.longitude - (destinationLatLngVal.longitude))
+
+            val a = sin(latDist / 2).pow(2.0) + cos(Math.toRadians(userLocationVal.latitude)) * cos(
+                Math.toRadians(destinationLatLngVal.latitude)
+            ) * sin(lngDist / 2).pow(2.0)
+
+            val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+            _distanceBetween.value = earthRadius * c
+        }
+    }
 
 
     private fun calDistance(): Long {

@@ -29,7 +29,8 @@
             android:visibility="visible"
             tools:ignore="MissingConstraints" />
 
-<!--        여기부터 visibility 수정-->
+
+        <!--        여기부터 visibility 수정-->
         <Spinner
             android:id="@+id/spinner2tm"
             android:layout_width="match_parent"
@@ -123,6 +124,16 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/ivDetailView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/baseline_arrow_circle_down_24"
+            android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnMapBottomSheet"
