@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DoNotLate</string>
+
+    <!--로그인 페이지-->
+    <string name="login_top_title1">Welcome</string>
+    <string name="login_top_title2"></string>
+    <string name="login_top_title3">Please proceed to log in</string>
+    <string name="login_edit_text1">Please enter your e-mail</string>
+    <string name="login_edit_text2">Please enter your password</string>
+    <string name="login_text1">Please check your email</string>
+    <string name="login_text2">Passwords do not match</string>
+    <string name="login_text3">Don&apos;t have an account?</string>
+    <string name="login_text4">Or sign up with</string>
+    <string name="login_sign_up_line"><u>Sign Up</u></string>
+
+    <!--회원가입 페이지-->
+    <string name="sign_up_top_title1">Or sign up with</string>
+    <string name="sign_up_top_title2"></string>
+    <string name="sign_up_top_title3">Shall we go make an appointment now?</string>
+    <string name="sign_up_edit_text1">Please enter your nickname</string>
+    <string name="sign_up_edit_text2">Please re-enter your password</string>
+    <string name="sign_up_text1">Nickname contains special characters</string>
+    <string name="sign_up_text2">Please make your password a combination of 8 to 20 letters and numbers</string>
+    <string name="sign_up_text3">Already have an account?</string>
+    <string name="sign_up_login_line"><u>Login</u></string>
+
+    <string name="time"> </string>
+    <string name="info"> </string>
+    <string name="personal"> </string>
+    <string name="location"> </string>
+
+</resources>

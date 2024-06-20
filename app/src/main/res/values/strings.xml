@@ -1,10 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DoNotLate</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="login"><u>로그인</u></string>
-    <string name="signup"><u>회원가입</u></string>
+    <!--로그인 페이지-->
+    <string name="login_top_title1">환영합니다</string>
+    <string name="login_top_title2">로그인</string>
+    <string name="login_top_title3">을 진행해주세요</string>
+    <string name="login_edit_text1">이메일을 입력해 주세요</string>
+    <string name="login_edit_text2">비밀번호를 입력해 주세요</string>
+    <string name="login_text1">이메일을 확인해 주세요</string>
+    <string name="login_text2">비밀번호가 일치하지 않습니다</string>
+    <string name="login_text3">계정이 없으신가요?</string>
+    <string name="login_text4">Or sign up with</string>
+    <string name="login_sign_up_line"><u>회원가입</u></string>
+
+    <!--회원가입 페이지-->
+    <string name="sign_up_top_title1">회원가입</string>
+    <string name="sign_up_top_title2">후,</string>
+    <string name="sign_up_top_title3">약속을 잡으러 가볼까요?</string>
+    <string name="sign_up_edit_text1">닉네임을 입력해 주세요</string>
+    <string name="sign_up_edit_text2">비밀번호를 다시 입력해 주세요</string>
+    <string name="sign_up_text1">닉네임에 특수문자가 포함되어 있습니다</string>
+    <string name="sign_up_text2">비밀번호는 8~20자의 영문과 숫자로 조합해 주세요</string>
+    <string name="sign_up_text3">이미 계정이 있으세요?</string>
+    <string name="sign_up_login_line"><u>로그인</u></string>
+
 
     <string name="time"><u>월요일: 오후 5:00 ~ 오전 2:00\n화요일: 오후 5:00 ~ 오전 2:00\n수요일: 오후 5:00 ~ 오전 2:00\n목요일: 오후 5:00 ~ 오전 2:00\n금요일: 오후 5:00 ~ 오전 3:00\n토요일: 오후 5:00 ~ 오전 2:00\n일요일: 오후 5:00 ~ 오전 2:00</u></string>
 
@@ -335,5 +355,4 @@
         2. 연락 이메일 : sp10nomorelateness@gmail.com
 
     </string>
-
 </resources>
