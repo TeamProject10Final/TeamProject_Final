@@ -27,26 +27,23 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text=":"
         android:textSize="17sp"
-        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_Item_License"
         app:layout_constraintStart_toEndOf="@+id/tv_Item_License"
-        app:layout_constraintTop_toTopOf="@+id/tv_Item_License"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_Item_License" />
+        app:layout_constraintTop_toTopOf="@+id/tv_Item_License" />
 
     <TextView
         android:id="@+id/tv_Item_License_Uri"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="17sp"
         android:layout_marginTop="5dp"
-        android:textColor="@color/malibu"
         android:text="URI"
-        app:layout_constraintTop_toBottomOf="@id/iv_Item_License"
-        app:layout_constraintStart_toStartOf="@id/iv_Item_License" />
-
-
-
+        android:textColor="@color/malibu"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="@id/iv_Item_License"
+        app:layout_constraintTop_toBottomOf="@id/iv_Item_License" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

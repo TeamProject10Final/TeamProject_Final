@@ -26,7 +26,7 @@ class InformationDialogFragment : DialogFragment() {
     private var _binding: FragmentInformationDialogBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel : SettingViewModel
+    private lateinit var viewModel: SettingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

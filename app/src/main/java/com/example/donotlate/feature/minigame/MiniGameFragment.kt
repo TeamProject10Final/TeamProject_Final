@@ -31,12 +31,19 @@ class MiniGameFragment : Fragment() {
 
         backButton()
 
-
         binding.btnGameBackgroundLadder.setOnClickListener {
             Toast.makeText(requireContext(), "준비중인 기능입니다.", Toast.LENGTH_LONG).show()
         }
+
         binding.btnGameBackgroundWheel.setOnClickListener {
-            Toast.makeText(requireContext(), "준비중인 기능입니다.", Toast.LENGTH_LONG).show()
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, RouletteFragment())
+                .addToBackStack("")
+                .commit()
         }
     }
 
@@ -54,7 +61,7 @@ class MiniGameFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        parentFragmentManager.popBackStack()
+//        parentFragmentManager.popBackStack()
         _binding = null
     }
 

@@ -107,7 +107,8 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
             if (it != null) {
                 with(binding) {
                     ivPlaceDetailTitle.load(
-                        "https://places.googleapis.com/v1/${it.img}/media?key=${NetWorkClient.API_KEY}&maxHeightPx=500&maxWidthPx=750") {
+                        "https://places.googleapis.com/v1/${it.img}/media?key=${NetWorkClient.API_KEY}&maxHeightPx=500&maxWidthPx=750"
+                    ) {
                         crossfade(true)
                         transformations(RoundedCornersTransformation(30f))
                     }
