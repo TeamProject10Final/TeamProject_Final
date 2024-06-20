@@ -15,7 +15,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.PolyUtil
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.yield
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
@@ -32,7 +31,7 @@ class DirectionsViewModel1(
     val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
 
     //검색 결과 중 선택한 경로
-    private val _selectedRouteIndex = MutableLiveData<Int>()
+    private val _selectedRouteIndex = MutableLiveData<Int>(0)
     val selectedRouteIndex: LiveData<Int> get() = _selectedRouteIndex
 
     //에러처리
@@ -86,6 +85,9 @@ class DirectionsViewModel1(
     private val _shortExplanations = MutableLiveData<String>()
     val shortExplanations: LiveData<String> get() = _shortExplanations
 
+    private val _startLocation = MutableLiveData<LatLng>()
+    val startLocation: LiveData<LatLng> get() = _startLocation
+
     fun setIsDepArrNone(set: Int) {
         _isDepArrNone.value = set
     }
@@ -98,6 +100,17 @@ class DirectionsViewModel1(
         // -1 : 출발시각 (dep)
         // 0 : 시간 조건 없이
         // 1 : 도착시각 (arr)
+    }
+
+    //transit | driving | walking 등
+    fun setMode(mode: FirstMode) {
+        when (mode.type) {
+            FirstModeEnum.TRANSIT -> _mode.value = mode.key
+            FirstModeEnum.DRIVING -> _mode.value = mode.key
+            FirstModeEnum.WALKING -> _mode.value = mode.key
+            FirstModeEnum.BICYCLING -> _mode.value = mode.key
+            FirstModeEnum.NOT_SELECTED -> _mode.value = mode.key
+        }
     }
 
     fun setTransitMode(tm: TransitMode) {
@@ -158,12 +171,11 @@ class DirectionsViewModel1(
                     destination.value.toString(),
                     mode.value.toString()
                 )
-                yield()
                 _directionsResult.value = result.toModel()
                 //아래 로그는 bottom sheet 띄운 뒤 수정 예정
                 Log.d("확인 index 개수", "${_directionsResult.value!!.routes.size}")
                 updateBounds()
-                yield()
+                getOrigin()
                 setRouteSelectionText()
             } catch (e: Exception) {
                 _error.postValue(e.message)
@@ -203,11 +215,10 @@ class DirectionsViewModel1(
                     transitMode.value.toString(),
                     routingPreference.value.toString()
                 )
-                yield()
                 _directionsResult.value = result.toModel()
                 Log.d("확인 index 개수", "${_directionsResult.value!!.routes.size}")
                 updateBounds()
-                yield()
+                getOrigin()
                 Log.d("확인", "viewmodel 2: ${_directionsResult.value}")
                 setRouteSelectionText()
             } catch (e: Exception) {
@@ -227,10 +238,9 @@ class DirectionsViewModel1(
                     transitMode.value.toString(),
                     routingPreference.value.toString()
                 )
-                yield()
                 _directionsResult.value = result.toModel()
+                getOrigin()
                 updateBounds()
-                yield()
                 Log.d("확인", "viewmodel 2: ${_directionsResult.value}")
                 setRouteSelectionText()
             } catch (e: Exception) {
@@ -250,10 +260,9 @@ class DirectionsViewModel1(
                     transitMode.value.toString(),
                     routingPreference.value.toString()
                 )
-                yield()
                 _directionsResult.value = result.toModel()
+                getOrigin()
                 updateBounds()
-                yield()
                 Log.d("확인", "viewmodel 2: ${_directionsResult.value}")
                 setRouteSelectionText()
             } catch (e: Exception) {
@@ -264,13 +273,15 @@ class DirectionsViewModel1(
 
     //index 정해진 뒤에 polyline 등을 구해야 함
     fun afterSelecting() {
-        updatePolyLineWithColors()
-        updateBounds()
-        setShortDirectionsResult()
-        setDirectionsResult()
+        viewModelScope.launch {
+            updatePolyLineWithColors()
+            updateBounds()
+            setShortDirectionsResult()
+            setDirectionsResult()
+        }
     }
 
-    private fun updateBounds() {
+    private suspend fun updateBounds() {
         _latLngBounds.postValue(
             _directionsResult.value?.routes?.get(0)?.bounds?.let {
                 listOf(
@@ -323,14 +334,15 @@ class DirectionsViewModel1(
         }
     }
 
-    fun getOrigin(): LatLng {
+    private suspend fun getOrigin() {
         val lat1 =
             _directionsResult.value?.routes?.get(_selectedRouteIndex.value!!)?.legs?.get(0)?.totalStartLocation?.lat
                 ?: 0.0
         val lng1 =
             _directionsResult.value?.routes?.get(_selectedRouteIndex.value!!)?.legs?.get(0)?.totalStartLocation?.lng
                 ?: 0.0
-        return LatLng(lat1, lng1)
+        Log.d("확인 origin", "${lat1}, ${lng1}")
+        _startLocation.value = LatLng(lat1, lng1)
 
     }
 
@@ -350,11 +362,6 @@ class DirectionsViewModel1(
         return location?.let {
             "${it.latitude}$delimiter${it.longitude}"
         }
-    }
-
-    //transit | driving | walking 등
-    fun setMode(mode: String) {
-        _mode.value = mode
     }
 
     // directionsResult를 설정하는 메서드
@@ -504,7 +511,7 @@ class DirectionsViewModel1(
     }
 
     //
-    private fun setRouteSelectionText() {
+    private suspend fun setRouteSelectionText() {
         if (_directionsResult.value != null) {
             formatRouteSelectionText(_directionsResult.value!!)
         } else {

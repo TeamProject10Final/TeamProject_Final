@@ -33,6 +33,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
@@ -152,30 +153,37 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val padding = 100
             googleMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
         }
-
+//
         sharedViewModel.mode.observe(viewLifecycleOwner) { mode ->
-            if (mode == "transit") {
-                binding.spinner2tm.visibility = View.VISIBLE
-                binding.spinner3rp.visibility = View.VISIBLE
-                binding.btnSelectTime.visibility = View.VISIBLE
-                sharedViewModel.setIsDepArrNone(0)
-                updateTimeButton(0)
-                binding.etTime.visibility = View.VISIBLE
-                binding.etTime.isVisible = false
-                binding.btnSearchDirectionRoutes.visibility = View.VISIBLE
-            } else if (mode == "이용할 교통수단을 선택해주세요.") {
-                //
-            } else {
-                binding.spinner2tm.visibility = View.GONE
-                binding.spinner3rp.visibility = View.GONE
-                binding.btnSelectTime.visibility = View.GONE
-                binding.etTime.visibility = View.GONE
-                binding.btnSearchDirectionRoutes.visibility = View.GONE
+            Log.d("확인 mode2", "$mode")
+            when (mode) {
+                "transit" -> {
+                    binding.spinner2tm.visibility = View.VISIBLE
+                    binding.spinner3rp.visibility = View.VISIBLE
+                    binding.btnSelectTime.visibility = View.VISIBLE
+                    sharedViewModel.setIsDepArrNone(0)
+                    updateTimeButton(0)
+                    binding.etTime.visibility = View.VISIBLE
+                    binding.etTime.isVisible = false
+                    binding.btnSearchDirectionRoutes.visibility = View.VISIBLE
+                }
 
-                Log.d("확인 user map", sharedViewModel.getUserLocationString().toString())
-                //여기서 검색하기
-                sharedViewModel.getDirections()
-                setMarker(googleMap!!)
+                "select" -> {
+                    //
+                }
+
+                else -> {
+                    binding.spinner2tm.visibility = View.GONE
+                    binding.spinner3rp.visibility = View.GONE
+                    binding.btnSelectTime.visibility = View.GONE
+                    binding.etTime.visibility = View.GONE
+                    binding.btnSearchDirectionRoutes.visibility = View.GONE
+
+                    Log.d("확인 user map", sharedViewModel.getUserLocationString().toString())
+                    //여기서 검색하기
+                    sharedViewModel.getDirections()
+                    binding.ivDetailView.isVisible = true
+                }
             }
         }
 
@@ -194,6 +202,18 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         sharedViewModel.selectedRouteIndex.observe(viewLifecycleOwner) {
             sharedViewModel.afterSelecting()
+        }
+
+        sharedViewModel.startLocation.observe(viewLifecycleOwner) {
+            Log.d("확인 마커", "$googleMap")
+            val markerOrigin = MarkerOptions().position(it).title("출발지")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+            val markerDestination =
+                MarkerOptions().position(sharedViewModel.getDestination()).title("목적지")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+
+            googleMap?.addMarker(markerOrigin)
+            googleMap?.addMarker(markerDestination)
         }
     }
 
@@ -218,7 +238,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setUpSpinners() {
+        val modeKeyArray = resources.getStringArray(R.array.modeKeyArray)
         val modeArray = resources.getStringArray(R.array.modeArray)
+        val list1 = mutableListOf<FirstMode>()
+        for (i in modeArray.indices) {
+            list1.add(FirstMode(FirstModeEnum.entries[i], modeKeyArray[i], modeArray[i]))
+        }
         val adapterMode = object : ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_spinner_item,
@@ -260,7 +285,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         binding.spinner2tm.setSelection(trafficModeArray.size - 1)
         //
 
-
         //
         val routingPreferenceKeyArray =
             resources.getStringArray(R.array.transitRoutingPreferenceKeyArray)
@@ -290,7 +314,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         binding.spinner3rp.setSelection(adapterRp.count)
 
 
-
         binding.spinner1mode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -298,11 +321,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 position: Int,
                 id: Long
             ) {
-                val selectedMode = parent?.getItemAtPosition(position).toString()
-
+                val selectedMode = list1[position]
+                Log.d("확인 mode", "$selectedMode")
                 sharedViewModel.setMode(selectedMode)
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
@@ -316,11 +338,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 id: Long
             ) {
                 val selectedMode = list2[position]
-                //val selectedMode = parent?.getItemAtPosition(position).toString()
-
                 sharedViewModel.setTransitMode(selectedMode)
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
@@ -334,17 +353,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 id: Long
             ) {
                 val selectedItem = list3[position]
-                //val selectedItem = list3[position].message
-//                val selectedMode = parent?.getItemAtPosition(position).toString()
-
                 sharedViewModel.setRoutingPreference(selectedItem)
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
         }
-
     }
 
     private fun setupClickListener() {
@@ -353,8 +367,21 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             bottomSheetDialogFragment.show(parentFragmentManager, "tag")
         }
         binding.btnSendIndex.setOnClickListener {
-            val selectedIndex = binding.etSelectionIndex.text.toString().toInt()
-            sharedViewModel.setSelectedRouteIndex(selectedIndex)
+
+            val selectedIndex = binding.etSelectionIndex.text.toString()
+            if (selectedIndex != "") {
+                val thisIndex = selectedIndex.toInt()
+                sharedViewModel.setSelectedRouteIndex(thisIndex)
+                if (sharedViewModel.mode.value.toString() == "transit") {
+                    Log.d("확인 화살표", "${sharedViewModel.mode.value.toString()}")
+                    binding.ivDetailView.isVisible = true
+                } else {
+                    Log.d("확인 화살표 else", "${sharedViewModel.mode.value.toString()}")
+                    binding.ivDetailView.isVisible = false
+                }
+            } else {
+                Log.d("확인 인덱스 오류", "$selectedIndex")
+            }
         }
 
         binding.btnSelectTime.setOnClickListener {
@@ -366,7 +393,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             Log.d("확인 다른검색", sharedViewModel.routingPreference.value.toString())
 
             sharedViewModel.getDirByTransit()
-            setMarker(googleMap!!)
 
             binding.spinner2tm.visibility = View.GONE
             binding.spinner3rp.visibility = View.GONE
@@ -374,6 +400,20 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             binding.etTime.visibility = View.GONE
             binding.btnSearchDirectionRoutes.visibility = View.GONE
 
+            binding.ivDetailView.isVisible = false
+
+        }
+        binding.ivDetailView.setOnClickListener {
+            binding.spinner2tm.visibility = View.VISIBLE
+            binding.spinner3rp.visibility = View.VISIBLE
+            binding.btnSelectTime.visibility = View.VISIBLE
+            sharedViewModel.setIsDepArrNone(0)
+            updateTimeButton(0)
+            binding.etTime.visibility = View.VISIBLE
+            binding.etTime.isVisible = false
+            binding.btnSearchDirectionRoutes.visibility = View.VISIBLE
+
+            binding.ivDetailView.isVisible = false
         }
     }
 
@@ -466,18 +506,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapFragment?.onLowMemory()
     }
 
-    private fun setMarker(myMap: GoogleMap) {
-        googleMap = myMap
-        Log.d("라인확인", "onmapready")
-        val markerOrigin = MarkerOptions().position(sharedViewModel.getOrigin()).title("출발지")
-        val markerDestination =
-            MarkerOptions().position(sharedViewModel.getDestination()).title("목적지")
-
-        myMap.addMarker(markerOrigin)
-        myMap.addMarker(markerDestination)
-
-    }
-
     private fun focusMapOnBounds() {
         // 경로를 포함하는 영역 계산하여 지도의 중심을 이동
         val latLngBounds = LatLngBounds.builder()
@@ -508,7 +536,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         Log.d("확인", "onMapReady $myMap")
         googleMap = myMap
         setLine(myMap)
-        setMarker(myMap)
 
         setupMapListeners()
     }
