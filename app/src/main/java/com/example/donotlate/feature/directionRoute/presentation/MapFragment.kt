@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -154,7 +155,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 binding.spinner2tm.visibility = View.VISIBLE
                 binding.spinner3rp.visibility = View.VISIBLE
                 binding.btnSelectTime.visibility = View.VISIBLE
+                sharedViewModel.setIsDepArrNone(0)
+                updateTimeButton(0)
                 binding.etTime.visibility = View.VISIBLE
+                binding.etTime.isVisible = false
                 binding.btnSearchDirectionRoutes.visibility = View.VISIBLE
             } else if (mode == "이용할 교통수단을 선택해주세요.") {
                 //
@@ -380,16 +384,19 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             -1 -> {
                 binding.btnSelectTime.text = "출발시각"
                 binding.btnSelectTime.setBackgroundResource(R.drawable.btn_radius_malibu)
+                binding.etTime.isVisible = true
             }
 
             1 -> {
                 binding.btnSelectTime.text = "도착시각"
                 binding.btnSelectTime.setBackgroundResource(R.drawable.btn_radius_arctic)
+                binding.etTime.isVisible = true
             }
 
             else -> {
                 binding.btnSelectTime.text = "시간선택"
                 binding.btnSelectTime.setBackgroundResource(R.drawable.btn_radius_lilac)
+                binding.etTime.isVisible = false
             }
         }
     }

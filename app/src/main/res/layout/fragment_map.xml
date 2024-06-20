@@ -68,25 +68,26 @@
             android:focusable="false"
             android:ems="10"
             android:inputType="none"
-            android:hint="출발 시간을 선택해주세요"
+            android:hint="시간을 선택해주세요"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnSelectTime"
             app:layout_constraintTop_toBottomOf="@+id/spinner3rp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSelectTime"
             android:visibility="gone"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSelectTime"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/btn_radius_malibu"
             android:text="출발"
             android:textColor="@color/black"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@+id/etTime"
-            app:layout_constraintEnd_toStartOf="@+id/etTime"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/etTime"/>
+            app:layout_constraintTop_toBottomOf="@+id/spinner3rp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSearchDirectionRoutes"
@@ -103,7 +104,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etTime"
+            app:layout_constraintTop_toBottomOf="@+id/btnSelectTime"
             tools:ignore="MissingConstraints"
             android:visibility="gone"/>
 

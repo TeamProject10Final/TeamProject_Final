@@ -86,7 +86,9 @@ class DirectionsViewModel1(
     private val _shortExplanations = MutableLiveData<String>()
     val shortExplanations: LiveData<String> get() = _shortExplanations
 
-
+    fun setIsDepArrNone(set: Int) {
+        _isDepArrNone.value = set
+    }
     fun changeIsDepArrNone() {
         if (_isDepArrNone.value!! <= 0) {
             _isDepArrNone.value = isDepArrNone.value?.plus(1)
