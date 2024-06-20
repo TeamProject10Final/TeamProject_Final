@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.room.presentation.view.RoomMapBottomFragment" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".feature.directionRoute.presentation.DirectionsBottomFragment">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_Bottom1"
+        android:id="@+id/cl_Bottom2"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,15 +27,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_Room_Map_Bottom"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constrainedHeight="true"
-        tools:listitem="@layout/item_rv_place"
-        app:layout_constraintTop_toBottomOf="@+id/cl_Bottom1"
+        tools:listitem="@layout/item_direction"
+        app:layout_constraintTop_toBottomOf="@+id/cl_Bottom2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

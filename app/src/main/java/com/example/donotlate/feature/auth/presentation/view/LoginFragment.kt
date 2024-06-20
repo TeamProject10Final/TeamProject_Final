@@ -57,7 +57,6 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
                             parentFragmentManager.beginTransaction()
                                 .replace(R.id.frame, MainFragment())
                                 .commit()
-
                         }
                     }
                 }
@@ -81,7 +80,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
 
                 binding.tvLoginSign -> {
                     requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_Login, SignupFragment())
+                        .replace(R.id.frame, SignupFragment())
                         .addToBackStack("SignupFragment")
                         .commit()
                 }
