@@ -44,10 +44,10 @@
         android:id="@+id/tv_Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2000.00.00"
         android:layout_marginEnd="15dp"
+        android:text="2000.00.00"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/tvItem"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/tvItem"
-        app:layout_constraintBottom_toBottomOf="@+id/tvItem"/>
+        app:layout_constraintTop_toTopOf="@+id/tvItem" />
 </androidx.constraintlayout.widget.ConstraintLayout>

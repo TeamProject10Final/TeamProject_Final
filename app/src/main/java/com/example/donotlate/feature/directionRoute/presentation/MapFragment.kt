@@ -2,9 +2,8 @@ package com.example.donotlate.feature.directionRoute.presentation
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
+import android.app.TimePickerDialog
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
@@ -15,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -35,9 +33,12 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import java.util.Calendar
+import java.util.Locale
 
 class MapFragment : Fragment(), OnMapReadyCallback {
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -65,7 +66,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         appContainer.directions1Container.directionsViewModel1Factory
     }
 
-
     // SharedViewModel 가져오기
     private val sharedViewModel: DirectionsViewModel1 by activityViewModels { directionsViewModel1Factory }
 
@@ -81,31 +81,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 Toast.makeText(requireContext(), "권한 승인이 필요합니다.", Toast.LENGTH_LONG).show()
             }
         }
-        //checkPermission()
-        //requestLocationPermission()
-//
-//
-//        searchDirections()
-
     }
-
-//    private fun searchDirections() {
-//        var origin = currentDestination
-//        if(origin!=null){
-//            var destination = currentDestination
-//            val mode = "transit"
-//            sharedViewModel.getDirections(origin, destination, mode)
-//        }
-//    }
-
-//    private fun requestLocationPermission() {
-//        locationPermission.launch(
-//            arrayOf(
-//                Manifest.permission.ACCESS_COARSE_LOCATION,
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            )
-//        )
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -117,10 +93,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         getCurrentLocation()
         return binding.root
     }
-
-//    private fun getCurrentLocation() {
-//
-//    }
 
     private fun checkPermission() {
         if (hasLocationPermission()) {
@@ -138,15 +110,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    //    private fun requestLocationPermission() {
-//        locationPermission.launch(
-//            arrayOf(
-//                Manifest.permission.ACCESS_COARSE_LOCATION,
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            )
-//        )
-//    }
-
     private fun requestLocationPermission() {
         requestPermissions(
             arrayOf(
@@ -162,21 +125,25 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         initializeMapView()
         setupClickListener()
         setUpSpinners()
+        setUpTimePicker()
+
+        observeViewModels()
 
 
-        binding.btnMapBottomSheet.setOnClickListener {
-            val bottomSheetDialogFragment = RouteDetailsBottomSheet()
-            bottomSheetDialogFragment.show(parentFragmentManager, "tag")
-        }
-//        sharedViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
-//            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-//        }
+    }
+
+    private fun observeViewModels() {
         sharedViewModel.latLngBounds.observe(viewLifecycleOwner) { list ->
-            Log.d("확인", "latLngBounds ${list}")
+            Log.d("확인", "latLngBounds $list")
             // 경로를 포함하는 영역 계산하여 지도의 중심을 이동
-            if (list.isEmpty()) {
+
+            if (list.isNullOrEmpty()) {
                 return@observe
             }
+//            //여기에서 터짐.... transit 선택 후 1번 인덱스 선택 시
+//            if ((list?.isEmpty() != false) as Boolean) {
+//                return@observe
+//            }
             val latLngBounds = LatLngBounds.builder()
             list.forEach {
                 latLngBounds.include(LatLng(it.lat, it.lng))
@@ -186,31 +153,97 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val padding = 100
             googleMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
         }
-        sharedViewModel.mode.observe(viewLifecycleOwner, { mode ->
-            if (mode == "transit") {
-                binding.spinner2tm.visibility = View.VISIBLE
-                binding.spinner3rp.visibility = View.VISIBLE
-                binding.etDep.visibility = View.VISIBLE
-                binding.etArr.visibility = View.VISIBLE
-                binding.btnSearchDirectionRoutes.visibility = View.VISIBLE
-            } else if (mode == "이용할 교통수단을 선택해주세요.") {
-                //
-            } else {
-                binding.spinner2tm.visibility = View.GONE
-                binding.spinner3rp.visibility = View.GONE
-                binding.etDep.visibility = View.GONE
-                binding.etArr.visibility = View.GONE
-                binding.btnSearchDirectionRoutes.visibility = View.GONE
+//
+        sharedViewModel.mode.observe(viewLifecycleOwner) { mode ->
+            Log.d("확인 mode2", "$mode")
+            when (mode) {
+                "transit" -> {
+                    binding.spinner2tm.visibility = View.VISIBLE
+                    binding.spinner3rp.visibility = View.VISIBLE
+                    binding.btnSelectTime.visibility = View.VISIBLE
+                    sharedViewModel.setIsDepArrNone(0)
+                    updateTimeButton(0)
+                    binding.etTime.visibility = View.VISIBLE
+                    binding.etTime.isVisible = false
+                    binding.btnSearchDirectionRoutes.visibility = View.VISIBLE
+                }
 
-                Log.d("확인 user map", sharedViewModel.getUserLocationString().toString())
-                //여기서 검색하기
-                sharedViewModel.getDirections()
+                "select" -> {
+                    //
+                }
+
+                else -> {
+                    binding.spinner2tm.visibility = View.GONE
+                    binding.spinner3rp.visibility = View.GONE
+                    binding.btnSelectTime.visibility = View.GONE
+                    binding.etTime.visibility = View.GONE
+                    binding.btnSearchDirectionRoutes.visibility = View.GONE
+
+                    Log.d("확인 user map", sharedViewModel.getUserLocationString().toString())
+                    //여기서 검색하기
+                    sharedViewModel.getDirections()
+                    binding.ivDetailView.isVisible = true
+                }
             }
-        })
+        }
+
+        sharedViewModel.selectedTime.observe(viewLifecycleOwner) { time ->
+            time?.let {
+                val selectedTime =
+                    String.format(Locale.getDefault(), "%02d:%02d", it.hour, it.minute)
+                binding.etTime.setText(selectedTime)
+
+            }
+        }
+
+        sharedViewModel.isDepArrNone.observe(viewLifecycleOwner) { isDep ->
+            updateTimeButton(isDep)
+        }
+
+        sharedViewModel.selectedRouteIndex.observe(viewLifecycleOwner) {
+            sharedViewModel.afterSelecting()
+        }
+
+        sharedViewModel.startLocation.observe(viewLifecycleOwner) {
+            Log.d("확인 마커", "$googleMap")
+            val markerOrigin = MarkerOptions().position(it).title("출발지")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+            val markerDestination =
+                MarkerOptions().position(sharedViewModel.getDestination()).title("목적지")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+
+            googleMap?.addMarker(markerOrigin)
+            googleMap?.addMarker(markerDestination)
+        }
+    }
+
+    private fun setUpTimePicker() {
+        binding.etTime.setOnClickListener {
+            showTimePickerDialog()
+        }
+    }
+
+    private fun showTimePickerDialog() {
+        val currentTime = Calendar.getInstance()
+        val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val currentMinute = currentTime.get(Calendar.MINUTE)
+
+        TimePickerDialog(requireContext(), { _, hourOfDay, minute ->
+            val selectedTime = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute)
+            binding.etTime.setText(selectedTime)
+
+            sharedViewModel.setTime(hourOfDay, minute)
+
+        }, currentHour, currentMinute, true).show()
     }
 
     private fun setUpSpinners() {
+        val modeKeyArray = resources.getStringArray(R.array.modeKeyArray)
         val modeArray = resources.getStringArray(R.array.modeArray)
+        val list1 = mutableListOf<FirstMode>()
+        for (i in modeArray.indices) {
+            list1.add(FirstMode(FirstModeEnum.entries[i], modeKeyArray[i], modeArray[i]))
+        }
         val adapterMode = object : ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_spinner_item,
@@ -223,8 +256,21 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         adapterMode.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinner1mode.adapter = adapterMode
         binding.spinner1mode.setSelection(modeArray.size - 1)
+        //
 
+        val trafficModeKeyArray = resources.getStringArray(R.array.trafficModeKeyArray)
         val trafficModeArray = resources.getStringArray(R.array.trafficModeArray)
+        val list2 = mutableListOf<TransitMode>()
+        for (i in trafficModeArray.indices) {
+            list2.add(
+                TransitMode(
+                    TransitModeEnum.entries[i],
+                    trafficModeKeyArray[i],
+                    trafficModeArray[i]
+                )
+            )
+        }
+
         val adapterTm = object : ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_spinner_item,
@@ -237,8 +283,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         adapterTm.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinner2tm.adapter = adapterTm
         binding.spinner2tm.setSelection(trafficModeArray.size - 1)
+        //
 
+        //
+        val routingPreferenceKeyArray =
+            resources.getStringArray(R.array.transitRoutingPreferenceKeyArray)
         val routingPreferenceArray = resources.getStringArray(R.array.transitRoutingPreferenceArray)
+        val list3 = mutableListOf<TransitRoutePreference>()
+        for (i in routingPreferenceArray.indices) {
+            list3.add(
+                TransitRoutePreference(
+                    TransitRoutePreferenceEnum.entries[i],
+                    routingPreferenceKeyArray[i],
+                    routingPreferenceArray[i]
+                )
+            )
+        }
+
         val adapterRp = object : ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_spinner_item,
@@ -252,6 +313,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         binding.spinner3rp.adapter = adapterRp
         binding.spinner3rp.setSelection(adapterRp.count)
 
+
         binding.spinner1mode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -259,19 +321,42 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 position: Int,
                 id: Long
             ) {
-                var selectedMode = parent?.getItemAtPosition(position).toString()
-
+                val selectedMode = list1[position]
+                Log.d("확인 mode", "$selectedMode")
                 sharedViewModel.setMode(selectedMode)
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
         }
-        binding.etDep.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                val enteredText = binding.etDep.text.toString()
-                //sharedViewModel.setDepartureTime()
+
+        binding.spinner2tm.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedMode = list2[position]
+                sharedViewModel.setTransitMode(selectedMode)
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+
+        binding.spinner3rp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = list3[position]
+                sharedViewModel.setRoutingPreference(selectedItem)
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
             }
         }
     }
@@ -282,14 +367,54 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             bottomSheetDialogFragment.show(parentFragmentManager, "tag")
         }
         binding.btnSendIndex.setOnClickListener {
-            val selectedIndex = binding.etSelectionIndex.text.toString().toInt()
-            sharedViewModel.setSelectedRouteIndex(selectedIndex)
+
+            val selectedIndex = binding.etSelectionIndex.text.toString()
+            if (selectedIndex != "") {
+                val thisIndex = selectedIndex.toInt()
+                sharedViewModel.setSelectedRouteIndex(thisIndex)
+                if (sharedViewModel.mode.value.toString() == "transit") {
+                    Log.d("확인 화살표", "${sharedViewModel.mode.value.toString()}")
+                    binding.ivDetailView.isVisible = true
+                } else {
+                    Log.d("확인 화살표 else", "${sharedViewModel.mode.value.toString()}")
+                    binding.ivDetailView.isVisible = false
+                }
+            } else {
+                Log.d("확인 인덱스 오류", "$selectedIndex")
+            }
         }
 
-        sharedViewModel.selectedRouteIndex.observe(viewLifecycleOwner, { index ->
-            sharedViewModel.afterSelecting()
+        binding.btnSelectTime.setOnClickListener {
+            sharedViewModel.changeIsDepArrNone()
+        }
 
-        })
+        //검색버튼
+        binding.btnSearchDirectionRoutes.setOnClickListener {
+            Log.d("확인 다른검색", sharedViewModel.routingPreference.value.toString())
+
+            sharedViewModel.getDirByTransit()
+
+            binding.spinner2tm.visibility = View.GONE
+            binding.spinner3rp.visibility = View.GONE
+            binding.btnSelectTime.visibility = View.GONE
+            binding.etTime.visibility = View.GONE
+            binding.btnSearchDirectionRoutes.visibility = View.GONE
+
+            binding.ivDetailView.isVisible = false
+
+        }
+        binding.ivDetailView.setOnClickListener {
+            binding.spinner2tm.visibility = View.VISIBLE
+            binding.spinner3rp.visibility = View.VISIBLE
+            binding.btnSelectTime.visibility = View.VISIBLE
+            sharedViewModel.setIsDepArrNone(0)
+            updateTimeButton(0)
+            binding.etTime.visibility = View.VISIBLE
+            binding.etTime.isVisible = false
+            binding.btnSearchDirectionRoutes.visibility = View.VISIBLE
+
+            binding.ivDetailView.isVisible = false
+        }
     }
 
     private fun setupMapListeners() {
@@ -327,6 +452,29 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private fun updateTimeButton(isDepOrNone: Int) {
+        when (isDepOrNone) {
+            -1 -> {
+                binding.btnSelectTime.text = "출발시각"
+                binding.btnSelectTime.setBackgroundResource(R.drawable.btn_radius_malibu)
+                binding.etTime.isVisible = true
+            }
+
+            1 -> {
+                binding.btnSelectTime.text = "도착시각"
+                binding.btnSelectTime.setBackgroundResource(R.drawable.btn_radius_arctic)
+                binding.etTime.isVisible = true
+            }
+
+            else -> {
+                binding.btnSelectTime.text = "시간선택"
+                binding.btnSelectTime.setBackgroundResource(R.drawable.btn_radius_lilac)
+                binding.etTime.isVisible = false
+            }
+        }
+    }
+
+
     private fun initializeMapView() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
@@ -358,30 +506,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapFragment?.onLowMemory()
     }
 
-    private fun setMarker(myMap: GoogleMap) {
-        googleMap = myMap
-        Log.d("라인확인", "onmapready")
-        val markerOrigin = MarkerOptions().position(sharedViewModel.getOrigin()).title("출발지")
-        val markerDestination =
-            MarkerOptions().position(sharedViewModel.getDestination()).title("목적지")
-
-        myMap.addMarker(markerOrigin)
-        myMap.addMarker(markerDestination)
-
-        //focusMapOnBounds()
-    }
-
     private fun focusMapOnBounds() {
         // 경로를 포함하는 영역 계산하여 지도의 중심을 이동
         val latLngBounds = LatLngBounds.builder()
         sharedViewModel.latLngBounds.value?.forEach {
             latLngBounds.include(LatLng(it.lat, it.lng))
         }
-//        val bounds = latLngBounds.build()
-
         if (sharedViewModel.latLngBounds.value != null) {
             val bounds = latLngBounds.build()
-//        if (bounds.southwest != null && bounds.northeast != null) {
             val padding = 100
             googleMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
         } else {
@@ -401,11 +533,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(myMap: GoogleMap) {
-        Log.d("확인", "onMapReady ${myMap}")
+        Log.d("확인", "onMapReady $myMap")
         googleMap = myMap
         setLine(myMap)
-        setMarker(myMap)
-//
+
         setupMapListeners()
     }
 
@@ -431,6 +562,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

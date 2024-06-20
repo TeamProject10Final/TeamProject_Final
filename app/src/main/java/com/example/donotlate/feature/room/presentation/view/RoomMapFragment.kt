@@ -136,7 +136,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         mGoogleMap.apply {
             val markerOptions = MarkerOptions()
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
             markerOptions.position(location)
             markerOptions.title("서울시청")
             addMarker(markerOptions)

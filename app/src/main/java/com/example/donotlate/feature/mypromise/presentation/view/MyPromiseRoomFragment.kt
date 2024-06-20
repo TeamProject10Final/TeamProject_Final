@@ -1,10 +1,14 @@
 package com.example.donotlate.feature.mypromise.presentation.view
 
+//import android.location.Location
+//import android.location.LocationListener
+//import android.location.LocationManager
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +30,8 @@ import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 import com.example.donotlate.feature.mypromise.presentation.model.UserModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.Timestamp
@@ -43,10 +49,21 @@ class MyPromiseRoomFragment : Fragment() {
     }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
+    //    lateinit var mLastLocation: Location
+    internal lateinit var mLocationRequest: com.google.android.gms.location.LocationRequest
+    private val REQUEST_PERMISSION_LOCATION = 10
+//
+//    var mLocationManager: LocationManager? = null
+//    var mLocationListener: LocationListener? = null
+
+
     //아래 코드 지우면 안 됩니다!!!!
     private lateinit var locationCallback: LocationCallback
     private val LOCATION_PERMISSION_REQUEST_CODE = 1000
 
+    companion object {
+        private val PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 100
+    }
 
     private lateinit var adapter: PromiseMessageAdapter
 
@@ -64,12 +81,73 @@ class MyPromiseRoomFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
         arguments?.let { bundle ->
             promiseRoom = bundle.getParcelable("promiseRoom")
 
-            Log.d("putParcelable", "2: $promiseRoom")
-
         }
+
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                for (location in locationResult.locations) {
+                    location?.let {
+                        val userLatLng = LatLng(it.latitude, it.longitude)
+                        myPromiseViewModel.setUserLocation(userLatLng)
+                        shortMessage()
+                    }
+                }
+            }
+        }
+
+//        mLocationRequest = LocationRequest.create().apply {
+//            interval = 10000
+//
+//
+//        }
+//
+
+//        mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager
+//        mLocationListener = object : LocationManager, LocationListener {
+//            override fun onLocationChanged(location: Location?){
+//                var lat = 0.0
+//                var lng = 0.0
+//                if(location != null){
+//                    lat = location.longitude
+//                    lng = location.longitude
+//                    Log.d("")
+//                }
+//            }
+//
+//            override fun onLocationChanged(location: Location) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        }
+//        var result11 = "제공자 "
+//        val providers = manager.allProviders
+//
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun startLocationUpdates() {
+        if (hasLocationPermission()) {
+            val locationRequest = LocationRequest.create()
+                .apply {
+                    interval = 10000 //10초
+                    fastestInterval = 5000 //5초
+                    priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+                }
+            fusedLocationClient?.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
+        }
+    }
+
+    private fun stopLocationUpdates() {
+        fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
     override fun onCreateView(
@@ -77,7 +155,6 @@ class MyPromiseRoomFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMyPromiseRoomBinding.inflate(layoutInflater)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         return binding.root
     }
 
@@ -141,6 +218,7 @@ class MyPromiseRoomFragment : Fragment() {
     }
 
     private fun initAdapter() {
+
         adapter = PromiseMessageAdapter()
         binding.rvMessage.layoutManager = LinearLayoutManager(requireContext())
         binding.rvMessage.adapter = adapter
@@ -205,7 +283,7 @@ class MyPromiseRoomFragment : Fragment() {
                         myPromiseViewModel.setUserLocation(userLatLng)
                         shortMessage()
                     } ?: run {
-//                        Toast.makeText(requireContext(), "1 위치 얻기 실패", Toast.LENGTH_SHORT).show()
+                        //                        Toast.makeText(requireContext(), "1 위치 얻기 실패", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .addOnFailureListener {
@@ -258,6 +336,16 @@ class MyPromiseRoomFragment : Fragment() {
         parentFragmentManager.popBackStack()
         _binding = null
         myPromiseViewModel.clearMessage()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        startLocationUpdates()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stopLocationUpdates()
     }
 }
 

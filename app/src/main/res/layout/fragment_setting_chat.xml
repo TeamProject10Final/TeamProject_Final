@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".feature.setting.presentation.view.question.SettingChatFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,92 +51,99 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tv_Setting_Chat_2"
             app:layout_constraintTop_toBottomOf="@+id/tv_Setting_Chat_2" />
+
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="5dp"
 
             android:background="@drawable/ic_smile"
-            app:layout_constraintStart_toEndOf="@+id/tv_Setting_Chat1"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_Setting_Chat1"/>
+            app:layout_constraintBottom_toBottomOf="@+id/tv_Setting_Chat1"
+            app:layout_constraintStart_toEndOf="@+id/tv_Setting_Chat1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_Setting_Chat_Kakao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="20dp"
-        android:padding="15dp"
         android:background="@drawable/item_stroke_arctic"
+        android:padding="15dp"
         app:layout_constraintTop_toBottomOf="@+id/cl_Setting_Chat1">
+
         <ImageView
             android:id="@+id/iv_Setting_Chat1"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/ic_kakao"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tv_Setting_Chat2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="카카오톡 오픈 채팅방"
             android:textSize="18sp"
-            android:layout_marginStart="10dp"
-            app:layout_constraintStart_toEndOf="@+id/iv_Setting_Chat1"
             app:layout_constraintBottom_toBottomOf="@+id/iv_Setting_Chat1"
-            app:layout_constraintTop_toTopOf="@+id/iv_Setting_Chat1"/>
+            app:layout_constraintStart_toEndOf="@+id/iv_Setting_Chat1"
+            app:layout_constraintTop_toTopOf="@+id/iv_Setting_Chat1" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             android:text="늦지마 컴퍼니\nhttps://open.kakao.com/o/g5qJY8xg"
-            app:layout_constraintTop_toBottomOf="@+id/iv_Setting_Chat1"
-            app:layout_constraintStart_toStartOf="@+id/iv_Setting_Chat1"/>
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/iv_Setting_Chat1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Setting_Chat1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_Setting_Chat_Discord"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
-        android:padding="15dp"
         android:background="@drawable/item_stroke_arctic"
+        android:padding="15dp"
         app:layout_constraintTop_toBottomOf="@+id/cl_Setting_Chat_Kakao">
+
         <ImageView
             android:id="@+id/iv_Setting_Chat3"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/ic_discord"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tv_Setting_Chat4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="디스코드 개발진 서버"
             android:textSize="18sp"
-            android:layout_marginStart="10dp"
-            app:layout_constraintStart_toEndOf="@+id/iv_Setting_Chat3"
             app:layout_constraintBottom_toBottomOf="@+id/iv_Setting_Chat3"
-            app:layout_constraintTop_toTopOf="@+id/iv_Setting_Chat3"/>
+            app:layout_constraintStart_toEndOf="@+id/iv_Setting_Chat3"
+            app:layout_constraintTop_toTopOf="@+id/iv_Setting_Chat3" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             android:text="늦지마 컴퍼니 서버\nhttps://discord.gg/CTQaZPnG"
-            app:layout_constraintTop_toBottomOf="@+id/iv_Setting_Chat3"
-            app:layout_constraintStart_toStartOf="@+id/iv_Setting_Chat3"/>
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/iv_Setting_Chat3"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Setting_Chat3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

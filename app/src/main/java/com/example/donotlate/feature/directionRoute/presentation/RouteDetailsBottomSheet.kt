@@ -22,7 +22,7 @@ class RouteDetailsBottomSheet : BottomSheetDialogFragment() {
 
     // DirectionsViewModel1Factory 가져오기
     private val directionsViewModel1Factory: DirectionsViewModel1Factory by lazy {
-        appContainer.directions1Container?.directionsViewModel1Factory
+        appContainer.directions1Container.directionsViewModel1Factory
             ?: throw IllegalStateException("DirectionsViewModel1Factory not initialized properly")
     }
 
@@ -53,8 +53,6 @@ class RouteDetailsBottomSheet : BottomSheetDialogFragment() {
         sharedViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
             Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
         }
-        //addCheckBoxes()
-
     }
 
     override fun onDestroyView() {

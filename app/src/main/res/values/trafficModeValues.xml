@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="trafficModeArray">
+
+    <string-array name="trafficModeKeyArray">
         <item>bus</item>
         <item>subway</item>
         <item>train</item>
         <item>tram</item>
         <item>rail</item>
+        <item>select</item>
+    </string-array>
+
+    <string-array name="trafficModeArray">
+        <item>버스</item>
+        <item>지하철</item>
+        <item>기차</item>
+        <item>트램</item>
+        <item>열차</item>
         <item>선호하는 교통수단을 선택해주세요.</item>
     </string-array>
 </resources>

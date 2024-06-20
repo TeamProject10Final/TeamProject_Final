@@ -1,6 +1,7 @@
 package com.example.donotlate.feature.setting.presentation.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -138,15 +139,24 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
     //다크 모드 on/off
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private fun darkMode() {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPrefValue = resources.getString(R.string.preference_file_key)
+        val darkModeValue =
+            sharedPref.getString(getString(R.string.preference_file_key), sharedPrefValue)
         val switch = binding.swDarkMode
         switch.setOnClickListener {
-            if (binding.swDarkMode.isChecked) {
+            if (darkModeValue == "darkModeOff") {
                 //스위치 on
                 Log.d("스위치 동작", "스위치 on 다크모드")
-
                 Handler(Looper.getMainLooper()).postDelayed({
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 }, 200)
+
+                //앱을 꺼도 다크모드on/off 적용
+                with(sharedPref.edit()) {
+                    putString(getString(R.string.preference_file_key), "darkModeOn")
+                    apply()
+                }
                 mainPageViewModel.dakeModeChange(false)
             } else {
                 //스위치 off
@@ -154,6 +164,11 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
                 Handler(Looper.getMainLooper()).postDelayed({
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 }, 200)
+
+                with(sharedPref.edit()) {
+                    putString(getString(R.string.preference_file_key), "darkModeOff")
+                    apply()
+                }
                 mainPageViewModel.dakeModeChange(true)
             }
         }

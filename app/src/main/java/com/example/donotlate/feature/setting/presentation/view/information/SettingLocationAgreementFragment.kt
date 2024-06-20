@@ -12,7 +12,7 @@ import com.example.donotlate.feature.setting.presentation.view.SettingFragment
 
 class SettingLocationAgreementFragment : Fragment() {
 
-    private var _binding : FragmentSettingLocationAgreementBinding? = null
+    private var _binding: FragmentSettingLocationAgreementBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +41,7 @@ class SettingLocationAgreementFragment : Fragment() {
         _binding = null
     }
 
-    private fun backButton(){
+    private fun backButton() {
         //뒤로가기
         binding.ivSettingInfoLocationBack.setOnClickListener {
             parentFragmentManager.beginTransaction()

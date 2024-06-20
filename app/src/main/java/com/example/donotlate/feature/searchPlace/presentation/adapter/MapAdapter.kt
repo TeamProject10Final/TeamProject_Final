@@ -32,8 +32,7 @@ class MapAdapter : RecyclerView.Adapter<MapAdapter.MyViewHolder>() {
         fun bind(item: PlaceModel) {
 
 
-            binding.ivItemMap.
-            load("https://places.googleapis.com/v1/${item.img}/media?key=${NetWorkClient.API_KEY}&maxHeightPx=500&maxWidthPx=750") {
+            binding.ivItemMap.load("https://places.googleapis.com/v1/${item.img}/media?key=${NetWorkClient.API_KEY}&maxHeightPx=500&maxWidthPx=750") {
                 crossfade(true)
                 transformations(RoundedCornersTransformation(20f))
             }
