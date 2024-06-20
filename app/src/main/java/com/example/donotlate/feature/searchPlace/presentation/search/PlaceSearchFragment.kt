@@ -30,9 +30,7 @@ class PlaceSearchFragment : Fragment() {
     private val binding: FragmentPlaceSearchBinding
         get() = _binding!!
 
-
     private lateinit var mapAdapter: MapAdapter
-
 
     private val searchViewModel: PlaceSearchViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
@@ -54,23 +52,29 @@ class PlaceSearchFragment : Fragment() {
 
         mapAdapter = MapAdapter()
 
+        initMapList()
+        initViewModel()
 
         binding.btnSearchButton.setOnClickListener {
-            initMapList()
-            initViewModel()
-            fetchMap()
             hideKeyboard(view)
-
             binding.etSearchBox.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus) {
                     binding.etSearchBox.clearFocus()
                     ConsumptionActivity.hideKeyboard(view)
                 }
             }
+            searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
+            binding.rvMap.visibility = View.VISIBLE
+            binding.imageView2.visibility = View.INVISIBLE
+            binding.tvDefaultText.visibility = View.INVISIBLE
         }
-
         hideKey(view)
         backButton()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchMap()
     }
 
     private fun backButton() {
@@ -81,26 +85,27 @@ class PlaceSearchFragment : Fragment() {
                     /* exit = */ R.anim.slide_out
                 )
                 .replace(R.id.frame, MainFragment())
-                .addToBackStack("MainFragment")
                 .commit()
         }
     }
 
+    //검색 결과에 따라 뷰 나타냄
     private fun fetchMap() {
         val query = binding.etSearchBox.text.toString()
-        if (query.trim().isEmpty()) {
-            binding.imageView2.isVisible = true
-            binding.tvDefaultText.isVisible = true
+        if (query.trim().isNotEmpty()) {
+            binding.imageView2.visibility = View.INVISIBLE
+            binding.tvDefaultText.visibility = View.INVISIBLE
+            binding.rvMap.visibility = View.VISIBLE
         } else {
-            binding.rvMap.isVisible = true
-            binding.imageView2.isVisible = false
-            binding.tvDefaultText.isVisible = false
+            binding.imageView2.visibility = View.VISIBLE
+            binding.tvDefaultText.visibility = View.VISIBLE
+            binding.rvMap.visibility = View.INVISIBLE
             searchViewModel.updateText(query)
         }
     }
 
-    private fun initViewModel() {
 
+    private fun initViewModel() {
         searchViewModel.searchMapList.observe(viewLifecycleOwner) {
             mapAdapter.itemList = it
             with(binding.rvMap) {
@@ -124,7 +129,7 @@ class PlaceSearchFragment : Fragment() {
                         /* enter = */ R.anim.slide_in,
                         /* exit = */ R.anim.fade_out,
                     )
-                    .replace(R.id.fg_Search, fragment) //replace는 교체, add는 추가
+                    .replace(R.id.frame, fragment) //replace는 교체, add는 추가
                     .addToBackStack("PlaceDetailFragment")
                     .commit()
             }
@@ -219,7 +224,6 @@ class PlaceSearchFragment : Fragment() {
 //
 //        바텀시트와 연결
 //    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

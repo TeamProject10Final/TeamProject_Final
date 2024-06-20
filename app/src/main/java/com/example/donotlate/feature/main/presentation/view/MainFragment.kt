@@ -176,7 +176,7 @@ class MainFragment : Fragment() {
                     /* exit = */ R.anim.fade_out,
                 )
                 .replace(R.id.frame, MiniGameFragment())
-                .addToBackStack(null).commit()
+                .addToBackStack("MiniGameFragment").commit()
 
         }
     }
