@@ -1,5 +1,6 @@
 package com.example.donotlate.feature.consumption.presentation
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +9,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -20,7 +20,6 @@ import com.example.donotlate.ConsumptionContainer
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.ActivityConsumptionBinding
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ConsumptionActivity : AppCompatActivity() {
@@ -91,6 +90,7 @@ class ConsumptionActivity : AppCompatActivity() {
 //        //지각 여부를 채팅창에서 받아와야 할듯... livedata로... 그거로 tvNickname 바꾸기!
     }
 
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     private fun observeViewModel() {
         lifecycleScope.launch {
             launch {
@@ -121,12 +121,14 @@ class ConsumptionActivity : AppCompatActivity() {
 
             launch {
                 consumptionViewModel.errorState.collect { error ->
-                    Toast.makeText(
-                        this@ConsumptionActivity,
-                        "Error: $error",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    Log.d("확인 에러", "$error")
+                    if (error.isNotEmpty()) {
+                        Toast.makeText(
+                            this@ConsumptionActivity,
+                            "Error: $error",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    Log.d("확인 에러", error)
                 }
             }
 
