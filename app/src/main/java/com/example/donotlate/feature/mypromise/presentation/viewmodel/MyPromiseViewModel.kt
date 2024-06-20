@@ -102,7 +102,8 @@ class MyPromiseViewModel(
     private val _destination = MutableLiveData<String>()
     val destination: LiveData<String> get() = _destination
 
-    private val _mode = MutableLiveData<String>()
+    //아래 수정하기
+    private val _mode = MutableLiveData<String>("transit")
     val mode: LiveData<String> get() = _mode
 
     private val _shortExplanations = MutableLiveData<String>()
@@ -269,7 +270,9 @@ class MyPromiseViewModel(
 
     fun setShortDirectionsResult() {
         if (_directionsResult.value != null) {
+
             formatShortDirectionsExplanations(_directionsResult.value!!)
+//            formatShortDirectionsExplanations(_directionsResult.value!!)
         } else {
             _error.postValue("_direction null")
             Log.d("확인 setDirections", "null")
@@ -279,7 +282,9 @@ class MyPromiseViewModel(
     private fun formatShortDirectionsExplanations(directions: DirectionsModel) {
         //선택하면 그거에 대해 1번 출력되게
         val resultText = StringBuilder()
-        val temp = directions.routes[_selectedRouteIndex.value!!].legs[0]
+        //아래 코드로 수정하기
+//        val temp = directions.routes[_selectedRouteIndex.value!!].legs[0]
+        val temp = directions.routes[0].legs[0]
 //
         resultText.append("${temp.totalStartLocation.lat}, ${temp.totalStartLocation.lng}\n")
         resultText.append("출발 주소 ${temp.totalStartAddress}\n")
