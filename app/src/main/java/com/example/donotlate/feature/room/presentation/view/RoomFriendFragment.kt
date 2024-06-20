@@ -68,7 +68,6 @@ class RoomFriendFragment : Fragment() {
 
     }
 
-
     private fun getAllUserList() {
         try {
             lifecycleScope.launch {
@@ -85,9 +84,6 @@ class RoomFriendFragment : Fragment() {
 
     private fun initRecyclerView() {
         friendAdapter = RoomFriendAdapter(
-            onAddFriendClick = {
-                setFragment(FriendsRequestFragment())
-            },
             onItemClick = { selectedUser ->
                 val userUid = selectedUser.uId
                 val userName = selectedUser.name
@@ -157,16 +153,6 @@ class RoomFriendFragment : Fragment() {
                 Toast.makeText(requireContext(), "친구를 선택해 주세요.", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun setFragment(fragment: Fragment) {
-        parentFragmentManager.beginTransaction()
-            .setCustomAnimations(
-                /* enter = */ R.anim.slide_in,
-                /* exit = */ R.anim.fade_out,
-            )
-            .add(R.id.frame, fragment)
-            .addToBackStack("").commit()
     }
 
     override fun onDestroyView() {
