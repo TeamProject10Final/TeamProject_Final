@@ -31,6 +31,18 @@
     <string name="cal_text1">consumption analysis</string>
     <string name="cal_text2">total expenditure\n\n</string>
     <string name="cal_text3">promise of progress\n\n</string>
+    <string name="cal_text4">Settlement in progress</string>
+    <string name="cal_text5">There is a record of the payment not being completed</string>
+    <string name="cal_text6">Settlement details</string>
+    <string name="cal_text7">Settlement has been completed</string>
+    <string name="cal_btn_text">Calculate</string>
+
+    <!--정산하기 첫 페이지(Activity)-->
+    <string name="cal_activity_text1"><![CDATA["￦"]]></string>
+    <string name="cal_activity_text2">EA</string>
+    <string name="cal_activity_text3">Want to change your settlement status?</string>
+    <string name="cal_activity_text4">Yes</string>
+    <string name="cal_activity_text5">No</string>
 
     <string name="time"> </string>
     <string name="info"> </string>

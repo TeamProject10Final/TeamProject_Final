@@ -128,13 +128,15 @@ class ConsumptionActivity : AppCompatActivity() {
 
             launch {
                 consumptionViewModel.totalPrice.collect { totalPrice ->
-                    binding.tvExpenseNum.text = "${totalPrice.addCommas()} 원"
+                    binding.tvExpenseNum.text =
+                        "${totalPrice.addCommas()} ${resources.getString(R.string.cal_activity_text1)}"
                 }
             }
 
             launch {
                 consumptionViewModel.liveDataCount.collect { count ->
-                    binding.tvVisitNum.text = "총 $count 건"
+                    binding.tvVisitNum.text =
+                        "$count ${resources.getString(R.string.cal_activity_text2)}"
                 }
             }
             launch {
@@ -166,11 +168,11 @@ class ConsumptionActivity : AppCompatActivity() {
 
     private fun showConfirmationDialog(item: ConsumptionModel) {
         AlertDialog.Builder(this)
-            .setMessage("정산 상태를 변경할까요?\n\n${item.isFinished} -> ${!item.isFinished}")
-            .setPositiveButton("Yes") { _, _ ->
+            .setMessage("${resources.getString(R.string.cal_activity_text3)}\n\n${item.isFinished} -> ${!item.isFinished}")
+            .setPositiveButton("${resources.getString(R.string.cal_activity_text4)}") { _, _ ->
                 consumptionViewModel.toggleIsFinished(item)
             }
-            .setNegativeButton("No", null)
+            .setNegativeButton("${resources.getString(R.string.cal_activity_text5)}", null)
             .show()
     }
 

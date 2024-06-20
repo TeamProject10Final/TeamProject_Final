@@ -26,11 +26,23 @@
     <string name="sign_up_text3">이미 계정이 있으세요?</string>
     <string name="sign_up_login_line"><u>로그인</u></string>
 
-    <!--정산하기 페이지-->
+    <!--정산하기 첫 페이지-->
     <string name="cal_top_title1">님</string>
     <string name="cal_text1">소비 분석</string>
     <string name="cal_text2">총 지출\n\n</string>
     <string name="cal_text3">진행 약속\n\n</string>
+    <string name="cal_text4">정산 중</string>
+    <string name="cal_text5">정산을 완료하지 않은 내역이 있습니다</string>
+    <string name="cal_text6">정산 내역</string>
+    <string name="cal_text7">정산이 완료되었습니다</string>
+    <string name="cal_btn_text">계산하기</string>
+
+    <!--정산하기 첫 페이지(Activity)-->
+    <string name="cal_activity_text1">원</string>
+    <string name="cal_activity_text2">건</string>
+    <string name="cal_activity_text3">정산 상태를 변경할까요?</string>
+    <string name="cal_activity_text4">네</string>
+    <string name="cal_activity_text5">아니오</string>
 
 
     <string name="time"><u>월요일: 오후 5:00 ~ 오전 2:00\n화요일: 오후 5:00 ~ 오전 2:00\n수요일: 오후 5:00 ~ 오전 2:00\n목요일: 오후 5:00 ~ 오전 2:00\n금요일: 오후 5:00 ~ 오전 3:00\n토요일: 오후 5:00 ~ 오전 2:00\n일요일: 오후 5:00 ~ 오전 2:00</u></string>
