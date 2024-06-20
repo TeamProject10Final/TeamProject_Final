@@ -120,6 +120,17 @@ class MainFragment : Fragment() {
             val intent = Intent(requireContext(), FriendsActivity::class.java)
             startActivity(intent)
         }
+
+//        binding.layoutMainGame.setOnClickListener {
+//            parentFragmentManager.beginTransaction()
+//                .setCustomAnimations(
+//                    /* enter = */ R.anim.slide_in,
+//                    /* exit = */ R.anim.fade_out,
+//                )
+//                .replace(R.id.frame, FriendsFragment())
+//                .addToBackStack(null).commit()
+//
+//        }
     }
 
     private fun observeViewModel() {

@@ -15,7 +15,7 @@ import com.example.donotlate.databinding.FragmentFriendsBinding
 import com.example.donotlate.feature.friends.presentation.adapter.FriendsAdapter
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
-import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 import kotlinx.coroutines.launch
 
 class FriendsFragment : Fragment() {
@@ -71,8 +71,15 @@ class FriendsFragment : Fragment() {
 
     private fun backButton() {
         binding.ivFriendBack.setOnClickListener {
-            val activity = activity as FriendsActivity
-            activity.finish()
+//            val activity = activity as FriendsActivity
+//            activity.finish()
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, MainFragment())
+                .commit()
         }
     }
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentLoginBinding
 import com.example.donotlate.feature.auth.presentation.viewmodel.LogInViewModel
 import com.example.donotlate.feature.auth.presentation.viewmodel.LogInViewModelFactory
@@ -34,6 +36,25 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
         _binding = FragmentLoginBinding.bind(view)
         initViews()
         collectFlows()
+
+        binding.root.setOnClickListener {
+            hideKeyboard()
+            requireActivity().currentFocus!!.clearFocus()
+        }
+        editTextProcess()
+    }
+
+    private fun editTextProcess() {
+        binding.etLoginPassword.setOnEditorActionListener { textView, action, keyEvent ->
+            var handled = false
+
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard()
+                requireActivity().currentFocus!!.clearFocus()
+                handled = true
+            }
+            handled
+        }
     }
 
     private fun initViews() {

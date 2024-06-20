@@ -2,17 +2,16 @@ package com.example.donotlate.feature.consumption.presentation
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentCalculation2Binding
 
 class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
@@ -34,6 +33,12 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCalculation2Binding.inflate(layoutInflater, container, false)
+
+        binding.root.setOnClickListener {
+            hideKeyboard()
+            requireActivity().currentFocus!!.clearFocus()
+        }
+
         return binding.root
     }
     @SuppressLint("ClickableViewAccessibility")
@@ -52,36 +57,39 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
 
         binding.btnPenalty.setOnClickListener {
             viewModel.changeIsPenalty(viewModel.isPenalty.value!!)
-            ConsumptionActivity.hideKeyboard(view)
+//            ConsumptionActivity.hideKeyboard(view)
+            hideKeyboard()
         }
 
         viewModel.isPenalty.observe(viewLifecycleOwner){isPenalty ->
             updateIsPenaltyButton(isPenalty)
         }
 
-        binding.etDes21.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                binding.etDes21.clearFocus()
-                ConsumptionActivity.hideKeyboard(view)
-            }
-        }
+//        binding.etDes21.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+//            if (!hasFocus) {
+//                binding.etDes21.clearFocus()
+//                ConsumptionActivity.hideKeyboard(view)
+//            }
+//        }
+//
+//        binding.etDes22.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+//            if (!hasFocus) {
+//                binding.etDes22.clearFocus()
+//                ConsumptionActivity.hideKeyboard(view)
+//            }
+//        }
+        editTextProcess()
 
-        binding.etDes22.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                binding.etDes22.clearFocus()
-                ConsumptionActivity.hideKeyboard(view)
-            }
-        }
-
-        binding.etDes23.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                binding.etDes23.clearFocus()
-                ConsumptionActivity.hideKeyboard(view)
-            }
-        }
+//        binding.etDes23.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+//            if (!hasFocus) {
+//                binding.etDes23.clearFocus()
+//                ConsumptionActivity.hideKeyboard(view)
+//            }
+//        }
 
         binding.btnCalEnd.setOnClickListener {
-            ConsumptionActivity.hideKeyboard(view)
+//            ConsumptionActivity.hideKeyboard(view)
+            hideKeyboard()
             val total = binding.etDes21.text.toString()
             val penalty = binding.etDes22.text.toString()
             val number = binding.etDes23.text.toString()
@@ -98,14 +106,28 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
             }
         }
 
-        binding.root.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                ConsumptionActivity.hideKeyboard(view)
-                binding.etDes21.clearFocus()
-                binding.etDes22.clearFocus()
-                binding.etDes23.clearFocus()
+//        binding.root.setOnTouchListener { _, event ->
+//            if (event.action == MotionEvent.ACTION_DOWN) {
+//                ConsumptionActivity.hideKeyboard(view)
+//                binding.etDes21.clearFocus()
+//                binding.etDes22.clearFocus()
+//                binding.etDes23.clearFocus()
+//            }
+//            false
+//        }
+    }
+
+
+    private fun editTextProcess() {
+        binding.etDes23.setOnEditorActionListener { textView, action, keyEvent ->
+            var handled = false
+
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard()
+                requireActivity().currentFocus!!.clearFocus()
+                handled = true
             }
-            false
+            handled
         }
     }
 

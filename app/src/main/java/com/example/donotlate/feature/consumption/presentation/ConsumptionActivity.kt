@@ -1,14 +1,11 @@
 package com.example.donotlate.feature.consumption.presentation
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -20,7 +17,6 @@ import com.example.donotlate.ConsumptionContainer
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.ActivityConsumptionBinding
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ConsumptionActivity : AppCompatActivity() {
@@ -197,12 +193,12 @@ class ConsumptionActivity : AppCompatActivity() {
                 0 // 혹은 예외처리에 따라 다른 값 반환 가능
             }
         }
-
-        fun hideKeyboard(view: View) {
-            val imm =
-                view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
-        }
+//
+//        fun hideKeyboard(view: View) {
+//            val imm =
+//                view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//            imm.hideSoftInputFromWindow(view.windowToken, 0)
+//        }
     }
 }
 

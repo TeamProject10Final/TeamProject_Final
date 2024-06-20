@@ -1,14 +1,11 @@
 package com.example.donotlate.feature.searchPlace.presentation.search
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
+import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,8 +13,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentPlaceSearchBinding
-import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.feature.searchPlace.presentation.adapter.MapAdapter
 import com.example.donotlate.feature.searchPlace.presentation.detail.PlaceDetailFragment
@@ -47,6 +44,11 @@ class PlaceSearchFragment : Fragment() {
     ): View? {
         _binding = FragmentPlaceSearchBinding.inflate(inflater, container, false)
 
+        binding.root.setOnClickListener {
+            hideKeyboard()
+            requireActivity().currentFocus!!.clearFocus()
+        }
+
         return binding.root
     }
 
@@ -60,18 +62,29 @@ class PlaceSearchFragment : Fragment() {
             initMapList()
             initViewModel()
             fetchMap()
-            hideKeyboard(view)
-
-            binding.etSearchBox.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-                if (!hasFocus) {
-                    binding.etSearchBox.clearFocus()
-                    ConsumptionActivity.hideKeyboard(view)
-                }
-            }
+            hideKeyboard()
         }
 
-        hideKey(view)
+        editTextProcess()
         backButton()
+    }
+
+    private fun editTextProcess() {
+        binding.etSearchBox.setOnEditorActionListener { textView, action, keyEvent ->
+            var handled = false
+
+            if (action == EditorInfo.IME_ACTION_SEARCH) {
+                hideKeyboard()
+                requireActivity().currentFocus!!.clearFocus()
+                handled = true
+
+                initMapList()
+                initViewModel()
+                fetchMap()
+
+            }
+            handled
+        }
     }
 
 
@@ -143,25 +156,6 @@ class PlaceSearchFragment : Fragment() {
             searchViewModel.getSearchMapList(it)
         })
 
-    }
-
-
-    @SuppressLint("ClickableViewAccessibility")
-    private fun hideKey(view: View) {
-        //바깥 터치 시 키보드 숨기는 부분...
-        binding.root.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                ConsumptionActivity.hideKeyboard(view)
-                binding.etSearchBox.clearFocus()
-            }
-            false
-        }
-    }
-
-    private fun hideKeyboard(view: View) {
-        val imm =
-            view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 

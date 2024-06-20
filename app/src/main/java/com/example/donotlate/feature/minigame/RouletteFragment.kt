@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRouletteBinding
 
 class RouletteFragment : Fragment(), Animation.AnimationListener {
@@ -51,7 +52,13 @@ class RouletteFragment : Fragment(), Animation.AnimationListener {
 //        }
 
         binding.ivGameRouletteBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, MiniGameFragment())
+                .commit()
         }
 
     }
