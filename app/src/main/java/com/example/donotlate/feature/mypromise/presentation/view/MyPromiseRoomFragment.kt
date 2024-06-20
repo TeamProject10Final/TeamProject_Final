@@ -17,12 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
+import com.example.donotlate.feature.auth.presentation.view.LogInViewModel
+import com.example.donotlate.feature.auth.presentation.view.LogInViewModelFactory
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 import com.example.donotlate.feature.mypromise.presentation.model.UserModel
-import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModel
-import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationServices
@@ -32,20 +32,21 @@ import kotlinx.coroutines.launch
 
 class MyPromiseRoomFragment : Fragment() {
 
-    private val myPromiseViewModel: MyPromiseViewModel by activityViewModels {
+    private val myPromiseViewModel: MyPromiseRoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        MyPromiseViewModelFactory(
+        MyPromiseRoomViewModelFactory(
             appContainer.loadToMyPromiseListUseCase,
             appContainer.messageSendingUseCase,
             appContainer.messageReceivingUseCase,
             appContainer.getCurrentUserUseCase,
             appContainer.getUserDataUseCase,
-            appContainer.getMyDataFromFirebaseUseCase,
+            appContainer.getCurrentUserDataUseCase,
             appContainer.firebaseAuth,
             appContainer.getDirectionsUseCase,
         )
     }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
     //아래 코드 지우면 안 됩니다!!!!
     private lateinit var locationCallback: LocationCallback
     private val LOCATION_PERMISSION_REQUEST_CODE = 1000
@@ -61,18 +62,11 @@ class MyPromiseRoomFragment : Fragment() {
     private var roomTitle: String? = null
     private var promiseDate: String? = null
     private var roomId: String? = null
-    private var roomDestination: String?=null
+    private var roomDestination: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        lifecycleScope.launch {
-            myPromiseViewModel.currentUserData.collect() { userData ->
-                currentUserData = userData
-
-            }
-        }
 
         arguments?.let { bundle ->
             promiseRoom = bundle.getParcelable("promiseRoom")
@@ -96,19 +90,14 @@ class MyPromiseRoomFragment : Fragment() {
         backButton()
 
         promiseRoom?.let { room ->
-
             promiseDate = room.promiseDate
             roomTitle = room.roomTitle
             roomId = room.roomId
             roomDestination = room.destination
 
             binding.tvRoomTitle.text = room.roomTitle
-            Log.d("promiseRoom", "promiseRoom Title: ${promiseRoom?.roomTitle}")
-            binding.tvRoomPromiseDate.text =
-                room.promiseDate ?: throw NullPointerException("Date null")
-            Log.d("promiseRoom", "promiseRoom Date: ${promiseRoom?.promiseDate}")
-            loadToMessageFromFireStore(room.roomId ?: throw NullPointerException("RoomId Null"))
-            Log.d("promiseRoom", "promiseRoom Id: ${promiseRoom?.roomId}")
+            binding.tvRoomPromiseDate.text = room.promiseDate
+            loadToMessageFromFireStore(room.roomId)
         }
 
         binding.btnSend.setOnClickListener {
@@ -121,7 +110,7 @@ class MyPromiseRoomFragment : Fragment() {
             }
         }
 
-        binding.ivRoomMap.setOnClickListener{
+        binding.ivRoomMap.setOnClickListener {
             checkPermissionAndProceed()
         }
     }
@@ -144,9 +133,7 @@ class MyPromiseRoomFragment : Fragment() {
                         ?: throw NullPointerException("User Data Null!"),
                     contents = contents,
                     messageId = "",
-                    senderProfileUrl = currentUserData?.profileImgUrl ?: throw NullPointerException(
-                        "User Data Null!"
-                    )
+                    senderProfileUrl = currentUserData?.profileImgUrl?:""
                 )
                 myPromiseViewModel.sendMessage(roomId, message)
             } catch (e: Exception) {
@@ -156,7 +143,6 @@ class MyPromiseRoomFragment : Fragment() {
     }
 
     private fun initAdapter() {
-
         adapter = PromiseMessageAdapter()
         binding.rvMessage.layoutManager = LinearLayoutManager(requireContext())
         binding.rvMessage.adapter = adapter
@@ -203,7 +189,10 @@ class MyPromiseRoomFragment : Fragment() {
 
     private fun requestLocationPermission() {
         requestPermissions(
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ),
             LOCATION_PERMISSION_REQUEST_CODE
         )
     }
@@ -226,11 +215,14 @@ class MyPromiseRoomFragment : Fragment() {
                 }
         }
     }
+
     private fun shortMessage() {
         val currentUserLocation = myPromiseViewModel.getUserLocationString()!!
         roomDestination?.let { it1 ->
-            myPromiseViewModel.getDirections(currentUserLocation,
-                it1,"transit")
+            myPromiseViewModel.getDirections(
+                currentUserLocation,
+                it1, "transit"
+            )
         }
         Log.d("확인 확인 확인", "${currentUserLocation}")
         Log.d("확인 확인 확인", "dest : ${roomDestination}")
@@ -250,23 +242,24 @@ class MyPromiseRoomFragment : Fragment() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            Log.d("확인","1")
+            Log.d("확인", "1")
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                Log.d("확인","2")
+                Log.d("확인", "2")
                 // 권한이 부여되었으므로 현재 위치를 받아옴
                 getCurrentLocation()
             } else {
-                Log.d("확인","3")
+                Log.d("확인", "3")
 
             }
         }
-        Log.d("확인","4")
+        Log.d("확인", "4")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         parentFragmentManager.popBackStack()
         _binding = null
+        myPromiseViewModel.clearMessage()
     }
 }
 

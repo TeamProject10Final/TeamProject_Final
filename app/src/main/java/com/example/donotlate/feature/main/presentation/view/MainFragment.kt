@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.MainActivity
 import com.example.donotlate.R
@@ -28,6 +30,7 @@ class MainFragment : Fragment() {
     private val mainPageViewModel: MainPageViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MainPageViewModelFactory(
+            appContainer.getCurrentUserDataUseCase,
             appContainer.getUserDataUseCase,
             appContainer.getAllUsersUseCase,
             appContainer.getCurrentUserUseCase,
@@ -41,8 +44,8 @@ class MainFragment : Fragment() {
     private var name: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mainPageViewModel.getCurrentUserUId()
         super.onCreate(savedInstanceState)
+        Log.d("MainFragment", "onCreate")
     }
 
     override fun onCreateView(
@@ -50,14 +53,16 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false)
-
+        mainPageViewModel.getCurrentUserData()
+        Log.d("MainFragment", "onCreateView")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("MainFragment", "onViewCreated")
+//        getCurrentUserData()
 
-        getCurrentUserData()
         observeViewModel()
         initButton()
 
@@ -102,11 +107,10 @@ class MainFragment : Fragment() {
                     /* exit = */ R.anim.fade_out,
                 )
                 .replace(R.id.frame, SettingFragment())
-                .addToBackStack("SettingFragment")
-                .commit()
+                .addToBackStack(null).commit()
+
         }
     }
-
 
     private fun startConsumption() {
         binding.layoutMainSettle.setOnClickListener {
@@ -124,30 +128,9 @@ class MainFragment : Fragment() {
 
     private fun observeViewModel() {
         lifecycleScope.launch {
-            mainPageViewModel.getUserData.collect { result ->
-                result?.onSuccess { myInfo ->
-                    binding.tvMainTitle.text = myInfo.name
-                    Log.d("observeViewModel", "${myInfo.name}")
-                }?.onFailure { e ->
-                    throw e
-                }
-            }
-        }
-    }
-
-    private fun getCurrentUserData() {
-        lifecycleScope.launch {
-            mainPageViewModel.getCurrentUser.collect { result ->
-                result.onSuccess { mAuth ->
-                    if (mAuth.isNullOrBlank()) {
-                        parentFragmentManager.beginTransaction()
-                            .replace(R.id.frame, LoginFragment()).commit()
-                    } else {
-                        lifecycleScope.launch { mainPageViewModel.getUserFromFireStore(mAuth) }
-                    }
-                }.onFailure {
-                    parentFragmentManager.beginTransaction().replace(R.id.frame, LoginFragment())
-                        .commit()
+            mainPageViewModel.currentUserData.collect { userData ->
+                if (userData != null) {
+                    binding.tvMainTitle.text = userData.name
                 }
             }
         }
@@ -175,14 +158,37 @@ class MainFragment : Fragment() {
                 )
                 .replace(R.id.frame, MyPromiseListFragment())
                 .addToBackStack(null).commit()
+
         }
     }
 
-    private fun navigateToMainActivity() {
-        Log.d("SettingFragment", "Navigating to MainActivity")
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        requireActivity().finish() // 현재 Activity 종료
+    override fun onStart() {
+        super.onStart()
+        Log.d("MainFragment", "onStart")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("MainFragment", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("MainFragment", "onStop")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MainFragment", "onResume")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("MainFragment", "onDestroyView")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("MainFragment", "onDestroy")
     }
 }

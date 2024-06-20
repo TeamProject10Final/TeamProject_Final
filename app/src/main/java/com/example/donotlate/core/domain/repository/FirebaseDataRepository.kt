@@ -36,7 +36,7 @@ interface FirebaseDataRepository {
     ): Flow<Boolean>
 
     suspend fun getMyPromiseListFromFireBase(uid: String): Flow<List<PromiseRoomEntity>>
-    suspend fun getMyDataFromFireStore(): Flow<UserEntity?>
+    suspend fun getCurrentUserDataFromFireBase(): Flow<UserEntity?>
     suspend fun loadToMessage(roomId: String): Flow<List<MessageEntity>>
     suspend fun sendToMessage(roomId: String, message: MessageResponse): Flow<Boolean>
 }

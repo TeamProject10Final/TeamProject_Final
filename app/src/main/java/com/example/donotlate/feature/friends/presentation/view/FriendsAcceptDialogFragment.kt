@@ -14,8 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentRequestDialogBinding
 import com.example.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
-import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
-import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
 import kotlinx.coroutines.launch
 
 class FriendsAcceptDialogFragment : DialogFragment() {

@@ -37,6 +37,7 @@ class MiniGameFragment : Fragment() {
         }
         binding.btnGameBackgroundWheel.setOnClickListener {
             Toast.makeText(requireContext(), "준비중인 기능입니다.", Toast.LENGTH_LONG).show()
+            parentFragmentManager.beginTransaction().replace(R.id.frame, MainFragment()).commit()
         }
     }
 

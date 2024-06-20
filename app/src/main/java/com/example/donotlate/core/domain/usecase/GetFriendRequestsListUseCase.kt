@@ -1,6 +1,6 @@
 package com.example.donotlate.core.domain.usecase
 
-import com.example.donotlate.core.data.response.FriendRequestWithUserDataEntity
+import com.example.donotlate.core.domain.model.FriendRequestWithUserDataEntity
 import com.example.donotlate.core.domain.repository.FirebaseDataRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

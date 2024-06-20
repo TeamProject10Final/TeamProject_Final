@@ -1,4 +1,4 @@
-package com.example.donotlate.core.data.response
+package com.example.donotlate.core.domain.model
 
 import com.example.donotlate.core.domain.model.FriendRequestEntity
 import com.example.donotlate.core.domain.model.UserEntity

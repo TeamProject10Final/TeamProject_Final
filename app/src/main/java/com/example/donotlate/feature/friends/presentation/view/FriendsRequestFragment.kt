@@ -17,8 +17,6 @@ import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentFriendsRequestBinding
 import com.example.donotlate.feature.friends.presentation.adapter.SearchUserAdapter
 import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
-import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
-import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
 import kotlinx.coroutines.launch
 
 class FriendsRequestFragment : Fragment() {

@@ -2,13 +2,16 @@ package com.example.donotlate.feature.main.presentation.view
 
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
+import com.example.donotlate.core.domain.usecase.GetCurrentUserDataUseCase
 import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
+import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.feature.main.presentation.mapper.toModel
 import com.example.donotlate.feature.main.presentation.model.UserModel
 import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
@@ -20,6 +23,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class MainPageViewModel(
+    private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase,
     private val getUserDataUseCase: GetUserDataUseCase,
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getCurrentGetUserUseCase: GetCurrentUserUseCase,
@@ -27,16 +31,8 @@ class MainPageViewModel(
     private val firebaseAuth: FirebaseAuth
 ) : ViewModel() {
 
-    private val auth = firebaseAuth
-
-    private val _getUserData = MutableStateFlow<Result<UserModel>?>(null)
-    val getUserData: StateFlow<Result<UserModel>?> = _getUserData
-
-    private val _getCurrentUser = MutableStateFlow<Result<String?>>(Result.success(""))
-    val getCurrentUser: StateFlow<Result<String?>> get() = _getCurrentUser
-
-    private val _getAllUserData = MutableStateFlow<List<UserModel>>(listOf())
-    val getAllUserData: StateFlow<List<UserModel>> = _getAllUserData
+    private val _currentUserData = MutableStateFlow<UserModel?>(null)
+    val currentUserData: StateFlow<UserModel?> = _currentUserData
 
     private val _profileImageUrl = MutableStateFlow<String>("")
     val profileImageUrl: StateFlow<String> get() = _profileImageUrl
@@ -48,89 +44,62 @@ class MainPageViewModel(
         _dakeMode.value = boolean
     }
 
-    fun getUserFromFireStore(uId: String?) {
+    fun getCurrentUserData(){
+        Log.d("getCurrentUserData", "stared getCurrentUserData()")
         try {
             viewModelScope.launch {
-                if(uId != null){getUserDataUseCase(uId).collect { userEntity ->
-                    val userModel = userEntity?.toModel()!!
-                    _getUserData.value = Result.success(userModel)}
-                }
-            }
-        } catch (e: Exception) {
-            _getUserData.value = Result.failure(e)
-        }
-    }
-
-     fun getCurrentUserUId() {
-            viewModelScope.launch {
-                getCurrentGetUserUseCase()
-                    .catch { e->
-                        _getCurrentUser.value = Result.failure(e)
-                    }
-                    .collect {result ->
-                        _getCurrentUser.value = Result.success(result)
-                        Log.d("getCurrent", "${result.toString()}")
-                    }
-            }
-    }
-
-
-    fun getAllUserData(uId: String) {
-        try {
-            viewModelScope.launch {
-                getAllUsersUseCase().collect { userEntity ->
-                    val userModelList = userEntity.map { it.toModel() }
-                    _getAllUserData.value = userModelList
-
-                }
-            }
-        } catch (e: Exception) {
-            _getAllUserData.value = listOf()
-        }
-    }
-
-    fun updateProfile(uri: Uri){
-
-        viewModelScope.launch {
-            imageUploadUseCase(uri).collect { result ->
-                result.onSuccess { imageUrl ->
-                    _profileImageUrl.value = imageUrl
-
-                    val currentUserId = _getCurrentUser.value.getOrNull()
-                    if (currentUserId != null) {
-                        fetchUpdatedUserData(currentUserId)
-                    }
-                }.onFailure { e ->
-                    Log.e("ImageUpload", "Error uploading image :$e")
-                }
-            }
-        }
-    }
-
-    private fun fetchUpdatedUserData(uId: String) {
-        viewModelScope.launch {
-            try {
-                getUserDataUseCase(uId).collect { userEntity ->
+                getCurrentUserDataUseCase().collect{userEntity->
                     val userModel = userEntity?.toModel()
-                    if (userModel != null) {
-                        _getUserData.value = Result.success(userModel)
+                    if(userModel != null){
+                        _currentUserData.value = userModel
+                        Log.d("getCurrentUserData", "_currentUserData :${_currentUserData.value}")
+                        CurrentUser.userData = userModel
+                        Log.d("getCurrentUserData", "CurrentUser.userData :${CurrentUser.userData}")
+                    }else{
+                        //  TODO - 예외 처리 해야함.
                     }
                 }
-            } catch (e: Exception) {
-                _getUserData.value = Result.failure(e)
             }
+        }catch (e: Exception){
+            throw NullPointerException("오류 터짐")
         }
     }
 
-    fun logout() {
-        Log.d("MainPageViewModel", "Logging out") //
-        auth.signOut() // FirebaseAuth에서 로그아웃
-        _getUserData.value = null // 상태 초기화
-        _getCurrentUser.value = Result.success(null)
-    }
+//    fun updateProfile(uri: Uri){
+//        viewModelScope.launch {
+//            imageUploadUseCase(uri).collect { result ->
+//                result.onSuccess { imageUrl ->
+//                    _profileImageUrl.value = imageUrl
+//
+//                    if (currentUserId != null) {
+//                        fetchUpdatedUserData(currentUserId)
+//                    }
+//                }.onFailure { e ->
+//                    Log.e("ImageUpload", "Error uploading image :$e")
+//                }
+//            }
+//        }
+//    }
+//
+//    private fun fetchUpdatedUserData(uId: String) {
+//        viewModelScope.launch {
+//            try {
+//                getUserDataUseCase(uId).collect { userEntity ->
+//                    val userModel = userEntity?.toModel()
+//                    if (userModel != null) {
+//                       _currentUserData.value = userModel
+//                    }
+//                }
+//            } catch (e: Exception) {
+//                // TODO 예외처리 해야함
+//            }
+//        }
+//    }
+
 }
 
 class MainPageViewModelFactory(
+    private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase,
     private val getUserDataUseCase: GetUserDataUseCase,
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val getCurrentGetUserUseCase: GetCurrentUserUseCase,
@@ -142,6 +111,7 @@ class MainPageViewModelFactory(
         if (modelClass.isAssignableFrom(MainPageViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return MainPageViewModel(
+                getCurrentUserDataUseCase,
                 getUserDataUseCase,
                 getAllUsersUseCase,
                 getCurrentGetUserUseCase,

@@ -1,9 +1,6 @@
 package com.example.donotlate.feature.auth.presentation.view
 
-import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
@@ -14,14 +11,10 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentSignupBinding
 import com.example.donotlate.feature.auth.presentation.dialog.InformationDialogFragment
-import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewModel
-import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
 import com.example.donotlate.feature.main.presentation.view.MainFragment
-import com.google.android.material.snackbar.Snackbar
 
 class SignupFragment : Fragment() {
 
@@ -33,19 +26,11 @@ class SignupFragment : Fragment() {
         SignUpViewmodelFactory(appContainer.signUpUseCase)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
-
-
-
         return binding.root
     }
 
@@ -61,8 +46,6 @@ class SignupFragment : Fragment() {
         binding.btnSignUp.setOnClickListener {
             clickToSignUpButton()
         }
-
-
     }
 
 
@@ -153,8 +136,7 @@ class SignupFragment : Fragment() {
         signUpViewmodel.signUpResult.observe(viewLifecycleOwner) { result ->
             if (result.isSuccess) {
                 Toast.makeText(requireContext(), "회원 가입 성공!", Toast.LENGTH_SHORT).show()
-                val activity = activity as MainActivity
-                activity.changeFragment(MainFragment())
+                parentFragmentManager.beginTransaction().replace(R.id.frame, MainFragment()).commit()
             } else {
                 Toast.makeText(requireContext(), "회원 가입 실패!", Toast.LENGTH_SHORT).show()
             }

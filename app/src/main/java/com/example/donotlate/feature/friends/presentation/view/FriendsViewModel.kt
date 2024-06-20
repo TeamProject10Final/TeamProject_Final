@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.friends.presentation.viewmodel
+package com.example.donotlate.feature.friends.presentation.view
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

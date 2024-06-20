@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 class LoadToCurrentUserDataUseCase(private val firebaseDataRepository: FirebaseDataRepository) {
     suspend operator fun invoke(): Flow<UserEntity?> {
-        return firebaseDataRepository.getMyDataFromFireStore()
+        return firebaseDataRepository.getCurrentUserDataFromFireBase()
     }
 }

@@ -13,9 +13,6 @@ import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentFriendsBinding
 import com.example.donotlate.feature.friends.presentation.adapter.FriendsAdapter
-import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
-import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
-import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import kotlinx.coroutines.launch
 
 class FriendsFragment : Fragment() {

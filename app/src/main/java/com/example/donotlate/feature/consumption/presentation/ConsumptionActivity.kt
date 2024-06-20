@@ -71,7 +71,7 @@ class ConsumptionActivity : AppCompatActivity() {
             appContainer.getDataCountUseCase,
             appContainer.getLiveDataCountUseCase,
             appContainer.toggleIsFinishedUseCase,
-            appContainer.getMyDataFromFirebaseUseCase
+            appContainer.getCurrentUserDataUseCase
         )
 
         appContainer.consumptionContainer?.let {
