@@ -96,6 +96,7 @@ class PlaceSearchFragment : Fragment() {
                     /* exit = */ R.anim.slide_out
                 )
                 .replace(R.id.frame, MainFragment())
+                .addToBackStack("MainFragment")
                 .commit()
         }
     }
@@ -138,8 +139,8 @@ class PlaceSearchFragment : Fragment() {
                         /* enter = */ R.anim.slide_in,
                         /* exit = */ R.anim.fade_out,
                     )
-                    .add(R.id.fg_Search, fragment)
-                    .addToBackStack(null)
+                    .replace(R.id.fg_Search, fragment) //replace는 교체, add는 추가
+                    .addToBackStack("PlaceDetailFragment")
                     .commit()
             }
         })

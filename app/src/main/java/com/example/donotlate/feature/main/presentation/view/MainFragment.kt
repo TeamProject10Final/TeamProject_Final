@@ -104,8 +104,8 @@ class MainFragment : Fragment() {
                     /* exit = */ R.anim.fade_out,
                 )
                 .replace(R.id.frame, PlaceSearchFragment())
-                .addToBackStack(null).commit()
-
+                .addToBackStack("PlaceSearchFragment")
+                .commit()
         }
     }
 

@@ -87,12 +87,14 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        initBackButton()
         initBackground()
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.layout_Place_Detail) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        binding.btnBack.setOnClickListener {
+            backButton()
+        }
 
         binding.btnNavigation.setOnClickListener {
             //checkPermission()
@@ -132,24 +134,23 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
 //        )
 //    }
 
-    private fun initBackButton() {
-        binding.btnBack.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    /* enter = */ R.anim.fade_in,
-                    /* exit = */ R.anim.slide_out
-                )
-                .remove(this)
-                .commit()
-        }
+
+    private fun backButton() {
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                /* enter = */ R.anim.fade_in,
+                /* exit = */ R.anim.slide_out
+            )
+            .remove(this)
+            .commit()
     }
 
+    //외부 뒤로가기 버튼
     private fun onBackPressed() {
         val onBackPressedCallback: OnBackPressedCallback =
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .remove(requireParentFragment()).commit()
+                    backButton()
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), onBackPressedCallback)
