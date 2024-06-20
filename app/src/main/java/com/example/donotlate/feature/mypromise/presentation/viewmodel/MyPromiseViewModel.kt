@@ -12,6 +12,8 @@ import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
 import com.example.donotlate.core.domain.usecase.LoadToMyPromiseListUseCase
 import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
 import com.example.donotlate.feature.directionRoute.presentation.DirectionsModel
+import com.example.donotlate.feature.directionRoute.presentation.FirstMode
+import com.example.donotlate.feature.directionRoute.presentation.FirstModeEnum
 import com.example.donotlate.feature.directionRoute.presentation.toModel
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageReceivingUseCase
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseCase
@@ -75,16 +77,44 @@ class MyPromiseViewModel(
     private val _userLocation = MutableLiveData<LatLng>()
     val userLocation: LiveData<LatLng> get() = _userLocation
 
+    private val _destinationString = MutableLiveData<String>()
+    val destinationString: LiveData<String> get() = _destinationString
+
     private val _destinationLatLng = MutableLiveData<LatLng>()
     val destinationLatLng: LiveData<LatLng> get() = _destinationLatLng
 
     private val _distanceBetween = MutableLiveData<Double>()
     val distanceBetween: LiveData<Double> get() = _distanceBetween
 
+    //검색 결과 중 선택한 경로
+    private val _selectedRouteIndex = MutableLiveData<Int>(0)
+    val selectedRouteIndex: LiveData<Int> get() = _selectedRouteIndex
+
+    fun setSelectedRouteIndex(indexNum: Int) {
+        _selectedRouteIndex.value = indexNum ?: 0
+    }
+
     //여기에서 목적지에 대한 위도 경도를 저장해야 함
     //fun setDestinationLatLng(){
     //observe 하다가 가져오던가...
     // }
+
+    fun setDestinationLatLng() {
+
+        val temp = _directionsResult.value?.routes?.get(0)?.legs?.get(0)?.totalEndLocation
+        if (temp != null) {
+            val tempLatLng = LatLng(temp.lat, temp.lng)
+            Log.d("확인 목적지", "목적지 ${tempLatLng.latitude}, ${tempLatLng.longitude}")
+            _destinationLatLng.value = tempLatLng
+        } else {
+            _error.postValue("목적지 세팅 실패")
+            Log.d("확인 목적지", "목적지 null")
+        }
+    }
+
+    fun setDestination(dest: String) {
+        _destinationString.value = dest
+    }
 
     private fun calDistance2() {
         //지구 반지름 (km)
@@ -149,6 +179,9 @@ class MyPromiseViewModel(
     private val _shortExplanations = MutableLiveData<String>()
     val shortExplanations: LiveData<String> get() = _shortExplanations
 
+    //경로 선택하기 전 보여줄 간단한 소개들
+    private val _routeSelectionText = MutableLiveData<List<String>>()
+    val routeSelectionText: LiveData<List<String>> get() = _routeSelectionText
     fun setUserLocation(location: LatLng) {
         _userLocation.value = location
     }
@@ -161,20 +194,81 @@ class MyPromiseViewModel(
         }
     }
 
-    fun getDirections(origin: String, destination: String, mode: String) {
-        Log.d("확인", "$origin, $destination, $mode")
+    fun getDirections() {
         viewModelScope.launch {
             try {
-                updateODM(origin, destination, mode)
-                val result = getDirectionsUseCase(origin, destination, mode)
+                val result = getDirectionsUseCase(
+                    origin.value.toString(),
+                    destination.value.toString(),
+                    mode.value.toString()
+                )
                 _directionsResult.value = result.toModel()
-                setShortDirectionsResult()
-                Log.d("확인", "viewmodel: ${_directionsResult.value}")
+                //아래 로그는 bottom sheet 띄운 뒤 수정 예정
+                Log.d("확인 index 개수", "${_directionsResult.value!!.routes.size}")
+                setRouteSelectionText()
+                setDestinationLatLng()
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }
         }
     }
+
+    private suspend fun setRouteSelectionText() {
+        if (_directionsResult.value != null) {
+            Log.d("확인 setDirections", "${_directionsResult.value}")
+            formatRouteSelectionText(_directionsResult.value!!)
+        } else {
+            _error.postValue("_direction null")
+            Log.d("확인 setDirections", "null")
+            _routeSelectionText.postValue(emptyList())
+            //emptyOrNull
+        }
+    }
+
+    private fun formatRouteSelectionText(directions: DirectionsModel) {
+        val resultsList = mutableListOf<String>()
+
+
+        directions.routes.size
+        var routeIndex = 1
+        directions.routes.forEach { route ->
+            val resultText = StringBuilder()
+            val resultText1 = StringBuilder()
+
+            resultText.append("🔵경로 ${routeIndex}\n")
+            route.legs.forEach { leg ->
+                resultText1.append("  예상 소요 시간 : ${leg.totalDuration.text},\n")
+                resultText1.append("🕐${leg.totalArrivalTime.text}에 도착 예상.\n")
+                resultText1.append("\n")
+
+                val resultText2 = StringBuilder()
+
+                var num = 1
+                leg.steps.forEach { step ->
+                    resultText2.append("🔷${num}: ${step.htmlInstructions} (${step.stepDuration.text})\n")
+                    num++
+                }
+                resultText1.append(resultText2)
+            }
+            resultText.append(resultText1)
+            resultsList.add(resultText.toString())
+            routeIndex++
+        }
+        Log.d("확인 리스트 인덱스", "${resultsList.size}")
+        _routeSelectionText.value = resultsList
+        Log.d("확인 setDirections", "stringbuilder ${resultsList}")
+        Log.d("확인 setDirections 1", "${resultsList[2]}")
+    }
+
+
+    //index 정해진 뒤에 보낼 메시지를 만들어야 함
+    fun afterSelecting() {
+        viewModelScope.launch {
+            setShortDirectionsResult()
+        }
+    }
+
+
 
     fun setShortDirectionsResult() {
         if (_directionsResult.value != null) {
@@ -186,31 +280,37 @@ class MyPromiseViewModel(
     }
 
     private fun formatShortDirectionsExplanations(directions: DirectionsModel) {
-        val resultText = StringBuilder()
-
         //선택하면 그거에 대해 1번 출력되게
-        directions.routes.forEach { route ->
-            route.legs.forEach { leg ->
-
-                resultText.append("${leg.totalStartLocation.lat}, ${leg.totalStartLocation.lng}\n")
-                resultText.append("출발 주소 ${leg.totalStartAddress}\n")
-
-                resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
-                resultText.append("앞으로 ${leg.totalDuration.text} 뒤인\n")
-                resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.")
-
-                //마지막에 \n 제거 확인하기!!!
-                resultText.append("\n\n\n")
-            }
+        val resultText = StringBuilder()
+        val temp = directions.routes[_selectedRouteIndex.value!!].legs[0]
+//
+        resultText.append("${temp.totalStartLocation.lat}, ${temp.totalStartLocation.lng}\n")
+        resultText.append("출발 주소 ${temp.totalStartAddress}\n")
+//
+        resultText.append("🗺️목적지까지 ${temp.totalDistance.text},\n")
+        resultText.append("앞으로 ${temp.totalDuration.text} 뒤")
+        if (mode.value == "transit") {
+            resultText.append("인\n🕐${temp.totalArrivalTime.text}에 도착 예정입니다.\n")
+        } else {
+            resultText.append(" 도착 예정입니다.\n")
         }
 
+        //마지막에 \n 제거 확인하기!!!
+        resultText.append("\n\n\n")
         _shortExplanations.value = resultText.toString()
+
+        Log.d("확인 short", "${resultText}")
     }
 
-    private fun updateODM(origin: String, destination: String, mode: String) {
-        _origin.value = origin
-        _destination.value = destination
-        _mode.value = mode
+    //transit | driving | walking 등
+    fun setMode(mode: FirstMode) {
+        when (mode.type) {
+            FirstModeEnum.TRANSIT -> _mode.value = mode.key
+            FirstModeEnum.DRIVING -> _mode.value = mode.key
+            FirstModeEnum.WALKING -> _mode.value = mode.key
+            FirstModeEnum.BICYCLING -> _mode.value = mode.key
+            FirstModeEnum.NOT_SELECTED -> _mode.value = mode.key
+        }
     }
 
     init {

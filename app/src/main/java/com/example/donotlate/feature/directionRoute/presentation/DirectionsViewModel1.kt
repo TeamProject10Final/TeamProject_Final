@@ -131,11 +131,6 @@ class DirectionsViewModel1(
             TransitRoutePreferenceEnum.FEWER_TRANSFER -> _routingPreference.value = rp.key
             TransitRoutePreferenceEnum.NOT_SELECTED -> _routingPreference.value = ""
         }
-//        if (rp.key == "select") {
-//            _routingPreference.value = ""
-//        } else {
-//            _routingPreference.value = rp.message
-//        }
     }
 
     fun setSelectedRouteIndex(indexNum: Int) {
@@ -575,13 +570,17 @@ class DirectionsViewModel1(
     private fun formatShortDirectionsExplanations(directions: DirectionsModel) {
         val resultText = StringBuilder()
 
-        directions.routes.get(_selectedRouteIndex.value!!).legs.forEach { leg ->
-            resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
-            resultText.append("앞으로 ${leg.totalDuration.text} 뒤인\n")
-            resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
-            resultText.append("\n")
+        val temp = directions.routes.get(_selectedRouteIndex.value!!).legs[0]
+        resultText.append("🗺️목적지까지 ${temp.totalDistance.text},\n")
+        resultText.append("앞으로 ${temp.totalDuration.text} 뒤")
+        if (mode.value == "transit") {
+            resultText.append("인\n🕐${temp.totalArrivalTime.text}에 도착 예정입니다.\n")
+        } else {
+            resultText.append(" 도착 예정입니다.\n")
         }
         _shortExplanations.value = resultText.toString()
+
+        Log.d("확인 short", "${resultText}")
     }
 
 }

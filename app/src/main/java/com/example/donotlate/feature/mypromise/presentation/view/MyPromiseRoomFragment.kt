@@ -53,12 +53,8 @@ class MyPromiseRoomFragment : Fragment() {
     }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    //    lateinit var mLastLocation: Location
     internal lateinit var mLocationRequest: com.google.android.gms.location.LocationRequest
     private val REQUEST_PERMISSION_LOCATION = 10
-//
-//    var mLocationManager: LocationManager? = null
-//    var mLocationListener: LocationListener? = null
 
 
     //아래 코드 지우면 안 됩니다!!!!
@@ -88,8 +84,6 @@ class MyPromiseRoomFragment : Fragment() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
 
-
-
         lifecycleScope.launch {
             myPromiseViewModel.currentUserData.collect() { userData ->
                 currentUserData = userData
@@ -113,34 +107,6 @@ class MyPromiseRoomFragment : Fragment() {
                 }
             }
         }
-
-//        mLocationRequest = LocationRequest.create().apply {
-//            interval = 10000
-//
-//
-//        }
-//
-
-//        mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager
-//        mLocationListener = object : LocationManager, LocationListener {
-//            override fun onLocationChanged(location: Location?){
-//                var lat = 0.0
-//                var lng = 0.0
-//                if(location != null){
-//                    lat = location.longitude
-//                    lng = location.longitude
-//                    Log.d("")
-//                }
-//            }
-//
-//            override fun onLocationChanged(location: Location) {
-//                TODO("Not yet implemented")
-//            }
-//
-//        }
-//        var result11 = "제공자 "
-//        val providers = manager.allProviders
-//
     }
 
     @SuppressLint("MissingPermission")
@@ -315,12 +281,22 @@ class MyPromiseRoomFragment : Fragment() {
 
     private fun shortMessage() {
         val currentUserLocation = myPromiseViewModel.getUserLocationString()!!
-        roomDestination?.let { it1 ->
-            myPromiseViewModel.getDirections(
-                currentUserLocation,
-                it1, "transit"
-            )
-        }
+        roomDestination?.let { myPromiseViewModel.setDestination(it) }
+        myPromiseViewModel.getDirections()
+        //이 뒤에 경로 선택 다이얼로그...
+
+        // 경로 선택 시 position을 setSelectedRouteIndex()
+//        val thisIndex = selectedIndex.toInt()
+//        sharedViewModel.setSelectedRouteIndex(thisIndex)
+
+        // 경로 선택 후에는 afterSelecting()
+
+//        roomDestination?.let { it1 ->
+//            myPromiseViewModel.getDirections(
+//                currentUserLocation,
+//                it1, "transit"
+//            )
+//        }
         Log.d("확인 확인 확인", "${currentUserLocation}")
         Log.d("확인 확인 확인", "dest : ${roomDestination}")
 
