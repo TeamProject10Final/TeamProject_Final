@@ -54,19 +54,19 @@ class PlaceSearchFragment : Fragment() {
 
         mapAdapter = MapAdapter()
 
+        initMapList()
+        initViewModel()
 
         binding.btnSearchButton.setOnClickListener {
-            initMapList()
-            initViewModel()
             fetchMap()
             hideKeyboard(view)
-
             binding.etSearchBox.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus) {
                     binding.etSearchBox.clearFocus()
                     ConsumptionActivity.hideKeyboard(view)
                 }
             }
+            searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
         }
 
         hideKey(view)
@@ -81,7 +81,6 @@ class PlaceSearchFragment : Fragment() {
                     /* exit = */ R.anim.slide_out
                 )
                 .replace(R.id.frame, MainFragment())
-                .addToBackStack("MainFragment")
                 .commit()
         }
     }
@@ -124,7 +123,7 @@ class PlaceSearchFragment : Fragment() {
                         /* enter = */ R.anim.slide_in,
                         /* exit = */ R.anim.fade_out,
                     )
-                    .replace(R.id.fg_Search, fragment) //replace는 교체, add는 추가
+                    .replace(R.id.frame, fragment) //replace는 교체, add는 추가
                     .addToBackStack("PlaceDetailFragment")
                     .commit()
             }
@@ -132,7 +131,7 @@ class PlaceSearchFragment : Fragment() {
         searchViewModel.searchMapList.observe(viewLifecycleOwner) { map ->
             mapAdapter.setItem(map)
         }
-        fetchMapList()
+//        fetchMapList()
     }
 
     private fun fetchMapList() {
