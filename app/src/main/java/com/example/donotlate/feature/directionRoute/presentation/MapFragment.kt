@@ -136,10 +136,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             Log.d("확인", "latLngBounds $list")
             // 경로를 포함하는 영역 계산하여 지도의 중심을 이동
 
-            //여기에서 터짐.... transit 선택 후 1번 인덱스 선택 시
-            if ((list?.isEmpty() != false) as Boolean) {
+            if (list.isNullOrEmpty()) {
                 return@observe
             }
+//            //여기에서 터짐.... transit 선택 후 1번 인덱스 선택 시
+//            if ((list?.isEmpty() != false) as Boolean) {
+//                return@observe
+//            }
             val latLngBounds = LatLngBounds.builder()
             list.forEach {
                 latLngBounds.include(LatLng(it.lat, it.lng))
@@ -230,7 +233,19 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         binding.spinner1mode.setSelection(modeArray.size - 1)
         //
 
+        val trafficModeKeyArray = resources.getStringArray(R.array.trafficModeKeyArray)
         val trafficModeArray = resources.getStringArray(R.array.trafficModeArray)
+        val list2 = mutableListOf<TransitMode>()
+        for (i in trafficModeArray.indices) {
+            list2.add(
+                TransitMode(
+                    TransitModeEnum.entries[i],
+                    trafficModeKeyArray[i],
+                    trafficModeArray[i]
+                )
+            )
+        }
+
         val adapterTm = object : ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_spinner_item,
@@ -245,7 +260,22 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         binding.spinner2tm.setSelection(trafficModeArray.size - 1)
         //
 
+
+        //
+        val routingPreferenceKeyArray =
+            resources.getStringArray(R.array.transitRoutingPreferenceKeyArray)
         val routingPreferenceArray = resources.getStringArray(R.array.transitRoutingPreferenceArray)
+        val list3 = mutableListOf<TransitRoutePreference>()
+        for (i in routingPreferenceArray.indices) {
+            list3.add(
+                TransitRoutePreference(
+                    TransitRoutePreferenceEnum.entries[i],
+                    routingPreferenceKeyArray[i],
+                    routingPreferenceArray[i]
+                )
+            )
+        }
+
         val adapterRp = object : ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_spinner_item,
@@ -285,7 +315,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 position: Int,
                 id: Long
             ) {
-                val selectedMode = parent?.getItemAtPosition(position).toString()
+                val selectedMode = list2[position]
+                //val selectedMode = parent?.getItemAtPosition(position).toString()
 
                 sharedViewModel.setTransitMode(selectedMode)
             }
@@ -302,9 +333,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 position: Int,
                 id: Long
             ) {
-                val selectedMode = parent?.getItemAtPosition(position).toString()
+                val selectedItem = list3[position]
+                //val selectedItem = list3[position].message
+//                val selectedMode = parent?.getItemAtPosition(position).toString()
 
-                sharedViewModel.setRoutingPreference(selectedMode)
+                sharedViewModel.setRoutingPreference(selectedItem)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

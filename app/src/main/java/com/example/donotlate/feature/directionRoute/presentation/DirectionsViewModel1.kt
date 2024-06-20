@@ -100,20 +100,28 @@ class DirectionsViewModel1(
         // 1 : 도착시각 (arr)
     }
 
-    fun setTransitMode(tm: String) {
-        if (tm == "선호하는 교통수단을 선택해주세요.") {
-            _transitMode.value = ""
-        } else {
-            _transitMode.value = tm
+    fun setTransitMode(tm: TransitMode) {
+        when (tm.type) {
+            TransitModeEnum.BUS -> _transitMode.value = tm.key
+            TransitModeEnum.SUBWAY -> _transitMode.value = tm.key
+            TransitModeEnum.TRAIN -> _transitMode.value = tm.key
+            TransitModeEnum.TRAM -> _transitMode.value = tm.key
+            TransitModeEnum.RAIL -> _transitMode.value = tm.key
+            TransitModeEnum.NOT_SELECTED -> _transitMode.value = ""
         }
     }
 
-    fun setRoutingPreference(rp: String) {
-        if (rp == "선호하는 경로 조건을 선택해주세요.") {
-            _routingPreference.value = ""
-        } else {
-            _routingPreference.value = rp
+    fun setRoutingPreference(rp: TransitRoutePreference) {
+        when (rp.type) {
+            TransitRoutePreferenceEnum.LESS_WALKING -> _routingPreference.value = rp.key
+            TransitRoutePreferenceEnum.FEWER_TRANSFER -> _routingPreference.value = rp.key
+            TransitRoutePreferenceEnum.NOT_SELECTED -> _routingPreference.value = ""
         }
+//        if (rp.key == "select") {
+//            _routingPreference.value = ""
+//        } else {
+//            _routingPreference.value = rp.message
+//        }
     }
 
     fun setSelectedRouteIndex(indexNum: Int) {
@@ -185,6 +193,8 @@ class DirectionsViewModel1(
 
     //시간 없이 && 대중교통
     fun getDirWithTmRp() {
+        Log.d("확인 transitMode", "${transitMode.value}")
+        Log.d("확인 preference", "${routingPreference.value}")
         viewModelScope.launch {
             try {
                 val result = getDirWithTmRpUseCase(
