@@ -1,11 +1,23 @@
 package com.example.donotlate.feature.searchPlace.presentation.detail
 
+import android.Manifest
+import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Color
+import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
@@ -29,7 +41,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 
 class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
-
 
     private var _binding: FragmentPlaceDetailBinding? = null
     private val binding get() = _binding!!
@@ -62,6 +73,12 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         _binding = FragmentPlaceDetailBinding.inflate(inflater, container, false)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//        checkPermission()
+//        getCurrentLocation()
+
+        onBackPressed()
+
+
         return binding.root
     }
 
@@ -69,11 +86,15 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        initBackButton()
+        initBackground()
 
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.layout_Place_Detail) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        binding.btnBack.setOnClickListener {
+            backButton()
+        }
 
         binding.btnNavigation.setOnClickListener {
             passDestination()
@@ -88,18 +109,66 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
         startActivity(intent)
     }
 
-    private fun initBackButton() {
-        binding.btnBack.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    /* enter = */ R.anim.fade_in,
-                    /* exit = */ R.anim.slide_out
-                )
-                .remove(this)
-                .commit()
-        }
+//    private fun hasLocationPermission(): Boolean {
+//        return ActivityCompat.checkSelfPermission(
+//            requireContext(),Manifest.permission.ACCESS_FINE_LOCATION
+//        )==PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//            requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION
+//        ) == PackageManager.PERMISSION_GRANTED
+//    }
+//
+//    private fun checkPermissionStatus() {
+//        if(hasLocationPermission()){
+//            passDestination()
+//        }else{
+//            requestLocationPermission()
+//        }
+//    }
+//
+//    private fun requestLocationPermission() {
+//        requestPermissions(
+//            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),LOCATION_PERMISSION_REQUEST_CODE
+//        )
+//    }
+
+
+    private fun backButton() {
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                /* enter = */ R.anim.fade_in,
+                /* exit = */ R.anim.slide_out
+            )
+            .remove(this)
+            .commit()
     }
 
+    //외부 뒤로가기 버튼
+    private fun onBackPressed() {
+        val onBackPressedCallback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    backButton()
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            requireActivity(),
+            onBackPressedCallback
+        )
+    }
+
+    //투명 배경 없애기
+    private fun initBackground() {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPrefValue = resources.getString(R.string.preference_file_key)
+        val darkModeValue =
+            sharedPref.getString(getString(R.string.preference_file_key), sharedPrefValue)
+
+        if (darkModeValue == "darkModeOn") {
+            binding.constraint.setBackgroundColor(Color.BLACK)
+        } else {
+            binding.constraint.setBackgroundColor(Color.WHITE)
+        }
+    }
 
     private fun initView() {
 

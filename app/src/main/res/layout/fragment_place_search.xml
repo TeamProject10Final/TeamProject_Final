@@ -38,19 +38,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:theme="@style/EditTextStyle" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_SearchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_radius_lightblue"
-        android:text="검색"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/et_SearchBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/et_SearchBox"
-        app:layout_constraintTop_toTopOf="@+id/et_SearchBox" />
 
 
     <ImageView
@@ -146,5 +133,20 @@
 
     <!--        </com.google.android.material.chip.ChipGroup>-->
 
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_SearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_radius_lightblue"
+        android:text="검색"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_SearchBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/et_SearchBox"
+        app:layout_constraintTop_toTopOf="@+id/et_SearchBox" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
