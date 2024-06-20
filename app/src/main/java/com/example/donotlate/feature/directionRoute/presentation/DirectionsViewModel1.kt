@@ -513,10 +513,13 @@ class DirectionsViewModel1(
     //
     private suspend fun setRouteSelectionText() {
         if (_directionsResult.value != null) {
+            Log.d("확인 setDirections", "${_directionsResult.value}")
             formatRouteSelectionText(_directionsResult.value!!)
         } else {
             _error.postValue("_direction null")
             Log.d("확인 setDirections", "null")
+            _routeSelectionText.postValue(emptyList())
+            //emptyOrNull
         }
     }
 
@@ -572,6 +575,7 @@ class DirectionsViewModel1(
             routeIndex++
         }
         _routeSelectionText.value = resultsList
+        Log.d("확인 setDirections", "stringbuilder ${resultsList}")
     }
 
 
