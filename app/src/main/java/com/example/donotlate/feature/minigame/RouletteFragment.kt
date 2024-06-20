@@ -97,7 +97,7 @@ class RouletteFragment : Fragment(), Animation.AnimationListener {
 //
 //        })
 
-        prizeText = "${prizes[prizeIndex]}번 당첨"
+        prizeText = "${prizes[prizeIndex]}${resources.getString(R.string.roulette_text1)}"
 
         val rotateAnim = RotateAnimation(
             0f, mSpinRevolution + end,
@@ -114,7 +114,7 @@ class RouletteFragment : Fragment(), Animation.AnimationListener {
     }
 
     override fun onAnimationStart(animation: Animation?) {
-        infoText!!.text = "결과는...?"
+        infoText!!.text = "${resources.getString(R.string.roulette_text2)}"
     }
 
     override fun onAnimationEnd(animation: Animation?) {

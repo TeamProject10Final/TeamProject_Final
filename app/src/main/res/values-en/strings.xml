@@ -81,6 +81,20 @@
     <string name="cal4_btn_text1">Settlement complete</string>
     <string name="cal4_btn_text2">Exit</string>
 
+    <!--미니게임 페이지-->
+    <string name="game_top_title1">Who is today’s winner?</string>
+    <string name="game_top_title2">Mini game</string>
+    <string name="game_text1">Roulette</string>
+    <string name="game_text2">Ladder</string>
+
+    <!--미니게임_룰렛 페이지-->
+    <string name="game_roulette_text1">This is a game where prizes are selected \n from numbers 1 to 8 and won.</string>
+    <string name="game_roulette_text2">Spin</string>
+
+    <!--미니게임_룰렛 페이지-->
+    <string name="roulette_text1">winning</string>
+    <string name="roulette_text2">Spinning...?</string>
+
 
     <string name="time"> </string>
     <string name="info"> </string>

@@ -81,6 +81,21 @@
     <string name="cal4_btn_text1">정산완료</string>
     <string name="cal4_btn_text2">나가기</string>
 
+    <!--미니게임 페이지-->
+    <string name="game_top_title1">오늘의 당첨자를 정하는</string>
+    <string name="game_top_title2">미니게임</string>
+    <string name="game_text1">룰렛</string>
+    <string name="game_text2">사다리 타기</string>
+
+    <!--미니게임_룰렛 페이지-->
+    <string name="game_roulette_text1">1~8번까지 경품을 정하여 \n 당첨자를 뽑는 게임입니다.</string>
+    <string name="game_roulette_text2">돌리기</string>
+
+    <!--미니게임_룰렛 페이지-->
+    <string name="roulette_text1">번 당첨</string>
+    <string name="roulette_text2">결과는...?</string>
+
+
 
 
     <string name="time"><u>월요일: 오후 5:00 ~ 오전 2:00\n화요일: 오후 5:00 ~ 오전 2:00\n수요일: 오후 5:00 ~ 오전 2:00\n목요일: 오후 5:00 ~ 오전 2:00\n금요일: 오후 5:00 ~ 오전 3:00\n토요일: 오후 5:00 ~ 오전 2:00\n일요일: 오후 5:00 ~ 오전 2:00</u></string>
