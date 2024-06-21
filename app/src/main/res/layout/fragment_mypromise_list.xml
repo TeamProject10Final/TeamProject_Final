@@ -21,12 +21,12 @@
 
     <ImageView
         android:id="@+id/iv_title_background"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_title_border"
+        android:background="@drawable/rounded_edittext2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_promise_back" />
@@ -52,7 +52,7 @@
         android:gravity="center"
         android:maxLines="1"
         android:text="아무내용이나 계속 넣는 중입니다 어떻게 되는것인지"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@id/tv_title_defult"
         app:layout_constraintEnd_toEndOf="@id/tv_title_defult"
         app:layout_constraintStart_toStartOf="@id/tv_title_date"
@@ -87,7 +87,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/iv_title_background"

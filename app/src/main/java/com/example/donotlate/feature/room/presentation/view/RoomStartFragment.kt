@@ -40,7 +40,7 @@ class RoomStartFragment : Fragment() {
 
         binding.root.setOnClickListener {
             hideKeyboard()
-            requireActivity().currentFocus!!.clearFocus()
+//            requireActivity().currentFocus!!.clearFocus()
         }
 
         return binding.root
