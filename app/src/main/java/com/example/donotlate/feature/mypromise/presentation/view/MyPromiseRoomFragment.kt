@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -94,6 +95,7 @@ class MyPromiseRoomFragment : Fragment() {
                     location?.let {
                         val userLatLng = LatLng(it.latitude, it.longitude)
                         myPromiseViewModel.setUserLocation(userLatLng)
+                        Log.d("확인 loca cb", "${myPromiseViewModel.originString.value}")
                         shortMessage()
                     }
                 }
@@ -161,6 +163,7 @@ class MyPromiseRoomFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         initAdapter()
         backButton()
 
@@ -177,6 +180,12 @@ class MyPromiseRoomFragment : Fragment() {
             loadToMessageFromFireStore(room.roomId)
         }
 
+        roomDestination?.let {
+            myPromiseViewModel.setDestination(it)
+            Log.d("확인 prom destination", it)
+        }
+
+
         binding.btnSend.setOnClickListener {
             val contents = binding.etInputMessage.text.toString()
             val roomId = roomId ?: throw NullPointerException("roomId is Null")
@@ -190,27 +199,48 @@ class MyPromiseRoomFragment : Fragment() {
         binding.ivRoomMap.setOnClickListener {
             checkPermissionAndProceed()
         }
+
+
+
+
     }
 
     private fun observeViewModel() {
-        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner){
+        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner) {
             //처음에 방 들어가자마자 초기화하기! 거리 계산해두기
-            if(it<=0.01){
+            if (it <= 1.5) {
+                binding.btnArrived.isVisible = true
+                binding.ivRoomMap.isVisible = false
+
                 //도착 버튼이 보이게
                 //binding.~~
-            }else{
+            } else {
+                binding.btnArrived.isVisible = false
+                binding.ivRoomMap.isVisible = true
                 //도착 버튼이 보이지 않게
             }
         }
 
-        myPromiseViewModel.shortExplanations.observe(viewLifecycleOwner){
-            if(it.isNullOrEmpty()){
+        myPromiseViewModel.shortExplanations.observe(viewLifecycleOwner) {
+            if (it.isNullOrEmpty()) {
                 Log.d("확인 shmessage", "nullorempty- $it")
                 return@observe
             }
             val roomId = roomId ?: throw NullPointerException("roomId is Null")
             Log.d("확인", "shortMessage $it")
             sendMessage(roomId, it)
+        }
+
+        myPromiseViewModel.originString.observe(viewLifecycleOwner){
+            myPromiseViewModel.calDistance2()
+        }
+
+        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner){
+            if(it <= 0.01){
+                //버튼 보이게
+            }else{
+                //버튼 보이지 않게
+            }
         }
     }
 
@@ -232,7 +262,7 @@ class MyPromiseRoomFragment : Fragment() {
                         ?: throw NullPointerException("User Data Null!"),
                     contents = contents,
                     messageId = "",
-                    senderProfileUrl = currentUserData?.profileImgUrl?:""
+                    senderProfileUrl = currentUserData?.profileImgUrl ?: ""
                 )
                 myPromiseViewModel.sendMessage(roomId, message)
             } catch (e: Exception) {

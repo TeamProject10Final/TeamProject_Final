@@ -73,7 +73,7 @@ class MyPromiseRoomViewModel(
     val selectedRouteIndex: LiveData<Int> get() = _selectedRouteIndex
 
 
-    private fun calDistance2() {
+    fun calDistance2() {
         //지구 반지름 (km)
         val earthRadius = 6371.0
 
@@ -90,6 +90,7 @@ class MyPromiseRoomViewModel(
 
             val c = 2 * atan2(sqrt(a), sqrt(1 - a))
             _distanceBetween.value = earthRadius * c
+            Log.d("확인 거리", "${distanceBetween.value}")
         }
     }
 
@@ -113,13 +114,11 @@ class MyPromiseRoomViewModel(
         return Math.round(ret)
     }
 
-    private fun checkDistance() {
-        val currentDistance = calDistance()
-
-        if (currentDistance <= 10) {
-            // 10미터 남음
-        }
-    }
+//    private fun checkDistance() {
+//        if (distanceBetween.value <= 10) {
+//            // 10미터 남음
+//        }
+//    }
 
 
     private val _directionsResult = MutableLiveData<DirectionsModel>()
