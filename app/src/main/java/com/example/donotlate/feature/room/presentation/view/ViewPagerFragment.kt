@@ -11,8 +11,6 @@ import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentViewPagerBinding
 import com.example.donotlate.feature.room.presentation.adapter.RoomViewPagerAdapter
 import com.example.donotlate.feature.room.presentation.dialog.BackFragmentDialog
-import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
-import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 
 class ViewPagerFragment : Fragment() {
 

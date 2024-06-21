@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.room.presentation.dialog
+package com.example.donotlate.feature.consumption.presentation.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -8,12 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import com.example.donotlate.R
 import com.example.donotlate.databinding.BackDialogBinding
-import com.example.donotlate.feature.main.presentation.view.MainFragment
-import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomFragment
+import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 
-class CancelFragmentDialog : DialogFragment() {
+
+class ConsumptionConfirmDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,17 +37,15 @@ class CancelFragmentDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvDl1.text = "메인으로 돌아갈까요?"
+        binding.tvDl1.text = "변경할까요?"
         binding.tvDl2.text = "작성중인 게시물이 삭제되고\n메인으로 돌아갑니다."
 
         binding.tvDlCancel.setOnClickListener {
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.frame, MainFragment())
-                .commit()
-            dismiss()
+            val activity = activity as ConsumptionActivity
+            activity.finish()
         }
     }
 }

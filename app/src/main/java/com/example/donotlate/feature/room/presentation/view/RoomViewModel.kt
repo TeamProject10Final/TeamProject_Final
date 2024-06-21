@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.room.presentation.viewmodel
+package com.example.donotlate.feature.room.presentation.view
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,17 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendsListFromFirebaseUseCase
-import com.example.donotlate.core.domain.usecase.LoadToCurrentUserDataUseCase
 import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.feature.mypromise.presentation.mapper.toPromiseEntity
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
-import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
 import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
-import com.example.donotlate.feature.room.presentation.mapper.toPromiseRoomEntity
 import com.example.donotlate.feature.room.presentation.mapper.toRoomUserModel
-import com.example.donotlate.feature.room.presentation.model.PromiseRoomModel
 import com.example.donotlate.feature.room.presentation.model.RoomModel
 import com.example.donotlate.feature.room.presentation.model.RoomUserModel
 import com.example.donotlate.feature.searchPlace.domain.usecase.GetSearchListUseCase

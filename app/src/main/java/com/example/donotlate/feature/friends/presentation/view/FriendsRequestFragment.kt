@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentFriendsRequestBinding
 import com.example.donotlate.feature.friends.presentation.adapter.SearchUserAdapter
 import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
@@ -44,6 +45,12 @@ class FriendsRequestFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentFriendsRequestBinding.inflate(layoutInflater)
+
+        binding.root.setOnClickListener {
+            hideKeyboard()
+            requireActivity().currentFocus!!.clearFocus()
+        }
+
         return binding.root
     }
 

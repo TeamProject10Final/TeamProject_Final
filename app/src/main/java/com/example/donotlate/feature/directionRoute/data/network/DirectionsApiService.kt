@@ -45,8 +45,8 @@ interface DirectionsApiService {
         @Query("mode") mode: String = "transit",
         @Query("alternatives") alternatives: Boolean = true,
         @Query("language") language: String = "ko",
-//        @Query("key") apiKey: String = "AIzaSyCAOdeHz6erGcY_sbcEqbEgAETVpirfiV8"
-        @Query("key") apiKey: String = "AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U"
+        @Query("key") apiKey: String = "AIzaSyCAOdeHz6erGcY_sbcEqbEgAETVpirfiV8"
+//        @Query("key") apiKey: String = "AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U"
     ): DirectionsResponse
 
 
@@ -60,8 +60,8 @@ interface DirectionsApiService {
         @Query("mode") mode: String = "transit",
         @Query("alternatives") alternatives: Boolean = true,
         @Query("language") language: String = "ko",
-//        @Query("key") apiKey: String = "AIzaSyCAOdeHz6erGcY_sbcEqbEgAETVpirfiV8"
-        @Query("key") apiKey: String = "AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U"
+        @Query("key") apiKey: String = "AIzaSyCAOdeHz6erGcY_sbcEqbEgAETVpirfiV8"
+//        @Query("key") apiKey: String = "AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U"
     ): DirectionsResponse
 
 }

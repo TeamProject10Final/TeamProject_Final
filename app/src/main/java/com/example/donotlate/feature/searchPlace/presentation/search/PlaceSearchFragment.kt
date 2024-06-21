@@ -1,23 +1,19 @@
 package com.example.donotlate.feature.searchPlace.presentation.search
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import androidx.core.view.isVisible
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentPlaceSearchBinding
-import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.feature.searchPlace.presentation.adapter.MapAdapter
 import com.example.donotlate.feature.searchPlace.presentation.detail.PlaceDetailFragment
@@ -30,21 +26,24 @@ class PlaceSearchFragment : Fragment() {
     private val binding: FragmentPlaceSearchBinding
         get() = _binding!!
 
-
     private lateinit var mapAdapter: MapAdapter
-
 
     private val searchViewModel: PlaceSearchViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         PlaceSearchViewModelFactory(
             appContainer.getSearchListUseCase
-            )
+        )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPlaceSearchBinding.inflate(inflater, container, false)
+
+        binding.root.setOnClickListener {
+            hideKeyboard()
+            requireActivity().currentFocus!!.clearFocus()
+        }
 
         return binding.root
     }
@@ -54,23 +53,46 @@ class PlaceSearchFragment : Fragment() {
 
         mapAdapter = MapAdapter()
 
+        initMapList()
+        initViewModel()
 
         binding.btnSearchButton.setOnClickListener {
-            initMapList()
-            initViewModel()
-            fetchMap()
-            hideKeyboard(view)
 
-            binding.etSearchBox.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-                if (!hasFocus) {
-                    binding.etSearchBox.clearFocus()
-                    ConsumptionActivity.hideKeyboard(view)
-                }
-            }
+            hideKeyboard()
         }
 
-        hideKey(view)
+        searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
+        binding.rvMap.visibility = View.VISIBLE
+        binding.imageView2.visibility = View.INVISIBLE
+        binding.tvDefaultText.visibility = View.INVISIBLE
+
+        editTextProcess()
         backButton()
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        fetchMap()
+    }
+
+    private fun editTextProcess() {
+        binding.etSearchBox.setOnEditorActionListener { textView, action, keyEvent ->
+            var handled = false
+
+            if (action == EditorInfo.IME_ACTION_SEARCH) {
+                hideKeyboard()
+                requireActivity().currentFocus!!.clearFocus()
+                handled = true
+
+                searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
+                binding.rvMap.visibility = View.VISIBLE
+                binding.imageView2.visibility = View.INVISIBLE
+                binding.tvDefaultText.visibility = View.INVISIBLE
+
+            }
+            handled
+        }
     }
 
     private fun backButton() {
@@ -81,26 +103,27 @@ class PlaceSearchFragment : Fragment() {
                     /* exit = */ R.anim.slide_out
                 )
                 .replace(R.id.frame, MainFragment())
-                .addToBackStack("MainFragment")
                 .commit()
         }
     }
 
+    //검색 결과에 따라 뷰 나타냄
     private fun fetchMap() {
         val query = binding.etSearchBox.text.toString()
-        if (query.trim().isEmpty()) {
-            binding.imageView2.isVisible = true
-            binding.tvDefaultText.isVisible = true
+        if (query.trim().isNotEmpty()) {
+            binding.imageView2.visibility = View.INVISIBLE
+            binding.tvDefaultText.visibility = View.INVISIBLE
+            binding.rvMap.visibility = View.VISIBLE
         } else {
-            binding.rvMap.isVisible = true
-            binding.imageView2.isVisible = false
-            binding.tvDefaultText.isVisible = false
+            binding.imageView2.visibility = View.VISIBLE
+            binding.tvDefaultText.visibility = View.VISIBLE
+            binding.rvMap.visibility = View.INVISIBLE
             searchViewModel.updateText(query)
         }
     }
 
-    private fun initViewModel() {
 
+    private fun initViewModel() {
         searchViewModel.searchMapList.observe(viewLifecycleOwner) {
             mapAdapter.itemList = it
             with(binding.rvMap) {
@@ -124,7 +147,7 @@ class PlaceSearchFragment : Fragment() {
                         /* enter = */ R.anim.slide_in,
                         /* exit = */ R.anim.fade_out,
                     )
-                    .replace(R.id.fg_Search, fragment) //replace는 교체, add는 추가
+                    .replace(R.id.frame, fragment) //replace는 교체, add는 추가
                     .addToBackStack("PlaceDetailFragment")
                     .commit()
             }
@@ -141,22 +164,6 @@ class PlaceSearchFragment : Fragment() {
         })
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private fun hideKey(view: View) {
-        //바깥 터치 시 키보드 숨기는 부분...
-        binding.root.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                ConsumptionActivity.hideKeyboard(view)
-                binding.etSearchBox.clearFocus()
-            }
-            false
-        }
-    }
-
-    private fun hideKeyboard(view: View) {
-        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
-    }
 
 //    private fun clickChip() {
 //        binding.cgChipGroup.setOnCheckedStateChangeListener { chipGroup, ints ->
@@ -219,7 +226,6 @@ class PlaceSearchFragment : Fragment() {
 //
 //        바텀시트와 연결
 //    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

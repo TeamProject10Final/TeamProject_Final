@@ -1,25 +1,17 @@
 package com.example.donotlate.feature.main.presentation.view
 
-import android.net.Uri
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
 import com.example.donotlate.core.domain.usecase.GetCurrentUserDataUseCase
-import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
 import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.feature.main.presentation.mapper.toModel
 import com.example.donotlate.feature.main.presentation.model.UserModel
-import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
-import com.example.donotlate.feature.setting.domain.usecase.ImageUploadUseCase
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class MainPageViewModel(
