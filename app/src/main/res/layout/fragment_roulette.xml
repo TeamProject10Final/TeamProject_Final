@@ -58,7 +58,7 @@
         android:id="@+id/iv_game_roulette"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:src="@drawable/ic_game_wheel"
+        android:src="@drawable/ic_game_roulette"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

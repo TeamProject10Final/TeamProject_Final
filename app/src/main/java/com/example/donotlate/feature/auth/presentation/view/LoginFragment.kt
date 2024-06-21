@@ -36,7 +36,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
 
         binding.root.setOnClickListener {
             hideKeyboard()
-            requireActivity().currentFocus!!.clearFocus()
+//            requireActivity().currentFocus!!.clearFocus()
         }
         editTextProcess()
     }
