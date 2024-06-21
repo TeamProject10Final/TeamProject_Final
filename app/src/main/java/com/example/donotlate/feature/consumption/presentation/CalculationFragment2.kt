@@ -94,7 +94,7 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
             val penalty = binding.etDes22.text.toString()
             val number = binding.etDes23.text.toString()
 
-            if (total.isNotBlank() && number.isNotBlank()) {
+            if (total.isNotBlank() && number.isNotBlank() && total != "0") {
                 viewModel.setTotal(total)
                 viewModel.setPenalty(penalty)
                 viewModel.setIsPenalty(viewModel.isPenalty.value!!)

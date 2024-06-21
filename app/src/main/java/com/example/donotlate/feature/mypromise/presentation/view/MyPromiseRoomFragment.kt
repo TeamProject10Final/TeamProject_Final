@@ -23,12 +23,9 @@ import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
-import com.example.donotlate.feature.auth.presentation.view.LogInViewModel
-import com.example.donotlate.feature.auth.presentation.view.LogInViewModelFactory
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
-import com.example.donotlate.feature.mypromise.presentation.model.UserModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -357,12 +354,6 @@ class MyPromiseRoomFragment : Fragment() {
         Log.d("확인 확인 확인", "${currentUserLocation}")
         Log.d("확인 확인 확인", "dest : ${roomDestination}")
 
-//        val shortmessage = myPromiseViewModel.shortExplanations.value
-//        val roomId = roomId ?: throw NullPointerException("roomId is Null")
-//        Log.d("확인", "shortMessage $shortmessage")
-//        if (shortmessage != null) {
-//            sendMessage(roomId, shortmessage)
-//        }
     }
 
     override fun onRequestPermissionsResult(

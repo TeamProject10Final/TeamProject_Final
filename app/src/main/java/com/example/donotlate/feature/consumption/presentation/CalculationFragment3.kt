@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
@@ -45,6 +46,20 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
                 tvRes34.text = category ?: ""
             }
 
+            viewModel.calResult.observe(viewLifecycleOwner) {
+                if (it != 0) {
+                    binding.tvRes35.text = it.addCommas()
+                    binding.btnCalExit.isVisible = true
+                    binding.btnCalExit.isVisible = true
+                } else {
+                    binding.tvRes35.text = "다시 정산해 주세요."
+                    binding.btnCalExit.isVisible = false
+                    binding.btnCalExit.isVisible = false
+                }
+            }
+
+
+//하단 삭제
             viewModel.mediatorLiveData.observe(viewLifecycleOwner) {
                 calculate()?.let {
                     binding.tvRes35.text = it.addCommas()
@@ -108,22 +123,13 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
             return null
         }
 
-//        if (number == 2) {
-//            if (isPenalty == true && penalty != 0) {
-//                val result = (total / number) + penalty
-//                return result ?: 0
-//            } else {
-//                val result = (total / number) - penalty
-//                return result ?: 0
-//            }
-//        } else {
-            if (isPenalty == true && penalty != 0) {
-                val result = ((total - penalty) / number) + penalty
-                return result ?: 0
-            } else {
-                val result = (total - penalty) / number
-                return result ?: 0
-            }
+        if (isPenalty == true && penalty != 0) {
+            val result = ((total - penalty) / number) + penalty
+            return result ?: 0
+        } else {
+            val result = (total - penalty) / number
+            return result ?: 0
+        }
 //        }
     }
 
