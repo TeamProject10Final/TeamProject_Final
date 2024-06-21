@@ -202,8 +202,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         bottomSheet.show(parentFragmentManager, "tag")
                         sharedViewModel.refreshIndex()
                     }
-
-
                 }
             }
         }
@@ -342,6 +340,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 position: Int,
                 id: Long
             ) {
+                sharedViewModel.refreshIndex()
                 val selectedMode = list1[position]
                 Log.d("확인 mode", "$selectedMode")
                 sharedViewModel.setMode(selectedMode)
@@ -359,6 +358,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 position: Int,
                 id: Long
             ) {
+                sharedViewModel.refreshIndex()
                 val selectedMode = list2[position]
                 sharedViewModel.setTransitMode(selectedMode)
             }
@@ -375,6 +375,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 position: Int,
                 id: Long
             ) {
+                sharedViewModel.refreshIndex()
                 val selectedItem = list3[position]
                 sharedViewModel.setRoutingPreference(selectedItem)
             }
