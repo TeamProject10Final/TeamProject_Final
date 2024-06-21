@@ -97,6 +97,21 @@ class MyPromiseRoomFragment : Fragment() {
                     fastestInterval = 5000 //5초
                     priority = LocationRequest.PRIORITY_HIGH_ACCURACY
                 }
+            //TODO
+            if (::locationCallback.isInitialized.not()) {
+                locationCallback = object : LocationCallback() {
+                    override fun onLocationResult(locationResult: LocationResult) {
+                        for (location in locationResult.locations) {
+                            location?.let {
+                                val userLatLng = LatLng(it.latitude, it.longitude)
+                                myPromiseViewModel.setUserLocation(userLatLng)
+                                Log.d("확인 loca cb", "${myPromiseViewModel.originString.value}")
+//                                shortMessage()
+                            }
+                        }
+                    }
+                }
+            }
             fusedLocationClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,
@@ -241,6 +256,7 @@ class MyPromiseRoomFragment : Fragment() {
     private fun checkPermissionAndProceed() {
         if (hasLocationPermission()) {
             // 권한이 있을 때
+            startLocationUpdates()
             getCurrentLocation()
         } else {
             // 권한이 없을 때

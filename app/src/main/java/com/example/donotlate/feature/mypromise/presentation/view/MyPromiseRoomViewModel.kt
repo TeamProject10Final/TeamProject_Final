@@ -70,7 +70,7 @@ class MyPromiseRoomViewModel(
     val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
 
     //수정하기 TODO
-    private val _mode = MutableLiveData<String>()
+    private val _mode = MutableLiveData<String>("transit")
     val mode: LiveData<String> get() = _mode
 
     private val _shortExplanations = MutableLiveData<String>()
