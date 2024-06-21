@@ -5,4 +5,8 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="mainColor1">#FEC748</color>
+    <color name="mainColor2">#AEC33A</color>
+    <color name="mainColor3">#84C0E9</color>
+    <color name="mainColor4">#37419A</color>
 </resources>

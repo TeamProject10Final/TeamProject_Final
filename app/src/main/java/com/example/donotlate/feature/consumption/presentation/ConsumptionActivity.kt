@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -19,9 +18,11 @@ import com.example.donotlate.ConsumptionContainer
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.ActivityConsumptionBinding
+import com.example.donotlate.feature.consumption.presentation.dialog.ConfirmDialogInterface
+import com.example.donotlate.feature.consumption.presentation.dialog.ConsumptionConfirmDialog
 import kotlinx.coroutines.launch
 
-class ConsumptionActivity : AppCompatActivity() {
+class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface {
 
 
     private lateinit var binding: ActivityConsumptionBinding
@@ -49,10 +50,6 @@ class ConsumptionActivity : AppCompatActivity() {
             val intent = Intent(this, CalculationActivity::class.java)
             startActivity(intent)
         }
-
-
-
-
 
 
         val appContainer = (application as DoNotLateApplication).appContainer
@@ -145,8 +142,8 @@ class ConsumptionActivity : AppCompatActivity() {
                 }
             }
             launch {
-                consumptionViewModel.currentUserData.collect{ userData ->
-                    userData?.let { binding.tvUserName.text = userData.name  }
+                consumptionViewModel.currentUserData.collect { userData ->
+                    userData?.let { binding.tvUserName.text = userData.name }
                 }
             }
         }
@@ -172,13 +169,8 @@ class ConsumptionActivity : AppCompatActivity() {
     }
 
     private fun showConfirmationDialog(item: ConsumptionModel) {
-        AlertDialog.Builder(this)
-            .setMessage("${resources.getString(R.string.cal_activity_text3)}\n\n${item.isFinished} -> ${!item.isFinished}")
-            .setPositiveButton("${resources.getString(R.string.cal_activity_text4)}") { _, _ ->
-                consumptionViewModel.toggleIsFinished(item)
-            }
-            .setNegativeButton("${resources.getString(R.string.cal_activity_text5)}", null)
-            .show()
+        val dialog = ConsumptionConfirmDialog(this, item)
+        dialog.show(this.supportFragmentManager, "tag")
     }
 
     //utils로 빼내기!!!!
@@ -207,6 +199,12 @@ class ConsumptionActivity : AppCompatActivity() {
 //            imm.hideSoftInputFromWindow(view.windowToken, 0)
 //        }
     }
+
+    override fun onPositiveButtonClicked(model: ConsumptionModel) {
+        consumptionViewModel.toggleIsFinished(model)
+    }
+
+
 }
 
 
