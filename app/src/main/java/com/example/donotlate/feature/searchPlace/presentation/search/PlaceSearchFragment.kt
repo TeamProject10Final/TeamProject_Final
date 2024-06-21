@@ -59,7 +59,7 @@ class PlaceSearchFragment : Fragment() {
 
         mapAdapter = MapAdapter()
 
-        checkPermissionAndProceed()
+        initMapList()
         initViewModel()
 
         binding.btnSearchButton.setOnClickListener {
@@ -84,35 +84,7 @@ class PlaceSearchFragment : Fragment() {
         fetchMap()
     }
 
-    private fun checkPermissionAndProceed() {
-        if (hasLocationPermission()) {
-            // 권한이 있을 때
-            initMapList()
-        } else {
-            // 권한이 없을 때
-            requestLocationPermission()
-        }
-    }
 
-    private fun hasLocationPermission(): Boolean {
-        return ActivityCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun requestLocationPermission() {
-        requestPermissions(
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ),
-            LOCATION_PERMISSION_REQUEST_CODE
-        )
-    }
 
     private fun editTextProcess() {
         binding.etSearchBox.setOnEditorActionListener { textView, action, keyEvent ->

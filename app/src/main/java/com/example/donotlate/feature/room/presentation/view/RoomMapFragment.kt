@@ -62,7 +62,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         _binding = FragmentRoomMapBinding.inflate(inflater, container, false)
 
 //        setTitle()
-        checkPermissionAndProceed()
+        initMap()
 
         binding.root.setOnClickListener {
             hideKeyboard()
@@ -80,35 +80,8 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         checkLocation()
     }
 
-    private fun checkPermissionAndProceed() {
-        if (hasLocationPermission()) {
-            // 권한이 있을 때
-            initMap()
-        } else {
-            // 권한이 없을 때
-            requestLocationPermission()
-        }
-    }
 
-    private fun hasLocationPermission(): Boolean {
-        return ActivityCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-    }
 
-    private fun requestLocationPermission() {
-        requestPermissions(
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ),
-            LOCATION_PERMISSION_REQUEST_CODE
-        )
-    }
 
     private fun initMap() {
         val mapFragment =
