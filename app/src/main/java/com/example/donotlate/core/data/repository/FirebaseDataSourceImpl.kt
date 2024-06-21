@@ -2,6 +2,7 @@ package com.example.donotlate.core.data.repository
 
 
 import android.util.Log
+import androidx.room.util.query
 import com.example.donotlate.core.data.mapper.toEntity
 import com.example.donotlate.core.data.mapper.toMessageEntity
 import com.example.donotlate.core.data.mapper.toPromiseEntityList
@@ -58,7 +59,9 @@ class FirebaseDataSourceImpl(
         requestId: String
     ): Flow<Boolean> = flow {
         try {
+            Log.d("requestId", "$requestId")
             val request = hashMapOf(
+                "requestId" to requestId,
                 "toId" to toId,
                 "fromId" to fromId,
                 "status" to "request",
@@ -155,23 +158,42 @@ class FirebaseDataSourceImpl(
         }
 
     override suspend fun getFriendRequestsList(toId: String): Flow<List<FriendRequestEntity>> =
-        callbackFlow {
+        flow {
+            // 친구 요청 목록 받는 코드
+            // 일단 한 번 받아옴.
             val documents = db.collection("FriendRequests")
                 .whereEqualTo("toId", toId)
                 .whereEqualTo("status", "request")
-            val listener = documents.addSnapshotListener { snapshot, error ->
-                if (error != null) {
-                    close(error)
-                    return@addSnapshotListener
-                }
-                if (snapshot != null) {
-                    val requestList = snapshot.documents.mapNotNull { documents ->
-                        documents.toObject(FriendRequestDTO::class.java)?.copy()?.toEntity()
-                    }
-                    trySend(requestList).isSuccess
-                }
+                .get().await()
+
+            val requestList = documents.documents.mapNotNull { document ->
+                document.toObject(FriendRequestDTO::class.java)?.copy()?.toEntity()
             }
-            awaitClose { listener.remove() }
+            emit(requestList)
+
+            // 이후 callbackFlow를 활용하여 변경사항이 생기면 실시간으로 받아서 보냄
+            // 해당 내용 쪼개서(?) 적용할 지 결정할 예정
+            callbackFlow {
+                val documents = db.collection("FriendRequests")
+                    .whereEqualTo("toId", toId)
+                    .whereEqualTo("status", "request")
+                val listener = documents.addSnapshotListener { snapshot, error ->
+                    if (error != null) {
+                        close(error)
+                        return@addSnapshotListener
+                    }
+                    if (snapshot != null) {
+                        val updateRequestList = snapshot.documents.mapNotNull { updateDocument ->
+                            updateDocument.toObject(FriendRequestDTO::class.java)?.copy()?.toEntity()
+                        }
+                        trySend(updateRequestList).isSuccess
+                    }
+                }
+                awaitClose { listener.remove() }
+                // 실시간 변동이 발생 시 컬렉트를 해서 다시 에밋해서 내보냄.
+            }.collect{
+                emit(it)
+            }
         }
 
     override suspend fun makeAPromiseRoom(roomInfo: PromiseRoomEntity): Flow<Boolean> = flow {
@@ -185,25 +207,39 @@ class FirebaseDataSourceImpl(
     }
 
     override suspend fun getMyPromiseListFromFireBase(uid: String): Flow<List<PromiseRoomEntity>> =
-        flow {
-            try {
-                val documents = db.collection("PromiseRooms")
+        callbackFlow {
+//            try {
+                val query = db.collection("PromiseRooms")
                     .whereArrayContains("participants", uid)
                     .orderBy("promiseDate", Query.Direction.ASCENDING)
-                    .get().await()
 
-                if (documents.isEmpty) {
-                    Log.d("getMyPromiseListFromFireBase", "No documents found")
-                } else {
-                    Log.d("getMyPromiseListFromFireBase", "Found ${documents.size()} documents")
+                val listenerRegistration = query.addSnapshotListener{snapshot, error ->
+                    if(error != null){
+                        trySend(emptyList()).isSuccess
+                        return@addSnapshotListener
+                    }
+
+                    if(snapshot != null && !snapshot.isEmpty){
+                        val promiseRoom = snapshot.toObjects(PromiseRoomResponse::class.java)
+                        trySend(promiseRoom.toPromiseEntityList()).isSuccess
+                    }
                 }
-                val document = documents.toObjects(PromiseRoomResponse::class.java)
-                emit(document.toPromiseEntityList())
-            } catch (e: Exception) {
-                Log.e("getMyPromiseListFromFireBase", "Error fetching promise list")
-                Log.e("getMyPromiseListFromFireBase", "Error fetching promise list", e)
-                emit(emptyList())
-            }
+                awaitClose{
+                    listenerRegistration.remove()
+                }
+
+//                if (documents.isEmpty) {
+//                    Log.d("getMyPromiseListFromFireBase", "No documents found")
+//                } else {
+//                    Log.d("getMyPromiseListFromFireBase", "Found ${documents.size()} documents")
+//                }
+//                val document = documents.toObjects(PromiseRoomResponse::class.java)
+//                trySend(document.toPromiseEntityList())
+//            } catch (e: Exception) {
+//                Log.e("getMyPromiseListFromFireBase", "Error fetching promise list")
+//                Log.e("getMyPromiseListFromFireBase", "Error fetching promise list", e)
+//                trySend(emptyList())
+//            }
         }
 
     override suspend fun getCurrentUserDataFromFireBase(): Flow<UserEntity?> = flow {

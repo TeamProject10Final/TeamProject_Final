@@ -265,15 +265,12 @@ class MyPromiseRoomFragment : Fragment() {
     }
 
     private fun sendMessage(roomId: String, contents: String) {
-        Log.d("ddddddd2", "$roomTitle")
         lifecycleScope.launch {
             try {
                 val message = MessageModel(
-                    senderName = currentUserData?.name
-                        ?: throw NullPointerException("User Data Null!"),
+                    senderName = currentUserData?.name ?: throw NullPointerException("User Data Null!"),
                     sendTimestamp = Timestamp.now(),
-                    senderId = currentUserData?.uId
-                        ?: throw NullPointerException("User Data Null!"),
+                    senderId = currentUserData?.uId ?: throw NullPointerException("User Data Null!"),
                     contents = contents,
                     messageId = "",
                     senderProfileUrl = currentUserData?.profileImgUrl ?: ""
@@ -294,7 +291,16 @@ class MyPromiseRoomFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             myPromiseViewModel.message.collect { message ->
                 Log.d("MyPromiseRoomFragment", "Collected messages: $message")
-                adapter.submitList(message)
+                // old item count 구하기
+//                val oldItemCount = adapter.itemCount
+                adapter.submitList(message) {
+                    binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
+                     /*새로운 메시지가 왔을 때 최하단으로 내려가는 로직(이부분 수정해서 올드 아이템갯수랑 아이템갯수랑 리스트의 아이템 갯수 차이를 구해서
+                     플로팅 버튼을 띄워서 최하단으로 내려갈 수 있도록 하면 좋을 듯?
+                    if (oldItemCount != adapter.itemCount) {
+                        binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
+                    }*/
+                }
             }
         }
     }
@@ -402,7 +408,6 @@ class MyPromiseRoomFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         parentFragmentManager.popBackStack()
-        myPromiseViewModel.clearMessage()
         _binding = null
     }
 

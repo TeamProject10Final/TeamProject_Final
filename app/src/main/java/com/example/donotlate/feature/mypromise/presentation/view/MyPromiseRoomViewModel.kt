@@ -73,6 +73,7 @@ class MyPromiseRoomViewModel(
 
     private val _selectedRouteIndex = MutableLiveData<Int>(0)
     val selectedRouteIndex: LiveData<Int> get() = _selectedRouteIndex
+
     //임시
     private val _removeParticipantIdResult = MutableStateFlow<Boolean>(false)
     val removeParticipantIdResult: StateFlow<Boolean> get() = _removeParticipantIdResult
@@ -98,12 +99,12 @@ class MyPromiseRoomViewModel(
     }
 
     // 사용자 위치를 문자열로 반환하는 메서드 추가
-    fun getUserLocationString(delimiter: String = ","){
+    fun getUserLocationString(delimiter: String = ",") {
         val location = userLocationLatLng.value
-        if(location!=null){
+        if (location != null) {
             _originString.value = "${location.latitude}$delimiter${location.longitude}"
             Log.d("확인 userLocaString", "${originString.value}")
-        }else{
+        } else {
             Log.d("확인 userLocaString", "null")
         }
 
@@ -229,11 +230,9 @@ class MyPromiseRoomViewModel(
     fun sendMessage(roomId: String, message: MessageModel) {
         try {
             viewModelScope.launch {
-                Log.d("ddddddd3", "$roomId")
                 messageSendingUseCase(roomId, message.toMessageEntity()).collect { result ->
                     _messageSendResults.value = result
                 }
-                Log.d("ddddddd4", "$roomId")
             }
         } catch (e: Exception) {
             Log.d("ddddddd8", "rror: Send To Message Error: $e")
@@ -241,14 +240,10 @@ class MyPromiseRoomViewModel(
 
     }
 
-    fun clearMessage() {
-        _message.value = emptyList()
-    }
-
     //임시
-    fun exitRoom(roomId: String, participantId:String){
+    fun exitRoom(roomId: String, participantId: String) {
         viewModelScope.launch {
-            removeParticipantsUseCase(roomId, participantId).collect{
+            removeParticipantsUseCase(roomId, participantId).collect {
                 _removeParticipantIdResult.value = it
             }
         }
