@@ -65,7 +65,7 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
         _binding = FragmentPlaceDetailBinding.inflate(inflater, container, false)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        onBackPressed()
+        //onBackPressed()
 
 
         return binding.root
@@ -100,13 +100,14 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
 
 
     private fun backButton() {
-        parentFragmentManager.beginTransaction()
-            .setCustomAnimations(
-                /* enter = */ R.anim.fade_in,
-                /* exit = */ R.anim.slide_out
-            )
-            .remove(this)
-            .commit()
+        parentFragmentManager.popBackStack()
+//        parentFragmentManager.beginTransaction()
+//            .setCustomAnimations(
+//                /* enter = */ R.anim.fade_in,
+//                /* exit = */ R.anim.slide_out
+//            )
+//            .remove(this)
+//            .commit()
     }
 
     //외부 뒤로가기 버튼

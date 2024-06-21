@@ -1,13 +1,13 @@
 package com.example.donotlate.feature.room.presentation.view
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.core.presentation.CurrentUser
+import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentRoomFriendBinding
 
 import com.example.donotlate.feature.room.presentation.adapter.RoomFriendAdapter
@@ -49,6 +50,14 @@ class RoomFriendFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRoomFriendBinding.inflate(inflater, container, false)
+
+        binding.root.setOnClickListener {
+            hideKeyboard()
+            requireActivity().currentFocus!!.clearFocus()
+        }
+
+        roomViewModel.getAllUserData()
+
         return binding.root
     }
 
@@ -129,12 +138,6 @@ class RoomFriendFragment : Fragment() {
         lifecycleScope.launch {
             roomViewModel.getFriendsList()
         }
-    }
-
-    private fun hideKeyboard() {
-        val imm =
-            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
 
     private fun checkSelectUser() {

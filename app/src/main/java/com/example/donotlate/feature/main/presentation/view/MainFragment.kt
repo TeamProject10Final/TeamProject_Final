@@ -142,6 +142,17 @@ class MainFragment : Fragment() {
                 .addToBackStack(null).commit()
 
         }
+//  FriendsActivity 삭제 시, 아래 코드 사용
+//        binding.layoutMainGame.setOnClickListener {
+//            parentFragmentManager.beginTransaction()
+//                .setCustomAnimations(
+//                    /* enter = */ R.anim.slide_in,
+//                    /* exit = */ R.anim.fade_out,
+//                )
+//                .replace(R.id.frame, FriendsFragment())
+//                .addToBackStack(null).commit()
+//
+//        }
     }
 
     private fun observeViewModel() {
@@ -162,7 +173,7 @@ class MainFragment : Fragment() {
                     /* exit = */ R.anim.fade_out,
                 )
                 .replace(R.id.frame, MiniGameFragment())
-                .addToBackStack(null).commit()
+                .addToBackStack("MiniGameFragment").commit()
 
         }
     }

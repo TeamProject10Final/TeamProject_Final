@@ -19,6 +19,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -200,9 +201,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             updateTimeButton(isDep)
         }
 
-        sharedViewModel.selectedRouteIndex.observe(viewLifecycleOwner) {
-            sharedViewModel.afterSelecting()
-        }
+//        sharedViewModel.selectedRouteIndex.observe(viewLifecycleOwner) {
+//            sharedViewModel.afterSelecting()
+//        }
 
         sharedViewModel.startLocation.observe(viewLifecycleOwner) {
             Log.d("확인 마커", "$googleMap")
@@ -401,6 +402,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             binding.btnSearchDirectionRoutes.visibility = View.GONE
 
             binding.ivDetailView.isVisible = false
+
+            val bottomSheet = DirectionsBottomFragment()
+            bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
+            bottomSheet.show(parentFragmentManager, "tag")
 
         }
         binding.ivDetailView.setOnClickListener {

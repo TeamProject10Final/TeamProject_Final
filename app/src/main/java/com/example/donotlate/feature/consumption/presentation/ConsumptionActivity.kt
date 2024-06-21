@@ -1,12 +1,11 @@
 package com.example.donotlate.feature.consumption.presentation
 
+
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -134,13 +133,15 @@ class ConsumptionActivity : AppCompatActivity() {
 
             launch {
                 consumptionViewModel.totalPrice.collect { totalPrice ->
-                    binding.tvExpenseNum.text = "${totalPrice.addCommas()} 원"
+                    binding.tvExpenseNum.text =
+                        "${totalPrice.addCommas()} ${resources.getString(R.string.cal_activity_text1)}"
                 }
             }
 
             launch {
                 consumptionViewModel.liveDataCount.collect { count ->
-                    binding.tvVisitNum.text = "총 $count 건"
+                    binding.tvVisitNum.text =
+                        "$count ${resources.getString(R.string.cal_activity_text2)}"
                 }
             }
             launch {
@@ -172,11 +173,11 @@ class ConsumptionActivity : AppCompatActivity() {
 
     private fun showConfirmationDialog(item: ConsumptionModel) {
         AlertDialog.Builder(this)
-            .setMessage("정산 상태를 변경할까요?\n\n${item.isFinished} -> ${!item.isFinished}")
-            .setPositiveButton("Yes") { _, _ ->
+            .setMessage("${resources.getString(R.string.cal_activity_text3)}\n\n${item.isFinished} -> ${!item.isFinished}")
+            .setPositiveButton("${resources.getString(R.string.cal_activity_text4)}") { _, _ ->
                 consumptionViewModel.toggleIsFinished(item)
             }
-            .setNegativeButton("No", null)
+            .setNegativeButton("${resources.getString(R.string.cal_activity_text5)}", null)
             .show()
     }
 
@@ -199,12 +200,12 @@ class ConsumptionActivity : AppCompatActivity() {
                 0 // 혹은 예외처리에 따라 다른 값 반환 가능
             }
         }
-
-        fun hideKeyboard(view: View) {
-            val imm =
-                view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
-        }
+//
+//        fun hideKeyboard(view: View) {
+//            val imm =
+//                view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//            imm.hideSoftInputFromWindow(view.windowToken, 0)
+//        }
     }
 }
 

@@ -6,12 +6,14 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentSignupBinding
 import com.example.donotlate.feature.auth.presentation.dialog.InformationDialogFragment
 import com.example.donotlate.feature.main.presentation.view.MainFragment
@@ -31,6 +33,12 @@ class SignupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
+
+        binding.root.setOnClickListener {
+            hideKeyboard()
+            requireActivity().currentFocus!!.clearFocus()
+        }
+
         return binding.root
     }
 
@@ -45,6 +53,23 @@ class SignupFragment : Fragment() {
 
         binding.btnSignUp.setOnClickListener {
             clickToSignUpButton()
+        }
+
+        editTextProcess()
+
+
+    }
+
+    private fun editTextProcess() {
+        binding.etSignConfirm.setOnEditorActionListener { textView, action, keyEvent ->
+            var handled = false
+
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard()
+                requireActivity().currentFocus!!.clearFocus()
+                handled = true
+            }
+            handled
         }
     }
 
@@ -136,7 +161,8 @@ class SignupFragment : Fragment() {
         signUpViewmodel.signUpResult.observe(viewLifecycleOwner) { result ->
             if (result.isSuccess) {
                 Toast.makeText(requireContext(), "회원 가입 성공!", Toast.LENGTH_SHORT).show()
-                parentFragmentManager.beginTransaction().replace(R.id.frame, MainFragment()).commit()
+                parentFragmentManager.beginTransaction().replace(R.id.frame, LoginFragment())
+                    .commit()
             } else {
                 Toast.makeText(requireContext(), "회원 가입 실패!", Toast.LENGTH_SHORT).show()
             }

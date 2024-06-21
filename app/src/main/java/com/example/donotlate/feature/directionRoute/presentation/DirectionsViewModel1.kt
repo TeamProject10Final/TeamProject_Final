@@ -140,6 +140,7 @@ class DirectionsViewModel1(
 
     fun setSelectedRouteIndex(indexNum: Int) {
         _selectedRouteIndex.value = indexNum ?: 0
+        Log.d("123123", "${indexNum}")
     }
 
     fun setTime(hour: Int, minute: Int) {
