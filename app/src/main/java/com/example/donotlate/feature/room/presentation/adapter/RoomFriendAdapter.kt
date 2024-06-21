@@ -6,14 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.transform.CircleCropTransformation
 import com.example.donotlate.R
 import com.example.donotlate.databinding.ItemRvFriendBinding
 import com.example.donotlate.feature.room.presentation.model.RoomUserModel
 
 class RoomFriendAdapter(
-    private val onAddFriendClick: () -> Unit,
     private val onItemClick: (RoomUserModel) -> Unit
 ) : ListAdapter<RoomUserModel, RecyclerView.ViewHolder>(diffUtil) {
 
@@ -22,8 +19,8 @@ class RoomFriendAdapter(
     }
 
     var itemClick: ItemClick? = null
-    private var selectedPositions = mutableSetOf<Int>()
 
+    private var selectedPositions = mutableSetOf<Int>()
 
     private fun toggleSelection(position: Int) {
         if (selectedPositions.contains(position)) {
@@ -34,40 +31,19 @@ class RoomFriendAdapter(
         notifyItemChanged(position)
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if (position == 0) VIEW_TYPE_ADD_FRIEND else VIEW_TYPE_FRIEND
-    }
-
-    override fun getItemCount(): Int {
-        return super.getItemCount() + 1
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding =
             ItemRvFriendBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return if (viewType == VIEW_TYPE_ADD_FRIEND) {
-            AddFriendViewHolder(binding, onAddFriendClick)
-        } else {
-            RoomFriendAdapterViewHolder(
-                binding,
-                onItemClick,
-                this::toggleSelection,
-                selectedPositions
-            )
-        }
+        return RoomFriendAdapterViewHolder(binding, onItemClick, this::toggleSelection, selectedPositions)
     }
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is RoomFriendAdapterViewHolder) {
-            val actualPosition = position - 1
-            if (actualPosition >= 0) {
-                holder.bind(getItem(actualPosition), selectedPositions.contains(position))
+        if(holder is RoomFriendAdapterViewHolder){
+                holder.bind(getItem(position), selectedPositions.contains(position))
             }
-        } else if (holder is AddFriendViewHolder) {
-            holder.bind()
         }
-    }
+
 
     class RoomFriendAdapterViewHolder(
         private val binding: ItemRvFriendBinding,
@@ -90,26 +66,7 @@ class RoomFriendAdapter(
         }
     }
 
-    class AddFriendViewHolder(
-        private val binding: ItemRvFriendBinding,
-        private val onAddFriendClick: () -> Unit
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
-            binding.tvItemFriend.text = "친구 추가"
-            binding.ivItemFriend.load(R.drawable.ic_user) {
-                transformations(CircleCropTransformation())
-            }
-            binding.root.setOnClickListener {
-                onAddFriendClick()
-            }
-        }
-    }
-
-
     companion object {
-        private const val VIEW_TYPE_ADD_FRIEND = 0
-        private const val VIEW_TYPE_FRIEND = 1
 
         private val diffUtil = object : DiffUtil.ItemCallback<RoomUserModel>() {
             override fun areItemsTheSame(

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.donotlate.MainActivity
+import com.example.donotlate.R
 import com.example.donotlate.databinding.BackDialogBinding
 import com.example.donotlate.feature.main.presentation.view.MainFragment
 
@@ -43,7 +44,7 @@ class BackFragmentDialog : DialogFragment() {
         }
         binding.tvDlConfirm.setOnClickListener {
             val activity = requireActivity()
-            activity.finish()
+            activity.supportFragmentManager.beginTransaction().replace(R.id.frame, MainFragment()).commit()
             dismiss()
             //수정 필요
         }

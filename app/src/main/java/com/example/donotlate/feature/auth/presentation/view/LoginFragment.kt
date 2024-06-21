@@ -15,9 +15,6 @@ import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentLoginBinding
-import com.example.donotlate.feature.auth.presentation.viewmodel.LogInViewModel
-import com.example.donotlate.feature.auth.presentation.viewmodel.LogInViewModelFactory
-import com.example.donotlate.feature.auth.presentation.viewmodel.LoginEvent
 import com.example.donotlate.feature.main.presentation.view.MainFragment
 import kotlinx.coroutines.launch
 

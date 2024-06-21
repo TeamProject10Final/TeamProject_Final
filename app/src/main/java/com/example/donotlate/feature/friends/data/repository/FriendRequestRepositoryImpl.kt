@@ -13,8 +13,6 @@ import kotlinx.coroutines.tasks.await
 
 class FriendRequestRepositoryImpl(
     private val db: FirebaseFirestore,
-    private val auth: FirebaseAuth,
-    private val context: Context
 ) : FriendRequestRepository {
 
     override suspend fun makeAFriendRequest(

@@ -1,5 +1,6 @@
 package com.example.donotlate.feature.room.presentation.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,13 +14,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
+import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentRoomFriendBinding
-import com.example.donotlate.feature.friends.presentation.view.FriendsActivity
+
 import com.example.donotlate.feature.room.presentation.adapter.RoomFriendAdapter
 import com.example.donotlate.feature.room.presentation.dialog.ResultFragmentDialog
-import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
-import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 import kotlinx.coroutines.launch
 
 class RoomFriendFragment : Fragment() {
@@ -27,12 +27,9 @@ class RoomFriendFragment : Fragment() {
     private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         RoomViewModelFactory(
-            appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
             appContainer.makeAPromiseRoomUseCase,
-            appContainer.loadToCurrentUserDataUseCase,
             appContainer.getFriendsListFromFirebaseUseCase,
-            appContainer.getCurrentUserUseCase
         )
     }
 
@@ -43,13 +40,10 @@ class RoomFriendFragment : Fragment() {
     private val selectedUserUIds = mutableListOf<String>()
     private val selectedUserNames = mutableListOf<String>()
 
-    private lateinit var mAuth: String
-    private lateinit var mName: String
+    private val userData = CurrentUser.userData
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private val mAuth = userData?.uId ?: ""
+    private val mName = userData?.name ?: ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,13 +56,7 @@ class RoomFriendFragment : Fragment() {
             requireActivity().currentFocus!!.clearFocus()
         }
 
-        roomViewModel.getAllUserData()
-
         return binding.root
-    }
-
-    override fun onPause() {
-        super.onPause()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,13 +64,11 @@ class RoomFriendFragment : Fragment() {
 
         initRecyclerView()
         getFriendsList()
-        loadToCurrentUserData()
         getAllUserList()
         editTextProcess()
         checkSelectUser()
 
     }
-
 
     private fun getAllUserList() {
         try {
@@ -100,12 +86,6 @@ class RoomFriendFragment : Fragment() {
 
     private fun initRecyclerView() {
         friendAdapter = RoomFriendAdapter(
-            onAddFriendClick = {
-                val intent = Intent(requireContext(), FriendsActivity::class.java).apply {
-                    putExtra("show_friends_request_fragment", true)
-                }
-                startActivity(intent)
-            },
             onItemClick = { selectedUser ->
                 val userUid = selectedUser.uId
                 val userName = selectedUser.name
@@ -149,15 +129,6 @@ class RoomFriendFragment : Fragment() {
                 handled = true
             }
             handled
-        }
-    }
-
-    private fun loadToCurrentUserData() {
-        lifecycleScope.launch {
-            roomViewModel.getCurrentUserData.collect { currentUser ->
-                mAuth = currentUser?.uId ?: ""
-                mName = currentUser?.name ?: ""
-            }
         }
     }
 

@@ -12,13 +12,10 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentSignupBinding
 import com.example.donotlate.feature.auth.presentation.dialog.InformationDialogFragment
-import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewModel
-import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
 import com.example.donotlate.feature.main.presentation.view.MainFragment
 
 class SignupFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.mypromise.presentation.viewmodel
+package com.example.donotlate.feature.mypromise.presentation.view
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,10 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
-import com.example.donotlate.core.domain.usecase.GetMyDataFromFireStoreUseCase
-import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
-import com.example.donotlate.core.domain.usecase.LoadToMyPromiseListUseCase
+import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
 import com.example.donotlate.feature.directionRoute.presentation.DirectionsModel
 import com.example.donotlate.feature.directionRoute.presentation.toModel
@@ -17,15 +14,11 @@ import com.example.donotlate.feature.mypromise.domain.usecase.MessageReceivingUs
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseCase
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageEntity
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageModel
-import com.example.donotlate.feature.mypromise.presentation.mapper.toModel
-import com.example.donotlate.feature.mypromise.presentation.mapper.toPromiseModelList
 import com.example.donotlate.feature.mypromise.presentation.mapper.toViewType
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.MessageViewType
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
-import com.example.donotlate.feature.mypromise.presentation.model.UserModel
 import com.google.android.gms.maps.model.LatLng
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -36,18 +29,13 @@ import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-class MyPromiseViewModel(
-    private val loadToMyPromiseListUseCase: LoadToMyPromiseListUseCase,
+class MyPromiseRoomViewModel(
     private val messageSendingUseCase: MessageSendingUseCase,
     private val messageReceivingUseCase: MessageReceivingUseCase,
-    private val getCurrentUserUseCase: GetCurrentUserUseCase,
-    private val getUserDataUseCase: GetUserDataUseCase,
-    private val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase,
-    private val firebaseAuth: FirebaseAuth,
     private val getDirectionsUseCase: GetDirectionsUseCase
 ) : ViewModel() {
 
-    private var currentUId: String? = null
+    private var currentRoomId: String? = null
 
     private val _closestPromiseTitle = MutableStateFlow<String?>(null)
     val closestPromiseTitle: StateFlow<String?> get() = _closestPromiseTitle
@@ -58,16 +46,8 @@ class MyPromiseViewModel(
     private val _message = MutableStateFlow<List<MessageViewType>>(listOf())
     val message: StateFlow<List<MessageViewType>> get() = _message
 
-    private val _currentUserId = MutableStateFlow<String>("")
-    val currentUserId: StateFlow<String> get() = _currentUserId
-
-    private val _currentUserData = MutableStateFlow<UserModel?>(null)
-    val currentUserData: StateFlow<UserModel?> get() = _currentUserData
-
     private val _messageSendResults = MutableStateFlow<Boolean>(false)
     val messageSendResult: StateFlow<Boolean> get() = _messageSendResults
-
-    val mAuth = firebaseAuth.currentUser?.uid
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
@@ -213,45 +193,19 @@ class MyPromiseViewModel(
         _mode.value = mode
     }
 
-    init {
-        getCurrentUId()
-        getCurrentUserData()
-    }
-
-    private fun getCurrentUId() {
-        viewModelScope.launch {
-            currentUId = _currentUserId.value
-        }
-    }
-
-    private fun getCurrentUserData() {
-        viewModelScope.launch {
-            getMyDataFromFireStoreUseCase().collect { userData ->
-                _currentUserData.value = userData?.toModel()
-            }
-        }
-    }
-
-    fun loadPromiseRooms(uid: String) {
-        viewModelScope.launch {
-            loadToMyPromiseListUseCase(uid).collect {
-                val promiseRooms = it.toPromiseModelList()
-                _promiseRoomList.value = promiseRooms
-                Log.d("PromiseList", "${_promiseRoomList.value}")
-
-                val closestPromise = promiseRooms.minByOrNull { it.promiseDate }
-                _closestPromiseTitle.value = closestPromise?.roomTitle
-            }
-        }
-    }
-
     fun loadMessage(roomId: String) {
-        viewModelScope.launch {
-            messageReceivingUseCase(roomId).collect { entities ->
-                val model = entities.map { it.toMessageModel() }
-                Log.d("tttt", "$currentUId")
-                _message.value = model.map { it.toViewType(mAuth ?: "") }
+        val mAuth = CurrentUser.userData?.uId
+        if (currentRoomId != roomId) {
+            currentRoomId = roomId
+            _message.value = emptyList()
 
+            viewModelScope.launch {
+                messageReceivingUseCase(roomId).collect { entities ->
+                    val model = entities.map { it.toMessageModel() }
+                    if (mAuth != null) {
+                        _message.value = model.map { it.toViewType(mAuth) }
+                    }
+                }
             }
         }
     }
@@ -271,37 +225,23 @@ class MyPromiseViewModel(
 
     }
 
-    fun getCurrentUserId() {
-        viewModelScope.launch {
-            getCurrentUserUseCase().collect { uId ->
-                _currentUserId.value = uId
-            }
-        }
+    fun clearMessage() {
+        _message.value = emptyList()
     }
 }
 
-class MyPromiseViewModelFactory(
-    private val loadToMyPromiseListUseCase: LoadToMyPromiseListUseCase,
+class MyPromiseRoomViewModelFactory(
     private val messageSendingUseCase: MessageSendingUseCase,
     private val messageReceivingUseCase: MessageReceivingUseCase,
-    private val getCurrentUserUseCase: GetCurrentUserUseCase,
-    private val getUserDataUseCase: GetUserDataUseCase,
-    private val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase,
-    private val firebaseAuth: FirebaseAuth,
     private val getDirectionsUseCase: GetDirectionsUseCase
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MyPromiseViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(MyPromiseRoomViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return MyPromiseViewModel(
-                loadToMyPromiseListUseCase,
+            return MyPromiseRoomViewModel(
                 messageSendingUseCase,
                 messageReceivingUseCase,
-                getCurrentUserUseCase,
-                getUserDataUseCase,
-                getMyDataFromFireStoreUseCase,
-                firebaseAuth,
                 getDirectionsUseCase
             ) as T
         }

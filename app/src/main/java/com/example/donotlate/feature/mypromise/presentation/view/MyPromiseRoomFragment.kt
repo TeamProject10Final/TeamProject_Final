@@ -20,13 +20,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
+import com.example.donotlate.feature.auth.presentation.view.LogInViewModel
+import com.example.donotlate.feature.auth.presentation.view.LogInViewModelFactory
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 import com.example.donotlate.feature.mypromise.presentation.model.UserModel
-import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModel
-import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -38,16 +39,11 @@ import kotlinx.coroutines.launch
 
 class MyPromiseRoomFragment : Fragment() {
 
-    private val myPromiseViewModel: MyPromiseViewModel by activityViewModels {
+    private val myPromiseViewModel: MyPromiseRoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        MyPromiseViewModelFactory(
-            appContainer.loadToMyPromiseListUseCase,
+        MyPromiseRoomViewModelFactory(
             appContainer.messageSendingUseCase,
             appContainer.messageReceivingUseCase,
-            appContainer.getCurrentUserUseCase,
-            appContainer.getUserDataUseCase,
-            appContainer.getMyDataFromFirebaseUseCase,
-            appContainer.firebaseAuth,
             appContainer.getDirectionsUseCase,
         )
     }
@@ -75,7 +71,7 @@ class MyPromiseRoomFragment : Fragment() {
     val binding get() = _binding!!
 
     private var promiseRoom: PromiseModel? = null
-    private var currentUserData: UserModel? = null
+    private var currentUserData = CurrentUser.userData
     private var roomTitle: String? = null
     private var promiseDate: String? = null
     private var roomId: String? = null
@@ -86,16 +82,6 @@ class MyPromiseRoomFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
-
-
-
-        lifecycleScope.launch {
-            myPromiseViewModel.currentUserData.collect() { userData ->
-                currentUserData = userData
-
-            }
-        }
 
         arguments?.let { bundle ->
             promiseRoom = bundle.getParcelable("promiseRoom")
@@ -179,19 +165,14 @@ class MyPromiseRoomFragment : Fragment() {
         backButton()
 
         promiseRoom?.let { room ->
-
             promiseDate = room.promiseDate
             roomTitle = room.roomTitle
             roomId = room.roomId
             roomDestination = room.destination
 
             binding.tvRoomTitle.text = room.roomTitle
-            Log.d("promiseRoom", "promiseRoom Title: ${promiseRoom?.roomTitle}")
-            binding.tvRoomPromiseDate.text =
-                room.promiseDate ?: throw NullPointerException("Date null")
-            Log.d("promiseRoom", "promiseRoom Date: ${promiseRoom?.promiseDate}")
-            loadToMessageFromFireStore(room.roomId ?: throw NullPointerException("RoomId Null"))
-            Log.d("promiseRoom", "promiseRoom Id: ${promiseRoom?.roomId}")
+            binding.tvRoomPromiseDate.text = room.promiseDate
+            loadToMessageFromFireStore(room.roomId)
         }
 
         binding.btnSend.setOnClickListener {
@@ -223,13 +204,11 @@ class MyPromiseRoomFragment : Fragment() {
                     senderName = currentUserData?.name
                         ?: throw NullPointerException("User Data Null!"),
                     sendTimestamp = Timestamp.now(),
-                    senderId = currentUserData?.uid
+                    senderId = currentUserData?.uId
                         ?: throw NullPointerException("User Data Null!"),
                     contents = contents,
                     messageId = "",
-                    senderProfileUrl = currentUserData?.profileImgUrl ?: throw NullPointerException(
-                        "User Data Null!"
-                    )
+                    senderProfileUrl = currentUserData?.profileImgUrl?:""
                 )
                 myPromiseViewModel.sendMessage(roomId, message)
             } catch (e: Exception) {
@@ -356,6 +335,7 @@ class MyPromiseRoomFragment : Fragment() {
         super.onDestroyView()
         parentFragmentManager.popBackStack()
         _binding = null
+        myPromiseViewModel.clearMessage()
     }
 
     override fun onStart() {

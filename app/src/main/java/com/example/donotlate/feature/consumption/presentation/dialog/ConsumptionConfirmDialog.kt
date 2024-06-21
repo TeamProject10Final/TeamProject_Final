@@ -9,7 +9,8 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.donotlate.databinding.BackDialogBinding
-import com.example.donotlate.feature.room.presentation.view.RoomActivity
+import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
+
 
 class ConsumptionConfirmDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +44,7 @@ class ConsumptionConfirmDialog : DialogFragment() {
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
-            val activity = activity as RoomActivity
+            val activity = activity as ConsumptionActivity
             activity.finish()
         }
     }

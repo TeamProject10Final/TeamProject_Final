@@ -1,6 +1,6 @@
 package com.example.donotlate.feature.friends.presentation.mapper
 
-import com.example.donotlate.core.data.response.FriendRequestWithUserDataEntity
+import com.example.donotlate.core.domain.model.FriendRequestWithUserDataEntity
 import com.example.donotlate.core.domain.model.FriendRequestEntity
 import com.example.donotlate.core.domain.model.UserEntity
 import com.example.donotlate.feature.friends.presentation.model.FriendRequestModel

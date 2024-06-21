@@ -35,11 +35,7 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
     private val mainPageViewModel: MainPageViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MainPageViewModelFactory(
-            appContainer.getUserDataUseCase,
-            appContainer.getAllUsersUseCase,
-            appContainer.getCurrentUserUseCase,
-            appContainer.imageUploadUseCase,
-            appContainer.firebaseAuth
+            appContainer.getCurrentUserDataUseCase,
         )
     }
 
@@ -125,12 +121,10 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
     //이름, 이메일 보여주기
     private fun observeViewModel() {
         lifecycleScope.launch {
-            mainPageViewModel.getUserData.collect { result ->
-                result?.onSuccess { myInfo ->
+            mainPageViewModel.currentUserData.collect { myInfo ->
+                if(myInfo != null){
                     binding.tvName.text = myInfo.name
                     binding.tvEmail.text = myInfo.email
-                }?.onFailure { e ->
-                    throw e
                 }
             }
         }

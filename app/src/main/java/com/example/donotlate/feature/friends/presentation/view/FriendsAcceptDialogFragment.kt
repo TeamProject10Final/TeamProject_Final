@@ -14,8 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentRequestDialogBinding
 import com.example.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
-import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
-import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
 import kotlinx.coroutines.launch
 
 class FriendsAcceptDialogFragment : DialogFragment() {
@@ -24,10 +22,8 @@ class FriendsAcceptDialogFragment : DialogFragment() {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         FriendsViewModelFactory(
             appContainer.getFriendsListFromFirebaseUseCase,
-            appContainer.getCurrentUserUseCase,
             appContainer.searchUserByIdUseCase,
             appContainer.makeAFriendRequestUseCase,
-            appContainer.getUserDataUseCase,
             appContainer.getFriendRequestsStatusUseCase,
             appContainer.getFriendRequestListUseCase,
             appContainer.acceptFriendRequestsUseCase
@@ -85,16 +81,8 @@ class FriendsAcceptDialogFragment : DialogFragment() {
     private fun acceptToFriendRequest(requestId:String){
         lifecycleScope.launch {
             friendsViewModel.acceptToFriendRequest(requestId)
-            Log.d("requestIdTest", "${requestId}")
-
         }
     }
-
-//    private fun observeViewModel(){
-//        lifecycleScope.launch {
-//            friendsViewModel.requestResult
-//        }
-//    }
 
     companion object {
         private const val ARG_ITEM = "item"
