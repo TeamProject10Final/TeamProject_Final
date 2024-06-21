@@ -33,8 +33,6 @@ class FirebaseDataSourceImpl(
     private val auth: FirebaseAuth
 ) : FirebaseDataRepository {
 
-    private var friendsListCache: List<UserEntity>? = null
-
     override suspend fun getUserDataById(userId: String): Flow<UserEntity> = flow {
         val documentSnapshot = db.collection("users").document(userId).get().await()
         val userResponse = documentSnapshot.toObject(UserResponse::class.java)
@@ -75,9 +73,6 @@ class FirebaseDataSourceImpl(
     }
 
     override suspend fun getFriendsListFromFirebase(uid: String): Flow<List<UserEntity>> = flow {
-        if (friendsListCache != null) {
-            emit(friendsListCache!!)
-        } else {
             try {
                 val document = db.collection("users").document(uid).get().await()
                 val user = document.toObject(UserResponse::class.java)
@@ -86,15 +81,14 @@ class FirebaseDataSourceImpl(
                     val friendDoc = db.collection("users").document(friendId).get().await()
                     friendDoc.toObject(UserResponse::class.java)
                 }
-                friendsListCache = friendsList.toUserEntityList()
                 Log.d("FirebaseRepositoryImpl", "Fetched Friends List: $friendsList")
-                emit(friendsListCache!!)
+                emit(friendsList.toUserEntityList())
             } catch (e: Exception) {
                 Log.e("FirebaseRepositoryImpl", "Error fetching friends list", e)
                 emit(emptyList())
             }
         }
-    }
+
 
     override suspend fun acceptFriendRequest(requestId: String): Flow<Boolean> = flow {
         try {
