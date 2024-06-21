@@ -1,13 +1,12 @@
 package com.example.donotlate.feature.setting.presentation.view.information
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentSettingInformationPersonalBinding
-import com.example.donotlate.feature.setting.presentation.view.SettingFragment
 
 
 class SettingInformationPersonalFragment : Fragment() {

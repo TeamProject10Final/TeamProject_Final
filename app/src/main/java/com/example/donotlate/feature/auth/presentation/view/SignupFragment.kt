@@ -36,7 +36,7 @@ class SignupFragment : Fragment() {
 
         binding.root.setOnClickListener {
             hideKeyboard()
-            requireActivity().currentFocus!!.clearFocus()
+//            requireActivity().currentFocus!!.clearFocus()
         }
 
         return binding.root
@@ -77,7 +77,11 @@ class SignupFragment : Fragment() {
     private fun startLogin() {
         binding.tvSignLogin.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .remove(this)
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, LoginFragment())
                 .commit()
         }
     }
@@ -122,6 +126,10 @@ class SignupFragment : Fragment() {
                 it
             )
             requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
                 .remove(this)
                 .commit()
         }
@@ -131,7 +139,7 @@ class SignupFragment : Fragment() {
         val password = binding.etSignPassword
         val hide = binding.ivSignHide
         hide.tag = "0"
-        hide.setImageResource(R.drawable.hide)
+        hide.setImageResource(R.drawable.ic_hide)
         hide.setOnClickListener {
             when (it.tag) {
                 "0" -> {
@@ -143,7 +151,7 @@ class SignupFragment : Fragment() {
                 "1" -> {
                     hide.tag = "0"
                     password.transformationMethod = PasswordTransformationMethod.getInstance()
-                    hide.setImageResource(R.drawable.hide)
+                    hide.setImageResource(R.drawable.ic_hide)
                 }
             }
         }

@@ -1,41 +1,19 @@
 package com.example.donotlate.feature.consumption.presentation
 
+//import kotlinx.coroutines.flow.internal.NopCollector.emit
 import android.content.Context
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asFlow
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity.Companion.addCommas
-import com.example.donotlate.feature.consumption.domain.repository.ConsumptionRepository
 import com.example.donotlate.feature.consumption.domain.usecase.DeleteConsumptionUseCase
-import com.example.donotlate.feature.consumption.domain.usecase.GetConsumptionByCategoryUseCase
-import com.example.donotlate.feature.consumption.domain.usecase.GetConsumptionByIdUseCase
-import com.example.donotlate.feature.consumption.domain.usecase.GetConsumptionDataUseCase
 import com.example.donotlate.feature.consumption.domain.usecase.GetDataCountUseCase
-import com.example.donotlate.feature.consumption.domain.usecase.GetFinishedConsumptionUseCase
-import com.example.donotlate.feature.consumption.domain.usecase.GetTotalPriceUseCase
-import com.example.donotlate.feature.consumption.domain.usecase.GetUnfinishedConsumptionUseCase
 import com.example.donotlate.feature.consumption.domain.usecase.InsertConsumptionUseCase
-import kotlinx.coroutines.flow.Flow
+import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity.Companion.addCommas
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-//import kotlinx.coroutines.flow.internal.NopCollector.emit
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import java.time.Duration
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 
 class SharedViewModel
 constructor(
@@ -66,7 +44,7 @@ constructor(
     private val _total = MutableLiveData<String?>()
     val total: LiveData<String?> = _total
 
-    private val _isPenalty = MutableLiveData<Boolean>()
+    private val _isPenalty = MutableLiveData<Boolean>(false)
     val isPenalty: LiveData<Boolean> = _isPenalty
 
     private val _penalty = MutableLiveData<String?>()
@@ -90,10 +68,14 @@ constructor(
     private val _modelCurrent = MutableLiveData<Int>()
     val modelCurrent: LiveData<Int> = _modelCurrent
 
+    private val _calResult = MutableLiveData<Int>(0)
+    val calResult: LiveData<Int> = _calResult
 
-    private val _mediatorLiveData = MediatorLiveData<String>()
-    val mediatorLiveData: MediatorLiveData<String> = _mediatorLiveData
+//    private val _mediatorLiveData = MediatorLiveData<String>()
+//    val mediatorLiveData: MediatorLiveData<String> = _mediatorLiveData
 
+    private val _penaltyNumber = MutableLiveData<Int>(1)
+    val penaltyNumber: LiveData<Int> = _penaltyNumber
 
     init {
         //historyId 는 database의 개수 세어서 넣기!!!!
@@ -109,21 +91,21 @@ constructor(
         _number.value = null
         _price.value = 0
         _isFinished.value = false
-        setMediatorLiveData()
+        //setMediatorLiveData()
     }
 
-    //mediatorLiveData에 데이터 추가
-    private fun setMediatorLiveData() {
-        mediatorLiveData.addSource(total) {
-            mediatorLiveData.value = it
-        }
-        mediatorLiveData.addSource(penalty) {
-            mediatorLiveData.value = it
-        }
-        mediatorLiveData.addSource(number) {
-            mediatorLiveData.value = it
-        }
-    }
+//    //mediatorLiveData에 데이터 추가
+//    private fun setMediatorLiveData() {
+//        mediatorLiveData.addSource(total) {
+//            mediatorLiveData.value = it
+//        }
+//        mediatorLiveData.addSource(penalty) {
+//            mediatorLiveData.value = it
+//        }
+//        mediatorLiveData.addSource(number) {
+//            mediatorLiveData.value = it
+//        }
+//    }
 
     fun setCurrentItem(current: Int) {
         _modelCurrent.value = current
@@ -167,6 +149,10 @@ constructor(
 
     fun setIsFinished(check: Boolean) {
         _isFinished.value = check
+    }
+
+    fun setPenaltyNumber(number: Int) {
+        _penaltyNumber.value = number
     }
 
     fun insertConsumption(consumption: ConsumptionModel) {
@@ -228,67 +214,43 @@ constructor(
         return message.toString()
     }
 
-//    private fun calculate(): Int? {
-//
-//
-//
-//        val total = viewModel.total.value?.toIntOrNull() ?: return null
-//        val number = viewModel.number.value?.toIntOrNull() ?: return null
-//        val penaltyString = viewModel.penalty.value
-//        val isPenalty = viewModel.isPenalty.value
-//
-//        // penalty가 빈칸이거나 null인 경우 0으로 간주하여 처리...
-//        val penalty = penaltyString?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
-//
-//        // number가 0인 경우에는 0으로 나누는 오류가 발생하므로 예외 처리하기
-//        if (number == 0) {
-//            return null
-//        }
-//
-////        if (number == 2) {
-////            if (isPenalty == true && penalty != 0) {
-////                val result = (total / number) + penalty
-////                return result ?: 0
-////            } else {
-////                val result = (total / number) - penalty
-////                return result ?: 0
-////            }
-////        } else {
-//        if (isPenalty == true && penalty != 0) {
-//            val result = ((total - penalty) / number) + penalty
-//            return result ?: 0
-//        } else {
-//            val result = (total - penalty) / number
-//            return result ?: 0
-//        }
-////        }
-//    }
+    private fun calculate() {
+
+
+        val total = total.value?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
+        val number = number.value?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
+        val penaltyString = penalty.value
+        val isPenalty = isPenalty.value
+
+        // penalty가 빈칸이거나 null인 경우 0으로 간주하여 처리...
+        val penalty = penaltyString?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
+
+        // number가 0인 경우에는 0으로 나누는 오류가 발생하므로 예외 처리하기 - 프래그먼트에 로직 추가함
+        if (number == 0) {
+            _calResult.value = 0
+        }
+
+        if (isPenalty == true && penalty != 0) {
+            val result = ((total - penalty) / number) + penalty
+            _calResult.value = result
+        } else {
+            val result = (total - penalty) / number
+            _calResult.value = result
+        }
+    }
 }
 
 class SharedViewModelFactory(
-//    private val repository: ConsumptionRepository,
-//    private val getFinishedConsumptionUseCase: GetFinishedConsumptionUseCase,
-//    private val getUnfinishedConsumptionUseCase: GetUnfinishedConsumptionUseCase,
     private val insertConsumptionUseCase: InsertConsumptionUseCase,
     private val deleteConsumptionUseCase: DeleteConsumptionUseCase,
-//    private val getConsumptionByCategoryUseCase: GetConsumptionByCategoryUseCase,
-//    private val getConsumptionByIdUseCase: GetConsumptionByIdUseCase,
-//    private val getConsumptionDataUseCase: GetConsumptionDataUseCase,
-//    private val getTotalPriceUseCase: GetTotalPriceUseCase,
     private val getDataCountUseCase: GetDataCountUseCase
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SharedViewModel::class.java)) {
             return SharedViewModel(
-//                getFinishedConsumptionUseCase,
-//                getUnfinishedConsumptionUseCase,
                 insertConsumptionUseCase,
                 deleteConsumptionUseCase,
-//                getConsumptionByCategoryUseCase,
-//                getConsumptionByIdUseCase,
-//                getConsumptionDataUseCase,
-//                getTotalPriceUseCase,
                 getDataCountUseCase
             ) as T
         }

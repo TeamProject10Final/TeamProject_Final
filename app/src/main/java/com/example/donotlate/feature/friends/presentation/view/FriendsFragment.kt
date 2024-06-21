@@ -71,7 +71,13 @@ class FriendsFragment : Fragment() {
 
     private fun backButton() {
         binding.ivFriendBack.setOnClickListener {
-            setFragment(MainFragment())
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, MainFragment())
+                .commit()
         }
     }
 

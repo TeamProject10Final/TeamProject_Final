@@ -150,7 +150,7 @@
     <item>
         <shape>
             <corners android:radius="15dp" />
-            <solid android:color="@android:color/white" /> <!-- 배경색 -->
+            <solid android:color="@color/whiteBg" /> <!-- 배경색 -->
             <stroke
                 android:width="0.5dp"
                 android:color="#D3D3D3D3" />     <!-- 테두리 색 -->
