@@ -157,7 +157,7 @@ class MyPromiseRoomViewModel(
                 val result = getDirectionsUseCase(origin, destination, mode)
                 _directionsResult.value = result.toModel()
                 setShortDirectionsResult()
-                Log.d("확인", "viewmodel: ${_directionsResult.value}")
+                Log.d("확인 검색", "viewmodel: ${_directionsResult.value}")
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }
