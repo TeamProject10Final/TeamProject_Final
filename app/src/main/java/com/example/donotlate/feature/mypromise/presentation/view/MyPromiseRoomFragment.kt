@@ -83,7 +83,7 @@ class MyPromiseRoomFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
+        checkPermissionAndProceed()
         arguments?.let { bundle ->
             promiseRoom = bundle.getParcelable("promiseRoom")
 
@@ -208,7 +208,7 @@ class MyPromiseRoomFragment : Fragment() {
     private fun observeViewModel() {
         myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner) {
             //처음에 방 들어가자마자 초기화하기! 거리 계산해두기
-            if (it <= 1.5) {
+            if (it <= 0.2) { //200m
                 binding.btnArrived.isVisible = true
                 binding.ivRoomMap.isVisible = false
 
