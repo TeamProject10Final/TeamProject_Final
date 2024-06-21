@@ -222,13 +222,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     }
                 }
             }
-
-            sharedViewModel.error.observe(viewLifecycleOwner) {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                Log.d("확인 error ob", it)
-            }
         }
-
+        sharedViewModel.error.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            Log.d("확인 error ob", it)
+        }
         sharedViewModel.selectedTime.observe(viewLifecycleOwner) { time ->
             time?.let {
                 val selectedTime =
