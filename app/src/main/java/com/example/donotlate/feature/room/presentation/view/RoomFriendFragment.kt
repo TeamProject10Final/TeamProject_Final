@@ -47,11 +47,6 @@ class RoomFriendFragment : Fragment() {
     private lateinit var mAuth: String
     private lateinit var mName: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
