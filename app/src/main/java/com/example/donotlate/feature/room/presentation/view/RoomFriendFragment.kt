@@ -56,8 +56,6 @@ class RoomFriendFragment : Fragment() {
             requireActivity().currentFocus!!.clearFocus()
         }
 
-        roomViewModel.getAllUserData()
-
         return binding.root
     }
 

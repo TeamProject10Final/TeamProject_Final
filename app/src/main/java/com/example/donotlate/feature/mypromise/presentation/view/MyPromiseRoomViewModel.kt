@@ -6,10 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
-import com.example.donotlate.core.domain.usecase.GetCurrentUserDataUseCase
-import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
-import com.example.donotlate.core.domain.usecase.LoadToMyPromiseListUseCase
 import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
 import com.example.donotlate.feature.directionRoute.presentation.DirectionsModel
@@ -18,15 +14,11 @@ import com.example.donotlate.feature.mypromise.domain.usecase.MessageReceivingUs
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseCase
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageEntity
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageModel
-import com.example.donotlate.feature.mypromise.presentation.mapper.toModel
-import com.example.donotlate.feature.mypromise.presentation.mapper.toPromiseModelList
 import com.example.donotlate.feature.mypromise.presentation.mapper.toViewType
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.MessageViewType
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
-import com.example.donotlate.feature.mypromise.presentation.model.UserModel
 import com.google.android.gms.maps.model.LatLng
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
