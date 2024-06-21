@@ -227,6 +227,42 @@ constructor(
 
         return message.toString()
     }
+
+//    private fun calculate(): Int? {
+//
+//
+//
+//        val total = viewModel.total.value?.toIntOrNull() ?: return null
+//        val number = viewModel.number.value?.toIntOrNull() ?: return null
+//        val penaltyString = viewModel.penalty.value
+//        val isPenalty = viewModel.isPenalty.value
+//
+//        // penalty가 빈칸이거나 null인 경우 0으로 간주하여 처리...
+//        val penalty = penaltyString?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
+//
+//        // number가 0인 경우에는 0으로 나누는 오류가 발생하므로 예외 처리하기
+//        if (number == 0) {
+//            return null
+//        }
+//
+////        if (number == 2) {
+////            if (isPenalty == true && penalty != 0) {
+////                val result = (total / number) + penalty
+////                return result ?: 0
+////            } else {
+////                val result = (total / number) - penalty
+////                return result ?: 0
+////            }
+////        } else {
+//        if (isPenalty == true && penalty != 0) {
+//            val result = ((total - penalty) / number) + penalty
+//            return result ?: 0
+//        } else {
+//            val result = (total - penalty) / number
+//            return result ?: 0
+//        }
+////        }
+//    }
 }
 
 class SharedViewModelFactory(

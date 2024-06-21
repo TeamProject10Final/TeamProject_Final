@@ -72,60 +72,8 @@ class MyPromiseRoomViewModel(
     private val _selectedRouteIndex = MutableLiveData<Int>(0)
     val selectedRouteIndex: LiveData<Int> get() = _selectedRouteIndex
 
-
-    fun calDistance2() {
-        //지구 반지름 (km)
-        val earthRadius = 6371.0
-
-        val userLocationVal = userLocationLatLng.value
-        val destinationLatLngVal = destinationLatLng.value
-        if (userLocationVal != null && destinationLatLngVal != null) {
-            val latDist = Math.toRadians(userLocationVal.latitude - destinationLatLngVal.latitude)
-            val lngDist =
-                Math.toRadians(userLocationVal.longitude - (destinationLatLngVal.longitude))
-
-            val a = sin(latDist / 2).pow(2.0) + cos(Math.toRadians(userLocationVal.latitude)) * cos(
-                Math.toRadians(destinationLatLngVal.latitude)
-            ) * sin(lngDist / 2).pow(2.0)
-
-            val c = 2 * atan2(sqrt(a), sqrt(1 - a))
-            _distanceBetween.value = earthRadius * c
-            Log.d("확인 거리", "${distanceBetween.value}")
-        }
-    }
-
-
-    private fun calDistance(): Long {
-        //지구 반지름 (m)
-        val EARTH_R = 6371000.0
-        val rad = Math.PI / 180
-
-        val radLat1 = rad * (userLocationLatLng.value?.latitude.toString().toLong())
-        val radLat2 = rad * (destinationLatLng.value?.latitude.toString().toLong())
-
-        val radDist = rad * (userLocationLatLng.value?.longitude.toString()
-            .toLong() - destinationLatLng.value?.longitude.toString().toLong())
-
-        var distance = sin(radLat1) * sin(radLat2)
-        distance += cos(radLat1) * cos(radLat2) * cos(radDist)
-
-        val ret = EARTH_R * acos(distance)
-        Log.d("확인 거리", "$ret")
-        return Math.round(ret)
-    }
-
-//    private fun checkDistance() {
-//        if (distanceBetween.value <= 10) {
-//            // 10미터 남음
-//        }
-//    }
-
-
     private val _directionsResult = MutableLiveData<DirectionsModel>()
     val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
-
-//    private val _destination = MutableLiveData<String>()
-//    val destination: LiveData<String> get() = _destination
 
     //수정하기
     private val _mode = MutableLiveData<String>("transit")
@@ -151,6 +99,27 @@ class MyPromiseRoomViewModel(
 
     }
 
+    fun calDistance2() {
+        //지구 반지름 (km)
+        val earthRadius = 6371.0
+
+        val userLocationVal = userLocationLatLng.value
+        val destinationLatLngVal = destinationLatLng.value
+        if (userLocationVal != null && destinationLatLngVal != null) {
+            val latDist = Math.toRadians(userLocationVal.latitude - destinationLatLngVal.latitude)
+            val lngDist =
+                Math.toRadians(userLocationVal.longitude - (destinationLatLngVal.longitude))
+
+            val a = sin(latDist / 2).pow(2.0) + cos(Math.toRadians(userLocationVal.latitude)) * cos(
+                Math.toRadians(destinationLatLngVal.latitude)
+            ) * sin(lngDist / 2).pow(2.0)
+
+            val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+            _distanceBetween.value = earthRadius * c
+            Log.d("확인 거리", "${distanceBetween.value}")
+        }
+    }
+
     fun setDestinationLatLng() {
 
         val temp = _directionsResult.value?.routes?.get(0)?.legs?.get(0)?.totalEndLocation
@@ -167,20 +136,6 @@ class MyPromiseRoomViewModel(
     fun setDestination(dest: String) {
         _destinationString.value = dest
     }
-
-//    fun getDirections(origin: String, destination: String, mode: String) {
-//        Log.d("확인", "$origin, $destination, $mode")
-//        viewModelScope.launch {
-//            try {
-//                val result = getDirectionsUseCase(origin, destination, mode)
-//                _directionsResult.value = result.toModel()
-//                setShortDirectionsResult()
-//                Log.d("확인 검색", "viewmodel: ${_directionsResult.value}")
-//            } catch (e: Exception) {
-//                _error.postValue(e.message)
-//            }
-//        }
-//    }
 
     fun getDirections() {
         viewModelScope.launch {
