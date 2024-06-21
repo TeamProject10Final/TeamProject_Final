@@ -3,13 +3,10 @@ package com.example.donotlate
 import com.example.donotlate.core.data.repository.FirebaseDataSourceImpl
 import com.example.donotlate.core.data.session.SessionManagerImpl
 import com.example.donotlate.core.domain.usecase.AcceptFriendRequestsUseCase
-import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
+import com.example.donotlate.core.domain.usecase.GetCurrentUserDataUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendRequestsListUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendRequestsStatusUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendsListFromFirebaseUseCase
-import com.example.donotlate.core.domain.usecase.GetCurrentUserDataUseCase
-import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
-import com.example.donotlate.core.domain.usecase.LoadToCurrentUserDataUseCase
 import com.example.donotlate.core.domain.usecase.LoadToMyPromiseListUseCase
 import com.example.donotlate.core.domain.usecase.MakeAFriendRequestUseCase
 import com.example.donotlate.core.domain.usecase.SearchUserByIdUseCase
@@ -46,9 +43,8 @@ import com.example.donotlate.feature.mypromise.domain.usecase.MessageReceivingUs
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseCase
 import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseListViewModelFactory
 import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModelFactory
-import com.example.donotlate.feature.room.domain.usecase.GetAllUsersUseCase
 import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
-import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
+import com.example.donotlate.feature.room.presentation.view.RoomViewModelFactory
 import com.example.donotlate.feature.searchPlace.api.NetWorkClient
 import com.example.donotlate.feature.searchPlace.data.repository.GooglePlacesApiRepositoryImpl
 import com.example.donotlate.feature.searchPlace.domain.repository.GooglePlacesApiRepository
@@ -81,10 +77,8 @@ class AppContainer {
 
     var consumptionContainer: ConsumptionContainer? = null
 
-
     var logInContainer: LogInContainer? = null
     var signUpContainer: SignUpContainer? = null
-
     var friendsContainer: FriendsContainer? = null
 
     val getFinishedConsumptionUseCase: GetFinishedConsumptionUseCase by lazy {
@@ -151,28 +145,7 @@ class AppContainer {
         SettingRepositoryImpl(firebaseAuth, firebaseFireStore, firebaseStorage)
     }
 
-    val friendRequestRepository by lazy {
-        FriendRequestRepositoryImpl(
-            firebaseFireStore,
-            firebaseAuth,
-            DoNotLateApplication.getInstance()
-        )
-    }
-//    val getUserUseCase1 by lazy {
-//        GetUserUseCase(userRepository)
-//    }
-
-    val getUserDataUseCase by lazy {
-        GetUserDataUseCase(firebaseDataRepository)
-    }
-
-    val getAllUsersUseCase by lazy {
-        GetAllUsersUseCase(firebaseDataRepository)
-    }
-
-    val getCurrentUserUseCase by lazy {
-        GetCurrentUserUseCase(authRepository)
-    }
+    val friendRequestRepository by lazy { FriendRequestRepositoryImpl(firebaseFireStore) }
 
     val getFriendsListFromFirebaseUseCase by lazy {
         GetFriendsListFromFirebaseUseCase(firebaseDataRepository)
@@ -221,10 +194,6 @@ class AppContainer {
 
     val loadToMyPromiseListUseCase by lazy {
         LoadToMyPromiseListUseCase(firebaseDataRepository)
-    }
-
-    val loadToCurrentUserDataUseCase by lazy {
-        LoadToCurrentUserDataUseCase(firebaseDataRepository)
     }
 
     private val directionsApiService = RouteNetworkClient.directionsApiService
@@ -302,7 +271,7 @@ class RoomContainer(
     private val makeAPromiseRoomUseCase: MakeAPromiseRoomUseCase,
     private val getFriendsListFromFirebaseUseCase: GetFriendsListFromFirebaseUseCase,
 
-) {
+    ) {
     val roomViewModelFactory =
         RoomViewModelFactory(
             getSearchListUseCase,
@@ -423,7 +392,7 @@ class Directions1Container(
 
 class MyPromiseListContainer(
     private val loadToMyPromiseListUseCase: LoadToMyPromiseListUseCase
-){
+) {
     val myPromiseListViewModel = MyPromiseListViewModelFactory(
         loadToMyPromiseListUseCase
     )

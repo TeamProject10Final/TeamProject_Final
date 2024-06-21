@@ -10,8 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentRoomMapBottomBinding
-import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
-import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 import com.example.donotlate.feature.searchPlace.presentation.adapter.MapAdapter
 import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

@@ -5,11 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.donotlate.core.domain.usecase.AcceptFriendRequestsUseCase
-import com.example.donotlate.core.domain.usecase.GetCurrentUserUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendRequestsListUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendRequestsStatusUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendsListFromFirebaseUseCase
-import com.example.donotlate.core.domain.usecase.GetUserDataUseCase
 import com.example.donotlate.core.domain.usecase.MakeAFriendRequestUseCase
 import com.example.donotlate.core.domain.usecase.SearchUserByIdUseCase
 import com.example.donotlate.core.presentation.CurrentUser

@@ -1,7 +1,6 @@
 package com.example.donotlate.feature.room.presentation.view
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,15 +14,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.R
 import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.databinding.FragmentRoomFriendBinding
-import com.example.donotlate.feature.friends.presentation.view.FriendsRequestFragment
 
 import com.example.donotlate.feature.room.presentation.adapter.RoomFriendAdapter
 import com.example.donotlate.feature.room.presentation.dialog.ResultFragmentDialog
-import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
-import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 import kotlinx.coroutines.launch
 
 class RoomFriendFragment : Fragment() {

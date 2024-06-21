@@ -17,8 +17,6 @@ import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomStartBinding
 import com.example.donotlate.feature.room.presentation.model.RoomModel
-import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
-import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 import java.util.Calendar
 
 class RoomStartFragment : Fragment() {

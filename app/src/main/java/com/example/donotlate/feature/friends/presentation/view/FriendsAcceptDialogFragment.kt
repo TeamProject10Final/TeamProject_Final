@@ -81,8 +81,6 @@ class FriendsAcceptDialogFragment : DialogFragment() {
     private fun acceptToFriendRequest(requestId:String){
         lifecycleScope.launch {
             friendsViewModel.acceptToFriendRequest(requestId)
-            Log.d("requestIdTest", "${requestId}")
-
         }
     }
 
