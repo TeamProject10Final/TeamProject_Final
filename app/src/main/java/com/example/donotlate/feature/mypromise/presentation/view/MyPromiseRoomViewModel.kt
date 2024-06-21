@@ -68,13 +68,10 @@ class MyPromiseRoomViewModel(
     private val _distanceBetween = MutableLiveData<Double>()
     val distanceBetween: LiveData<Double> get() = _distanceBetween
 
-    private val _selectedRouteIndex = MutableLiveData<Int>(0)
-    val selectedRouteIndex: LiveData<Int> get() = _selectedRouteIndex
-
     private val _directionsResult = MutableLiveData<DirectionsModel>()
     val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
 
-    //수정하기
+    //수정하기 TODO
     private val _mode = MutableLiveData<String>("transit")
     val mode: LiveData<String> get() = _mode
 
@@ -88,7 +85,6 @@ class MyPromiseRoomViewModel(
         } else {
             Log.d("확인 setUserLoca", "null")
         }
-
     }
 
     // LatLng 위치를 문자열로 반환하는 메서드 추가
@@ -128,7 +124,6 @@ class MyPromiseRoomViewModel(
         }
     }
 
-
     fun getDirections() {
         viewModelScope.launch {
             try {
@@ -138,14 +133,13 @@ class MyPromiseRoomViewModel(
                     mode.value.toString()
                 )
                 _directionsResult.value = result.toModel()
-                //setRouteSelectionText()
-                setShortDirectionsResult()
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }
         }
     }
 
+    //TODO
     fun setMode(mode: FirstMode) {
         when (mode.type) {
             FirstModeEnum.TRANSIT -> _mode.value = mode.key
@@ -157,8 +151,8 @@ class MyPromiseRoomViewModel(
     }
 
     fun setShortDirectionsResult() {
-        if (_directionsResult.value != null) {
-            formatShortDirectionsExplanations(_directionsResult.value!!)
+        if (directionsResult.value != null) {
+            formatShortDirectionsExplanations(directionsResult.value!!)
         } else {
             _error.postValue("_direction null")
             Log.d("확인 setDirections", "null")
@@ -171,9 +165,10 @@ class MyPromiseRoomViewModel(
         //아래 코드로 수정하기
 //        val temp = directions.routes[_selectedRouteIndex.value!!].legs[0]
         val temp = directions.routes[0].legs[0]
-//
+//TODO 아래 코드 삭제하기
         resultText.append("${temp.totalStartLocation.lat}, ${temp.totalStartLocation.lng}\n")
         resultText.append("출발 주소 ${temp.totalStartAddress}\n")
+        resultText.append("이 부분 확인 후 주소 출력 부분 삭제하기@@@@@\n")
 //
         resultText.append("🗺️목적지까지 ${temp.totalDistance.text},\n")
         resultText.append("앞으로 ${temp.totalDuration.text} 뒤")
@@ -182,9 +177,6 @@ class MyPromiseRoomViewModel(
         } else {
             resultText.append(" 도착 예정입니다.")
         }
-
-        //마지막에 \n 제거 확인하기!!!
-        resultText.append("\n\n\n")
         _shortExplanations.value = resultText.toString()
 
         Log.d("확인 short", "${resultText}")
@@ -219,7 +211,6 @@ class MyPromiseRoomViewModel(
         } catch (e: Exception) {
             Log.d("ddddddd8", "rror: Send To Message Error: $e")
         }
-
     }
 
     fun clearMessage() {
