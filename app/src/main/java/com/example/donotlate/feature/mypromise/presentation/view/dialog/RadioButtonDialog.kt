@@ -3,7 +3,6 @@ package com.example.donotlate.feature.mypromise.presentation.view.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.R
 import com.example.donotlate.databinding.DialogRadiobuttonBinding
 import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModel
 import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModelFactory
@@ -53,18 +51,17 @@ class RadioButtonDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.radioGroup.setOnCheckedChangeListener { _, check ->
-            binding.btnRadioConfirm.setOnClickListener {
-                when (check) {
-                    R.id.rb_Bus -> Log.d("TestRadio", "Bus")
-                    R.id.rb_Subway -> Log.d("TestRadio", "Subway")
-                    R.id.rb_Train -> Log.d("TestRadio", "Train")
-                    R.id.rb_Tram -> Log.d("TestRadio", "Tram")
-                    R.id.rb_Rail -> Log.d("TestRadio", "Rail")
-                }
-                dismiss()
-            }
-        }
+//        binding.radioGroup.setOnCheckedChangeListener { _, check ->
+//            binding.btnRadioConfirm.setOnClickListener {
+//                when (check) {
+//                    R.id.rb_Transit -> myPromiseViewModel.setMode(check)
+//                    R.id.rb_Driving -> myPromiseViewModel.setMode(check)
+//                    R.id.rb_Walking -> myPromiseViewModel.setMode(check)
+//                    R.id.rb_Bicycling -> myPromiseViewModel.setMode(check)
+//                }
+//                dismiss()
+//            }
+//        }
 
         binding.btnRadioCancel.setOnClickListener {
             dismiss()

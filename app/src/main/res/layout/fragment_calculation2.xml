@@ -114,12 +114,19 @@
         android:id="@+id/btnPenalty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/btn_info_round_lilac"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="5dp"
         android:text="@string/cal3_text2"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@id/etDes22"
         app:layout_constraintStart_toStartOf="@id/etDes21" />
+
+    <!--    수정하기 TODO-->
+    <!--    <EditText-->
+    <!--        -->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"/>-->
 
     <TextView
         android:id="@+id/tvWon22"

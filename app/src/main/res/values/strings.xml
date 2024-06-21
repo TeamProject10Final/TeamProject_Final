@@ -67,7 +67,7 @@
     <string name="cal3_text3">정산 인원수</string>
     <string name="cal3_text4">명</string>
     <string name="cal3_edit_text1">정산할 총 금액을 입력해주세요.</string>
-    <string name="cal3_edit_text2">별금을 입력해주세요.</string>
+    <string name="cal3_edit_text2">벌금을 입력해주세요.</string>
     <string name="cal3_edit_text3">정산 인원을 입력해주세요.</string>
 
     <!--정산하기 세번째 페이지(Fragment)-->

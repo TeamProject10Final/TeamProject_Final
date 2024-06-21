@@ -15,8 +15,6 @@ import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseC
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageEntity
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageModel
 import com.example.donotlate.feature.mypromise.presentation.mapper.toViewType
-import com.example.donotlate.feature.mypromise.presentation.model.FirstMode
-import com.example.donotlate.feature.mypromise.presentation.model.FirstModeEnum
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.MessageViewType
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
@@ -24,7 +22,6 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlin.math.acos
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.pow
@@ -69,13 +66,10 @@ class MyPromiseRoomViewModel(
     private val _distanceBetween = MutableLiveData<Double>()
     val distanceBetween: LiveData<Double> get() = _distanceBetween
 
-    private val _selectedRouteIndex = MutableLiveData<Int>(0)
-    val selectedRouteIndex: LiveData<Int> get() = _selectedRouteIndex
-
     private val _directionsResult = MutableLiveData<DirectionsModel>()
     val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
 
-    //수정하기
+    //수정하기 TODO
     private val _mode = MutableLiveData<String>("transit")
     val mode: LiveData<String> get() = _mode
 
@@ -84,19 +78,17 @@ class MyPromiseRoomViewModel(
 
     fun setUserLocation(location: LatLng) {
         _userLocationLatLng.value = location
-        getUserLocationString()
+        if (userLocationLatLng.value != null) {
+            _originString.value = getLocationString(userLocationLatLng.value!!)
+        } else {
+            Log.d("확인 setUserLoca", "null")
+        }
     }
 
-    // 사용자 위치를 문자열로 반환하는 메서드 추가
-    fun getUserLocationString(delimiter: String = ","){
-        val location = userLocationLatLng.value
-        if(location!=null){
-            _originString.value = "${location.latitude}$delimiter${location.longitude}"
-            Log.d("확인 userLocaString", "${originString.value}")
-        }else{
-            Log.d("확인 userLocaString", "null")
-        }
-
+    // LatLng 위치를 문자열로 반환하는 메서드 추가
+    private fun getLocationString(latLng: LatLng, delimiter: String = ","): String {
+        Log.d("확인 userLocaString", "${originString.value}")
+        return "${latLng.latitude}$delimiter${latLng.longitude}"
     }
 
     fun calDistance2() {
@@ -120,21 +112,14 @@ class MyPromiseRoomViewModel(
         }
     }
 
-    fun setDestinationLatLng() {
-
-        val temp = _directionsResult.value?.routes?.get(0)?.legs?.get(0)?.totalEndLocation
-        if (temp != null) {
-            val tempLatLng = LatLng(temp.lat, temp.lng)
-            Log.d("확인 목적지", "목적지 ${tempLatLng.latitude}, ${tempLatLng.longitude}")
-            _destinationLatLng.value = tempLatLng
+    fun setDestinationLatLng(lat: Double, lng: Double) {
+        _destinationLatLng.value = LatLng(lat, lng)
+        Log.d("확인 목적지", "목적지 ${lat}, ${lng}")
+        if (destinationLatLng.value != null) {
+            _destinationString.value = getLocationString(destinationLatLng.value!!)
         } else {
-            _error.postValue("목적지 세팅 실패")
-            Log.d("확인 목적지", "목적지 null")
+            Log.d("확인 setDestLoca", "null")
         }
-    }
-
-    fun setDestination(dest: String) {
-        _destinationString.value = dest
     }
 
     fun getDirections() {
@@ -146,28 +131,26 @@ class MyPromiseRoomViewModel(
                     mode.value.toString()
                 )
                 _directionsResult.value = result.toModel()
-                //setRouteSelectionText()
-                setShortDirectionsResult()
-                setDestinationLatLng()
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }
         }
     }
-
-    fun setMode(mode: FirstMode) {
-        when (mode.type) {
-            FirstModeEnum.TRANSIT -> _mode.value = mode.key
-            FirstModeEnum.DRIVING -> _mode.value = mode.key
-            FirstModeEnum.WALKING -> _mode.value = mode.key
-            FirstModeEnum.BICYCLING -> _mode.value = mode.key
-            FirstModeEnum.NOT_SELECTED -> _mode.value = mode.key
-        }
-    }
+//
+//    //TODO
+//    fun setMode(position: Int) {
+//        when (position) {
+//            0 -> _mode.value = mode.key
+//            FirstModeEnum.DRIVING -> _mode.value = mode.key
+//            FirstModeEnum.WALKING -> _mode.value = mode.key
+//            FirstModeEnum.BICYCLING -> _mode.value = mode.key
+//            FirstModeEnum.NOT_SELECTED -> _mode.value = mode.key
+//        }
+//    }
 
     fun setShortDirectionsResult() {
-        if (_directionsResult.value != null) {
-            formatShortDirectionsExplanations(_directionsResult.value!!)
+        if (directionsResult.value != null) {
+            formatShortDirectionsExplanations(directionsResult.value!!)
         } else {
             _error.postValue("_direction null")
             Log.d("확인 setDirections", "null")
@@ -180,9 +163,10 @@ class MyPromiseRoomViewModel(
         //아래 코드로 수정하기
 //        val temp = directions.routes[_selectedRouteIndex.value!!].legs[0]
         val temp = directions.routes[0].legs[0]
-//
+//TODO 아래 코드 삭제하기
         resultText.append("${temp.totalStartLocation.lat}, ${temp.totalStartLocation.lng}\n")
         resultText.append("출발 주소 ${temp.totalStartAddress}\n")
+        resultText.append("이 부분 확인 후 주소 출력 부분 삭제하기@@@@@\n")
 //
         resultText.append("🗺️목적지까지 ${temp.totalDistance.text},\n")
         resultText.append("앞으로 ${temp.totalDuration.text} 뒤")
@@ -191,9 +175,6 @@ class MyPromiseRoomViewModel(
         } else {
             resultText.append(" 도착 예정입니다.")
         }
-
-        //마지막에 \n 제거 확인하기!!!
-        resultText.append("\n\n\n")
         _shortExplanations.value = resultText.toString()
 
         Log.d("확인 short", "${resultText}")
@@ -228,7 +209,6 @@ class MyPromiseRoomViewModel(
         } catch (e: Exception) {
             Log.d("ddddddd8", "rror: Send To Message Error: $e")
         }
-
     }
 
     fun clearMessage() {

@@ -88,8 +88,20 @@ class DirectionsViewModel1(
     private val _startLocation = MutableLiveData<LatLng>()
     val startLocation: LiveData<LatLng> get() = _startLocation
 
+    private val _country = MutableLiveData<String>()
+    val country: LiveData<String> = _country
+
     fun setIsDepArrNone(set: Int) {
         _isDepArrNone.value = set
+    }
+
+    fun getCountry(): String? {
+        if (country.value != null) {
+            return country.value!!
+        } else {
+            _error.postValue("다시 시도해 주세요.")
+            return null
+        }
     }
 
     fun changeIsDepArrNone() {
@@ -111,6 +123,15 @@ class DirectionsViewModel1(
             FirstModeEnum.WALKING -> _mode.value = mode.key
             FirstModeEnum.BICYCLING -> _mode.value = mode.key
             FirstModeEnum.NOT_SELECTED -> _mode.value = mode.key
+        }
+
+
+    }
+
+    fun checkAvailable() {
+        if ((!checkCountry()) && _mode.value != "select") {
+            //_error.postValue("${country.value}에서는 ${_mode.value}의 경로가 제공되지 않습니다.")
+            Log.d("확인 에러 1", "${_mode.value}")
         }
     }
 
@@ -138,6 +159,24 @@ class DirectionsViewModel1(
         Log.d("123123", "${indexNum}")
     }
 
+    fun setCountry(country: String) {
+        _country.value = country
+    }
+
+    fun checkCountry(): Boolean {
+        if (country.value == "대한민국" || country.value == "South Korea") {
+            Log.d("확인 나라 check", "${country.value}")
+            if (mode.value.toString() != "transit") {
+                Log.d("확인 현재 모드", "${mode.value}")
+                _error.postValue("${country.value}에서는 ${mode.value}의 경로가 제공되지 않습니다.")
+                Log.d("확인 에러2", "${mode.value}")
+                return false
+            }
+            return true
+        }
+        return true
+    }
+
     fun setTime(hour: Int, minute: Int) {
         _selectedTime.value = LocalTime.of(hour, minute)
     }
@@ -161,6 +200,10 @@ class DirectionsViewModel1(
 
     //세부사항 없이 transit | driving | walking | bicycling
     fun getDirections() {
+        if (!checkCountry()) {
+            Log.d("확인 getDirections", "....")
+            return
+        }
         Log.d("확인 mode 상태", "${mode.value}")
         viewModelScope.launch {
             try {
@@ -176,6 +219,7 @@ class DirectionsViewModel1(
                 getOrigin()
                 setRouteSelectionText()
             } catch (e: Exception) {
+                Log.d("확인 error 여기?", "${e.message}")
                 _error.postValue(e.message)
             }
         }
