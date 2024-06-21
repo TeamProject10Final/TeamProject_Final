@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
-import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -16,9 +14,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentCalculation1Binding
 import java.util.Calendar
 
@@ -40,6 +38,12 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCalculation1Binding.inflate(layoutInflater, container, false)
+
+        binding.root.setOnClickListener {
+            hideKeyboard()
+            requireActivity().currentFocus!!.clearFocus()
+        }
+
         return binding.root
     }
 
@@ -67,24 +71,28 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
         binding.etDes11.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 binding.etDes11.clearFocus()
-                ConsumptionActivity.hideKeyboard(v)
+//                ConsumptionActivity.hideKeyboard(v)
+                hideKeyboard()
             }
         }
 
         binding.ivDate.setOnClickListener {
             showDatePickerDialog()
-            ConsumptionActivity.hideKeyboard(view)
+//            ConsumptionActivity.hideKeyboard(view)
+            hideKeyboard()
         }
 
         binding.consumptionSpinner.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
-                ConsumptionActivity.hideKeyboard(view)
+//                ConsumptionActivity.hideKeyboard(view)
+                hideKeyboard()
             }
             false
         }
 
         binding.btnCalNext.setOnClickListener {
-            ConsumptionActivity.hideKeyboard(view)
+//            ConsumptionActivity.hideKeyboard(view)
+            hideKeyboard()
             val detail = binding.etDes11.text.toString()
             val date = binding.etDes12.text.toString()
             val category = if (binding.consumptionSpinner.selectedItemPosition != binding.consumptionSpinner.adapter.count - 1) {
@@ -100,19 +108,23 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
                 viewModel.setCurrentItem(current = 1)
                 //findNavController().navigate(R.id.action_fragment1_to_fragment2)
             } else {
-                Toast.makeText(requireContext(), "모든 필드를 입력하세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "${resources.getString(R.string.cal_frgment_text1)}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
         //바깥 터치 시 키보드 숨기는 부분...
-        binding.root.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                ConsumptionActivity.hideKeyboard(view)
-                binding.etDes11.clearFocus()
-                binding.etDes12.clearFocus()
-                binding.consumptionSpinner.clearFocus()
-            }
-            false
-        }
+//        binding.root.setOnTouchListener { _, event ->
+//            if (event.action == MotionEvent.ACTION_DOWN) {
+//                ConsumptionActivity.hideKeyboard(view)
+//                binding.etDes11.clearFocus()
+//                binding.etDes12.clearFocus()
+//                binding.consumptionSpinner.clearFocus()
+//            }
+//            false
+//        }
     }
 
     private fun setupSpinner() {

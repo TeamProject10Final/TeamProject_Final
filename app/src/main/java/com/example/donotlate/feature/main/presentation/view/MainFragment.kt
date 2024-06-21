@@ -135,6 +135,17 @@ class MainFragment : Fragment() {
             val intent = Intent(requireContext(), FriendsActivity::class.java)
             startActivity(intent)
         }
+//  FriendsActivity 삭제 시, 아래 코드 사용
+//        binding.layoutMainGame.setOnClickListener {
+//            parentFragmentManager.beginTransaction()
+//                .setCustomAnimations(
+//                    /* enter = */ R.anim.slide_in,
+//                    /* exit = */ R.anim.fade_out,
+//                )
+//                .replace(R.id.frame, FriendsFragment())
+//                .addToBackStack(null).commit()
+//
+//        }
     }
 
     private fun observeViewModel() {

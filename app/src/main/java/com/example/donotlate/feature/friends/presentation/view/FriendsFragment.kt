@@ -15,7 +15,6 @@ import com.example.donotlate.databinding.FragmentFriendsBinding
 import com.example.donotlate.feature.friends.presentation.adapter.FriendsAdapter
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
 import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
-import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import kotlinx.coroutines.launch
 
 class FriendsFragment : Fragment() {
@@ -73,6 +72,14 @@ class FriendsFragment : Fragment() {
         binding.ivFriendBack.setOnClickListener {
             val activity = activity as FriendsActivity
             activity.finish()
+//  FriendsActivity 삭제 시, 아래 코드 사용
+//            parentFragmentManager.beginTransaction()
+//                .setCustomAnimations(
+//                    /* enter = */ R.anim.fade_in,
+//                    /* exit = */ R.anim.slide_out
+//                )
+//                .replace(R.id.frame, MainFragment())
+//                .commit()
         }
     }
 

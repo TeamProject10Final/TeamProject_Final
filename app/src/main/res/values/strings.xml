@@ -1,10 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DoNotLate</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="login"><u>로그인</u></string>
-    <string name="signup"><u>회원가입</u></string>
+    <!--로그인 페이지-->
+    <string name="login_top_title1">환영합니다.</string>
+    <string name="login_top_title2">로그인</string>
+    <string name="login_top_title3">을 진행해주세요.</string>
+    <string name="login_edit_text1">이메일을 입력해 주세요.</string>
+    <string name="login_edit_text2">비밀번호를 입력해 주세요.</string>
+    <string name="login_text1">이메일을 확인해 주세요.</string>
+    <string name="login_text2">비밀번호가 일치하지 않습니다.</string>
+    <string name="login_text3">계정이 없으신가요?</string>
+    <string name="login_text4">Or sign up with</string>
+    <string name="login_sign_up_line"><u>회원가입</u></string>
+
+    <!--회원가입 페이지-->
+    <string name="sign_up_top_title1">회원가입</string>
+    <string name="sign_up_top_title2">후,</string>
+    <string name="sign_up_top_title3">약속을 잡으러 가볼까요?</string>
+    <string name="sign_up_edit_text1">닉네임을 입력해 주세요.</string>
+    <string name="sign_up_edit_text2">비밀번호를 다시 입력해 주세요.</string>
+    <string name="sign_up_text1">닉네임에 특수문자가 포함되어 있습니다.</string>
+    <string name="sign_up_text2">비밀번호는 8~20자의 영문과 숫자로 조합해 주세요.</string>
+    <string name="sign_up_text3">이미 계정이 있으세요?</string>
+    <string name="sign_up_login_line"><u>로그인</u></string>
+
+    <!--정산하기 첫 페이지-->
+    <string name="cal_top_title1">님</string>
+    <string name="cal_text1">소비 분석</string>
+    <string name="cal_text2">총 지출\n\n</string>
+    <string name="cal_text3">진행 약속\n\n</string>
+    <string name="cal_text4">정산 중</string>
+    <string name="cal_text5">정산을 완료하지 않은 내역이 있습니다.</string>
+    <string name="cal_text6">정산 내역</string>
+    <string name="cal_text7">정산이 완료되었습니다.</string>
+    <string name="cal_btn_text">계산하기</string>
+
+    <!--정산하기 첫 페이지(Activity)-->
+    <string name="cal_activity_text1">원</string>
+    <string name="cal_activity_text2">건</string>
+    <string name="cal_activity_text3">정산 상태를 변경할까요?</string>
+    <string name="cal_activity_text4">네</string>
+    <string name="cal_activity_text5">아니오</string>
+
+    <!--정산하기 두번째 페이지-->
+    <string name="cal2_top_title1">정산을 시작해볼까요?</string>
+    <string name="cal2_top_title2">정산이력</string>
+    <string name="cal2_top_title3">을 입력해주세요.</string>
+    <string name="cal2_text1">지출 제목</string>
+    <string name="cal2_text2">지출 날짜</string>
+    <string name="cal2_text3">지출 카테고리</string>
+    <string name="cal2_edit_text1">지출 설명을 입력해주세요.</string>
+    <string name="cal2_edit_text2">아이콘을 눌러 날짜를 선택해주세요.</string>
+    <string name="cal2_btn_text">다음</string>
+
+    <!--정산하기 두번째 페이지(Fragment)-->
+    <string name="cal_frgment_text1">모든 필드를 입력하세요.</string>
+
+    <!--정산하기 세번째 페이지-->
+    <string name="cal3_top_title1">현기증 난단 말이에요,</string>
+    <string name="cal3_top_title2">정산금액</string>
+    <string name="cal3_top_title3">을 입력해주세요.</string>
+    <string name="cal3_text1">총 정산금액</string>
+    <string name="cal3_text2">벌금액</string>
+    <string name="cal3_text3">정산 인원수</string>
+    <string name="cal3_text4">명</string>
+    <string name="cal3_edit_text1">정산할 총 금액을 입력해주세요.</string>
+    <string name="cal3_edit_text2">별금을 입력해주세요.</string>
+    <string name="cal3_edit_text3">정산 인원을 입력해주세요.</string>
+
+    <!--정산하기 세번째 페이지(Fragment)-->
+    <string name="cal1_frgment_text1">나의 벌금추가</string>
+    <string name="cal1_frgment_text2">동료의 벌금추가</string>
+
+    <!--정산하기 세번째 페이지-->
+    <string name="cal4_top_title1">정산결과</string>
+    <string name="cal4_top_title2">입니다.</string>
+    <string name="cal4_top_title3">확인해주세요.</string>
+    <string name="cal4_btn_text1">정산완료</string>
+    <string name="cal4_btn_text2">나가기</string>
+
+    <!--미니게임 페이지-->
+    <string name="game_top_title1">오늘의 당첨자를 정하는</string>
+    <string name="game_top_title2">미니게임</string>
+    <string name="game_text1">룰렛</string>
+    <string name="game_text2">사다리 타기</string>
+
+    <!--미니게임_룰렛 페이지-->
+    <string name="game_roulette_text1">1~8번까지 경품을 정하여 \n 당첨자를 뽑는 게임입니다.</string>
+    <string name="game_roulette_text2">돌리기</string>
+
+    <!--미니게임_룰렛 페이지-->
+    <string name="roulette_text1">번 당첨</string>
+    <string name="roulette_text2">결과는...?</string>
+
+    <!--메인 페이지-->
+    <string name="main_top_title1">약속왕이 될 상인가,</string>
+    <string name="main_top_title2">님 어서오세요.</string>
+    <string name="main_text1">약속 잡기</string>
+    <string name="main_text2">내 약속</string>
+    <string name="main_text3">놀거리</string>
+    <string name="main_text4">정산 하기</string>
+    <string name="main_text5">미니 게임</string>
+    <string name="main_text6">친구 관리</string>
+
+    <!--친구 페이지-->
+    <string name="friend_text1">내 친구 목록</string>
+    <string name="friend_btn_text">요청된 친구 목록</string>
+
+    <!--친구요청 페이지-->
+    <string name="friend_request_top_title">새로운 친구를 찾아볼까요?</string>
+    <string name="friend_request_edit_text">요청할 친구를 검색해 주세요.</string>
+    <string name="friend_request_btn_text">검색</string>
+    <string name="friend_request_text">초대할 친구를 선택해 주세요.</string>
+
+
+
 
     <string name="time"><u>월요일: 오후 5:00 ~ 오전 2:00\n화요일: 오후 5:00 ~ 오전 2:00\n수요일: 오후 5:00 ~ 오전 2:00\n목요일: 오후 5:00 ~ 오전 2:00\n금요일: 오후 5:00 ~ 오전 3:00\n토요일: 오후 5:00 ~ 오전 2:00\n일요일: 오후 5:00 ~ 오전 2:00</u></string>
     <string name="preference_file_key">darkModeOff</string>
@@ -335,5 +447,4 @@
         2. 연락 이메일 : sp10nomorelateness@gmail.com
 
     </string>
-
 </resources>

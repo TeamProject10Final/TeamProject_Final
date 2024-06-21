@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
-import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity.Companion.addCommas
 import com.example.donotlate.databinding.FragmentCalculation3Binding
+import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity.Companion.addCommas
 
 class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
 
@@ -39,7 +39,7 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
                 tvRes32.text = date ?: ""
             }
             viewModel.number.observe(viewLifecycleOwner) { number ->
-                tvRes33.text = "$number 명"
+                tvRes33.text = "$number ${resources.getString(R.string.cal3_text3)}"
             }
             viewModel.category.observe(viewLifecycleOwner) { category ->
                 tvRes34.text = category ?: ""
