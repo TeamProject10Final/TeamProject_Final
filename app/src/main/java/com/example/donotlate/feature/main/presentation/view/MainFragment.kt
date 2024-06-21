@@ -190,34 +190,4 @@ class MainFragment : Fragment() {
 
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("MainFragment", "onStart")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("MainFragment", "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("MainFragment", "onStop")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("MainFragment", "onResume")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d("MainFragment", "onDestroyView")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("MainFragment", "onDestroy")
-    }
 }

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
@@ -66,18 +65,6 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         }
 
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        roomViewModel.getAllUserData()
-//        lifecycleScope.launch {
-//            roomViewModel.getAllUserData.collect { userList ->
-//                userList.forEach { user ->
-//                    Log.d("User", user.name)
-//                }
-//            }
-//        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
