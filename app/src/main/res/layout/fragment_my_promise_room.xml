@@ -24,7 +24,23 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_map"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_arrived"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/btn_radius_arctic"
+        android:text="도착"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
 
     <ImageView

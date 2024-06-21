@@ -23,6 +23,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.AppContainer
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
@@ -38,6 +39,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
 import java.util.Calendar
 import java.util.Locale
 
@@ -174,16 +180,30 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 }
 
                 else -> {
-                    binding.spinner2tm.visibility = View.GONE
-                    binding.spinner3rp.visibility = View.GONE
-                    binding.btnSelectTime.visibility = View.GONE
-                    binding.etTime.visibility = View.GONE
-                    binding.btnSearchDirectionRoutes.visibility = View.GONE
 
-                    Log.d("확인 user map", sharedViewModel.getUserLocationString().toString())
-                    //여기서 검색하기
-                    sharedViewModel.getDirections()
-                    binding.ivDetailView.isVisible = true
+                    lifecycleScope.launch {
+                        binding.spinner2tm.visibility = View.GONE
+                        binding.spinner3rp.visibility = View.GONE
+                        binding.btnSelectTime.visibility = View.GONE
+                        binding.etTime.visibility = View.GONE
+                        binding.btnSearchDirectionRoutes.visibility = View.GONE
+                        binding.ivDetailView.isVisible = false
+                        Log.d("확인 user map", sharedViewModel.getUserLocationString().toString())
+
+                        withContext(Dispatchers.IO) {
+                            //여기서 바로 검색하게 하기 - 자동차, 도보 등
+                            sharedViewModel.getDirections()
+                        }
+                        delay(1000)
+
+                        sharedViewModel.afterSelecting()
+                        val bottomSheet = DirectionsBottomFragment()
+                        bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
+                        bottomSheet.show(parentFragmentManager, "tag")
+                        sharedViewModel.refreshIndex()
+                    }
+
+
                 }
             }
         }
@@ -326,6 +346,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 Log.d("확인 mode", "$selectedMode")
                 sharedViewModel.setMode(selectedMode)
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
@@ -341,6 +362,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 val selectedMode = list2[position]
                 sharedViewModel.setTransitMode(selectedMode)
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
@@ -356,6 +378,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 val selectedItem = list3[position]
                 sharedViewModel.setRoutingPreference(selectedItem)
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
@@ -367,23 +390,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val bottomSheetDialogFragment = RouteDetailsBottomSheet()
             bottomSheetDialogFragment.show(parentFragmentManager, "tag")
         }
-        binding.btnSendIndex.setOnClickListener {
-
-            val selectedIndex = binding.etSelectionIndex.text.toString()
-            if (selectedIndex != "") {
-                val thisIndex = selectedIndex.toInt()
-                sharedViewModel.setSelectedRouteIndex(thisIndex)
-                if (sharedViewModel.mode.value.toString() == "transit") {
-                    Log.d("확인 화살표", "${sharedViewModel.mode.value.toString()}")
-                    binding.ivDetailView.isVisible = true
-                } else {
-                    Log.d("확인 화살표 else", "${sharedViewModel.mode.value.toString()}")
-                    binding.ivDetailView.isVisible = false
-                }
-            } else {
-                Log.d("확인 인덱스 오류", "$selectedIndex")
-            }
-        }
+//        binding.btnSendIndex.setOnClickListener {
+//
+//            val selectedIndex = binding.etSelectionIndex.text.toString()
+//            if (selectedIndex != "") {
+//                val thisIndex = selectedIndex.toInt()
+//                sharedViewModel.setSelectedRouteIndex(thisIndex)
+//                if (sharedViewModel.mode.value.toString() == "transit") {
+//                    Log.d("확인 화살표", "${sharedViewModel.mode.value.toString()}")
+//                    binding.ivDetailView.isVisible = true
+//                } else {
+//                    Log.d("확인 화살표 else", "${sharedViewModel.mode.value.toString()}")
+//                    binding.ivDetailView.isVisible = false
+//                }
+//            } else {
+//                Log.d("확인 인덱스 오류", "$selectedIndex")
+//            }
+//        }
 
         binding.btnSelectTime.setOnClickListener {
             sharedViewModel.changeIsDepArrNone()
@@ -392,20 +415,30 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         //검색버튼
         binding.btnSearchDirectionRoutes.setOnClickListener {
             Log.d("확인 다른검색", sharedViewModel.routingPreference.value.toString())
+            lifecycleScope.launch {
+                binding.spinner2tm.visibility = View.GONE
+                binding.spinner3rp.visibility = View.GONE
+                binding.btnSelectTime.visibility = View.GONE
+                binding.etTime.visibility = View.GONE
+                binding.btnSearchDirectionRoutes.visibility = View.GONE
 
-            sharedViewModel.getDirByTransit()
+                withContext(Dispatchers.IO) {
+                    sharedViewModel.getDirByTransit()
+                }
+                delay(1000)
+                val bottomSheet = DirectionsBottomFragment()
+                bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
+                bottomSheet.show(parentFragmentManager, "tag")
 
-            binding.spinner2tm.visibility = View.GONE
-            binding.spinner3rp.visibility = View.GONE
-            binding.btnSelectTime.visibility = View.GONE
-            binding.etTime.visibility = View.GONE
-            binding.btnSearchDirectionRoutes.visibility = View.GONE
+                if (sharedViewModel.mode.value.toString() == "transit") {
+                    binding.ivDetailView.isVisible = true
+                } else {
+                    binding.ivDetailView.isVisible = false
+                }
+                sharedViewModel.refreshIndex()
+            }
 
-            binding.ivDetailView.isVisible = false
 
-            val bottomSheet = DirectionsBottomFragment()
-            bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
-            bottomSheet.show(parentFragmentManager, "tag")
 
         }
         binding.ivDetailView.setOnClickListener {

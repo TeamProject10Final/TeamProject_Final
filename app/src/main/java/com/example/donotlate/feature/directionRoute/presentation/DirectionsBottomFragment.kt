@@ -74,20 +74,6 @@ class DirectionsBottomFragment : BottomSheetDialogFragment() {
     private fun initClick() {
         directionsAdapter.itemClick = object : DirectionsAdapter.OnItemClickListener {
             override fun onItemClick(view: View, position: Int) {
-//                val selectedIndex = binding.etSelectionIndex.text.toString()
-//                if (selectedIndex != "") {
-//                    val thisIndex = selectedIndex.toInt()
-//                    sharedViewModel.setSelectedRouteIndex(thisIndex)
-//                    if (sharedViewModel.mode.value.toString() == "transit") {
-//                        Log.d("확인 화살표", "${sharedViewModel.mode.value.toString()}")
-//                        binding.ivDetailView.isVisible = true
-//                    } else {
-//                        Log.d("확인 화살표 else", "${sharedViewModel.mode.value.toString()}")
-//                        binding.ivDetailView.isVisible = false
-//                    }
-//                } else {
-//                    Log.d("확인 인덱스 오류", "$selectedIndex")
-//                }
                 val selectedIndex = position
                 if (position != null) {
                     sharedViewModel.setSelectedRouteIndex(position)
@@ -111,5 +97,9 @@ class DirectionsBottomFragment : BottomSheetDialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

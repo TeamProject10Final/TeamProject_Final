@@ -131,11 +131,6 @@ class DirectionsViewModel1(
             TransitRoutePreferenceEnum.FEWER_TRANSFER -> _routingPreference.value = rp.key
             TransitRoutePreferenceEnum.NOT_SELECTED -> _routingPreference.value = ""
         }
-//        if (rp.key == "select") {
-//            _routingPreference.value = ""
-//        } else {
-//            _routingPreference.value = rp.message
-//        }
     }
 
     fun setSelectedRouteIndex(indexNum: Int) {
@@ -166,6 +161,7 @@ class DirectionsViewModel1(
 
     //세부사항 없이 transit | driving | walking | bicycling
     fun getDirections() {
+        Log.d("확인 mode 상태", "${mode.value}")
         viewModelScope.launch {
             try {
                 val result = getDirectionsUseCase(
@@ -187,6 +183,7 @@ class DirectionsViewModel1(
 
     //transit의 경우 시간 설정 유무에 따라 3가지로 나뉘니까
     fun getDirByTransit() {
+        Log.d("확인 mode 상태", "${mode.value}")
         when (isDepArrNone.value) {
             -1 -> {
                 //departure 설정
@@ -245,6 +242,7 @@ class DirectionsViewModel1(
                 updateBounds()
                 Log.d("확인", "viewmodel 2: ${_directionsResult.value}")
                 setRouteSelectionText()
+
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }
@@ -278,7 +276,7 @@ class DirectionsViewModel1(
         viewModelScope.launch {
             updatePolyLineWithColors()
             updateBounds()
-            setShortDirectionsResult()
+            //setShortDirectionsResult()
             setDirectionsResult()
         }
     }
@@ -366,6 +364,10 @@ class DirectionsViewModel1(
         }
     }
 
+    fun refreshIndex() {
+        _selectedRouteIndex.value = 0
+    }
+
     // directionsResult를 설정하는 메서드
     fun setDirectionsResult() {
         if (_directionsResult.value != null) {
@@ -380,11 +382,16 @@ class DirectionsViewModel1(
     private fun formatDirectionsExplanations(directions: DirectionsModel) {
         val resultText = StringBuilder()
         val finalText = StringBuilder()
+        Log.d("확인 index 상태", "${selectedRouteIndex.value}")
 
         directions.routes.get(_selectedRouteIndex.value!!).legs.forEach { leg ->
             resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
-            resultText.append("앞으로 ${leg.totalDuration.text} 뒤인\n")
-            resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
+            resultText.append("앞으로 ${leg.totalDuration.text} 뒤")
+            if (mode.value == "transit") {
+                resultText.append("인\n🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
+            } else {
+                resultText.append(" 도착 예정입니다.\n")
+            }
             resultText.append("\n")
             var num = 1
             val resultText1 = StringBuilder()
@@ -429,6 +436,7 @@ class DirectionsViewModel1(
 
                 num++
             }
+            resultText.append(resultText1)
         }
         _directionExplanations.value = resultText.toString()
     }
@@ -529,7 +537,7 @@ class DirectionsViewModel1(
 
     private fun formatRouteSelectionText(directions: DirectionsModel) {
         val resultsList = mutableListOf<String>()
-
+        refreshIndex()
 
         directions.routes.size
         var routeIndex = 1
@@ -539,8 +547,12 @@ class DirectionsViewModel1(
 
             resultText.append("🔵경로 ${routeIndex}\n")
             route.legs.forEach { leg ->
-                resultText1.append("  예상 소요 시간 : ${leg.totalDuration.text},\n")
-                resultText1.append("🕐${leg.totalArrivalTime.text}에 도착 예상.\n")
+                resultText1.append("  예상 소요 시간 : ${leg.totalDuration.text}")
+                if (mode.value == "transit") {
+                    resultText.append("\n🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
+                } else {
+                    resultText.append("\n")
+                }
                 resultText1.append("\n")
 
                 val resultText2 = StringBuilder()
@@ -564,26 +576,26 @@ class DirectionsViewModel1(
 
 
     //채팅방에서 위치 공유하는 텍스트
-    private fun setShortDirectionsResult() {
-        if (_directionsResult.value != null) {
-            formatShortDirectionsExplanations(_directionsResult.value!!)
-        } else {
-            _error.postValue("_direction null")
-            Log.d("확인 setDirections", "null")
-        }
-    }
-
-    private fun formatShortDirectionsExplanations(directions: DirectionsModel) {
-        val resultText = StringBuilder()
-
-        directions.routes.get(_selectedRouteIndex.value!!).legs.forEach { leg ->
-            resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
-            resultText.append("앞으로 ${leg.totalDuration.text} 뒤인\n")
-            resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
-            resultText.append("\n")
-        }
-        _shortExplanations.value = resultText.toString()
-    }
+//    private fun setShortDirectionsResult() {
+//        if (_directionsResult.value != null) {
+//            formatShortDirectionsExplanations(_directionsResult.value!!)
+//        } else {
+//            _error.postValue("_direction null")
+//            Log.d("확인 setDirections", "null")
+//        }
+//    }
+//
+//    private fun formatShortDirectionsExplanations(directions: DirectionsModel) {
+//        val resultText = StringBuilder()
+//
+//        directions.routes.get(_selectedRouteIndex.value!!).legs.forEach { leg ->
+//            resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
+//            resultText.append("앞으로 ${leg.totalDuration.text} 뒤인\n")
+//            resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
+//            resultText.append("\n")
+//        }
+//        _shortExplanations.value = resultText.toString()
+//    }
 
 }
 
