@@ -15,6 +15,8 @@ import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseC
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageEntity
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageModel
 import com.example.donotlate.feature.mypromise.presentation.mapper.toViewType
+import com.example.donotlate.feature.mypromise.presentation.model.FirstMode
+import com.example.donotlate.feature.mypromise.presentation.model.FirstModeEnum
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.MessageViewType
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
@@ -52,25 +54,30 @@ class MyPromiseRoomViewModel(
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
-    private val _userLocation = MutableLiveData<LatLng>()
-    val userLocation: LiveData<LatLng> get() = _userLocation
+    private val _originString = MutableLiveData<String>()
+    val originString: LiveData<String> get() = _originString
+
+    private val _userLocationLatLng = MutableLiveData<LatLng>()
+    val userLocationLatLng: LiveData<LatLng> get() = _userLocationLatLng
 
     private val _destinationLatLng = MutableLiveData<LatLng>()
     val destinationLatLng: LiveData<LatLng> get() = _destinationLatLng
 
+    private val _destinationString = MutableLiveData<String>()
+    val destinationString: LiveData<String> get() = _destinationString
+
     private val _distanceBetween = MutableLiveData<Double>()
     val distanceBetween: LiveData<Double> get() = _distanceBetween
 
-    //여기에서 목적지에 대한 위도 경도를 저장해야 함
-    //fun setDestinationLatLng(){
-    //observe 하다가 가져오던가...
-    // }
+    private val _selectedRouteIndex = MutableLiveData<Int>(0)
+    val selectedRouteIndex: LiveData<Int> get() = _selectedRouteIndex
+
 
     private fun calDistance2() {
         //지구 반지름 (km)
         val earthRadius = 6371.0
 
-        val userLocationVal = userLocation.value
+        val userLocationVal = userLocationLatLng.value
         val destinationLatLngVal = destinationLatLng.value
         if (userLocationVal != null && destinationLatLngVal != null) {
             val latDist = Math.toRadians(userLocationVal.latitude - destinationLatLngVal.latitude)
@@ -92,10 +99,10 @@ class MyPromiseRoomViewModel(
         val EARTH_R = 6371000.0
         val rad = Math.PI / 180
 
-        val radLat1 = rad * (userLocation.value?.latitude.toString().toLong())
+        val radLat1 = rad * (userLocationLatLng.value?.latitude.toString().toLong())
         val radLat2 = rad * (destinationLatLng.value?.latitude.toString().toLong())
 
-        val radDist = rad * (userLocation.value?.longitude.toString()
+        val radDist = rad * (userLocationLatLng.value?.longitude.toString()
             .toLong() - destinationLatLng.value?.longitude.toString().toLong())
 
         var distance = sin(radLat1) * sin(radLat2)
@@ -117,42 +124,90 @@ class MyPromiseRoomViewModel(
 
     private val _directionsResult = MutableLiveData<DirectionsModel>()
     val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
-    private val _origin = MutableLiveData<String>()
-    val origin: LiveData<String> get() = _origin
 
-    private val _destination = MutableLiveData<String>()
-    val destination: LiveData<String> get() = _destination
+//    private val _destination = MutableLiveData<String>()
+//    val destination: LiveData<String> get() = _destination
 
-    private val _mode = MutableLiveData<String>()
+    //수정하기
+    private val _mode = MutableLiveData<String>("transit")
     val mode: LiveData<String> get() = _mode
 
     private val _shortExplanations = MutableLiveData<String>()
     val shortExplanations: LiveData<String> get() = _shortExplanations
 
     fun setUserLocation(location: LatLng) {
-        _userLocation.value = location
+        _userLocationLatLng.value = location
+        getUserLocationString()
     }
 
     // 사용자 위치를 문자열로 반환하는 메서드 추가
-    fun getUserLocationString(delimiter: String = ","): String? {
-        val location = userLocation.value
-        return location?.let {
-            "${it.latitude}$delimiter${it.longitude}"
+    fun getUserLocationString(delimiter: String = ","){
+        val location = userLocationLatLng.value
+        if(location!=null){
+            _originString.value = "${location.latitude}$delimiter${location.longitude}"
+            Log.d("확인 userLocaString", "${originString.value}")
+        }else{
+            Log.d("확인 userLocaString", "null")
+        }
+
+    }
+
+    fun setDestinationLatLng() {
+
+        val temp = _directionsResult.value?.routes?.get(0)?.legs?.get(0)?.totalEndLocation
+        if (temp != null) {
+            val tempLatLng = LatLng(temp.lat, temp.lng)
+            Log.d("확인 목적지", "목적지 ${tempLatLng.latitude}, ${tempLatLng.longitude}")
+            _destinationLatLng.value = tempLatLng
+        } else {
+            _error.postValue("목적지 세팅 실패")
+            Log.d("확인 목적지", "목적지 null")
         }
     }
 
-    fun getDirections(origin: String, destination: String, mode: String) {
-        Log.d("확인", "$origin, $destination, $mode")
+    fun setDestination(dest: String) {
+        _destinationString.value = dest
+    }
+
+//    fun getDirections(origin: String, destination: String, mode: String) {
+//        Log.d("확인", "$origin, $destination, $mode")
+//        viewModelScope.launch {
+//            try {
+//                val result = getDirectionsUseCase(origin, destination, mode)
+//                _directionsResult.value = result.toModel()
+//                setShortDirectionsResult()
+//                Log.d("확인 검색", "viewmodel: ${_directionsResult.value}")
+//            } catch (e: Exception) {
+//                _error.postValue(e.message)
+//            }
+//        }
+//    }
+
+    fun getDirections() {
         viewModelScope.launch {
             try {
-                updateODM(origin, destination, mode)
-                val result = getDirectionsUseCase(origin, destination, mode)
+                val result = getDirectionsUseCase(
+                    originString.value.toString(),
+                    destinationString.value.toString(),
+                    mode.value.toString()
+                )
                 _directionsResult.value = result.toModel()
+                //setRouteSelectionText()
                 setShortDirectionsResult()
-                Log.d("확인 검색", "viewmodel: ${_directionsResult.value}")
+                setDestinationLatLng()
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }
+        }
+    }
+
+    fun setMode(mode: FirstMode) {
+        when (mode.type) {
+            FirstModeEnum.TRANSIT -> _mode.value = mode.key
+            FirstModeEnum.DRIVING -> _mode.value = mode.key
+            FirstModeEnum.WALKING -> _mode.value = mode.key
+            FirstModeEnum.BICYCLING -> _mode.value = mode.key
+            FirstModeEnum.NOT_SELECTED -> _mode.value = mode.key
         }
     }
 
@@ -166,31 +221,28 @@ class MyPromiseRoomViewModel(
     }
 
     private fun formatShortDirectionsExplanations(directions: DirectionsModel) {
-        val resultText = StringBuilder()
-
         //선택하면 그거에 대해 1번 출력되게
-        directions.routes.forEach { route ->
-            route.legs.forEach { leg ->
-
-                resultText.append("${leg.totalStartLocation.lat}, ${leg.totalStartLocation.lng}\n")
-                resultText.append("출발 주소 ${leg.totalStartAddress}\n")
-
-                resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
-                resultText.append("앞으로 ${leg.totalDuration.text} 뒤인\n")
-                resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.")
-
-                //마지막에 \n 제거 확인하기!!!
-                resultText.append("\n\n\n")
-            }
+        val resultText = StringBuilder()
+        //아래 코드로 수정하기
+//        val temp = directions.routes[_selectedRouteIndex.value!!].legs[0]
+        val temp = directions.routes[0].legs[0]
+//
+        resultText.append("${temp.totalStartLocation.lat}, ${temp.totalStartLocation.lng}\n")
+        resultText.append("출발 주소 ${temp.totalStartAddress}\n")
+//
+        resultText.append("🗺️목적지까지 ${temp.totalDistance.text},\n")
+        resultText.append("앞으로 ${temp.totalDuration.text} 뒤")
+        if (mode.value == "transit") {
+            resultText.append("인\n🕐${temp.totalArrivalTime.text}에 도착 예정입니다.")
+        } else {
+            resultText.append(" 도착 예정입니다.")
         }
 
+        //마지막에 \n 제거 확인하기!!!
+        resultText.append("\n\n\n")
         _shortExplanations.value = resultText.toString()
-    }
 
-    private fun updateODM(origin: String, destination: String, mode: String) {
-        _origin.value = origin
-        _destination.value = destination
-        _mode.value = mode
+        Log.d("확인 short", "${resultText}")
     }
 
     fun loadMessage(roomId: String) {

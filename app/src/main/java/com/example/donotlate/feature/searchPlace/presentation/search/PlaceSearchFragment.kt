@@ -42,7 +42,8 @@ class PlaceSearchFragment : Fragment() {
 
         binding.root.setOnClickListener {
             hideKeyboard()
-            requireActivity().currentFocus!!.clearFocus()
+            //TODO 여기 오류납니다
+//            requireActivity().currentFocus!!.clearFocus()
         }
 
         return binding.root
@@ -57,14 +58,16 @@ class PlaceSearchFragment : Fragment() {
         initViewModel()
 
         binding.btnSearchButton.setOnClickListener {
-
+            searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
+            binding.rvMap.visibility = View.VISIBLE
+            binding.imageView2.visibility = View.INVISIBLE
+            binding.tvDefaultText.visibility = View.INVISIBLE
             hideKeyboard()
         }
-
-        searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
-        binding.rvMap.visibility = View.VISIBLE
-        binding.imageView2.visibility = View.INVISIBLE
-        binding.tvDefaultText.visibility = View.INVISIBLE
+//        searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
+//        binding.rvMap.visibility = View.VISIBLE
+//        binding.imageView2.visibility = View.INVISIBLE
+//        binding.tvDefaultText.visibility = View.INVISIBLE
 
         editTextProcess()
         backButton()

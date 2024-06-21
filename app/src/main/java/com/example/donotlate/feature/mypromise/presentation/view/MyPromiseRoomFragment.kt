@@ -138,7 +138,7 @@ class MyPromiseRoomFragment : Fragment() {
                     fastestInterval = 5000 //5초
                     priority = LocationRequest.PRIORITY_HIGH_ACCURACY
                 }
-            fusedLocationClient?.requestLocationUpdates(
+            fusedLocationClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,
                 Looper.getMainLooper()
@@ -164,6 +164,8 @@ class MyPromiseRoomFragment : Fragment() {
         initAdapter()
         backButton()
 
+        observeViewModel()
+
         promiseRoom?.let { room ->
             promiseDate = room.promiseDate
             roomTitle = room.roomTitle
@@ -187,6 +189,28 @@ class MyPromiseRoomFragment : Fragment() {
 
         binding.ivRoomMap.setOnClickListener {
             checkPermissionAndProceed()
+        }
+    }
+
+    private fun observeViewModel() {
+        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner){
+            //처음에 방 들어가자마자 초기화하기! 거리 계산해두기
+            if(it<=0.01){
+                //도착 버튼이 보이게
+                //binding.~~
+            }else{
+                //도착 버튼이 보이지 않게
+            }
+        }
+
+        myPromiseViewModel.shortExplanations.observe(viewLifecycleOwner){
+            if(it.isNullOrEmpty()){
+                Log.d("확인 shmessage", "nullorempty- $it")
+                return@observe
+            }
+            val roomId = roomId ?: throw NullPointerException("roomId is Null")
+            Log.d("확인", "shortMessage $it")
+            sendMessage(roomId, it)
         }
     }
 
@@ -293,22 +317,22 @@ class MyPromiseRoomFragment : Fragment() {
     }
 
     private fun shortMessage() {
-        val currentUserLocation = myPromiseViewModel.getUserLocationString()!!
-        roomDestination?.let { it1 ->
-            myPromiseViewModel.getDirections(
-                currentUserLocation,
-                it1, "transit"
-            )
+        val currentUserLocation = myPromiseViewModel.originString.value
+
+        roomDestination?.let {
+            myPromiseViewModel.setDestination(it)
+
+            myPromiseViewModel.getDirections()
         }
         Log.d("확인 확인 확인", "${currentUserLocation}")
         Log.d("확인 확인 확인", "dest : ${roomDestination}")
 
-        val shortmessage = myPromiseViewModel.shortExplanations.value
-        val roomId = roomId ?: throw NullPointerException("roomId is Null")
-        Log.d("확인", "shortMessage $shortmessage")
-        if (shortmessage != null) {
-            sendMessage(roomId, shortmessage)
-        }
+//        val shortmessage = myPromiseViewModel.shortExplanations.value
+//        val roomId = roomId ?: throw NullPointerException("roomId is Null")
+//        Log.d("확인", "shortMessage $shortmessage")
+//        if (shortmessage != null) {
+//            sendMessage(roomId, shortmessage)
+//        }
     }
 
     override fun onRequestPermissionsResult(
