@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -35,6 +36,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.Timestamp
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MyPromiseRoomFragment : Fragment() {
@@ -45,6 +47,7 @@ class MyPromiseRoomFragment : Fragment() {
             appContainer.messageSendingUseCase,
             appContainer.messageReceivingUseCase,
             appContainer.getDirectionsUseCase,
+            appContainer.removeParticipantsUseCase
         )
     }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -183,6 +186,18 @@ class MyPromiseRoomFragment : Fragment() {
                 sendMessage(roomId, contents)
                 binding.etInputMessage.text = null
             }
+        }
+
+        binding.btnRoomExit.setOnClickListener {
+            val roomId = roomId
+            val participantId = currentUserData?.uId
+            Log.d("나가기", "정보확인 ${roomId}, ${participantId}")
+
+            if(roomId != null && participantId != null){
+                Log.d("나가기", "실행")
+                setExitButton(roomId, participantId)
+            }
+            observeViewModel()
         }
 
         binding.ivRoomMap.setOnClickListener {
@@ -334,8 +349,8 @@ class MyPromiseRoomFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         parentFragmentManager.popBackStack()
-        _binding = null
         myPromiseViewModel.clearMessage()
+        _binding = null
     }
 
     override fun onStart() {
@@ -346,6 +361,24 @@ class MyPromiseRoomFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         stopLocationUpdates()
+    }
+
+    //임시
+    private fun setExitButton(roomId: String, participantId:String){
+        viewLifecycleOwner.lifecycleScope.launch {
+            myPromiseViewModel.exitRoom(roomId, participantId)
+        }
+    }
+
+    private fun observeViewModel(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            myPromiseViewModel.removeParticipantIdResult.collect{
+                when(it){
+                    true -> Toast.makeText(requireContext(), "나가기 성공", Toast.LENGTH_SHORT).show()
+                    false -> Toast.makeText(requireContext(), "나가기 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 }
 

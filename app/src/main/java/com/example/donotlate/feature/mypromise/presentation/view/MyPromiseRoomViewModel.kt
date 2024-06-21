@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.donotlate.core.domain.usecase.promiseusecase.RemoveParticipantsUseCase
 import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
 import com.example.donotlate.feature.directionRoute.presentation.DirectionsModel
@@ -32,7 +33,8 @@ import kotlin.math.sqrt
 class MyPromiseRoomViewModel(
     private val messageSendingUseCase: MessageSendingUseCase,
     private val messageReceivingUseCase: MessageReceivingUseCase,
-    private val getDirectionsUseCase: GetDirectionsUseCase
+    private val getDirectionsUseCase: GetDirectionsUseCase,
+    private val removeParticipantsUseCase: RemoveParticipantsUseCase
 ) : ViewModel() {
 
     private var currentRoomId: String? = null
@@ -60,6 +62,10 @@ class MyPromiseRoomViewModel(
 
     private val _distanceBetween = MutableLiveData<Double>()
     val distanceBetween: LiveData<Double> get() = _distanceBetween
+
+    //임시
+    private val _removeParticipantIdResult = MutableStateFlow<Boolean>(false)
+    val removeParticipantIdResult: StateFlow<Boolean> get() = _removeParticipantIdResult
 
     //여기에서 목적지에 대한 위도 경도를 저장해야 함
     //fun setDestinationLatLng(){
@@ -228,12 +234,22 @@ class MyPromiseRoomViewModel(
     fun clearMessage() {
         _message.value = emptyList()
     }
+
+    //임시
+    fun exitRoom(roomId: String, participantId:String){
+        viewModelScope.launch {
+            removeParticipantsUseCase(roomId, participantId).collect{
+                _removeParticipantIdResult.value = it
+            }
+        }
+    }
 }
 
 class MyPromiseRoomViewModelFactory(
     private val messageSendingUseCase: MessageSendingUseCase,
     private val messageReceivingUseCase: MessageReceivingUseCase,
-    private val getDirectionsUseCase: GetDirectionsUseCase
+    private val getDirectionsUseCase: GetDirectionsUseCase,
+    private val removeParticipantsUseCase: RemoveParticipantsUseCase
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -242,7 +258,8 @@ class MyPromiseRoomViewModelFactory(
             return MyPromiseRoomViewModel(
                 messageSendingUseCase,
                 messageReceivingUseCase,
-                getDirectionsUseCase
+                getDirectionsUseCase,
+                removeParticipantsUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

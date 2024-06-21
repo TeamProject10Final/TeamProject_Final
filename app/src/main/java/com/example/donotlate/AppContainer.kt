@@ -1,7 +1,9 @@
 package com.example.donotlate
 
 import com.example.donotlate.core.data.repository.FirebaseDataSourceImpl
+import com.example.donotlate.core.data.repository.PromiseRoomRepositoryImpl
 import com.example.donotlate.core.data.session.SessionManagerImpl
+import com.example.donotlate.core.domain.repository.PromiseRoomRepository
 import com.example.donotlate.core.domain.usecase.AcceptFriendRequestsUseCase
 import com.example.donotlate.core.domain.usecase.GetCurrentUserDataUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendRequestsListUseCase
@@ -10,6 +12,7 @@ import com.example.donotlate.core.domain.usecase.GetFriendsListFromFirebaseUseCa
 import com.example.donotlate.core.domain.usecase.LoadToMyPromiseListUseCase
 import com.example.donotlate.core.domain.usecase.MakeAFriendRequestUseCase
 import com.example.donotlate.core.domain.usecase.SearchUserByIdUseCase
+import com.example.donotlate.core.domain.usecase.promiseusecase.RemoveParticipantsUseCase
 import com.example.donotlate.feature.auth.data.repository.AuthRepositoryImpl
 import com.example.donotlate.feature.auth.domain.useCase.LogInUseCase
 import com.example.donotlate.feature.auth.domain.useCase.SignUpUseCase
@@ -244,6 +247,15 @@ class AppContainer {
         SessionManagerImpl()
     }
 
+
+    // 임시
+    private val promiseRoomRepository:PromiseRoomRepository by lazy {
+        PromiseRoomRepositoryImpl(firebaseFireStore)
+    }
+    val removeParticipantsUseCase:RemoveParticipantsUseCase by lazy {
+        RemoveParticipantsUseCase(promiseRoomRepository)
+    }
+
 }
 
 class LogInContainer(
@@ -367,12 +379,14 @@ class MyPromiseRoomContainer(
     val messageSendingUseCase: MessageSendingUseCase,
     val messageReceivingUseCase: MessageReceivingUseCase,
     private val getDirectionsUseCase: GetDirectionsUseCase,
+    val removeParticipantsUseCase: RemoveParticipantsUseCase
 
     ) {
     val myPromiseViewModelFactory = MyPromiseRoomViewModelFactory(
         messageSendingUseCase,
         messageReceivingUseCase,
-        getDirectionsUseCase
+        getDirectionsUseCase,
+        removeParticipantsUseCase
     )
 }
 

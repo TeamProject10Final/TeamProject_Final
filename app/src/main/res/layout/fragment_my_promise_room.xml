@@ -125,6 +125,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <Button
+            android:id="@+id/btn_room_exit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toTopOf="@id/btn_send"
+            app:layout_constraintStart_toStartOf="@id/btn_send"
+            app:layout_constraintEnd_toEndOf="@id/btn_send"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
