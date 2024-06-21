@@ -16,7 +16,7 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
 
 class MyPromiseRoomFragment : Fragment() {
 
-    private val myPromiseViewModel: MyPromiseRoomViewModel by activityViewModels {
+    private val myPromiseViewModel: MyPromiseRoomViewModel by viewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MyPromiseRoomViewModelFactory(
             appContainer.messageSendingUseCase,
@@ -79,7 +79,6 @@ class MyPromiseRoomFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         checkPermissionAndProceed()
         arguments?.let { bundle ->
             promiseRoom = bundle.getParcelable("promiseRoom")
@@ -131,6 +130,10 @@ class MyPromiseRoomFragment : Fragment() {
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
         if (hasLocationPermission()) {
+            if (::fusedLocationClient.isInitialized.not()) {
+                fusedLocationClient =
+                    LocationServices.getFusedLocationProviderClient(requireActivity())
+            }
             val locationRequest = LocationRequest.create()
                 .apply {
                     interval = 10000 //10초
@@ -326,9 +329,11 @@ class MyPromiseRoomFragment : Fragment() {
 
     @SuppressLint("MissingPermission")
     private fun getCurrentLocation() {
-        if (hasLocationPermission()) {
+//        if (hasLocationPermission()) {
+        Log.d("확인 getCurrent", "a")
             fusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->
+                    Log.d("확인 getCurrent", "b $location")
                     location?.let {
                         val userLatLng = LatLng(it.latitude, it.longitude)
                         myPromiseViewModel.setUserLocation(userLatLng)
@@ -338,9 +343,10 @@ class MyPromiseRoomFragment : Fragment() {
                     }
                 }
                 .addOnFailureListener {
+                    Log.d("확인 getCurrent", "c")
                     //Toast.makeText(requireContext(), "2 위치 얻기 실패", Toast.LENGTH_SHORT).show()
                 }
-        }
+//        }
     }
 
     private fun shortMessage() {
@@ -367,7 +373,9 @@ class MyPromiseRoomFragment : Fragment() {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 Log.d("확인", "2")
                 // 권한이 부여되었으므로 현재 위치를 받아옴
+                startLocationUpdates()
                 getCurrentLocation()
+
             } else {
                 Log.d("확인", "3")
 

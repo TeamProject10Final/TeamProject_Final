@@ -2,7 +2,6 @@ package com.example.donotlate.feature.consumption.presentation
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,13 +59,13 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
 
 
 //하단 삭제
-            viewModel.mediatorLiveData.observe(viewLifecycleOwner) {
-                calculate()?.let {
-                    binding.tvRes35.text = it.addCommas()
-                    viewModel.setPrice(it)
-                    Log.d("확인", "calculate() 실행")
-                }
-            }
+//            viewModel.mediatorLiveData.observe(viewLifecycleOwner) {
+//                calculate()?.let {
+//                    binding.tvRes35.text = it.addCommas()
+//                    viewModel.setPrice(it)
+//                    Log.d("확인", "calculate() 실행")
+//                }
+//            }
 
 
 
