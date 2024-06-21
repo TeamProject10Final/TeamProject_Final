@@ -55,7 +55,6 @@ class MyPromiseListFragment : Fragment() {
         observeViewModel()
 
 
-        binding.tvTopUserName.text = currentUser?.name
 
 
         val adapter = MyPromiseAdapter { promiseRoom ->

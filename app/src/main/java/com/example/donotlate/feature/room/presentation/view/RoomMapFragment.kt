@@ -1,5 +1,7 @@
 package com.example.donotlate.feature.room.presentation.view
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
@@ -39,6 +42,8 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var mGoogleMap: GoogleMap
 
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1000
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -57,7 +62,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         _binding = FragmentRoomMapBinding.inflate(inflater, container, false)
 
 //        setTitle()
-        initMap()
+        checkPermissionAndProceed()
 
         binding.root.setOnClickListener {
             hideKeyboard()
@@ -73,6 +78,36 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         editTextProcess()
         sendQuery()
         checkLocation()
+    }
+
+    private fun checkPermissionAndProceed() {
+        if (hasLocationPermission()) {
+            // 권한이 있을 때
+            initMap()
+        } else {
+            // 권한이 없을 때
+            requestLocationPermission()
+        }
+    }
+
+    private fun hasLocationPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestLocationPermission() {
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ),
+            LOCATION_PERMISSION_REQUEST_CODE
+        )
     }
 
     private fun initMap() {

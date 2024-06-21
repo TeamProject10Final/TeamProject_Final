@@ -1,11 +1,14 @@
 package com.example.donotlate.feature.searchPlace.presentation.search
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -27,6 +30,8 @@ class PlaceSearchFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var mapAdapter: MapAdapter
+
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1000
 
     private val searchViewModel: PlaceSearchViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
@@ -54,7 +59,7 @@ class PlaceSearchFragment : Fragment() {
 
         mapAdapter = MapAdapter()
 
-        initMapList()
+        checkPermissionAndProceed()
         initViewModel()
 
         binding.btnSearchButton.setOnClickListener {
@@ -77,6 +82,36 @@ class PlaceSearchFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         fetchMap()
+    }
+
+    private fun checkPermissionAndProceed() {
+        if (hasLocationPermission()) {
+            // 권한이 있을 때
+            initMapList()
+        } else {
+            // 권한이 없을 때
+            requestLocationPermission()
+        }
+    }
+
+    private fun hasLocationPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestLocationPermission() {
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ),
+            LOCATION_PERMISSION_REQUEST_CODE
+        )
     }
 
     private fun editTextProcess() {

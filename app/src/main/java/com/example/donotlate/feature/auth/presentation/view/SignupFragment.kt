@@ -77,7 +77,11 @@ class SignupFragment : Fragment() {
     private fun startLogin() {
         binding.tvSignLogin.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .remove(this)
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, LoginFragment())
                 .commit()
         }
     }
@@ -122,6 +126,10 @@ class SignupFragment : Fragment() {
                 it
             )
             requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
                 .remove(this)
                 .commit()
         }

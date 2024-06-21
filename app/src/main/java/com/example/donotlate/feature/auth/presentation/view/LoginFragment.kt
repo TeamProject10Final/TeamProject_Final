@@ -73,6 +73,10 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
 
                         LoginEvent.LoginSuccess -> {
                             parentFragmentManager.beginTransaction()
+                                .setCustomAnimations(
+                                    R.anim.fade_in,
+                                    R.anim.fade_out
+                                )
                                 .replace(R.id.frame, MainFragment())
                                 .commit()
                         }
@@ -98,6 +102,10 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
 
                 binding.tvLoginSign -> {
                     requireActivity().supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            /* enter = */ R.anim.slide_in,
+                            /* exit = */ R.anim.fade_out
+                        )
                         .replace(R.id.frame, SignupFragment())
                         .addToBackStack("SignupFragment")
                         .commit()
