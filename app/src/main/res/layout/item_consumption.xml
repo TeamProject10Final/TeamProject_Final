@@ -12,6 +12,7 @@
         android:layout_weight="2"
         android:gravity="left"
         android:text="xx-xx-xx"
+        android:textColor="@color/textDarkColor"
         android:layout_marginLeft="10dp"/>
 
     <TextView
@@ -28,6 +29,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:gravity="left"
+        android:textColor="@color/textDarkColor"
         android:text="detail" />
 
     <TextView
@@ -37,6 +39,7 @@
         android:layout_weight="2"
         android:gravity="right"
         android:text="price"
+        android:textColor="@color/textDarkColor"
         android:layout_marginRight="10dp"/>
 
 </LinearLayout>

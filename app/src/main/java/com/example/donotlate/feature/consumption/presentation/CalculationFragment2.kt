@@ -36,7 +36,7 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
 
         binding.root.setOnClickListener {
             hideKeyboard()
-            requireActivity().currentFocus!!.clearFocus()
+//            requireActivity().currentFocus!!.clearFocus()
         }
 
         return binding.root

@@ -40,7 +40,7 @@ class RoomStartFragment : Fragment() {
 
         binding.root.setOnClickListener {
             hideKeyboard()
-            requireActivity().currentFocus!!.clearFocus()
+//            requireActivity().currentFocus!!.clearFocus()
         }
 
         return binding.root
@@ -102,7 +102,7 @@ class RoomStartFragment : Fragment() {
         binding.ivDate.setOnClickListener {
             DatePickerDialog(
                 requireContext(),
-                R.style.DatePickerStyle,
+//                R.style.DatePickerStyle,
                 data,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),

@@ -36,7 +36,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
 
         binding.root.setOnClickListener {
             hideKeyboard()
-            requireActivity().currentFocus!!.clearFocus()
+//            requireActivity().currentFocus!!.clearFocus()
         }
         editTextProcess()
     }
@@ -124,7 +124,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
                             binding.ivLoginHide.tag = "0"
                             binding.etLoginPassword.transformationMethod =
                                 PasswordTransformationMethod.getInstance()
-                            binding.ivLoginHide.setImageResource(R.drawable.hide)
+                            binding.ivLoginHide.setImageResource(R.drawable.ic_hide)
                         }
 
                         else -> Unit

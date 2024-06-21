@@ -1,5 +1,6 @@
 package com.example.donotlate.feature.friends.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -60,15 +61,13 @@ class FriendsAdapter(
 
     class AddFriendViewHolder(private val binding: ItemRvFriendBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("ResourceAsColor")
         fun bind(onAddFriendClick: () -> Unit) {
             binding.tvItemFriend.text = "친구 추가"
-            binding.ivItemFriend.load(R.drawable.ic_add_user) {
-                transformations(CircleCropTransformation())
-            }
+            binding.ivItemFriend.setImageResource(R.drawable.ic_add_user)
             binding.root.setOnClickListener {
                 onAddFriendClick()
             }
-
         }
     }
 
