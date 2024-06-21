@@ -2,20 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_friend"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/backGround"
+    android:background="@drawable/item_dialog"
+    android:padding="15dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
     tools:context=".feature.friends.presentation.view.FriendsRequestDialogFragment">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_friend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/item_dialog"
-        android:padding="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_profile"
@@ -50,16 +47,17 @@
             tools:text="donotlate10@donotlate.com 길어지면 어케 되는지 확인하는 중" />
 
         <androidx.appcompat.widget.AppCompatButton
-
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:clickable="true"
             android:text="취소"
-            android:textColor="@color/blue_violet"
+            android:backgroundTint="#00FFFFFF"
+            android:textColor="@color/colorMain4"
             android:textSize="17sp"
             android:textStyle="bold"
+            android:stateListAnimator="@null"
             app:layout_constraintEnd_toStartOf="@id/btn_friend_request"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_email" />
@@ -72,11 +70,9 @@
             android:textColor="@color/pink"
             android:textSize="17sp"
             android:textStyle="bold"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
             app:layout_constraintBottom_toBottomOf="@id/btn_cancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_cancel" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

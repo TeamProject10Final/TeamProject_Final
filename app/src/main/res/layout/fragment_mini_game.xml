@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:clickable="true"
     tools:context=".feature.minigame.MiniGameFragment">
 
@@ -13,7 +12,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_margin="10dp"
-        android:background="@drawable/back"
+        android:background="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,13 +38,14 @@
         app:layout_constraintStart_toStartOf="@id/tv_top_title"
         app:layout_constraintTop_toBottomOf="@id/tv_top_title" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <ImageView
         android:id="@+id/btn_game_background_wheel"
         android:layout_width="0dp"
         android:layout_height="150dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20sp"
+        android:backgroundTint="@color/colorMain1"
         android:background="@drawable/bg_radius_lightblue"
         app:layout_constraintEnd_toStartOf="@id/btn_game_background_ladder"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="룰렛"
-        android:textColor="@color/black"
+        android:textColor="@color/textColor"
         android:textSize="23sp"
         app:layout_constraintBottom_toBottomOf="@id/btn_game_background_wheel"
         app:layout_constraintEnd_toEndOf="@id/iv_game_icon_wheel"
@@ -74,12 +74,13 @@
         app:layout_constraintTop_toBottomOf="@id/iv_game_icon_wheel" />
 
 
-    <androidx.appcompat.widget.AppCompatButton
+    <ImageView
         android:id="@+id/btn_game_background_ladder"
         android:layout_width="0dp"
         android:layout_height="150dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/colorMain2"
         android:background="@drawable/bg_radius_lightblue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_game_background_wheel"
@@ -100,8 +101,8 @@
         android:id="@+id/tv_title_ladder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="사다리 타기"
         android:textColor="@color/black"
+        android:text="사다리 타기"
         android:textSize="23sp"
         app:layout_constraintBottom_toBottomOf="@id/btn_game_background_ladder"
         app:layout_constraintEnd_toEndOf="@id/iv_game_icon_ladder"

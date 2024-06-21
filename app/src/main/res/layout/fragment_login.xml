@@ -115,7 +115,7 @@
             android:layout_height="30dp"
             android:layout_marginEnd="15dp"
             android:backgroundTint="@color/black"
-            android:src="@drawable/hide"
+            android:src="@drawable/ic_hide"
             android:tag="0"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/et_Login_Password"
@@ -196,7 +196,7 @@
             android:layout_height="30dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
-            android:src="@drawable/google"
+            android:src="@drawable/ic_google"
             app:layout_constraintStart_toStartOf="@+id/tv_Login2"
             app:layout_constraintTop_toBottomOf="@id/tv_Login1" />
 

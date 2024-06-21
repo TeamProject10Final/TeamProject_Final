@@ -11,7 +11,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_margin="10dp"
-        android:background="@drawable/back"
+        android:background="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,7 +58,7 @@
         android:id="@+id/iv_game_roulette"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:src="@drawable/ic_game_roulette"
+        android:src="@drawable/ic_game_wheel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,6 +82,7 @@
         android:layout_marginEnd="20dp"
         android:backgroundTint="#A8B1A3"
         android:text="돌리기"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

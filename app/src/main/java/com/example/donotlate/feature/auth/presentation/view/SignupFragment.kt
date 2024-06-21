@@ -1,9 +1,6 @@
 package com.example.donotlate.feature.auth.presentation.view
 
-import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
@@ -14,14 +11,11 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentSignupBinding
 import com.example.donotlate.feature.auth.presentation.dialog.InformationDialogFragment
 import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewModel
 import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
-import com.example.donotlate.feature.main.presentation.view.MainFragment
-import com.google.android.material.snackbar.Snackbar
 
 class SignupFragment : Fragment() {
 
@@ -123,7 +117,7 @@ class SignupFragment : Fragment() {
         val password = binding.etSignPassword
         val hide = binding.ivSignHide
         hide.tag = "0"
-        hide.setImageResource(R.drawable.hide)
+        hide.setImageResource(R.drawable.ic_hide)
         hide.setOnClickListener {
             when (it.tag) {
                 "0" -> {
@@ -135,7 +129,7 @@ class SignupFragment : Fragment() {
                 "1" -> {
                     hide.tag = "0"
                     password.transformationMethod = PasswordTransformationMethod.getInstance()
-                    hide.setImageResource(R.drawable.hide)
+                    hide.setImageResource(R.drawable.ic_hide)
                 }
             }
         }

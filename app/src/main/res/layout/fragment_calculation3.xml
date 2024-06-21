@@ -62,6 +62,7 @@
                 android:layout_marginTop="20dp"
                 android:text="지출 내역"
                 android:textSize="15sp"
+                android:textColor="@color/textDarkColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,8 +71,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:textColor="@color/textDarkColor"
                 android:text="마트 장보기"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tvDes31"
                 app:layout_constraintTop_toBottomOf="@id/tvDes31" />
 
@@ -81,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="날짜"
+                android:textColor="@color/textDarkColor"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="@id/tvRes31"
                 app:layout_constraintTop_toBottomOf="@id/tvRes31" />
@@ -91,7 +95,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="YYYY-MM-DD"
+                android:textColor="@color/textDarkColor"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tvDes32"
                 app:layout_constraintTop_toBottomOf="@id/tvDes32" />
 
@@ -101,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="정산 인원"
+                android:textColor="@color/textDarkColor"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="@id/tvRes32"
                 app:layout_constraintTop_toBottomOf="@id/tvRes32" />
@@ -112,7 +119,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="N명"
+                android:textColor="@color/textDarkColor"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tvDes33"
                 app:layout_constraintTop_toBottomOf="@id/tvDes33" />
 
@@ -122,6 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="카테고리"
+                android:textColor="@color/textDarkColor"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="@id/tvRes33"
                 app:layout_constraintTop_toBottomOf="@id/tvRes33" />
@@ -132,7 +142,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="쇼핑"
+                android:textColor="@color/textDarkColor"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tvDes34"
                 app:layout_constraintTop_toBottomOf="@id/tvDes34" />
 
@@ -143,6 +155,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="20dp"
                 android:text="정산 금액"
+                android:textColor="@color/textDarkColor"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvRes34" />
@@ -155,8 +168,10 @@
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:gravity="end"
+                android:textColor="@color/textDarkColor"
                 android:text="10,000"
                 android:textSize="30sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/tvDes35"
                 app:layout_constraintTop_toBottomOf="@id/tvDes35" />
@@ -172,6 +187,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/colorMain2"
         android:background="@drawable/bg_radius_lightblue"
         android:text="정산완료"
         android:textSize="20sp"
@@ -187,11 +203,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/colorMain1"
         android:background="@drawable/bg_radius_lightblue"
         android:text="나가기"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnCalFinish" />
