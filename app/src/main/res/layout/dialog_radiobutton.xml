@@ -22,8 +22,8 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <RadioButton
-                android:id="@+id/rb_Bus"
-                android:text="버스"
+                android:id="@+id/rb_Transit"
+                android:text="대중교통"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -33,8 +33,8 @@
                 android:background="#E4E4E4"/>
 
             <RadioButton
-                android:id="@+id/rb_Subway"
-                android:text="지하철"
+                android:id="@+id/rb_Driving"
+                android:text="자동차"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -44,8 +44,8 @@
                 android:background="#E4E4E4"/>
 
             <RadioButton
-                android:id="@+id/rb_Train"
-                android:text="기차"
+                android:id="@+id/rb_Walking"
+                android:text="도보"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -55,21 +55,11 @@
                 android:background="#E4E4E4"/>
 
             <RadioButton
-                android:id="@+id/rb_Tram"
-                android:text="트램"
+                android:id="@+id/rb_Bicycling"
+                android:text="자전거"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#E4E4E4"/>
-
-            <RadioButton
-                android:id="@+id/rb_Rail"
-                android:text="열차"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
         </RadioGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

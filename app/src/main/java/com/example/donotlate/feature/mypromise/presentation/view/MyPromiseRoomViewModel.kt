@@ -15,8 +15,6 @@ import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseC
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageEntity
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageModel
 import com.example.donotlate.feature.mypromise.presentation.mapper.toViewType
-import com.example.donotlate.feature.mypromise.presentation.model.FirstMode
-import com.example.donotlate.feature.mypromise.presentation.model.FirstModeEnum
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.MessageViewType
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
@@ -72,7 +70,7 @@ class MyPromiseRoomViewModel(
     val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
 
     //수정하기 TODO
-    private val _mode = MutableLiveData<String>("transit")
+    private val _mode = MutableLiveData<String>()
     val mode: LiveData<String> get() = _mode
 
     private val _shortExplanations = MutableLiveData<String>()
@@ -138,17 +136,17 @@ class MyPromiseRoomViewModel(
             }
         }
     }
-
-    //TODO
-    fun setMode(mode: FirstMode) {
-        when (mode.type) {
-            FirstModeEnum.TRANSIT -> _mode.value = mode.key
-            FirstModeEnum.DRIVING -> _mode.value = mode.key
-            FirstModeEnum.WALKING -> _mode.value = mode.key
-            FirstModeEnum.BICYCLING -> _mode.value = mode.key
-            FirstModeEnum.NOT_SELECTED -> _mode.value = mode.key
-        }
-    }
+//
+//    //TODO
+//    fun setMode(position: Int) {
+//        when (position) {
+//            0 -> _mode.value = mode.key
+//            FirstModeEnum.DRIVING -> _mode.value = mode.key
+//            FirstModeEnum.WALKING -> _mode.value = mode.key
+//            FirstModeEnum.BICYCLING -> _mode.value = mode.key
+//            FirstModeEnum.NOT_SELECTED -> _mode.value = mode.key
+//        }
+//    }
 
     fun setShortDirectionsResult() {
         if (directionsResult.value != null) {

@@ -23,6 +23,7 @@ import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
+import com.example.donotlate.feature.mypromise.presentation.view.dialog.RadioButtonDialog
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -148,6 +149,8 @@ class MyPromiseRoomFragment : Fragment() {
         }
 
         binding.ivRoomMap.setOnClickListener {
+            val selectionDialog = RadioButtonDialog()
+            selectionDialog.show(childFragmentManager, "String")
             checkPermissionAndProceed()
             myPromiseViewModel.setShortDirectionsResult()
         }
