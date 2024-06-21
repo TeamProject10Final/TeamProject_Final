@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@drawable/et_custom"
+
+    android:backgroundTint="@color/whiteBg2"
     android:clickable="true"
     tools:context=".feature.auth.presentation.dialog.InformationDialogFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="340dp"
         android:layout_height="580dp"
-        android:backgroundTint="@color/white"
-        android:background="@drawable/et_custom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -19,9 +20,9 @@
             android:id="@+id/tv_Info1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="약관에 동의해 주세요."
+            android:textColor="@color/textColor"
             android:layout_margin="25dp"
-            android:text="필수 약관에 동의해 주세요."
-            android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,8 +51,7 @@
                 android:id="@+id/cl_Check1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/et_custom"
-                android:backgroundTint="@color/white">
+                android:background="@drawable/et_custom">
 
                 <ImageView
                     android:id="@+id/iv_Check_Top1"
@@ -101,7 +101,7 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:text="@string/app_use"
-                        android:textColor="@color/gray" />
+                        android:textColor="@color/dark_gray"/>
                 </androidx.core.widget.NestedScrollView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -115,8 +115,8 @@
                         android:id="@+id/cb_Check_Use"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="16dp"
                         android:padding="2dp"
                         android:text="약관에 동의합니다"
                         android:textColor="@color/dark_gray"
@@ -174,7 +174,7 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:text="@string/personal"
-                        android:textColor="@color/gray" />
+                        android:textColor="@color/dark_gray" />
                 </androidx.core.widget.NestedScrollView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -227,7 +227,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
-                    android:background="@color/gray"
+                    android:background="@color/dark_gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_Check3" />
@@ -246,7 +246,7 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:text="@string/location"
-                        android:textColor="@color/gray" />
+                        android:textColor="@color/dark_gray" />
                 </androidx.core.widget.NestedScrollView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -308,6 +308,7 @@
                 android:id="@+id/btn_Info_Cancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorMain2"
                 android:background="@drawable/btn_info_round_lilac"
                 android:text="취소"
                 android:layout_marginStart="1dp"
@@ -319,15 +320,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_Info_Confirm"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorMain1"
                 android:background="@drawable/btn_info_round_arctic"
                 android:enabled="false"
                 android:text="동의"
-                android:textColor="@color/white"
+                android:textColor="@color/textColor"
                 android:textSize="17dp"
                 android:textStyle="bold"
                 android:visibility="invisible"

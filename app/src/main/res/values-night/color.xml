@@ -5,8 +5,23 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="mainColor1">#FEC748</color>
-    <color name="mainColor2">#AEC33A</color>
-    <color name="mainColor3">#84C0E9</color>
-    <color name="mainColor4">#37419A</color>
+
+<!--메인 컬러    -->
+    <color name="colorMain1">#4C4C4C</color>
+    <color name="colorMain2">#939393</color>
+    <color name="colorMain3">#446C66</color>
+    <color name="colorMain4">#BABABA</color>
+
+    <color name="textColor">#BABABA</color>
+    <color name="textDarkColor">#404040</color>
+    <color name="textLightColor">#C5C5C5</color>
+
+    <color name="whiteBg">#BABABA</color>
+    <color name="whiteBg2">#353535</color>
+    <color name="backGround">#1B1B1F</color>
+    <color name="icBg">#9F9F9F</color>
+    <color name="arcticIcBg">#9F9F9F</color>
+    <color name="malibuIcBg">#9F9F9F</color>
+    <color name="addFriendsIc">#9F9F9F</color>
+
 </resources>

@@ -102,7 +102,7 @@ class RoomStartFragment : Fragment() {
         binding.ivDate.setOnClickListener {
             DatePickerDialog(
                 requireContext(),
-                R.style.DatePickerStyle,
+//                R.style.DatePickerStyle,
                 data,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),

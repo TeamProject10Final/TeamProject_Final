@@ -11,10 +11,11 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
-        android:background="@drawable/ic_user"
-        android:clipToOutline="true"
+        android:src="@drawable/ic_user"
+        android:scaleType="centerInside"
         app:layout_constraintBottom_toTopOf="@id/tv_Item_Friend"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
