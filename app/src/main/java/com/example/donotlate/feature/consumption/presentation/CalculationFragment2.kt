@@ -16,7 +16,7 @@ import com.example.donotlate.databinding.FragmentCalculation2Binding
 
 class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
 
-    private var _binding: FragmentCalculation2Binding ?= null
+    private var _binding: FragmentCalculation2Binding? = null
     private val binding get() = _binding!!
 
     private val viewModel: SharedViewModel by activityViewModels {
@@ -41,6 +41,7 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
 
         return binding.root
     }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,9 +49,15 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
         // 이전에 입력한 내용이 있다면 해당 내용을 EditText에 설정
         viewModel.total.value?.let { binding.etDes21.setText(it) }
         viewModel.isPenalty.value?.let {
-            if (it) binding.btnPenalty.setText("${resources.getString(R.string.cal1_frgment_text1)}") else binding.btnPenalty.setText(
-                "${resources.getString(R.string.cal1_frgment_text2)}"
-            )
+            if (it) {
+                binding.btnPenalty.setText("${resources.getString(R.string.cal1_frgment_text1)}")
+                binding.btnPenalty.setBackgroundResource(R.drawable.btn_radius_lilac)
+            } else {
+                binding.btnPenalty.setText(
+                    "${resources.getString(R.string.cal1_frgment_text2)}"
+                )
+                binding.btnPenalty.setBackgroundResource(R.drawable.bg_radius_lightblue)
+            }
         }
         viewModel.penalty.value?.let { binding.etDes22.setText(it) }
         viewModel.number.value?.let { binding.etDes23.setText(it) }
@@ -61,7 +68,7 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
             hideKeyboard()
         }
 
-        viewModel.isPenalty.observe(viewLifecycleOwner){isPenalty ->
+        viewModel.isPenalty.observe(viewLifecycleOwner) { isPenalty ->
             updateIsPenaltyButton(isPenalty)
         }
 
@@ -136,10 +143,12 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
     }
 
     private fun updateIsPenaltyButton(isPenalty: Boolean) {
-        if(isPenalty) {
+        if (isPenalty) {
             binding.btnPenalty.text = "${resources.getString(R.string.cal1_frgment_text1)}"
-        }else{
+            binding.btnPenalty.setBackgroundResource(R.drawable.btn_radius_lilac)
+        } else {
             binding.btnPenalty.text = "${resources.getString(R.string.cal1_frgment_text2)}"
+            binding.btnPenalty.setBackgroundResource(R.drawable.bg_radius_lightblue)
         }
 
     }

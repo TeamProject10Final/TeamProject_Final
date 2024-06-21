@@ -43,7 +43,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.yield
 import java.util.Calendar
 import java.util.Locale
 
@@ -97,7 +96,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         checkPermission()
-        getCurrentLocation()
+        //getCurrentLocation()
         return binding.root
     }
 
@@ -165,6 +164,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             Log.d("확인 mode2", "$mode")
             when (mode) {
                 "transit" -> {
+                    if (sharedViewModel.getCountry() == null) {
+                        return@observe
+                    }
                     binding.spinner2tm.visibility = View.VISIBLE
                     binding.spinner3rp.visibility = View.VISIBLE
                     binding.btnSelectTime.visibility = View.VISIBLE
@@ -173,6 +175,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     binding.etTime.visibility = View.VISIBLE
                     binding.etTime.isVisible = false
                     binding.btnSearchDirectionRoutes.visibility = View.VISIBLE
+                    binding.btnMapBottomSheet.visibility = View.VISIBLE
                 }
 
                 "select" -> {
@@ -180,6 +183,19 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 }
 
                 else -> {
+
+                    if (sharedViewModel.getCountry() == "대한민국" || sharedViewModel.getCountry() == "South Korea") {
+                        binding.spinner2tm.visibility = View.GONE
+                        binding.spinner3rp.visibility = View.GONE
+                        binding.btnSelectTime.visibility = View.GONE
+                        binding.etTime.visibility = View.GONE
+                        binding.btnSearchDirectionRoutes.visibility = View.GONE
+                        binding.ivDetailView.isVisible = true
+                        binding.btnMapBottomSheet.visibility = View.GONE
+                        sharedViewModel.checkAvailable()
+                        Log.d("확인 도보", "ㅇㅇㄹㄷㄷ머ㅑ래더")
+                        return@observe
+                    }
 
                     lifecycleScope.launch {
                         binding.spinner2tm.visibility = View.GONE
@@ -192,6 +208,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
                         withContext(Dispatchers.IO) {
                             //여기서 바로 검색하게 하기 - 자동차, 도보 등
+                            sharedViewModel.checkAvailable()
                             sharedViewModel.getDirections()
                         }
                         delay(1000)
@@ -201,10 +218,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
                         bottomSheet.show(parentFragmentManager, "tag")
                         sharedViewModel.refreshIndex()
+                        binding.btnMapBottomSheet.visibility = View.VISIBLE
                     }
-
-
                 }
+            }
+
+            sharedViewModel.error.observe(viewLifecycleOwner) {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                Log.d("확인 error ob", it)
             }
         }
 
@@ -342,6 +363,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 position: Int,
                 id: Long
             ) {
+                sharedViewModel.refreshIndex()
                 val selectedMode = list1[position]
                 Log.d("확인 mode", "$selectedMode")
                 sharedViewModel.setMode(selectedMode)
@@ -359,6 +381,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 position: Int,
                 id: Long
             ) {
+                sharedViewModel.refreshIndex()
                 val selectedMode = list2[position]
                 sharedViewModel.setTransitMode(selectedMode)
             }
@@ -375,6 +398,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 position: Int,
                 id: Long
             ) {
+                sharedViewModel.refreshIndex()
                 val selectedItem = list3[position]
                 sharedViewModel.setRoutingPreference(selectedItem)
             }
@@ -423,12 +447,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 binding.btnSearchDirectionRoutes.visibility = View.GONE
 
                 withContext(Dispatchers.IO) {
+                    //sharedViewModel.checkAvailable()
                     sharedViewModel.getDirByTransit()
                 }
                 delay(1000)
                 val bottomSheet = DirectionsBottomFragment()
                 bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
                 bottomSheet.show(parentFragmentManager, "tag")
+
+                binding.btnMapBottomSheet.visibility = View.VISIBLE
 
                 if (sharedViewModel.mode.value.toString() == "transit") {
                     binding.ivDetailView.isVisible = true
@@ -586,8 +613,20 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 .addOnSuccessListener { location: Location? ->
                     location?.let {
                         val userLatLng = LatLng(it.latitude, it.longitude)
-
+                        Log.d("확인 userLoca fr", "$userLatLng")
                         sharedViewModel.setUserLocation(userLatLng)
+
+                        val locationUtils = LocationUtils()
+                        val country = locationUtils.getCountryFromLatLng(
+                            requireContext(),
+                            it.latitude,
+                            it.longitude
+                        )
+                        country?.let {
+                            Log.d("확인 나라", "$it")
+                            sharedViewModel.setCountry(it)
+                        }
+
                     } ?: run {
                         Toast.makeText(requireContext(), "1 위치 얻기 실패", Toast.LENGTH_SHORT)
                             .show()
