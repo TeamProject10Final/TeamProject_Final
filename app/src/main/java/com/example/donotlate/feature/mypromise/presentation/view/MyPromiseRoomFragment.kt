@@ -204,11 +204,11 @@ class MyPromiseRoomFragment : Fragment() {
             val participantId = currentUserData?.uId
             Log.d("나가기", "정보확인 ${roomId}, ${participantId}")
 
-            if(roomId != null && participantId != null){
+            if (roomId != null && participantId != null) {
                 Log.d("나가기", "실행")
                 setExitButton(roomId, participantId)
             }
-            observeViewModel()
+            observeViewModel1()
         }
 
         binding.ivRoomMap.setOnClickListener {
@@ -216,9 +216,8 @@ class MyPromiseRoomFragment : Fragment() {
         }
 
 
-
-
     }
+
 
     private fun observeViewModel() {
         myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner) {
@@ -246,14 +245,14 @@ class MyPromiseRoomFragment : Fragment() {
             sendMessage(roomId, it)
         }
 
-        myPromiseViewModel.originString.observe(viewLifecycleOwner){
+        myPromiseViewModel.originString.observe(viewLifecycleOwner) {
             myPromiseViewModel.calDistance2()
         }
 
-        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner){
-            if(it <= 0.01){
+        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner) {
+            if (it <= 0.01) {
                 //버튼 보이게
-            }else{
+            } else {
                 //버튼 보이지 않게
             }
         }
@@ -418,16 +417,16 @@ class MyPromiseRoomFragment : Fragment() {
     }
 
     //임시
-    private fun setExitButton(roomId: String, participantId:String){
+    private fun setExitButton(roomId: String, participantId: String) {
         viewLifecycleOwner.lifecycleScope.launch {
             myPromiseViewModel.exitRoom(roomId, participantId)
         }
     }
 
-    private fun observeViewModel(){
+    private fun observeViewModel1() {
         viewLifecycleOwner.lifecycleScope.launch {
-            myPromiseViewModel.removeParticipantIdResult.collect{
-                when(it){
+            myPromiseViewModel.removeParticipantIdResult.collect {
+                when (it) {
                     true -> Toast.makeText(requireContext(), "나가기 성공", Toast.LENGTH_SHORT).show()
                     false -> Toast.makeText(requireContext(), "나가기 실패", Toast.LENGTH_SHORT).show()
                 }

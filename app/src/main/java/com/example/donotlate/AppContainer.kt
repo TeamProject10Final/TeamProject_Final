@@ -252,6 +252,7 @@ class AppContainer {
     private val promiseRoomRepository:PromiseRoomRepository by lazy {
         PromiseRoomRepositoryImpl(firebaseFireStore)
     }
+
     val removeParticipantsUseCase:RemoveParticipantsUseCase by lazy {
         RemoveParticipantsUseCase(promiseRoomRepository)
     }
