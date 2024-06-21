@@ -14,19 +14,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
+import com.example.donotlate.feature.auth.presentation.view.LogInViewModel
+import com.example.donotlate.feature.auth.presentation.view.LogInViewModelFactory
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 import com.example.donotlate.feature.mypromise.presentation.model.UserModel
-import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModel
-import com.example.donotlate.feature.mypromise.presentation.viewmodel.MyPromiseViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -38,16 +40,11 @@ import kotlinx.coroutines.launch
 
 class MyPromiseRoomFragment : Fragment() {
 
-    private val myPromiseViewModel: MyPromiseViewModel by activityViewModels {
+    private val myPromiseViewModel: MyPromiseRoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        MyPromiseViewModelFactory(
-            appContainer.loadToMyPromiseListUseCase,
+        MyPromiseRoomViewModelFactory(
             appContainer.messageSendingUseCase,
             appContainer.messageReceivingUseCase,
-            appContainer.getCurrentUserUseCase,
-            appContainer.getUserDataUseCase,
-            appContainer.getMyDataFromFirebaseUseCase,
-            appContainer.firebaseAuth,
             appContainer.getDirectionsUseCase,
         )
     }
@@ -75,7 +72,7 @@ class MyPromiseRoomFragment : Fragment() {
     val binding get() = _binding!!
 
     private var promiseRoom: PromiseModel? = null
-    private var currentUserData: UserModel? = null
+    private var currentUserData = CurrentUser.userData
     private var roomTitle: String? = null
     private var promiseDate: String? = null
     private var roomId: String? = null
@@ -86,17 +83,7 @@ class MyPromiseRoomFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
-
-
-
-        lifecycleScope.launch {
-            myPromiseViewModel.currentUserData.collect() { userData ->
-                currentUserData = userData
-
-            }
-        }
-
+        checkPermissionAndProceed()
         arguments?.let { bundle ->
             promiseRoom = bundle.getParcelable("promiseRoom")
 
@@ -108,6 +95,7 @@ class MyPromiseRoomFragment : Fragment() {
                     location?.let {
                         val userLatLng = LatLng(it.latitude, it.longitude)
                         myPromiseViewModel.setUserLocation(userLatLng)
+                        Log.d("확인 loca cb", "${myPromiseViewModel.originString.value}")
                         shortMessage()
                     }
                 }
@@ -152,7 +140,7 @@ class MyPromiseRoomFragment : Fragment() {
                     fastestInterval = 5000 //5초
                     priority = LocationRequest.PRIORITY_HIGH_ACCURACY
                 }
-            fusedLocationClient?.requestLocationUpdates(
+            fusedLocationClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,
                 Looper.getMainLooper()
@@ -175,24 +163,28 @@ class MyPromiseRoomFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         initAdapter()
         backButton()
 
-        promiseRoom?.let { room ->
+        observeViewModel()
 
+        promiseRoom?.let { room ->
             promiseDate = room.promiseDate
             roomTitle = room.roomTitle
             roomId = room.roomId
             roomDestination = room.destination
 
             binding.tvRoomTitle.text = room.roomTitle
-            Log.d("promiseRoom", "promiseRoom Title: ${promiseRoom?.roomTitle}")
-            binding.tvRoomPromiseDate.text =
-                room.promiseDate ?: throw NullPointerException("Date null")
-            Log.d("promiseRoom", "promiseRoom Date: ${promiseRoom?.promiseDate}")
-            loadToMessageFromFireStore(room.roomId ?: throw NullPointerException("RoomId Null"))
-            Log.d("promiseRoom", "promiseRoom Id: ${promiseRoom?.roomId}")
+            binding.tvRoomPromiseDate.text = room.promiseDate
+            loadToMessageFromFireStore(room.roomId)
         }
+
+        roomDestination?.let {
+            myPromiseViewModel.setDestination(it)
+            Log.d("확인 prom destination", it)
+        }
+
 
         binding.btnSend.setOnClickListener {
             val contents = binding.etInputMessage.text.toString()
@@ -206,6 +198,49 @@ class MyPromiseRoomFragment : Fragment() {
 
         binding.ivRoomMap.setOnClickListener {
             checkPermissionAndProceed()
+        }
+
+
+
+
+    }
+
+    private fun observeViewModel() {
+        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner) {
+            //처음에 방 들어가자마자 초기화하기! 거리 계산해두기
+            if (it <= 0.2) { //200m
+                binding.btnArrived.isVisible = true
+                binding.ivRoomMap.isVisible = false
+
+                //도착 버튼이 보이게
+                //binding.~~
+            } else {
+                binding.btnArrived.isVisible = false
+                binding.ivRoomMap.isVisible = true
+                //도착 버튼이 보이지 않게
+            }
+        }
+
+        myPromiseViewModel.shortExplanations.observe(viewLifecycleOwner) {
+            if (it.isNullOrEmpty()) {
+                Log.d("확인 shmessage", "nullorempty- $it")
+                return@observe
+            }
+            val roomId = roomId ?: throw NullPointerException("roomId is Null")
+            Log.d("확인", "shortMessage $it")
+            sendMessage(roomId, it)
+        }
+
+        myPromiseViewModel.originString.observe(viewLifecycleOwner){
+            myPromiseViewModel.calDistance2()
+        }
+
+        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner){
+            if(it <= 0.01){
+                //버튼 보이게
+            }else{
+                //버튼 보이지 않게
+            }
         }
     }
 
@@ -223,13 +258,11 @@ class MyPromiseRoomFragment : Fragment() {
                     senderName = currentUserData?.name
                         ?: throw NullPointerException("User Data Null!"),
                     sendTimestamp = Timestamp.now(),
-                    senderId = currentUserData?.uid
+                    senderId = currentUserData?.uId
                         ?: throw NullPointerException("User Data Null!"),
                     contents = contents,
                     messageId = "",
-                    senderProfileUrl = currentUserData?.profileImgUrl ?: throw NullPointerException(
-                        "User Data Null!"
-                    )
+                    senderProfileUrl = currentUserData?.profileImgUrl ?: ""
                 )
                 myPromiseViewModel.sendMessage(roomId, message)
             } catch (e: Exception) {
@@ -314,22 +347,22 @@ class MyPromiseRoomFragment : Fragment() {
     }
 
     private fun shortMessage() {
-        val currentUserLocation = myPromiseViewModel.getUserLocationString()!!
-        roomDestination?.let { it1 ->
-            myPromiseViewModel.getDirections(
-                currentUserLocation,
-                it1, "transit"
-            )
+        val currentUserLocation = myPromiseViewModel.originString.value
+
+        roomDestination?.let {
+            myPromiseViewModel.setDestination(it)
+
+            myPromiseViewModel.getDirections()
         }
         Log.d("확인 확인 확인", "${currentUserLocation}")
         Log.d("확인 확인 확인", "dest : ${roomDestination}")
 
-        val shortmessage = myPromiseViewModel.shortExplanations.value
-        val roomId = roomId ?: throw NullPointerException("roomId is Null")
-        Log.d("확인", "shortMessage $shortmessage")
-        if (shortmessage != null) {
-            sendMessage(roomId, shortmessage)
-        }
+//        val shortmessage = myPromiseViewModel.shortExplanations.value
+//        val roomId = roomId ?: throw NullPointerException("roomId is Null")
+//        Log.d("확인", "shortMessage $shortmessage")
+//        if (shortmessage != null) {
+//            sendMessage(roomId, shortmessage)
+//        }
     }
 
     override fun onRequestPermissionsResult(
@@ -356,6 +389,7 @@ class MyPromiseRoomFragment : Fragment() {
         super.onDestroyView()
         parentFragmentManager.popBackStack()
         _binding = null
+        myPromiseViewModel.clearMessage()
     }
 
     override fun onStart() {

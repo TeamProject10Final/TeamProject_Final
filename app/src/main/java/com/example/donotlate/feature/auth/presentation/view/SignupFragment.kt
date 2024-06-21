@@ -6,16 +6,17 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentSignupBinding
 import com.example.donotlate.feature.auth.presentation.dialog.InformationDialogFragment
-import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewModel
-import com.example.donotlate.feature.auth.presentation.viewmodel.SignUpViewmodelFactory
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 
 class SignupFragment : Fragment() {
 
@@ -27,18 +28,16 @@ class SignupFragment : Fragment() {
         SignUpViewmodelFactory(appContainer.signUpUseCase)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
 
-
+        binding.root.setOnClickListener {
+            hideKeyboard()
+            requireActivity().currentFocus!!.clearFocus()
+        }
 
         return binding.root
     }
@@ -56,14 +55,33 @@ class SignupFragment : Fragment() {
             clickToSignUpButton()
         }
 
+        editTextProcess()
 
+
+    }
+
+    private fun editTextProcess() {
+        binding.etSignConfirm.setOnEditorActionListener { textView, action, keyEvent ->
+            var handled = false
+
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard()
+                requireActivity().currentFocus!!.clearFocus()
+                handled = true
+            }
+            handled
+        }
     }
 
 
     private fun startLogin() {
         binding.tvSignLogin.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .remove(this)
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, LoginFragment())
                 .commit()
         }
     }
@@ -108,6 +126,10 @@ class SignupFragment : Fragment() {
                 it
             )
             requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
                 .remove(this)
                 .commit()
         }
@@ -117,7 +139,7 @@ class SignupFragment : Fragment() {
         val password = binding.etSignPassword
         val hide = binding.ivSignHide
         hide.tag = "0"
-        hide.setImageResource(R.drawable.ic_hide)
+        hide.setImageResource(R.drawable.hide)
         hide.setOnClickListener {
             when (it.tag) {
                 "0" -> {
@@ -129,7 +151,7 @@ class SignupFragment : Fragment() {
                 "1" -> {
                     hide.tag = "0"
                     password.transformationMethod = PasswordTransformationMethod.getInstance()
-                    hide.setImageResource(R.drawable.ic_hide)
+                    hide.setImageResource(R.drawable.hide)
                 }
             }
         }

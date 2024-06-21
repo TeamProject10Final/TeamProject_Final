@@ -2,23 +2,20 @@ package com.example.donotlate.feature.room.presentation.view
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentRoomStartBinding
 import com.example.donotlate.feature.room.presentation.model.RoomModel
-import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModel
-import com.example.donotlate.feature.room.presentation.viewmodel.RoomViewModelFactory
 import java.util.Calendar
 
 class RoomStartFragment : Fragment() {
@@ -29,18 +26,10 @@ class RoomStartFragment : Fragment() {
     private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         RoomViewModelFactory(
-            appContainer.getAllUsersUseCase,
             appContainer.getSearchListUseCase,
             appContainer.makeAPromiseRoomUseCase,
-            appContainer.loadToCurrentUserDataUseCase,
             appContainer.getFriendsListFromFirebaseUseCase,
-            appContainer.getCurrentUserUseCase
         )
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -48,6 +37,11 @@ class RoomStartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRoomStartBinding.inflate(inflater, container, false)
+
+        binding.root.setOnClickListener {
+            hideKeyboard()
+            requireActivity().currentFocus!!.clearFocus()
+        }
 
         return binding.root
     }
@@ -58,12 +52,11 @@ class RoomStartFragment : Fragment() {
         setDate()
         setTime()
         sendToResult()
-
         editTextProcess()
 
     }
 
-    private fun editTextProcess(){
+    private fun editTextProcess() {
         binding.etRoomTitle.setOnEditorActionListener { textView, action, keyEvent ->
             var handled = false
 
@@ -86,14 +79,6 @@ class RoomStartFragment : Fragment() {
             handled
         }
     }
-
-    private fun hideKeyboard() {
-        val imm =
-            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
-    }
-
-
 
     override fun onPause() {
         super.onPause()
@@ -151,7 +136,7 @@ class RoomStartFragment : Fragment() {
     }
 
 
-    private fun sendToResult(){
+    private fun sendToResult() {
         binding.btnRoomStartNext.setOnClickListener {
 
             val title = binding.etRoomTitle.text.toString()
@@ -174,6 +159,6 @@ class RoomStartFragment : Fragment() {
             }
         }
 
-        Log.d("뷰모델 리스트확인","${roomViewModel.inputText.value}")
+        Log.d("뷰모델 리스트확인", "${roomViewModel.inputText.value}")
     }
 }

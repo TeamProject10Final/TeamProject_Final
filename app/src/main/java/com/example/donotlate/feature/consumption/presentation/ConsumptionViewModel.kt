@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.core.domain.usecase.GetMyDataFromFireStoreUseCase
+import com.example.donotlate.core.domain.usecase.GetCurrentUserDataUseCase
 import com.example.donotlate.feature.consumption.domain.usecase.DeleteConsumptionUseCase
 import com.example.donotlate.feature.consumption.domain.usecase.GetConsumptionByCategoryUseCase
 import com.example.donotlate.feature.consumption.domain.usecase.GetConsumptionByIdUseCase
@@ -39,7 +39,7 @@ class ConsumptionViewModel(
     private val getDataCountUseCase: GetDataCountUseCase,
     private val getLiveDataCountUseCase: GetLiveDataCountUseCase,
     private val toggleIsFinishedUseCase: ToggleIsFinishedUseCase,
-    private val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase
+    private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase
 
 
 ) : ViewModel() {
@@ -78,7 +78,7 @@ class ConsumptionViewModel(
 
     private fun getCurrentUserData(){
         viewModelScope.launch {
-            getMyDataFromFireStoreUseCase().collect{ userData ->
+            getCurrentUserDataUseCase().collect{ userData ->
                 _currentUserData.value = userData?.toModel() ?: throw NullPointerException("user data null")
             }
         }
@@ -157,7 +157,7 @@ class ConsumptionViewModelFactory(
     private val getDataCountUseCase: GetDataCountUseCase,
     private val getLiveDataCountUseCase: GetLiveDataCountUseCase,
     private val toggleIsFinishedUseCase: ToggleIsFinishedUseCase,
-    private val getMyDataFromFireStoreUseCase: GetMyDataFromFireStoreUseCase
+    private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -174,7 +174,7 @@ class ConsumptionViewModelFactory(
                 getDataCountUseCase,
                 getLiveDataCountUseCase,
                 toggleIsFinishedUseCase,
-                getMyDataFromFireStoreUseCase
+                getCurrentUserDataUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.auth.presentation.viewmodel
+package com.example.donotlate.feature.auth.presentation.view
 
 import android.graphics.Color
 import android.view.View

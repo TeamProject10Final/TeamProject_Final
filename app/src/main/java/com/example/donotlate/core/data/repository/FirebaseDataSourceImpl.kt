@@ -3,7 +3,6 @@ package com.example.donotlate.core.data.repository
 
 import android.util.Log
 import com.example.donotlate.core.data.mapper.toEntity
-import com.example.donotlate.core.data.mapper.toEntityList
 import com.example.donotlate.core.data.mapper.toMessageEntity
 import com.example.donotlate.core.data.mapper.toPromiseEntityList
 import com.example.donotlate.core.data.mapper.toUserEntity
@@ -17,7 +16,6 @@ import com.example.donotlate.core.domain.model.MessageEntity
 import com.example.donotlate.core.domain.model.PromiseRoomEntity
 import com.example.donotlate.core.domain.model.UserEntity
 import com.example.donotlate.core.domain.repository.FirebaseDataRepository
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
@@ -34,7 +32,6 @@ class FirebaseDataSourceImpl(
     private val db: FirebaseFirestore,
     private val auth: FirebaseAuth
 ) : FirebaseDataRepository {
-    private val mAuth = auth.currentUser?.uid ?: ""
 
     override suspend fun getUserDataById(userId: String): Flow<UserEntity> = flow {
         val documentSnapshot = db.collection("users").document(userId).get().await()
@@ -76,26 +73,25 @@ class FirebaseDataSourceImpl(
     }
 
     override suspend fun getFriendsListFromFirebase(uid: String): Flow<List<UserEntity>> = flow {
-        try {
-            val document = db.collection("users").document(uid).get().await()
-            val user = document.toObject(UserResponse::class.java)
-            val friends = user?.friends ?: emptyList()
-            val friendsList = friends.mapNotNull { friendId ->
-                val friendDoc = db.collection("users").document(friendId).get().await()
-                friendDoc.toObject(UserResponse::class.java)
+            try {
+                val document = db.collection("users").document(uid).get().await()
+                val user = document.toObject(UserResponse::class.java)
+                val friends = user?.friends ?: emptyList()
+                val friendsList = friends.mapNotNull { friendId ->
+                    val friendDoc = db.collection("users").document(friendId).get().await()
+                    friendDoc.toObject(UserResponse::class.java)
+                }
+                Log.d("FirebaseRepositoryImpl", "Fetched Friends List: $friendsList")
+                emit(friendsList.toUserEntityList())
+            } catch (e: Exception) {
+                Log.e("FirebaseRepositoryImpl", "Error fetching friends list", e)
+                emit(emptyList())
             }
-            Log.d("FirebaseRepositoryImpl", "Fetched Friends List: $friendsList")
-            emit(friendsList.toUserEntityList())
-        } catch (e: Exception) {
-            Log.e("FirebaseRepositoryImpl", "Error fetching friends list", e)
-            emit(emptyList())
         }
-    }
+
 
     override suspend fun acceptFriendRequest(requestId: String): Flow<Boolean> = flow {
         try {
-
-
             val requestRef = db.collection("FriendRequests").document(requestId)
             Log.d(
                 "accept Info",
@@ -159,83 +155,68 @@ class FirebaseDataSourceImpl(
         }
 
     override suspend fun getFriendRequestsList(toId: String): Flow<List<FriendRequestEntity>> =
-        flow {
+        callbackFlow {
             val documents = db.collection("FriendRequests")
                 .whereEqualTo("toId", toId)
                 .whereEqualTo("status", "request")
-                .get()
-                .await()
-
-            val requestList = documents.map {
-                it.toObject(FriendRequestDTO::class.java)
+            val listener = documents.addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    close(error)
+                    return@addSnapshotListener
+                }
+                if (snapshot != null) {
+                    val requestList = snapshot.documents.mapNotNull { documents ->
+                        documents.toObject(FriendRequestDTO::class.java)?.copy()?.toEntity()
+                    }
+                    trySend(requestList).isSuccess
+                }
             }
-            emit(requestList.toEntityList())
+            awaitClose { listener.remove() }
         }
 
-    override suspend fun makeAPromiseRoom(
-        roomId: String,
-        roomTitle: String,
-        promiseTime: String,
-        promiseDate: String,
-        destination: String,
-        destinationLat: Double,
-        destinationLng: Double,
-        penalty: String,
-        participants: List<String>
-
-    ): Flow<Boolean> = flow {
+    override suspend fun makeAPromiseRoom(roomInfo: PromiseRoomEntity): Flow<Boolean> = flow {
         try {
-            val roomData = hashMapOf(
-                "roomId" to roomId,
-                "roomTitle" to roomTitle,
-                "roomCreatedAt" to Timestamp.now(),
-                "promiseTime" to promiseTime,
-                "promiseDate" to promiseDate,
-                "destination" to destination,
-                "destinationLat" to destinationLat,
-                "destinationLng" to destinationLng,
-                "penalty" to penalty,
-                "participants" to participants
-            )
-            Log.d("makeAChatRoom3", "title: ${participants}")
-            db.collection("PromiseRooms").document(roomId).set(roomData).await()
-            Log.d("makeAChatRoom4", "title: ${participants}")
+            val roomId = roomInfo.roomId
+            db.collection("PromiseRooms").document(roomId).set(roomInfo).await()
             emit(true)
         } catch (e: Exception) {
-            Log.d("makeAChatRoom", "실패 이유: ${e.message}")
             emit(false)
         }
     }
 
     override suspend fun getMyPromiseListFromFireBase(uid: String): Flow<List<PromiseRoomEntity>> =
         flow {
-        try {
-            val documents = db.collection("PromiseRooms")
-                .whereArrayContains("participants", uid)
-                .orderBy("promiseDate", Query.Direction.ASCENDING)
-                .get().await()
+            try {
+                val documents = db.collection("PromiseRooms")
+                    .whereArrayContains("participants", uid)
+                    .orderBy("promiseDate", Query.Direction.ASCENDING)
+                    .get().await()
 
-            if (documents.isEmpty) {
-                Log.d("getMyPromiseListFromFireBase", "No documents found")
-            } else {
-                Log.d("getMyPromiseListFromFireBase", "Found ${documents.size()} documents")
+                if (documents.isEmpty) {
+                    Log.d("getMyPromiseListFromFireBase", "No documents found")
+                } else {
+                    Log.d("getMyPromiseListFromFireBase", "Found ${documents.size()} documents")
+                }
+                val document = documents.toObjects(PromiseRoomResponse::class.java)
+                emit(document.toPromiseEntityList())
+            } catch (e: Exception) {
+                Log.e("getMyPromiseListFromFireBase", "Error fetching promise list")
+                Log.e("getMyPromiseListFromFireBase", "Error fetching promise list", e)
+                emit(emptyList())
             }
-            val document = documents.toObjects(PromiseRoomResponse::class.java)
-            emit(document.toPromiseEntityList())
-        } catch (e: Exception) {
-            Log.e("getMyPromiseListFromFireBase", "Error fetching promise list")
-            Log.e("getMyPromiseListFromFireBase", "Error fetching promise list", e)
-            emit(emptyList())
         }
-    }
 
-    override suspend fun getMyDataFromFireStore(): Flow<UserEntity?> = flow {
-        val documentSnapshot = db.collection("users").document(mAuth).get().await()
-        val userResponse = documentSnapshot.toObject(UserResponse::class.java)
-        if (userResponse != null) {
-            emit(userResponse.toUserEntity())
-        } else {
-            throw NullPointerException("User not found or userResponse is null")
+    override suspend fun getCurrentUserDataFromFireBase(): Flow<UserEntity?> = flow {
+        val mAuth = auth.currentUser?.uid
+
+        if (mAuth != null) {
+            val documentSnapshot = db.collection("users").document(mAuth).get().await()
+            val userResponse = documentSnapshot.toObject(UserResponse::class.java)
+            if (userResponse != null) {
+                emit(userResponse.toUserEntity())
+            } else {
+                return@flow
+            }
         }
     }.catch { e ->
         throw e
@@ -261,7 +242,7 @@ class FirebaseDataSourceImpl(
         awaitClose { listener.remove() }
     }
 
-    override suspend fun sendToMessage(roomId: String, message: MessageResponse): Flow<Boolean> =
+    override suspend fun sendToMessage(roomId: String, message: MessageEntity): Flow<Boolean> =
         flow {
             try {
                 db.collection("PromiseRooms").document(roomId).collection("Messages")
@@ -274,6 +255,7 @@ class FirebaseDataSourceImpl(
                 emit(false)
             }
         }
+
 
     private suspend fun readRequest(requestId: String): DocumentSnapshot {
         val requestRef = db.collection("FriendRequests").document(requestId)
@@ -292,7 +274,6 @@ class FirebaseDataSourceImpl(
             transaction.update(toUserRef, "friends", FieldValue.arrayUnion(fromId))
         }.await()
     }
-
 }
 
 

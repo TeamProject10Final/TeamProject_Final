@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="consumptionCategoryArray">
-        <item>카테고리1</item>
-        <item>카테고리2</item>
-        <item>카테고리3</item>
-        <item>카테고리4</item>
-        <item>카테고리5</item>
-        <item>카테고리6</item>
-        <item>카테고리7</item>
-        <item>카테고리8</item>
+        <item>식사</item>
+        <item>여가</item>
+        <item>문화생활</item>
+        <item>모임</item>
+        <item>차량유지</item>
         <item>기타</item>
-        <item> </item>
+        <item>카테고리 목록을 선택해주세요</item>
     </string-array>
 </resources>

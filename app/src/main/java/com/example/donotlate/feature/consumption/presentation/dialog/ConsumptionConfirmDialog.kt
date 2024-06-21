@@ -9,42 +9,57 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.donotlate.databinding.BackDialogBinding
-import com.example.donotlate.feature.room.presentation.view.RoomActivity
+import com.example.donotlate.feature.consumption.presentation.ConsumptionModel
 
-class ConsumptionConfirmDialog : DialogFragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+class ConsumptionConfirmDialog(
+    confirmDialogInterface: ConfirmDialogInterface,
+    model: ConsumptionModel
+) : DialogFragment() {
 
-        isCancelable = true
+    private var _binding: BackDialogBinding? = null
+    private val binding get() = _binding!!
+
+    private var confirmDialogInterface: ConfirmDialogInterface? = null
+    private var model: ConsumptionModel? = null
+
+    init {
+        this.confirmDialogInterface = confirmDialogInterface
+        this.model = model
     }
 
-    private lateinit var binding: BackDialogBinding
-
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = BackDialogBinding.inflate(inflater, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = BackDialogBinding.inflate(inflater, container, false)
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.tvDl1.text = "변경할까요?"
-        binding.tvDl2.text = "작성중인 게시물이 삭제되고\n메인으로 돌아갑니다."
-
+        if (model?.isFinished == false) {
+            binding.tvDl1.text = "정산을 완료합니다."
+            binding.tvDl2.text = "정산 완료로 상태를 변경할까요?"
+        } else {
+            binding.tvDl1.text = "정산을 취소합니다."
+            binding.tvDl2.text = "정산 중으로 상태를 변경할까요?"
+        }
         binding.tvDlCancel.setOnClickListener {
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
-            val activity = activity as RoomActivity
-            activity.finish()
+            this.confirmDialogInterface?.onPositiveButtonClicked(model!!)
+            dismiss()
         }
+
+        return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+
+
+interface ConfirmDialogInterface {
+    fun onPositiveButtonClicked(model: ConsumptionModel)
 }

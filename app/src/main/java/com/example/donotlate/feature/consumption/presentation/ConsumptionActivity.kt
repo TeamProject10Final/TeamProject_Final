@@ -1,15 +1,13 @@
 package com.example.donotlate.feature.consumption.presentation
 
+
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -20,9 +18,11 @@ import com.example.donotlate.ConsumptionContainer
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.ActivityConsumptionBinding
+import com.example.donotlate.feature.consumption.presentation.dialog.ConfirmDialogInterface
+import com.example.donotlate.feature.consumption.presentation.dialog.ConsumptionConfirmDialog
 import kotlinx.coroutines.launch
 
-class ConsumptionActivity : AppCompatActivity() {
+class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface {
 
 
     private lateinit var binding: ActivityConsumptionBinding
@@ -52,10 +52,6 @@ class ConsumptionActivity : AppCompatActivity() {
         }
 
 
-
-
-
-
         val appContainer = (application as DoNotLateApplication).appContainer
 
         appContainer.consumptionContainer = ConsumptionContainer(
@@ -70,7 +66,7 @@ class ConsumptionActivity : AppCompatActivity() {
             appContainer.getDataCountUseCase,
             appContainer.getLiveDataCountUseCase,
             appContainer.toggleIsFinishedUseCase,
-            appContainer.getMyDataFromFirebaseUseCase
+            appContainer.getCurrentUserDataUseCase
         )
 
         appContainer.consumptionContainer?.let {
@@ -134,18 +130,20 @@ class ConsumptionActivity : AppCompatActivity() {
 
             launch {
                 consumptionViewModel.totalPrice.collect { totalPrice ->
-                    binding.tvExpenseNum.text = "${totalPrice.addCommas()} 원"
+                    binding.tvExpenseNum.text =
+                        "${totalPrice.addCommas()} ${resources.getString(R.string.cal_activity_text1)}"
                 }
             }
 
             launch {
                 consumptionViewModel.liveDataCount.collect { count ->
-                    binding.tvVisitNum.text = "총 $count 건"
+                    binding.tvVisitNum.text =
+                        "$count ${resources.getString(R.string.cal_activity_text2)}"
                 }
             }
             launch {
-                consumptionViewModel.currentUserData.collect{ userData ->
-                    userData?.let { binding.tvUserName.text = userData.name  }
+                consumptionViewModel.currentUserData.collect { userData ->
+                    userData?.let { binding.tvUserName.text = userData.name }
                 }
             }
         }
@@ -171,13 +169,8 @@ class ConsumptionActivity : AppCompatActivity() {
     }
 
     private fun showConfirmationDialog(item: ConsumptionModel) {
-        AlertDialog.Builder(this)
-            .setMessage("정산 상태를 변경할까요?\n\n${item.isFinished} -> ${!item.isFinished}")
-            .setPositiveButton("Yes") { _, _ ->
-                consumptionViewModel.toggleIsFinished(item)
-            }
-            .setNegativeButton("No", null)
-            .show()
+        val dialog = ConsumptionConfirmDialog(this, item)
+        dialog.show(this.supportFragmentManager, "tag")
     }
 
     //utils로 빼내기!!!!
@@ -199,13 +192,19 @@ class ConsumptionActivity : AppCompatActivity() {
                 0 // 혹은 예외처리에 따라 다른 값 반환 가능
             }
         }
-
-        fun hideKeyboard(view: View) {
-            val imm =
-                view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
-        }
+//
+//        fun hideKeyboard(view: View) {
+//            val imm =
+//                view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//            imm.hideSoftInputFromWindow(view.windowToken, 0)
+//        }
     }
+
+    override fun onPositiveButtonClicked(model: ConsumptionModel) {
+        consumptionViewModel.toggleIsFinished(model)
+    }
+
+
 }
 
 

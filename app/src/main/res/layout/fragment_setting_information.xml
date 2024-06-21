@@ -93,12 +93,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:text="약관 및 개인정보 처리 동의"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_Setting_Info_Personal" />
+        app:layout_constraintTop_toBottomOf="@+id/cl_Setting_Info1" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_Setting_Info"

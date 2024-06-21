@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DoNotLate</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--로그인 페이지-->
+    <string name="login_top_title1">Welcome</string>
+    <string name="login_top_title2"></string>
+    <string name="login_top_title3">Please proceed to log in.</string>
+    <string name="login_edit_text1">Please enter your e-mail.</string>
+    <string name="login_edit_text2">Please enter your password.</string>
+    <string name="login_text1">Please check your email.</string>
+    <string name="login_text2">Passwords do not match.</string>
+    <string name="login_text3">Don\&apos;t have an account?</string>
+    <string name="login_text4">Or sign up with</string>
+    <string name="login_sign_up_line"><u>Sign Up</u></string>
+
+    <!--회원가입 페이지-->
+    <string name="sign_up_top_title1">Or sign up with</string>
+    <string name="sign_up_top_title2"></string>
+    <string name="sign_up_top_title3">Shall we go make an appointment now?</string>
+    <string name="sign_up_edit_text1">Please enter your nickname.</string>
+    <string name="sign_up_edit_text2">Please re-enter your password.</string>
+    <string name="sign_up_text1">Nickname contains special characters.</string>
+    <string name="sign_up_text2">Please make your password a combination of 8 to 20 letters and numbers.</string>
+    <string name="sign_up_text3">Already have an account?</string>
+    <string name="sign_up_login_line"><u>Login</u></string>
+
+    <!--정산하기 첫 페이지-->
+    <string name="cal_top_title1"></string>
+    <string name="cal_text1">Consumption analysis</string>
+    <string name="cal_text2">Total expenditure\n\n</string>
+    <string name="cal_text3">Promise of progress\n\n</string>
+    <string name="cal_text4">Settlement in progress</string>
+    <string name="cal_text5">There is a record of the payment not being completed.</string>
+    <string name="cal_text6">Settlement details</string>
+    <string name="cal_text7">Settlement has been completed.</string>
+    <string name="cal_btn_text">Calculate</string>
+
+    <!--정산하기 첫 페이지(Activity)-->
+    <string name="cal_activity_text1"><![CDATA["￦"]]></string>
+    <string name="cal_activity_text2">EA</string>
+    <string name="cal_activity_text3">Want to change your settlement status?</string>
+    <string name="cal_activity_text4">Yes</string>
+    <string name="cal_activity_text5">No</string>
+
+    <!--정산하기 두번째 페이지-->
+    <string name="cal2_top_title1">Shall we start the settlement?</string>
+    <string name="cal2_top_title2"></string>
+    <string name="cal2_top_title3">Please enter settlement history.</string>
+    <string name="cal2_text1">Expenditure title</string>
+    <string name="cal2_text2">Expenditure date</string>
+    <string name="cal2_text3">Expenditure category</string>
+    <string name="cal2_edit_text1">Please enter a description of your expenses.</string>
+    <string name="cal2_edit_text2">Please select the date by clicking\nthe icon.</string>
+    <string name="cal2_btn_text">Next</string>
+
+    <!--정산하기 두번째 페이지(Fragment)-->
+    <string name="cal_frgment_text1">Please fill out all fields.</string>
+
+    <!--정산하기 세번째 페이지-->
+    <string name="cal3_top_title1">It\&apos;s coming to an end</string>
+    <string name="cal3_top_title2"></string>
+    <string name="cal3_top_title3">Please enter the settlement amount.</string>
+    <string name="cal3_text1">Total settlement amount</string>
+    <string name="cal3_text2">Penalty amount</string>
+    <string name="cal3_text3">Number of people to divide the amount with</string>
+    <string name="cal3_text4">people</string>
+    <string name="cal3_edit_text1">Please enter the total amount\n to be settled.</string>
+    <string name="cal3_edit_text2">Please enter the Penalty amount.</string>
+    <string name="cal3_edit_text3">Please enter the Number of people\n to divide the amount with.</string>
+
+    <!--정산하기 세번째 페이지(Fragment)-->
+    <string name="cal1_frgment_text1">Add my fine</string>
+    <string name="cal1_frgment_text2">Addition of fines to colleagues</string>
+
+    <!--정산하기 세번째 페이지-->
+    <string name="cal4_top_title1"></string>
+    <string name="cal4_top_title2">This is the settlement result.</string>
+    <string name="cal4_top_title3">Please check.</string>
+    <string name="cal4_btn_text1">Settlement complete</string>
+    <string name="cal4_btn_text2">Exit</string>
+
+    <!--미니게임 페이지-->
+    <string name="game_top_title1">Who is today’s winner?</string>
+    <string name="game_top_title2">Mini game</string>
+    <string name="game_text1">Roulette</string>
+    <string name="game_text2">Ladder</string>
+
+    <!--미니게임_룰렛 페이지-->
+    <string name="game_roulette_text1">This is a game where prizes are selected \n from numbers 1 to 8 and won.</string>
+    <string name="game_roulette_text2">Spin</string>
+
+    <!--미니게임_룰렛 페이지-->
+    <string name="roulette_text1">winning</string>
+    <string name="roulette_text2">Spinning...?</string>
+
+    <!--메인 페이지-->
+    <string name="main_top_title1">You can become the promised king,</string>
+    <string name="main_top_title2"></string>
+    <string name="main_text1">Make\n an\n appointment</string>
+    <string name="main_text2">My\n promise</string>
+    <string name="main_text3">Place\n search</string>
+    <string name="main_text4">Calculate</string>
+    <string name="main_text5">Mini\n game</string>
+    <string name="main_text6">Friend\n management</string>
+
+    <!--친구 페이지-->
+    <string name="friend_text1">My friends list</string>
+    <string name="friend_btn_text">Requested friend list</string>
+
+    <!--친구요청 페이지-->
+    <string name="friend_request_top_title">Shall we find a new friend?</string>
+    <string name="friend_request_edit_text">Please search for the friend you\nwould like to request.</string>
+    <string name="friend_request_btn_text">Click</string>
+    <string name="friend_request_text">Please select the friends\nyou would like to invite.</string>
+
+    <string name="time"> </string>
+    <string name="info"> </string>
+    <string name="personal"> </string>
+    <string name="location"> </string>
+
+</resources>

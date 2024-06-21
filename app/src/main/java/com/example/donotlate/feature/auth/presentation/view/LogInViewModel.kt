@@ -1,4 +1,4 @@
-package com.example.donotlate.feature.auth.presentation.viewmodel
+package com.example.donotlate.feature.auth.presentation.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

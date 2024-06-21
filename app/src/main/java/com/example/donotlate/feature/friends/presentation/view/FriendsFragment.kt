@@ -11,11 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.databinding.FragmentFriendsBinding
 import com.example.donotlate.feature.friends.presentation.adapter.FriendsAdapter
-import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModel
-import com.example.donotlate.feature.friends.presentation.viewmodel.FriendsViewModelFactory
-import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 import kotlinx.coroutines.launch
 
 class FriendsFragment : Fragment() {
@@ -24,10 +23,8 @@ class FriendsFragment : Fragment() {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         FriendsViewModelFactory(
             appContainer.getFriendsListFromFirebaseUseCase,
-            appContainer.getCurrentUserUseCase,
             appContainer.searchUserByIdUseCase,
             appContainer.makeAFriendRequestUseCase,
-            appContainer.getUserDataUseCase,
             appContainer.getFriendRequestsStatusUseCase,
             appContainer.getFriendRequestListUseCase,
             appContainer.acceptFriendRequestsUseCase
@@ -38,6 +35,8 @@ class FriendsFragment : Fragment() {
     private var _binding: FragmentFriendsBinding? = null
     private val binding get() = _binding!!
     private lateinit var friendsAdapter: FriendsAdapter
+
+    private val userData = CurrentUser.userData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,12 +66,18 @@ class FriendsFragment : Fragment() {
         observeViewModel()
         backButton()
 
+        binding.tvTopUserName.text = userData?.name
     }
 
     private fun backButton() {
         binding.ivFriendBack.setOnClickListener {
-            val activity = activity as FriendsActivity
-            activity.finish()
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, MainFragment())
+                .commit()
         }
     }
 
@@ -82,7 +87,7 @@ class FriendsFragment : Fragment() {
                 /* enter = */ R.anim.slide_in,
                 /* exit = */ R.anim.fade_out,
             )
-            .replace(R.id.frame_friends, fragment)
+            .replace(R.id.frame, fragment)
             .addToBackStack("").commit()
     }
 
@@ -105,13 +110,6 @@ class FriendsFragment : Fragment() {
             friendsViewModel.friendsList.collect { friends ->
                 friendsAdapter.submitList(friends)
                 Log.d("FriendsFragment", "Observed friends: $friends")
-            }
-        }
-        lifecycleScope.launch {
-            friendsViewModel.currentUserData.collect{userData ->
-                userData?.let {
-                    binding.tvTopUserName.text = userData.name
-                }
             }
         }
     }
