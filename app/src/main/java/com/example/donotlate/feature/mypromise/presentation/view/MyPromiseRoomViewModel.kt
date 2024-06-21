@@ -24,7 +24,6 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlin.math.acos
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.pow
@@ -84,19 +83,18 @@ class MyPromiseRoomViewModel(
 
     fun setUserLocation(location: LatLng) {
         _userLocationLatLng.value = location
-        getUserLocationString()
-    }
-
-    // 사용자 위치를 문자열로 반환하는 메서드 추가
-    fun getUserLocationString(delimiter: String = ","){
-        val location = userLocationLatLng.value
-        if(location!=null){
-            _originString.value = "${location.latitude}$delimiter${location.longitude}"
-            Log.d("확인 userLocaString", "${originString.value}")
-        }else{
-            Log.d("확인 userLocaString", "null")
+        if (userLocationLatLng.value != null) {
+            _originString.value = getLocationString(userLocationLatLng.value!!)
+        } else {
+            Log.d("확인 setUserLoca", "null")
         }
 
+    }
+
+    // LatLng 위치를 문자열로 반환하는 메서드 추가
+    private fun getLocationString(latLng: LatLng, delimiter: String = ","): String {
+        Log.d("확인 userLocaString", "${originString.value}")
+        return "${latLng.latitude}$delimiter${latLng.longitude}"
     }
 
     fun calDistance2() {
@@ -120,22 +118,16 @@ class MyPromiseRoomViewModel(
         }
     }
 
-    fun setDestinationLatLng() {
-
-        val temp = _directionsResult.value?.routes?.get(0)?.legs?.get(0)?.totalEndLocation
-        if (temp != null) {
-            val tempLatLng = LatLng(temp.lat, temp.lng)
-            Log.d("확인 목적지", "목적지 ${tempLatLng.latitude}, ${tempLatLng.longitude}")
-            _destinationLatLng.value = tempLatLng
+    fun setDestinationLatLng(lat: Double, lng: Double) {
+        _destinationLatLng.value = LatLng(lat, lng)
+        Log.d("확인 목적지", "목적지 ${lat}, ${lng}")
+        if (destinationLatLng.value != null) {
+            _destinationString.value = getLocationString(destinationLatLng.value!!)
         } else {
-            _error.postValue("목적지 세팅 실패")
-            Log.d("확인 목적지", "목적지 null")
+            Log.d("확인 setDestLoca", "null")
         }
     }
 
-    fun setDestination(dest: String) {
-        _destinationString.value = dest
-    }
 
     fun getDirections() {
         viewModelScope.launch {
@@ -148,7 +140,6 @@ class MyPromiseRoomViewModel(
                 _directionsResult.value = result.toModel()
                 //setRouteSelectionText()
                 setShortDirectionsResult()
-                setDestinationLatLng()
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }

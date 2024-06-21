@@ -75,7 +75,6 @@ class MyPromiseRoomFragment : Fragment() {
     private var roomId: String? = null
     private var roomDestination: String? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -175,15 +174,17 @@ class MyPromiseRoomFragment : Fragment() {
             roomId = room.roomId
             roomDestination = room.destination
 
+            myPromiseViewModel.setDestinationLatLng(room.destinationLat, room.destinationLng)
+
             binding.tvRoomTitle.text = room.roomTitle
             binding.tvRoomPromiseDate.text = room.promiseDate
             loadToMessageFromFireStore(room.roomId)
         }
-
-        roomDestination?.let {
-            myPromiseViewModel.setDestination(it)
-            Log.d("확인 prom destination", it)
-        }
+//
+//        roomDestination?.let {
+//            myPromiseViewModel.setDestination(it)
+//            Log.d("확인 prom destination", it)
+//        }
 
 
         binding.btnSend.setOnClickListener {
@@ -351,12 +352,13 @@ class MyPromiseRoomFragment : Fragment() {
 
     private fun shortMessage() {
         val currentUserLocation = myPromiseViewModel.originString.value
+        myPromiseViewModel.getDirections()
 
-        roomDestination?.let {
-            myPromiseViewModel.setDestination(it)
-
-            myPromiseViewModel.getDirections()
-        }
+//        roomDestination?.let {
+//            myPromiseViewModel.setDestination(it)
+//
+//            myPromiseViewModel.getDirections()
+//        }
         Log.d("확인 확인 확인", "${currentUserLocation}")
         Log.d("확인 확인 확인", "dest : ${roomDestination}")
 
