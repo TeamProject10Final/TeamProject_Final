@@ -10,6 +10,7 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.donotlate.R
 import com.example.donotlate.databinding.BackDialogBinding
+import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomFragment
 
 class CancelFragmentDialog : DialogFragment() {
@@ -45,8 +46,9 @@ class CancelFragmentDialog : DialogFragment() {
         }
         binding.tvDlConfirm.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.frame, MyPromiseRoomFragment())
+                .replace(R.id.frame, MainFragment())
                 .commit()
+            dismiss()
         }
     }
 }
