@@ -1,5 +1,7 @@
 package com.example.donotlate.feature.room.presentation.view
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
@@ -38,6 +41,8 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private lateinit var mGoogleMap: GoogleMap
+
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +79,9 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         sendQuery()
         checkLocation()
     }
+
+
+
 
     private fun initMap() {
         val mapFragment =

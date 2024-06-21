@@ -1,11 +1,14 @@
 package com.example.donotlate.feature.searchPlace.presentation.search
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -27,6 +30,8 @@ class PlaceSearchFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var mapAdapter: MapAdapter
+
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1000
 
     private val searchViewModel: PlaceSearchViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
@@ -78,6 +83,8 @@ class PlaceSearchFragment : Fragment() {
         super.onResume()
         fetchMap()
     }
+
+
 
     private fun editTextProcess() {
         binding.etSearchBox.setOnEditorActionListener { textView, action, keyEvent ->

@@ -53,6 +53,8 @@
 
     <style name="EditTextCursorStyle." parent="Widget.AppCompat.EditText">
         <item name="android:textColorHighlight">@color/bright_lilac</item>
+        <item name="android:textCursorDrawable">@color/bright_lilac</item>
+        <item name="android:textSelectHandle">@color/bright_lilac</item>
     </style>
 
     <style name="BottomSheetTheme"
@@ -60,7 +62,6 @@
         <item name="bottomSheetStyle">@style/AppModalBorder20WhiteStyle</item>
         <item name="android:windowIsFloating">false</item>
     </style>
-
     <style name="AppModalBorder20WhiteStyle"
         parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/item_bottomsheet</item>

@@ -18,39 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_top_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:text="새싹"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_top_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="사용자 이름"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/tv_top_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_top_title" />
-
-    <TextView
-        android:id="@+id/tv_top_defult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="님"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/tv_top_user_name"
-        app:layout_constraintStart_toEndOf="@id/tv_top_user_name" />
-
 
     <ImageView
         android:id="@+id/iv_title_background"
@@ -62,7 +29,7 @@
         android:background="@drawable/bg_title_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_top_user_name" />
+        app:layout_constraintTop_toBottomOf="@id/iv_promise_back" />
 
     <TextView
         android:id="@+id/tv_title_date"

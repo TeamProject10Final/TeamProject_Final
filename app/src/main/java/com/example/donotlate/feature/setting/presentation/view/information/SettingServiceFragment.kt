@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentSettingPersonalAgreementBinding
+import com.example.donotlate.databinding.FragmentSettingServiceBinding
 
 
-class SettingPersonalAgreementFragment : Fragment() {
+class SettingServiceFragment : Fragment() {
 
-    private var _binding: FragmentSettingPersonalAgreementBinding? = null
+    private var _binding : FragmentSettingServiceBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,25 +23,19 @@ class SettingPersonalAgreementFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        _binding = FragmentSettingPersonalAgreementBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingServiceBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         backButton()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     private fun backButton() {
-        //뒤로가기
-        binding.ivSettingInfoPersonalBack.setOnClickListener {
+        binding.ivSettingServiceBack.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     /* enter = */ R.anim.fade_in,
@@ -50,5 +44,10 @@ class SettingPersonalAgreementFragment : Fragment() {
                 .replace(R.id.frame, SettingInformationFragment())
                 .commit()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
