@@ -13,6 +13,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -200,6 +202,8 @@ class MyPromiseRoomFragment : Fragment() {
             checkPermissionAndProceed()
         }
 
+        setViewMore(binding.tvRoomTitle, binding.tvRoomPromiseDate, binding.tvRoomTitle)
+
 
 
 
@@ -383,6 +387,27 @@ class MyPromiseRoomFragment : Fragment() {
             }
         }
         Log.d("확인", "4")
+    }
+
+    private fun setViewMore(contentTextView: TextView,contentTextView2: TextView, viewMoreTextView: TextView) {
+        // getEllipsisCount()을 통한 더보기 표시 및 구현
+        contentTextView.post {
+            val lineCount = contentTextView.layout.lineCount
+            if (lineCount > 0) {
+                if (contentTextView.layout.getEllipsisCount(lineCount - 1) > 0) {
+                    // 더보기 표시
+                    viewMoreTextView.visibility = View.VISIBLE
+
+                    // 더보기 클릭 이벤트
+                    viewMoreTextView.setOnClickListener {
+                        contentTextView.maxLines = Int.MAX_VALUE
+                        viewMoreTextView.visibility = View.VISIBLE
+                        contentTextView2.visibility = View.VISIBLE
+
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
