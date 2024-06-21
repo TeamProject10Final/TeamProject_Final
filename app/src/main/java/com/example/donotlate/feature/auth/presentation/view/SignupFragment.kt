@@ -139,7 +139,7 @@ class SignupFragment : Fragment() {
         val password = binding.etSignPassword
         val hide = binding.ivSignHide
         hide.tag = "0"
-        hide.setImageResource(R.drawable.hide)
+        hide.setImageResource(R.drawable.ic_hide)
         hide.setOnClickListener {
             when (it.tag) {
                 "0" -> {
@@ -151,7 +151,7 @@ class SignupFragment : Fragment() {
                 "1" -> {
                     hide.tag = "0"
                     password.transformationMethod = PasswordTransformationMethod.getInstance()
-                    hide.setImageResource(R.drawable.hide)
+                    hide.setImageResource(R.drawable.ic_hide)
                 }
             }
         }
