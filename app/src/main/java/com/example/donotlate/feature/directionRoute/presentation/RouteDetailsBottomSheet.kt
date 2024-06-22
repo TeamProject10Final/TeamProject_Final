@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.AppContainer
 import com.example.donotlate.DoNotLateApplication
@@ -45,13 +44,9 @@ class RouteDetailsBottomSheet : BottomSheetDialogFragment() {
             "값들 : ${sharedViewModel.origin.value.toString()}, ${sharedViewModel.destination.value.toString()},${sharedViewModel.mode.value.toString()}"
         )
 
-        binding.routeDetailsText.text = sharedViewModel.directionExplanations.value
-        // sharedViewModel.directionExplanations.observe(viewLifecycleOwner, Observer{
-        //            binding.resultTextView.text = it
-        //        }) 이거랑 차이...? 소요 시간?
-
-        sharedViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
-            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+//        binding.routeDetailsText.text = sharedViewModel.directionExplanations.value
+        sharedViewModel.directionExplanations.observe(viewLifecycleOwner) {
+            binding.routeDetailsText.text = it
         }
     }
 
