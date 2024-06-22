@@ -8,9 +8,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_Radio101"
         android:layout_width="350dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:maxHeight="450dp"
         android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/cl_Radio201"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
