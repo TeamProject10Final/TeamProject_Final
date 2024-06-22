@@ -25,6 +25,7 @@ import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessa
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 import com.example.donotlate.feature.mypromise.presentation.view.dialog.RadioButtonDialog
+import com.example.donotlate.feature.mypromise.presentation.view.dialog.RadioButtonSelectionDialog
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -33,6 +34,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.Timestamp
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
 
 class MyPromiseRoomFragment : Fragment() {
 
@@ -152,15 +154,54 @@ class MyPromiseRoomFragment : Fragment() {
         }
 
         binding.ivRoomMap.setOnClickListener {
-            val selectionDialog = RadioButtonDialog()
-            selectionDialog.show(childFragmentManager, "String")
-            checkPermissionAndProceed()
-            myPromiseViewModel.setShortDirectionsResult()
+
+            showModeDialog()
+//
+
+
         }
 
         setViewMore(binding.tvRoomTitle, binding.tvRoomPromiseDate, binding.tvRoomTitle)
 
+        binding.btnDeparture.setOnClickListener {
+            //TODO 여기서도 checkPermissionAndProceed를 쓰는 게 나은거 맞겠지..?
+            checkPermissionAndProceed()
+            myPromiseViewModel.setIsDepart(true)
+            //여기에 출발 대한 동작 추가하기
+            binding.btnDeparture.isVisible = false
+            binding.ivRoomMap.isVisible = true
+            binding.btnArrived.isVisible = false
+        }
 
+    }
+
+    private fun showModeDialog() {
+        val selectionDialog = RadioButtonDialog() {
+
+            lifecycleScope.launch {
+                checkPermissionAndProceed()
+                yield()
+//                showDialogSelection()
+                myPromiseViewModel.routeSelectionText.observe(viewLifecycleOwner) {
+                    Log.d("확인 routeS", "몇번?")
+                    if (it != null) {
+                        showDialogSelection(it)
+                    } else {
+                        Log.d("확인 routeS", "$it")
+                    }
+                }
+            }
+
+        }
+        selectionDialog.show(childFragmentManager, "RadioButtonDialog")
+    }
+
+    private fun showDialogSelection(selections: List<String>) {
+        val routeSelectionDialog = RadioButtonSelectionDialog(selections) {
+            //라디오 버튼 선택 뒤의 로직
+            myPromiseViewModel.afterSelecting()
+        }
+        routeSelectionDialog.show(childFragmentManager, "RadioButtonSelectionDialog")
     }
 
     private fun observeViewModel() {
@@ -170,12 +211,34 @@ class MyPromiseRoomFragment : Fragment() {
                 binding.btnArrived.isVisible = true
                 binding.ivRoomMap.isVisible = false
                 //도착 버튼이 보이게
+                //메시지가 발송되게
             } else {
-                binding.btnArrived.isVisible = false
-                binding.ivRoomMap.isVisible = true
-                //도착 버튼이 보이지 않게
+                if (myPromiseViewModel.getIsDepart()) {
+                    //출발했다면
+                    binding.btnDeparture.isVisible = false
+                    binding.btnArrived.isVisible = false
+                    binding.ivRoomMap.isVisible = true
+                    //도착 버튼이 보이지 않게
+                    //지도 버튼만 보이게
+                } else {
+                    binding.btnDeparture.isVisible = true
+                    binding.ivRoomMap.isVisible = false
+                    binding.btnArrived.isVisible = false
+                }
             }
         }
+//        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner) {
+//            //처음에 방 들어가자마자 초기화하기! 거리 계산해두기
+//            if (it <= 0.2) { //200m
+//                binding.btnArrived.isVisible = true
+//                binding.ivRoomMap.isVisible = false
+//                //도착 버튼이 보이게
+//            } else {
+//                binding.btnArrived.isVisible = false
+//                binding.ivRoomMap.isVisible = true
+//                //도착 버튼이 보이지 않게
+//            }
+//        }
 
         myPromiseViewModel.shortExplanations.observe(viewLifecycleOwner) {
             if (it.isNullOrEmpty()) {
@@ -250,6 +313,7 @@ class MyPromiseRoomFragment : Fragment() {
     private fun checkPermissionAndProceed() {
         if (hasLocationPermission()) {
             // 권한이 있을 때
+            //TODO 3 권한 있을 땐 onstart에서 시작되지 않나?
             startLocationUpdates()
             getCurrentLocation()
         } else {
@@ -287,7 +351,8 @@ class MyPromiseRoomFragment : Fragment() {
                 location?.let {
                     val userLatLng = LatLng(it.latitude, it.longitude)
                     myPromiseViewModel.setUserLocation(userLatLng)
-                    shortMessage()
+
+                    getDirectionsAndSelection()
                 } ?: run {
                     //
                 }
@@ -297,7 +362,7 @@ class MyPromiseRoomFragment : Fragment() {
             }
     }
 
-    private fun shortMessage() {
+    private fun getDirectionsAndSelection() {
         val currentUserLocation = myPromiseViewModel.originString.value
         myPromiseViewModel.getDirections()
 

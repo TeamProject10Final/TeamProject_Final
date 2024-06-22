@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_dialog">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_Radio101"
+        android:layout_width="350dp"
+        android:layout_height="0dp"
+        android:maxHeight="450dp"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/svSelection01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+            <RadioGroup
+                android:id="@+id/radioGroup01"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RadioButton
+                    android:id="@+id/rb_first"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:visibility="visible" />
+
+                <View
+                    android:id="@+id/line_first"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E4E4E4"
+                    android:visibility="visible" />
+
+                <RadioButton
+                    android:id="@+id/rb_second"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:visibility="visible" />
+
+                <View
+                    android:id="@+id/line_second"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E4E4E4"
+                    android:visibility="visible" />
+
+                <RadioButton
+                    android:id="@+id/rb_third"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:visibility="visible" />
+
+                <View
+                    android:id="@+id/line_third"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E4E4E4"
+                    android:visibility="visible" />
+
+                <RadioButton
+                    android:id="@+id/rb_fourth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:visibility="visible" />
+
+                <View
+                    android:id="@+id/line_fourth"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E4E4E4"
+                    android:visibility="visible" />
+
+                <RadioButton
+                    android:id="@+id/rb_fifth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:visibility="visible" />
+
+                <View
+                    android:id="@+id/line_fifth"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E4E4E4"
+                    android:visibility="visible" />
+
+                <RadioButton
+                    android:id="@+id/rb_sixth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:visibility="visible" />
+
+            </RadioGroup>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_Radio201"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_Radio101">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_Radio_Cancel01"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_info_round_lilac"
+            android:text="취소"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/btn_Radio_Confirm01"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_Radio_Confirm01"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_info_round_arctic"
+            android:text="확인"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_Radio_Cancel01"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

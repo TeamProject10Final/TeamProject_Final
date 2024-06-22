@@ -579,6 +579,14 @@ class DirectionsViewModel1(
         }
     }
 
+    fun getSelectionList(): List<String> {
+        return if (routeSelectionText.value?.isEmpty() == true) {
+            emptyList()
+        } else {
+            routeSelectionText.value!!.toList()
+        }
+    }
+
     private fun formatRouteSelectionText(directions: DirectionsModel) {
         val resultsList = mutableListOf<String>()
         refreshIndex()
