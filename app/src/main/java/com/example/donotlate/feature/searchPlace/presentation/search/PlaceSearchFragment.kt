@@ -1,14 +1,11 @@
 package com.example.donotlate.feature.searchPlace.presentation.search
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -46,7 +43,7 @@ class PlaceSearchFragment : Fragment() {
         _binding = FragmentPlaceSearchBinding.inflate(inflater, container, false)
 
         binding.root.setOnClickListener {
-            hideKeyboard()
+            hideKeyboard(binding.root.windowToken)
             //TODO 여기 오류납니다
 //            requireActivity().currentFocus!!.clearFocus()
         }
@@ -67,7 +64,7 @@ class PlaceSearchFragment : Fragment() {
             binding.rvMap.visibility = View.VISIBLE
             binding.imageView2.visibility = View.INVISIBLE
             binding.tvDefaultText.visibility = View.INVISIBLE
-            hideKeyboard()
+            hideKeyboard(binding.root.windowToken)
         }
 //        searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
 //        binding.rvMap.visibility = View.VISIBLE
@@ -91,7 +88,7 @@ class PlaceSearchFragment : Fragment() {
             var handled = false
 
             if (action == EditorInfo.IME_ACTION_SEARCH) {
-                hideKeyboard()
+                hideKeyboard(binding.root.windowToken)
                 requireActivity().currentFocus!!.clearFocus()
                 handled = true
 

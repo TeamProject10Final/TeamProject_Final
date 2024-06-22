@@ -1,0 +1,459 @@
+Index: app/src/main/res/layout/dialog_radiobutton.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<androidx.constraintlayout.widget.ConstraintLayout\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    android:background=\"@drawable/item_dialog\"\n    android:layout_width=\"wrap_content\"\n    android:layout_height=\"wrap_content\">\n\n    <androidx.constraintlayout.widget.ConstraintLayout\n        android:id=\"@+id/cl_Radio1\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:padding=\"10dp\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toTopOf=\"parent\">\n\n        <RadioGroup\n            android:id=\"@+id/radioGroup\"\n            android:layout_width=\"300dp\"\n            android:layout_height=\"wrap_content\"\n            app:layout_constraintTop_toTopOf=\"parent\"\n            app:layout_constraintStart_toStartOf=\"parent\">\n\n            <RadioButton\n                android:id=\"@+id/rb_Transit\"\n                android:text=\"대중교통\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"/>\n\n            <View\n                android:layout_width=\"match_parent\"\n                android:layout_height=\"1dp\"\n                android:background=\"#E4E4E4\"/>\n\n            <RadioButton\n                android:id=\"@+id/rb_Driving\"\n                android:text=\"자동차\"\n                android:layout_width=\"match_parent\"\n                android:layout_height=\"wrap_content\"/>\n\n            <View\n                android:layout_width=\"match_parent\"\n                android:layout_height=\"1dp\"\n                android:background=\"#E4E4E4\"/>\n\n            <RadioButton\n                android:id=\"@+id/rb_Walking\"\n                android:text=\"도보\"\n                android:layout_width=\"match_parent\"\n                android:layout_height=\"wrap_content\"/>\n\n            <View\n                android:layout_width=\"match_parent\"\n                android:layout_height=\"1dp\"\n                android:background=\"#E4E4E4\"/>\n\n            <RadioButton\n                android:id=\"@+id/rb_Bicycling\"\n                android:text=\"자전거\"\n                android:layout_width=\"match_parent\"\n                android:layout_height=\"wrap_content\"/>\n\n        </RadioGroup>\n    </androidx.constraintlayout.widget.ConstraintLayout>\n\n    <androidx.constraintlayout.widget.ConstraintLayout\n        android:id=\"@+id/cl_Radio2\"\n        android:layout_width=\"0dp\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginTop=\"5dp\"\n        app:layout_constraintTop_toBottomOf=\"@+id/cl_Radio1\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\">\n\n        <androidx.appcompat.widget.AppCompatButton\n            android:id=\"@+id/btn_Radio_Cancel\"\n            android:layout_width=\"0dp\"\n            android:layout_height=\"wrap_content\"\n            android:background=\"@drawable/btn_info_round_lilac\"\n            android:text=\"취소\"\n            android:textColor=\"@color/white\"\n            android:textSize=\"17dp\"\n            android:textStyle=\"bold\"\n            app:layout_constraintEnd_toStartOf=\"@+id/btn_Radio_Confirm\"\n            app:layout_constraintHorizontal_bias=\"0.5\"\n            app:layout_constraintStart_toStartOf=\"parent\"\n            app:layout_constraintTop_toTopOf=\"parent\" />\n\n        <androidx.appcompat.widget.AppCompatButton\n            android:id=\"@+id/btn_Radio_Confirm\"\n            android:layout_width=\"0dp\"\n            android:layout_height=\"wrap_content\"\n            android:background=\"@drawable/btn_info_round_arctic\"\n            android:text=\"확인\"\n            android:textColor=\"@color/white\"\n            android:textSize=\"17dp\"\n            android:textStyle=\"bold\"\n            app:layout_constraintEnd_toEndOf=\"parent\"\n            app:layout_constraintHorizontal_bias=\"0.5\"\n            app:layout_constraintStart_toEndOf=\"@+id/btn_Radio_Cancel\"\n            app:layout_constraintTop_toTopOf=\"parent\" />\n\n    </androidx.constraintlayout.widget.ConstraintLayout>\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/dialog_radiobutton.xml b/app/src/main/res/layout/dialog_radiobutton.xml
+--- a/app/src/main/res/layout/dialog_radiobutton.xml	(revision 70310df6a4f297d1d2608f222fc48ebc8b3dce53)
++++ b/app/src/main/res/layout/dialog_radiobutton.xml	(date 1719077115952)
+@@ -12,7 +12,8 @@
+         android:layout_height="wrap_content"
+         android:padding="10dp"
+         app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent">
++        app:layout_constraintTop_toTopOf="parent"
++        app:layout_constraintBottom_toTopOf="@id/cl_Radio2">
+ 
+         <RadioGroup
+             android:id="@+id/radioGroup"
+Index: app/src/main/java/com/example/donotlate/feature/mypromise/presentation/view/MyPromiseRoomFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.donotlate.feature.mypromise.presentation.view\n\nimport android.Manifest\nimport android.annotation.SuppressLint\nimport android.content.pm.PackageManager\nimport android.location.Location\nimport android.os.Bundle\nimport android.os.Looper\nimport android.util.Log\nimport android.view.LayoutInflater\nimport android.view.View\nimport android.view.ViewGroup\nimport android.widget.Toast\nimport android.widget.TextView\nimport androidx.constraintlayout.widget.ConstraintLayout\nimport androidx.core.app.ActivityCompat\nimport androidx.core.view.isVisible\nimport androidx.fragment.app.Fragment\nimport androidx.fragment.app.viewModels\nimport androidx.lifecycle.lifecycleScope\nimport androidx.recyclerview.widget.LinearLayoutManager\nimport com.example.donotlate.DoNotLateApplication\nimport com.example.donotlate.R\nimport com.example.donotlate.core.presentation.CurrentUser\nimport com.example.donotlate.databinding.FragmentMyPromiseRoomBinding\nimport com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter\nimport com.example.donotlate.feature.mypromise.presentation.model.MessageModel\nimport com.example.donotlate.feature.mypromise.presentation.model.PromiseModel\nimport com.example.donotlate.feature.mypromise.presentation.view.dialog.RadioButtonDialog\nimport com.google.android.gms.location.FusedLocationProviderClient\nimport com.google.android.gms.location.LocationCallback\nimport com.google.android.gms.location.LocationRequest\nimport com.google.android.gms.location.LocationResult\nimport com.google.android.gms.location.LocationServices\nimport com.google.android.gms.maps.model.LatLng\nimport com.google.firebase.Timestamp\nimport kotlinx.coroutines.flow.collect\nimport kotlinx.coroutines.launch\n\nclass MyPromiseRoomFragment : Fragment() {\n\n    private val myPromiseViewModel: MyPromiseRoomViewModel by viewModels {\n        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer\n        MyPromiseRoomViewModelFactory(\n            appContainer.messageSendingUseCase,\n            appContainer.messageReceivingUseCase,\n            appContainer.getDirectionsUseCase,\n            appContainer.removeParticipantsUseCase\n        )\n    }\n    private lateinit var fusedLocationClient: FusedLocationProviderClient\n\n    //아래 코드 지우면 안 됩니다!!!!\n    private lateinit var locationCallback: LocationCallback\n    private val LOCATION_PERMISSION_REQUEST_CODE = 1000\n\n    private lateinit var adapter: PromiseMessageAdapter\n\n    private var _binding: FragmentMyPromiseRoomBinding? = null\n    val binding get() = _binding!!\n\n    private var promiseRoom: PromiseModel? = null\n    private var currentUserData = CurrentUser.userData\n    private var roomTitle: String? = null\n    private var promiseDate: String? = null\n    private var roomId: String? = null\n    private var roomDestination: String? = null\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n\n        checkPermissionAndProceed()\n        arguments?.let { bundle ->\n            promiseRoom = bundle.getParcelable(\"promiseRoom\")\n\n        }\n\n        locationCallback = object : LocationCallback() {\n            override fun onLocationResult(locationResult: LocationResult) {\n                for (location in locationResult.locations) {\n                    location?.let {\n                        val userLatLng = LatLng(it.latitude, it.longitude)\n                        myPromiseViewModel.setUserLocation(userLatLng)\n                        Log.d(\"확인 loca cb\", \"${myPromiseViewModel.originString.value}\")\n                        shortMessage()\n                    }\n                }\n            }\n        }\n    }\n\n    @SuppressLint(\"MissingPermission\")\n    private fun startLocationUpdates() {\n        if (hasLocationPermission()) {\n            if (::fusedLocationClient.isInitialized.not()) {\n                fusedLocationClient =\n                    LocationServices.getFusedLocationProviderClient(requireActivity())\n            }\n            val locationRequest = LocationRequest.create()\n                .apply {\n                    interval = 10000 //10초\n                    fastestInterval = 5000 //5초\n                    priority = LocationRequest.PRIORITY_HIGH_ACCURACY\n                }\n            //TODO\n            if (::locationCallback.isInitialized.not()) {\n                locationCallback = object : LocationCallback() {\n                    override fun onLocationResult(locationResult: LocationResult) {\n                        for (location in locationResult.locations) {\n                            location?.let {\n                                val userLatLng = LatLng(it.latitude, it.longitude)\n                                myPromiseViewModel.setUserLocation(userLatLng)\n                                Log.d(\"확인 loca cb\", \"${myPromiseViewModel.originString.value}\")\n//                                shortMessage()\n                            }\n                        }\n                    }\n                }\n            }\n            fusedLocationClient.requestLocationUpdates(\n                locationRequest,\n                locationCallback,\n                Looper.getMainLooper()\n            )\n        }\n    }\n\n    private fun stopLocationUpdates() {\n        fusedLocationClient.removeLocationUpdates(locationCallback)\n    }\n\n    override fun onCreateView(\n        inflater: LayoutInflater, container: ViewGroup?,\n        savedInstanceState: Bundle?\n    ): View {\n        _binding = FragmentMyPromiseRoomBinding.inflate(layoutInflater)\n        return binding.root\n    }\n\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\n        super.onViewCreated(view, savedInstanceState)\n\n        initAdapter()\n        backButton()\n\n        observeViewModel()\n\n        promiseRoom?.let { room ->\n            promiseDate = room.promiseDate\n            roomTitle = room.roomTitle\n            roomId = room.roomId\n            roomDestination = room.destination\n\n            myPromiseViewModel.setDestinationLatLng(room.destinationLat, room.destinationLng)\n\n            binding.tvRoomTitle.text = room.roomTitle\n            binding.tvRoomPromiseDate.text = room.promiseDate\n            loadToMessageFromFireStore(room.roomId)\n        }\n\n        binding.btnSend.setOnClickListener {\n            val contents = binding.etInputMessage.text.toString()\n            val roomId = roomId ?: throw NullPointerException(\"roomId is Null\")\n\n            if (contents.isNotBlank()) {\n                sendMessage(roomId, contents)\n                binding.etInputMessage.text = null\n            }\n        }\n\n        binding.btnRoomExit.setOnClickListener {\n            val roomId = roomId\n            val participantId = currentUserData?.uId\n            Log.d(\"나가기\", \"정보확인 ${roomId}, ${participantId}\")\n\n            if (roomId != null && participantId != null) {\n                Log.d(\"나가기\", \"실행\")\n                setExitButton(roomId, participantId)\n            }\n            observeViewModel1()\n        }\n\n        binding.ivRoomMap.setOnClickListener {\n            val selectionDialog = RadioButtonDialog()\n            selectionDialog.show(childFragmentManager, \"String\")\n            checkPermissionAndProceed()\n            myPromiseViewModel.setShortDirectionsResult()\n        }\n\n        setViewMore(binding.tvRoomTitle, binding.tvRoomPromiseDate, binding.tvRoomTitle)\n\n\n    }\n\n\n    private fun observeViewModel() {\n        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner) {\n            //처음에 방 들어가자마자 초기화하기! 거리 계산해두기\n            if (it <= 0.2) { //200m\n                binding.btnArrived.isVisible = true\n                binding.ivRoomMap.isVisible = false\n                //도착 버튼이 보이게\n            } else {\n                binding.btnArrived.isVisible = false\n                binding.ivRoomMap.isVisible = true\n                //도착 버튼이 보이지 않게\n            }\n        }\n\n        myPromiseViewModel.shortExplanations.observe(viewLifecycleOwner) {\n            if (it.isNullOrEmpty()) {\n                Log.d(\"확인 shmessage\", \"nullorempty- $it\")\n                return@observe\n            }\n            val roomId = roomId ?: throw NullPointerException(\"roomId is Null\")\n            Log.d(\"확인\", \"shortMessage $it\")\n            sendMessage(roomId, it)\n        }\n\n        myPromiseViewModel.originString.observe(viewLifecycleOwner) {\n            myPromiseViewModel.calDistance2()\n        }\n    }\n\n    private fun loadToMessageFromFireStore(roomId: String) {\n        lifecycleScope.launch {\n            myPromiseViewModel.loadMessage(roomId)\n        }\n    }\n\n    private fun sendMessage(roomId: String, contents: String) {\n        lifecycleScope.launch {\n            try {\n                val message = MessageModel(\n                    senderName = currentUserData?.name ?: throw NullPointerException(\"User Data Null!\"),\n                    sendTimestamp = Timestamp.now(),\n                    senderId = currentUserData?.uId ?: throw NullPointerException(\"User Data Null!\"),\n                    contents = contents,\n                    messageId = \"\",\n                    senderProfileUrl = currentUserData?.profileImgUrl ?: \"\"\n                )\n                myPromiseViewModel.sendMessage(roomId, message)\n            } catch (e: Exception) {\n                Log.e(\"sendMessage\", \"Error in sendMessage: $e\")\n            }\n        }\n    }\n\n    private fun initAdapter() {\n\n        adapter = PromiseMessageAdapter()\n        binding.rvMessage.layoutManager = LinearLayoutManager(requireContext())\n        binding.rvMessage.adapter = adapter\n\n        viewLifecycleOwner.lifecycleScope.launch {\n            myPromiseViewModel.message.collect { message ->\n                Log.d(\"MyPromiseRoomFragment\", \"Collected messages: $message\")\n                // old item count 구하기\n//                val oldItemCount = adapter.itemCount\n                adapter.submitList(message) {\n                    binding.rvMessage.scrollToPosition(adapter.itemCount - 1)\n                     /*새로운 메시지가 왔을 때 최하단으로 내려가는 로직(이부분 수정해서 올드 아이템갯수랑 아이템갯수랑 리스트의 아이템 갯수 차이를 구해서\n                     플로팅 버튼을 띄워서 최하단으로 내려갈 수 있도록 하면 좋을 듯?\n                    if (oldItemCount != adapter.itemCount) {\n                        binding.rvMessage.scrollToPosition(adapter.itemCount - 1)\n                    }*/\n                }\n            }\n        }\n    }\n\n    private fun backButton() {\n        binding.ivChatRoomBack.setOnClickListener {\n            requireActivity().supportFragmentManager.beginTransaction()\n                .setCustomAnimations(\n                    /* enter = */ R.anim.fade_in,\n                    /* exit = */ R.anim.slide_out\n                )\n                .remove(this)\n                .commit()\n        }\n    }\n\n    private fun checkPermissionAndProceed() {\n        if (hasLocationPermission()) {\n            // 권한이 있을 때\n            startLocationUpdates()\n            getCurrentLocation()\n        } else {\n            // 권한이 없을 때\n            requestLocationPermission()\n        }\n    }\n\n    private fun hasLocationPermission(): Boolean {\n        return ActivityCompat.checkSelfPermission(\n            requireContext(),\n            Manifest.permission.ACCESS_FINE_LOCATION\n        ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(\n            requireContext(),\n            Manifest.permission.ACCESS_COARSE_LOCATION\n        ) == PackageManager.PERMISSION_GRANTED\n    }\n\n    private fun requestLocationPermission() {\n        requestPermissions(\n            arrayOf(\n                Manifest.permission.ACCESS_FINE_LOCATION,\n                Manifest.permission.ACCESS_COARSE_LOCATION\n            ),\n            LOCATION_PERMISSION_REQUEST_CODE\n        )\n    }\n\n    @SuppressLint(\"MissingPermission\")\n    private fun getCurrentLocation() {\n        Log.d(\"확인 getCurrent\", \"a\")\n        fusedLocationClient.lastLocation\n            .addOnSuccessListener { location: Location? ->\n                Log.d(\"확인 getCurrent\", \"b $location\")\n                location?.let {\n                    val userLatLng = LatLng(it.latitude, it.longitude)\n                    myPromiseViewModel.setUserLocation(userLatLng)\n                    shortMessage()\n                } ?: run {\n                    //\n                }\n            }\n            .addOnFailureListener {\n                Log.d(\"확인 getCurrent\", \"c\")\n            }\n    }\n\n    private fun shortMessage() {\n        val currentUserLocation = myPromiseViewModel.originString.value\n        myPromiseViewModel.getDirections()\n\n        Log.d(\"확인 확인 확인\", \"${currentUserLocation}\")\n        Log.d(\"확인 확인 확인\", \"dest : ${roomDestination}\")\n\n    }\n\n    override fun onRequestPermissionsResult(\n        requestCode: Int,\n        permissions: Array<out String>,\n        grantResults: IntArray\n    ) {\n        super.onRequestPermissionsResult(requestCode, permissions, grantResults)\n        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {\n            Log.d(\"확인\", \"1\")\n            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {\n                Log.d(\"확인\", \"2\")\n                // 권한이 부여되었으므로 현재 위치를 받아옴\n                startLocationUpdates()\n                getCurrentLocation()\n            } else {\n                Log.d(\"확인\", \"3\")\n            }\n        }\n        Log.d(\"확인\", \"4\")\n    }\n\n    private fun setViewMore(contentTextView: TextView,contentTextView2: TextView, viewMoreTextView: TextView) {\n        // getEllipsisCount()을 통한 더보기 표시 및 구현\n        contentTextView.post {\n            val lineCount = contentTextView.layout.lineCount\n            if (lineCount > 0) {\n                if (contentTextView.layout.getEllipsisCount(lineCount - 1) > 0) {\n                    // 더보기 표시\n                    viewMoreTextView.visibility = View.VISIBLE\n\n                    // 더보기 클릭 이벤트\n                    viewMoreTextView.setOnClickListener {\n                        contentTextView.maxLines = Int.MAX_VALUE\n                        viewMoreTextView.visibility = View.VISIBLE\n                        contentTextView2.visibility = View.VISIBLE\n\n                    }\n                }\n            }\n        }\n    }\n\n    override fun onDestroyView() {\n        super.onDestroyView()\n        parentFragmentManager.popBackStack()\n        _binding = null\n    }\n\n    override fun onStart() {\n        super.onStart()\n        startLocationUpdates()\n    }\n\n    override fun onStop() {\n        super.onStop()\n        stopLocationUpdates()\n    }\n\n    //임시\n    private fun setExitButton(roomId: String, participantId: String) {\n        viewLifecycleOwner.lifecycleScope.launch {\n            myPromiseViewModel.exitRoom(roomId, participantId)\n        }\n    }\n\n    private fun observeViewModel1() {\n        viewLifecycleOwner.lifecycleScope.launch {\n            myPromiseViewModel.removeParticipantIdResult.collect {\n                when (it) {\n                    true -> Toast.makeText(requireContext(), \"나가기 성공\", Toast.LENGTH_SHORT).show()\n                    false -> Toast.makeText(requireContext(), \"나가기 실패\", Toast.LENGTH_SHORT).show()\n                }\n            }\n        }\n    }\n}\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/donotlate/feature/mypromise/presentation/view/MyPromiseRoomFragment.kt b/app/src/main/java/com/example/donotlate/feature/mypromise/presentation/view/MyPromiseRoomFragment.kt
+--- a/app/src/main/java/com/example/donotlate/feature/mypromise/presentation/view/MyPromiseRoomFragment.kt	(revision 70310df6a4f297d1d2608f222fc48ebc8b3dce53)
++++ b/app/src/main/java/com/example/donotlate/feature/mypromise/presentation/view/MyPromiseRoomFragment.kt	(date 1719077607058)
+@@ -1,5 +1,8 @@
+ package com.example.donotlate.feature.mypromise.presentation.view
+ 
++//import android.location.Location
++//import android.location.LocationListener
++//import android.location.LocationManager
+ import android.Manifest
+ import android.annotation.SuppressLint
+ import android.content.pm.PackageManager
+@@ -10,23 +13,22 @@
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
+-import android.widget.Toast
+-import android.widget.TextView
+-import androidx.constraintlayout.widget.ConstraintLayout
+ import androidx.core.app.ActivityCompat
+ import androidx.core.view.isVisible
+ import androidx.fragment.app.Fragment
+-import androidx.fragment.app.viewModels
++import androidx.fragment.app.activityViewModels
+ import androidx.lifecycle.lifecycleScope
+ import androidx.recyclerview.widget.LinearLayoutManager
+ import com.example.donotlate.DoNotLateApplication
+ import com.example.donotlate.R
+ import com.example.donotlate.core.presentation.CurrentUser
+ import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
++import com.example.donotlate.feature.auth.presentation.view.LogInViewModel
++import com.example.donotlate.feature.auth.presentation.view.LogInViewModelFactory
+ import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
+ import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
+ import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
+-import com.example.donotlate.feature.mypromise.presentation.view.dialog.RadioButtonDialog
++import com.example.donotlate.feature.mypromise.presentation.model.UserModel
+ import com.google.android.gms.location.FusedLocationProviderClient
+ import com.google.android.gms.location.LocationCallback
+ import com.google.android.gms.location.LocationRequest
+@@ -34,12 +36,11 @@
+ import com.google.android.gms.location.LocationServices
+ import com.google.android.gms.maps.model.LatLng
+ import com.google.firebase.Timestamp
+-import kotlinx.coroutines.flow.collect
+ import kotlinx.coroutines.launch
+ 
+ class MyPromiseRoomFragment : Fragment() {
+ 
+-    private val myPromiseViewModel: MyPromiseRoomViewModel by viewModels {
++    private val myPromiseViewModel: MyPromiseRoomViewModel by activityViewModels {
+         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
+         MyPromiseRoomViewModelFactory(
+             appContainer.messageSendingUseCase,
+@@ -50,10 +51,22 @@
+     }
+     private lateinit var fusedLocationClient: FusedLocationProviderClient
+ 
++    //    lateinit var mLastLocation: Location
++    internal lateinit var mLocationRequest: com.google.android.gms.location.LocationRequest
++    private val REQUEST_PERMISSION_LOCATION = 10
++//
++//    var mLocationManager: LocationManager? = null
++//    var mLocationListener: LocationListener? = null
++
++
+     //아래 코드 지우면 안 됩니다!!!!
+     private lateinit var locationCallback: LocationCallback
+     private val LOCATION_PERMISSION_REQUEST_CODE = 1000
+ 
++    companion object {
++        private val PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 100
++    }
++
+     private lateinit var adapter: PromiseMessageAdapter
+ 
+     private var _binding: FragmentMyPromiseRoomBinding? = null
+@@ -66,9 +79,11 @@
+     private var roomId: String? = null
+     private var roomDestination: String? = null
+ 
++
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+ 
++        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+         checkPermissionAndProceed()
+         arguments?.let { bundle ->
+             promiseRoom = bundle.getParcelable("promiseRoom")
+@@ -87,36 +102,45 @@
+                 }
+             }
+         }
++
++//        mLocationRequest = LocationRequest.create().apply {
++//            interval = 10000
++//
++//
++//        }
++//
++
++//        mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager
++//        mLocationListener = object : LocationManager, LocationListener {
++//            override fun onLocationChanged(location: Location?){
++//                var lat = 0.0
++//                var lng = 0.0
++//                if(location != null){
++//                    lat = location.longitude
++//                    lng = location.longitude
++//                    Log.d("")
++//                }
++//            }
++//
++//            override fun onLocationChanged(location: Location) {
++//                TODO("Not yet implemented")
++//            }
++//
++//        }
++//        var result11 = "제공자 "
++//        val providers = manager.allProviders
++//
+     }
+ 
+     @SuppressLint("MissingPermission")
+     private fun startLocationUpdates() {
+         if (hasLocationPermission()) {
+-            if (::fusedLocationClient.isInitialized.not()) {
+-                fusedLocationClient =
+-                    LocationServices.getFusedLocationProviderClient(requireActivity())
+-            }
+             val locationRequest = LocationRequest.create()
+                 .apply {
+                     interval = 10000 //10초
+                     fastestInterval = 5000 //5초
+                     priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+                 }
+-            //TODO
+-            if (::locationCallback.isInitialized.not()) {
+-                locationCallback = object : LocationCallback() {
+-                    override fun onLocationResult(locationResult: LocationResult) {
+-                        for (location in locationResult.locations) {
+-                            location?.let {
+-                                val userLatLng = LatLng(it.latitude, it.longitude)
+-                                myPromiseViewModel.setUserLocation(userLatLng)
+-                                Log.d("확인 loca cb", "${myPromiseViewModel.originString.value}")
+-//                                shortMessage()
+-                            }
+-                        }
+-                    }
+-                }
+-            }
+             fusedLocationClient.requestLocationUpdates(
+                 locationRequest,
+                 locationCallback,
+@@ -140,6 +164,7 @@
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+ 
++
+         initAdapter()
+         backButton()
+ 
+@@ -151,13 +176,17 @@
+             roomId = room.roomId
+             roomDestination = room.destination
+ 
+-            myPromiseViewModel.setDestinationLatLng(room.destinationLat, room.destinationLng)
+-
+             binding.tvRoomTitle.text = room.roomTitle
+             binding.tvRoomPromiseDate.text = room.promiseDate
+             loadToMessageFromFireStore(room.roomId)
+         }
+ 
++        roomDestination?.let {
++            myPromiseViewModel.setDestinationLatLng()
++            Log.d("확인 prom destination", it)
++        }
++
++
+         binding.btnSend.setOnClickListener {
+             val contents = binding.etInputMessage.text.toString()
+             val roomId = roomId ?: throw NullPointerException("roomId is Null")
+@@ -168,30 +197,14 @@
+             }
+         }
+ 
+-        binding.btnRoomExit.setOnClickListener {
+-            val roomId = roomId
+-            val participantId = currentUserData?.uId
+-            Log.d("나가기", "정보확인 ${roomId}, ${participantId}")
+-
+-            if (roomId != null && participantId != null) {
+-                Log.d("나가기", "실행")
+-                setExitButton(roomId, participantId)
+-            }
+-            observeViewModel1()
+-        }
+-
+         binding.ivRoomMap.setOnClickListener {
+-            val selectionDialog = RadioButtonDialog()
+-            selectionDialog.show(childFragmentManager, "String")
+             checkPermissionAndProceed()
+-            myPromiseViewModel.setShortDirectionsResult()
+         }
+ 
+-        setViewMore(binding.tvRoomTitle, binding.tvRoomPromiseDate, binding.tvRoomTitle)
+ 
+ 
+-    }
+ 
++    }
+ 
+     private fun observeViewModel() {
+         myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner) {
+@@ -199,7 +212,9 @@
+             if (it <= 0.2) { //200m
+                 binding.btnArrived.isVisible = true
+                 binding.ivRoomMap.isVisible = false
++
+                 //도착 버튼이 보이게
++                //binding.~~
+             } else {
+                 binding.btnArrived.isVisible = false
+                 binding.ivRoomMap.isVisible = true
+@@ -217,9 +232,17 @@
+             sendMessage(roomId, it)
+         }
+ 
+-        myPromiseViewModel.originString.observe(viewLifecycleOwner) {
++        myPromiseViewModel.originString.observe(viewLifecycleOwner){
+             myPromiseViewModel.calDistance2()
+         }
++
++        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner){
++            if(it <= 0.01){
++                //버튼 보이게
++            }else{
++                //버튼 보이지 않게
++            }
++        }
+     }
+ 
+     private fun loadToMessageFromFireStore(roomId: String) {
+@@ -229,12 +252,15 @@
+     }
+ 
+     private fun sendMessage(roomId: String, contents: String) {
++        Log.d("ddddddd2", "$roomTitle")
+         lifecycleScope.launch {
+             try {
+                 val message = MessageModel(
+-                    senderName = currentUserData?.name ?: throw NullPointerException("User Data Null!"),
++                    senderName = currentUserData?.name
++                        ?: throw NullPointerException("User Data Null!"),
+                     sendTimestamp = Timestamp.now(),
+-                    senderId = currentUserData?.uId ?: throw NullPointerException("User Data Null!"),
++                    senderId = currentUserData?.uId
++                        ?: throw NullPointerException("User Data Null!"),
+                     contents = contents,
+                     messageId = "",
+                     senderProfileUrl = currentUserData?.profileImgUrl ?: ""
+@@ -255,16 +281,7 @@
+         viewLifecycleOwner.lifecycleScope.launch {
+             myPromiseViewModel.message.collect { message ->
+                 Log.d("MyPromiseRoomFragment", "Collected messages: $message")
+-                // old item count 구하기
+-//                val oldItemCount = adapter.itemCount
+-                adapter.submitList(message) {
+-                    binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
+-                     /*새로운 메시지가 왔을 때 최하단으로 내려가는 로직(이부분 수정해서 올드 아이템갯수랑 아이템갯수랑 리스트의 아이템 갯수 차이를 구해서
+-                     플로팅 버튼을 띄워서 최하단으로 내려갈 수 있도록 하면 좋을 듯?
+-                    if (oldItemCount != adapter.itemCount) {
+-                        binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
+-                    }*/
+-                }
++                adapter.submitList(message)
+             }
+         }
+     }
+@@ -284,7 +301,6 @@
+     private fun checkPermissionAndProceed() {
+         if (hasLocationPermission()) {
+             // 권한이 있을 때
+-            startLocationUpdates()
+             getCurrentLocation()
+         } else {
+             // 권한이 없을 때
+@@ -314,30 +330,40 @@
+ 
+     @SuppressLint("MissingPermission")
+     private fun getCurrentLocation() {
+-        Log.d("확인 getCurrent", "a")
+-        fusedLocationClient.lastLocation
+-            .addOnSuccessListener { location: Location? ->
+-                Log.d("확인 getCurrent", "b $location")
+-                location?.let {
+-                    val userLatLng = LatLng(it.latitude, it.longitude)
+-                    myPromiseViewModel.setUserLocation(userLatLng)
+-                    shortMessage()
+-                } ?: run {
+-                    //
+-                }
+-            }
+-            .addOnFailureListener {
+-                Log.d("확인 getCurrent", "c")
+-            }
++        if (hasLocationPermission()) {
++            fusedLocationClient.lastLocation
++                .addOnSuccessListener { location: Location? ->
++                    location?.let {
++                        val userLatLng = LatLng(it.latitude, it.longitude)
++                        myPromiseViewModel.setUserLocation(userLatLng)
++                        shortMessage()
++                    } ?: run {
++                        //                        Toast.makeText(requireContext(), "1 위치 얻기 실패", Toast.LENGTH_SHORT).show()
++                    }
++                }
++                .addOnFailureListener {
++                    //Toast.makeText(requireContext(), "2 위치 얻기 실패", Toast.LENGTH_SHORT).show()
++                }
++        }
+     }
+ 
+     private fun shortMessage() {
+         val currentUserLocation = myPromiseViewModel.originString.value
+-        myPromiseViewModel.getDirections()
+-
++
++        roomDestination?.let {
++            myPromiseViewModel.setDestination(it)
++
++            myPromiseViewModel.getDirections()
++        }
+         Log.d("확인 확인 확인", "${currentUserLocation}")
+         Log.d("확인 확인 확인", "dest : ${roomDestination}")
+ 
++//        val shortmessage = myPromiseViewModel.shortExplanations.value
++//        val roomId = roomId ?: throw NullPointerException("roomId is Null")
++//        Log.d("확인", "shortMessage $shortmessage")
++//        if (shortmessage != null) {
++//            sendMessage(roomId, shortmessage)
++//        }
+     }
+ 
+     override fun onRequestPermissionsResult(
+@@ -351,40 +377,20 @@
+             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                 Log.d("확인", "2")
+                 // 권한이 부여되었으므로 현재 위치를 받아옴
+-                startLocationUpdates()
+                 getCurrentLocation()
+             } else {
+                 Log.d("확인", "3")
++
+             }
+         }
+         Log.d("확인", "4")
+     }
+ 
+-    private fun setViewMore(contentTextView: TextView,contentTextView2: TextView, viewMoreTextView: TextView) {
+-        // getEllipsisCount()을 통한 더보기 표시 및 구현
+-        contentTextView.post {
+-            val lineCount = contentTextView.layout.lineCount
+-            if (lineCount > 0) {
+-                if (contentTextView.layout.getEllipsisCount(lineCount - 1) > 0) {
+-                    // 더보기 표시
+-                    viewMoreTextView.visibility = View.VISIBLE
+-
+-                    // 더보기 클릭 이벤트
+-                    viewMoreTextView.setOnClickListener {
+-                        contentTextView.maxLines = Int.MAX_VALUE
+-                        viewMoreTextView.visibility = View.VISIBLE
+-                        contentTextView2.visibility = View.VISIBLE
+-
+-                    }
+-                }
+-            }
+-        }
+-    }
+-
+     override fun onDestroyView() {
+         super.onDestroyView()
+         parentFragmentManager.popBackStack()
+         _binding = null
++        myPromiseViewModel.clearMessage()
+     }
+ 
+     override fun onStart() {
+@@ -396,23 +402,5 @@
+         super.onStop()
+         stopLocationUpdates()
+     }
+-
+-    //임시
+-    private fun setExitButton(roomId: String, participantId: String) {
+-        viewLifecycleOwner.lifecycleScope.launch {
+-            myPromiseViewModel.exitRoom(roomId, participantId)
+-        }
+-    }
+-
+-    private fun observeViewModel1() {
+-        viewLifecycleOwner.lifecycleScope.launch {
+-            myPromiseViewModel.removeParticipantIdResult.collect {
+-                when (it) {
+-                    true -> Toast.makeText(requireContext(), "나가기 성공", Toast.LENGTH_SHORT).show()
+-                    false -> Toast.makeText(requireContext(), "나가기 실패", Toast.LENGTH_SHORT).show()
+-                }
+-            }
+-        }
+-    }
+ }
+ 
+Index: app/src/main/java/com/example/donotlate/feature/mypromise/presentation/view/dialog/RadioButtonDialog.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.donotlate.feature.mypromise.presentation.view.dialog\n\nimport android.graphics.Color\nimport android.graphics.drawable.ColorDrawable\nimport android.os.Bundle\nimport android.view.LayoutInflater\nimport android.view.View\nimport android.view.ViewGroup\nimport android.view.Window\nimport androidx.fragment.app.DialogFragment\nimport androidx.fragment.app.activityViewModels\nimport com.example.donotlate.DoNotLateApplication\nimport com.example.donotlate.databinding.DialogRadiobuttonBinding\nimport com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModel\nimport com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModelFactory\n\nclass RadioButtonDialog : DialogFragment() {\n\n    private val myPromiseViewModel: MyPromiseRoomViewModel by activityViewModels {\n        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer\n        MyPromiseRoomViewModelFactory(\n            appContainer.messageSendingUseCase,\n            appContainer.messageReceivingUseCase,\n            appContainer.getDirectionsUseCase\n        )\n    }\n\n    private var _binding: DialogRadiobuttonBinding? = null\n    private val binding get() = _binding!!\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n\n    }\n\n    override fun onCreateView(\n        inflater: LayoutInflater,\n        container: ViewGroup?,\n        savedInstanceState: Bundle?\n    ): View? {\n        _binding = DialogRadiobuttonBinding.inflate(inflater, container, false)\n\n        isCancelable = false\n        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))\n        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)\n\n        return binding.root\n    }\n\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\n        super.onViewCreated(view, savedInstanceState)\n\n\n//        binding.radioGroup.setOnCheckedChangeListener { _, check ->\n//            binding.btnRadioConfirm.setOnClickListener {\n//                when (check) {\n//                    R.id.rb_Transit -> myPromiseViewModel.setMode(check)\n//                    R.id.rb_Driving -> myPromiseViewModel.setMode(check)\n//                    R.id.rb_Walking -> myPromiseViewModel.setMode(check)\n//                    R.id.rb_Bicycling -> myPromiseViewModel.setMode(check)\n//                }\n//                dismiss()\n//            }\n//        }\n\n        binding.btnRadioCancel.setOnClickListener {\n            dismiss()\n        }\n\n    }\n\n    override fun onDestroyView() {\n        super.onDestroyView()\n        _binding = null\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/donotlate/feature/mypromise/presentation/view/dialog/RadioButtonDialog.kt b/app/src/main/java/com/example/donotlate/feature/mypromise/presentation/view/dialog/RadioButtonDialog.kt
+--- a/app/src/main/java/com/example/donotlate/feature/mypromise/presentation/view/dialog/RadioButtonDialog.kt	(revision 70310df6a4f297d1d2608f222fc48ebc8b3dce53)
++++ b/app/src/main/java/com/example/donotlate/feature/mypromise/presentation/view/dialog/RadioButtonDialog.kt	(date 1718987527061)
+@@ -21,7 +21,8 @@
+         MyPromiseRoomViewModelFactory(
+             appContainer.messageSendingUseCase,
+             appContainer.messageReceivingUseCase,
+-            appContainer.getDirectionsUseCase
++            appContainer.getDirectionsUseCase,
++            appContainer.removeParticipantsUseCase
+         )
+     }
+ 

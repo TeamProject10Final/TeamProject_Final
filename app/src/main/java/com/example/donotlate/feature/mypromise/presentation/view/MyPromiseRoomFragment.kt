@@ -1,5 +1,8 @@
 package com.example.donotlate.feature.mypromise.presentation.view
 
+//import android.location.Location
+//import android.location.LocationListener
+//import android.location.LocationManager
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
@@ -10,7 +13,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -36,7 +38,6 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.Timestamp
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 
@@ -56,6 +57,10 @@ class MyPromiseRoomFragment : Fragment() {
     //아래 코드 지우면 안 됩니다!!!!
     private lateinit var locationCallback: LocationCallback
     private val LOCATION_PERMISSION_REQUEST_CODE = 1000
+
+    companion object {
+        private val PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 100
+    }
 
     private lateinit var adapter: PromiseMessageAdapter
 
@@ -207,8 +212,6 @@ class MyPromiseRoomFragment : Fragment() {
         }
 
     }
-
-    }
     private fun showModeDialog() {
         val selectionDialog = RadioButtonDialog() {
 
@@ -299,9 +302,11 @@ class MyPromiseRoomFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 val message = MessageModel(
-                    senderName = currentUserData?.name ?: throw NullPointerException("User Data Null!"),
+                    senderName = currentUserData?.name
+                        ?: throw NullPointerException("User Data Null!"),
                     sendTimestamp = Timestamp.now(),
-                    senderId = currentUserData?.uId ?: throw NullPointerException("User Data Null!"),
+                    senderId = currentUserData?.uId
+                        ?: throw NullPointerException("User Data Null!"),
                     contents = contents,
                     messageId = "",
                     senderProfileUrl = currentUserData?.profileImgUrl ?: ""

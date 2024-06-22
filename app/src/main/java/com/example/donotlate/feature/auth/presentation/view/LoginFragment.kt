@@ -35,7 +35,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
         collectFlows()
 
         binding.root.setOnClickListener {
-            hideKeyboard()
+            hideKeyboard(binding.root.windowToken)
 //            requireActivity().currentFocus!!.clearFocus()
         }
         editTextProcess()
@@ -46,7 +46,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
             var handled = false
 
             if (action == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard()
+                hideKeyboard(binding.root.windowToken)
                 requireActivity().currentFocus!!.clearFocus()
                 handled = true
             }

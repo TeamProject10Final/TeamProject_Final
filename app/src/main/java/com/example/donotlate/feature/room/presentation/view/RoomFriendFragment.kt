@@ -1,7 +1,5 @@
 package com.example.donotlate.feature.room.presentation.view
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -52,8 +50,8 @@ class RoomFriendFragment : Fragment() {
         _binding = FragmentRoomFriendBinding.inflate(inflater, container, false)
 
         binding.root.setOnClickListener {
-            hideKeyboard()
-            requireActivity().currentFocus!!.clearFocus()
+            hideKeyboard(binding.root.windowToken)
+//            requireActivity().currentFocus!!.clearFocus()
         }
 
         return binding.root
@@ -124,7 +122,7 @@ class RoomFriendFragment : Fragment() {
             var handled = false
 
             if (action == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard()
+                hideKeyboard(binding.root.windowToken)
                 requireActivity().currentFocus!!.clearFocus()
                 handled = true
             }

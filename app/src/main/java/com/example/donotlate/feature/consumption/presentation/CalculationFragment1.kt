@@ -40,7 +40,7 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
         _binding = FragmentCalculation1Binding.inflate(layoutInflater, container, false)
 
         binding.root.setOnClickListener {
-            hideKeyboard()
+            hideKeyboard(binding.root.windowToken)
 //            requireActivity().currentFocus!!.clearFocus()
         }
 
@@ -72,27 +72,27 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
             if (!hasFocus) {
                 binding.etDes11.clearFocus()
 //                ConsumptionActivity.hideKeyboard(v)
-                hideKeyboard()
+                hideKeyboard(binding.root.windowToken)
             }
         }
 
         binding.ivDate.setOnClickListener {
             showDatePickerDialog()
 //            ConsumptionActivity.hideKeyboard(view)
-            hideKeyboard()
+            hideKeyboard(binding.root.windowToken)
         }
 
         binding.consumptionSpinner.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
 //                ConsumptionActivity.hideKeyboard(view)
-                hideKeyboard()
+                hideKeyboard(binding.root.windowToken)
             }
             false
         }
 
         binding.btnCalNext.setOnClickListener {
 //            ConsumptionActivity.hideKeyboard(view)
-            hideKeyboard()
+            hideKeyboard(binding.root.windowToken)
             val detail = binding.etDes11.text.toString()
             val date = binding.etDes12.text.toString()
             val category = if (binding.consumptionSpinner.selectedItemPosition != binding.consumptionSpinner.adapter.count - 1) {
