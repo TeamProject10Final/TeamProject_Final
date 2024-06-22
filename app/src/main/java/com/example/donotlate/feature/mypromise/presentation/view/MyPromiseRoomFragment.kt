@@ -65,8 +65,6 @@ class MyPromiseRoomFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //TODO 2
-        //checkPermissionAndProceed()
         arguments?.let { bundle ->
             promiseRoom = bundle.getParcelable("promiseRoom")
 
@@ -79,14 +77,12 @@ class MyPromiseRoomFragment : Fragment() {
                         val userLatLng = LatLng(it.latitude, it.longitude)
                         myPromiseViewModel.setUserLocation(userLatLng)
                         Log.d("확인 loca cb", "${myPromiseViewModel.originString.value}")
-//                        TODO 2
-//                        shortMessage()
                     }
                 }
             }
         }
-//        TODO 2
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        checkPermissionAndProceed()
     }
 
     @SuppressLint("MissingPermission")
@@ -102,21 +98,6 @@ class MyPromiseRoomFragment : Fragment() {
                     fastestInterval = 5000 //5초
                     priority = LocationRequest.PRIORITY_HIGH_ACCURACY
                 }
-//            //TODO 2
-//            if (::locationCallback.isInitialized.not()) {
-//                locationCallback = object : LocationCallback() {
-//                    override fun onLocationResult(locationResult: LocationResult) {
-//                        for (location in locationResult.locations) {
-//                            location?.let {
-//                                val userLatLng = LatLng(it.latitude, it.longitude)
-//                                myPromiseViewModel.setUserLocation(userLatLng)
-//                                Log.d("확인 loca cb", "${myPromiseViewModel.originString.value}")
-////                                shortMessage()
-//                            }
-//                        }
-//                    }
-//                }
-//            }
             fusedLocationClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,
@@ -126,8 +107,6 @@ class MyPromiseRoomFragment : Fragment() {
     }
 
     private fun stopLocationUpdates() {
-        //TODO 2
-//        fusedLocationClient.removeLocationUpdates(locationCallback)
         if (::fusedLocationClient.isInitialized) {
             fusedLocationClient.removeLocationUpdates(locationCallback)
         }
