@@ -87,6 +87,22 @@ class MyPromiseRoomViewModel(
     private val _selectedRouteIndex = MutableLiveData<Int>(0)
     val selectedRouteIndex: LiveData<Int> get() = _selectedRouteIndex
 
+    private val _country = MutableLiveData<String>()
+    val country: LiveData<String> = _country
+
+    fun getCountry(): String? {
+        if (country.value != null) {
+            return country.value!!
+        } else {
+            _error.postValue("다시 시도해 주세요.")
+            return null
+        }
+    }
+
+    fun setCountry(country: String) {
+        _country.value = country
+    }
+
     fun refreshIndex() {
         _selectedRouteIndex.value = 0
     }

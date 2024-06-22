@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -21,6 +22,7 @@ import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
+import com.example.donotlate.feature.directionRoute.presentation.LocationUtils
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
 import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
@@ -155,7 +157,23 @@ class MyPromiseRoomFragment : Fragment() {
 
         binding.ivRoomMap.setOnClickListener {
 
-            showModeDialog()
+//TODO 4 대한민국일 때 이 부분은 건너뜀... showModeDialog 전까지 다 주석처리하고 에러 잡은 뒤 다시 살리기
+
+            if (myPromiseViewModel.getCountry() == null) {
+                Toast.makeText(context, "다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+            } else if (myPromiseViewModel.getCountry() == "대한민국" || myPromiseViewModel.getCountry() == "South Korea") {
+                myPromiseViewModel.routeSelectionText.observe(viewLifecycleOwner) {
+                    Log.d("확인 routeS 한국", "몇번?")
+                    if (it != null) {
+                        showDialogSelection(it)
+                    } else {
+                        Log.d("확인 routeS", "$it")
+                    }
+                }
+            } else {
+                showModeDialog()
+            }
+
 //
 
 
@@ -352,6 +370,16 @@ class MyPromiseRoomFragment : Fragment() {
                     val userLatLng = LatLng(it.latitude, it.longitude)
                     myPromiseViewModel.setUserLocation(userLatLng)
 
+                    val locationUtils = LocationUtils()
+                    val country = locationUtils.getCountryFromLatLng(
+                        requireContext(),
+                        it.latitude,
+                        it.longitude
+                    )
+                    country?.let {
+                        Log.d("확인 나라", "$it")
+                        myPromiseViewModel.setCountry(it)
+                    }
                     getDirectionsAndSelection()
                 } ?: run {
                     //
