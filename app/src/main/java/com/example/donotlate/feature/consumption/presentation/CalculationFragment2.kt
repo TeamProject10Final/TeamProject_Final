@@ -135,7 +135,7 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
 
             if (action == EditorInfo.IME_ACTION_DONE) {
                 hideKeyboard(binding.root.windowToken)
-                requireActivity().currentFocus!!.clearFocus()
+                //requireActivity().currentFocus!!.clearFocus()
                 handled = true
             }
             handled
