@@ -1,15 +1,13 @@
 package com.example.donotlate.feature.mypromise.presentation.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
@@ -24,7 +22,7 @@ import java.text.SimpleDateFormat
 
 class MyPromiseListFragment : Fragment() {
 
-    private val myPromiseListViewModel: MyPromiseListViewModel by activityViewModels {
+    private val myPromiseListViewModel: MyPromiseListViewModel by viewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MyPromiseListViewModelFactory(
             appContainer.loadToMyPromiseListUseCase

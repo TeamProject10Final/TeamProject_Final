@@ -29,7 +29,6 @@ import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMapBinding
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -60,7 +59,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
 
     private lateinit var locationPermission: ActivityResultLauncher<Array<String>>
-    private lateinit var locationCallback: LocationCallback
+
+    //private lateinit var locationCallback: LocationCallback
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private val appContainer: AppContainer by lazy {
@@ -227,6 +227,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             Log.d("확인 error ob", it)
         }
+
         sharedViewModel.selectedTime.observe(viewLifecycleOwner) { time ->
             time?.let {
                 val selectedTime =

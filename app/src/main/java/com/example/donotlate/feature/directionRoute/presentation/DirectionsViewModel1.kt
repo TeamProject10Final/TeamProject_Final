@@ -579,6 +579,14 @@ class DirectionsViewModel1(
         }
     }
 
+    fun getSelectionList(): List<String> {
+        return if (routeSelectionText.value?.isEmpty() == true) {
+            emptyList()
+        } else {
+            routeSelectionText.value!!.toList()
+        }
+    }
+
     private fun formatRouteSelectionText(directions: DirectionsModel) {
         val resultsList = mutableListOf<String>()
         refreshIndex()
@@ -603,7 +611,19 @@ class DirectionsViewModel1(
 
                 var num = 1
                 leg.steps.forEach { step ->
-                    resultText2.append("🔷${num}: ${step.htmlInstructions} (${step.stepDuration.text})\n")
+                    resultText2.append("🔷${num}:")
+                    if (step.travelMode == "TRANSIT") {
+                        if (step.transitDetails.line.shortName != "") {
+                            resultText2.append(" [${step.transitDetails.line.shortName}]")
+                        } else if (step.transitDetails.line.name != "") {
+                            resultText2.append(" [${step.transitDetails.line.name}]")
+                        } else {
+                            //
+                        }
+                    }
+                    Log.d("확인 travelMode", "${step.travelMode.toString()}")
+
+                    resultText2.append(" ${step.htmlInstructions} (${step.stepDuration.text})\n")
                     num++
                 }
                 resultText1.append(resultText2)
@@ -617,30 +637,6 @@ class DirectionsViewModel1(
         Log.d("확인 setDirections", "stringbuilder ${resultsList}")
         Log.d("확인 setDirections 1", "${resultsList[2]}")
     }
-
-
-    //채팅방에서 위치 공유하는 텍스트
-//    private fun setShortDirectionsResult() {
-//        if (_directionsResult.value != null) {
-//            formatShortDirectionsExplanations(_directionsResult.value!!)
-//        } else {
-//            _error.postValue("_direction null")
-//            Log.d("확인 setDirections", "null")
-//        }
-//    }
-//
-//    private fun formatShortDirectionsExplanations(directions: DirectionsModel) {
-//        val resultText = StringBuilder()
-//
-//        directions.routes.get(_selectedRouteIndex.value!!).legs.forEach { leg ->
-//            resultText.append("🗺️목적지까지 ${leg.totalDistance.text},\n")
-//            resultText.append("앞으로 ${leg.totalDuration.text} 뒤인\n")
-//            resultText.append("🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
-//            resultText.append("\n")
-//        }
-//        _shortExplanations.value = resultText.toString()
-//    }
-
 }
 
 class DirectionsViewModel1Factory(
