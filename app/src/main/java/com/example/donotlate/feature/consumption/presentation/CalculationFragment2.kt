@@ -35,7 +35,7 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
         _binding = FragmentCalculation2Binding.inflate(layoutInflater, container, false)
 
         binding.root.setOnClickListener {
-            hideKeyboard()
+            hideKeyboard(binding.root.windowToken)
 //            requireActivity().currentFocus!!.clearFocus()
         }
 
@@ -65,7 +65,7 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
         binding.btnPenalty.setOnClickListener {
             viewModel.changeIsPenalty(viewModel.isPenalty.value!!)
 //            ConsumptionActivity.hideKeyboard(view)
-            hideKeyboard()
+            hideKeyboard(binding.root.windowToken)
         }
 
         viewModel.isPenalty.observe(viewLifecycleOwner) { isPenalty ->
@@ -96,7 +96,7 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
 
         binding.btnCalEnd.setOnClickListener {
 //            ConsumptionActivity.hideKeyboard(view)
-            hideKeyboard()
+            hideKeyboard(binding.root.windowToken)
             val total = binding.etDes21.text.toString()
             val penalty = binding.etDes22.text.toString()
             val number = binding.etDes23.text.toString()
@@ -134,7 +134,7 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
             var handled = false
 
             if (action == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard()
+                hideKeyboard(binding.root.windowToken)
                 requireActivity().currentFocus!!.clearFocus()
                 handled = true
             }

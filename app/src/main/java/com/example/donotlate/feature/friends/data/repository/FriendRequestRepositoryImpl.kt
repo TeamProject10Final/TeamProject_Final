@@ -22,6 +22,7 @@ class FriendRequestRepositoryImpl(
     ): Flow<Boolean> = flow {
         try {
             val request = hashMapOf(
+                "requestId" to "",
                 "toId" to toId,
                 "fromId" to fromId,
                 "status" to "request",

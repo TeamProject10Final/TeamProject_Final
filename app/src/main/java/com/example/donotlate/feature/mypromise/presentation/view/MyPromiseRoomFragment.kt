@@ -1,5 +1,8 @@
 package com.example.donotlate.feature.mypromise.presentation.view
 
+//import android.location.Location
+//import android.location.LocationListener
+//import android.location.LocationManager
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
@@ -46,6 +49,7 @@ class MyPromiseRoomFragment : Fragment() {
             appContainer.messageSendingUseCase,
             appContainer.messageReceivingUseCase,
             appContainer.getDirectionsUseCase,
+            appContainer.removeParticipantsUseCase
         )
     }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -53,6 +57,10 @@ class MyPromiseRoomFragment : Fragment() {
     //아래 코드 지우면 안 됩니다!!!!
     private lateinit var locationCallback: LocationCallback
     private val LOCATION_PERMISSION_REQUEST_CODE = 1000
+
+    companion object {
+        private val PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 100
+    }
 
     private lateinit var adapter: PromiseMessageAdapter
 
@@ -155,6 +163,18 @@ class MyPromiseRoomFragment : Fragment() {
             }
         }
 
+        binding.btnRoomExit.setOnClickListener {
+            val roomId = roomId
+            val participantId = currentUserData?.uId
+            Log.d("나가기", "정보확인 ${roomId}, ${participantId}")
+
+            if (roomId != null && participantId != null) {
+                Log.d("나가기", "실행")
+                setExitButton(roomId, participantId)
+            }
+            observeViewModel1()
+        }
+
         binding.ivRoomMap.setOnClickListener {
 
 //TODO 4 대한민국일 때 이 부분은 건너뜀... showModeDialog 전까지 다 주석처리하고 에러 잡은 뒤 다시 살리기
@@ -192,7 +212,6 @@ class MyPromiseRoomFragment : Fragment() {
         }
 
     }
-
     private fun showModeDialog() {
         val selectionDialog = RadioButtonDialog() {
 
@@ -280,7 +299,6 @@ class MyPromiseRoomFragment : Fragment() {
     }
 
     private fun sendMessage(roomId: String, contents: String) {
-        Log.d("ddddddd2", "$roomTitle")
         lifecycleScope.launch {
             try {
                 val message = MessageModel(
@@ -309,8 +327,15 @@ class MyPromiseRoomFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             myPromiseViewModel.message.collect { message ->
                 Log.d("MyPromiseRoomFragment", "Collected messages: $message")
+                // old item count 구하기
+//                val oldItemCount = adapter.itemCount
                 adapter.submitList(message) {
                     binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
+                     /*새로운 메시지가 왔을 때 최하단으로 내려가는 로직(이부분 수정해서 올드 아이템갯수랑 아이템갯수랑 리스트의 아이템 갯수 차이를 구해서
+                     플로팅 버튼을 띄워서 최하단으로 내려갈 수 있도록 하면 좋을 듯?
+                    if (oldItemCount != adapter.itemCount) {
+                        binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
+                    }*/
                 }
             }
         }
@@ -448,7 +473,6 @@ class MyPromiseRoomFragment : Fragment() {
         super.onDestroyView()
         parentFragmentManager.popBackStack()
         _binding = null
-        myPromiseViewModel.clearMessage()
     }
 
     override fun onStart() {
@@ -459,6 +483,24 @@ class MyPromiseRoomFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         stopLocationUpdates()
+    }
+
+    //임시
+    private fun setExitButton(roomId: String, participantId: String) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            myPromiseViewModel.exitRoom(roomId, participantId)
+        }
+    }
+
+    private fun observeViewModel1() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            myPromiseViewModel.removeParticipantIdResult.collect {
+                when (it) {
+                    true -> Toast.makeText(requireContext(), "나가기 성공", Toast.LENGTH_SHORT).show()
+                    false -> Toast.makeText(requireContext(), "나가기 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 }
 

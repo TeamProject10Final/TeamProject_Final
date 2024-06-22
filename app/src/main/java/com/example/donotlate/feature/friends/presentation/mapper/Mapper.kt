@@ -13,11 +13,22 @@ fun List<FriendRequestEntity>.toFriendRequestModelList(): List<FriendRequestMode
 }
 
 fun FriendRequestEntity.toModel() = FriendRequestModel(
-    toId, fromId, status, requestTime, fromUserName
+    requestId = requestId,
+    toId = toId,
+    fromId = fromId,
+    status = status,
+    requestTime = requestTime,
+    fromUserName = fromUserName
 )
 
 fun UserEntity.toModel() = FriendsUserModel(
-    name, email, uid, friends, count, continuousCounter, createdAt
+    name = name,
+    email = email,
+    uid = uid,
+    friends = friends,
+    count = count,
+    continuousCounter = continuousCounter,
+    createdAt = createdAt
 )
 
 fun List<UserEntity>.toUserModelList():List<FriendsUserModel> {

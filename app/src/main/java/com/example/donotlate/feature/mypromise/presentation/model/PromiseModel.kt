@@ -19,9 +19,3 @@ data class PromiseModel(
 ) : Parcelable {
     constructor() : this("", "", Timestamp.now(), "", "", "", 0.0, 0.0, "", listOf())
 }
-
-
-
-
-
-

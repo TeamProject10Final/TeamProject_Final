@@ -28,7 +28,8 @@ class RadioButtonSelectionDialog(
         MyPromiseRoomViewModelFactory(
             appContainer.messageSendingUseCase,
             appContainer.messageReceivingUseCase,
-            appContainer.getDirectionsUseCase
+            appContainer.getDirectionsUseCase,
+            appContainer.removeParticipantsUseCase
         )
     }
 

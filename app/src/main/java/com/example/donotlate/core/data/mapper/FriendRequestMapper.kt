@@ -5,6 +5,7 @@ import com.example.donotlate.core.domain.model.FriendRequestEntity
 
 
 fun FriendRequestDTO.toEntity() = FriendRequestEntity(
+    requestId = requestId,
     toId = toId,
     fromId = fromId,
     status = status,
@@ -13,6 +14,7 @@ fun FriendRequestDTO.toEntity() = FriendRequestEntity(
 )
 
 fun FriendRequestEntity.toDTO() = FriendRequestDTO(
+    requestId = requestId,
     toId = toId,
     fromId = fromId,
     status = status,

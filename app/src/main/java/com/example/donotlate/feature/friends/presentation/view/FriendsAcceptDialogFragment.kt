@@ -61,10 +61,11 @@ class FriendsAcceptDialogFragment : DialogFragment() {
 
             val toId = it.friendRequestModel.toId
             val fromId = it.friendRequestModel.fromId
+            val requestId = it.friendRequestModel.requestId
 
-            val requestId = if(fromId > toId) "${fromId}_${toId}" else "${toId}_${fromId}"
 
-            Log.d("requestIdTest", "if(fromId > toId) \"${fromId}_${toId}\" else \"${toId}_${fromId}\"")
+
+            Log.d("requestIdTest", "$requestId")
 
             binding.btnFriendRequest.setOnClickListener {
                 acceptToFriendRequest(requestId)

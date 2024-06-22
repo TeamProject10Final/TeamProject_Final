@@ -140,7 +140,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
 
         val userData = roomViewModel.selectedUserUIds.value
 
-        roomInfo= PromiseModel(
+        roomInfo = PromiseModel(
             roomId = UUID.randomUUID().toString(),
             roomTitle = inputData?.title ?: "",
             promiseDate = inputData?.date ?: "",
@@ -152,7 +152,6 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             promiseTime = inputData?.time ?: "",
             roomCreatedAt = Timestamp.now()
         )
-
         makeARoom(roomInfo)
     }
 

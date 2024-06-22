@@ -26,7 +26,8 @@ class RadioButtonDialog(private val callback: () -> Unit) :
         MyPromiseRoomViewModelFactory(
             appContainer.messageSendingUseCase,
             appContainer.messageReceivingUseCase,
-            appContainer.getDirectionsUseCase
+            appContainer.getDirectionsUseCase,
+            appContainer.removeParticipantsUseCase
         )
     }
 

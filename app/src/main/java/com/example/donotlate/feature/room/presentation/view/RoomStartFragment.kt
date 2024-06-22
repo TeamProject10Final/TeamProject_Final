@@ -39,8 +39,8 @@ class RoomStartFragment : Fragment() {
         binding = FragmentRoomStartBinding.inflate(inflater, container, false)
 
         binding.root.setOnClickListener {
-            hideKeyboard()
-//            requireActivity().currentFocus!!.clearFocus()
+            hideKeyboard(binding.root.windowToken)
+            requireActivity().currentFocus!!.clearFocus()
         }
 
         return binding.root
@@ -61,7 +61,7 @@ class RoomStartFragment : Fragment() {
             var handled = false
 
             if (action == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard()
+                hideKeyboard(binding.root.windowToken)
                 requireActivity().currentFocus!!.clearFocus()
                 handled = true
             }
@@ -72,7 +72,7 @@ class RoomStartFragment : Fragment() {
             var handled = false
 
             if (action == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard()
+                hideKeyboard(binding.root.windowToken)
                 requireActivity().currentFocus!!.clearFocus()
                 handled = true
             }

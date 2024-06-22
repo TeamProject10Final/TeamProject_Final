@@ -1,0 +1,19 @@
+Index: app/src/main/java/com/example/donotlate/core/data/repository/PromiseRoomRepositoryImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.donotlate.core.data.repository\n\nimport android.util.Log\nimport com.example.donotlate.core.domain.repository.PromiseRoomRepository\nimport com.google.firebase.firestore.FieldValue\nimport com.google.firebase.firestore.FirebaseFirestore\nimport kotlinx.coroutines.flow.Flow\nimport kotlinx.coroutines.flow.flow\nimport kotlinx.coroutines.tasks.await\n\nclass PromiseRoomRepositoryImpl(private val db: FirebaseFirestore) : PromiseRoomRepository {\n    override suspend fun requestDeleteRoom(roomId: String): Flow<Boolean> = flow {\n        TODO(\"Not yet implemented\")\n    }\n\n    override suspend fun removeParticipant(roomId: String, participantId: String): Flow<Boolean> =\n        flow {\n            try {\n                val roomRef = db.collection(\"PromiseRooms\").document(roomId)\n                Log.d(\"나가기\", \"실행 1 ${roomRef}\")\n\n                db.runTransaction { transaction ->\n                    Log.d(\"나가기\", \"실행 2\")\n\n                    val snapshot = transaction.get(roomRef)\n                    val participants = snapshot.get(\"participants\") as? List<String> ?: listOf()\n                    Log.d(\"나가기\", \"실행 3 ${participants}\")\n                    val mutableParticipants = participants.toMutableList()\n\n                    mutableParticipants.remove(participantId)\n                    Log.d(\"나가기\", \"제거 ${mutableParticipants}\")\n                    Log.d(\"나가기\", \"제거 ${participantId}\")\n\n                    if (mutableParticipants.isEmpty()) {\n                        transaction.delete(roomRef)\n                        Log.d(\"나가기\", \"실행 4 나감\")\n                    } else {\n                        transaction.update(roomRef, \"participants\", mutableParticipants)\n                    }\n                }.await()\n                emit(true)\n                Log.d(\"나가기\", \"실행 5\")\n\n            } catch (e: Exception) {\n                emit(false)\n            }\n        }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/donotlate/core/data/repository/PromiseRoomRepositoryImpl.kt b/app/src/main/java/com/example/donotlate/core/data/repository/PromiseRoomRepositoryImpl.kt
+--- a/app/src/main/java/com/example/donotlate/core/data/repository/PromiseRoomRepositoryImpl.kt	(revision 87258f34af2a9b1c43a48f7009330c8846b9075a)
++++ b/app/src/main/java/com/example/donotlate/core/data/repository/PromiseRoomRepositoryImpl.kt	(date 1718951879663)
+@@ -8,7 +8,7 @@
+ import kotlinx.coroutines.flow.flow
+ import kotlinx.coroutines.tasks.await
+ 
+-class PromiseRoomRepositoryImpl(private val db: FirebaseFirestore) : PromiseRoomRepository {
++class PromiseRoomRepositoryㅎImpl(private val db: FirebaseFirestore) : PromiseRoomRepository {
+     override suspend fun requestDeleteRoom(roomId: String): Flow<Boolean> = flow {
+         TODO("Not yet implemented")
+     }

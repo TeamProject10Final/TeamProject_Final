@@ -16,7 +16,6 @@ import com.example.donotlate.R
 import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentSignupBinding
 import com.example.donotlate.feature.auth.presentation.dialog.InformationDialogFragment
-import com.example.donotlate.feature.main.presentation.view.MainFragment
 
 class SignupFragment : Fragment() {
 
@@ -35,7 +34,7 @@ class SignupFragment : Fragment() {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
 
         binding.root.setOnClickListener {
-            hideKeyboard()
+            hideKeyboard(binding.root.windowToken)
 //            requireActivity().currentFocus!!.clearFocus()
         }
 
@@ -65,7 +64,7 @@ class SignupFragment : Fragment() {
             var handled = false
 
             if (action == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard()
+                hideKeyboard(binding.root.windowToken)
                 requireActivity().currentFocus!!.clearFocus()
                 handled = true
             }

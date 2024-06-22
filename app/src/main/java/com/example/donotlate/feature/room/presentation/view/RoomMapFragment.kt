@@ -1,7 +1,5 @@
 package com.example.donotlate.feature.room.presentation.view
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -66,8 +63,8 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         initMap()
 
         binding.root.setOnClickListener {
-            hideKeyboard()
-            requireActivity().currentFocus!!.clearFocus()
+            hideKeyboard(binding.root.windowToken)
+//            requireActivity().currentFocus!!.clearFocus()
         }
 
         return binding.root
@@ -103,7 +100,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
             var handled = false
 
             if (action == EditorInfo.IME_ACTION_SEARCH) {
-                hideKeyboard()
+                hideKeyboard(binding.root.windowToken)
                 requireActivity().currentFocus!!.clearFocus()
                 handled = true
 
