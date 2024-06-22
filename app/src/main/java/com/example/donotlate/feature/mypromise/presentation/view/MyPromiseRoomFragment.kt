@@ -228,7 +228,9 @@ class MyPromiseRoomFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             myPromiseViewModel.message.collect { message ->
                 Log.d("MyPromiseRoomFragment", "Collected messages: $message")
-                adapter.submitList(message)
+                adapter.submitList(message) {
+                    binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
+                }
             }
         }
     }
