@@ -9,17 +9,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.R
-import com.example.donotlate.databinding.DialogRadiobuttonBinding
-import com.example.donotlate.feature.mypromise.presentation.model.Mode
+import com.example.donotlate.databinding.DialogRadiobuttonSelectionBinding
 import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModel
 import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModelFactory
 
-class RadioButtonDialog(private val callback: () -> Unit) :
-    DialogFragment() {
+class RadioButtonSelectionDialog(
+    private val selections: List<String>,
+    private val callback: () -> Unit
+) : DialogFragment() {
 
     private val myPromiseViewModel: MyPromiseRoomViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
@@ -30,8 +32,13 @@ class RadioButtonDialog(private val callback: () -> Unit) :
         )
     }
 
-    private var _binding: DialogRadiobuttonBinding? = null
+    private var _binding: DialogRadiobuttonSelectionBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,32 +52,57 @@ class RadioButtonDialog(private val callback: () -> Unit) :
 
     @SuppressLint("UseGetLayoutInflater")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        _binding = DialogRadiobuttonBinding.inflate(LayoutInflater.from(context))
+        _binding = DialogRadiobuttonSelectionBinding.inflate(LayoutInflater.from(context))
         return activity?.let {
             val builder = AlertDialog.Builder(it)
 
-            val modeArray = resources.getStringArray(R.array.modeArray)
-            binding.rbTransit.text = modeArray[0]
-            binding.rbDriving.text = modeArray[1]
-            binding.rbWalking.text = modeArray[2]
-            binding.rbBicycling.text = modeArray[3]
+            if (selections.isEmpty()) {
+                Toast.makeText(context, "잘못된 접근입니다.", Toast.LENGTH_SHORT).show()
+                dismiss()
+                return builder.create()
+            }
 
-            binding.btnRadioConfirm.setOnClickListener {
-                val selectedId = binding.radioGroup.checkedRadioButtonId
-                val selectedKey = when (selectedId) {
-                    R.id.rb_Transit -> Mode.OPTION_1.key
-                    R.id.rb_Driving -> Mode.OPTION_2.key
-                    R.id.rb_Walking -> Mode.OPTION_3.key
-                    R.id.rb_Bicycling -> Mode.OPTION_4.key
-                    else -> null
+            val radioButtons = listOf(
+                binding.rbFirst,
+                binding.rbSecond,
+                binding.rbThird,
+                binding.rbFourth,
+                binding.rbFifth,
+                binding.rbSixth
+            )
+            val lines = listOf(
+                binding.lineFirst,
+                binding.lineSecond,
+                binding.lineThird,
+                binding.lineFourth,
+                binding.lineFifth
+            )
+
+            selections.forEachIndexed { index, selection ->
+                if (index >= 1) {
+                    lines[index - 1].apply {
+                        isVisible = true
+                    }
                 }
-                selectedKey?.let { key ->
-                    myPromiseViewModel.setMode(key)
+                radioButtons[index].apply {
+                    text = selection
+                    isVisible = true
+                }
+
+                radioButtons[index].apply {
+
+                }
+            }
+
+            binding.btnRadioConfirm01.setOnClickListener {
+                val selectedId = binding.radioGroup01.checkedRadioButtonId
+                if (selectedId != -1) {
+                    myPromiseViewModel.setSelectedRouteIndex(selectedId)
                     callback()
                     dismiss()
                 }
             }
-            binding.btnRadioCancel.setOnClickListener {
+            binding.btnRadioCancel01.setOnClickListener {
                 dismiss()
             }
 
@@ -82,5 +114,4 @@ class RadioButtonDialog(private val callback: () -> Unit) :
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
-
 }

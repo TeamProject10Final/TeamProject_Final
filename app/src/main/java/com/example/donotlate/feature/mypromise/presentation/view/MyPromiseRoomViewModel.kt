@@ -76,6 +76,44 @@ class MyPromiseRoomViewModel(
     private val _shortExplanations = MutableLiveData<String>()
     val shortExplanations: LiveData<String> get() = _shortExplanations
 
+    private val _isDepart = MutableLiveData<Boolean>(false)
+    val isDepart: LiveData<Boolean> get() = _isDepart
+
+    //경로 선택하기 전 보여줄 간단한 소개들
+    private val _routeSelectionText = MutableLiveData<List<String>>()
+    val routeSelectionText: LiveData<List<String>> get() = _routeSelectionText
+
+    //검색 결과 중 선택한 경로
+    private val _selectedRouteIndex = MutableLiveData<Int>(0)
+    val selectedRouteIndex: LiveData<Int> get() = _selectedRouteIndex
+
+    private val _country = MutableLiveData<String>()
+    val country: LiveData<String> = _country
+
+    fun getCountry(): String? {
+        if (country.value != null) {
+            return country.value!!
+        } else {
+            _error.postValue("다시 시도해 주세요.")
+            return null
+        }
+    }
+
+    fun setCountry(country: String) {
+        _country.value = country
+    }
+
+    fun refreshIndex() {
+        _selectedRouteIndex.value = 0
+    }
+
+    fun setSelectedRouteIndex(indexNum: Int) {
+        _selectedRouteIndex.value = indexNum ?: 0
+        Log.d("123123", "${indexNum}")
+    }
+
+
+
     fun setUserLocation(location: LatLng) {
         _userLocationLatLng.value = location
         if (userLocationLatLng.value != null) {
@@ -89,6 +127,14 @@ class MyPromiseRoomViewModel(
     private fun getLocationString(latLng: LatLng, delimiter: String = ","): String {
         Log.d("확인 userLocaString", "${originString.value}")
         return "${latLng.latitude}$delimiter${latLng.longitude}"
+    }
+
+    fun setIsDepart(status: Boolean) {
+        _isDepart.value = status
+    }
+
+    fun getIsDepart(): Boolean {
+        return isDepart.value!!
     }
 
     fun calDistance2() {
@@ -131,6 +177,7 @@ class MyPromiseRoomViewModel(
                     mode.value.toString()
                 )
                 _directionsResult.value = result.toModel()
+                setRouteSelectionText()
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }
@@ -148,6 +195,31 @@ class MyPromiseRoomViewModel(
 //        }
 //    }
 
+    fun setMode(key: String) {
+        _mode.value = key
+    }
+
+    fun getMode(): String {
+        return mode.value!!
+        //위에 디폴트값 넣어둠
+    }
+
+
+    //index 정해진 뒤에 text를 만들어야 함
+    fun afterSelecting() {
+        viewModelScope.launch {
+            setShortDirectionsResult()
+        }
+    }
+
+    fun getSelectionList(): List<String> {
+        return if (routeSelectionText.value?.isEmpty() == true) {
+            emptyList()
+        } else {
+            routeSelectionText.value!!
+            //Log.d("확인 getSelecL", "${routeSelectionText.value}, ${routeSelectionText.value.toString().toList()}")
+        }
+    }
     fun setShortDirectionsResult() {
         if (directionsResult.value != null) {
             formatShortDirectionsExplanations(directionsResult.value!!)
@@ -161,8 +233,8 @@ class MyPromiseRoomViewModel(
         //선택하면 그거에 대해 1번 출력되게
         val resultText = StringBuilder()
         //아래 코드로 수정하기
-//        val temp = directions.routes[_selectedRouteIndex.value!!].legs[0]
-        val temp = directions.routes[0].legs[0]
+        val temp = directions.routes[_selectedRouteIndex.value!!].legs[0]
+//        val temp = directions.routes[0].legs[0]
 //TODO 아래 코드 삭제하기
         resultText.append("${temp.totalStartLocation.lat}, ${temp.totalStartLocation.lng}\n")
         resultText.append("출발 주소 ${temp.totalStartAddress}\n")
@@ -178,6 +250,69 @@ class MyPromiseRoomViewModel(
         _shortExplanations.value = resultText.toString()
 
         Log.d("확인 short", "${resultText}")
+    }
+
+    private suspend fun setRouteSelectionText() {
+        if (_directionsResult.value != null) {
+            Log.d("확인 setDirections", "${_directionsResult.value}")
+            formatRouteSelectionText(_directionsResult.value!!)
+        } else {
+            _error.postValue("_direction null")
+            Log.d("확인 setDirections", "null")
+            _routeSelectionText.postValue(emptyList())
+            //emptyOrNull
+        }
+    }
+
+    private fun formatRouteSelectionText(directions: DirectionsModel) {
+        val resultsList = mutableListOf<String>()
+        refreshIndex()
+
+        directions.routes.size
+        var routeIndex = 1
+        directions.routes.forEach { route ->
+            val resultText = StringBuilder()
+            val resultText1 = StringBuilder()
+
+            resultText.append("🔵경로 ${routeIndex}\n")
+            route.legs.forEach { leg ->
+//                resultText1.append("  예상 소요 시간 : ${leg.totalDuration.text}")
+//                if (mode.value == "transit") {
+//                    resultText.append("\n🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
+//                } else {
+//                    resultText.append("\n")
+//                }
+//                resultText1.append("\n")
+
+                val resultText2 = StringBuilder()
+
+                var num = 1
+                leg.steps.forEach { step ->
+                    resultText2.append(" ✴︎${num}:")
+                    if (step.travelMode == "TRANSIT") {
+                        if (step.transitDetails.line.shortName != "") {
+                            resultText2.append(" [${step.transitDetails.line.shortName}]")
+                        } else if (step.transitDetails.line.name != "") {
+                            resultText2.append(" [${step.transitDetails.line.name}]")
+                        } else {
+                            //
+                        }
+                    }
+                    Log.d("확인 travelMode", step.travelMode.toString())
+
+                    resultText2.append(" ${step.htmlInstructions} (${step.stepDuration.text})\n")
+                    num++
+                }
+                resultText1.append(resultText2)
+            }
+            resultText.append(resultText1)
+            resultsList.add(resultText.toString())
+            routeIndex++
+        }
+        Log.d("확인 리스트 인덱스", "${resultsList.size}")
+        _routeSelectionText.value = resultsList
+        Log.d("확인 setDirections", "stringbuilder ${resultsList}")
+        Log.d("확인 setDirections 1", "${resultsList[2]}")
     }
 
     fun loadMessage(roomId: String) {
