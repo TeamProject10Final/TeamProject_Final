@@ -2,6 +2,7 @@ package com.example.donotlate.feature.consumption.presentation
 
 //import kotlinx.coroutines.flow.internal.NopCollector.emit
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -71,11 +72,12 @@ constructor(
     private val _calResult = MutableLiveData<Int>(0)
     val calResult: LiveData<Int> = _calResult
 
-//    private val _mediatorLiveData = MediatorLiveData<String>()
-//    val mediatorLiveData: MediatorLiveData<String> = _mediatorLiveData
 
-    private val _penaltyNumber = MutableLiveData<Int>(1)
-    val penaltyNumber: LiveData<Int> = _penaltyNumber
+    private val _penaltyNumberString = MutableLiveData<String>()
+    val penaltyNumberString: LiveData<String> = _penaltyNumberString
+
+    private val _penalty3Status = MutableLiveData<Int>(0)
+    val penalty3Status: LiveData<Int> = _penalty3Status
 
     init {
         //historyId 는 database의 개수 세어서 넣기!!!!
@@ -91,21 +93,7 @@ constructor(
         _number.value = null
         _price.value = 0
         _isFinished.value = false
-        //setMediatorLiveData()
     }
-
-//    //mediatorLiveData에 데이터 추가
-//    private fun setMediatorLiveData() {
-//        mediatorLiveData.addSource(total) {
-//            mediatorLiveData.value = it
-//        }
-//        mediatorLiveData.addSource(penalty) {
-//            mediatorLiveData.value = it
-//        }
-//        mediatorLiveData.addSource(number) {
-//            mediatorLiveData.value = it
-//        }
-//    }
 
     fun setCurrentItem(current: Int) {
         _modelCurrent.value = current
@@ -127,6 +115,40 @@ constructor(
         _total.value = total
     }
 
+    fun get3PenaltyStatus(): Int {
+        return penalty3Status.value!!
+    }
+
+    fun check3PenaltyStatus() {
+        when (penalty3Status.value) {
+            0 -> {
+                //벌금 없는 상태
+                setIsPenalty(false)
+            }
+
+            1 -> {
+                //상대방의 벌금 ?
+                setIsPenalty(false)
+            }
+
+            else -> {
+                //내 벌금 ?
+                setIsPenalty(true)
+            }
+        }
+    }
+
+    fun change3PenaltyStatus() {
+        if (penalty3Status.value != null) {
+            if (penalty3Status.value!! >= 2) {
+                _penalty3Status.value = 0
+            } else {
+                _penalty3Status.value = penalty3Status.value?.plus(1)
+            }
+        }
+        check3PenaltyStatus()
+    }
+
     fun setIsPenalty(isPenalty: Boolean) {
         _isPenalty.value = isPenalty
     }
@@ -135,9 +157,9 @@ constructor(
         _penalty.value = penalty
     }
 
-    fun changeIsPenalty(isPenalty: Boolean) {
-        _isPenalty.value = !isPenalty
-    }
+//    fun changeIsPenalty(isPenalty: Boolean) {
+//        _isPenalty.value = !isPenalty
+//    }
 
     fun setNumber(number: String) {
         _number.value = number
@@ -151,8 +173,8 @@ constructor(
         _isFinished.value = check
     }
 
-    fun setPenaltyNumber(number: Int) {
-        _penaltyNumber.value = number
+    fun setPenaltyNumber(input: String) {
+        _penaltyNumberString.value = input
     }
 
     fun insertConsumption(consumption: ConsumptionModel) {
@@ -199,44 +221,84 @@ constructor(
     }
 
     fun buildShareMessage(): String {
-        val price = _price.value!!
-        val penalty = _penalty.value?.toIntOrNull() ?: 0
-        val total = price + penalty
-
         val message = StringBuilder()
-        message.append("📌${_date.value} 의 \"${_detail.value}\" 정산\n\n")
-            .append("1인 💰${price.addCommas()}\n\n")
+        if (calResult.value != 0) {
+            val price = _price.value!!
+            val penalty = _penalty.value?.toIntOrNull() ?: 0
+            val total = price + penalty
 
-        if (penalty != 0) {
-            message.append("지각자는 💸").append(total.addCommas())
+            //val message = StringBuilder()
+            message.append("📌${_date.value} 의 \"${_detail.value}\" 정산\n\n")
+                .append("1인 💰${price.addCommas()}\n\n")
+
+            if (penalty != 0) {
+                message.append("지각자는 💸").append(total.addCommas())
+            }
+        } else {
+            message.append("정산 미완료!\n다시 정산해 주세요.")
         }
-
         return message.toString()
     }
 
-    private fun calculate() {
+    fun calculate() {
 
 
         val total = total.value?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
         val number = number.value?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
         val penaltyString = penalty.value
         val isPenalty = isPenalty.value
+        val penaltyNumberString = penaltyNumberString.value
+        Log.d("확인 penalty string", "$penaltyNumberString")
 
         // penalty가 빈칸이거나 null인 경우 0으로 간주하여 처리...
         val penalty = penaltyString?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
+        val penaltyNumberInt = penaltyNumberString?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
+
+        Log.d("확인 값들", "${total}, ${number}, ${penaltyString}, ${penalty}, ${penaltyNumberInt}")
 
         // number가 0인 경우에는 0으로 나누는 오류가 발생하므로 예외 처리하기 - 프래그먼트에 로직 추가함
-        if (number == 0) {
+        if (number == 0 || total == 0) {
+            _calResult.value = 0
+            _error.postValue("인원 수를 다시 확인해주세요.")
+        }
+
+        if (number < penaltyNumberInt) {
+            _error.postValue("입력한 인원을 다시 확인해주세요.")
             _calResult.value = 0
         }
 
-        if (isPenalty == true && penalty != 0) {
-            val result = ((total - penalty) / number) + penalty
-            _calResult.value = result
-        } else {
-            val result = (total - penalty) / number
-            _calResult.value = result
+        if (penalty3Status.value == 0 && penaltyNumberInt != 0) {
+            _error.postValue("입력한 내용을 다시 확인해주세요.")
+            _calResult.value = 0
         }
+
+        if (penaltyNumberInt != 0) {
+            //벌금 대상자가 있는 경우
+            if (isPenalty == true) {
+                //내가 벌금 대상자인 경우
+                val result = ((total - penalty * penaltyNumberInt) / number) + penalty
+                _calResult.value = result
+                _price.value = result
+            } else {
+                //내가 벌금 대상자가 아닌 경우
+                val result = (total - penalty * penaltyNumberInt) / number
+                _calResult.value = result
+                _price.value = result
+            }
+        } else {
+            //벌금 대상자가 없는 경우
+            if (isPenalty == true) {
+                //내가 벌금 대상자인 경우? 이건 잘못된건데
+                _calResult.value = 0
+                _price.value = 0
+            } else {
+                val result = (total - penalty) / number
+                _calResult.value = result
+                _price.value = result
+            }
+        }
+
+        Log.d("확인 값들", "${calResult.value}")
     }
 }
 

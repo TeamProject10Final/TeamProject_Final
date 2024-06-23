@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -125,6 +126,12 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
 //            }
 //            false
 //        }
+        //이거 프래그먼트별로 해줘야 하는 거 맞나?
+        viewModel.error.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            Log.d("확인 cal1 에러", "$it")
+        }
+
     }
 
     private fun setupSpinner() {

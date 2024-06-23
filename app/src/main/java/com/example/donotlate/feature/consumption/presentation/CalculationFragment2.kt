@@ -1,12 +1,13 @@
 package com.example.donotlate.feature.consumption.presentation
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
@@ -42,35 +43,47 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
         return binding.root
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    //    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // 이전에 입력한 내용이 있다면 해당 내용을 EditText에 설정
+        //이부분 수정하기... observe로? 이중인가?
         viewModel.total.value?.let { binding.etDes21.setText(it) }
-        viewModel.isPenalty.value?.let {
-            if (it) {
-                binding.btnPenalty.setText("${resources.getString(R.string.cal1_frgment_text1)}")
-                binding.btnPenalty.setBackgroundResource(R.drawable.btn_radius_lilac)
-            } else {
-                binding.btnPenalty.setText(
-                    "${resources.getString(R.string.cal1_frgment_text2)}"
-                )
-                binding.btnPenalty.setBackgroundResource(R.drawable.bg_radius_lightblue)
-            }
+        viewModel.check3PenaltyStatus()
+        viewModel.penalty3Status.observe(viewLifecycleOwner) {
+            setPenalty3StatusView(it)
+
         }
+//        viewModel.isPenalty.value?.let {
+//
+//            updateIsPenaltyButton(it)
+////            if (it) {
+////                binding.btnPenalty.setText("${resources.getString(R.string.cal1_frgment_text1)}")
+////                binding.btnPenalty.setBackgroundResource(R.drawable.btn_radius_lilac)
+////            } else {
+////                binding.btnPenalty.setText(
+////                    "${resources.getString(R.string.cal1_frgment_text2)}"
+////                )
+////                binding.btnPenalty.setBackgroundResource(R.drawable.bg_radius_lightblue)
+////            }
+//        }
         viewModel.penalty.value?.let { binding.etDes22.setText(it) }
         viewModel.number.value?.let { binding.etDes23.setText(it) }
 
         binding.btnPenalty.setOnClickListener {
-            viewModel.changeIsPenalty(viewModel.isPenalty.value!!)
+            viewModel.change3PenaltyStatus()
+            //viewModel.changeIsPenalty(viewModel.isPenalty.value!!)
 //            ConsumptionActivity.hideKeyboard(view)
             hideKeyboard(binding.root.windowToken)
         }
 
-        viewModel.isPenalty.observe(viewLifecycleOwner) { isPenalty ->
-            updateIsPenaltyButton(isPenalty)
+        //이거 프래그먼트별로 해줘야 하는 거 맞나?
+        viewModel.error.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            Log.d("확인 cal2 에러", "$it")
         }
+
 
 //        binding.etDes21.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
 //            if (!hasFocus) {
@@ -100,14 +113,36 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
             val total = binding.etDes21.text.toString()
             val penalty = binding.etDes22.text.toString()
             val number = binding.etDes23.text.toString()
+            var penaltyNumber = "0"
+            if (viewModel.get3PenaltyStatus() != 0) {
+                penaltyNumber = binding.etDes24.text.toString()
+            }
 
-            if (total.isNotBlank() && number.isNotBlank() && total != "0") {
-                viewModel.setTotal(total)
-                viewModel.setPenalty(penalty)
-                viewModel.setIsPenalty(viewModel.isPenalty.value!!)
-                viewModel.setNumber(number)
-                viewModel.setCurrentItem(current = 2)
+            Log.d("확인 Penaltynumber", "${penaltyNumber}, ${(penaltyNumber == "")}")
+            Log.d("확인 penalty", "${penalty}, ${(penalty == "")}")
+            //시간 되면 이 부분 수정하기... 검사를 뷰모델로 이동해야 함
+            if (total.isNotBlank() && number.isNotBlank() && total != "0" && number != "0") {
+                if (viewModel.get3PenaltyStatus() == 0 && penalty.isNotBlank() || viewModel.get3PenaltyStatus() != 0 && penalty.isBlank() || viewModel.get3PenaltyStatus() != 0 && penaltyNumber == "") {
+                    Toast.makeText(context, "입력한 내용을 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+                    Log.d("확인 조건문 1", "1")
+                } else if ((penalty.isNotBlank() && penaltyNumber == "") || (viewModel.get3PenaltyStatus() != 0 && penalty.isBlank() && penaltyNumber != "")) {
+                    Toast.makeText(context, "입력한 내용을 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+                    Log.d("확인 조건문 1", "2")
+                } else if (penaltyNumber != "" && (penaltyNumber.toInt() > number.toInt())) {
+                    Log.d("확인 조건문 1", "3-1")
+                    Toast.makeText(context, "인원수를 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+                } else if ((penalty != "") && (total.toInt() < penalty.toInt())) {
+                    Toast.makeText(context, "입력한 금액을 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.setTotal(total)
+                    viewModel.setPenalty(penalty)
+                    viewModel.setIsPenalty(viewModel.isPenalty.value!!)
+                    viewModel.setNumber(number)
+                    viewModel.setPenaltyNumber(penaltyNumber)
+                    viewModel.setCurrentItem(current = 2)
+                    viewModel.calculate()
 //                findNavController().navigate(R.id.action_fragment2_to_fragment3)
+                }
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -126,6 +161,39 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
 //            }
 //            false
 //        }
+    }
+
+    private fun setPenalty3StatusView(status: Int?) {
+        when (status) {
+            0 -> {
+                binding.btnPenalty.setText("벌금 없음")
+                binding.btnPenalty.setBackgroundResource(R.drawable.btn_info_round_gray)
+                binding.etDes24.isVisible = false
+                binding.tvDes24.isVisible = false
+                binding.tvWon24.isVisible = false
+                viewModel.setPenaltyNumber("")
+            }
+
+            1 -> {
+                //
+                binding.btnPenalty.text = "${resources.getString(R.string.cal1_frgment_text2)}"
+                binding.btnPenalty.setBackgroundResource(R.drawable.bg_radius_lightblue)
+                binding.etDes24.isVisible = true
+                binding.tvDes24.isVisible = true
+                binding.tvWon24.isVisible = true
+            }
+
+            2 -> {
+                //
+                binding.btnPenalty.text = "${resources.getString(R.string.cal1_frgment_text1)}"
+                binding.btnPenalty.setBackgroundResource(R.drawable.btn_radius_lilac)
+                binding.etDes24.isVisible = true
+                binding.tvDes24.isVisible = true
+                binding.tvWon24.isVisible = true
+            }
+
+        }
+
     }
 
 
@@ -157,10 +225,5 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
         super.onDestroyView()
         _binding = null
     }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        appContainer.calculationConatainer = null
-//    }
 
 }

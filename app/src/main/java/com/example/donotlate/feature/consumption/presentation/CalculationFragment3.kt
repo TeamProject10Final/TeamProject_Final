@@ -2,9 +2,11 @@ package com.example.donotlate.feature.consumption.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -25,10 +27,15 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
         )
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCalculation3Binding.bind(view)
+
+        //이거 프래그먼트별로 해줘야 하는 거 맞나?
+        viewModel.error.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            Log.d("확인 cal3 에러", "$it")
+        }
 
         with(binding) {
             viewModel.detail.observe(viewLifecycleOwner) { detail ->
@@ -39,7 +46,7 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
                 tvRes32.text = date ?: ""
             }
             viewModel.number.observe(viewLifecycleOwner) { number ->
-                tvRes33.text = "$number ${resources.getString(R.string.cal3_text3)}"
+                tvRes33.text = "${number} 명"
             }
             viewModel.category.observe(viewLifecycleOwner) { category ->
                 tvRes34.text = category ?: ""
@@ -49,11 +56,11 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
                 if (it != 0) {
                     binding.tvRes35.text = it.addCommas()
                     binding.btnCalExit.isVisible = true
-                    binding.btnCalExit.isVisible = true
+                    binding.btnCalFinish.isVisible = true
                 } else {
                     binding.tvRes35.text = "다시 정산해 주세요."
                     binding.btnCalExit.isVisible = false
-                    binding.btnCalExit.isVisible = false
+                    binding.btnCalFinish.isVisible = false
                 }
             }
 
