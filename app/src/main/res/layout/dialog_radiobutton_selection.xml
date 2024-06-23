@@ -18,13 +18,10 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/svSelection01"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintTop_toTopOf="parent">
 
             <RadioGroup
                 android:id="@+id/radioGroup01"
@@ -41,77 +38,77 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <View
                     android:id="@+id/line_first"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#E4E4E4"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <RadioButton
                     android:id="@+id/rb_second"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <View
                     android:id="@+id/line_second"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#E4E4E4"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <RadioButton
                     android:id="@+id/rb_third"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <View
                     android:id="@+id/line_third"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#E4E4E4"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <RadioButton
                     android:id="@+id/rb_fourth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <View
                     android:id="@+id/line_fourth"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#E4E4E4"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <RadioButton
                     android:id="@+id/rb_fifth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <View
                     android:id="@+id/line_fifth"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#E4E4E4"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <RadioButton
                     android:id="@+id/rb_sixth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
             </RadioGroup>
         </androidx.core.widget.NestedScrollView>

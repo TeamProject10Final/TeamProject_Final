@@ -62,7 +62,7 @@ class RoomStartFragment : Fragment() {
 
             if (action == EditorInfo.IME_ACTION_DONE) {
                 hideKeyboard(binding.root.windowToken)
-                requireActivity().currentFocus!!.clearFocus()
+                //requireActivity().currentFocus!!.clearFocus()
                 handled = true
             }
             handled
@@ -73,7 +73,7 @@ class RoomStartFragment : Fragment() {
 
             if (action == EditorInfo.IME_ACTION_DONE) {
                 hideKeyboard(binding.root.windowToken)
-                requireActivity().currentFocus!!.clearFocus()
+                //requireActivity().currentFocus!!.clearFocus()
                 handled = true
             }
             handled

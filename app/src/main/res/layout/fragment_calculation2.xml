@@ -99,7 +99,7 @@
         android:layout_marginEnd="40dp"
         android:inputType="number"
         android:paddingHorizontal="10dp"
-        android:hint="@string/cal3_edit_text2"
+        android:hint="벌금이 있다면 입력해주세요."
         android:nextFocusDown="@id/etDes23"
         android:paddingStart="3dp"
         android:paddingBottom="15dp"
@@ -109,6 +109,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:theme="@style/EditTextStyle" />
+    <!--    android:hint="@string/cal3_edit_text2"-->
+    <!--    TODO : 혜란님 수정-->
 
     <TextView
         android:id="@+id/btnPenalty"
@@ -121,12 +123,6 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@id/etDes22"
         app:layout_constraintStart_toStartOf="@id/etDes21" />
-
-    <!--    수정하기 TODO-->
-    <!--    <EditText-->
-    <!--        -->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"/>-->
 
     <TextView
         android:id="@+id/tvWon22"
@@ -184,6 +180,54 @@
         app:layout_constraintBottom_toBottomOf="@id/etDes23"
         app:layout_constraintEnd_toEndOf="@id/etDes23"
         app:layout_constraintTop_toTopOf="@id/etDes23" />
+
+    <TextView
+        android:id="@+id/tvDes24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/btn_info_round_lilac"
+        android:text="벌금 납부 인원수"
+        android:textSize="15sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/etDes24"
+        app:layout_constraintStart_toStartOf="@id/etDes23" />
+
+    <EditText
+        android:id="@+id/etDes24"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:hint="벌금을 납부할 총 인원을 입력해주세요."
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:paddingHorizontal="10dp"
+        android:paddingStart="3dp"
+        android:paddingTop="13dp"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etDes23"
+        app:theme="@style/EditTextStyle" />
+
+    <TextView
+        android:id="@+id/tvWon24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="6.5dp"
+        android:text="@string/cal3_text4"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/etDes24"
+        app:layout_constraintEnd_toEndOf="@id/etDes24"
+        app:layout_constraintTop_toTopOf="@id/etDes24" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCalEnd"

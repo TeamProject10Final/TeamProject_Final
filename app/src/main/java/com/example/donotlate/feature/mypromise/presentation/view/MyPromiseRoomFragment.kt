@@ -1,8 +1,5 @@
 package com.example.donotlate.feature.mypromise.presentation.view
 
-//import android.location.Location
-//import android.location.LocationListener
-//import android.location.LocationManager
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
@@ -201,10 +198,6 @@ class MyPromiseRoomFragment : Fragment() {
             } else {
                 showModeDialog()
             }
-
-//
-
-
         }
 
         setViewMore(binding.tvRoomTitle, binding.tvRoomPromiseDate, binding.tvRoomTitle)
@@ -218,7 +211,6 @@ class MyPromiseRoomFragment : Fragment() {
             binding.ivRoomMap.isVisible = true
             binding.btnArrived.isVisible = false
         }
-
     }
     private fun showModeDialog() {
         val selectionDialog = RadioButtonDialog() {
@@ -236,7 +228,6 @@ class MyPromiseRoomFragment : Fragment() {
                     }
                 }
             }
-
         }
         selectionDialog.show(childFragmentManager, "RadioButtonDialog")
     }
@@ -272,18 +263,6 @@ class MyPromiseRoomFragment : Fragment() {
                 }
             }
         }
-//        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner) {
-//            //처음에 방 들어가자마자 초기화하기! 거리 계산해두기
-//            if (it <= 0.2) { //200m
-//                binding.btnArrived.isVisible = true
-//                binding.ivRoomMap.isVisible = false
-//                //도착 버튼이 보이게
-//            } else {
-//                binding.btnArrived.isVisible = false
-//                binding.ivRoomMap.isVisible = true
-//                //도착 버튼이 보이지 않게
-//            }
-//        }
 
         myPromiseViewModel.shortExplanations.observe(viewLifecycleOwner) {
             if (it.isNullOrEmpty()) {
@@ -464,7 +443,6 @@ class MyPromiseRoomFragment : Fragment() {
                 if (contentTextView.layout.getEllipsisCount(lineCount - 1) > 0) {
                     // 더보기 표시
                     viewMoreTextView.visibility = View.VISIBLE
-
                     // 더보기 클릭 이벤트
                     viewMoreTextView.setOnClickListener {
                         contentTextView.maxLines = Int.MAX_VALUE

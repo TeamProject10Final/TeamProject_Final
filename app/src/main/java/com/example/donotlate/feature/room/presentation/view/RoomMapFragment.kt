@@ -101,7 +101,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
 
             if (action == EditorInfo.IME_ACTION_SEARCH) {
                 hideKeyboard(binding.root.windowToken)
-                requireActivity().currentFocus!!.clearFocus()
+                //requireActivity().currentFocus!!.clearFocus()
                 handled = true
 
                 searchQuery()

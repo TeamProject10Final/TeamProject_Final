@@ -197,6 +197,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="20dp"
                 android:padding="10dp"
+                android:minHeight="100dp"
                 android:background="@drawable/rounded_edittext1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -230,7 +231,6 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
-                    android:minHeight="100dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv04" />
