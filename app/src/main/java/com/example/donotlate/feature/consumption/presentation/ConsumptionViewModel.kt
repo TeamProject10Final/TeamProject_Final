@@ -122,8 +122,12 @@ class ConsumptionViewModel(
                     }
 
             } catch (e: Exception) {
-                Log.d("확인 long?", "${e.message}")
-                _errorState.send(e.message ?: "Unknown error")
+                if (liveDataCount.value >= 1) {
+                    Log.d("확인 long? 1", "${e.message}")
+                    _errorState.send(e.message ?: "Unknown error")
+                } else {
+                    Log.d("확인 long? 0", "${e.message}")
+                }
             }
 //            getTotalPriceUseCase()
 //                .onStart {

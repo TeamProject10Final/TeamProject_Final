@@ -203,7 +203,7 @@
         android:layout_marginTop="55dp"
         android:layout_marginEnd="40dp"
         android:ems="10"
-        android:hint="벌금을 납부할 총 인원수를 입력해주세요."
+        android:hint="벌금을 납부할 총 인원을 입력해주세요."
         android:imeOptions="actionDone"
         android:inputType="number"
         android:paddingHorizontal="10dp"
