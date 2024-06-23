@@ -68,8 +68,11 @@ class MyPromiseRoomFragment : Fragment() {
     private var currentUserData = CurrentUser.userData
     private var roomTitle: String? = null
     private var promiseDate: String? = null
+    private var promiseTime: String? = null
     private var roomId: String? = null
     private var roomDestination: String? = null
+    private var roomPenalty: String? = null
+    private var roomParticipants: List<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,6 +141,11 @@ class MyPromiseRoomFragment : Fragment() {
         observeViewModel()
 
         promiseRoom?.let { room ->
+
+            promiseTime = room.promiseTime
+            roomPenalty = room.penalty
+            roomParticipants = room.participants
+
             promiseDate = room.promiseDate
             roomTitle = room.roomTitle
             roomId = room.roomId

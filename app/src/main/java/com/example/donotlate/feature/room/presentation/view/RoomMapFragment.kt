@@ -132,7 +132,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
 
             val lat = it.lat
             val lng = it.lng
-            val title = it.name
+            val title = it.address
 
             val location = LatLng(lat, lng)
             val cameraPosition = CameraPosition.Builder().target(location).zoom(15f).build()

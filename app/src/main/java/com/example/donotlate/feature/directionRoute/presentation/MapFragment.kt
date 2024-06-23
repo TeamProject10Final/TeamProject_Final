@@ -214,8 +214,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         delay(1000)
 
                         sharedViewModel.afterSelecting()
-                        val bottomSheet = DirectionsBottomFragment()
-                        bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
+                        val bottomSheet = DirectionsDialogFragment()
                         bottomSheet.show(parentFragmentManager, "tag")
                         sharedViewModel.refreshIndex()
                         binding.btnMapBottomSheet.visibility = View.VISIBLE
@@ -423,6 +422,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private fun setupClickListener() {
         binding.btnMapBottomSheet.setOnClickListener {
             val bottomSheetDialogFragment = RouteDetailsBottomSheet()
+            bottomSheetDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
             bottomSheetDialogFragment.show(parentFragmentManager, "tag")
         }
 //        binding.btnSendIndex.setOnClickListener {
@@ -462,8 +462,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     sharedViewModel.getDirByTransit()
                 }
                 delay(1000)
-                val bottomSheet = DirectionsBottomFragment()
-                bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
+                val bottomSheet = DirectionsDialogFragment()
                 bottomSheet.show(parentFragmentManager, "tag")
 
                 binding.btnMapBottomSheet.visibility = View.VISIBLE
