@@ -1,5 +1,6 @@
 package com.example.donotlate.feature.consumption.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -56,7 +57,7 @@ class ConsumptionViewModel(
     private val _unfinishedConsumptions = MutableStateFlow<List<ConsumptionModel>>(emptyList())
     val unfinishedConsumptions: StateFlow<List<ConsumptionModel>> get() = _unfinishedConsumptions
 
-    private val _totalPrice = MutableStateFlow(0L)
+    private val _totalPrice = MutableStateFlow<Long>(0L)
     val totalPrice: StateFlow<Long> get() = _totalPrice
 
     private val _liveDataCount = MutableStateFlow(0)
@@ -70,8 +71,12 @@ class ConsumptionViewModel(
 
         fetchFinishedConsumptions()
         fetchUnfinishedConsumptions()
-        fetchTotalPrice()
         fetchLiveDataCount()
+//        if (liveDataCount.value >= 1){
+//            Log.d("확인 지출", "${liveDataCount.value}")
+//            fetchTotalPrice()
+//        }
+        fetchTotalPrice()
         getCurrentUserData()
 
     }
@@ -102,16 +107,41 @@ class ConsumptionViewModel(
 
     private fun fetchTotalPrice() {
         viewModelScope.launch {
-            getTotalPriceUseCase()
-                .onStart {
-                    // Loading state 처리
-                }
-                .catch { exception ->
-                    _errorState.send(exception.message ?: "Unknown error")
-                }
-                .collect { price ->
-                    _totalPrice.value = price
-                }
+            try {
+                getTotalPriceUseCase()
+                    .onStart {
+                        // Loading state 처리
+                    }.collect { price ->
+                        if (price != null) {
+                            _totalPrice.value = price
+                            Log.d("확인 longerror Notnull", "${price}")
+                        } else {
+                            _errorState.send("price is 0L")
+                            Log.d("확인 longerror null", "${price}")
+                        }
+                    }
+
+            } catch (e: Exception) {
+                Log.d("확인 long?", "${e.message}")
+                _errorState.send(e.message ?: "Unknown error")
+            }
+//            getTotalPriceUseCase()
+//                .onStart {
+//                    // Loading state 처리
+//                }
+//                .catch { exception ->
+//                    Log.d("확인 long?", "${exception.message}")
+//                    _errorState.send(exception.message ?: "Unknown error")
+//                }
+//                .collect { price ->
+//                    if(price != 0L){
+//                        _totalPrice.value = price
+//                        Log.d("확인 longerror Notnull", "${price}")
+//                    }else{
+//                        _errorState.send("price is 0L")
+//                        Log.d("확인 longerror null", "${price}")
+//                    }
+//                }
         }
     }
 
@@ -122,6 +152,7 @@ class ConsumptionViewModel(
                     // Loading state 처리
                 }
                 .catch { exception ->
+                    Log.d("확인 error2", "${exception.message}")
                     _errorState.send(exception.message ?: "Unknown error")
                 }
                 .collect { count ->

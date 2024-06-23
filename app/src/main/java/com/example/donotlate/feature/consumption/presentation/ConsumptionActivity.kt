@@ -117,10 +117,10 @@ class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface {
 
             launch {
                 consumptionViewModel.errorState.collect { error ->
-                    if (error.isNotEmpty()) {
+                    if (error.isNotEmpty() && error != null) {
                         Toast.makeText(
                             this@ConsumptionActivity,
-                            "Error: $error",
+                            "Error 123: $error",
                             Toast.LENGTH_LONG
                         ).show()
                     }
@@ -130,8 +130,15 @@ class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface {
 
             launch {
                 consumptionViewModel.totalPrice.collect { totalPrice ->
-                    binding.tvExpenseNum.text =
-                        "${totalPrice.addCommas()} ${resources.getString(R.string.cal_activity_text1)}"
+                    if (totalPrice == 0L) {
+                        Log.d("확인 long2? 0l", "$totalPrice")
+                        binding.tvExpenseNum.text =
+                            "${totalPrice} ${resources.getString(R.string.cal_activity_text1)}"
+                    } else {
+                        Log.d("확인 long2?", "$totalPrice")
+                        binding.tvExpenseNum.text =
+                            "${totalPrice.addCommas()} ${resources.getString(R.string.cal_activity_text1)}"
+                    }
                 }
             }
 
@@ -181,6 +188,7 @@ class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface {
         }
 
         fun Long.addCommas(): String {
+            Log.d("확인 long error?", "여긴가...")
             return String.format("%,d", this)
         }
 
