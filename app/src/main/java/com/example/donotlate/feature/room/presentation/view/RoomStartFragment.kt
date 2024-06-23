@@ -16,6 +16,7 @@ import com.example.donotlate.R
 import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentRoomStartBinding
 import com.example.donotlate.feature.room.presentation.model.RoomModel
+import java.time.LocalDate
 import java.util.Calendar
 
 class RoomStartFragment : Fragment() {
@@ -97,6 +98,8 @@ class RoomStartFragment : Fragment() {
                 dateText.text = "${year}-${m}-${d}"
 
             }
+            val selectedDate = LocalDate.of(year, month + 1, day)
+            roomViewModel.setDate(selectedDate)
         }
 
         binding.ivDate.setOnClickListener {
@@ -121,6 +124,7 @@ class RoomStartFragment : Fragment() {
                 timeText.text = "${h}시 ${m}분"
 
             }
+            roomViewModel.setTime(hourOfDay, minute)
         }
 
         binding.ivTime.setOnClickListener {
@@ -141,17 +145,19 @@ class RoomStartFragment : Fragment() {
 
             val title = binding.etRoomTitle.text.toString()
             val date = binding.tvRoomDate.text.toString()
-            val time = binding.tvRoomTime.text.toString()
+            //val time = binding.tvRoomTime.text.toString()
             val penalty = binding.etRoomPenalty.text.toString()
+
+            roomViewModel.setUnixTimestamp()
 
             val roomList = (RoomModel(
                 title,
                 date,
-                time,
+                roomViewModel.getUnixTimeStamp(),
                 penalty
             ))
             Log.d("123123", "${roomList}")
-            if (title.isNotBlank() && date.isNotBlank() && time.isNotBlank()) {
+            if (title.isNotBlank() && date.isNotBlank()) {
                 roomViewModel.updateText(roomList)
                 roomViewModel.setCurrentItem(current = 1)
             } else {

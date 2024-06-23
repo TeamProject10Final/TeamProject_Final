@@ -72,11 +72,6 @@ class MyPromiseRoomViewModel(
     private val _removeParticipantIdResult = MutableStateFlow<Boolean>(false)
     val removeParticipantIdResult: StateFlow<Boolean> get() = _removeParticipantIdResult
 
-    //여기에서 목적지에 대한 위도 경도를 저장해야 함
-    //fun setDestinationLatLng(){
-    //observe 하다가 가져오던가...
-    // }
-
     private val _directionsResult = MutableLiveData<DirectionsModel>()
     val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
 
@@ -194,17 +189,6 @@ class MyPromiseRoomViewModel(
             }
         }
     }
-//
-//    //TODO
-//    fun setMode(position: Int) {
-//        when (position) {
-//            0 -> _mode.value = mode.key
-//            FirstModeEnum.DRIVING -> _mode.value = mode.key
-//            FirstModeEnum.WALKING -> _mode.value = mode.key
-//            FirstModeEnum.BICYCLING -> _mode.value = mode.key
-//            FirstModeEnum.NOT_SELECTED -> _mode.value = mode.key
-//        }
-//    }
 
     fun setMode(key: String) {
         _mode.value = key
@@ -223,14 +207,14 @@ class MyPromiseRoomViewModel(
         }
     }
 
-    fun getSelectionList(): List<String> {
-        return if (routeSelectionText.value?.isEmpty() == true) {
-            emptyList()
-        } else {
-            routeSelectionText.value!!
-            //Log.d("확인 getSelecL", "${routeSelectionText.value}, ${routeSelectionText.value.toString().toList()}")
-        }
-    }
+    //    fun getSelectionList(): List<String> {
+//        return if (routeSelectionText.value?.isEmpty() == true) {
+//            emptyList()
+//        } else {
+//            routeSelectionText.value!!
+//            //Log.d("확인 getSelecL", "${routeSelectionText.value}, ${routeSelectionText.value.toString().toList()}")
+//        }
+//    }
     fun setShortDirectionsResult() {
         if (directionsResult.value != null) {
             formatShortDirectionsExplanations(directionsResult.value!!)
@@ -245,12 +229,7 @@ class MyPromiseRoomViewModel(
         val resultText = StringBuilder()
         //아래 코드로 수정하기
         val temp = directions.routes[_selectedRouteIndex.value!!].legs[0]
-//        val temp = directions.routes[0].legs[0]
-//TODO 아래 코드 삭제하기
-        resultText.append("${temp.totalStartLocation.lat}, ${temp.totalStartLocation.lng}\n")
-        resultText.append("출발 주소 ${temp.totalStartAddress}\n")
-        resultText.append("이 부분 확인 후 주소 출력 부분 삭제하기@@@@@\n")
-//
+
         resultText.append("🗺️목적지까지 ${temp.totalDistance.text},\n")
         resultText.append("앞으로 ${temp.totalDuration.text} 뒤")
         if (mode.value == "transit") {
@@ -287,14 +266,6 @@ class MyPromiseRoomViewModel(
 
             resultText.append("🔵경로 ${routeIndex}\n")
             route.legs.forEach { leg ->
-//                resultText1.append("  예상 소요 시간 : ${leg.totalDuration.text}")
-//                if (mode.value == "transit") {
-//                    resultText.append("\n🕐${leg.totalArrivalTime.text}에 도착 예정입니다.\n")
-//                } else {
-//                    resultText.append("\n")
-//                }
-//                resultText1.append("\n")
-
                 val resultText2 = StringBuilder()
 
                 var num = 1

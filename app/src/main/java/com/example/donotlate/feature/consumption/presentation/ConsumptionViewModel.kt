@@ -89,6 +89,15 @@ class ConsumptionViewModel(
         }
     }
 
+    fun deleteConsumption(consumption: ConsumptionModel) {
+        viewModelScope.launch {
+            try {
+                deleteConsumptionUseCase(consumption.toEntity())
+            } catch (e: Exception) {
+                _error.postValue("Failed to delete consumption: ${e.message}")
+            }
+        }
+    }
     private fun fetchFinishedConsumptions() {
         viewModelScope.launch {
             getFinishedConsumptionUseCase().collect { entities ->

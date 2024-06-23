@@ -19,6 +19,11 @@ import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class RoomViewModel(
     private val getSearchListUseCase: GetSearchListUseCase,
@@ -46,6 +51,9 @@ class RoomViewModel(
     private val _modelCurrent = MutableLiveData<Int>()
     val modelCurrent: LiveData<Int> = _modelCurrent
 
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> get() = _error
+
     fun setCurrentItem(current: Int) {
         _modelCurrent.value = current
     }
@@ -72,6 +80,52 @@ class RoomViewModel(
     //넘겨준 위치 정보
     private val _locationData = MutableLiveData<PlaceModel>()
     val locationData: LiveData<PlaceModel> get() = _locationData
+
+    private val _selectedDate = MutableLiveData<LocalDate>()
+    val selectedDate: LiveData<LocalDate> get() = _selectedDate
+
+    private val _selectedTime = MutableLiveData<LocalTime>()
+    val selectedTime: LiveData<LocalTime> get() = _selectedTime
+
+    private val _unixTimeStamp = MutableLiveData<Long?>()
+    val unixTimeStamp: LiveData<Long?> get() = _unixTimeStamp
+
+    fun setTime(hour: Int, minute: Int) {
+        _selectedTime.value = LocalTime.of(hour, minute)
+    }
+
+    fun setDate(selectedDate: LocalDate) {
+        _selectedDate.value = selectedDate
+    }
+
+    fun getUnixTimeStamp(): Long {
+        return if (unixTimeStamp.value == null) {
+            _error.postValue("날짜와 시간을 다시 입력해주세요.")
+            0L
+        } else {
+            unixTimeStamp.value!!
+        }
+    }
+
+    fun setUnixTimestamp() {
+        try {
+            Log.d("확인 unix 이전", "${selectedDate.value}, ${selectedTime.value}")
+            if (selectedDate.value != null && selectedTime.value != null) {
+                val dateTime = LocalDateTime.of(selectedDate.value, selectedTime.value)
+
+                val zonedDateTime = ZonedDateTime.of(dateTime, ZoneId.systemDefault())
+                _unixTimeStamp.value = zonedDateTime.toEpochSecond().toString().toLong()
+                Log.d("확인 unix 결과", "${unixTimeStamp.value}")
+            } else {
+                _error.postValue("날짜와 시간 입력이 잘못되었습니다.")
+                Log.d("확인 unix error", "${selectedDate.value}, ${selectedTime.value}")
+            }
+        } catch (e: Exception) {
+            _error.postValue(e.message)
+            Log.d("확인 unix catch", "${e.message} - ${selectedDate.value}, ${selectedTime.value}")
+        }
+    }
+
     fun setMapData(location: PlaceModel) {
         _locationData.value = location
         Log.d("data55", "${_locationData.value}")

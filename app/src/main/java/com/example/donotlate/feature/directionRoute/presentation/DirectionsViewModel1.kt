@@ -183,6 +183,7 @@ class DirectionsViewModel1(
     }
 
     fun getUnixTimestamp(selectedTime: LocalTime): Long? {
+
         val currentDate = LocalDateTime.now().toLocalDate()
         val currentTime = LocalTime.now()
         var dateTime = LocalDateTime.of(currentDate, selectedTime ?: return null)

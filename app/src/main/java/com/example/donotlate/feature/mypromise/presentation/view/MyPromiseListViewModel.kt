@@ -27,6 +27,10 @@ class MyPromiseListViewModel(
     val promiseRoomModel: StateFlow<List<PromiseModel>> get() = _promiseRoomList
 
 
+    fun formatUnixTimeStamp() {
+
+    }
+
     fun loadPromiseRooms() {
         val uid = CurrentUser.userData?.uId
         if (currentUId != uid) {

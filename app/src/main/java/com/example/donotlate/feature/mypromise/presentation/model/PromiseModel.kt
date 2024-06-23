@@ -16,6 +16,7 @@ data class PromiseModel(
     val destinationLng: Double, // <-- 경도
     val penalty: String,
     val participants: List<String>,
+    val unixTime: Long
 ) : Parcelable {
-    constructor() : this("", "", Timestamp.now(), "", "", "", 0.0, 0.0, "", listOf())
+    constructor() : this("", "", Timestamp.now(), "", "", "", 0.0, 0.0, "", listOf(), 0L)
 }

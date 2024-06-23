@@ -75,6 +75,7 @@ class MyPromiseListFragment : Fragment() {
             }
         }
 
+
         val currentTime: Long = System.currentTimeMillis()
         val dataFormat1 = SimpleDateFormat("yyyy-MM-dd")
         binding.tvTitleDate.text = dataFormat1.format(currentTime).toString()
