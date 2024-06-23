@@ -177,6 +177,7 @@ class DirectionsViewModel1(
         return true
     }
 
+    //TODO 채명님 확인 - 시간
     fun setTime(hour: Int, minute: Int) {
         _selectedTime.value = LocalTime.of(hour, minute)
     }
@@ -611,7 +612,7 @@ class DirectionsViewModel1(
 
                 var num = 1
                 leg.steps.forEach { step ->
-                    resultText2.append("🔷${num}:")
+                    resultText2.append("✦${num}:")
                     if (step.travelMode == "TRANSIT") {
                         if (step.transitDetails.line.shortName != "") {
                             resultText2.append(" [${step.transitDetails.line.shortName}]")

@@ -230,9 +230,21 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         sharedViewModel.selectedTime.observe(viewLifecycleOwner) { time ->
             time?.let {
-                val selectedTime =
-                    String.format(Locale.getDefault(), "%02d:%02d", it.hour, it.minute)
-                binding.etTime.setText(selectedTime)
+                val result01 = StringBuilder()
+                if (it.hour > 12) {
+                    result01.append("오후 ")
+                    val selectedTime =
+                        String.format(Locale.getDefault(), "%02d:%02d", it.hour - 12, it.minute)
+                    result01.append(selectedTime)
+//                    binding.etTime.setText(result01)
+                } else {
+                    result01.append("오전 ")
+                    val selectedTime =
+                        String.format(Locale.getDefault(), "%02d:%02d", it.hour, it.minute)
+                    result01.append(selectedTime)
+//                    binding.etTime.setText(result01)
+                }
+                binding.etTime.setText(result01)
 
             }
         }
