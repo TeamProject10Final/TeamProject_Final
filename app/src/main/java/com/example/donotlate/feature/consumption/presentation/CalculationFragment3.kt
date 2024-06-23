@@ -64,19 +64,6 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
                 }
             }
 
-
-//하단 삭제
-//            viewModel.mediatorLiveData.observe(viewLifecycleOwner) {
-//                calculate()?.let {
-//                    binding.tvRes35.text = it.addCommas()
-//                    viewModel.setPrice(it)
-//                    Log.d("확인", "calculate() 실행")
-//                }
-//            }
-
-
-
-
             btnCalExit.setOnClickListener {
                 handleSaveConsumption(false)
             }
@@ -84,8 +71,6 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
                 handleSaveConsumption(true)
             }
         }
-
-
     }
 
     override fun onCreateView(
@@ -101,42 +86,6 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
 
     override fun onResume() {
         super.onResume()
-
-//        Log.d("3번 페이지 데이터 확인", "${viewModel.total.value}, ${viewModel.number.value}, ${viewModel.penalty.value}, ${viewModel.isPenalty.value}")
-//        viewModel.price.observe(viewLifecycleOwner, { price ->
-//            Log.d("확인","viewModel.price.observe 실행")
-//            if (binding.tvRes35.text.isNullOrEmpty())
-//            calculate()?.let {
-//                binding.tvRes35.text = it.addCommas()
-//                viewModel.setPrice(it)
-//                Log.d("확인","calculate() 실행")
-//            }
-//        })
-    }
-
-    private fun calculate(): Int? {
-
-        val total = viewModel.total.value?.toIntOrNull() ?: return null
-        val number = viewModel.number.value?.toIntOrNull() ?: return null
-        val penaltyString = viewModel.penalty.value
-        val isPenalty = viewModel.isPenalty.value
-
-        // penalty가 빈칸이거나 null인 경우 0으로 간주하여 처리...
-        val penalty = penaltyString?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
-
-        // number가 0인 경우에는 0으로 나누는 오류가 발생하므로 예외 처리하기
-        if (number == 0) {
-            return null
-        }
-
-        if (isPenalty == true && penalty != 0) {
-            val result = ((total - penalty) / number) + penalty
-            return result ?: 0
-        } else {
-            val result = (total - penalty) / number
-            return result ?: 0
-        }
-//        }
     }
 
     private fun handleSaveConsumption(isFinished: Boolean) {

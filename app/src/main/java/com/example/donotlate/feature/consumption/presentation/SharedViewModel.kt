@@ -157,10 +157,6 @@ constructor(
         _penalty.value = penalty
     }
 
-//    fun changeIsPenalty(isPenalty: Boolean) {
-//        _isPenalty.value = !isPenalty
-//    }
-
     fun setNumber(number: String) {
         _number.value = number
     }
@@ -242,63 +238,69 @@ constructor(
 
     fun calculate() {
 
+        try {
 
-        val total = total.value?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
-        val number = number.value?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
-        val penaltyString = penalty.value
-        val isPenalty = isPenalty.value
-        val penaltyNumberString = penaltyNumberString.value
-        Log.d("확인 penalty string", "$penaltyNumberString")
 
-        // penalty가 빈칸이거나 null인 경우 0으로 간주하여 처리...
-        val penalty = penaltyString?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
-        val penaltyNumberInt = penaltyNumberString?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
+            val total = total.value?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
+            val number = number.value?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
+            val penaltyString = penalty.value
+            val isPenalty = isPenalty.value
+            val penaltyNumberString = penaltyNumberString.value
+            Log.d("확인 penalty string", "$penaltyNumberString")
 
-        Log.d("확인 값들", "${total}, ${number}, ${penaltyString}, ${penalty}, ${penaltyNumberInt}")
+            // penalty가 빈칸이거나 null인 경우 0으로 간주하여 처리...
+            val penalty = penaltyString?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
+            val penaltyNumberInt =
+                penaltyNumberString?.takeIf { it.isNotBlank() }?.toIntOrNull() ?: 0
 
-        // number가 0인 경우에는 0으로 나누는 오류가 발생하므로 예외 처리하기 - 프래그먼트에 로직 추가함
-        if (number == 0 || total == 0) {
-            _calResult.value = 0
-            _error.postValue("인원 수를 다시 확인해주세요.")
-        }
+            Log.d("확인 값들", "${total}, ${number}, ${penaltyString}, ${penalty}, ${penaltyNumberInt}")
 
-        if (number < penaltyNumberInt) {
-            _error.postValue("입력한 인원을 다시 확인해주세요.")
-            _calResult.value = 0
-        }
-
-        if (penalty3Status.value == 0 && penaltyNumberInt != 0) {
-            _error.postValue("입력한 내용을 다시 확인해주세요.")
-            _calResult.value = 0
-        }
-
-        if (penaltyNumberInt != 0) {
-            //벌금 대상자가 있는 경우
-            if (isPenalty == true) {
-                //내가 벌금 대상자인 경우
-                val result = ((total - penalty * penaltyNumberInt) / number) + penalty
-                _calResult.value = result
-                _price.value = result
-            } else {
-                //내가 벌금 대상자가 아닌 경우
-                val result = (total - penalty * penaltyNumberInt) / number
-                _calResult.value = result
-                _price.value = result
-            }
-        } else {
-            //벌금 대상자가 없는 경우
-            if (isPenalty == true) {
-                //내가 벌금 대상자인 경우? 이건 잘못된건데
+            // number가 0인 경우에는 0으로 나누는 오류가 발생하므로 예외 처리하기 - 프래그먼트에 로직 추가함
+            if (number == 0 || total == 0) {
                 _calResult.value = 0
-                _price.value = 0
-            } else {
-                val result = (total - penalty) / number
-                _calResult.value = result
-                _price.value = result
+                _error.postValue("인원 수를 다시 확인해주세요.")
             }
-        }
 
-        Log.d("확인 값들", "${calResult.value}")
+            if (number < penaltyNumberInt) {
+                _error.postValue("입력한 인원을 다시 확인해주세요.")
+                _calResult.value = 0
+            }
+
+            if (penalty3Status.value == 0 && penaltyNumberInt != 0) {
+                _error.postValue("입력한 내용을 다시 확인해주세요.")
+                _calResult.value = 0
+            }
+
+            if (penaltyNumberInt != 0) {
+                //벌금 대상자가 있는 경우
+                if (isPenalty == true) {
+                    //내가 벌금 대상자인 경우
+                    val result = ((total - penalty * penaltyNumberInt) / number) + penalty
+                    _calResult.value = result
+                    _price.value = result
+                } else {
+                    //내가 벌금 대상자가 아닌 경우
+                    val result = (total - penalty * penaltyNumberInt) / number
+                    _calResult.value = result
+                    _price.value = result
+                }
+            } else {
+                //벌금 대상자가 없는 경우
+                if (isPenalty == true) {
+                    //내가 벌금 대상자인 경우? 이건 잘못된건데
+                    _calResult.value = 0
+                    _price.value = 0
+                } else {
+                    val result = (total - penalty) / number
+                    _calResult.value = result
+                    _price.value = result
+                }
+            }
+
+            Log.d("확인 값들", "${calResult.value}")
+        } catch (e: Exception) {
+            _error.postValue(e.message)
+        }
     }
 }
 
