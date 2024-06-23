@@ -299,7 +299,7 @@ class MyPromiseRoomViewModel(
 
                 var num = 1
                 leg.steps.forEach { step ->
-                    resultText2.append(" ✴︎${num}:")
+                    resultText2.append(" ✦${num}:")
                     if (step.travelMode == "TRANSIT") {
                         if (step.transitDetails.line.shortName != "") {
                             resultText2.append(" [${step.transitDetails.line.shortName}]")
