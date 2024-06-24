@@ -98,7 +98,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
+                        android:padding="10sp"
                         android:text="@string/app_use"
                         android:textColor="@color/dark_gray"/>
                 </androidx.core.widget.NestedScrollView>
@@ -171,7 +171,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
+                        android:padding="10sp"
                         android:text="@string/personal"
                         android:textColor="@color/dark_gray" />
                 </androidx.core.widget.NestedScrollView>
@@ -243,7 +243,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
+                        android:padding="10sp"
                         android:text="@string/location"
                         android:textColor="@color/dark_gray" />
                 </androidx.core.widget.NestedScrollView>

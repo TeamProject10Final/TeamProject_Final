@@ -12,7 +12,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:text="@string/cal4_top_title1"
-        android:textSize="35sp"
+        android:textSize="35dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="@string/cal4_top_title2"
-        android:textSize="25sp"
+        android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/tv31"
         app:layout_constraintStart_toEndOf="@id/tv31" />
@@ -33,10 +33,17 @@
         android:layout_width="357dp"
         android:layout_height="wrap_content"
         android:text="@string/cal4_top_title3"
-        android:textSize="25sp"
+        android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tv31"
         app:layout_constraintTop_toBottomOf="@id/tv31" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@id/tv33"
+        app:layout_constraintBottom_toTopOf="@+id/btnCalFinish">
 
     <ScrollView
         android:id="@+id/svConsumption"
@@ -175,6 +182,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    </androidx.core.widget.NestedScrollView>
 
     <android.widget.Button
         android:id="@+id/btnCalFinish"

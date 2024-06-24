@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -36,8 +37,16 @@ class RadioButtonSelectionDialog(
     private var _binding: DialogRadiobuttonSelectionBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        isCancelable = false
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+
+        return super.onCreateView(inflater, container, savedInstanceState)
 
     }
 
@@ -106,10 +115,6 @@ class RadioButtonSelectionDialog(
             binding.btnRadioCancel01.setOnClickListener {
                 dismiss()
             }
-
-            isCancelable = false
-            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 
             builder.setView(binding.root)
             builder.create()

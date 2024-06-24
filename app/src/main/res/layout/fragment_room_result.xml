@@ -15,196 +15,212 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_Result_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:text="약속결과"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_Result_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="입니다."
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/tv_Result_1"
-        app:layout_constraintStart_toEndOf="@id/tv_Result_1" />
-
-    <TextView
-        android:id="@+id/tv_Result_3"
-        android:layout_width="357dp"
-        android:layout_height="wrap_content"
-        android:text="확인해주세요."
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/tv_Result_1"
-        app:layout_constraintTop_toBottomOf="@id/tv_Result_1" />
-
-    <ScrollView
-        android:id="@+id/svConsumption"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="40dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/rounded_edittext1"
-        app:layout_constraintBottom_toTopOf="@id/btn_Room_Result"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_Result_3">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Room_Result"
+        app:layout_constraintTop_toBottomOf="@+id/iv_Result_Back">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/tv_Result_Promise_Title"
+                android:id="@+id/tv_Result_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:textColor="@color/dark_gray"
-                android:text="약속 이름"
-                android:textSize="15sp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="30dp"
+                android:text="약속결과"
+                android:textSize="35dp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_Result_Detail_Title"
+                android:id="@+id/tv_Result_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/tv_Result_Promise_Title"
-                app:layout_constraintTop_toBottomOf="@id/tv_Result_Promise_Title" />
-
+                android:layout_marginStart="10dp"
+                android:text="입니다."
+                android:textSize="25dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tv_Result_1"
+                app:layout_constraintStart_toEndOf="@id/tv_Result_1" />
 
             <TextView
-                android:id="@+id/tv_Result_Promise_Date"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_Result_3"
+                android:layout_width="357dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/dark_gray"
-                android:text="약속 날짜"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Title"
-                app:layout_constraintTop_toBottomOf="@id/tv_Result_Detail_Title" />
+                android:text="확인해주세요."
+                android:textSize="25dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tv_Result_1"
+                app:layout_constraintTop_toBottomOf="@id/tv_Result_1" />
 
-            <TextView
-                android:id="@+id/tv_Result_Detail_Date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/tv_Result_Promise_Date"
-                app:layout_constraintTop_toBottomOf="@id/tv_Result_Promise_Date" />
-
-            <TextView
-                android:id="@+id/tv_Result_Promise_Time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/dark_gray"
-                android:text="약속 시간"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Date"
-                app:layout_constraintTop_toBottomOf="@id/tv_Result_Detail_Date" />
-
-            <TextView
-                android:id="@+id/tv_Result_Detail_Time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/tv_Result_Promise_Time"
-                app:layout_constraintTop_toBottomOf="@id/tv_Result_Promise_Time" />
-
-
-            <TextView
-                android:id="@+id/tv_Result_Promise_Penalty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/dark_gray"
-                android:text="벌칙 내용"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Time"
-                app:layout_constraintTop_toBottomOf="@id/tv_Result_Detail_Time" />
-
-            <TextView
-                android:id="@+id/tv_Result_Detail_Penalty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/tv_Result_Promise_Penalty"
-                app:layout_constraintTop_toBottomOf="@id/tv_Result_Promise_Penalty" />
-
-            <TextView
-                android:id="@+id/tv_Result_Promise_Friend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/dark_gray"
-                android:text="참여자"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Penalty"
-                app:layout_constraintTop_toBottomOf="@id/tv_Result_Detail_Penalty" />
-
-            <TextView
-                android:id="@+id/tv_Result_Detail_Friend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/tv_Result_Promise_Friend"
-                app:layout_constraintTop_toBottomOf="@id/tv_Result_Promise_Friend" />
-
-            <TextView
-                android:id="@+id/tv_Result_Promise_Place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/dark_gray"
-                android:text="약속 장소"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Friend"
-                app:layout_constraintTop_toBottomOf="@id/tv_Result_Detail_Friend" />
-
-            <fragment
-                android:id="@+id/fg_Result_Promise_Map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
+            <ScrollView
+                android:id="@+id/svConsumption"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="20dp"
+                android:layout_height="0dp"
+                android:layout_margin="40dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/rounded_edittext1"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_Result_Promise_Place" />
+                app:layout_constraintTop_toBottomOf="@id/tv_Result_3">
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_Result_Promise_Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="약속 이름"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_Result_Detail_Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_Result_Promise_Title"
+                        app:layout_constraintTop_toBottomOf="@id/tv_Result_Promise_Title" />
+
+
+                    <TextView
+                        android:id="@+id/tv_Result_Promise_Date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="약속 날짜"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Title"
+                        app:layout_constraintTop_toBottomOf="@id/tv_Result_Detail_Title" />
+
+                    <TextView
+                        android:id="@+id/tv_Result_Detail_Date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_Result_Promise_Date"
+                        app:layout_constraintTop_toBottomOf="@id/tv_Result_Promise_Date" />
+
+                    <TextView
+                        android:id="@+id/tv_Result_Promise_Time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="약속 시간"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Date"
+                        app:layout_constraintTop_toBottomOf="@id/tv_Result_Detail_Date" />
+
+                    <TextView
+                        android:id="@+id/tv_Result_Detail_Time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_Result_Promise_Time"
+                        app:layout_constraintTop_toBottomOf="@id/tv_Result_Promise_Time" />
+
+
+                    <TextView
+                        android:id="@+id/tv_Result_Promise_Penalty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="벌칙 내용"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Time"
+                        app:layout_constraintTop_toBottomOf="@id/tv_Result_Detail_Time" />
+
+                    <TextView
+                        android:id="@+id/tv_Result_Detail_Penalty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_Result_Promise_Penalty"
+                        app:layout_constraintTop_toBottomOf="@id/tv_Result_Promise_Penalty" />
+
+                    <TextView
+                        android:id="@+id/tv_Result_Promise_Friend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="참여자"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Penalty"
+                        app:layout_constraintTop_toBottomOf="@id/tv_Result_Detail_Penalty" />
+
+                    <TextView
+                        android:id="@+id/tv_Result_Detail_Friend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_Result_Promise_Friend"
+                        app:layout_constraintTop_toBottomOf="@id/tv_Result_Promise_Friend" />
+
+                    <TextView
+                        android:id="@+id/tv_Result_Promise_Place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="약속 장소"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Friend"
+                        app:layout_constraintTop_toBottomOf="@id/tv_Result_Detail_Friend" />
+
+                    <fragment
+                        android:id="@+id/fg_Result_Promise_Map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_Result_Promise_Place" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -214,10 +230,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/colorMain1"
         android:background="@drawable/btn_radius_arctic"
-        android:textColor="@color/textColor"
+        android:backgroundTint="@color/colorMain1"
         android:text="확인"
+        android:textColor="@color/textColor"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
