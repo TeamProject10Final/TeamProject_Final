@@ -137,6 +137,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
         val inputData = roomViewModel.inputText.value
 
         val locationData = roomViewModel.locationData.value
+        Log.d("dkdkdk", "$locationData")
 
         val userData = roomViewModel.selectedUserUIds.value ?: emptyList()
         val userName = roomViewModel.selectedUserNames.value ?: emptyList()
@@ -148,7 +149,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             roomId = UUID.randomUUID().toString(),
             roomTitle = inputData?.title ?: "",
             promiseDate = inputData?.date ?: "",
-            destination = locationData?.name ?: "",
+            destination = locationData?.address ?: "",
             destinationLat = locationData?.lat ?: 0.0,
             destinationLng = locationData?.lng ?: 0.0,
             penalty = inputData?.penalty ?: "",
