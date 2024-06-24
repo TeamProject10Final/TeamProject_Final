@@ -98,6 +98,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
                     val email = binding.etLoginEmail.text.toString()
                     val password = binding.etLoginPassword.text.toString()
                     logInViewModel.logIn(email = email, password = password)
+                    hideKeyboard(binding.root.windowToken)
                 }
 
                 binding.tvLoginSign -> {

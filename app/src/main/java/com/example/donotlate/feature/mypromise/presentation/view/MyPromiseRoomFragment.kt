@@ -210,6 +210,7 @@ class MyPromiseRoomFragment : Fragment() {
         binding.ivRoomMap.setOnClickListener {
 
 //TODO 4 대한민국일 때 이 부분은 건너뜀... showModeDialog 전까지 다 주석처리하고 에러 잡은 뒤 다시 살리기
+            checkPermissionAndProceed()
 
             if (myPromiseViewModel.getCountry() == null) {
                 Toast.makeText(context, "다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
@@ -469,11 +470,17 @@ class MyPromiseRoomFragment : Fragment() {
                 getCurrentLocation()
             } else {
                 Log.d("확인", "3")
+                Toast.makeText(context, "위치 권한을 확인해주세요.", Toast.LENGTH_SHORT).show()
+                //onLocationPermissionDenied()
             }
         }
         Log.d("확인", "4")
     }
 
+    fun onLocationPermissionDenied() {
+        Log.d("확인 denied", "권한 x")
+        parentFragmentManager.popBackStack()
+    }
     private fun setViewMore() {
         binding.clTopTitleBorder.setOnClickListener {
             if (binding.clTopTitleBorderDetail.visibility == View.VISIBLE) {
