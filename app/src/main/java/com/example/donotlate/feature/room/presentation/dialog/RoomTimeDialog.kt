@@ -23,7 +23,7 @@ class RoomTimeDialog(
     private val binding get() = _binding!!
 
     private val meridiemArr = arrayOf("오전", "오후") // am, pm
-    private val hoursArr = Array(13) { (it).toString() }
+    private val hoursArr = Array(12) { (it+1).toString() }
     private val minutesArr = Array(60) { (it).toString() }
 
     private var timePickerInterface: TimePickerInterface? = null
@@ -83,7 +83,7 @@ class RoomTimeDialog(
 
         //  최대값 설정
         ampmPick.maxValue = meridiemArr.size - 1
-        hourPick.maxValue = 13
+        hourPick.maxValue = 12
         minutePick.maxValue = minutesArr.size - 1
 
         //  array 값 넣기
