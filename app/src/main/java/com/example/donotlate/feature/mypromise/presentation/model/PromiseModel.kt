@@ -16,6 +16,9 @@ data class PromiseModel(
     val destinationLng: Double, // <-- 경도
     val penalty: String,
     val participants: List<String>,
+    val hasArrived: Map<String, Boolean> = mutableMapOf(),
+    val participantsNames: Map<String, String> = mutableMapOf()
+
 ) : Parcelable {
     constructor() : this("", "", Timestamp.now(), "", "", "", 0.0, 0.0, "", listOf())
 }

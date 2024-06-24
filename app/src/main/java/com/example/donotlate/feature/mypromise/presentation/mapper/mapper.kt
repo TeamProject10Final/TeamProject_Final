@@ -9,29 +9,33 @@ import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 import com.example.donotlate.feature.mypromise.presentation.model.UserModel
 
 fun PromiseRoomEntity.toPromiseModel() = PromiseModel(
-    roomId,
-    roomTitle,
-    roomCreatedAt,
-    promiseTime,
-    promiseDate,
-    destination,
-    destinationLat,
-    destinationLng,
-    penalty,
-    participants
+    roomId = roomId,
+    roomTitle = roomTitle,
+    roomCreatedAt = roomCreatedAt,
+    promiseTime = promiseTime,
+    promiseDate = promiseDate,
+    destination = destination,
+    destinationLat = destinationLat,
+    destinationLng = destinationLng,
+    penalty = penalty,
+    participants = participants,
+    hasArrived = hasArrived,
+    participantsNames = participantsNames
 )
 
 fun PromiseModel.toPromiseEntity() = PromiseRoomEntity(
-    roomId,
-    roomTitle,
-    roomCreatedAt,
-    promiseTime,
-    promiseDate,
-    destination,
-    destinationLat,
-    destinationLng,
-    penalty,
-    participants
+    roomId = roomId,
+    roomTitle = roomTitle,
+    roomCreatedAt = roomCreatedAt,
+    promiseTime = promiseTime,
+    promiseDate = promiseDate,
+    destination = destination,
+    destinationLat = destinationLat,
+    destinationLng = destinationLng,
+    penalty = penalty,
+    participants = participants,
+    hasArrived = hasArrived,
+    participantsNames = participantsNames
 )
 
 fun List<PromiseRoomEntity>.toPromiseModelList(): List<PromiseModel> {

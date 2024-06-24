@@ -12,5 +12,7 @@ data class PromiseRoomEntity (
     val destinationLat: Double, // <-- 위도
     val destinationLng: Double, // <-- 경도
     val penalty: String,
-    val participants:List<String>
+    val participants: List<String>,
+    val hasArrived: Map<String, Boolean> = mutableMapOf(),
+    val participantsNames: Map<String, String> = mutableMapOf()
 )

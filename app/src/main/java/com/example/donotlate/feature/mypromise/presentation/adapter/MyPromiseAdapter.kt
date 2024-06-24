@@ -30,7 +30,7 @@ class MyPromiseAdapter(private val onItemClick: (PromiseModel) -> Unit) :
 
         fun bind(item: PromiseModel) {
             binding.tvPromisTitle.text = item.roomTitle
-            binding.tvPromiseDate.text = item.promiseDate
+            binding.tvPromiseDate.text = item.promiseDate.toString()
             binding.root.setOnClickListener {
                 onItemClick(item)
             }

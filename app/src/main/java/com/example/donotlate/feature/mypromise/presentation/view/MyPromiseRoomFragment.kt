@@ -10,12 +10,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,7 +21,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.core.presentation.CurrentUser
-import com.example.donotlate.databinding.DialogRadiobuttonBinding
 import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
 import com.example.donotlate.feature.directionRoute.presentation.LocationUtils
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
@@ -49,7 +46,8 @@ class MyPromiseRoomFragment : Fragment() {
             appContainer.messageSendingUseCase,
             appContainer.messageReceivingUseCase,
             appContainer.getDirectionsUseCase,
-            appContainer.removeParticipantsUseCase
+            appContainer.removeParticipantsUseCase,
+            appContainer.updateArrivalStatusUseCase
         )
     }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -72,6 +70,9 @@ class MyPromiseRoomFragment : Fragment() {
     private var roomId: String? = null
     private var roomDestination: String? = null
 
+
+    private var hasArrived: Boolean? = null
+    private lateinit var dialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,6 +140,8 @@ class MyPromiseRoomFragment : Fragment() {
         backButton()
 
         observeViewModel()
+        updateArrived()
+        observeViewModel2()
 
         setViewMore()
 
@@ -146,6 +149,19 @@ class MyPromiseRoomFragment : Fragment() {
 
 
             roomId = room.roomId
+
+            hasArrived = room.hasArrived[currentUserData?.uId]
+            if (hasArrived == true) {
+                binding.btnArrived.setBackgroundColor(R.color.gray)
+                binding.btnArrived.isClickable = false
+                binding.ivRoomMap.visibility = View.GONE
+                binding.btnDeparture.visibility = View.GONE
+            }
+
+            myPromiseViewModel.startCheckingArrivalStatus(room)
+            myPromiseViewModel.setInitialArrivalStatus(room.hasArrived)
+            Log.d("확인확인확인", "${room.hasArrived}")
+
 
             myPromiseViewModel.setDestinationLatLng(room.destinationLat, room.destinationLng)
 
@@ -158,7 +174,13 @@ class MyPromiseRoomFragment : Fragment() {
             } else {
                 binding.tvRoomPromisePenalty.text = room.penalty
             }
-            binding.tvRoomPromiseParticipants.text = room.participants.toString()
+
+            Log.d("확인해보자", "${room.participantsNames.values}")
+
+            val participantNamesList = room.participantsNames.values.toList()
+            binding.tvRoomPromiseParticipants.text =
+                "참여자: ${participantNamesList.joinToString(", ")}"
+            Log.d("확인해보자1", "${participantNamesList}")
 
             loadToMessageFromFireStore(room.roomId)
         }
@@ -281,6 +303,22 @@ class MyPromiseRoomFragment : Fragment() {
 
         myPromiseViewModel.originString.observe(viewLifecycleOwner) {
             myPromiseViewModel.calDistance2()
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            myPromiseViewModel.hasArrived.collect { arrivalStatus ->
+
+                val uid = currentUserData?.uId
+                val isArrived = arrivalStatus[uid] ?: false
+                if (isArrived) {
+                    Toast.makeText(requireContext(), "약속장소에 도착하였습니다.", Toast.LENGTH_SHORT).show()
+
+                    binding.btnArrived.setBackgroundColor(R.color.gray)
+                    binding.btnArrived.isClickable = false
+                    binding.btnDeparture.visibility = View.GONE
+                    binding.ivRoomMap.visibility = View.GONE
+                }
+            }
         }
     }
 
@@ -454,9 +492,20 @@ class MyPromiseRoomFragment : Fragment() {
         }
     }
 
+    private fun updateArrived() {
+        binding.btnArrived.setOnClickListener {
+            val roomId = roomId!!
+            val uid = currentUserData?.uId!!
+            viewLifecycleOwner.lifecycleScope.launch {
+                myPromiseViewModel.updateArrived(roomId, uid)
+            }
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         parentFragmentManager.popBackStack()
+        myPromiseViewModel.stopCheckingArrivalStatus()
         _binding = null
     }
 
@@ -480,12 +529,39 @@ class MyPromiseRoomFragment : Fragment() {
     private fun observeViewModel1() {
         viewLifecycleOwner.lifecycleScope.launch {
             myPromiseViewModel.removeParticipantIdResult.collect {
-                when (it) {
-                    true -> Toast.makeText(requireContext(), "나가기 성공", Toast.LENGTH_SHORT).show()
-                    false -> Toast.makeText(requireContext(), "나가기 실패", Toast.LENGTH_SHORT).show()
+                if (it == true) {
+                    Toast.makeText(requireContext(), "나가기 성공", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "나가기 실패", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+    }
+
+    private fun observeViewModel2() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            myPromiseViewModel.lateUsers.collect { lateUsers ->
+                Log.d("Dialog확인", "${lateUsers}")
+                if (lateUsers.isNotEmpty()) {
+                    if (!this@MyPromiseRoomFragment::dialog.isInitialized || !dialog.isShowing) {
+                        showNotArriveDialog(lateUsers)
+                        Log.d("Dialog확인", "${lateUsers}")
+                    }
+                } else {
+                    if (this@MyPromiseRoomFragment::dialog.isInitialized && dialog.isShowing) {
+                        dialog.dismiss()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showNotArriveDialog(userNames: List<String>) {
+        dialog = AlertDialog.Builder(requireContext())
+            .setTitle("지각자 알림")
+            .setMessage("지각자를 공개합니다!\n${userNames.joinToString(", ")}")
+            .create()
+        dialog.show()
     }
 }
 
