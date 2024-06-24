@@ -57,27 +57,24 @@
         <item name="android:textSelectHandle">@color/bright_lilac</item>
     </style>
 
-    <style name="BottomSheetTheme"
-        parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="BottomSheetTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalBorder20WhiteStyle</item>
         <item name="android:windowIsFloating">false</item>
     </style>
-    <style name="AppModalBorder20WhiteStyle"
-        parent="Widget.Design.BottomSheet.Modal">
+
+    <style name="AppModalBorder20WhiteStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/item_bottomsheet</item>
     </style>
 
-    <style name="AppTheme.NumberPicker" parent="">
-        <item name="android:textColorPrimary">@color/black</item>
+    <style name="AppTheme.NumberPicker" parent="Theme.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/textColor</item>
         <item name="android:textSize">18sp</item>
-        <item name="colorControlNormal">@color/malibu</item>
     </style>
 
     <style name="CreateProfileTheme" parent="Theme.AppCompat.Light">
         <!-- 상단 Title 배경색 -->
         <item name="colorAccent">@color/colorMain1</item>
     </style>
-
 
 
 </resources>

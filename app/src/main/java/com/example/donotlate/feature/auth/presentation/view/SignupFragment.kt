@@ -144,7 +144,7 @@ class SignupFragment : Fragment() {
                 "0" -> {
                     hide.tag = "1"
                     password.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                    hide.setImageResource(R.drawable.ic_show)
+                    hide.setImageResource(R.drawable.show)
                 }
 
                 "1" -> {
