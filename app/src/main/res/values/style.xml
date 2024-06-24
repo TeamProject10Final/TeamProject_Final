@@ -67,7 +67,7 @@
         <item name="android:background">@drawable/item_bottomsheet</item>
     </style>
 
-    <style name="AppTheme.NumberPicker" parent="">
+    <style name="AppTheme.NumberPicker" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:textSize">18sp</item>
         <item name="colorControlNormal">@color/malibu</item>
