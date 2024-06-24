@@ -1,5 +1,7 @@
 package com.example.donotlate.feature.mypromise.presentation.view
 
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,6 +15,7 @@ import com.example.donotlate.feature.directionRoute.presentation.DirectionsModel
 import com.example.donotlate.feature.directionRoute.presentation.toModel
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageReceivingUseCase
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseCase
+import com.example.donotlate.feature.mypromise.domain.usecase.UpdateArrivalStatusUseCase
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageEntity
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageModel
 import com.example.donotlate.feature.mypromise.presentation.mapper.toViewType
@@ -20,9 +23,12 @@ import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.MessageViewType
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.pow
@@ -33,16 +39,14 @@ class MyPromiseRoomViewModel(
     private val messageSendingUseCase: MessageSendingUseCase,
     private val messageReceivingUseCase: MessageReceivingUseCase,
     private val getDirectionsUseCase: GetDirectionsUseCase,
-    private val removeParticipantsUseCase: RemoveParticipantsUseCase
+    private val removeParticipantsUseCase: RemoveParticipantsUseCase,
+    private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase
 ) : ViewModel() {
 
     private var currentRoomId: String? = null
 
     private val _closestPromiseTitle = MutableStateFlow<String?>(null)
     val closestPromiseTitle: StateFlow<String?> get() = _closestPromiseTitle
-
-    private val _promiseRoomList = MutableStateFlow<List<PromiseModel>>(emptyList())
-    val promiseRoomModel: StateFlow<List<PromiseModel>> get() = _promiseRoomList
 
     private val _message = MutableStateFlow<List<MessageViewType>>(listOf())
     val message: StateFlow<List<MessageViewType>> get() = _message
@@ -67,10 +71,11 @@ class MyPromiseRoomViewModel(
 
     private val _distanceBetween = MutableLiveData<Double>()
     val distanceBetween: LiveData<Double> get() = _distanceBetween
-    
+
     //임시
-    private val _removeParticipantIdResult = MutableStateFlow<Boolean>(false)
-    val removeParticipantIdResult: StateFlow<Boolean> get() = _removeParticipantIdResult
+    private val _removeParticipantIdResult = MutableStateFlow<Boolean?>(null)
+    val removeParticipantIdResult: StateFlow<Boolean?> get() = _removeParticipantIdResult
+
 
     private val _directionsResult = MutableLiveData<DirectionsModel>()
     val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
@@ -96,6 +101,20 @@ class MyPromiseRoomViewModel(
     private val _country = MutableLiveData<String>()
     val country: LiveData<String> = _country
 
+    private val _updateStatus = MutableStateFlow<Boolean?>(null)
+    val updateStatus: StateFlow<Boolean?> get() = _updateStatus
+
+    private val _hasArrived = MutableStateFlow<Map<String, Boolean>>(emptyMap())
+    val hasArrived: StateFlow<Map<String, Boolean>> get() = _hasArrived
+
+    private val _lateUsers = MutableStateFlow<List<String>>(emptyList())
+    val lateUsers: StateFlow<List<String>> get() = _lateUsers
+
+    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var checkRunnable: Runnable
+
     fun getCountry(): String? {
         if (country.value != null) {
             return country.value!!
@@ -117,7 +136,6 @@ class MyPromiseRoomViewModel(
         _selectedRouteIndex.value = indexNum ?: 0
         Log.d("123123", "${indexNum}")
     }
-
 
 
     fun setUserLocation(location: LatLng) {
@@ -216,6 +234,7 @@ class MyPromiseRoomViewModel(
             //Log.d("확인 getSelecL", "${routeSelectionText.value}, ${routeSelectionText.value.toString().toList()}")
         }
     }
+
     fun setShortDirectionsResult() {
         if (directionsResult.value != null) {
             formatShortDirectionsExplanations(directionsResult.value!!)
@@ -336,13 +355,69 @@ class MyPromiseRoomViewModel(
             }
         }
     }
+
+    fun updateArrived(room: String, uid: String) {
+        viewModelScope.launch {
+            updateArrivalStatusUseCase(room, uid).collect { success ->
+                _updateStatus.value = success
+
+                val currentArrivals = _hasArrived.value.toMutableMap()
+                currentArrivals[uid] = true
+                _hasArrived.value = currentArrivals
+            }
+        }
+    }
+
+    fun setInitialArrivalStatus(arrivalStatus: Map<String, Boolean>) {
+        _hasArrived.value = arrivalStatus
+    }
+
+    fun checkArrivalStatus(room: PromiseModel) {
+        val now = LocalDateTime.now()
+        Log.d("LocalDateTime", "$now")
+
+        val promiseTime =
+            room.promiseTime.replace("시", ":").replace("분", "").replace(" ", "").trim() // 시간 형식 변환
+
+        val promiseDateTime =
+            LocalDateTime.parse("${room.promiseDate} $promiseTime", formatter)
+        Log.d("LocalDateTime2", "$promiseDateTime")
+        if (promiseDateTime.isBefore(now) || promiseDateTime.isEqual(now)) {
+            val notArrivedUserIds = room.hasArrived.filter { !it.value }.keys.toList()
+            Log.d("LocalDateTime3", "${notArrivedUserIds}")
+            val notArrivedUsers = notArrivedUserIds.map { room.participantsNames[it] ?: "Unknown" }
+            Log.d("LocalDateTime4", "${_lateUsers.value}")
+            _lateUsers.value = notArrivedUsers
+            Log.d("LocalDateTime5", "${_lateUsers.value}")
+            Log.d("LocalDateTime5", "${lateUsers.value}")
+        } else {
+            _lateUsers.value = emptyList()
+        }
+    }
+
+    fun startCheckingArrivalStatus(room: PromiseModel) {
+        checkRunnable = object : Runnable {
+            override fun run() {
+                checkArrivalStatus(room)
+                handler.postDelayed(this, 1000) // 1초에 한 번씩 실행.
+            }
+        }
+        handler.post(checkRunnable)
+    }
+
+    fun stopCheckingArrivalStatus() {
+        handler.removeCallbacks(checkRunnable)
+    }
 }
+
+
 
 class MyPromiseRoomViewModelFactory(
     private val messageSendingUseCase: MessageSendingUseCase,
     private val messageReceivingUseCase: MessageReceivingUseCase,
     private val getDirectionsUseCase: GetDirectionsUseCase,
-    private val removeParticipantsUseCase: RemoveParticipantsUseCase
+    private val removeParticipantsUseCase: RemoveParticipantsUseCase,
+    private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -352,7 +427,8 @@ class MyPromiseRoomViewModelFactory(
                 messageSendingUseCase,
                 messageReceivingUseCase,
                 getDirectionsUseCase,
-                removeParticipantsUseCase
+                removeParticipantsUseCase,
+                updateArrivalStatusUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

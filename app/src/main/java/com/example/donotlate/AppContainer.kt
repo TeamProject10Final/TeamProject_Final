@@ -44,6 +44,7 @@ import com.example.donotlate.feature.friends.presentation.view.FriendsViewModelF
 import com.example.donotlate.feature.main.presentation.view.MainPageViewModelFactory
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageReceivingUseCase
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseCase
+import com.example.donotlate.feature.mypromise.domain.usecase.UpdateArrivalStatusUseCase
 import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseListViewModelFactory
 import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModelFactory
 import com.example.donotlate.feature.room.domain.usecase.MakeAPromiseRoomUseCase
@@ -257,6 +258,10 @@ class AppContainer {
         RemoveParticipantsUseCase(promiseRoomRepository)
     }
 
+    val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase by lazy {
+        UpdateArrivalStatusUseCase(firebaseDataRepository)
+    }
+
 }
 
 class LogInContainer(
@@ -380,14 +385,16 @@ class MyPromiseRoomContainer(
     val messageSendingUseCase: MessageSendingUseCase,
     val messageReceivingUseCase: MessageReceivingUseCase,
     private val getDirectionsUseCase: GetDirectionsUseCase,
-    val removeParticipantsUseCase: RemoveParticipantsUseCase
+    val removeParticipantsUseCase: RemoveParticipantsUseCase,
+    val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase
 
     ) {
     val myPromiseViewModelFactory = MyPromiseRoomViewModelFactory(
         messageSendingUseCase,
         messageReceivingUseCase,
         getDirectionsUseCase,
-        removeParticipantsUseCase
+        removeParticipantsUseCase,
+        updateArrivalStatusUseCase
     )
 }
 
