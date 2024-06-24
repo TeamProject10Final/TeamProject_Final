@@ -152,7 +152,6 @@ class MyPromiseRoomFragment : Fragment() {
 
             hasArrived = room.hasArrived[currentUserData?.uId]
             if (hasArrived == true) {
-                binding.btnArrived.setBackgroundColor(R.color.gray)
                 binding.btnArrived.isClickable = false
                 binding.ivRoomMap.visibility = View.GONE
                 binding.btnDeparture.visibility = View.GONE
@@ -279,15 +278,17 @@ class MyPromiseRoomFragment : Fragment() {
             } else {
                 if (myPromiseViewModel.getIsDepart()) {
                     //출발했다면
-                    binding.btnDeparture.isVisible = false
-                    binding.btnArrived.isVisible = false
-                    binding.ivRoomMap.isVisible = true
+                    binding.tvText.setText("내 위치")
+                    binding.btnDeparture.visibility = View.GONE
+                    binding.btnArrived.visibility = View.GONE
+                    binding.ivRoomMap.visibility = View.VISIBLE
                     //도착 버튼이 보이지 않게
                     //지도 버튼만 보이게
                 } else {
-                    binding.btnDeparture.isVisible = true
-                    binding.ivRoomMap.isVisible = false
-                    binding.btnArrived.isVisible = false
+                    binding.tvText.setText("출 발")
+                    binding.btnDeparture.visibility = View.VISIBLE
+                    binding.ivRoomMap.visibility = View.GONE
+                    binding.btnArrived.visibility = View.GONE
                 }
             }
         }
@@ -314,7 +315,6 @@ class MyPromiseRoomFragment : Fragment() {
                 if (isArrived) {
                     Toast.makeText(requireContext(), "약속장소에 도착하였습니다.", Toast.LENGTH_SHORT).show()
 
-                    binding.btnArrived.setBackgroundColor(R.color.gray)
                     binding.btnArrived.isClickable = false
                     binding.btnDeparture.visibility = View.GONE
                     binding.ivRoomMap.visibility = View.GONE
