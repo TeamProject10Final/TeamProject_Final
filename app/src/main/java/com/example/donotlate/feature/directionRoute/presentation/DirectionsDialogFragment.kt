@@ -1,22 +1,24 @@
 package com.example.donotlate.feature.directionRoute.presentation
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import android.view.Window
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.AppContainer
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.databinding.FragmentDirectionsBottomBinding
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.example.donotlate.databinding.FragmentDirectionsDialogBinding
 
 
-class DirectionsBottomFragment : BottomSheetDialogFragment() {
+class DirectionsDialogFragment : DialogFragment() {
 
-    private var _binding: FragmentDirectionsBottomBinding? = null
+    private var _binding: FragmentDirectionsDialogBinding? = null
     private val binding get() = _binding!!
 
     private val appContainer: AppContainer by lazy {
@@ -34,7 +36,6 @@ class DirectionsBottomFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     private lateinit var directionsAdapter: DirectionsAdapter
@@ -44,7 +45,12 @@ class DirectionsBottomFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentDirectionsBottomBinding.inflate(inflater, container, false)
+        _binding = FragmentDirectionsDialogBinding.inflate(inflater, container, false)
+
+        isCancelable = false
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+
         return binding.root
     }
 

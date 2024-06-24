@@ -1,7 +1,6 @@
 package com.example.donotlate.feature.room.presentation.view
 
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,15 +11,26 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.R
 import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentRoomStartBinding
+import com.example.donotlate.feature.room.presentation.dialog.DatePickerInterface
+import com.example.donotlate.feature.room.presentation.dialog.RoomDateDialog
+import com.example.donotlate.feature.room.presentation.dialog.RoomTimeDialog
+import com.example.donotlate.feature.room.presentation.dialog.TimePickerInterface
 import com.example.donotlate.feature.room.presentation.model.RoomModel
 import java.util.Calendar
 
-class RoomStartFragment : Fragment() {
+class RoomStartFragment : Fragment(), TimePickerInterface, DatePickerInterface {
 
     private lateinit var binding: FragmentRoomStartBinding
+
+    private var mAmpm = 0
+    private var mMinute = 0
+    private var mHour = 0
+
+    private var mYear = 0
+    private var mMonth = 0
+    private var mDay = 0
 
     //수정
     private val roomViewModel: RoomViewModel by activityViewModels {
@@ -62,7 +72,7 @@ class RoomStartFragment : Fragment() {
 
             if (action == EditorInfo.IME_ACTION_DONE) {
                 hideKeyboard(binding.root.windowToken)
-                requireActivity().currentFocus!!.clearFocus()
+                //requireActivity().currentFocus!!.clearFocus()
                 handled = true
             }
             handled
@@ -73,7 +83,7 @@ class RoomStartFragment : Fragment() {
 
             if (action == EditorInfo.IME_ACTION_DONE) {
                 hideKeyboard(binding.root.windowToken)
-                requireActivity().currentFocus!!.clearFocus()
+                //requireActivity().currentFocus!!.clearFocus()
                 handled = true
             }
             handled
@@ -87,60 +97,28 @@ class RoomStartFragment : Fragment() {
 
 
     private fun setDate() {
+
         val calendar = Calendar.getInstance()
-        val dateText = binding.tvRoomDate
-        val data = DatePickerDialog.OnDateSetListener { view, year, month, day ->
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-//            selectedDate = LocalDate.of(year, month +1, day)
-//            dateText.text = selectedDate?.format(DateTimeFormatter.ISO_LOCAL_DATE)
+        val getMonth = if (month + 1 < 10) "0${month + 1}" else month + 1
+        val getDay = if (day < 10) "0${day}" else day
 
-            if (dateText != null) {
-                val m = if (month + 1 < 10) "0${month + 1}" else month + 1
-                val d = if (day < 10) "0${day}" else day
-                dateText.text = "${year}-${m}-${d}"
+        binding.tvRoomDate.setText("${year}-${getMonth}-${getDay}")
 
-            }
-        }
-
-        binding.ivDate.setOnClickListener {
-            DatePickerDialog(
-                requireContext(),
-//                R.style.DatePickerStyle,
-                data,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-            ).show()
+        binding.tvRoomDate.setOnClickListener {
+            val dialog = RoomDateDialog(this, mYear, mMonth, mDay)
+            dialog.show(childFragmentManager, "tag")
         }
     }
 
     private fun setTime() {
-        val mCurrentTime = Calendar.getInstance()
-        val timeText = binding.tvRoomTime
-        val data = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-//            selectedTime = LocalTime.of(hourOfDay, minute)
-//            val amPm = if(hourOfDay < 12 )"오전" else "오후"
-//            val hour = if(hourOfDay % 12 == 0) 12 else hourOfDay % 12
-//            val formattedTime = String.format("%s %02d시 %02d분", amPm, hour, minute)
-//            timeText.text = formattedTime
 
-            if (timeText != null) {
-                val h = if (hourOfDay < 10) "0${hourOfDay}" else hourOfDay
-                val m = if (minute < 10) "0${minute}" else minute
-                timeText.text = "${h}시 ${m}분"
-
-            }
-        }
-
-        binding.ivTime.setOnClickListener {
-            TimePickerDialog(
-                requireContext(),
-                R.style.TimePickerTheme,
-                data,
-                mCurrentTime.get(Calendar.HOUR),
-                mCurrentTime.get(Calendar.MINUTE),
-                false
-            ).show()
+        binding.tvRoomTime.setOnClickListener {
+            val dialog = RoomTimeDialog(this, mAmpm, mHour, mMinute)
+            dialog.show(childFragmentManager, "tag")
         }
     }
 
@@ -160,14 +138,7 @@ class RoomStartFragment : Fragment() {
                 penalty
             ))
             Log.d("123123", "${roomList}")
-
             if (title.isNotBlank() && date.isNotBlank() && time.isNotBlank()) {
-//                val roomList = RoomModel(
-//                    title,
-//                    selectedDate!!,
-//                    selectedTime!!,
-//                    penalty
-//                )
                 roomViewModel.updateText(roomList)
                 roomViewModel.setCurrentItem(current = 1)
             } else {
@@ -176,5 +147,35 @@ class RoomStartFragment : Fragment() {
         }
 
         Log.d("뷰모델 리스트확인", "${roomViewModel.inputText.value}")
+    }
+
+    override fun onClickTimeButton(ampm: Int, hour: Int, minute: Int) {
+        val setAmpm = if (ampm == 0) "오전" else "오후"
+        mAmpm = ampm
+        mHour = hour
+        mMinute = minute
+
+        val timeText = binding.tvRoomTime
+
+        if (timeText != null) {
+            val setHour = if (hour < 10) "0${hour}" else hour
+            val setMinute = if (minute < 10) "0${minute}" else minute
+            val result = "${setAmpm}  ${setHour} : ${setMinute}"
+            timeText.setText(result)
+
+        }
+
+    }
+
+    override fun onClickDateButton(year: Int, month: Int, day: Int) {
+
+        mYear = year
+        mMonth = month
+        mDay = day
+
+        val getMonth = if (month + 1 < 10) "0${month + 1}" else month + 1
+        val getDay = if (day < 10) "0${day}" else day
+        val result = "${year}-${getMonth}-${getDay}"
+        binding.tvRoomDate.setText(result)
     }
 }

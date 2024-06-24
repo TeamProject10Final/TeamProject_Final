@@ -214,8 +214,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         delay(1000)
 
                         sharedViewModel.afterSelecting()
-                        val bottomSheet = DirectionsBottomFragment()
-                        bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
+                        val bottomSheet = DirectionsDialogFragment()
                         bottomSheet.show(parentFragmentManager, "tag")
                         sharedViewModel.refreshIndex()
                         binding.btnMapBottomSheet.visibility = View.VISIBLE
@@ -230,9 +229,21 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         sharedViewModel.selectedTime.observe(viewLifecycleOwner) { time ->
             time?.let {
-                val selectedTime =
-                    String.format(Locale.getDefault(), "%02d:%02d", it.hour, it.minute)
-                binding.etTime.setText(selectedTime)
+                val result01 = StringBuilder()
+                if (it.hour > 12) {
+                    result01.append("오후 ")
+                    val selectedTime =
+                        String.format(Locale.getDefault(), "%02d:%02d", it.hour - 12, it.minute)
+                    result01.append(selectedTime)
+//                    binding.etTime.setText(result01)
+                } else {
+                    result01.append("오전 ")
+                    val selectedTime =
+                        String.format(Locale.getDefault(), "%02d:%02d", it.hour, it.minute)
+                    result01.append(selectedTime)
+//                    binding.etTime.setText(result01)
+                }
+                binding.etTime.setText(result01)
 
             }
         }
@@ -411,6 +422,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private fun setupClickListener() {
         binding.btnMapBottomSheet.setOnClickListener {
             val bottomSheetDialogFragment = RouteDetailsBottomSheet()
+            bottomSheetDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
             bottomSheetDialogFragment.show(parentFragmentManager, "tag")
         }
 //        binding.btnSendIndex.setOnClickListener {
@@ -450,8 +462,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     sharedViewModel.getDirByTransit()
                 }
                 delay(1000)
-                val bottomSheet = DirectionsBottomFragment()
-                bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
+                val bottomSheet = DirectionsDialogFragment()
                 bottomSheet.show(parentFragmentManager, "tag")
 
                 binding.btnMapBottomSheet.visibility = View.VISIBLE

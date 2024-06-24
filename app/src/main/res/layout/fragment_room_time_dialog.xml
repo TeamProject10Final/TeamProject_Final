@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_dialog"
+    tools:context=".feature.room.presentation.dialog.RoomTimeDialog">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_Time_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="시간을 선택해 주세요"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_Time1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_Time_1">
+
+            <NumberPicker
+                android:id="@+id/np_Ampm"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:selectionDividerHeight="1dp"
+                android:theme="@style/AppTheme.NumberPicker" />
+
+            <NumberPicker
+                android:id="@+id/np_Hour"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:selectionDividerHeight="1dp"
+                android:theme="@style/AppTheme.NumberPicker" />
+
+            <NumberPicker
+                android:id="@+id/np_Minute"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="50dp"
+                android:layout_weight="1"
+                android:selectionDividerHeight="1dp"
+                android:theme="@style/AppTheme.NumberPicker" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_Time2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_Time1">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_Time_Cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_info_round_lilac"
+                android:text="취소"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/btn_Time_Confirm"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_Time_Confirm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_info_round_arctic"
+                android:text="확인"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btn_Time_Cancel"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

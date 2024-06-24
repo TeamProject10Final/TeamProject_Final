@@ -97,7 +97,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
 
             if (action == EditorInfo.IME_ACTION_SEARCH) {
                 hideKeyboard(binding.root.windowToken)
-                requireActivity().currentFocus!!.clearFocus()
+                //requireActivity().currentFocus!!.clearFocus()
                 handled = true
 
                 searchQuery()
@@ -128,7 +128,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
 
             val lat = it.lat
             val lng = it.lng
-            val title = it.name
+            val title = it.address
 
             val location = LatLng(lat, lng)
             val cameraPosition = CameraPosition.Builder().target(location).zoom(15f).build()

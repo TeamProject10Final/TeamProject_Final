@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="40dp"
             android:text="안녕하세요."
-            android:textSize="25sp"
+            android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="늦지마 컴퍼니 입니다!"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tv_Setting_Q_1"
             app:layout_constraintTop_toBottomOf="@+id/tv_Setting_Q_1" />
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="무엇을 도와드릴까요?"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tv_Setting_Q_2"
             app:layout_constraintTop_toBottomOf="@+id/tv_Setting_Q_2" />
