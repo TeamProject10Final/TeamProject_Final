@@ -18,6 +18,7 @@ data class PromiseModel(
     val participants: List<String>,
     val hasArrived: Map<String, Boolean> = mutableMapOf(),
     val participantsNames: Map<String, String> = mutableMapOf()
+
 ) : Parcelable {
     constructor() : this("", "", Timestamp.now(), "", "", "", 0.0, 0.0, "", listOf())
 }

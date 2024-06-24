@@ -10,13 +10,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -24,7 +21,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.core.presentation.CurrentUser
-import com.example.donotlate.databinding.DialogRadiobuttonBinding
 import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
 import com.example.donotlate.feature.directionRoute.presentation.LocationUtils
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
@@ -178,7 +174,13 @@ class MyPromiseRoomFragment : Fragment() {
             } else {
                 binding.tvRoomPromisePenalty.text = room.penalty
             }
-            binding.tvRoomPromiseParticipants.text = room.participants.toString()
+
+            Log.d("확인해보자", "${room.participantsNames.values}")
+
+            val participantNamesList = room.participantsNames.values.toList()
+            binding.tvRoomPromiseParticipants.text =
+                "참여자: ${participantNamesList.joinToString(", ")}"
+            Log.d("확인해보자1", "${participantNamesList}")
 
             loadToMessageFromFireStore(room.roomId)
         }
@@ -557,7 +559,7 @@ class MyPromiseRoomFragment : Fragment() {
     private fun showNotArriveDialog(userNames: List<String>) {
         dialog = AlertDialog.Builder(requireContext())
             .setTitle("지각자 알림")
-            .setMessage("지각자를 공개합니다! \n ${userNames.joinToString { ", " }}")
+            .setMessage("지각자를 공개합니다!\n${userNames.joinToString(", ")}")
             .create()
         dialog.show()
     }

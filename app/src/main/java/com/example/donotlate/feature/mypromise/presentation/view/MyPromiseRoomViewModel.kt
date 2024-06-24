@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.donotlate.core.domain.usecase.promiseusecase.RemoveParticipantsUseCase
 import com.example.donotlate.core.presentation.CurrentUser
+import com.example.donotlate.core.util.parseTime
 import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
 import com.example.donotlate.feature.directionRoute.presentation.DirectionsModel
 import com.example.donotlate.feature.directionRoute.presentation.toModel
@@ -374,22 +375,16 @@ class MyPromiseRoomViewModel(
 
     fun checkArrivalStatus(room: PromiseModel) {
         val now = LocalDateTime.now()
-        Log.d("LocalDateTime", "$now")
 
-        val promiseTime =
-            room.promiseTime.replace("시", ":").replace("분", "").replace(" ", "").trim() // 시간 형식 변환
-
+        val promiseTime = parseTime(room.promiseTime)// 시간 형식 변환
         val promiseDateTime =
             LocalDateTime.parse("${room.promiseDate} $promiseTime", formatter)
-        Log.d("LocalDateTime2", "$promiseDateTime")
+
         if (promiseDateTime.isBefore(now) || promiseDateTime.isEqual(now)) {
             val notArrivedUserIds = room.hasArrived.filter { !it.value }.keys.toList()
-            Log.d("LocalDateTime3", "${notArrivedUserIds}")
             val notArrivedUsers = notArrivedUserIds.map { room.participantsNames[it] ?: "Unknown" }
-            Log.d("LocalDateTime4", "${_lateUsers.value}")
+
             _lateUsers.value = notArrivedUsers
-            Log.d("LocalDateTime5", "${_lateUsers.value}")
-            Log.d("LocalDateTime5", "${lateUsers.value}")
         } else {
             _lateUsers.value = emptyList()
         }
