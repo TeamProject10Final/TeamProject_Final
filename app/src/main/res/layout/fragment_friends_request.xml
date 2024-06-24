@@ -53,7 +53,7 @@
         android:layout_height="45dp"
         android:text="@string/friend_request_btn_text"
         android:textSize="20sp"
-        android:textColor="@color/black"
+        android:textColor="@color/textColor"
         android:layout_marginEnd="20dp"
         android:background="@drawable/btn_radius_arctic"
         app:layout_constraintTop_toTopOf="@id/et_Friend_Search"
