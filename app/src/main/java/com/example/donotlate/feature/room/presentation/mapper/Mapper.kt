@@ -20,6 +20,23 @@ fun UserEntity.toRoomUserModel() = RoomUserModel(
     profileImgUrl = profileImgUrl
 )
 
+private val PromiseRoomModel.promiseRoomEntity: PromiseRoomEntity
+    get() = PromiseRoomEntity(
+        roomId = roomId,
+        roomTitle = roomTitle,
+        roomCreatedAt = roomCreatedAt,
+        promiseTime = promiseTime,
+        promiseDate = promiseDate,
+        destination = destination,
+        destinationLat = destinationLat,
+        destinationLng = destinationLng,
+        penalty = penalty,
+        participants = participants,
+        hasArrived = hasArrived,
+        participantsNames = participantsNames,
+        hasDeparture = hasDeparture
+    )
+
 fun PromiseRoomModel.toPromiseRoomEntity()= PromiseRoomEntity(
     roomId = roomId,
     roomTitle = roomTitle,
@@ -32,5 +49,6 @@ fun PromiseRoomModel.toPromiseRoomEntity()= PromiseRoomEntity(
     penalty = penalty,
     participants = participants,
     hasArrived = hasArrived,
-    participantsNames = participantsNames
+    participantsNames = participantsNames,
+    hasDeparture = hasDeparture
 )

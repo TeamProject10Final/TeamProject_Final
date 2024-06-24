@@ -80,7 +80,7 @@ class FriendsAcceptDialogFragment : DialogFragment() {
     }
 
     private fun acceptToFriendRequest(requestId:String){
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             friendsViewModel.acceptToFriendRequest(requestId)
         }
     }

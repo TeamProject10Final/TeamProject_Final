@@ -47,7 +47,8 @@ class MyPromiseRoomFragment : Fragment() {
             appContainer.messageReceivingUseCase,
             appContainer.getDirectionsUseCase,
             appContainer.removeParticipantsUseCase,
-            appContainer.updateArrivalStatusUseCase
+            appContainer.updateArrivalStatusUseCase,
+            appContainer.updateDepartureStatusUseCase
         )
     }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -236,6 +237,12 @@ class MyPromiseRoomFragment : Fragment() {
             binding.btnDeparture.isVisible = false
             binding.ivRoomMap.isVisible = true
             binding.btnArrived.isVisible = false
+
+
+            myPromiseViewModel.updateDepartureStatus(
+                roomId = promiseRoom?.roomId!!,
+                uid = CurrentUser.userData?.uId!!
+            )
         }
     }
 
@@ -357,8 +364,12 @@ class MyPromiseRoomFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             myPromiseViewModel.message.collect { message ->
                 Log.d("MyPromiseRoomFragment", "Collected messages: $message")
-                // old item count 구하기
-//                val oldItemCount = adapter.itemCount
+                val newItemCount = message.size
+                val oldItemCount = adapter.itemCount
+
+                if (newItemCount > oldItemCount) {
+
+                }
                 adapter.submitList(message) {
                     binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
                     /*새로운 메시지가 왔을 때 최하단으로 내려가는 로직(이부분 수정해서 올드 아이템갯수랑 아이템갯수랑 리스트의 아이템 갯수 차이를 구해서

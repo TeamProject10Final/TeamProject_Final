@@ -1,9 +1,6 @@
 package com.example.donotlate.core.data.repository
 
-import android.util.Log
 import com.example.donotlate.core.domain.repository.PromiseRoomRepository
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -11,7 +8,7 @@ import kotlinx.coroutines.tasks.await
 
 class PromiseRoomRepositoryImpl(private val db: FirebaseFirestore) : PromiseRoomRepository {
     override suspend fun requestDeleteRoom(roomId: String): Flow<Boolean> = flow {
-        TODO("Not yet implemented")
+        TODO("Not yet implemented") //미구현 상태
     }
 
     override suspend fun removeParticipant(roomId: String, participantId: String): Flow<Boolean> =

@@ -22,10 +22,5 @@ interface FirebaseDataRepository {
     suspend fun loadToMessage(roomId: String): Flow<List<MessageEntity>>
     suspend fun sendToMessage(roomId: String, message: MessageEntity): Flow<Boolean>
     suspend fun updateArrivalStatus(roomId: String, uid: String): Flow<Boolean>
-    suspend fun updatePromiseRoom()
+    suspend fun updateDepartureStatus(roomId: String, uid: String): Flow<Boolean>
 }
-
-// 나가기, 방 삭제 두 개가 있어야 함
-// 이유?? 내가 의도하지 않은 방일 수 도 있어서?
-// 방 삭제 - 동의를 해야하면 누군가가 한 명이 반대할 경우 방이 계속 유지가 될 가능성이 있음
-// 그래서 방삭제 또는 방나가기를 통해서 방을 삭제할 수 있어야 함.

@@ -156,7 +156,7 @@ class MainFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             mainPageViewModel.currentUserData.collect { userData ->
                 if (userData != null) {
                     binding.tvMainTitle.text = userData.name

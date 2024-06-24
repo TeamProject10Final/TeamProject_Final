@@ -107,7 +107,7 @@ class FriendsRequestFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             friendsViewModel.searchUserList.collect { result ->
                 Log.d("FriendsRequestFragment", "Observed Results: $result")
                 if (result.isNotEmpty()) {

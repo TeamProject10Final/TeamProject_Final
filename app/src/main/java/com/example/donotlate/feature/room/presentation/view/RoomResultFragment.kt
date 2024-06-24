@@ -91,7 +91,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
 
         roomViewModel.selectedUserNames.observe(viewLifecycleOwner) { userNames ->
 
-            displayUserName(userNames) 
+            displayUserName(userNames)
 
         }
         val mapFragment =
@@ -113,8 +113,8 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun observeViewModel() {
-        lifecycleScope.launch {
-            roomViewModel.makeARoomResult.collect{ it ->
+        viewLifecycleOwner.lifecycleScope.launch {
+            roomViewModel.makeARoomResult.collect { it ->
                 if (it == true) {
                     openPromiseRoomFragment(roomInfo)
                 } else if (it == false) {
@@ -125,7 +125,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun makeARoom(roomInfo: PromiseModel) {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             roomViewModel.makeAPromiseRoom(roomInfo)
         }
 
@@ -153,11 +153,12 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             destinationLat = locationData?.lat ?: 0.0,
             destinationLng = locationData?.lng ?: 0.0,
             penalty = inputData?.penalty ?: "",
-            participants = userData ?: emptyList(),
+            participants = userData,
             promiseTime = inputData?.time ?: "",
             roomCreatedAt = Timestamp.now(),
-            hasArrived = (userData ?: emptyList()).associateWith { false }.toMutableMap(),
-            participantsNames = participantsNamesMap
+            hasArrived = (userData).associateWith { false }.toMutableMap(),
+            participantsNames = participantsNamesMap,
+            hasDeparture = (userData).associateWith { false }.toMutableMap()
         )
 
         makeARoom(roomInfo)

@@ -25,6 +25,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
@@ -130,17 +131,22 @@ class FirebaseDataSourceImpl(
     }
 
     override suspend fun searchUserById(searchId: String): Flow<List<UserEntity>> = flow {
-        val documents = db.collection("users").whereEqualTo("name", searchId).get().await()
+        try {
+            val documents = db.collection("users").whereEqualTo("name", searchId).get().await()
 
-        val userList = mutableListOf<UserEntity>()
-        for (document in documents) {
+            val userList = mutableListOf<UserEntity>()
+            for (document in documents) {
 
-            val user = document.toObject(UserResponse::class.java)
-            Log.d("FirebaseRepositoryImpl", "Fetched User: $user")
-            userList.add(user.toUserEntity())
+                val user = document.toObject(UserResponse::class.java)
+                Log.d("FirebaseRepositoryImpl", "Fetched User: $user")
+                userList.add(user.toUserEntity())
+            }
+            emit(userList)
+        } catch (e: Exception) {
+            emit(emptyList())
         }
-        emit(userList)
     }
+
 
     override suspend fun getFriendRequestStatus(requestId: String): Flow<FriendRequestEntity?> =
         flow {
@@ -158,41 +164,45 @@ class FirebaseDataSourceImpl(
 
     override suspend fun getFriendRequestsList(toId: String): Flow<List<FriendRequestEntity>> =
         flow {
-            // 친구 요청 목록 받는 코드
-            // 일단 한 번 받아옴.
-            val documents = db.collection("FriendRequests")
-                .whereEqualTo("toId", toId)
-                .whereEqualTo("status", "request")
-                .get().await()
-
-            val requestList = documents.documents.mapNotNull { document ->
-                document.toObject(FriendRequestDTO::class.java)?.copy()?.toEntity()
-            }
-            emit(requestList)
-
-            // 이후 callbackFlow를 활용하여 변경사항이 생기면 실시간으로 받아서 보냄
-            // 해당 내용 쪼개서(?) 적용할 지 결정할 예정
-            callbackFlow {
+            try {
+                // 친구 요청 목록 받는 코드
+                // 일단 한 번 받아옴.
                 val documents = db.collection("FriendRequests")
                     .whereEqualTo("toId", toId)
                     .whereEqualTo("status", "request")
-                val listener = documents.addSnapshotListener { snapshot, error ->
-                    if (error != null) {
-                        close(error)
-                        return@addSnapshotListener
-                    }
-                    if (snapshot != null) {
-                        val updateRequestList = snapshot.documents.mapNotNull { updateDocument ->
-                            updateDocument.toObject(FriendRequestDTO::class.java)?.copy()
-                                ?.toEntity()
-                        }
-                        trySend(updateRequestList).isSuccess
-                    }
+                    .get().await()
+
+                val requestList = documents.documents.mapNotNull { document ->
+                    document.toObject(FriendRequestDTO::class.java)?.copy()?.toEntity()
                 }
-                awaitClose { listener.remove() }
-                // 실시간 변동이 발생 시 컬렉트를 해서 다시 에밋해서 내보냄.
-            }.collect {
-                emit(it)
+                emit(requestList)
+
+                // 이후 callbackFlow를 활용하여 변경사항이 생기면 실시간으로 받아서 보냄
+                // 해당 내용 쪼개서(?) 적용할 지 결정할 예정
+                emitAll(callbackFlow {
+                    val document = db.collection("FriendRequests")
+                        .whereEqualTo("toId", toId)
+                        .whereEqualTo("status", "request")
+
+                    val listener = document.addSnapshotListener { snapshot, error ->
+                        if (error != null) {
+                            close(error)
+                            return@addSnapshotListener
+                        }
+                        if (snapshot != null) {
+                            val updateRequestList =
+                                snapshot.documents.mapNotNull { updateDocument ->
+                                    updateDocument.toObject(FriendRequestDTO::class.java)?.copy()
+                                        ?.toEntity()
+                                }
+                            trySend(updateRequestList).isSuccess
+                        }
+                    }
+                    awaitClose { listener.remove() }
+                    // 실시간 변동이 발생 시 컬렉트를 해서 다시 에밋해서 내보냄.
+                })
+            } catch (e: Exception) {
+                emit(emptyList())
             }
         }
 
@@ -201,12 +211,6 @@ class FirebaseDataSourceImpl(
             val roomId = roomInfo.roomId
             db.collection("PromiseRooms").document(roomId).set(roomInfo).await()
 
-            // participants 리스트를 통해 isArrived 맵을 초기화
-//            val updatedRoomInfo = roomInfo.copy(
-//                isArrived = roomInfo.participants.associateWith { false }.toMutableMap()
-//            )
-
-//            roomRef.set(updatedRoomInfo).await()
             emit(true)
         } catch (e: Exception) {
             emit(false)
@@ -215,38 +219,28 @@ class FirebaseDataSourceImpl(
 
     override suspend fun getMyPromiseListFromFireBase(uid: String): Flow<List<PromiseRoomEntity>> =
         callbackFlow {
-//            try {
-            val query = db.collection("PromiseRooms")
-                .whereArrayContains("participants", uid)
-                .orderBy("promiseDate", Query.Direction.ASCENDING)
+            try {
+                val query = db.collection("PromiseRooms")
+                    .whereArrayContains("participants", uid)
+                    .orderBy("promiseDate", Query.Direction.ASCENDING)
 
-            val listenerRegistration = query.addSnapshotListener { snapshot, error ->
-                if (error != null) {
-                    trySend(emptyList()).isSuccess
-                    return@addSnapshotListener
+                val listenerRegistration = query.addSnapshotListener { snapshot, error ->
+                    if (error != null) {
+                        trySend(emptyList()).isSuccess
+                        return@addSnapshotListener
+                    }
+
+                    if (snapshot != null && !snapshot.isEmpty) {
+                        val promiseRoom = snapshot.toObjects(PromiseRoomResponse::class.java)
+                        trySend(promiseRoom.toPromiseEntityList()).isSuccess
+                    }
                 }
-
-                if (snapshot != null && !snapshot.isEmpty) {
-                    val promiseRoom = snapshot.toObjects(PromiseRoomResponse::class.java)
-                    trySend(promiseRoom.toPromiseEntityList()).isSuccess
+                awaitClose {
+                    listenerRegistration.remove()
                 }
+            } catch (e: Exception) {
+                trySend(emptyList())
             }
-            awaitClose {
-                listenerRegistration.remove()
-            }
-
-//                if (documents.isEmpty) {
-//                    Log.d("getMyPromiseListFromFireBase", "No documents found")
-//                } else {
-//                    Log.d("getMyPromiseListFromFireBase", "Found ${documents.size()} documents")
-//                }
-//                val document = documents.toObjects(PromiseRoomResponse::class.java)
-//                trySend(document.toPromiseEntityList())
-//            } catch (e: Exception) {
-//                Log.e("getMyPromiseListFromFireBase", "Error fetching promise list")
-//                Log.e("getMyPromiseListFromFireBase", "Error fetching promise list", e)
-//                trySend(emptyList())
-//            }
         }
 
     override suspend fun getCurrentUserDataFromFireBase(): Flow<UserEntity?> = flow {
@@ -266,6 +260,29 @@ class FirebaseDataSourceImpl(
     }
 
     override suspend fun loadToMessage(roomId: String): Flow<List<MessageEntity>> = callbackFlow {
+        try {
+            val documents = db.collection("PromiseRooms").document(roomId).collection("Messages")
+                .orderBy("sendTimestamp")
+
+            val listener = documents.addSnapshotListener { snapshots, error ->
+                if (error != null) {
+                    close(error)
+                    return@addSnapshotListener
+                }
+                if (snapshots != null) {
+                    val messages = snapshots.documents.mapNotNull { document ->
+                        document.toObject(MessageResponse::class.java)
+                            ?.copy(messageId = document.id)
+                            ?.toMessageEntity()
+                    }
+                    trySend(messages).isSuccess
+                }
+            }
+            awaitClose { listener.remove() }
+        } catch (e: Exception) {
+            trySend(emptyList())
+        }
+
         val documents = db.collection("PromiseRooms").document(roomId).collection("Messages")
             .orderBy("sendTimestamp")
 
@@ -320,10 +337,24 @@ class FirebaseDataSourceImpl(
         }
     }
 
-    override suspend fun updatePromiseRoom() {
-        TODO("Not yet implemented")
-    }
+    override suspend fun updateDepartureStatus(roomId: String, uid: String): Flow<Boolean> = flow {
+        try {
+            val roomRef = db.collection("PromiseRooms").document(roomId)
+            db.runTransaction { transaction ->
+                val snapshot = transaction.get(roomRef)
+                val roomInfo = snapshot.toObject(PromiseRoomResponse::class.java)
 
+                if (roomInfo != null) {
+                    val isDeparture = roomInfo.hasDeparture.toMutableMap()
+                    isDeparture[uid] = true
+                    transaction.update(roomRef, "hasDeparture", isDeparture)
+                }
+            }.await()
+            emit(true)
+        } catch (e: Exception) {
+            emit(false)
+        }
+    }
 
     private suspend fun readRequest(requestId: String): DocumentSnapshot {
         val requestRef = db.collection("FriendRequests").document(requestId)

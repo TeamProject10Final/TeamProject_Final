@@ -79,7 +79,7 @@ class FriendsRequestListFragment : Fragment() {
     }
 
     private fun observeViewModel(){
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             friendsViewModel.friendRequestList.collect{list ->
                 friendRequestsAdapter.updateList(list)
             }
