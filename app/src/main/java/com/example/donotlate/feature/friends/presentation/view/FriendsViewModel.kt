@@ -66,10 +66,13 @@ class FriendsViewModel(
     }
 
     fun searchUserById(searchId: String) {
+        val currentUserId = CurrentUser.userData?.uId
         viewModelScope.launch {
             searchUserByIdUseCase(searchId).collect { result ->
                 Log.d("FriendsViewModel", "Search Results: $result")
-                _searchUserList.value = result.map { it.toModel() }
+                _searchUserList.value = result
+                    .filter { it.uid != currentUserId }
+                    .map { it.toModel() }
             }
         }
     }

@@ -110,12 +110,16 @@ class FriendsRequestFragment : Fragment() {
         lifecycleScope.launch {
             friendsViewModel.searchUserList.collect { result ->
                 Log.d("FriendsRequestFragment", "Observed Results: $result")
-                searchUserAdapter.submitList(result)
+                if (result.isNotEmpty()) {
+                    searchUserAdapter.submitList(result)
+                } else {
+
+                }
             }
         }
     }
 
-    private fun setAdapter(){
+    private fun setAdapter() {
         searchUserAdapter = SearchUserAdapter { user ->
             val dialog = FriendsRequestDialogFragment.newInstance(user)
             dialog.show(parentFragmentManager, "RequestDialogFragment")

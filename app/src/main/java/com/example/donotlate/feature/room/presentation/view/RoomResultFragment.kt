@@ -91,7 +91,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
 
         roomViewModel.selectedUserNames.observe(viewLifecycleOwner) { userNames ->
 
-            displayUserName(userNames)
+            displayUserName(userNames) 
 
         }
         val mapFragment =

@@ -531,7 +531,7 @@ class MyPromiseRoomFragment : Fragment() {
             myPromiseViewModel.removeParticipantIdResult.collect {
                 if (it == true) {
                     Toast.makeText(requireContext(), "나가기 성공", Toast.LENGTH_SHORT).show()
-                } else {
+                } else if (it == false) {
                     Toast.makeText(requireContext(), "나가기 실패", Toast.LENGTH_SHORT).show()
                 }
             }
