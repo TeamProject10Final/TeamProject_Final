@@ -64,7 +64,6 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
 
         binding.root.setOnClickListener {
             hideKeyboard(binding.root.windowToken)
-//            requireActivity().currentFocus!!.clearFocus()
         }
 
         return binding.root
@@ -77,9 +76,6 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         sendQuery()
         checkLocation()
     }
-
-
-
 
     private fun initMap() {
         val mapFragment =

@@ -115,9 +115,9 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     private fun observeViewModel() {
         lifecycleScope.launch {
             roomViewModel.makeARoomResult.collect{ it ->
-                if(it){
+                if (it == true) {
                     openPromiseRoomFragment(roomInfo)
-                }else{
+                } else if (it == false) {
                     Toast.makeText(requireActivity(), "방을 생성하지 못했습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -138,7 +138,11 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
 
         val locationData = roomViewModel.locationData.value
 
-        val userData = roomViewModel.selectedUserUIds.value
+        val userData = roomViewModel.selectedUserUIds.value ?: emptyList()
+        val userName = roomViewModel.selectedUserNames.value ?: emptyList()
+
+
+        val participantsNamesMap = userData.zip(userName).toMap()
 
         roomInfo = PromiseModel(
             roomId = UUID.randomUUID().toString(),
@@ -150,8 +154,11 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             penalty = inputData?.penalty ?: "",
             participants = userData ?: emptyList(),
             promiseTime = inputData?.time ?: "",
-            roomCreatedAt = Timestamp.now()
+            roomCreatedAt = Timestamp.now(),
+            hasArrived = (userData ?: emptyList()).associateWith { false }.toMutableMap(),
+            participantsNames = participantsNamesMap
         )
+
         makeARoom(roomInfo)
     }
 

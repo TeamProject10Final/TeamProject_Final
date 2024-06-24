@@ -12,7 +12,9 @@ data class PromiseRoomResponse(
     val destinationLat: Double, // <-- 위도
     val destinationLng: Double, // <-- 경도
     val penalty: String,
-    val participants:List<String>
+    val participants: List<String>,
+    val hasArrived: Map<String, Boolean> = mutableMapOf(),
+    val participantsNames: Map<String, String> = mutableMapOf()
 ) {
     constructor() : this(
         "",
@@ -24,6 +26,8 @@ data class PromiseRoomResponse(
         0.0,
         0.0,
         "",
-        listOf()
+        listOf(),
+        mutableMapOf(),
+        mutableMapOf()
     )
 }

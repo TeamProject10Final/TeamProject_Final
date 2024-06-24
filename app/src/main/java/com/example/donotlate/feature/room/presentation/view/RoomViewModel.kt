@@ -28,8 +28,8 @@ class RoomViewModel(
 
     private val userData = CurrentUser.userData
 
-    private val _makeARoomResult = MutableStateFlow<Boolean>(false)
-    val makeARoomResult: StateFlow<Boolean> get() = _makeARoomResult
+    private val _makeARoomResult = MutableStateFlow<Boolean?>(null)
+    val makeARoomResult: StateFlow<Boolean?> get() = _makeARoomResult
 
     private val _selectedUserUIds = MutableLiveData<List<String>>(emptyList())
     val selectedUserUIds: LiveData<List<String>> get() = _selectedUserUIds
