@@ -115,9 +115,179 @@
     <string name="friend_request_btn_text">Click</string>
     <string name="friend_request_text">Please select the friends\nyou would like to invite.</string>
 
-    <string name="time"> </string>
-    <string name="info"> </string>
-    <string name="personal"> </string>
+    <!--놀거리 페이지-->
+    <string name="time">No information</string>
+
+    <!--설정 페이지-->
+    <string name="preference_file_key" translatable="false">darkModeOff</string>
+
+    <!--법령-->
+    <string name="info">
+    Don\&apos;t Be Late Company establishes and discloses the personal information processing
+        policy as follows in order to protect the personal information of information subjects
+        and handle related complaints quickly and smoothly in accordance with Article 30 of the
+        Personal Information Protection Act.\n
+        ○ This privacy policy is effective from January 1, 2023.\n\n
+
+Article 1(The purposes for which personal information is processed)\n
+
+① Don\&apos;t Be Late Company processes personal information for the following purposes.
+Personal information being processed will not be used for purposes other than the following,
+and if the purpose of use changes, necessary measures will be taken,
+such as obtaining separate consent in accordance with Article 18 of the Personal Information Protection Act.\n
+
+1. Homepage membership registration and management.\n
+- Personal information is processed for the purpose of confirming membership
+registration and providing various noticesand notifications.\n\n
+
+
+Article 2(The period for processing and retaining personal information)\n
+
+① Don\&apos;t Be Late Company processes and retains personal information within
+the personal information retention and use period pursuant to the law or
+within the personal information retention and use period agreed upon
+when collecting personal information from the information subject.\n
+
+② The processing and retention period for each personal information is as follows.\n
+1. Website membership registration and management: Until withdrawal from the website.
+However, in the case of the following reasons, until the end of the relevant reason.\n
+1) If an investigation, investigation, etc.
+is in progress for violation of relevant laws and regulations,
+until the end of the investigation or investigation,\n\n
+
+
+Article 3(Provision of personal information to a third party)\n
+① Don\&apos;t Be Late Company provides personal information to third parties only in cases that fall under
+Articles 17 and 18 of the Personal Information Protection Act, including the consent of the information subject
+and special provisions of the law, and does not exceed the original scope without the prior consent
+of the information subject. It will not be processed or provided to third parties.\n\n
+
+
+Article 4(Outsourcing personal information processing (if applicable.))\n\n
+
+
+Article 5(The rights and obligations of data subjects and legal representatives, and how to exercise such rights)\n
+① The information subject may exercise his/her rights,
+such as requesting viewing, correction, deletion, and suspension of processing of personal information,
+at any time against Don\&apos;t Be Late Company.\n② The exercise of rights pursuant to Paragraph 1 may be made to
+Don\&apos;t Be Late Company through writing, e-mail, facsimile (FAX), etc. in accordance with Article 41(1)
+of the Enforcement Decree of the Personal Information Protection Act,
+and Don\&apos;t Be Late Company will respond to this without delay. We will take action.\n
+- [Enforcement Rule Annex No. 8] Request for personal information (viewing, correction/deletion, suspension of processing)\n
+③ The exercise of rights under paragraph 1 may be done through an agent,
+such as the information subject\&apos;s legal representative or a person authorized to do so.
+In this case, you must submit a power of attorney in the format of Appendix 11 of the Enforcement Rules of
+the Personal Information Protection Act.\n
+- [Enforcement Rules Annex No. 11] Power of Attorney\n
+④ Requests to view and suspend processing of personal information may limit the information
+subject\&apos;s rights pursuant to Article 35, Paragraph 5 and Article 37, Paragraph 2 of the Personal Information Protection Act.\n
+⑤ Requests for correction or deletion of personal information cannot be requested
+if the personal information is specified as a collection target in other laws and regulations.\n
+⑥ Don\&apos;t Be Late Company confirms whether the person making the request,
+such as a request for viewing, a request for correction or deletion, or a request for suspension of processing,
+is the person or a legitimate agent in accordance with the information subject\&apos;s rights.\n\n
+
+
+Article 6(Personal information items processed)\n
+① Don\&apos;t Be Late Company processes the following personal information items.\n
+1. Personal information file name :  home page Profile\n
+2. Personal information items : (Required items) ID, password, name(or nick-name), email\n
+② The following personal information items may be automatically created and collected during the use of Internet services.\n
+- IP address, cookie, MAC address, service use record, visit record, bad use record, etc.\n\n
+
+
+Article 7 (Destruction of personal information)\n
+① Don\&apos;t Be Late Company destroys personal information without delay when personal information becomes unnecessary,
+such as when the personal information retention period has passed or the purpose of processing has been achieved.\n
+② In cases where personal information must continue to be preserved pursuant to other laws
+and regulations despite the expiration of the personal information retention period agreed upon
+by the information subject or the purpose of processing has been achieved, the personal information
+(or personal information file) shall be stored in a separate database (DB) Move it to
+or store it in a different storage location to preserve it.\n
+③ The procedures and methods for destroying personal information are as follows.\n
+1. Destruction procedure\n
+- Although it is late, the Company establishes a personal information destruction plan
+and destroys personal information (or personal information files) that must be destroyed.\n
+- Although it is late, the Company selects the personal information (or personal information file)
+for which the reason for destruction occurred, Personal information (or personal information files)
+will be destroyed with the approval of the personal information protection manager.\n
+2. Method of destruction\n
+- It\&apos;s Be Late Company destroys personal information recorded and stored
+in electronic files so that the records cannot be reproduced, and if there is
+personal information recorded or stored in paper documents, it is destroyed by shredding or incineration.\n\n
+
+
+Article 8 (Measures to ensure the safety of personal information)\n
+① Don\&apos;t Be Late Company is taking the following measures to ensure the safety of personal information.\n
+1. Conduct regular self-audits\n
+- To ensure the stability of personal information handling, we conduct self-audits on a regular basis (quarterly).\n\n
+
+
+Article 9 (Matters regarding installation, operation and refusal of automatic personal information collection devices)\n
+① Don\&apos;t Be Late Company does not use <![CDATA["cookies"]]> to store and frequently retrieve
+the information subject\&apos;s usage information.\n\n
+
+
+Article 10 (Personal Information Protection Manager)\n
+① Don\&apos;t Be Late Company is responsible for the overall management of personal information processing,
+and has designated a personal information protection manager as follows to handle complaints and provide relief
+for damage from information subjects related to personal information processing.\n
+ - Personal information protection officer\n
+Department: Don\&apos;t Be Late Company\n
+name : KIM JAE HYUN, LIM CHAE MYUNG, JANG GYU SIK, CHOI JI WON, PARK HYE LAN\n
+rank : Leader, deputy leader, team member, team member, team member\n
+contact : onecoin789@gmail.com, limchaem0318@gmail.com, jgs288@gmail.com, sp202401jw@gmail.com, tnfl2644@gmail.com\n\n
+
+
+Article 11 (Request to view personal information)\n
+① The information subject may request to view personal information pursuant to Article 35
+of the Personal Information Protection Act to the department below.
+Don\&apos;t Be Late Companywill endeavor to promptly process the information subject\&apos;s request to view personal information.\n
+② Information subjects can inquire about all personal information protection-related inquiries,
+complaint handling, damage relief, etc. to the personal information protection manager and responsible department.
+Don\&apos;t Be Late Company will respond and process inquiries from information subjects without delay.\n
+- Personal information access request reception and processing department\n
+(Same as personal information protection manager)\n\n
+
+
+Article 12 (Methods for relief from rights infringement)\n
+① In order to receive relief from personal information infringement,
+the information subject may apply for dispute resolution or consultation
+to the Personal Information Dispute Mediation Committee,
+the Korea Internet, Security Agency\&apos;s Personal Information Infringement Reporting Center, etc.
+In addition, for reporting and consultation regarding other personal information infringements,
+please contact the organizations below.\n\n
+1. Personal Information Dispute Mediation Committee : 1833-6972 (www.kopico.go.kr)\n
+2. Personal Information Infringement Reporting Center : 118 (privacy.kisa.or.kr)\n
+3. Supreme Prosecutors\&apos; Office : 1301 (www.spo.go.kr)\n
+4. National Police Agency : 182 (ecrm.cyber.go.kr)\n\n
+
+
+Article 13 (Changes to personal information processing policy)\n
+① This personal information processing policy is effective from August 22, 2022.\n\n
+
+    </string>
+    <string name="personal">
+Consent on collection and use of personal information\n\n
+
+Don\&apos;t Be Late Company is doing its best to protect workers\&apos; personal information
+by complying with the personal information protection regulations of related laws such as
+the Personal Information Protection Act. Based on Article 17 of the Personal Information Protection Act,
+the company wishes to obtain consent to collect, use, and store the user\&apos;s personal information
+to the extent absolutely necessary and provide it to a third party.\n
+
+ 1. Purpose of collecting personal information\n
+- Providing app features to users and third parties\n
+ 2. Collection items\n
+- Personal information items : (Required items) ID, password, name(or nick-name), email\n
+ 3. Personal information retention and use period\n
+- During the subscription period from the date of submission\n
+ 4. Refusal of consent to collection and use of personal information\n
+- You can refuse the collection and use of personal information.
+However, if you do not agree to the collection and use of personal information,
+there may be restrictions on the use of the app.\n\n
+
+    </string>
     <string name="location"> </string>
 
 </resources>
