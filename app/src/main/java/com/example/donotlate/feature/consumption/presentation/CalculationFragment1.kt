@@ -19,12 +19,17 @@ import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentCalculation1Binding
+import com.example.donotlate.feature.room.presentation.dialog.DatePickerInterface
+import com.example.donotlate.feature.room.presentation.dialog.RoomDateDialog
 import java.util.Calendar
 
-class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
+class CalculationFragment1 : Fragment(R.layout.fragment_calculation1),DatePickerInterface {
     private var _binding: FragmentCalculation1Binding?= null
     private val binding get() = _binding!!
 
+    private var mYear = 0
+    private var mMonth = 0
+    private var mDay = 0
 
     private val viewModel: SharedViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
@@ -65,9 +70,9 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
             }
         }
 
-        binding.ivDate.setOnClickListener {
-            showDatePickerDialog()
-        }
+//        binding.ivDate.setOnClickListener {
+//            showDatePickerDialog()
+//        }
 
         binding.etDes11.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
@@ -77,11 +82,11 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
             }
         }
 
-        binding.ivDate.setOnClickListener {
-            showDatePickerDialog()
-//            ConsumptionActivity.hideKeyboard(view)
-            hideKeyboard(binding.root.windowToken)
-        }
+//        binding.ivDate.setOnClickListener {
+//            showDatePickerDialog()
+////            ConsumptionActivity.hideKeyboard(view)
+//            hideKeyboard(binding.root.windowToken)
+//        }
 
         binding.consumptionSpinner.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
@@ -132,6 +137,8 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
             Log.d("확인 cal1 에러", "$it")
         }
 
+        //데이터피커
+        setDate()
     }
 
     private fun setupSpinner() {
@@ -185,4 +192,33 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1) {
         datePickerDialog.show()
     }
 
+    private fun setDate() {
+
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val getMonth = if (month + 1 < 10) "0${month + 1}" else month + 1
+        val getDay = if (day < 10) "0${day}" else day
+
+        binding.etDes12.setText("${year}-${getMonth}-${getDay}")
+
+        binding.etDes12.setOnClickListener {
+            val dialog = RoomDateDialog(this, mYear, mMonth, mDay)
+            dialog.show(childFragmentManager, "tag")
+        }
+    }
+
+    override fun onClickDateButton(year: Int, month: Int, day: Int) {
+
+        mYear = year
+        mMonth = month
+        mDay = day
+
+        val getMonth = if (month + 1 < 10) "0${month + 1}" else month + 1
+        val getDay = if (day < 10) "0${day}" else day
+        val result = "${year}-${getMonth}-${getDay}"
+        binding.etDes12.setText(result)
+    }
 }
