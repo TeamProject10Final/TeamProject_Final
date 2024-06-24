@@ -158,7 +158,7 @@ class RoomStartFragment : Fragment(), TimePickerInterface, DatePickerInterface {
 
         if (timeText != null) {
             val setHour = if (hour < 10) "0${hour}" else hour
-            val setMinute = if (minute < 10) "0${minute}" else minute
+            val setMinute = if (minute < 2) "0${minute}" else minute
             val result = "${setAmpm}  ${setHour} : ${setMinute}"
             timeText.setText(result)
 

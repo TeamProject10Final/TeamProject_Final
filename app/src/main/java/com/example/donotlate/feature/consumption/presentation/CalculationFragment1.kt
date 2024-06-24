@@ -23,13 +23,14 @@ import com.example.donotlate.feature.room.presentation.dialog.DatePickerInterfac
 import com.example.donotlate.feature.room.presentation.dialog.RoomDateDialog
 import java.util.Calendar
 
-class CalculationFragment1 : Fragment(R.layout.fragment_calculation1),DatePickerInterface {
-    private var _binding: FragmentCalculation1Binding?= null
+class CalculationFragment1 : Fragment(R.layout.fragment_calculation1), DatePickerInterface {
+    private var _binding: FragmentCalculation1Binding? = null
     private val binding get() = _binding!!
 
     private var mYear = 0
     private var mMonth = 0
     private var mDay = 0
+
 
     private val viewModel: SharedViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
@@ -39,6 +40,7 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1),DatePicker
             appContainer.getDataCountUseCase
         )
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,9 +72,9 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1),DatePicker
             }
         }
 
-//        binding.ivDate.setOnClickListener {
-//            showDatePickerDialog()
-//        }
+        binding.ivDate.setOnClickListener {
+            showDatePickerDialog()
+        }
 
         binding.etDes11.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
@@ -82,11 +84,8 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1),DatePicker
             }
         }
 
-//        binding.ivDate.setOnClickListener {
-//            showDatePickerDialog()
-////            ConsumptionActivity.hideKeyboard(view)
-//            hideKeyboard(binding.root.windowToken)
-//        }
+        showDatePickerDialog()
+
 
         binding.consumptionSpinner.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
@@ -101,12 +100,13 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1),DatePicker
             hideKeyboard(binding.root.windowToken)
             val detail = binding.etDes11.text.toString()
             val date = binding.etDes12.text.toString()
-            val category = if (binding.consumptionSpinner.selectedItemPosition != binding.consumptionSpinner.adapter.count - 1) {
-                binding.consumptionSpinner.selectedItem.toString()
+            val category =
+                if (binding.consumptionSpinner.selectedItemPosition != binding.consumptionSpinner.adapter.count - 1) {
+                    binding.consumptionSpinner.selectedItem.toString()
 
-            } else {
-                ""
-            }
+                } else {
+                    ""
+                }
             if (detail.isNotBlank() && date.isNotBlank() && category.isNotBlank()) {
                 viewModel.setDetail(detail)
                 viewModel.setDate(date)
@@ -137,13 +137,15 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1),DatePicker
             Log.d("확인 cal1 에러", "$it")
         }
 
-        //데이터피커
-        setDate()
     }
 
     private fun setupSpinner() {
         val categories = resources.getStringArray(R.array.consumptionCategoryArray)
-        val adapter = object : ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, categories) {
+        val adapter = object : ArrayAdapter<String>(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            categories
+        ) {
             override fun getCount(): Int {
                 // Hint를 제외한 실제 항목의 수 반환하려고 1을 뺌
                 return super.getCount() - 1
@@ -153,46 +155,32 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1),DatePicker
         binding.consumptionSpinner.adapter = adapter
         binding.consumptionSpinner.setSelection(adapter.count)  // 힌트로 설정... 근데 그냥 공백으로 바꿈
 
-        binding.consumptionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                // 힌트를 고른(아무것도 고르지 않은) 경우 아무것도 하지 않음...
-                if (position == adapter.count) {
-                    (view as TextView).setTextColor(Color.GRAY)
+        binding.consumptionSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    // 힌트를 고른(아무것도 고르지 않은) 경우 아무것도 하지 않음...
+                    if (position == adapter.count) {
+                        (view as TextView).setTextColor(Color.GRAY)
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    //
                 }
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                //
-            }
-        }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
     private fun showDatePickerDialog() {
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(
-            requireContext(),
-            { _, selectedYear, selectedMonth, selectedDay ->
-                val formattedYear = selectedYear % 100
-                val selectedDate = String.format("%02d-%02d-%02d", formattedYear, selectedMonth + 1, selectedDay)
-                binding.etDes12.setText(selectedDate)
-            },
-            year,
-            month,
-            day
-        )
-
-        datePickerDialog.show()
-    }
-
-    private fun setDate() {
 
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -202,16 +190,37 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1),DatePicker
         val getMonth = if (month + 1 < 10) "0${month + 1}" else month + 1
         val getDay = if (day < 10) "0${day}" else day
 
-        binding.etDes12.setText("${year}-${getMonth}-${getDay}")
+        binding.etDes12.text = "${year}-${getMonth}-${getDay}"
 
-        binding.etDes12.setOnClickListener {
+        binding.ivDate.setOnClickListener {
             val dialog = RoomDateDialog(this, mYear, mMonth, mDay)
             dialog.show(childFragmentManager, "tag")
+//            ConsumptionActivity.hideKeyboard(view)
+            hideKeyboard(binding.root.windowToken)
         }
+
+
+//        val c = Calendar.getInstance()
+//        val year = c.get(Calendar.YEAR)
+//        val month = c.get(Calendar.MONTH)
+//        val day = c.get(Calendar.DAY_OF_MONTH)
+//
+//        val datePickerDialog = DatePickerDialog(
+//            requireContext(),
+//            { _, selectedYear, selectedMonth, selectedDay ->
+//                val formattedYear = selectedYear % 100
+//                val selectedDate = String.format("%02d-%02d-%02d", formattedYear, selectedMonth + 1, selectedDay)
+//                binding.etDes12.setText(selectedDate)
+//            },
+//            year,
+//            month,
+//            day
+//        )
+//
+//        datePickerDialog.show()
     }
 
     override fun onClickDateButton(year: Int, month: Int, day: Int) {
-
         mYear = year
         mMonth = month
         mDay = day
@@ -219,6 +228,7 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1),DatePicker
         val getMonth = if (month + 1 < 10) "0${month + 1}" else month + 1
         val getDay = if (day < 10) "0${day}" else day
         val result = "${year}-${getMonth}-${getDay}"
-        binding.etDes12.setText(result)
+        binding.etDes12.text = result
     }
+
 }
