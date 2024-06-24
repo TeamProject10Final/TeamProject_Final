@@ -117,7 +117,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
                             binding.ivLoginHide.tag = "1"
                             binding.etLoginPassword.transformationMethod =
                                 HideReturnsTransformationMethod.getInstance()
-                            binding.ivLoginHide.setImageResource(R.drawable.show)
+                            binding.ivLoginHide.setImageResource(R.drawable.ic_show)
                         }
 
                         "1" -> {
