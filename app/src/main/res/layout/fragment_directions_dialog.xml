@@ -19,7 +19,7 @@
             android:id="@+id/tv_Direction_Dialog1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="검색 결과"
+            android:text="@string/dialog_dir_text1"
             android:textStyle="bold"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"

@@ -24,7 +24,7 @@
 
             <RadioButton
                 android:id="@+id/rb_Transit"
-                android:text="대중교통"
+                android:text="@string/dialog_radio_text1"
                 android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -36,7 +36,7 @@
 
             <RadioButton
                 android:id="@+id/rb_Driving"
-                android:text="자동차"
+                android:text="@string/dialog_radio_text2"
                 android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -48,7 +48,7 @@
 
             <RadioButton
                 android:id="@+id/rb_Walking"
-                android:text="도보"
+                android:text="@string/dialog_radio_text3"
                 android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -60,7 +60,7 @@
 
             <RadioButton
                 android:id="@+id/rb_Bicycling"
-                android:text="자전거"
+                android:text="@string/dialog_radio_text4"
                 android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -82,7 +82,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_info_round_lilac"
-            android:text="취소"
+            android:text="@string/dialog_back_text4"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="17dp"
             android:textStyle="bold"
@@ -96,9 +97,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_info_round_arctic"
-            android:text="확인"
+            android:text="@string/dialog_back_text3"
             android:textColor="@color/white"
             android:textSize="17dp"
+            android:textAllCaps="false"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
