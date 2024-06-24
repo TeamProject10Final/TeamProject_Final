@@ -26,6 +26,7 @@
             android:layout_marginTop="5dp"
             android:maxWidth="200dp"
             android:minHeight="15dp"
+            android:textColor="@color/black"
             android:text="안녕하세요"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
