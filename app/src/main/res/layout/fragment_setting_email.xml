@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="40dp"
-                    android:text="고객님!"
+                    android:text="@string/setting_email_text1"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
                     android:id="@+id/tv_Setting_Q_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="불편하셨거나 필요하신 부분을"
+                    android:text="@string/setting_email_text2"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/tv_Setting_Q_1"
@@ -58,7 +58,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="이메일로 보내주세요!"
+                    android:text="@string/setting_email_text3"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/tv_Setting_Q_2"
@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="sp10nomorelateness@gmail.com"
+                    android:text="@string/setting_email_text4"
                     android:textSize="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -99,7 +99,7 @@
                     android:id="@+id/tv_Setting_Email1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="다음 이메일로 보내주시면\n최대한 빠르게 답변해 드리겠습니다!"
+                    android:text="@string/setting_email_text5"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="저희 앱을 사용해 주셔서 항상 감사드립니다."
+                    android:text="@string/setting_email_text6"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_Setting_Email1" />
