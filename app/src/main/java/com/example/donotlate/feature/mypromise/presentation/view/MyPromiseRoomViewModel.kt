@@ -1,10 +1,10 @@
 package com.example.donotlate.feature.mypromise.presentation.view
 
-import android.os.Handler
-import android.os.Looper
+import android.location.Location
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -24,9 +24,20 @@ import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
 import com.example.donotlate.feature.mypromise.presentation.model.MessageViewType
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.coroutines.Runnable
+import com.google.firebase.Timestamp
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -41,111 +52,151 @@ class MyPromiseRoomViewModel(
     private val messageReceivingUseCase: MessageReceivingUseCase,
     private val getDirectionsUseCase: GetDirectionsUseCase,
     private val removeParticipantsUseCase: RemoveParticipantsUseCase,
-    private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase
+    private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase,
+    private val savedStateHandle: SavedStateHandle = SavedStateHandle()
 ) : ViewModel() {
-
+    private var checkArrivalStatusJob: Job? = null
+    private var foundCountry: String? = null
     private var currentRoomId: String? = null
+    private var isDeparted = false
+    private var lastLocation: LatLng? = null
+    private var userLocationLatLng: LatLng? = null
+    private var destinationLatLng: LatLng? = null
+    private var destinationString: String = ""
+    private var directionsResult: DirectionsModel? = null
 
-    private val _closestPromiseTitle = MutableStateFlow<String?>(null)
-    val closestPromiseTitle: StateFlow<String?> get() = _closestPromiseTitle
+    //경로 선택하기 전 보여줄 간단한 소개들
+    private var routeSelectionText: List<String> = emptyList()
+
+    private var _promiseRoom = MutableStateFlow<PromiseModel?>(null)
+    val promiseRoom: StateFlow<PromiseModel?> = _promiseRoom
+
+    private val _isArrived = Channel<Boolean>()
+    val isArrived = _isArrived.receiveAsFlow()
 
     private val _message = MutableStateFlow<List<MessageViewType>>(listOf())
     val message: StateFlow<List<MessageViewType>> get() = _message
 
-    private val _messageSendResults = MutableStateFlow<Boolean>(false)
+    private val _messageSendResults = MutableStateFlow(false)
     val messageSendResult: StateFlow<Boolean> get() = _messageSendResults
 
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> get() = _error
+    private val _error = Channel<String>()
+    val error = _error.receiveAsFlow()
+
+    private val _myPromiseRoomEvent = MutableSharedFlow<MyPromiseRoomEvent>()
+    val myPromiseRoomEvent: SharedFlow<MyPromiseRoomEvent> = _myPromiseRoomEvent
 
     private val _originString = MutableLiveData<String>()
     val originString: LiveData<String> get() = _originString
 
-    private val _userLocationLatLng = MutableLiveData<LatLng>()
-    val userLocationLatLng: LiveData<LatLng> get() = _userLocationLatLng
-
-    private val _destinationLatLng = MutableLiveData<LatLng>()
-    val destinationLatLng: LiveData<LatLng> get() = _destinationLatLng
-
-    private val _destinationString = MutableLiveData<String>()
-    val destinationString: LiveData<String> get() = _destinationString
-
-    private val _distanceBetween = MutableLiveData<Double>()
-    val distanceBetween: LiveData<Double> get() = _distanceBetween
+    private val _distanceStatus = MutableStateFlow<DistanceState>(value = DistanceState.Nothing)
+    val distanceStatus: StateFlow<DistanceState> = _distanceStatus
 
     //임시
     private val _removeParticipantIdResult = MutableStateFlow<Boolean?>(null)
     val removeParticipantIdResult: StateFlow<Boolean?> get() = _removeParticipantIdResult
 
-
-    private val _directionsResult = MutableLiveData<DirectionsModel>()
-    val directionsResult: LiveData<DirectionsModel> get() = _directionsResult
-
     //수정하기 TODO
-    private val _mode = MutableLiveData<String>("transit")
+    private val _mode = MutableLiveData("transit")
     val mode: LiveData<String> get() = _mode
 
     private val _shortExplanations = MutableLiveData<String>()
     val shortExplanations: LiveData<String> get() = _shortExplanations
 
-    private val _isDepart = MutableLiveData<Boolean>(false)
-    val isDepart: LiveData<Boolean> get() = _isDepart
-
-    //경로 선택하기 전 보여줄 간단한 소개들
-    private val _routeSelectionText = MutableLiveData<List<String>>()
-    val routeSelectionText: LiveData<List<String>> get() = _routeSelectionText
 
     //검색 결과 중 선택한 경로
-    private val _selectedRouteIndex = MutableLiveData<Int>(0)
+    private val _selectedRouteIndex = MutableLiveData(0)
     val selectedRouteIndex: LiveData<Int> get() = _selectedRouteIndex
-
-    private val _country = MutableLiveData<String>()
-    val country: LiveData<String> = _country
-
-    private val _updateStatus = MutableStateFlow<Boolean?>(null)
-    val updateStatus: StateFlow<Boolean?> get() = _updateStatus
 
     private val _hasArrived = MutableStateFlow<Map<String, Boolean>>(emptyMap())
     val hasArrived: StateFlow<Map<String, Boolean>> get() = _hasArrived
 
-    private val _lateUsers = MutableStateFlow<List<String>>(emptyList())
+    private val _lateUsers = MutableStateFlow<List<String>>(value = emptyList())
     val lateUsers: StateFlow<List<String>> get() = _lateUsers
 
     private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 
-    private val handler = Handler(Looper.getMainLooper())
-    private lateinit var checkRunnable: Runnable
-
-    fun getCountry(): String? {
-        if (country.value != null) {
-            return country.value!!
-        } else {
-            _error.postValue("다시 시도해 주세요.")
-            return null
+    init {
+        viewModelScope.launch {
+            savedStateHandle.get<PromiseModel>("promiseRoom")?.let {
+                _promiseRoom.value = it
+                if (CurrentUser.userData == null) {
+                    null
+                } else {
+                    checkIsUserHasArrived()
+                    startCheckingArrivalStatus()
+                    setInitialArrivalStatus()
+                    setDestinationLatLng()
+                    loadMessage()
+                }
+            } ?: run {
+                sendWrongAccessMessage()
+            }
         }
     }
 
-    fun setCountry(country: String) {
-        _country.value = country
+    private suspend fun sendWrongAccessMessage(message: String = "잘못된 접근입니다.") {
+        _error.send(element = message)
     }
 
-    fun refreshIndex() {
+    private suspend fun checkIsUserHasArrived() {
+        if (this.promiseRoom.value?.hasArrived?.get(CurrentUser.userData?.uId) == true) {
+            _isArrived.send(element = true)
+        } else {
+            sendWrongAccessMessage()
+        }
+    }
+
+    fun setLastLocation(location: Location?) {
+        location?.let {
+            val userLatLng = LatLng(it.latitude, it.longitude)
+            lastLocation = userLatLng
+            setUserLocation(location = it)
+            getDirections()
+        }
+    }
+
+    private fun setUserLocation(location: Location) {
+        val userLatLng = LatLng(location.latitude, location.longitude)
+        userLocationLatLng = userLatLng
+        _originString.value = getLocationString(userLatLng)
+        calculateDistance()
+    }
+
+    fun setFoundCountry(foundCountry: String?) {
+        this.foundCountry = foundCountry
+    }
+
+    fun checkCountryAndGetRouteSelection() {
+        viewModelScope.launch {
+            when (this@MyPromiseRoomViewModel.foundCountry) {
+                SOUTH_KOREA_KR, SOUTH_KOREA_EN -> {
+                    _myPromiseRoomEvent.emit(
+                        value = MyPromiseRoomEvent.ShowDialogSelection(
+                            routeSelections = routeSelectionText
+                        )
+                    )
+                }
+
+                null -> {
+                    sendWrongAccessMessage(message = "다시 시도해주세요.")
+                    return@launch
+                }
+
+                else -> {
+                    _myPromiseRoomEvent.emit(value = MyPromiseRoomEvent.ShowModeDialog)
+                }
+            }
+        }
+    }
+
+    private fun refreshIndex() {
         _selectedRouteIndex.value = 0
     }
 
     fun setSelectedRouteIndex(indexNum: Int) {
         _selectedRouteIndex.value = indexNum ?: 0
-        Log.d("123123", "${indexNum}")
-    }
-
-
-    fun setUserLocation(location: LatLng) {
-        _userLocationLatLng.value = location
-        if (userLocationLatLng.value != null) {
-            _originString.value = getLocationString(userLocationLatLng.value!!)
-        } else {
-            Log.d("확인 setUserLoca", "null")
-        }
+        Log.d("123123", "$indexNum")
     }
 
     // LatLng 위치를 문자열로 반환하는 메서드 추가
@@ -155,19 +206,15 @@ class MyPromiseRoomViewModel(
     }
 
     fun setIsDepart(status: Boolean) {
-        _isDepart.value = status
+        isDeparted = status
     }
 
-    fun getIsDepart(): Boolean {
-        return isDepart.value!!
-    }
-
-    fun calDistance2() {
+    private fun calculateDistance() {
         //지구 반지름 (km)
         val earthRadius = 6371.0
 
-        val userLocationVal = userLocationLatLng.value
-        val destinationLatLngVal = destinationLatLng.value
+        val userLocationVal = userLocationLatLng
+        val destinationLatLngVal = destinationLatLng
         if (userLocationVal != null && destinationLatLngVal != null) {
             val latDist = Math.toRadians(userLocationVal.latitude - destinationLatLngVal.latitude)
             val lngDist =
@@ -178,33 +225,48 @@ class MyPromiseRoomViewModel(
             ) * sin(lngDist / 2).pow(2.0)
 
             val c = 2 * atan2(sqrt(a), sqrt(1 - a))
-            _distanceBetween.value = earthRadius * c
-            Log.d("확인 거리", "${distanceBetween.value}")
+            val destinationBetween = earthRadius * c
+            Log.d("확인 거리", "$destinationBetween")
+            calculateIsIn200Meters(distance = destinationBetween)
         }
     }
 
-    fun setDestinationLatLng(lat: Double, lng: Double) {
-        _destinationLatLng.value = LatLng(lat, lng)
+    private fun calculateIsIn200Meters(distance: Double) {
+        if (distance <= 0.2) { // 200m
+            _distanceStatus.value = DistanceState.In200Meters
+        } else {
+            if (isDeparted) {
+                _distanceStatus.value = DistanceState.Departed
+            } else {
+                _distanceStatus.value = DistanceState.NotDeparted
+            }
+        }
+    }
+
+    private fun setDestinationLatLng() {
+        val lat = this.promiseRoom.value?.destinationLat ?: return
+        val lng = this.promiseRoom.value!!.destinationLng
+        destinationLatLng = LatLng(lat, lng)
         Log.d("확인 목적지", "목적지 ${lat}, ${lng}")
-        if (destinationLatLng.value != null) {
-            _destinationString.value = getLocationString(destinationLatLng.value!!)
+        if (destinationLatLng != null) {
+            destinationString = getLocationString(latLng = destinationLatLng!!)
         } else {
             Log.d("확인 setDestLoca", "null")
         }
     }
 
-    fun getDirections() {
+    private fun getDirections() {
         viewModelScope.launch {
             try {
                 val result = getDirectionsUseCase(
-                    originString.value.toString(),
-                    destinationString.value.toString(),
-                    mode.value.toString()
+                    origin = originString.value.toString(),
+                    destination = destinationString,
+                    mode = mode.value.toString()
                 )
-                _directionsResult.value = result.toModel()
+                directionsResult = result.toModel()
                 setRouteSelectionText()
             } catch (e: Exception) {
-                _error.postValue(e.message)
+                sendWrongAccessMessage(message = e.message ?: "Unknown Error")
             }
         }
     }
@@ -214,34 +276,19 @@ class MyPromiseRoomViewModel(
         _mode.value = key
     }
 
-    fun getMode(): String {
-        return mode.value!!
-        //위에 디폴트값 넣어둠
-    }
-
-
     //index 정해진 뒤에 text를 만들어야 함
     fun afterSelecting() {
+        setShortDirectionsResult()
+    }
+
+    private fun setShortDirectionsResult() {
         viewModelScope.launch {
-            setShortDirectionsResult()
-        }
-    }
-
-    fun getSelectionList(): List<String> {
-        return if (routeSelectionText.value?.isEmpty() == true) {
-            emptyList()
-        } else {
-            routeSelectionText.value!!
-            //Log.d("확인 getSelecL", "${routeSelectionText.value}, ${routeSelectionText.value.toString().toList()}")
-        }
-    }
-
-    fun setShortDirectionsResult() {
-        if (directionsResult.value != null) {
-            formatShortDirectionsExplanations(directionsResult.value!!)
-        } else {
-            _error.postValue("_direction null")
-            Log.d("확인 setDirections", "null")
+            if (directionsResult != null) {
+                formatShortDirectionsExplanations(directions = directionsResult!!)
+            } else {
+                sendWrongAccessMessage(message = "_direction null")
+                Log.d("확인 setDirections", "null")
+            }
         }
     }
 
@@ -264,14 +311,13 @@ class MyPromiseRoomViewModel(
     }
 
     private suspend fun setRouteSelectionText() {
-        if (_directionsResult.value != null) {
-            Log.d("확인 setDirections", "${_directionsResult.value}")
-            formatRouteSelectionText(_directionsResult.value!!)
+        if (directionsResult != null) {
+            Log.d("확인 setDirections", "$directionsResult")
+            formatRouteSelectionText(directionsResult!!)
         } else {
-            _error.postValue("_direction null")
+            sendWrongAccessMessage(message = "_direction null")
             Log.d("확인 setDirections", "null")
-            _routeSelectionText.postValue(emptyList())
-            //emptyOrNull
+            routeSelectionText = emptyList()
         }
     }
 
@@ -314,66 +360,84 @@ class MyPromiseRoomViewModel(
             routeIndex++
         }
         Log.d("확인 리스트 인덱스", "${resultsList.size}")
-        _routeSelectionText.value = resultsList
-        Log.d("확인 setDirections", "stringbuilder ${resultsList}")
-        Log.d("확인 setDirections 1", "${resultsList[2]}")
+        routeSelectionText = resultsList
+        Log.d("확인 setDirections", "stringbuilder $resultsList")
+        Log.d("확인 setDirections 1", resultsList[2])
     }
 
-    fun loadMessage(roomId: String) {
+    private suspend fun loadMessage() {
+        val roomId = promiseRoom.value?.roomId ?: return
         val mAuth = CurrentUser.userData?.uId
         if (currentRoomId != roomId) {
             currentRoomId = roomId
             _message.value = emptyList()
-
-            viewModelScope.launch {
-                messageReceivingUseCase(roomId).collect { entities ->
-                    val model = entities.map { it.toMessageModel() }
-                    if (mAuth != null) {
-                        _message.value = model.map { it.toViewType(mAuth) }
-                    }
+            messageReceivingUseCase(roomId).collect { entities ->
+                val model = entities.map { it.toMessageModel() }
+                if (mAuth != null) {
+                    _message.value = model.map { it.toViewType(mAuth) }
                 }
             }
         }
     }
 
-    fun sendMessage(roomId: String, message: MessageModel) {
-        try {
-            viewModelScope.launch {
-                messageSendingUseCase(roomId, message.toMessageEntity()).collect { result ->
-                    _messageSendResults.value = result
-                }
-            }
-        } catch (e: Exception) {
-            Log.d("ddddddd8", "rror: Send To Message Error: $e")
+    fun sendMessage(contents: String) {
+        viewModelScope.launch {
+            val currentUser = CurrentUser.userData ?: throw NullPointerException("User Data Null!")
+            val message = MessageModel(
+                senderName = currentUser.name,
+                sendTimestamp = Timestamp.now(),
+                senderId = currentUser.uId,
+                contents = contents,
+                messageId = "",
+                senderProfileUrl = currentUser.profileImgUrl
+            )
+
+            val currentRoomId = this@MyPromiseRoomViewModel.currentRoomId
+                ?: throw NullPointerException("Room Id is null.")
+            messageSendingUseCase(
+                roomId = currentRoomId,
+                message.toMessageEntity()
+            ).onEach { result ->
+                _messageSendResults.value = result
+            }.catch {
+                sendWrongAccessMessage()
+            }.launchIn(scope = viewModelScope)
         }
     }
 
     //임시
-    fun exitRoom(roomId: String, participantId: String) {
+    fun exitRoom() {
         viewModelScope.launch {
-            removeParticipantsUseCase(roomId, participantId).collect {
+            val roomId = currentRoomId ?: return@launch sendWrongAccessMessage()
+            val uid = CurrentUser.userData?.uId ?: return@launch sendWrongAccessMessage()
+            removeParticipantsUseCase(roomId = roomId, participantId = uid).onEach {
                 _removeParticipantIdResult.value = it
-            }
+            }.catch {
+                sendWrongAccessMessage()
+            }.collect()
         }
     }
 
-    fun updateArrived(room: String, uid: String) {
+    fun updateArrived() {
         viewModelScope.launch {
-            updateArrivalStatusUseCase(room, uid).collect { success ->
-                _updateStatus.value = success
-
+            val roomId = currentRoomId ?: return@launch sendWrongAccessMessage()
+            val uid = CurrentUser.userData?.uId ?: return@launch sendWrongAccessMessage()
+            updateArrivalStatusUseCase(roomId = roomId, uid = uid).onEach { success ->
                 val currentArrivals = _hasArrived.value.toMutableMap()
                 currentArrivals[uid] = true
-                _hasArrived.value = currentArrivals
-            }
+                _hasArrived.value = currentArrivals.toMap()
+            }.catch {
+                sendWrongAccessMessage()
+            }.collect()
         }
     }
 
-    fun setInitialArrivalStatus(arrivalStatus: Map<String, Boolean>) {
+    private fun setInitialArrivalStatus() {
+        val arrivalStatus = this.promiseRoom.value?.hasArrived ?: return
         _hasArrived.value = arrivalStatus
     }
 
-    fun checkArrivalStatus(room: PromiseModel) {
+    private fun checkArrivalStatus(room: PromiseModel) {
         val now = LocalDateTime.now()
 
         val promiseTime = parseTime(room.promiseTime)// 시간 형식 변환
@@ -390,22 +454,44 @@ class MyPromiseRoomViewModel(
         }
     }
 
-    fun startCheckingArrivalStatus(room: PromiseModel) {
-        checkRunnable = object : Runnable {
-            override fun run() {
-                checkArrivalStatus(room)
-                handler.postDelayed(this, 1000) // 1초에 한 번씩 실행.
+
+    private fun startCheckingArrivalStatus() {
+        if (checkArrivalStatusJob != null)
+            checkArrivalStatusJob?.cancelChildren()
+        checkArrivalStatusJob = viewModelScope.launch {
+            while (true) {
+                checkArrivalStatus(room = promiseRoom.value ?: return@launch)
+                delay(1_000)
             }
         }
-        handler.post(checkRunnable)
     }
 
     fun stopCheckingArrivalStatus() {
-        handler.removeCallbacks(checkRunnable)
+        checkArrivalStatusJob?.cancelChildren()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        checkArrivalStatusJob?.cancelChildren()
+    }
+
+    companion object {
+        private const val SOUTH_KOREA_KR = "대한민국"
+        private const val SOUTH_KOREA_EN = "South Korea"
     }
 }
 
+sealed interface DistanceState {
+    data object In200Meters : DistanceState
+    data object Departed : DistanceState
+    data object NotDeparted : DistanceState
+    data object Nothing : DistanceState
+}
 
+sealed interface MyPromiseRoomEvent {
+    data class ShowDialogSelection(val routeSelections: List<String>) : MyPromiseRoomEvent
+    data object ShowModeDialog : MyPromiseRoomEvent
+}
 
 class MyPromiseRoomViewModelFactory(
     private val messageSendingUseCase: MessageSendingUseCase,

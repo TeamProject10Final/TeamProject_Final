@@ -285,22 +285,21 @@ class FirebaseDataSourceImpl(
         awaitClose { listener.remove() }
     }
 
-    override suspend fun sendToMessage(roomId: String, message: MessageEntity): Flow<Boolean> =
+    override fun sendToMessage(roomId: String, message: MessageEntity): Flow<Boolean> =
         flow {
             try {
                 db.collection("PromiseRooms").document(roomId).collection("Messages")
                     .add(message)
                     .await()
-                emit(true)
+                emit(value = true)
                 Log.d("ddddddd7", "$roomId")
             } catch (e: Exception) {
                 Log.d("SendToMessage", "Error: Send To Message Error: $e")
-                emit(false)
+                emit(value = false)
             }
         }
 
-    override suspend fun updateArrivalStatus(roomId: String, uid: String): Flow<Boolean> = flow {
-
+    override fun updateArrivalStatus(roomId: String, uid: String): Flow<Boolean> = flow {
         try {
             val roomRef = db.collection("PromiseRooms").document(roomId)
             db.runTransaction { transaction ->
@@ -313,10 +312,9 @@ class FirebaseDataSourceImpl(
                     transaction.update(roomRef, "hasArrived", isArrived)
                 }
             }.await()
-
-            emit(true)
+            emit(value = true)
         } catch (e: Exception) {
-            emit(false)
+            emit(value = false)
         }
     }
 
