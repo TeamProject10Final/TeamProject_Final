@@ -29,7 +29,8 @@ class RadioButtonSelectionDialog(
             appContainer.messageSendingUseCase,
             appContainer.messageReceivingUseCase,
             appContainer.getDirectionsUseCase,
-            appContainer.removeParticipantsUseCase
+            appContainer.removeParticipantsUseCase,
+            appContainer.updateArrivalStatusUseCase
         )
     }
 

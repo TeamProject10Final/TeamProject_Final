@@ -21,6 +21,8 @@ interface FirebaseDataRepository {
     suspend fun getCurrentUserDataFromFireBase(): Flow<UserEntity?>
     suspend fun loadToMessage(roomId: String): Flow<List<MessageEntity>>
     suspend fun sendToMessage(roomId: String, message: MessageEntity): Flow<Boolean>
+    suspend fun updateArrivalStatus(roomId: String, uid: String): Flow<Boolean>
+    suspend fun updatePromiseRoom()
 }
 
 // 나가기, 방 삭제 두 개가 있어야 함

@@ -40,7 +40,7 @@ class RoomStartFragment : Fragment() {
 
         binding.root.setOnClickListener {
             hideKeyboard(binding.root.windowToken)
-            requireActivity().currentFocus!!.clearFocus()
+//            requireActivity().currentFocus!!.clearFocus()
         }
 
         return binding.root
@@ -91,6 +91,9 @@ class RoomStartFragment : Fragment() {
         val dateText = binding.tvRoomDate
         val data = DatePickerDialog.OnDateSetListener { view, year, month, day ->
 
+//            selectedDate = LocalDate.of(year, month +1, day)
+//            dateText.text = selectedDate?.format(DateTimeFormatter.ISO_LOCAL_DATE)
+
             if (dateText != null) {
                 val m = if (month + 1 < 10) "0${month + 1}" else month + 1
                 val d = if (day < 10) "0${day}" else day
@@ -115,6 +118,12 @@ class RoomStartFragment : Fragment() {
         val mCurrentTime = Calendar.getInstance()
         val timeText = binding.tvRoomTime
         val data = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+//            selectedTime = LocalTime.of(hourOfDay, minute)
+//            val amPm = if(hourOfDay < 12 )"오전" else "오후"
+//            val hour = if(hourOfDay % 12 == 0) 12 else hourOfDay % 12
+//            val formattedTime = String.format("%s %02d시 %02d분", amPm, hour, minute)
+//            timeText.text = formattedTime
+
             if (timeText != null) {
                 val h = if (hourOfDay < 10) "0${hourOfDay}" else hourOfDay
                 val m = if (minute < 10) "0${minute}" else minute
@@ -151,7 +160,14 @@ class RoomStartFragment : Fragment() {
                 penalty
             ))
             Log.d("123123", "${roomList}")
+
             if (title.isNotBlank() && date.isNotBlank() && time.isNotBlank()) {
+//                val roomList = RoomModel(
+//                    title,
+//                    selectedDate!!,
+//                    selectedTime!!,
+//                    penalty
+//                )
                 roomViewModel.updateText(roomList)
                 roomViewModel.setCurrentItem(current = 1)
             } else {

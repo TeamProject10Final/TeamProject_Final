@@ -35,9 +35,7 @@ class ViewPagerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentViewPagerBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
