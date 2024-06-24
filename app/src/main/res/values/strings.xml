@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">DoNotLate</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading">로딩중</string>
 
     <!--로그인 페이지-->
     <string name="login_top_title1">환영합니다.</string>
@@ -66,9 +67,11 @@
     <string name="cal3_text2">벌금액</string>
     <string name="cal3_text3">정산 인원수</string>
     <string name="cal3_text4">명</string>
+    <string name="cal3_text5">벌금 납부 인원수</string>
     <string name="cal3_edit_text1">정산할 총 금액을 입력해주세요.</string>
-    <string name="cal3_edit_text2">벌금을 입력해주세요.</string>
+    <string name="cal3_edit_text2">벌금이 있다면 입력해주세요.</string>
     <string name="cal3_edit_text3">정산 인원을 입력해주세요.</string>
+    <string name="cal3_edit_text4">벌금을 납부할 총 인원을 입력해주세요.</string>
 
     <!--정산하기 세번째 페이지(Fragment)-->
     <string name="cal1_frgment_text1">나의 벌금추가</string>
@@ -114,12 +117,70 @@
     <string name="friend_request_edit_text">요청할 친구를 검색해 주세요.</string>
     <string name="friend_request_btn_text">검색</string>
     <string name="friend_request_text">초대할 친구를 선택해 주세요.</string>
+    <string name="friend_request_list_text">친구 요청 목록입니다.</string>
 
     <!--놀거리 페이지-->
     <string name="time">정보 없음</string>
+    <string name="search_edit_text1">장소를 입력해 주세요.</string>
+    <string name="search_text1">길을 잃었다~★\n어딜 가야할까</string>
+    <string name="search_detail_text1">주소</string>
+    <string name="search_detail_text2">전화 번호</string>
+    <string name="search_detail_text3">위치 정보</string>
+    <string name="search_detail_btn_text">길찾기</string>
 
     <!--설정 페이지-->
     <string name="preference_file_key" translatable="false">darkModeOff</string>
+    <string name="setting_text1">설정</string>
+    <string name="setting_text2">프로필 설정</string>
+    <string name="setting_text3">앱 설정</string>
+    <string name="setting_text4">다크 모드</string>
+    <string name="setting_text5">일반</string>
+    <string name="setting_chat_text1">개발진이 전부 모여있는</string>
+    <string name="setting_chat_text2">채팅방으로 초대합니다!</string>
+    <string name="setting_chat_text3">어떤 의견이든 말씀해주세요.</string>
+    <string name="setting_chat_text4">카카오톡 오픈 채팅방</string>
+    <string name="setting_chat_text5">늦지마 컴퍼니\nhttps://open.kakao.com/o/g5qJY8xg</string>
+    <string name="setting_chat_text6">디스코드 개발진 서버</string>
+    <string name="setting_chat_text7">늦지마 컴퍼니 서버\nhttps://discord.gg/CTQaZPnG</string>
+    <string name="setting_email_text1">사용자님!</string>
+    <string name="setting_email_text2">불편하셨거나 필요하신 부분을</string>
+    <string name="setting_email_text3">이메일로 보내주세요!</string>
+    <string name="setting_email_text4">sp10nomorelateness@gmail.com</string>
+    <string name="setting_email_text5">다음 이메일로 보내주시면\n최대한 빠르게 답변해 드리겠습니다!</string>
+    <string name="setting_email_text6">저희 앱을 사용해 주셔서 항상 감사드립니다.</string>
+    <string name="setting_info_text1">앱 정보</string>
+    <string name="setting_info_text2">개인정보 처리방침</string>
+    <string name="setting_info_text3">오픈 라이선스</string>
+    <string name="setting_info_text4">위치정보 이용약관</string>
+    <string name="setting_info_text5">개인정보 수집 ‧및 이용안내</string>
+    <string name="setting_info_text6">서비스 이용약관</string>
+    <string name="setting_question_text1">안녕하세요.</string>
+    <string name="setting_question_text2">늦지마 컴퍼니 입니다!</string>
+    <string name="setting_question_text3">무엇을 도와드릴까요?</string>
+    <string name="setting_question_text4">E-mail로 문의하기</string>
+    <string name="setting_question_text5">오픈 채팅방으로 문의하기</string>
+
+    <!--다디얼로그-->
+    <string name="dialog_info_text1">약관에 동의해 주세요.</string>
+    <string name="dialog_info_text2">미동의 시 가입이 어렵습니다.</string>
+    <string name="dialog_info_text3">약관에 동의합니다.</string>
+    <string name="dialog_info_text4">개인정보 수집 ‧ 이용 동의</string>
+    <string name="dialog_info_text5">위치정보 이용 동의</string>
+    <string name="dialog_info_text6">전부 동의합니다.</string>
+    <string name="dialog_dir_text1">검색 결과</string>
+    <string name="dialog_back_text1">현재 진행중인 작업이 있습니다!</string>
+    <string name="dialog_back_text2">취소하고 메인으로 돌아갈까요?</string>
+    <string name="dialog_back_text3">확인</string>
+    <string name="dialog_back_text4">취소</string>
+    <string name="dialog_radio_text1">대중교통</string>
+    <string name="dialog_radio_text2">자동차</string>
+    <string name="dialog_radio_text3">도보</string>
+    <string name="dialog_radio_text4">자전거</string>
+    <string name="dialog_radio_selection_text1">친구와 도착시간을 공유해요!</string>
+    <string name="dialog_friend_text1">요청 중</string>
+    <string name="dialog_friend_text2">친구 상태</string>
+    <string name="dialog_friend_text3">친구 요청</string>
+    <string name="dialog_time_text">시간을 선택해 주세요.</string>
 
     <!--법령-->
     <string name="info">
@@ -238,7 +299,6 @@
 
 
     </string>
-
     <string name="personal">
 개인 정보 수집·이용에 관한 동의서\n\n
 
@@ -255,7 +315,6 @@
    개인정보의 수집·이용을 거부할 수 있습니다.\n 다만, 개인정보의 수집·이용 등에 동의하지 않을 경우 앱 이용에 제한이 있을 수 있습니다.\n\n
 
     </string>
-
     <string name="location">
 위치기반 서비스 이용약관\n\n
 
@@ -356,7 +415,6 @@
 
 
     </string>
-
     <string name="app_use" translatable="false">
 서비스 이용약관\n\n
 제1조(목적)\n

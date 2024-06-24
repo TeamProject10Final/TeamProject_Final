@@ -102,7 +102,8 @@ class FriendsRequestDialogFragment : DialogFragment() {
                 status[requestID]?.let {
                     when (it.status) {
                         "request" -> {
-                            binding.btnFriendRequest.text = "요청 중"
+                            binding.btnFriendRequest.text =
+                                "${resources.getString(R.string.dialog_friend_text1)}"
                             binding.btnFriendRequest.isClickable = false
                             binding.btnFriendRequest.setBackgroundColor(
                                 ContextCompat.getColor(
@@ -113,7 +114,8 @@ class FriendsRequestDialogFragment : DialogFragment() {
                         }
 
                         "accept" -> {
-                            binding.btnFriendRequest.text = "친구 상태"
+                            binding.btnFriendRequest.text =
+                                "${resources.getString(R.string.dialog_friend_text2)}"
                             binding.btnFriendRequest.isClickable = false
                             binding.btnFriendRequest.setBackgroundColor(
                                 ContextCompat.getColor(
@@ -124,7 +126,8 @@ class FriendsRequestDialogFragment : DialogFragment() {
                         }
 
                         else -> {
-                            binding.btnFriendRequest.text = "친구 요청"
+                            binding.btnFriendRequest.text =
+                                "${resources.getString(R.string.dialog_friend_text3)}"
                             binding.btnFriendRequest.isClickable = true
                             binding.btnFriendRequest.setBackgroundColor(
                                 ContextCompat.getColor(requireContext(), R.color.white)
@@ -132,7 +135,8 @@ class FriendsRequestDialogFragment : DialogFragment() {
                         }
                     }
                 } ?: run {
-                    binding.btnFriendRequest.text = "친구 요청"
+                    binding.btnFriendRequest.text =
+                        "${resources.getString(R.string.dialog_friend_text3)}"
                     binding.btnFriendRequest.isClickable = true
                     binding.btnFriendRequest.setBackgroundColor(
                         ContextCompat.getColor(requireContext(), R.color.white)

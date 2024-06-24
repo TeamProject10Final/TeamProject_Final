@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">DoNotLate</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading">Loading</string>
 
     <!--로그인 페이지-->
     <string name="login_top_title1">Welcome</string>
@@ -66,9 +67,11 @@
     <string name="cal3_text2">Penalty amount</string>
     <string name="cal3_text3">Number of people to divide the amount with</string>
     <string name="cal3_text4">people</string>
+    <string name="cal3_text5">Number of people paying fines</string>
     <string name="cal3_edit_text1">Please enter the total amount\n to be settled.</string>
     <string name="cal3_edit_text2">Please enter the Penalty amount.</string>
     <string name="cal3_edit_text3">Please enter the Number of people\n to divide the amount with.</string>
+    <string name="cal3_edit_text4">Please enter the total number of people who will pay the fine.</string>
 
     <!--정산하기 세번째 페이지(Fragment)-->
     <string name="cal1_frgment_text1">Add my fine</string>
@@ -114,12 +117,71 @@
     <string name="friend_request_edit_text">Please search for the friend you\nwould like to request.</string>
     <string name="friend_request_btn_text">Click</string>
     <string name="friend_request_text">Please select the friends\nyou would like to invite.</string>
+    <string name="friend_request_list_text">This is a list of friend requests.</string>
 
     <!--놀거리 페이지-->
     <string name="time">No information</string>
+    <string name="search_edit_text1">Please enter a location.</string>
+    <string name="search_text1">I\'m lost~★\nWhere should I go?</string>
+    <string name="search_detail_text1">Address</string>
+    <string name="search_detail_text2">Phone Number</string>
+    <string name="search_detail_text3">location information</string>
+    <string name="search_detail_btn_text">Get Directions</string>
 
     <!--설정 페이지-->
     <string name="preference_file_key" translatable="false">darkModeOff</string>
+    <string name="setting_text1">Setting</string>
+    <string name="setting_text2">Profile settings</string>
+    <string name="setting_text3">App settings</string>
+    <string name="setting_text4">Dark mode</string>
+    <string name="setting_text5">common</string>
+    <string name="setting_chat_text1">We invite you to the chat room</string>
+    <string name="setting_chat_text2">where all the developers are gathered!</string>
+    <string name="setting_chat_text3">Please let me know any comments.</string>
+    <string name="setting_chat_text4">KakaoTalk open chat room</string>
+    <string name="setting_chat_text5">Don\'t Be Late Company\nhttps://open.kakao.com/o/g5qJY8xg</string>
+    <string name="setting_chat_text6">Discord Dev Server</string>
+    <string name="setting_chat_text7">Don\'t Be Late Company Server\nhttps://discord.gg/CTQaZPnG</string>
+    <string name="setting_email_text1">User!</string>
+    <string name="setting_email_text2">Please send us an email with anything</string>
+    <string name="setting_email_text3">you found inconvenient or needed!</string>
+    <string name="setting_email_text4">sp10nomorelateness@gmail.com</string>
+    <string name="setting_email_text5">Please send us an email below and\n we will respond as quickly as possible!</string>
+    <string name="setting_email_text6">As always, thank you for using our app.</string>
+    <string name="setting_info_text1">App information</string>
+    <string name="setting_info_text2">Privacy policy</string>
+    <string name="setting_info_text3">open license</string>
+    <string name="setting_info_text4">Location information terms\n and conditions</string>
+    <string name="setting_info_text5">Personal information collection\n and use guide</string>
+    <string name="setting_info_text6">Terms of Service</string>
+    <string name="setting_question_text1">Hello.</string>
+    <string name="setting_question_text2">Don\'t Be Late company!</string>
+    <string name="setting_question_text3">How can I help you?</string>
+    <string name="setting_question_text4">Contact us by e-mail</string>
+    <string name="setting_question_text5">Contact us through open chat room</string>
+
+    <!--다디얼로그-->
+    <string name="dialog_info_text1">Please agree to the terms and conditions.</string>
+    <string name="dialog_info_text2">If you do not agree,\n it is difficult to sign up.</string>
+    <string name="dialog_info_text3">I agree to the terms\n and conditions.</string>
+    <string name="dialog_info_text4">Consent to collection\n and use of personal information</string>
+    <string name="dialog_info_text5">Consent to use location information</string>
+    <string name="dialog_info_text6">I agree with everything.</string>
+    <string name="dialog_dir_text1">Search Results</string>
+    <string name="dialog_back_text1">There is currently a work in progress!</string>
+    <string name="dialog_back_text2">Shall we go back to the main island?</string>
+    <string name="dialog_back_text3">Check</string>
+    <string name="dialog_back_text4">Cancel</string>
+    <string name="dialog_radio_text1">Public transport</string>
+    <string name="dialog_radio_text2">Driving</string>
+    <string name="dialog_radio_text3">Walking</string>
+    <string name="dialog_radio_text4">Bicycling</string>
+    <string name="dialog_radio_selection_text1">Share your arrival time with your friends!</string>
+    <string name="dialog_friend_text1">Requesting</string>
+    <string name="dialog_friend_text2">Friend status</string>
+    <string name="dialog_friend_text3">Friend request</string>
+    <string name="dialog_time_text">Please select a time.</string>
+
 
     <!--법령-->
     <string name="info">
@@ -440,8 +502,6 @@ contact : onecoin789@gmail.com, limchaem0318@gmail.com, jgs288@gmail.com, sp2024
 
 
     </string>
-
-
     <string name="app_use" translatable="false">
 
 
