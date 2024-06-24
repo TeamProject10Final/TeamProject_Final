@@ -116,8 +116,6 @@
     <string name="friend_request_text">초대할 친구를 선택해 주세요.</string>
 
 
-
-
     <string name="time"><u>월요일: 오후 5:00 ~ 오전 2:00\n화요일: 오후 5:00 ~ 오전 2:00\n수요일: 오후 5:00 ~ 오전 2:00\n목요일: 오후 5:00 ~ 오전 2:00\n금요일: 오후 5:00 ~ 오전 3:00\n토요일: 오후 5:00 ~ 오전 2:00\n일요일: 오후 5:00 ~ 오전 2:00</u></string>
     <string name="preference_file_key" translatable="false">darkModeOff</string>
     <string name="info">
@@ -584,7 +582,6 @@
 제1조(시행일)\n
 본 약관은 2024.06.21.부터 시행됩니다.
     </string>
-
 
 
 </resources>

@@ -4,243 +4,255 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.auth.presentation.view.LoginFragment"
-    android:clickable="true">
+    android:clickable="true"
+    tools:context=".feature.auth.presentation.view.LoginFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_SignUp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_Sign_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/sign_up_top_title1"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/sign_up_top_title2"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tv_Sign_Title"
+                app:layout_constraintStart_toEndOf="@id/tv_Sign_Title" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_up_top_title3"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tv_Sign_Title"
+                app:layout_constraintTop_toBottomOf="@id/tv_Sign_Title" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_Login1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Sign_Title">
+
+                <EditText
+                    android:id="@+id/et_Sign_Name"
+                    style="@style/EditTextCursorStyle."
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/et_custom"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:hint="@string/sign_up_edit_text1"
+                    android:maxLength="10"
+                    android:nextFocusDown="@id/et_Sign_Email"
+                    android:paddingLeft="15dp"
+                    android:textCursorDrawable="@drawable/item_cursor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_Name_Check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/sign_up_text1"
+                    android:textColor="@color/red"
+                    android:textSize="11sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@id/et_Sign_Name"
+                    app:layout_constraintTop_toBottomOf="@id/et_Sign_Name" />
+
+
+                <EditText
+                    android:id="@+id/et_Sign_Email"
+                    style="@style/EditTextCursorStyle."
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/et_custom"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:hint="@string/login_edit_text1"
+                    android:nextFocusDown="@id/et_Sign_Password"
+                    android:paddingLeft="15dp"
+                    android:textCursorDrawable="@drawable/item_cursor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_Sign_Name" />
+
+                <TextView
+                    android:id="@+id/tv_Email_Check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/login_text1"
+                    android:textColor="@color/red"
+                    android:textSize="11sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@id/et_Sign_Email"
+                    app:layout_constraintTop_toBottomOf="@id/et_Sign_Email" />
+
+                <EditText
+                    android:id="@+id/et_Sign_Password"
+                    style="@style/EditTextCursorStyle."
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/et_custom"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:hint="@string/login_edit_text2"
+                    android:inputType="textPassword"
+                    android:maxLength="20"
+                    android:nextFocusDown="@id/et_Sign_Confirm"
+                    android:paddingLeft="15dp"
+                    android:textCursorDrawable="@drawable/item_cursor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_Sign_Email" />
+
+                <ImageView
+                    android:id="@+id/iv_Sign_Hide"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="15dp"
+                    android:backgroundTint="@color/black"
+                    android:tag="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/et_Sign_Password"
+                    app:layout_constraintEnd_toEndOf="@+id/et_Sign_Password"
+                    app:layout_constraintTop_toTopOf="@+id/et_Sign_Password" />
+
+                <TextView
+                    android:id="@+id/tv_Password_Check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/sign_up_text2"
+                    android:textColor="@color/red"
+                    android:textSize="11sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@id/et_Sign_Password"
+                    app:layout_constraintTop_toBottomOf="@id/et_Sign_Password" />
+
+                <EditText
+                    android:id="@+id/et_Sign_Confirm"
+                    style="@style/EditTextCursorStyle."
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/et_custom"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:hint="@string/sign_up_edit_text2"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:maxLength="20"
+                    android:paddingLeft="15dp"
+                    android:textCursorDrawable="@drawable/item_cursor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_Sign_Password" />
+
+                <TextView
+                    android:id="@+id/tv_Confirm_Check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/login_text2"
+                    android:textColor="@color/red"
+                    android:textSize="11sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@id/et_Sign_Password"
+                    app:layout_constraintTop_toBottomOf="@id/et_Sign_Confirm" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_Login1">
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_SignUp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/btn_radius_lilac"
+        android:text="@string/sign_up_top_title1"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_Sign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <TextView
-        android:id="@+id/tv_Sign_Title"
+        android:id="@+id/tv_Sign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/sign_up_top_title1"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="70dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/sign_up_text3"
+        android:textColor="@color/gray"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/btn_SignUp" />
 
     <TextView
+        android:id="@+id/tv_Sign_Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="@string/sign_up_top_title2"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/tv_Sign_Title"
-        app:layout_constraintStart_toEndOf="@id/tv_Sign_Title" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_up_top_title3"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/tv_Sign_Title"
-        app:layout_constraintTop_toBottomOf="@id/tv_Sign_Title" />
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_Login1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Sign_Title">
-
-        <EditText
-            android:id="@+id/et_Sign_Name"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/et_custom"
-            android:hint="@string/sign_up_edit_text1"
-            android:nextFocusDown="@id/et_Sign_Email"
-            android:fontFamily="@font/pretendard_regular"
-            android:textCursorDrawable="@drawable/item_cursor"
-            android:paddingLeft="15dp"
-            android:maxLength="10"
-            style="@style/EditTextCursorStyle."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_Name_Check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/sign_up_text1"
-            android:textColor="@color/red"
-            android:textSize="11sp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@id/et_Sign_Name"
-            app:layout_constraintTop_toBottomOf="@id/et_Sign_Name" />
-
-
-        <EditText
-            android:id="@+id/et_Sign_Email"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="40dp"
-            android:nextFocusDown="@id/et_Sign_Password"
-            android:background="@drawable/et_custom"
-            android:hint="@string/login_edit_text1"
-            android:fontFamily="@font/pretendard_regular"
-            android:textCursorDrawable="@drawable/item_cursor"
-            android:paddingLeft="15dp"
-            style="@style/EditTextCursorStyle."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_Sign_Name" />
-
-        <TextView
-            android:id="@+id/tv_Email_Check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/login_text1"
-            android:textColor="@color/red"
-            android:textSize="11sp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@id/et_Sign_Email"
-            app:layout_constraintTop_toBottomOf="@id/et_Sign_Email" />
-
-        <EditText
-            android:id="@+id/et_Sign_Password"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/et_custom"
-            android:inputType="textPassword"
-            android:hint="@string/login_edit_text2"
-            android:maxLength="20"
-            android:nextFocusDown="@id/et_Sign_Confirm"
-            android:fontFamily="@font/pretendard_regular"
-            android:textCursorDrawable="@drawable/item_cursor"
-            android:paddingLeft="15dp"
-            style="@style/EditTextCursorStyle."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_Sign_Email" />
-
-        <ImageView
-            android:id="@+id/iv_Sign_Hide"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:backgroundTint="@color/black"
-            android:layout_marginEnd="15dp"
-            android:tag="0"
-            app:layout_constraintTop_toTopOf="@+id/et_Sign_Password"
-            app:layout_constraintBottom_toBottomOf="@+id/et_Sign_Password"
-            app:layout_constraintEnd_toEndOf="@+id/et_Sign_Password"/>
-
-        <TextView
-            android:id="@+id/tv_Password_Check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/sign_up_text2"
-            android:textColor="@color/red"
-            android:textSize="11sp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@id/et_Sign_Password"
-            app:layout_constraintTop_toBottomOf="@id/et_Sign_Password" />
-
-        <EditText
-            android:id="@+id/et_Sign_Confirm"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="40dp"
-            android:imeOptions="actionDone"
-            android:background="@drawable/et_custom"
-            android:hint="@string/sign_up_edit_text2"
-            android:maxLength="20"
-            android:fontFamily="@font/pretendard_regular"
-            android:textCursorDrawable="@drawable/item_cursor"
-            android:paddingLeft="15dp"
-            style="@style/EditTextCursorStyle."
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_Sign_Password" />
-
-        <TextView
-            android:id="@+id/tv_Confirm_Check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/login_text2"
-            android:textColor="@color/red"
-            android:textSize="11sp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@id/et_Sign_Password"
-            app:layout_constraintTop_toBottomOf="@id/et_Sign_Confirm" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_Login1">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_SignUp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="25dp"
-            android:background="@drawable/btn_radius_lilac"
-            android:textColor="@color/black"
-            android:text="@string/sign_up_top_title1"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_Sign"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-        <TextView
-            android:id="@+id/tv_Sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginBottom="20dp"
-            android:text="@string/sign_up_text3"
-            android:textColor="@color/gray"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/btn_SignUp" />
-
-        <TextView
-            android:id="@+id/tv_Sign_Login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/sign_up_login_line"
-            android:textColor="@color/singUp"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_Sign"
-            app:layout_constraintStart_toEndOf="@+id/tv_Sign"
-            app:layout_constraintTop_toTopOf="@+id/tv_Sign" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        android:text="@string/sign_up_login_line"
+        android:textColor="@color/singUp"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_Sign"
+        app:layout_constraintStart_toEndOf="@+id/tv_Sign"
+        app:layout_constraintTop_toTopOf="@+id/tv_Sign" />
+    
 </androidx.constraintlayout.widget.ConstraintLayout>

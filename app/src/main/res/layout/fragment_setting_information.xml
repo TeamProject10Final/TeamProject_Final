@@ -6,83 +6,98 @@
     android:layout_height="match_parent"
     tools:context=".feature.setting.presentation.view.information.SettingInformationFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_Setting_Info1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/iv_Setting_Info_Back"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_Setting_Q_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="40dp"
-            android:text="앱 정보"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_Setting_Info_Personal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        app:layout_constraintTop_toBottomOf="@+id/cl_Setting_Info1">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tv_Setting_Info1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="50dp"
-        android:text="약관 및 개인정보 처리 동의"
-        android:textSize="18sp"
-        android:textStyle="bold"
+    <ImageView
+        android:id="@+id/iv_Setting_Info_Back"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_Setting_Info1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_Setting_Info"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="6dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Setting_Info1" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_Setting_Info_Back">
 
-    <TextView
-        android:id="@+id/tv_Setting_Info2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="30dp"
-        android:text="오픈 라이선스"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_Setting_Info" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_Setting_Info_App"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="6dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Setting_Info2" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_Setting_Info1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_Setting_Q_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="40dp"
+                    android:text="앱 정보"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_Setting_Info_Personal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_Setting_Info1">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_Setting_Info1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="50dp"
+                android:text="약관 및 개인정보 처리 동의"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_Setting_Info1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_Setting_Info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="6dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Setting_Info1" />
+
+            <TextView
+                android:id="@+id/tv_Setting_Info2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="30dp"
+                android:text="오픈 라이선스"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_Setting_Info" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_Setting_Info_App"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="6dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Setting_Info2" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <TextView
         android:layout_width="wrap_content"
@@ -93,5 +108,4 @@
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

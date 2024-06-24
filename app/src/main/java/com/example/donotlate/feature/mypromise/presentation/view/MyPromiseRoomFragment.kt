@@ -12,8 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.core.presentation.CurrentUser
+import com.example.donotlate.databinding.DialogRadiobuttonBinding
 import com.example.donotlate.databinding.FragmentMyPromiseRoomBinding
 import com.example.donotlate.feature.directionRoute.presentation.LocationUtils
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
@@ -66,13 +69,9 @@ class MyPromiseRoomFragment : Fragment() {
 
     private var promiseRoom: PromiseModel? = null
     private var currentUserData = CurrentUser.userData
-    private var roomTitle: String? = null
-    private var promiseDate: String? = null
-    private var promiseTime: String? = null
     private var roomId: String? = null
     private var roomDestination: String? = null
-    private var roomPenalty: String? = null
-    private var roomParticipants: List<String>? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -129,6 +128,7 @@ class MyPromiseRoomFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMyPromiseRoomBinding.inflate(layoutInflater)
+
         return binding.root
     }
 
@@ -140,21 +140,26 @@ class MyPromiseRoomFragment : Fragment() {
 
         observeViewModel()
 
+        setViewMore()
+
         promiseRoom?.let { room ->
 
-            promiseTime = room.promiseTime
-            roomPenalty = room.penalty
-            roomParticipants = room.participants
 
-            promiseDate = room.promiseDate
-            roomTitle = room.roomTitle
             roomId = room.roomId
-            roomDestination = room.destination
 
             myPromiseViewModel.setDestinationLatLng(room.destinationLat, room.destinationLng)
 
+            binding.tvRoomTitleDetail.text = room.roomTitle
             binding.tvRoomTitle.text = room.roomTitle
             binding.tvRoomPromiseDate.text = room.promiseDate
+            binding.tvRoomPromiseTime.text = room.promiseTime
+            if (room.penalty.isNullOrEmpty()) {
+                binding.tvRoomPromisePenalty.text = "벌칙은 따로 없습니다!"
+            } else {
+                binding.tvRoomPromisePenalty.text = room.penalty
+            }
+            binding.tvRoomPromiseParticipants.text = room.participants.toString()
+
             loadToMessageFromFireStore(room.roomId)
         }
 
@@ -200,7 +205,6 @@ class MyPromiseRoomFragment : Fragment() {
             }
         }
 
-        setViewMore(binding.tvRoomTitle, binding.tvRoomPromiseDate, binding.tvRoomTitle)
 
         binding.btnDeparture.setOnClickListener {
             //TODO 여기서도 checkPermissionAndProceed를 쓰는 게 나은거 맞겠지..?
@@ -212,6 +216,7 @@ class MyPromiseRoomFragment : Fragment() {
             binding.btnArrived.isVisible = false
         }
     }
+
     private fun showModeDialog() {
         val selectionDialog = RadioButtonDialog() {
 
@@ -318,11 +323,11 @@ class MyPromiseRoomFragment : Fragment() {
 //                val oldItemCount = adapter.itemCount
                 adapter.submitList(message) {
                     binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
-                     /*새로운 메시지가 왔을 때 최하단으로 내려가는 로직(이부분 수정해서 올드 아이템갯수랑 아이템갯수랑 리스트의 아이템 갯수 차이를 구해서
-                     플로팅 버튼을 띄워서 최하단으로 내려갈 수 있도록 하면 좋을 듯?
-                    if (oldItemCount != adapter.itemCount) {
-                        binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
-                    }*/
+                    /*새로운 메시지가 왔을 때 최하단으로 내려가는 로직(이부분 수정해서 올드 아이템갯수랑 아이템갯수랑 리스트의 아이템 갯수 차이를 구해서
+                    플로팅 버튼을 띄워서 최하단으로 내려갈 수 있도록 하면 좋을 듯?
+                   if (oldItemCount != adapter.itemCount) {
+                       binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
+                   }*/
                 }
             }
         }
@@ -431,25 +436,19 @@ class MyPromiseRoomFragment : Fragment() {
         Log.d("확인", "4")
     }
 
-    private fun setViewMore(
-        contentTextView: TextView,
-        contentTextView2: TextView,
-        viewMoreTextView: TextView
-    ) {
-        // getEllipsisCount()을 통한 더보기 표시 및 구현
-        contentTextView.post {
-            val lineCount = contentTextView.layout.lineCount
-            if (lineCount > 0) {
-                if (contentTextView.layout.getEllipsisCount(lineCount - 1) > 0) {
-                    // 더보기 표시
-                    viewMoreTextView.visibility = View.VISIBLE
-                    // 더보기 클릭 이벤트
-                    viewMoreTextView.setOnClickListener {
-                        contentTextView.maxLines = Int.MAX_VALUE
-                        viewMoreTextView.visibility = View.VISIBLE
-                        contentTextView2.visibility = View.VISIBLE
-
-                    }
+    private fun setViewMore() {
+        binding.clTopTitleBorder.setOnClickListener {
+            if (binding.clTopTitleBorderDetail.visibility == View.VISIBLE) {
+                binding.clTopTitleBorderDetail.visibility = View.GONE
+                binding.ivPromiseRoom.animate().apply {
+                    duration = 100
+                    rotation(0f)
+                }
+            } else {
+                binding.clTopTitleBorderDetail.visibility = View.VISIBLE
+                binding.ivPromiseRoom.animate().apply {
+                    duration = 100
+                    rotation(180f)
                 }
             }
         }

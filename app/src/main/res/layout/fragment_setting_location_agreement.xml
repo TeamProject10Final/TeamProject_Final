@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="40dp"
             android:text="위치정보 이용 동의"
-            android:textSize="25sp"
+            android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,6 +44,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
             android:text="@string/location" />
 
     </ScrollView>

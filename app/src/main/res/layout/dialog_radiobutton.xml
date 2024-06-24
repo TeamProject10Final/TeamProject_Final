@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_Radio1"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,7 +17,7 @@
 
         <RadioGroup
             android:id="@+id/radioGroup"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -25,6 +25,7 @@
             <RadioButton
                 android:id="@+id/rb_Transit"
                 android:text="대중교통"
+                android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -36,6 +37,7 @@
             <RadioButton
                 android:id="@+id/rb_Driving"
                 android:text="자동차"
+                android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -47,6 +49,7 @@
             <RadioButton
                 android:id="@+id/rb_Walking"
                 android:text="도보"
+                android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -58,6 +61,7 @@
             <RadioButton
                 android:id="@+id/rb_Bicycling"
                 android:text="자전거"
+                android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

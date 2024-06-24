@@ -86,8 +86,10 @@ class ViewPagerFragment : Fragment() {
         }
     }
 
+    //관찰할때랑 collect할 때에는 항상 view의 lifecycle을 따라야 함
+
     private fun nextPage() {
-        roomViewModel.modelCurrent.observe(requireActivity()) {
+        roomViewModel.modelCurrent.observe(viewLifecycleOwner) {
             val viewPager = binding.viewPager
             val current = viewPager.currentItem
             viewPager.setCurrentItem(current + 1, true)
