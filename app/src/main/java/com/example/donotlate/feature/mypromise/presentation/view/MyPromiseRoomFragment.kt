@@ -373,14 +373,6 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
                         }
                     }
                 }
-                launch {
-                    myPromiseViewModel.messageSendResult.collect {
-                        if (it) {
-                            Toast.makeText(requireContext(), "Message sent!", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    }
-                }
             }
         }
     }
