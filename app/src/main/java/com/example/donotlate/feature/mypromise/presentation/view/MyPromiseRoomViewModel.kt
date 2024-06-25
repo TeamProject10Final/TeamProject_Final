@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.donotlate.core.domain.usecase.promiseusecase.RemoveParticipantsUseCase
 import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.core.util.parseTime
@@ -53,7 +55,7 @@ class MyPromiseRoomViewModel(
     private val getDirectionsUseCase: GetDirectionsUseCase,
     private val removeParticipantsUseCase: RemoveParticipantsUseCase,
     private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase,
-    private val savedStateHandle: SavedStateHandle = SavedStateHandle()
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private var checkArrivalStatusJob: Job? = null
     private var foundCountry: String? = null
@@ -130,7 +132,7 @@ class MyPromiseRoomViewModel(
                     loadMessage()
                 }
             } ?: run {
-                sendWrongAccessMessage()
+                sendWrongAccessMessage("feioaje;oajgo;jfk")
             }
         }
     }
@@ -142,8 +144,8 @@ class MyPromiseRoomViewModel(
     private suspend fun checkIsUserHasArrived() {
         if (this.promiseRoom.value?.hasArrived?.get(CurrentUser.userData?.uId) == true) {
             _isArrived.send(element = true)
-        } else {
-            sendWrongAccessMessage()
+//        } else {
+//           // sendWrongAccessMessage("3rd")
         }
     }
 
@@ -152,7 +154,7 @@ class MyPromiseRoomViewModel(
             val userLatLng = LatLng(it.latitude, it.longitude)
             lastLocation = userLatLng
             setUserLocation(location = it)
-            getDirections()
+//            getDirections()
         }
     }
 
@@ -167,15 +169,23 @@ class MyPromiseRoomViewModel(
         this.foundCountry = foundCountry
     }
 
+    fun showDialogSelectionAction() {
+        viewModelScope.launch {
+            _myPromiseRoomEvent.emit(
+                value = MyPromiseRoomEvent.ShowDialogSelection(
+                    routeSelections = routeSelectionText
+                )
+            )
+        }
+    }
+
     fun checkCountryAndGetRouteSelection() {
         viewModelScope.launch {
+            Log.d("확인 foundCountry", "${this@MyPromiseRoomViewModel.foundCountry}")
             when (this@MyPromiseRoomViewModel.foundCountry) {
                 SOUTH_KOREA_KR, SOUTH_KOREA_EN -> {
-                    _myPromiseRoomEvent.emit(
-                        value = MyPromiseRoomEvent.ShowDialogSelection(
-                            routeSelections = routeSelectionText
-                        )
-                    )
+                    getDirections()
+//                    showDialogSelectionAction()
                 }
 
                 null -> {
@@ -255,7 +265,7 @@ class MyPromiseRoomViewModel(
         }
     }
 
-    private fun getDirections() {
+    fun getDirections() {
         viewModelScope.launch {
             try {
                 val result = getDirectionsUseCase(
@@ -265,6 +275,7 @@ class MyPromiseRoomViewModel(
                 )
                 directionsResult = result.toModel()
                 setRouteSelectionText()
+                showDialogSelectionAction()
             } catch (e: Exception) {
                 sendWrongAccessMessage(message = e.message ?: "Unknown Error")
             }
@@ -273,6 +284,7 @@ class MyPromiseRoomViewModel(
 
 
     fun setMode(key: String) {
+        Log.d("확인 setmode", key)
         _mode.value = key
     }
 
@@ -362,7 +374,7 @@ class MyPromiseRoomViewModel(
         Log.d("확인 리스트 인덱스", "${resultsList.size}")
         routeSelectionText = resultsList
         Log.d("확인 setDirections", "stringbuilder $resultsList")
-        Log.d("확인 setDirections 1", resultsList[2])
+        //Log.d("확인 setDirections 1", resultsList[2])
     }
 
     private suspend fun loadMessage() {
@@ -400,7 +412,7 @@ class MyPromiseRoomViewModel(
             ).onEach { result ->
                 _messageSendResults.value = result
             }.catch {
-                sendWrongAccessMessage()
+                sendWrongAccessMessage("4th")
             }.launchIn(scope = viewModelScope)
         }
     }
@@ -413,7 +425,7 @@ class MyPromiseRoomViewModel(
             removeParticipantsUseCase(roomId = roomId, participantId = uid).onEach {
                 _removeParticipantIdResult.value = it
             }.catch {
-                sendWrongAccessMessage()
+                sendWrongAccessMessage("5th")
             }.collect()
         }
     }
@@ -427,7 +439,7 @@ class MyPromiseRoomViewModel(
                 currentArrivals[uid] = true
                 _hasArrived.value = currentArrivals.toMap()
             }.catch {
-                sendWrongAccessMessage()
+                sendWrongAccessMessage("2nd")
             }.collect()
         }
     }
@@ -461,7 +473,7 @@ class MyPromiseRoomViewModel(
         checkArrivalStatusJob = viewModelScope.launch {
             while (true) {
                 checkArrivalStatus(room = promiseRoom.value ?: return@launch)
-                delay(1_000)
+                delay(5_000)
             }
         }
     }
@@ -501,7 +513,7 @@ class MyPromiseRoomViewModelFactory(
     private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase
 ) :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
         if (modelClass.isAssignableFrom(MyPromiseRoomViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return MyPromiseRoomViewModel(
@@ -509,7 +521,8 @@ class MyPromiseRoomViewModelFactory(
                 messageReceivingUseCase,
                 getDirectionsUseCase,
                 removeParticipantsUseCase,
-                updateArrivalStatusUseCase
+                updateArrivalStatusUseCase,
+                extras.createSavedStateHandle()
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

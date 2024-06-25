@@ -103,6 +103,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
         checkPermissionAndProceed()
         listenToObservers()
         collectFlows()
+        startLocationUpdates()
     }
 
     private fun setLocationCallbacks() {
@@ -170,7 +171,6 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
 
         binding.ivRoomMap.setOnClickListener {
             //TODO 4 대한민국일 때 이 부분은 건너뜀... showModeDialog 전까지 다 주석처리하고 에러 잡은 뒤 다시 살리기
-            checkPermissionAndProceed()
             myPromiseViewModel.checkCountryAndGetRouteSelection()
         }
 
@@ -366,9 +366,11 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
     private fun showModeDialog() {
         val selectionDialog = RadioButtonDialog {
             //     lifecycleScope.launch {
-            checkPermissionAndProceed()
+//            checkPermissionAndProceed()
             //      yield()
-//                showDialogSelection()
+            myPromiseViewModel.setMode(it)
+            myPromiseViewModel.getDirections()
+//            myPromiseViewModel.showDialogSelectionAction()
             /*myPromiseViewModel.routeSelectionText.observe(viewLifecycleOwner) {
                 Log.d("확인 routeS", "몇번?")
                 if (it != null) {
@@ -383,6 +385,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
     }
 
     private fun showDialogSelection(selections: List<String>) {
+        Log.d("확인 selection empty", "${selections.isEmpty()}")
         if (selections.isEmpty()) return
         val routeSelectionDialog = RadioButtonSelectionDialog(selections) {
             //라디오 버튼 선택 뒤의 로직

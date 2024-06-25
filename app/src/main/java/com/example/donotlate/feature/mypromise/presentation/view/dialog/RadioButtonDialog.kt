@@ -11,27 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
-import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.DialogRadiobuttonBinding
 import com.example.donotlate.feature.mypromise.presentation.model.Mode
-import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModel
-import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModelFactory
 
-class RadioButtonDialog(private val callback: () -> Unit) :
+class RadioButtonDialog(private val callback: (String) -> Unit) :
     DialogFragment() {
-
-    private val myPromiseViewModel: MyPromiseRoomViewModel by activityViewModels {
-        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        MyPromiseRoomViewModelFactory(
-            appContainer.messageSendingUseCase,
-            appContainer.messageReceivingUseCase,
-            appContainer.getDirectionsUseCase,
-            appContainer.removeParticipantsUseCase,
-            appContainer.updateArrivalStatusUseCase
-        )
-    }
 
     private var _binding: DialogRadiobuttonBinding? = null
     private val binding get() = _binding!!
@@ -82,8 +67,7 @@ class RadioButtonDialog(private val callback: () -> Unit) :
                     else -> null
                 }
                 selectedKey?.let { key ->
-                    myPromiseViewModel.setMode(key)
-                    callback()
+                    callback(key)
                     dismiss()
                 }
             }
