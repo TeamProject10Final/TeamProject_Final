@@ -160,7 +160,7 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
     private fun setPenalty3StatusView(status: Int?) {
         when (status) {
             0 -> {
-                binding.btnPenalty.setText("벌금 없음")
+                binding.btnPenalty.setText("${resources.getString(R.string.cal1_frgment_text3)}")
                 binding.btnPenalty.setBackgroundResource(R.drawable.btn_info_round_gray)
                 binding.etDes24.isVisible = false
                 binding.tvDes24.isVisible = false

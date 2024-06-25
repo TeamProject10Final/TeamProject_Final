@@ -57,7 +57,7 @@
     <string name="cal2_btn_text">다음</string>
 
     <!--정산하기 두번째 페이지(Fragment)-->
-    <string name="cal_frgment_text1">모든 필드를 입력하세요.</string>
+    <string name="cal_frgment_text1">필수 항목을 입력해주세요.</string>
 
     <!--정산하기 세번째 페이지-->
     <string name="cal3_top_title1">현기증 난단 말이에요,</string>
@@ -76,6 +76,7 @@
     <!--정산하기 세번째 페이지(Fragment)-->
     <string name="cal1_frgment_text1">나의 벌금추가</string>
     <string name="cal1_frgment_text2">동료의 벌금추가</string>
+    <string name="cal1_frgment_text3">벌금 없음</string>
 
     <!--정산하기 세번째 페이지-->
     <string name="cal4_top_title1">정산결과</string>
@@ -110,7 +111,7 @@
 
     <!--친구 페이지-->
     <string name="friend_text1">내 친구 목록</string>
-    <string name="friend_btn_text">요청된 친구 목록</string>
+    <string name="friend_btn_text">요청받은 친구 목록</string>
 
     <!--친구요청 페이지-->
     <string name="friend_request_top_title">새로운 친구를 찾아볼까요?</string>

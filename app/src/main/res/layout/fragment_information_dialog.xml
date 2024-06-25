@@ -22,7 +22,7 @@
             android:text="@string/dialog_info_text1"
             android:textColor="@color/textColor"
             android:layout_margin="25dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +33,7 @@
             android:layout_marginStart="3dp"
             android:text="@string/dialog_info_text2"
             android:textColor="@color/dark_gray"
-            android:textSize="12dp"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/tv_Info1"
             app:layout_constraintTop_toBottomOf="@+id/tv_Info1" />
 
@@ -69,7 +69,7 @@
                     android:layout_marginStart="10dp"
                     android:text="@string/setting_info_text6"
                     android:textColor="@color/dark_gray"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_Check_Top1"
                     app:layout_constraintStart_toEndOf="@id/iv_Check_Top1"
                     app:layout_constraintTop_toTopOf="@id/iv_Check_Top1" />
@@ -119,7 +119,7 @@
                         android:padding="2dp"
                         android:text="@string/dialog_info_text3"
                         android:textColor="@color/dark_gray"
-                        android:textSize="13dp"
+                        android:textSize="13sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -192,7 +192,7 @@
                         android:padding="2dp"
                         android:text="@string/dialog_info_text3"
                         android:textColor="@color/dark_gray"
-                        android:textSize="13dp"
+                        android:textSize="13sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -264,7 +264,7 @@
                         android:padding="2dp"
                         android:text="@string/dialog_info_text3"
                         android:textColor="@color/dark_gray"
-                        android:textSize="13dp"
+                        android:textSize="13sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -285,7 +285,7 @@
                         android:padding="2dp"
                         android:text="@string/dialog_info_text6"
                         android:textColor="@color/dark_gray"
-                        android:textSize="13dp"
+                        android:textSize="13sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -309,10 +309,11 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorMain2"
                 android:background="@drawable/btn_info_round_lilac"
-                android:text="취소"
+                android:text="@string/dialog_back_text4"
+                android:textAllCaps="false"
                 android:layout_marginStart="1dp"
                 android:textColor="@color/white"
-                android:textSize="17dp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/btn_Info_Confirm"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -326,9 +327,10 @@
                 android:backgroundTint="@color/colorMain1"
                 android:background="@drawable/btn_info_round_arctic"
                 android:enabled="false"
-                android:text="동의"
+                android:text="@string/dialog_back_text3"
+                android:textAllCaps="false"
                 android:textColor="@color/textColor"
-                android:textSize="17dp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -342,9 +344,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_info_darkgray"
                 android:enabled="false"
-                android:text="동의"
+                android:text="@string/dialog_back_text3"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="17dp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
