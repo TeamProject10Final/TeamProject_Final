@@ -49,13 +49,6 @@ class SettingEmailFragment : Fragment() {
         _binding = null
     }
 
-//    private fun sendEmail() {
-//        val intent = Intent(Intent.ACTION_SENDTO).apply {
-//            type = "text/plain"
-//            putExtra(Intent.EXTRA_EMAIL, "sp10nomorelateness@gmail.com")
-//        }
-//        requireActivity().startActivity(Intent.createChooser(intent, "메일 전송하기"))
-//    }
 
     private fun backButton() {
         binding.ivSettingEmailBack.setOnClickListener {
@@ -68,5 +61,4 @@ class SettingEmailFragment : Fragment() {
                 .commit()
         }
     }
-
 }

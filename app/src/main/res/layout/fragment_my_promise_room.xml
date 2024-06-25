@@ -200,7 +200,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_send"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:layout_marginEnd="15sp"
             android:background="@drawable/btn_radius_arctic"
             android:text="@string/chat_send"

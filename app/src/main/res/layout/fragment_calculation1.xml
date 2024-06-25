@@ -109,6 +109,7 @@
                 android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:focusable="false"
+                android:hint="@string/image_user"
                 android:focusableInTouchMode="false"
                 android:textCursorDrawable="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="@id/etDes11"

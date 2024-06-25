@@ -139,8 +139,8 @@
 
             <Switch
                 android:id="@+id/swDarkMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginEnd="39dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvItem"
                 app:layout_constraintEnd_toEndOf="parent"
