@@ -89,7 +89,6 @@
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:gravity="start"
-                    android:hint="아이콘을 눌러 날짜를 선택 해주세요"
                     android:paddingStart="3dp"
                     android:paddingBottom="15dp"
                     android:textCursorDrawable="@android:color/transparent"
