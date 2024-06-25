@@ -90,17 +90,6 @@
     <string name="map_detail">자세히</string>
 
 
-    <!--미니 게임-->
-    <string name="number1">1번</string>
-    <string name="number2">2번</string>
-    <string name="number3">3번</string>
-    <string name="number4">4번</string>
-    <string name="number5">5번</string>
-    <string name="number6">6번</string>
-    <string name="number7">7번</string>
-    <string name="number8">8번</string>
-    <string name="complete">입력 완료</string>
-
     <!--로그인 페이지-->
     <string name="login_top_title1">환영합니다.</string>
     <string name="login_top_title2">로그인</string>
@@ -224,6 +213,8 @@
     <string name="search_detail_text1">주소</string>
     <string name="search_detail_text2">전화 번호</string>
     <string name="search_detail_text3">위치 정보</string>
+    <string name="search_detail_text4">번호가 제공되지 않습니다.</string>
+    <string name="search_detail_text5">영업시간은 가게 측에 문의해주세요.</string>
     <string name="search_detail_btn_text">길찾기</string>
 
     <!--설정 페이지-->

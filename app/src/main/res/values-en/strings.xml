@@ -89,16 +89,6 @@
     <string name="map_complete">Complete</string>
     <string name="map_detail">Details</string>
 
-    <!--미니 게임-->
-    <string name="number1">no.1</string>
-    <string name="number2">no.1</string>
-    <string name="number3">no.1</string>
-    <string name="number4">no.1</string>
-    <string name="number5">no.1</string>
-    <string name="number6">no.1</string>
-    <string name="number7">no.1</string>
-    <string name="number8">no.1</string>
-    <string name="complete">Finish</string>
 
     <!--로그인 페이지-->
     <string name="login_top_title1">Please proceed to</string>
@@ -223,6 +213,8 @@
     <string name="search_detail_text1">Address</string>
     <string name="search_detail_text2">Phone Number</string>
     <string name="search_detail_text3">location information</string>
+    <string name="search_detail_text4">No number provided.</string>
+    <string name="search_detail_text5">Please contact the store\nfor business hours.</string>
     <string name="search_detail_btn_text">Get Directions</string>
 
     <!--설정 페이지-->
