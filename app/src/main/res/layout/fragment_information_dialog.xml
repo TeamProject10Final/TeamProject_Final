@@ -335,7 +335,7 @@
                 android:enabled="false"
                 android:textAllCaps="false"
                 android:text="@string/dialog_back_text5"
-                android:textColor="@color/textColor"
+                android:textColor="@color/white"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:visibility="invisible"
