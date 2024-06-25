@@ -15,6 +15,7 @@ import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.core.util.parseTime
 import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
 import com.example.donotlate.feature.directionRoute.presentation.DirectionsModel
+import com.example.donotlate.feature.directionRoute.presentation.LocationUtils
 import com.example.donotlate.feature.directionRoute.presentation.toModel
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageReceivingUseCase
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseCase
@@ -61,6 +62,7 @@ class MyPromiseRoomViewModel(
 ) : ViewModel() {
     private var checkArrivalStatusJob: Job? = null
     private var foundCountry: String? = null
+    private var destCountry: String? = null
     private var currentRoomId: String? = null
     private var isDeparted = false
     private var lastLocation: LatLng? = null
@@ -68,6 +70,8 @@ class MyPromiseRoomViewModel(
     private var destinationLatLng: LatLng? = null
     private var destinationString: String = ""
     private var directionsResult: DirectionsModel? = null
+
+    private val locationUtils by lazy { LocationUtils() }
 
     //경로 선택하기 전 보여줄 간단한 소개들
     private var routeSelectionText: List<String> = emptyList()
@@ -149,16 +153,6 @@ class MyPromiseRoomViewModel(
         _error.send(element = message)
     }
 
-//TODO
-//    fun getDesCountry(): String? {
-//        if (desCountry.value != null) {
-//            return desCountry.value!!
-//        } else {
-//            _error.postValue("다시 시도해 주세요.")
-//            return null
-//        }
-//    }
-
     private suspend fun checkIsUserHasArrived() {
         if (this.promiseRoom.value?.hasArrived?.get(CurrentUser.userData?.uId) == true) {
             _isArrived.send(element = true)
@@ -183,6 +177,10 @@ class MyPromiseRoomViewModel(
         calculateDistance()
     }
 
+    fun setDestCountry(destCountry: String?) {
+        this.destCountry = destCountry
+    }
+
     fun setFoundCountry(foundCountry: String?) {
         this.foundCountry = foundCountry
     }
@@ -199,6 +197,10 @@ class MyPromiseRoomViewModel(
 
     fun checkCountryAndGetRouteSelection() {
         viewModelScope.launch {
+            if (!checkTwoCountry()) {
+                sendWrongAccessMessage("출발 국가와 도착 국가가 일치하지 않습니다.")
+                return@launch
+            }
             Log.d("확인 foundCountry", "${this@MyPromiseRoomViewModel.foundCountry}")
             when (this@MyPromiseRoomViewModel.foundCountry) {
                 SOUTH_KOREA_KR, SOUTH_KOREA_EN -> {
@@ -281,6 +283,17 @@ class MyPromiseRoomViewModel(
         } else {
             Log.d("확인 setDestLoca", "null")
         }
+    }
+
+    fun getDestinationLatLng(): LatLng? {
+        destinationLatLng?.let {
+            return it
+        }
+        return null
+    }
+
+    fun checkTwoCountry(): Boolean {
+        return destCountry == foundCountry
     }
 
     fun getDirections() {
