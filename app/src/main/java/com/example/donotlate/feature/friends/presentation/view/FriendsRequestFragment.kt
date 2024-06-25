@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
@@ -20,7 +20,7 @@ import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
 import kotlinx.coroutines.launch
 
 class FriendsRequestFragment : Fragment() {
-    private val friendsViewModel: FriendsViewModel by activityViewModels {
+    private val friendsViewModel: FriendsViewModel by viewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         FriendsViewModelFactory(
             appContainer.getFriendsListFromFirebaseUseCase,

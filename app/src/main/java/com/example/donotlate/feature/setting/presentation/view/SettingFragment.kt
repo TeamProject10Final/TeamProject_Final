@@ -20,6 +20,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.databinding.FragmentSettingBinding
 import com.example.donotlate.feature.auth.presentation.view.LoginFragment
 import com.example.donotlate.feature.main.presentation.view.MainFragment
@@ -86,6 +87,7 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
                         ).show()
 
                         SettingsEvent.LoggedOut -> {
+                            CurrentUser.clearData()
                             parentFragmentManager.popBackStack(
                                 null,
                                 FragmentManager.POP_BACK_STACK_INCLUSIVE

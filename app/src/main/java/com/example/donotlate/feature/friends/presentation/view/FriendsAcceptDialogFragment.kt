@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.FragmentRequestDialogBinding
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 class FriendsAcceptDialogFragment : DialogFragment() {
 
-    private val friendsViewModel: FriendsViewModel by activityViewModels {
+    private val friendsViewModel: FriendsViewModel by viewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         FriendsViewModelFactory(
             appContainer.getFriendsListFromFirebaseUseCase,

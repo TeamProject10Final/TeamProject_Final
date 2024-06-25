@@ -26,6 +26,7 @@ class SettingsViewModel(private val sessionManager: SessionManager) : ViewModel(
         }
     }
 
+
 }
 
 sealed interface SettingsEvent {
