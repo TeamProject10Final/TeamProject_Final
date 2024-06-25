@@ -17,7 +17,8 @@ data class PromiseRoomModel(
     val penalty: String,
     val participants: List<String>,
     val hasArrived: Map<String, Boolean> = mutableMapOf(),
-    val participantsNames: Map<String, String> = mutableMapOf()
+    val participantsNames: Map<String, String> = mutableMapOf(),
+    val hasDeparture: Map<String, Boolean> = mutableMapOf()
     // key = uid, value = name
     // uid를 키로 검색해서, 해당 인덱스 삭제?
 //    val participantsNames: Map<String, String>

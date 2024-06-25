@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:clickable="true"
+    android:background="@color/backGround"
     tools:context=".feature.mypromise.presentation.view.MyPromiseRoomFragment">
 
     <ImageView
@@ -17,47 +17,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_room_map"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_map"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_departure"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15sp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/btn_radius_lilac"
-        android:text="출발"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_arrived"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15sp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/btn_radius_lilac"
-        android:text="도착"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -210,6 +173,8 @@
         android:id="@+id/cl_Chat1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/et_custom"
         android:padding="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -233,7 +198,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:theme="@style/EditTextStyle" />
 
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_send"
             android:layout_width="wrap_content"
@@ -248,16 +212,66 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/et_input_message" />
 
-        <Button
-            android:id="@+id/btn_room_exit"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:layout_constraintBottom_toTopOf="@id/btn_send"
-            app:layout_constraintEnd_toEndOf="@id/btn_send"
-            app:layout_constraintStart_toStartOf="@id/btn_send" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/btn_room_exit"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_out"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_chat_room_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_chat_room_back" />
+
+    <LinearLayout
+        android:id="@+id/btn_departure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/btn_radius_lilac"
+        android:paddingHorizontal="7dp"
+        android:paddingVertical="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_chat_room_back"
+        app:layout_constraintEnd_toStartOf="@+id/btn_room_exit"
+        app:layout_constraintTop_toTopOf="@+id/iv_chat_room_back">
+
+        <TextView
+            android:id="@+id/tvText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:gravity="center"
+            android:text="출발"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="271dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <ImageView
+            android:id="@+id/iv_departure"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/ic_start" />
+
+        <ImageView
+            android:id="@+id/iv_room_map"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/ic_map"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/btn_arrived"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/ic_check"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

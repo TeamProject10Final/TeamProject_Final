@@ -79,6 +79,9 @@ class DirectionsViewModel1(
     private val _userLocation = MutableLiveData<LatLng>()
     val userLocation: LiveData<LatLng> get() = _userLocation
 
+    private val _destLocationLatLng = MutableLiveData<LatLng>()
+    val destLocationLatLng: LiveData<LatLng> get() = _destLocationLatLng
+
     private val _directionExplanations = MutableLiveData<String>()
     val directionExplanations: LiveData<String> get() = _directionExplanations
 
@@ -103,6 +106,27 @@ class DirectionsViewModel1(
             return null
         }
     }
+
+    fun setDesCountry(country: String) {
+        _destCountry.value = country
+        getDesCountry()
+    }
+
+    fun checkTwoCountry(): Boolean {
+        return destCountry.value == country.value
+    }
+
+    fun getDesCountry(): String? {
+        if (destCountry.value != null) {
+            return destCountry.value!!
+        } else {
+            _error.postValue("목적지를 다시 입력해 주세요.")
+            return null
+        }
+    }
+
+    private val _destCountry = MutableLiveData<String>()
+    val destCountry: LiveData<String> = _destCountry
 
     fun changeIsDepArrNone() {
         if (_isDepArrNone.value!! <= 0) {
@@ -129,10 +153,18 @@ class DirectionsViewModel1(
     }
 
     fun checkAvailable() {
-        if ((!checkCountry()) && _mode.value != "select") {
-            //_error.postValue("${country.value}에서는 ${_mode.value}의 경로가 제공되지 않습니다.")
-            Log.d("확인 에러 1", "${_mode.value}")
+        if (country.value == null || destCountry.value == null) {
+            _error.postValue("다시 검색해 주세요.")
+        } else {
+            if ((!checkCountry()) && _mode.value != "select") {
+                _error.postValue("${country.value}에서는 ${_mode.value}의 경로가 제공되지 않습니다.")
+                Log.d("확인 에러 1", "${_mode.value}")
+            }
+            if (country.value != destCountry.value) {
+                _error.postValue("출발지(${country.value})와 도착지(${destCountry.value})가 일치하지 않습니다.")
+            }
         }
+
     }
 
     fun setTransitMode(tm: TransitMode) {
@@ -197,6 +229,7 @@ class DirectionsViewModel1(
 
     fun setDestination(destination: String) {
         _destination.value = destination
+
     }
 
     //세부사항 없이 transit | driving | walking | bicycling
@@ -341,6 +374,10 @@ class DirectionsViewModel1(
     fun setUserLocation(location: LatLng) {
         _userLocation.value = location
         _origin.value = getUserLocationString()!!
+    }
+
+    fun setDestLocation(location: LatLng) {
+        _destLocationLatLng.value = location
     }
 
     private fun updatePolyLineWithColors() {
@@ -573,7 +610,7 @@ class DirectionsViewModel1(
             Log.d("확인 setDirections", "${_directionsResult.value}")
             formatRouteSelectionText(_directionsResult.value!!)
         } else {
-            _error.postValue("_direction null")
+            _error.postValue("출발지와 목적지를 다시 확인해 주세요.")
             Log.d("확인 setDirections", "null")
             _routeSelectionText.postValue(emptyList())
             //emptyOrNull
@@ -636,7 +673,6 @@ class DirectionsViewModel1(
         Log.d("확인 리스트 인덱스", "${resultsList.size}")
         _routeSelectionText.value = resultsList
         Log.d("확인 setDirections", "stringbuilder ${resultsList}")
-        Log.d("확인 setDirections 1", "${resultsList[2]}")
     }
 }
 

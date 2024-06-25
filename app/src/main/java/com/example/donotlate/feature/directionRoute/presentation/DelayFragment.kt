@@ -1,8 +1,7 @@
 package com.example.donotlate.feature.directionRoute.presentation
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,7 @@ import com.example.donotlate.AppContainer
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentDelayBinding
-import com.example.donotlate.databinding.FragmentMapBinding
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import com.google.android.gms.maps.model.LatLng
 
 class DelayFragment : Fragment() {
 
@@ -42,9 +39,24 @@ class DelayFragment : Fragment() {
         arguments?.let {
             //currentUserLocation = it.getString("currentUserLocation").toString()
             currentDestination = it.getString("destination").toString()
+            val currentDestLat = it.getDouble("des lat").toString().toDouble()
+            val currentDestLng = it.getDouble("des lng").toString().toDouble()
+
+            sharedViewModel.setDestination(currentDestination)
+            val destLatLng = LatLng(currentDestLat, currentDestLng)
+            sharedViewModel.setDestLocation(destLatLng)
+            val locationUtils = LocationUtils()
+            val destCountry = locationUtils.getCountryFromLatLng(
+                requireContext(),
+                currentDestLat,
+                currentDestLng
+            )
+            destCountry?.let {
+                Log.d("확인 도착지 나라", it)
+                sharedViewModel.setDesCountry(it)
+            }
         }
 
-        sharedViewModel.setDestination(currentDestination)
 
         //searchDirections()
     }
