@@ -42,6 +42,7 @@
     <color name="backGround">#FFFFFF</color>
     <color name="whiteBg">#FFFFFF</color>
     <color name="whiteBg2">#FFFFFF</color>
+    <color name="grayBg">#EDEDED</color>
 
 
     <color name="icBg">#000000</color>

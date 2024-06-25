@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    tools:context=".feature.setting.presentation.view.MyPageFragment">
+    tools:context=".feature.setting.presentation.view.MyPageFragment"
+    android:background="@color/backGround">
 
 
     <ImageView

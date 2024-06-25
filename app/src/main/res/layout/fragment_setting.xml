@@ -5,6 +5,7 @@
     android:id="@+id/fg_Setting"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backGround"
     tools:context=".feature.setting.presentation.view.SettingFragment">
 
     <ImageView
@@ -21,7 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_Login2"
         app:layout_constraintTop_toBottomOf="@+id/ivBack">
 
         <androidx.constraintlayout.widget.ConstraintLayout

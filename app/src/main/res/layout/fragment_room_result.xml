@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.room.presentation.view.RoomResultFragment">
+    tools:context=".feature.room.presentation.view.RoomResultFragment"
+    android:background="@color/backGround">
 
     <ImageView
         android:id="@+id/iv_Result_Back"

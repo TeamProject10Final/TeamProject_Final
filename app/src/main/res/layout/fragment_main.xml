@@ -5,6 +5,7 @@
     android:id="@+id/fragment_Main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backGround"
     tools:context=".feature.main.presentation.view.MainFragment">
 
 

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.setting.presentation.view.question.SettingQuestionFragment">
+    tools:context=".feature.setting.presentation.view.question.SettingQuestionFragment"
+    android:background="@color/backGround">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
