@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.donotlate.R
+import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.databinding.FragmentSettingEmailBinding
 import com.example.donotlate.feature.main.presentation.view.MainFragment
 
@@ -16,6 +17,8 @@ class SettingEmailFragment : Fragment() {
 
     private var _binding: FragmentSettingEmailBinding? = null
     private val binding get() = _binding!!
+
+    private val userData = CurrentUser.userData
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +40,8 @@ class SettingEmailFragment : Fragment() {
 
         backButton()
 
+        binding.tvSettingQName.text = userData?.name
+
     }
 
     override fun onDestroyView() {
@@ -44,13 +49,6 @@ class SettingEmailFragment : Fragment() {
         _binding = null
     }
 
-//    private fun sendEmail() {
-//        val intent = Intent(Intent.ACTION_SENDTO).apply {
-//            type = "text/plain"
-//            putExtra(Intent.EXTRA_EMAIL, "sp10nomorelateness@gmail.com")
-//        }
-//        requireActivity().startActivity(Intent.createChooser(intent, "메일 전송하기"))
-//    }
 
     private fun backButton() {
         binding.ivSettingEmailBack.setOnClickListener {
@@ -63,5 +61,4 @@ class SettingEmailFragment : Fragment() {
                 .commit()
         }
     }
-
 }

@@ -13,7 +13,8 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -34,8 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="30dp"
-                android:text="약속결과"
-                android:textSize="35dp"
+                android:text="@string/room_result_text1"
+                android:textSize="35sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -45,8 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="입니다."
-                android:textSize="25dp"
+                android:text="@string/room_result_text2"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_Result_1"
                 app:layout_constraintStart_toEndOf="@id/tv_Result_1" />
@@ -55,8 +56,8 @@
                 android:id="@+id/tv_Result_3"
                 android:layout_width="357dp"
                 android:layout_height="wrap_content"
-                android:text="확인해주세요."
-                android:textSize="25dp"
+                android:text="@string/room_result_text3"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tv_Result_1"
                 app:layout_constraintTop_toBottomOf="@id/tv_Result_1" />
@@ -82,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
-                        android:text="약속 이름"
+                        android:text="@string/room_result_text4"
                         android:textColor="@color/dark_gray"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="약속 날짜"
+                        android:text="@string/room_result_text5"
                         android:textColor="@color/dark_gray"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Title"
@@ -127,7 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="약속 시간"
+                        android:text="@string/room_result_text5"
                         android:textColor="@color/dark_gray"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Date"
@@ -150,7 +151,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="벌칙 내용"
+                        android:text="@string/room_result_text6"
                         android:textColor="@color/dark_gray"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Time"
@@ -172,7 +173,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="참여자"
+                        android:text="@string/room_result_text7"
                         android:textColor="@color/dark_gray"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Penalty"
@@ -194,13 +195,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="약속 장소"
+                        android:text="@string/room_result_text8"
                         android:textColor="@color/dark_gray"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="@id/tv_Result_Detail_Friend"
                         app:layout_constraintTop_toBottomOf="@id/tv_Result_Detail_Friend" />
 
-                    <fragment
+                    <androidx.fragment.app.FragmentContainerView
                         android:id="@+id/fg_Result_Promise_Map"
                         android:name="com.google.android.gms.maps.SupportMapFragment"
                         android:layout_width="match_parent"
@@ -232,7 +233,7 @@
         android:layout_marginBottom="30dp"
         android:background="@drawable/btn_radius_arctic"
         android:backgroundTint="@color/colorMain1"
-        android:text="확인"
+        android:text="@string/room_result_text9"
         android:textColor="@color/textColor"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

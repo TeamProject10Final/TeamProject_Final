@@ -14,7 +14,8 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -138,8 +139,8 @@
 
             <Switch
                 android:id="@+id/swDarkMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginEnd="39dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvItem"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -15,7 +15,8 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -43,7 +44,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="UserName"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="UserEmail"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/tvName"
                 app:layout_constraintStart_toStartOf="@+id/tvName"
@@ -82,7 +81,6 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
-                    android:text="○○○님의 누적 이력입니다"
                     android:textColor="#BDBCBC" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -111,7 +109,6 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
-                    android:text="○○○님 만의 특별한 코멘트를 달아볼까요?"
                     android:textColor="#BDBCBC" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -126,7 +123,8 @@
                 android:layout_height="25dp"
                 android:src="@drawable/ic_fix"
                 app:layout_constraintBottom_toBottomOf="@+id/ivProfileImage"
-                app:layout_constraintEnd_toEndOf="@+id/ivProfileImage" />
+                app:layout_constraintEnd_toEndOf="@+id/ivProfileImage"
+                android:contentDescription="@string/image_decoration"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

@@ -12,14 +12,14 @@
         android:layout_marginStart="10dp"
         android:background="@drawable/ic_impact"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_decoration"/>
 
     <TextView
         android:id="@+id/tv_Item_License"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Android Open Source License"
         android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@id/iv_Item_License"
         app:layout_constraintTop_toTopOf="@id/iv_Item_License" />
@@ -28,7 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text=":"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_Item_License"
         app:layout_constraintStart_toEndOf="@+id/tv_Item_License"
@@ -39,7 +38,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="URI"
         android:textColor="@color/malibu"
         android:textSize="17sp"
         app:layout_constraintStart_toStartOf="@id/iv_Item_License"

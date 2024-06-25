@@ -19,7 +19,8 @@
             android:layout_margin="10dp"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/image_back"/>
 
         <TextView
             android:id="@+id/tv_Setting_Loc_1"
@@ -27,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="40dp"
             android:text="@string/setting_info_text4"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

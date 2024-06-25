@@ -13,7 +13,8 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 
 
     <ScrollView
@@ -25,7 +26,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,31 +36,42 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:id="@+id/tv_Setting_Q_Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:layout_margin="40dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
                     android:id="@+id/tv_Setting_Q_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="40dp"
                     android:text="@string/setting_email_text1"
-                    android:textSize="25dp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginStart="3dp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_Setting_Q_Name"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_Setting_Q_Name"/>
 
                 <TextView
                     android:id="@+id/tv_Setting_Q_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/setting_email_text2"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
+                    android:layout_marginStart="3dp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@id/tv_Setting_Q_1"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_Setting_Q_1" />
+                    app:layout_constraintStart_toStartOf="@id/tv_Setting_Q_Name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_Setting_Q_Name" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/setting_email_text3"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/tv_Setting_Q_2"
                     app:layout_constraintTop_toBottomOf="@+id/tv_Setting_Q_2" />
@@ -82,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="@string/setting_email_text4"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -124,7 +136,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cl_Setting_Email2" />
+                app:layout_constraintTop_toBottomOf="@+id/cl_Setting_Email2"
+                android:contentDescription="@string/image_decoration"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
