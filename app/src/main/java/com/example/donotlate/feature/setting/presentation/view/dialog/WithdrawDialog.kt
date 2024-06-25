@@ -10,20 +10,17 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.R
 import com.example.donotlate.databinding.BackDialogBinding
-import com.example.donotlate.feature.auth.presentation.view.LoginFragment
 import com.example.donotlate.feature.setting.presentation.view.SettingsViewModel
 import com.example.donotlate.feature.setting.presentation.view.SettingsViewModelFactory
-import kotlin.concurrent.thread
 
 class WithdrawDialog(
     userInterface: UserInterface,
-    userId: String
+    userId: String?
 ) : DialogFragment() {
 
     private var userId: String? = null
-    private var userInterface: UserInterface
+    private var userInterface: UserInterface? = null
 
     init {
         this.userId = userId
@@ -66,21 +63,17 @@ class WithdrawDialog(
         binding.tvDl1.text = "정말 탈퇴 하시겠어요?\uD83D\uDE2D"
         binding.tvDl2.text = "확인을 누르시면 회원 탈퇴가 됩니다."
 
+        binding.tvDlConfirm.setOnClickListener {
+            this.userInterface?.onClickUserButton(userId!!)
+            dismiss()
+        }
+
         binding.tvDlCancel.setOnClickListener {
             dismiss()
         }
-        binding.tvDlConfirm.setOnClickListener {
-
-            val loading = LoadingDialog()
-            loading.show(childFragmentManager, "tag")
-            thread(start = true) {
-                Thread.sleep(2000)
-                this.userInterface?.onClickUserButton(userId!!)
-                dismiss()
-            }
-        }
     }
 }
+
 
 interface UserInterface {
     fun onClickUserButton(userId: String)
