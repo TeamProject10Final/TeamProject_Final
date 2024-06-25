@@ -167,11 +167,19 @@ class SignupFragment : Fragment() {
     private fun checkedSignUpResult() {
         signUpViewmodel.signUpResult.observe(viewLifecycleOwner) { result ->
             if (result.isSuccess) {
-                Toast.makeText(requireContext(), "회원 가입 성공!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "${resources.getString(R.string.toast_login_text2)}",
+                    Toast.LENGTH_SHORT
+                ).show()
                 parentFragmentManager.beginTransaction().replace(R.id.frame, LoginFragment())
                     .commit()
             } else {
-                Toast.makeText(requireContext(), "회원 가입 실패!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "${resources.getString(R.string.toast_login_text3)}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

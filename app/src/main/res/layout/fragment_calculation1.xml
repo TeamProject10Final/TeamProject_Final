@@ -194,6 +194,7 @@
         android:background="@drawable/btn_radius_arctic"
         android:backgroundTint="@color/colorMain1"
         android:text="@string/cal2_btn_text"
+        android:textAllCaps="false"
         android:textColor="@color/textColor"
         android:textSize="20sp"
         android:textStyle="bold"

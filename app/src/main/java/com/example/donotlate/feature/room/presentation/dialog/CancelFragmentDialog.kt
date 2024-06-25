@@ -38,8 +38,8 @@ class CancelFragmentDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvDl1.text = "메인으로 돌아갈까요?"
-        binding.tvDl2.text = "작성중인 게시물이 삭제되고\n메인으로 돌아갑니다."
+        binding.tvDl1.text = "${resources.getString(R.string.dialog_late_text6)}"
+        binding.tvDl2.text = "${resources.getString(R.string.dialog_late_text7)}"
 
         binding.tvDlCancel.setOnClickListener {
             dismiss()

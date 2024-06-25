@@ -152,7 +152,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
             if (location != null) {
                 roomViewModel.setCurrentItem(current = 2)
             } else {
-                Toast.makeText(requireContext(), "목적지를 검색해 주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "${resources.getString(R.string.toast_room_text4)}", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -160,7 +160,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
     private fun searchQuery() {
         val etQuery = binding.etRoomMapSearch.text.toString()
         if (etQuery.trim().isEmpty()) {
-            Toast.makeText(requireContext(), "검색어를 입력해 주세요", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "${resources.getString(R.string.toast_room_text5)}", Toast.LENGTH_SHORT).show()
         } else {
             roomViewModel.updateQuery(etQuery)
             val bottomFragment = RoomMapBottomFragment()

@@ -114,16 +114,32 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
                 //시간 되면 이 부분 수정하기... 검사를 뷰모델로 이동해야 함
                 if (total.isNotBlank() && number.isNotBlank() && total != "0" && number != "0") {
                     if (viewModel.get3PenaltyStatus() == 0 && penalty.isNotBlank() || viewModel.get3PenaltyStatus() != 0 && penalty.isBlank() || viewModel.get3PenaltyStatus() != 0 && penaltyNumber == "") {
-                        Toast.makeText(context, "입력한 내용을 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            "${resources.getString(R.string.toast_cal_text1)}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         Log.d("확인 조건문 1", "1")
                     } else if ((penalty.isNotBlank() && penaltyNumber == "") || (viewModel.get3PenaltyStatus() != 0 && penalty.isBlank() && penaltyNumber != "")) {
-                        Toast.makeText(context, "입력한 내용을 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            "${resources.getString(R.string.toast_cal_text1)}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         Log.d("확인 조건문 1", "2")
                     } else if (penaltyNumber != "" && (penaltyNumber.toInt() >= number.toInt())) {
                         Log.d("확인 조건문 1", "3-1")
-                        Toast.makeText(context, "인원수를 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            "${resources.getString(R.string.toast_cal_text2)}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     } else if ((penalty != "") && (total.toInt() < penalty.toInt())) {
-                        Toast.makeText(context, "입력한 금액을 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            "${resources.getString(R.string.toast_cal_text3)}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     } else {
                         viewModel.setTotal(total)
                         viewModel.setPenalty(penalty)
@@ -160,7 +176,7 @@ class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
     private fun setPenalty3StatusView(status: Int?) {
         when (status) {
             0 -> {
-                binding.btnPenalty.setText("벌금 없음")
+                binding.btnPenalty.setText("${resources.getString(R.string.cal1_frgment_text3)}")
                 binding.btnPenalty.setBackgroundResource(R.drawable.btn_info_round_gray)
                 binding.etDes24.isVisible = false
                 binding.tvDes24.isVisible = false

@@ -38,8 +38,8 @@ class ResultFragmentDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvDl1.text = "수정이 불가능해요"
-        binding.tvDl2.text = "확인을 누르시면 수정이 불가능합니다!\n정말 이대로 진행할까요?"
+        binding.tvDl1.text = "${resources.getString(R.string.dialog_late_text4)}"
+        binding.tvDl2.text = "${resources.getString(R.string.dialog_late_text5)}"
 
         binding.tvDlCancel.setOnClickListener {
             dismiss()
