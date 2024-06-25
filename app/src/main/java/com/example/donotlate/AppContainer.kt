@@ -2,8 +2,10 @@ package com.example.donotlate
 
 import com.example.donotlate.core.data.repository.FirebaseDataSourceImpl
 import com.example.donotlate.core.data.repository.PromiseRoomRepositoryImpl
+import com.example.donotlate.core.data.repository.UserRepositoryImpl
 import com.example.donotlate.core.data.session.SessionManagerImpl
 import com.example.donotlate.core.domain.repository.PromiseRoomRepository
+import com.example.donotlate.core.domain.repository.UserRepository
 import com.example.donotlate.core.domain.usecase.AcceptFriendRequestsUseCase
 import com.example.donotlate.core.domain.usecase.GetCurrentUserDataUseCase
 import com.example.donotlate.core.domain.usecase.GetFriendRequestsListUseCase
@@ -56,6 +58,7 @@ import com.example.donotlate.feature.searchPlace.domain.repository.GooglePlacesA
 import com.example.donotlate.feature.searchPlace.domain.usecase.GetSearchListUseCase
 import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchViewModelFactory
 import com.example.donotlate.feature.setting.data.repository.SettingRepositoryImpl
+import com.example.donotlate.feature.setting.domain.usecase.DeleteUserUseCase
 import com.example.donotlate.feature.setting.domain.usecase.ImageUploadUseCase
 import com.example.finaldirectionexample01.domain.usecase.GetDirWithArrTmRpUseCase
 import com.example.finaldirectionexample01.domain.usecase.GetDirWithTmRpUseCase
@@ -255,6 +258,10 @@ class AppContainer {
         PromiseRoomRepositoryImpl(firebaseFireStore)
     }
 
+    private val userRepository: UserRepository by  lazy {
+        UserRepositoryImpl(firebaseFireStore, firebaseAuth)
+    }
+
     val removeParticipantsUseCase:RemoveParticipantsUseCase by lazy {
         RemoveParticipantsUseCase(promiseRoomRepository)
     }
@@ -265,6 +272,10 @@ class AppContainer {
 
     val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase by lazy {
         UpdateDepartureStatusUseCase(firebaseDataRepository)
+    }
+
+    val deleteUserUseCase:DeleteUserUseCase by lazy {
+        DeleteUserUseCase(userRepository)
     }
 
 }
