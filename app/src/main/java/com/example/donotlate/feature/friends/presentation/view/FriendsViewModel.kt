@@ -13,6 +13,7 @@ import com.example.donotlate.core.domain.usecase.SearchUserByIdUseCase
 import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.feature.friends.presentation.mapper.toModel
 import com.example.donotlate.feature.friends.presentation.mapper.toModelList
+import com.example.donotlate.feature.friends.presentation.mapper.toUserModelList
 import com.example.donotlate.feature.friends.presentation.model.FriendRequestModel
 import com.example.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
 import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
@@ -58,7 +59,7 @@ class FriendsViewModel(
                 if (uid.isNotBlank()) {
                     getFriendsListFromFirebaseUseCase(uid).collect { friends ->
                         Log.d("FriendsViewModel", "Fetched friends: $friends")
-                        _friendsList.value = friends.map { it.toModel() }
+                        _friendsList.value = friends.toUserModelList()
                     }
                 }
             }
@@ -66,10 +67,13 @@ class FriendsViewModel(
     }
 
     fun searchUserById(searchId: String) {
+        val currentUserId = CurrentUser.userData?.uId
         viewModelScope.launch {
             searchUserByIdUseCase(searchId).collect { result ->
                 Log.d("FriendsViewModel", "Search Results: $result")
-                _searchUserList.value = result.map { it.toModel() }
+                _searchUserList.value = result
+                    .filter { it.uid != currentUserId }
+                    .map { it.toModel() }
             }
         }
     }
@@ -92,8 +96,8 @@ class FriendsViewModel(
 
     fun loadFriendRequestList() {
         val toId = userData?.uId
-        if(toId != null){
-        viewModelScope.launch {
+        if (toId != null) {
+            viewModelScope.launch {
                 getFriendRequestsListUseCase(toId).collect { requestList ->
                     _friendRequestList.value = requestList.toModelList()
                 }

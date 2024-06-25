@@ -70,7 +70,7 @@ class RoomFriendFragment : Fragment() {
 
     private fun getAllUserList() {
         try {
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 roomViewModel.friendsList.collect { result ->
                     Log.d("RoomFriendFragment", "User Data: $result")
                     friendAdapter.submitList(result)
@@ -131,7 +131,7 @@ class RoomFriendFragment : Fragment() {
     }
 
     private fun getFriendsList() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             roomViewModel.getFriendsList()
         }
     }
