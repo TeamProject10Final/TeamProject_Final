@@ -94,6 +94,8 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
     private fun passDestination() {
         val intent = Intent(requireContext(), DirectionRouteActivity::class.java)
         intent.putExtra("destination", "${searchViewModel.data.value?.name}")
+        intent.putExtra("des lat", "${searchViewModel.data.value?.lat}")
+        intent.putExtra("des lng", "${searchViewModel.data.value?.lng}")
         Log.d("확인 확인 확인", "${searchViewModel.data.value?.name}")
         startActivity(intent)
     }
@@ -151,7 +153,8 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
                     }
                     if (it.phoneNumber != null) {
                         binding.tvPlaceDetailPhoneNumber.text = it.phoneNumber
-                    } else binding.tvPlaceDetailPhoneNumber.text = "번호가 제공되지 않습니다."
+                    } else binding.tvPlaceDetailPhoneNumber.text =
+                        "${resources.getString(R.string.search_detail_text4)}"
 
                     tvPlaceDetailTitle.text = it.name
                     tvPlaceDetailAddress.text = it.address
@@ -160,7 +163,8 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
                         tvPlaceDetailDescription.text =
                             "${it.description[0]}\n${it.description[1]}\n${it.description[2]}\n${it.description[3]}\n${it.description[4]}\n${it.description[5]}\n${it.description[6]}"
                     } else {
-                        tvPlaceDetailDescription.text = "영업시간은 가게 측에 문의해주세요."
+                        tvPlaceDetailDescription.text =
+                            "${resources.getString(R.string.search_detail_text5)}"
                     }
                 }
             }

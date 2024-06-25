@@ -11,7 +11,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="350dp"
-        android:layout_height="600dp"
+        android:layout_height="0dp"
+        android:maxHeight="600dp"
+        android:minHeight="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

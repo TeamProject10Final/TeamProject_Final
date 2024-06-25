@@ -85,7 +85,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             if (it.penalty?.isNotEmpty() == true) {
                 binding.tvResultDetailPenalty.text = it.penalty
             } else {
-                binding.tvResultDetailPenalty.text = "벌칙은 따로 없어요!"
+                binding.tvResultDetailPenalty.text = "${resources.getString(R.string.toast_room_text7)}"
             }
         }
 
@@ -118,7 +118,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
                 if (it == true) {
                     openPromiseRoomFragment(roomInfo)
                 } else if (it == false) {
-                    Toast.makeText(requireActivity(), "방을 생성하지 못했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), "${resources.getString(R.string.toast_room_text8)}", Toast.LENGTH_SHORT).show()
                 }
             }
         }

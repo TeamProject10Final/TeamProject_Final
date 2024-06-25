@@ -295,41 +295,38 @@ class FirebaseDataSourceImpl(
         }
     }
 
-    override suspend fun sendToMessage(roomId: String, message: MessageEntity): Flow<Boolean> =
+    override fun sendToMessage(roomId: String, message: MessageEntity): Flow<Boolean> =
         flow {
             try {
                 db.collection("PromiseRooms").document(roomId).collection("Messages")
                     .add(message)
                     .await()
-                emit(true)
+                emit(value = true)
                 Log.d("ddddddd7", "$roomId")
             } catch (e: Exception) {
                 Log.d("SendToMessage", "Error: Send To Message Error: $e")
-                emit(false)
+                emit(value = false)
             }
         }
 
-    override suspend fun updateArrivalStatus(roomId: String, uid: String): Flow<Boolean> =
-        flow {
+    override fun updateArrivalStatus(roomId: String, uid: String): Flow<Boolean> = flow {
+        try {
+            val roomRef = db.collection("PromiseRooms").document(roomId)
+            db.runTransaction { transaction ->
+                val snapshot = transaction.get(roomRef)
+                val roomInfo = snapshot.toObject(PromiseRoomResponse::class.java)
 
-            try {
-                val roomRef = db.collection("PromiseRooms").document(roomId)
-                db.runTransaction { transaction ->
-                    val snapshot = transaction.get(roomRef)
-                    val roomInfo = snapshot.toObject(PromiseRoomResponse::class.java)
-
-                    if (roomInfo != null) {
-                        val isArrived = roomInfo.hasArrived.toMutableMap()
-                        isArrived[uid] = true
-                        transaction.update(roomRef, "hasArrived", isArrived)
-                    }
-                }.await()
-
-                emit(true)
-            } catch (e: Exception) {
-                emit(false)
-            }
+                if (roomInfo != null) {
+                    val isArrived = roomInfo.hasArrived.toMutableMap()
+                    isArrived[uid] = true
+                    transaction.update(roomRef, "hasArrived", isArrived)
+                }
+            }.await()
+            emit(value = true)
+        } catch (e: Exception) {
+            emit(value = false)
         }
+    }
 
     override suspend fun updateDepartureStatus(roomId: String, uid: String): Flow<Boolean> = flow {
         try {
@@ -350,23 +347,28 @@ class FirebaseDataSourceImpl(
         }
     }
 
-//    private suspend fun readRequest(requestId: String): DocumentSnapshot {
-//        val requestRef = db.collection("FriendRequests").document(requestId)
-//        Log.d("accept Info", "Checking document for requestId: $requestId")
-//        return requestRef.get().await()
-//    }
-//
-//    private suspend fun updateFriendRequest(fromId: String, toId: String, requestId: String) {
-//        db.runTransaction { transaction ->
-//            val requestRef = db.collection("FriendRequests").document(requestId)
-//            val fromUserRef = db.collection("users").document(fromId)
-//            val toUserRef = db.collection("users").document(toId)
-//
-//            transaction.update(requestRef, "status", "accept")
-//            transaction.update(fromUserRef, "friends", FieldValue.arrayUnion(toId))
-//            transaction.update(toUserRef, "friends", FieldValue.arrayUnion(fromId))
-//        }.await()
-//    }
+    override suspend fun updatePromiseRoom() {
+        TODO("Not yet implemented")
+    }
+
+
+    private suspend fun readRequest(requestId: String): DocumentSnapshot {
+        val requestRef = db.collection("FriendRequests").document(requestId)
+        Log.d("accept Info", "Checking document for requestId: $requestId")
+        return requestRef.get().await()
+    }
+
+    private suspend fun updateFriendRequest(fromId: String, toId: String, requestId: String) {
+        db.runTransaction { transaction ->
+            val requestRef = db.collection("FriendRequests").document(requestId)
+            val fromUserRef = db.collection("users").document(fromId)
+            val toUserRef = db.collection("users").document(toId)
+
+            transaction.update(requestRef, "status", "accept")
+            transaction.update(fromUserRef, "friends", FieldValue.arrayUnion(toId))
+            transaction.update(toUserRef, "friends", FieldValue.arrayUnion(fromId))
+        }.await()
+    }
 }
 
 

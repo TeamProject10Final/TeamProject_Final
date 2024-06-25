@@ -67,7 +67,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
                     when (it) {
                         LoginEvent.LoginFail -> Toast.makeText(
                             requireContext(),
-                            "로그인에 실패하였습니다.",
+                            "${resources.getString(R.string.toast_login_text1)}",
                             Toast.LENGTH_SHORT
                         ).show()
 

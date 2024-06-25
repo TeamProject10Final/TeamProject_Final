@@ -47,7 +47,7 @@ class DirectionsDialogFragment : DialogFragment() {
 
         _binding = FragmentDirectionsDialogBinding.inflate(inflater, container, false)
 
-        isCancelable = false
+        isCancelable = !sharedViewModel.checkTwoCountry()
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 

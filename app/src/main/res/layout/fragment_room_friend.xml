@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    tools:context=".feature.room.presentation.view.RoomFriendFragment">
+    tools:context=".feature.room.presentation.view.RoomFriendFragment"
+    android:background="@color/backGround">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -91,6 +92,7 @@
                     android:background="@drawable/btn_radius_arctic"
                     android:backgroundTint="@color/colorMain1"
                     android:text="@string/room_friend_text5"
+                    android:textAllCaps="false"
                     android:textColor="@color/textColor"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@id/et_Room_Friend_Search"
@@ -149,6 +151,7 @@
         android:background="@drawable/btn_radius_arctic"
         android:backgroundTint="@color/colorMain1"
         android:text="@string/room_friend_text7"
+        android:textAllCaps="false"
         android:textColor="@color/textColor"
         android:textSize="20sp"
         android:textStyle="bold"

@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
     android:id="@+id/viewPagerConstraintLayout"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    android:background="@color/backGround">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

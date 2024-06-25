@@ -47,7 +47,7 @@
         android:layout_marginTop="10dp"
         android:padding="8dp"
         android:background="@drawable/item_bottomsheet"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/backGround"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

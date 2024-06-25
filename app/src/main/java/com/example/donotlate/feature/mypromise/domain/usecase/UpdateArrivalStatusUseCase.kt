@@ -4,7 +4,7 @@ import com.example.donotlate.core.domain.repository.FirebaseDataRepository
 import kotlinx.coroutines.flow.Flow
 
 class UpdateArrivalStatusUseCase(private val firebaseDataRepository: FirebaseDataRepository) {
-    suspend operator fun invoke(roomId: String, uid: String): Flow<Boolean> {
+    operator fun invoke(roomId: String, uid: String): Flow<Boolean> {
         return firebaseDataRepository.updateArrivalStatus(roomId, uid)
     }
 }

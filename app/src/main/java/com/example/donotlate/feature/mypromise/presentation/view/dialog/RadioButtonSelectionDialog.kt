@@ -6,6 +6,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,28 +14,23 @@ import android.view.Window
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
-import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.databinding.DialogRadiobuttonSelectionBinding
-import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModel
-import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModelFactory
 
 class RadioButtonSelectionDialog(
     private val selections: List<String>,
-    private val callback: () -> Unit
+    private val callback: (Int) -> Unit
 ) : DialogFragment() {
 
-    private val myPromiseViewModel: MyPromiseRoomViewModel by activityViewModels {
-        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        MyPromiseRoomViewModelFactory(
-            appContainer.messageSendingUseCase,
-            appContainer.messageReceivingUseCase,
-            appContainer.getDirectionsUseCase,
-            appContainer.removeParticipantsUseCase,
-            appContainer.updateArrivalStatusUseCase,
-            appContainer.updateDepartureStatusUseCase
-        )
-    }
+//    private val myPromiseViewModel: MyPromiseRoomViewModel by activityViewModels {
+//        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
+//        MyPromiseRoomViewModelFactory(
+//            appContainer.messageSendingUseCase,
+//            appContainer.messageReceivingUseCase,
+//            appContainer.getDirectionsUseCase,
+//            appContainer.removeParticipantsUseCase,
+//            appContainer.updateArrivalStatusUseCase
+//        )
+//    }
 
     private var _binding: DialogRadiobuttonSelectionBinding? = null
     private val binding get() = _binding!!
@@ -108,9 +104,12 @@ class RadioButtonSelectionDialog(
 
             binding.btnRadioConfirm01.setOnClickListener {
                 val selectedId = binding.radioGroup01.checkedRadioButtonId
-                if (selectedId != -1) {
-                    myPromiseViewModel.setSelectedRouteIndex(selectedId)
-                    callback()
+                val selectedIndex =
+                    binding.radioGroup01.indexOfChild(binding.root.findViewById(selectedId))
+                Log.d("확인 SelectedIndex", "${selectedIndex}")
+                if (selectedIndex != -1) {
+                    //myPromiseViewModel.setSelectedRouteIndex(selectedId)
+                    callback(selectedIndex / 2)
                     dismiss()
                 }
             }

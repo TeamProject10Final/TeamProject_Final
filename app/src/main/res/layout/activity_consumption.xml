@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/consumption"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/backGround">
 
     <ImageView
         android:id="@+id/btnBackActivity"
@@ -96,6 +97,7 @@
                 android:background="@drawable/rounded_edittext1"
                 android:padding="15dp"
                 android:text="@string/cal_text2"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/tvVisit"
                 app:layout_constraintStart_toStartOf="parent"
@@ -253,6 +255,7 @@
         android:background="@drawable/btn_radius_arctic"
         android:backgroundTint="@color/colorMain1"
         android:text="@string/cal_btn_text"
+        android:textAllCaps="false"
         android:textColor="@color/textColor"
         android:textSize="20sp"
         android:textStyle="bold"

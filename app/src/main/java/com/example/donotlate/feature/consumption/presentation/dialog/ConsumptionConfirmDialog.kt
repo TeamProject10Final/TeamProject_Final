@@ -3,34 +3,38 @@ package com.example.donotlate.feature.consumption.presentation.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import com.example.donotlate.databinding.BackDialogBinding
+import com.example.donotlate.databinding.BackDialogConsumptionBinding
 import com.example.donotlate.feature.consumption.presentation.ConsumptionModel
 
 class ConsumptionConfirmDialog(
     confirmDialogInterface: ConfirmDialogInterface,
+    deleteDialogInterface: DeleteDialogInterface,
     model: ConsumptionModel
 ) : DialogFragment() {
 
-    private var _binding: BackDialogBinding? = null
+    private var _binding: BackDialogConsumptionBinding? = null
     private val binding get() = _binding!!
 
     private var confirmDialogInterface: ConfirmDialogInterface? = null
+    private var deleteDialogInterface: DeleteDialogInterface? = null
     private var model: ConsumptionModel? = null
 
     init {
         this.confirmDialogInterface = confirmDialogInterface
+        this.deleteDialogInterface = deleteDialogInterface
         this.model = model
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = BackDialogBinding.inflate(inflater, container, false)
+        _binding = BackDialogConsumptionBinding.inflate(inflater, container, false)
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
@@ -49,6 +53,11 @@ class ConsumptionConfirmDialog(
             this.confirmDialogInterface?.onPositiveButtonClicked(model!!)
             dismiss()
         }
+        binding.tvDlDelete.setOnClickListener {
+            this.deleteDialogInterface?.onDeleteButtonClicked(model!!)
+            Log.d("확인 delete clicked", "dfeoapjfo")
+            dismiss()
+        }
 
         return binding.root
     }
@@ -62,4 +71,8 @@ class ConsumptionConfirmDialog(
 
 interface ConfirmDialogInterface {
     fun onPositiveButtonClicked(model: ConsumptionModel)
+}
+
+interface DeleteDialogInterface {
+    fun onDeleteButtonClicked(model: ConsumptionModel)
 }
