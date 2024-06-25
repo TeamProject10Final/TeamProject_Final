@@ -3,6 +3,7 @@
     <string name="app_name">DoNotLate</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loading">Loading</string>
+    <string name="splash">당신의 약속과 함께 하는</string>
 
     <!--Content Description-->
     <string name="image_back">back button</string>
@@ -46,7 +47,7 @@
     <string name="room_map_text2">Choose</string>
     <string name="room_map_text3">Destination</string>
     <string name="room_map_text4">Please Search Destination</string>
-    <string name="room_map_text5">Search</string>
+    <string name="room_map_text5">search</string>
     <string name="room_map_text6">Next</string>
     <string name="room_map_text7">Search Results</string>
 
@@ -56,14 +57,14 @@
     <string name="room_friend_text2">Choose</string>
     <string name="room_friend_text3">Friends.</string>
     <string name="room_friend_text4">Please search Friends</string>
-    <string name="room_friend_text5">Search</string>
-    <string name="room_friend_text6">This is a list of friends\nwho can be invited.</string>
+    <string name="room_friend_text5">search</string>
+    <string name="room_friend_text6">This is a list of friends who can be invited.</string>
     <string name="room_friend_text7">Next</string>
 
     <!--약속 잡기(친구)-->
-    <string name="room_result_text1">promised result</string>
-    <string name="room_result_text2"></string>
-    <string name="room_result_text3">Please check.</string>
+    <string name="room_result_text1">Please Confirm</string>
+    <string name="room_result_text2">Appointment</string>
+    <string name="room_result_text3">Result</string>
     <string name="room_result_text4">Title</string>
     <string name="room_result_text5">Date</string>
     <string name="room_result_text6">Penalty</string>
@@ -89,11 +90,21 @@
     <string name="map_complete">Complete</string>
     <string name="map_detail">Details</string>
 
+    <!--미니 게임-->
+    <string name="number1">no.1</string>
+    <string name="number2">no.1</string>
+    <string name="number3">no.1</string>
+    <string name="number4">no.1</string>
+    <string name="number5">no.1</string>
+    <string name="number6">no.1</string>
+    <string name="number7">no.1</string>
+    <string name="number8">no.1</string>
+    <string name="complete">Finish</string>
 
     <!--로그인 페이지-->
-    <string name="login_top_title1">Please proceed to</string>
-    <string name="login_top_title2">Login</string>
-    <string name="login_top_title3"></string>
+    <string name="login_top_title1">Welcome</string>
+    <string name="login_top_title2"></string>
+    <string name="login_top_title3">Please proceed to log in.</string>
     <string name="login_edit_text1">Please enter your e-mail.</string>
     <string name="login_edit_text2">Please enter your password.</string>
     <string name="login_text1">Please check your email.</string>
@@ -103,9 +114,9 @@
     <string name="login_sign_up_line"><u>Sign Up</u></string>
 
     <!--회원가입 페이지-->
-    <string name="sign_up_top_title1">Sign up</string>
+    <string name="sign_up_top_title1">Or sign up with</string>
     <string name="sign_up_top_title2"></string>
-    <string name="sign_up_top_title3">Shall we go make an\nappointment?</string>
+    <string name="sign_up_top_title3">Shall we go make an appointment now?</string>
     <string name="sign_up_edit_text1">Please enter your nickname.</string>
     <string name="sign_up_edit_text2">Please re-enter your password.</string>
     <string name="sign_up_text1">Nickname contains special characters.</string>
@@ -132,31 +143,31 @@
     <string name="cal_activity_text5">No</string>
 
     <!--정산하기 두번째 페이지-->
-    <string name="cal2_top_title1">Please enter</string>
-    <string name="cal2_top_title2">settlement history.</string>
-    <string name="cal2_top_title3"></string>
+    <string name="cal2_top_title1">Shall we start the settlement?</string>
+    <string name="cal2_top_title2"></string>
+    <string name="cal2_top_title3">Please enter settlement history.</string>
     <string name="cal2_text1">Expenditure title</string>
     <string name="cal2_text2">Expenditure date</string>
     <string name="cal2_text3">Expenditure category</string>
-    <string name="cal2_edit_text1">Please enter a description\nof your expenses.</string>
+    <string name="cal2_edit_text1">Please enter a description of your expenses.</string>
     <string name="cal2_edit_text2">Please select the date by clicking\nthe icon.</string>
     <string name="cal2_btn_text">Next</string>
 
     <!--정산하기 두번째 페이지(Fragment)-->
-    <string name="cal_frgment_text1">Please enter required fields.</string>
+    <string name="cal_frgment_text1">Please fill out all fields.</string>
 
     <!--정산하기 세번째 페이지-->
-    <string name="cal3_top_title1">Please enter</string>
-    <string name="cal3_top_title2">settlement amount.</string>
-    <string name="cal3_top_title3"></string>
+    <string name="cal3_top_title1">It\&apos;s coming to an end</string>
+    <string name="cal3_top_title2"></string>
+    <string name="cal3_top_title3">Please enter the settlement amount.</string>
     <string name="cal3_text1">Total settlement amount</string>
     <string name="cal3_text2">Penalty amount</string>
     <string name="cal3_text3">Number of people to divide the amount with</string>
     <string name="cal3_text4">people</string>
     <string name="cal3_text5">Number of people paying fines</string>
-    <string name="cal3_edit_text1">Please enter the total amount\nto be settled.</string>
+    <string name="cal3_edit_text1">Please enter the total amount\n to be settled.</string>
     <string name="cal3_edit_text2">Please enter the Penalty amount.</string>
-    <string name="cal3_edit_text3">Please enter.</string>
+    <string name="cal3_edit_text3">Please enter the Number of people\n to divide the amount with.</string>
     <string name="cal3_edit_text4">Please enter the total number of people who will pay the fine.</string>
 
     <!--정산하기 세번째 페이지(Fragment)-->
@@ -165,8 +176,8 @@
     <string name="cal1_frgment_text3">No penalty</string>
 
     <!--정산하기 세번째 페이지-->
-    <string name="cal4_top_title1">Settlement result.</string>
-    <string name="cal4_top_title2"></string>
+    <string name="cal4_top_title1"></string>
+    <string name="cal4_top_title2">This is the settlement result.</string>
     <string name="cal4_top_title3">Please check.</string>
     <string name="cal4_btn_text1">Settlement complete</string>
     <string name="cal4_btn_text2">Exit</string>
@@ -186,7 +197,7 @@
     <string name="roulette_text2">Spinning...?</string>
 
     <!--메인 페이지-->
-    <string name="main_top_title1">Welcome!</string>
+    <string name="main_top_title1">You can become the promised king,</string>
     <string name="main_top_title2"></string>
     <string name="main_text1">Make\n an\n appointment</string>
     <string name="main_text2">My\n promise</string>
@@ -224,6 +235,8 @@
     <string name="setting_text3">App settings</string>
     <string name="setting_text4">Dark mode</string>
     <string name="setting_text5">common</string>
+    <string name="setting_text6">See you later!</string>
+    <string name="setting_text7">Membership Withdrawal</string>
     <string name="setting_chat_text1">We invite you to the chat room</string>
     <string name="setting_chat_text2">where all the developers are gathered!</string>
     <string name="setting_chat_text3">Please let me know any comments.</string>
@@ -252,13 +265,13 @@
 
     <!--다이얼로그-->
     <string name="dialog_info_text1">Please agree to the terms and conditions.</string>
-    <string name="dialog_info_text2">If you do not agree, it is difficult to sign up.</string>
-    <string name="dialog_info_text3">Agree</string>
+    <string name="dialog_info_text2">If you do not agree,\n it is difficult to sign up.</string>
+    <string name="dialog_info_text3">I agree to the terms\n and conditions.</string>
     <string name="dialog_info_text4">Consent to collection\n and use of personal information</string>
     <string name="dialog_info_text5">Consent to use location information</string>
     <string name="dialog_info_text6">I agree with everything.</string>
     <string name="dialog_dir_text1">Search Results</string>
-    <string name="dialog_back_text1">There is currently a work\n in progress!</string>
+    <string name="dialog_back_text1">There is currently a work in progress!</string>
     <string name="dialog_back_text2">Shall we go back to the main island?</string>
     <string name="dialog_back_text3">Check</string>
     <string name="dialog_back_text4">Cancel</string>
@@ -281,7 +294,7 @@
     <string name="dialog_late_text7">The post you are writing\nwill be deleted and you will\nreturn to the main page.</string>
     <string name="dialog_logout_text1">Log out</string>
     <string name="dialog_logout_text2">Do you want to log out?</string>
-
+    <string name="dialog_progress_text">Please Wait...</string>
 
     <!--토스트 메시지-->
     <string name="toast_room_text1">Please fill out all fields.</string>
@@ -299,6 +312,7 @@
     <string name="toast_login_text1">Login failed.</string>
     <string name="toast_login_text2">Sign up successful!</string>
     <string name="toast_login_text3">Sign up failed!</string>
+
 
     <!--법령-->
     <string name="info">

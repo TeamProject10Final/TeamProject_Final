@@ -1,18 +1,16 @@
-package com.example.donotlate.feature.room.presentation.dialog
+package com.example.donotlate.feature.mypromise.presentation.view.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentRoomLateDialogBinding
 
-class RoomLateDialog : DialogFragment() {
+class RoomLateDialog(private val userList : List<String>) : DialogFragment() {
 
     private var _binding : FragmentRoomLateDialogBinding? = null
     private val binding get() = _binding!!
@@ -39,6 +37,8 @@ class RoomLateDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.tvDlLatePeople.text = userList.joinToString(separator = ", ")
 
         binding.tvDlLateConfirm.setOnClickListener {
             dismiss()
