@@ -18,6 +18,8 @@ import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.feature.searchPlace.presentation.adapter.MapAdapter
 import com.example.donotlate.feature.searchPlace.presentation.detail.PlaceDetailFragment
 import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
+import com.example.donotlate.feature.setting.presentation.view.dialog.LoadingDialog
+import kotlin.concurrent.thread
 
 
 class PlaceSearchFragment : Fragment() {
@@ -61,10 +63,19 @@ class PlaceSearchFragment : Fragment() {
 
         binding.btnSearchButton.setOnClickListener {
             searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
-            binding.rvMap.visibility = View.VISIBLE
             binding.imageView2.visibility = View.INVISIBLE
             binding.tvDefaultText.visibility = View.INVISIBLE
             hideKeyboard(binding.root.windowToken)
+
+            val loading = LoadingDialog()
+            loading.show(childFragmentManager, "tag")
+            thread(start = true) {
+                Thread.sleep(3000)
+                activity?.runOnUiThread {
+                    binding.rvMap.visibility = View.VISIBLE
+                    loading.dismiss()
+                }
+            }
         }
 //        searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
 //        binding.rvMap.visibility = View.VISIBLE
@@ -80,7 +91,6 @@ class PlaceSearchFragment : Fragment() {
         super.onResume()
         fetchMap()
     }
-
 
 
     private fun editTextProcess() {

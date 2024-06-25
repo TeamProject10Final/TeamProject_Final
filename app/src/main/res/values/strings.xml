@@ -3,6 +3,7 @@
     <string name="app_name">DoNotLate</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loading">로딩중</string>
+    <string name="splash">당신의 약속과 함께</string>
 
     <!--Content Description-->
     <string name="image_back">뒤로가기 이미지 입니다</string>
@@ -70,8 +71,6 @@
     <string name="room_result_text9">확인</string>
 
 
-
-
     <!--채팅방-->
     <string name="chat_start">출발</string>
     <string name="chat_arrive">도착</string>
@@ -89,6 +88,17 @@
     <string name="map_complete">완료</string>
     <string name="map_detail">자세히</string>
 
+
+    <!--미니 게임-->
+    <string name="number1">1번</string>
+    <string name="number2">2번</string>
+    <string name="number3">3번</string>
+    <string name="number4">4번</string>
+    <string name="number5">5번</string>
+    <string name="number6">6번</string>
+    <string name="number7">7번</string>
+    <string name="number8">8번</string>
+    <string name="complete">입력 완료</string>
 
     <!--로그인 페이지-->
     <string name="login_top_title1">환영합니다.</string>
@@ -143,7 +153,7 @@
     <string name="cal2_btn_text">다음</string>
 
     <!--정산하기 두번째 페이지(Fragment)-->
-    <string name="cal_frgment_text1">필수 항목을 입력해주세요.</string>
+    <string name="cal_frgment_text1">모든 필드를 입력하세요.</string>
 
     <!--정산하기 세번째 페이지-->
     <string name="cal3_top_title1">현기증 난단 말이에요,</string>
@@ -197,7 +207,7 @@
 
     <!--친구 페이지-->
     <string name="friend_text1">내 친구 목록</string>
-    <string name="friend_btn_text">요청받은 친구 목록</string>
+    <string name="friend_btn_text">요청된 친구 목록</string>
 
     <!--친구요청 페이지-->
     <string name="friend_request_top_title">새로운 친구를 찾아볼까요?</string>
@@ -224,6 +234,8 @@
     <string name="setting_text3">앱 설정</string>
     <string name="setting_text4">다크 모드</string>
     <string name="setting_text5">일반</string>
+    <string name="setting_text6">또 만나요!</string>
+    <string name="setting_text7">회원탈퇴</string>
     <string name="setting_chat_text1">개발진이 전부 모여있는</string>
     <string name="setting_chat_text2">채팅방으로 초대합니다!</string>
     <string name="setting_chat_text3">어떤 의견이든 말씀해주세요.</string>
@@ -272,8 +284,8 @@
     <string name="dialog_friend_text2">친구 상태</string>
     <string name="dialog_friend_text3">친구 요청</string>
     <string name="dialog_time_text">시간을 선택해 주세요.</string>
-    <string name="dialog_late_text1">얼른 오세요!</string>
-    <string name="dialog_late_text2">오늘의 지각자 😅</string>
+    <string name="dialog_late_text1">속보!! 지각자 발생</string>
+    <string name="dialog_late_text2">오늘의 지각자</string>
     <string name="dialog_late_text3">확인</string>
     <string name="dialog_late_text4">수정이 불가능해요</string>
     <string name="dialog_late_text5">확인을 누르시면 수정이 불가능합니다!\n정말 이대로 진행할까요?</string>
@@ -281,6 +293,7 @@
     <string name="dialog_late_text7">작성중인 게시물이 삭제되고\n메인으로 돌아갑니다.</string>
     <string name="dialog_logout_text1">로그아웃</string>
     <string name="dialog_logout_text2">로그아웃 하시겠습니까?</string>
+    <string name="dialog_progress_text">잠시만 기다려 주세요...</string>
 
     <!--토스트 메시지-->
     <string name="toast_room_text1">모든 필드를 입력하세요.</string>
@@ -298,6 +311,7 @@
     <string name="toast_login_text1">로그인에 실패하였습니다.</string>
     <string name="toast_login_text2">회원 가입 성공!</string>
     <string name="toast_login_text3">회원 가입 실패!</string>
+
 
     <!--법령-->
     <string name="info">

@@ -26,6 +26,7 @@ import com.example.donotlate.feature.directionRoute.presentation.LocationUtils
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
 import com.example.donotlate.feature.mypromise.presentation.view.dialog.RadioButtonDialog
 import com.example.donotlate.feature.mypromise.presentation.view.dialog.RadioButtonSelectionDialog
+import com.example.donotlate.feature.mypromise.presentation.view.dialog.RoomLateDialog
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -507,8 +508,9 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
     }
 
     private fun showNotArriveDialog(userNames: List<String>) {
-        dialog.setMessage("지각자를 공개합니다!\n${userNames.joinToString(", ")}")
-        dialog.show()
+
+        val dialog = RoomLateDialog(userNames)
+        dialog.show(childFragmentManager, "tag")
     }
 }
 
