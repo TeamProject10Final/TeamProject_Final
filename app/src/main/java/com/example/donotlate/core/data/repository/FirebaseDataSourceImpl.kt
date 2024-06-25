@@ -2,6 +2,7 @@ package com.example.donotlate.core.data.repository
 
 
 import android.util.Log
+import android.widget.Toast
 import com.example.donotlate.core.data.mapper.toEntity
 import com.example.donotlate.core.data.mapper.toMessageEntity
 import com.example.donotlate.core.data.mapper.toPromiseEntityList
@@ -27,6 +28,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 
@@ -77,7 +79,6 @@ class FirebaseDataSourceImpl(
     }
 
     override suspend fun getFriendsListFromFirebase(uid: String): Flow<List<UserEntity>> =
-//        flow {
         callbackFlow {
             try {
                 val documentRef = db.collection("users").document(uid)
@@ -103,20 +104,6 @@ class FirebaseDataSourceImpl(
             } catch (e: Exception) {
                 close(e)
             }
-//        try {
-//            val document = db.collection("users").document(uid).get().await()
-//            val user = document.toObject(UserResponse::class.java)
-//            val friends = user?.friends ?: emptyList()
-//            val friendsList = friends.mapNotNull { friendId ->
-//                val friendDoc = db.collection("users").document(friendId).get().await()
-//                friendDoc.toObject(UserResponse::class.java)
-//            }
-//            Log.d("FirebaseRepositoryImpl", "Fetched Friends List: $friendsList")
-//            emit(friendsList.toUserEntityList())
-//        } catch (e: Exception) {
-//            Log.e("FirebaseRepositoryImpl", "Error fetching friends list", e)
-//            emit(emptyList())
-//        }
         }
 
 
@@ -258,6 +245,8 @@ class FirebaseDataSourceImpl(
                 if (snapshot != null && !snapshot.isEmpty) {
                     val promiseRoom = snapshot.toObjects(PromiseRoomResponse::class.java)
                     trySend(promiseRoom.toPromiseEntityList()).isSuccess
+                } else {
+                    trySend(emptyList()).isSuccess
                 }
             }
             awaitClose {
@@ -342,7 +331,7 @@ class FirebaseDataSourceImpl(
             }
         }
 
-    override suspend fun updateDepartureStatus(roomId: String, uid: String): Flow<Boolean> = flow{
+    override suspend fun updateDepartureStatus(roomId: String, uid: String): Flow<Boolean> = flow {
         try {
             val roomRef = db.collection("PromiseRooms").document(roomId)
             db.runTransaction { transaction ->
@@ -361,23 +350,23 @@ class FirebaseDataSourceImpl(
         }
     }
 
-    private suspend fun readRequest(requestId: String): DocumentSnapshot {
-        val requestRef = db.collection("FriendRequests").document(requestId)
-        Log.d("accept Info", "Checking document for requestId: $requestId")
-        return requestRef.get().await()
-    }
-
-    private suspend fun updateFriendRequest(fromId: String, toId: String, requestId: String) {
-        db.runTransaction { transaction ->
-            val requestRef = db.collection("FriendRequests").document(requestId)
-            val fromUserRef = db.collection("users").document(fromId)
-            val toUserRef = db.collection("users").document(toId)
-
-            transaction.update(requestRef, "status", "accept")
-            transaction.update(fromUserRef, "friends", FieldValue.arrayUnion(toId))
-            transaction.update(toUserRef, "friends", FieldValue.arrayUnion(fromId))
-        }.await()
-    }
+//    private suspend fun readRequest(requestId: String): DocumentSnapshot {
+//        val requestRef = db.collection("FriendRequests").document(requestId)
+//        Log.d("accept Info", "Checking document for requestId: $requestId")
+//        return requestRef.get().await()
+//    }
+//
+//    private suspend fun updateFriendRequest(fromId: String, toId: String, requestId: String) {
+//        db.runTransaction { transaction ->
+//            val requestRef = db.collection("FriendRequests").document(requestId)
+//            val fromUserRef = db.collection("users").document(fromId)
+//            val toUserRef = db.collection("users").document(toId)
+//
+//            transaction.update(requestRef, "status", "accept")
+//            transaction.update(fromUserRef, "friends", FieldValue.arrayUnion(toId))
+//            transaction.update(toUserRef, "friends", FieldValue.arrayUnion(fromId))
+//        }.await()
+//    }
 }
 
 

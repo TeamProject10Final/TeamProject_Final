@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,6 +17,7 @@ import com.example.donotlate.databinding.FragmentMypromiseListBinding
 import com.example.donotlate.feature.main.presentation.view.MainFragment
 import com.example.donotlate.feature.mypromise.presentation.adapter.MyPromiseAdapter
 import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
@@ -51,8 +53,6 @@ class MyPromiseListFragment : Fragment() {
 
         backButton()
         observeViewModel()
-
-
 
 
         val adapter = MyPromiseAdapter { promiseRoom ->
@@ -116,12 +116,23 @@ class MyPromiseListFragment : Fragment() {
         }
     }
 
-    fun observeViewModel() {
+    private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             myPromiseListViewModel.closestPromiseTitle.collect { title ->
                 binding.tvTitleName.text = title
             }
         }
+        viewLifecycleOwner.lifecycleScope.launch {
+            myPromiseListViewModel.errorState.collect { errorMessage ->
+                errorMessage?.let {
+                    showErrorMessage("채팅방 목록을 불러올 수 없습니다. 잠시 후 다시 시도 해주세요.")
+                }
+            }
+        }
+    }
+
+    private fun showErrorMessage(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {

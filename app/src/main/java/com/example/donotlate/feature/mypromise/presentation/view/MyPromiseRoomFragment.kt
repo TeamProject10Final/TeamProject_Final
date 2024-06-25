@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
@@ -265,339 +266,347 @@ class MyPromiseRoomFragment : Fragment() {
 //            uid = CurrentUser.userData?.uId!!
 //        )
 //    }
-}
+    }
 
-private fun showModeDialog() {
-    val selectionDialog = RadioButtonDialog() {
+    private fun showModeDialog() {
+        val selectionDialog = RadioButtonDialog() {
 
-        lifecycleScope.launch {
-            checkPermissionAndProceed()
-            yield()
+            lifecycleScope.launch {
+                checkPermissionAndProceed()
+                yield()
 //                showDialogSelection()
-            myPromiseViewModel.routeSelectionText.observe(viewLifecycleOwner) {
-                Log.d("확인 routeS", "몇번?")
-                if (it != null) {
-                    showDialogSelection(it)
-                } else {
-                    Log.d("확인 routeS", "$it")
+                myPromiseViewModel.routeSelectionText.observe(viewLifecycleOwner) {
+                    Log.d("확인 routeS", "몇번?")
+                    if (it != null) {
+                        showDialogSelection(it)
+                    } else {
+                        Log.d("확인 routeS", "$it")
+                    }
                 }
             }
         }
+        selectionDialog.show(childFragmentManager, "RadioButtonDialog")
     }
-    selectionDialog.show(childFragmentManager, "RadioButtonDialog")
-}
 
-private fun showDialogSelection(selections: List<String>) {
-    val routeSelectionDialog = RadioButtonSelectionDialog(selections) {
-        //라디오 버튼 선택 뒤의 로직
-        myPromiseViewModel.afterSelecting()
+    private fun showDialogSelection(selections: List<String>) {
+        val routeSelectionDialog = RadioButtonSelectionDialog(selections) {
+            //라디오 버튼 선택 뒤의 로직
+            myPromiseViewModel.afterSelecting()
+        }
+        routeSelectionDialog.show(childFragmentManager, "RadioButtonSelectionDialog")
     }
-    routeSelectionDialog.show(childFragmentManager, "RadioButtonSelectionDialog")
-}
 
-private fun observeViewModel() {
-    myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner) {
-        //처음에 방 들어가자마자 초기화하기! 거리 계산해두기
-        if (it <= 0.2) { //200m
-            binding.btnArrived.isVisible = true
-            binding.ivRoomMap.isVisible = false
-            //도착 버튼이 보이게
-            //메시지가 발송되게
-        } else {
-            if (myPromiseViewModel.getIsDepart()) {
-                //출발했다면
-                binding.tvText.setText("내 위치")
-                binding.ivDeparture.visibility = View.GONE
-                binding.btnArrived.visibility = View.GONE
-                binding.ivRoomMap.visibility = View.VISIBLE
-                //도착 버튼이 보이지 않게
-                //지도 버튼만 보이게
+    private fun observeViewModel() {
+        myPromiseViewModel.distanceBetween.observe(viewLifecycleOwner) {
+            //처음에 방 들어가자마자 초기화하기! 거리 계산해두기
+            if (it <= 0.2) { //200m
+                binding.btnArrived.isVisible = true
+                binding.ivRoomMap.isVisible = false
+                //도착 버튼이 보이게
+                //메시지가 발송되게
             } else {
-                binding.tvText.setText("출 발")
-                binding.ivDeparture.visibility = View.VISIBLE
-                binding.ivRoomMap.visibility = View.GONE
-                binding.btnArrived.visibility = View.GONE
-            }
-        }
-    }
-
-    myPromiseViewModel.shortExplanations.observe(viewLifecycleOwner) {
-        if (it.isNullOrEmpty()) {
-            Log.d("확인 shmessage", "nullorempty- $it")
-            return@observe
-        }
-        val roomId = roomId ?: throw NullPointerException("roomId is Null")
-        Log.d("확인", "shortMessage $it")
-        sendMessage(roomId, it)
-    }
-
-    myPromiseViewModel.originString.observe(viewLifecycleOwner) {
-        myPromiseViewModel.calDistance2()
-    }
-
-    viewLifecycleOwner.lifecycleScope.launch {
-        myPromiseViewModel.hasArrived.collect { arrivalStatus ->
-
-            val uid = currentUserData?.uId
-            val isArrived = arrivalStatus[uid] ?: false
-            if (isArrived) {
-                Toast.makeText(requireContext(), "약속장소에 도착하였습니다.", Toast.LENGTH_SHORT).show()
-
-                binding.btnArrived.isClickable = false
-                binding.ivDeparture.visibility = View.GONE
-                binding.ivRoomMap.visibility = View.GONE
-            }
-        }
-    }
-}
-
-private fun loadToMessageFromFireStore(roomId: String) {
-    lifecycleScope.launch {
-        myPromiseViewModel.loadMessage(roomId)
-    }
-}
-
-private fun sendMessage(roomId: String, contents: String) {
-    lifecycleScope.launch {
-        try {
-            val message = MessageModel(
-                senderName = currentUserData?.name
-                    ?: throw NullPointerException("User Data Null!"),
-                sendTimestamp = Timestamp.now(),
-                senderId = currentUserData?.uId
-                    ?: throw NullPointerException("User Data Null!"),
-                contents = contents,
-                messageId = "",
-                senderProfileUrl = currentUserData?.profileImgUrl ?: ""
-            )
-            myPromiseViewModel.sendMessage(roomId, message)
-        } catch (e: Exception) {
-            Log.e("sendMessage", "Error in sendMessage: $e")
-        }
-    }
-}
-
-private fun initAdapter() {
-
-    adapter = PromiseMessageAdapter()
-    binding.rvMessage.layoutManager = LinearLayoutManager(requireContext())
-    binding.rvMessage.adapter = adapter
-
-    viewLifecycleOwner.lifecycleScope.launch {
-        myPromiseViewModel.message.collect { message ->
-            Log.d("MyPromiseRoomFragment", "Collected messages: $message")
-            // old item count 구하기
-//                val oldItemCount = adapter.itemCount
-            adapter.submitList(message) {
-                binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
-                /*새로운 메시지가 왔을 때 최하단으로 내려가는 로직(이부분 수정해서 올드 아이템갯수랑 아이템갯수랑 리스트의 아이템 갯수 차이를 구해서
-                플로팅 버튼을 띄워서 최하단으로 내려갈 수 있도록 하면 좋을 듯?
-               if (oldItemCount != adapter.itemCount) {
-                   binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
-               }*/
-            }
-        }
-    }
-}
-
-private fun backButton() {
-    binding.ivChatRoomBack.setOnClickListener {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .setCustomAnimations(
-                /* enter = */ R.anim.fade_in,
-                /* exit = */ R.anim.slide_out
-            )
-            .remove(this)
-            .commit()
-    }
-}
-
-private fun checkPermissionAndProceed() {
-    if (hasLocationPermission()) {
-        // 권한이 있을 때
-        //TODO 3 권한 있을 땐 onstart에서 시작되지 않나?
-        startLocationUpdates()
-        getCurrentLocation()
-    } else {
-        // 권한이 없을 때
-        requestLocationPermission()
-    }
-}
-
-private fun hasLocationPermission(): Boolean {
-    return ActivityCompat.checkSelfPermission(
-        requireContext(),
-        Manifest.permission.ACCESS_FINE_LOCATION
-    ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-        requireContext(),
-        Manifest.permission.ACCESS_COARSE_LOCATION
-    ) == PackageManager.PERMISSION_GRANTED
-}
-
-private fun requestLocationPermission() {
-    requestPermissions(
-        arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ),
-        LOCATION_PERMISSION_REQUEST_CODE
-    )
-}
-
-@SuppressLint("MissingPermission")
-private fun getCurrentLocation() {
-    Log.d("확인 getCurrent", "a")
-    fusedLocationClient.lastLocation
-        .addOnSuccessListener { location: Location? ->
-            Log.d("확인 getCurrent", "b $location")
-            location?.let {
-                val userLatLng = LatLng(it.latitude, it.longitude)
-                myPromiseViewModel.setUserLocation(userLatLng)
-
-                val locationUtils = LocationUtils()
-                val country = locationUtils.getCountryFromLatLng(
-                    requireContext(),
-                    it.latitude,
-                    it.longitude
-                )
-                country?.let {
-                    Log.d("확인 나라", "$it")
-                    myPromiseViewModel.setCountry(it)
+                if (myPromiseViewModel.getIsDepart()) {
+                    //출발했다면
+                    binding.tvText.setText("내 위치")
+                    binding.ivDeparture.visibility = View.GONE
+                    binding.btnArrived.visibility = View.GONE
+                    binding.ivRoomMap.visibility = View.VISIBLE
+                    //도착 버튼이 보이지 않게
+                    //지도 버튼만 보이게
+                } else {
+                    binding.tvText.setText("출 발")
+                    binding.ivDeparture.visibility = View.VISIBLE
+                    binding.ivRoomMap.visibility = View.GONE
+                    binding.btnArrived.visibility = View.GONE
                 }
-                getDirectionsAndSelection()
-            } ?: run {
-                //
             }
         }
-        .addOnFailureListener {
-            Log.d("확인 getCurrent", "c")
+
+        myPromiseViewModel.shortExplanations.observe(viewLifecycleOwner) {
+            if (it.isNullOrEmpty()) {
+                Log.d("확인 shmessage", "nullorempty- $it")
+                return@observe
+            }
+            val roomId = roomId ?: throw NullPointerException("roomId is Null")
+            Log.d("확인", "shortMessage $it")
+            sendMessage(roomId, it)
         }
-}
 
-private fun getDirectionsAndSelection() {
-    val currentUserLocation = myPromiseViewModel.originString.value
-    myPromiseViewModel.getDirections()
+        myPromiseViewModel.originString.observe(viewLifecycleOwner) {
+            myPromiseViewModel.calDistance2()
+        }
 
-    Log.d("확인 확인 확인", "${currentUserLocation}")
-    Log.d("확인 확인 확인", "dest : ${roomDestination}")
+        viewLifecycleOwner.lifecycleScope.launch {
+            myPromiseViewModel.hasArrived.collect { arrivalStatus ->
 
-}
+                val uid = currentUserData?.uId
+                val isArrived = arrivalStatus[uid] ?: false
+                if (isArrived) {
+                    Toast.makeText(requireContext(), "약속장소에 도착하였습니다.", Toast.LENGTH_SHORT).show()
 
-override fun onRequestPermissionsResult(
-    requestCode: Int,
-    permissions: Array<out String>,
-    grantResults: IntArray
-) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-        Log.d("확인", "1")
-        if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-            Log.d("확인", "2")
-            // 권한이 부여되었으므로 현재 위치를 받아옴
+                    binding.btnArrived.isClickable = false
+                    binding.ivDeparture.visibility = View.GONE
+                    binding.ivRoomMap.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun loadToMessageFromFireStore(roomId: String) {
+        lifecycleScope.launch {
+            myPromiseViewModel.loadMessage(roomId)
+        }
+    }
+
+    private fun sendMessage(roomId: String, contents: String) {
+        lifecycleScope.launch {
+            try {
+                val message = MessageModel(
+                    senderName = currentUserData?.name
+                        ?: throw NullPointerException("User Data Null!"),
+                    sendTimestamp = Timestamp.now(),
+                    senderId = currentUserData?.uId
+                        ?: throw NullPointerException("User Data Null!"),
+                    contents = contents,
+                    messageId = "",
+                    senderProfileUrl = currentUserData?.profileImgUrl ?: ""
+                )
+                myPromiseViewModel.sendMessage(roomId, message)
+            } catch (e: Exception) {
+                Log.e("sendMessage", "Error in sendMessage: $e")
+            }
+        }
+    }
+
+    private fun initAdapter() {
+
+        adapter = PromiseMessageAdapter()
+        binding.rvMessage.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvMessage.adapter = adapter
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            myPromiseViewModel.message.collect { message ->
+                Log.d("MyPromiseRoomFragment", "Collected messages: $message")
+                // old item count 구하기
+//                val oldItemCount = adapter.itemCount
+                adapter.submitList(message) {
+                    binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
+                    /*새로운 메시지가 왔을 때 최하단으로 내려가는 로직(이부분 수정해서 올드 아이템갯수랑 아이템갯수랑 리스트의 아이템 갯수 차이를 구해서
+                    플로팅 버튼을 띄워서 최하단으로 내려갈 수 있도록 하면 좋을 듯?
+                   if (oldItemCount != adapter.itemCount) {
+                       binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
+                   }*/
+                }
+            }
+        }
+    }
+
+    private fun backButton() {
+        binding.ivChatRoomBack.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .remove(this)
+                .commit()
+        }
+    }
+
+    private fun checkPermissionAndProceed() {
+        if (hasLocationPermission()) {
+            // 권한이 있을 때
+            //TODO 3 권한 있을 땐 onstart에서 시작되지 않나?
             startLocationUpdates()
             getCurrentLocation()
         } else {
-            Log.d("확인", "3")
-            Toast.makeText(context, "위치 권한을 확인해주세요.", Toast.LENGTH_SHORT).show()
-            //onLocationPermissionDenied()
+            // 권한이 없을 때
+            requestLocationPermission()
         }
     }
-    Log.d("확인", "4")
-}
 
-fun onLocationPermissionDenied() {
-    Log.d("확인 denied", "권한 x")
-    parentFragmentManager.popBackStack()
-}
+    private fun hasLocationPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
 
-private fun setViewMore() {
-    binding.clTopTitleBorder.setOnClickListener {
-        if (binding.clTopTitleBorderDetail.visibility == View.VISIBLE) {
-            binding.clTopTitleBorderDetail.visibility = View.GONE
-            binding.ivPromiseRoom.animate().apply {
-                duration = 100
-                rotation(0f)
+    private fun requestLocationPermission() {
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ),
+            LOCATION_PERMISSION_REQUEST_CODE
+        )
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocation() {
+        Log.d("확인 getCurrent", "a")
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                Log.d("확인 getCurrent", "b $location")
+                location?.let {
+                    val userLatLng = LatLng(it.latitude, it.longitude)
+                    myPromiseViewModel.setUserLocation(userLatLng)
+
+                    val locationUtils = LocationUtils()
+                    val country = locationUtils.getCountryFromLatLng(
+                        requireContext(),
+                        it.latitude,
+                        it.longitude
+                    )
+                    country?.let {
+                        Log.d("확인 나라", "$it")
+                        myPromiseViewModel.setCountry(it)
+                    }
+                    getDirectionsAndSelection()
+                } ?: run {
+                    //
+                }
             }
-        } else {
-            binding.clTopTitleBorderDetail.visibility = View.VISIBLE
-            binding.ivPromiseRoom.animate().apply {
-                duration = 100
-                rotation(180f)
+            .addOnFailureListener {
+                Log.d("확인 getCurrent", "c")
+            }
+    }
+
+    private fun getDirectionsAndSelection() {
+        val currentUserLocation = myPromiseViewModel.originString.value
+        myPromiseViewModel.getDirections()
+
+        Log.d("확인 확인 확인", "${currentUserLocation}")
+        Log.d("확인 확인 확인", "dest : ${roomDestination}")
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            Log.d("확인", "1")
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                Log.d("확인", "2")
+                // 권한이 부여되었으므로 현재 위치를 받아옴
+                startLocationUpdates()
+                getCurrentLocation()
+            } else {
+                Log.d("확인", "3")
+                Toast.makeText(context, "위치 권한을 확인해주세요.", Toast.LENGTH_SHORT).show()
+                //onLocationPermissionDenied()
             }
         }
+        Log.d("확인", "4")
     }
-}
 
-private fun updateArrived() {
-    binding.btnArrived.setOnClickListener {
-        val roomId = roomId!!
-        val uid = currentUserData?.uId!!
-        viewLifecycleOwner.lifecycleScope.launch {
-            myPromiseViewModel.updateArrived(roomId, uid)
-        }
+    fun onLocationPermissionDenied() {
+        Log.d("확인 denied", "권한 x")
+        parentFragmentManager.popBackStack()
     }
-}
 
-override fun onDestroyView() {
-    super.onDestroyView()
-    parentFragmentManager.popBackStack()
-    myPromiseViewModel.stopCheckingArrivalStatus()
-    _binding = null
-}
-
-override fun onStart() {
-    super.onStart()
-    startLocationUpdates()
-}
-
-override fun onStop() {
-    super.onStop()
-    stopLocationUpdates()
-}
-
-//임시
-private fun setExitButton(roomId: String, participantId: String) {
-    viewLifecycleOwner.lifecycleScope.launch {
-        myPromiseViewModel.exitRoom(roomId, participantId)
-    }
-}
-
-private fun observeViewModel1() {
-    viewLifecycleOwner.lifecycleScope.launch {
-        myPromiseViewModel.removeParticipantIdResult.collect {
-            if (it == true) {
-                Toast.makeText(requireContext(), "나가기 성공", Toast.LENGTH_SHORT).show()
-            } else if( it == false){
-                Toast.makeText(requireContext(), "나가기 실패", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-}
-
-private fun observeViewModel2() {
-    viewLifecycleOwner.lifecycleScope.launch {
-        myPromiseViewModel.lateUsers.collect { lateUsers ->
-            Log.d("Dialog확인", "${lateUsers}")
-            if (lateUsers.isNotEmpty()) {
-                if (!this@MyPromiseRoomFragment::dialog.isInitialized || !dialog.isShowing) {
-                    showNotArriveDialog(lateUsers)
-                    Log.d("Dialog확인", "${lateUsers}")
+    private fun setViewMore() {
+        binding.clTopTitleBorder.setOnClickListener {
+            if (binding.clTopTitleBorderDetail.visibility == View.VISIBLE) {
+                binding.clTopTitleBorderDetail.visibility = View.GONE
+                binding.ivPromiseRoom.animate().apply {
+                    duration = 100
+                    rotation(0f)
                 }
             } else {
-                if (this@MyPromiseRoomFragment::dialog.isInitialized && dialog.isShowing) {
-                    dialog.dismiss()
+                binding.clTopTitleBorderDetail.visibility = View.VISIBLE
+                binding.ivPromiseRoom.animate().apply {
+                    duration = 100
+                    rotation(180f)
                 }
             }
         }
     }
-}
 
-private fun showNotArriveDialog(userNames: List<String>) {
-    dialog = AlertDialog.Builder(requireContext())
-        .setTitle("지각자 알림")
-        .setMessage("지각자를 공개합니다!\n${userNames.joinToString(", ")}")
-        .create()
-    dialog.show()
-}
+    private fun updateArrived() {
+        binding.btnArrived.setOnClickListener {
+            val roomId = roomId!!
+            val uid = currentUserData?.uId!!
+            viewLifecycleOwner.lifecycleScope.launch {
+                myPromiseViewModel.updateArrived(roomId, uid)
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        popBackStackSafely()
+        myPromiseViewModel.stopCheckingArrivalStatus()
+        _binding = null
+    }
+
+    override fun onStart() {
+        super.onStart()
+        startLocationUpdates()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stopLocationUpdates()
+    }
+
+    //임시
+    private fun setExitButton(roomId: String, participantId: String) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            myPromiseViewModel.exitRoom(roomId, participantId)
+        }
+    }
+
+    private fun observeViewModel1() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            myPromiseViewModel.removeParticipantIdResult.collect {
+                if (it == true) {
+                    Toast.makeText(requireContext(), "나가기 성공", Toast.LENGTH_SHORT).show()
+                } else if (it == false) {
+                    Toast.makeText(requireContext(), "나가기 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun observeViewModel2() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            myPromiseViewModel.lateUsers.collect { lateUsers ->
+                Log.d("Dialog확인", "${lateUsers}")
+                if (lateUsers.isNotEmpty()) {
+                    if (!this@MyPromiseRoomFragment::dialog.isInitialized || !dialog.isShowing) {
+                        showNotArriveDialog(lateUsers)
+                        Log.d("Dialog확인", "${lateUsers}")
+                    }
+                } else {
+                    if (this@MyPromiseRoomFragment::dialog.isInitialized && dialog.isShowing) {
+                        dialog.dismiss()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showNotArriveDialog(userNames: List<String>) {
+        dialog = AlertDialog.Builder(requireContext())
+            .setTitle("지각자 알림")
+            .setMessage("지각자를 공개합니다!\n${userNames.joinToString(", ")}")
+            .create()
+        dialog.show()
+    }
+
+    private fun popBackStackSafely(){
+        Handler(Looper.getMainLooper()).post{
+            if(isAdded && !isStateSaved){
+                parentFragmentManager.popBackStack()
+            }
+        }
+    }
 }
 
