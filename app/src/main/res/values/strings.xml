@@ -21,6 +21,7 @@
     <string name="image_map">지도 이미지 입니다</string>
     <string name="image_user">유저 이미지 입니다</string>
     <string name="image_share">공유 이미지 입니다</string>
+    <string name="image_exit">나가기 이미지 입니다</string>
 
 
     <!--약속 잡기(장소)-->

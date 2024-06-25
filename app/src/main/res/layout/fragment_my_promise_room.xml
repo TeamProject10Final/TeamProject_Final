@@ -222,7 +222,8 @@
         android:src="@drawable/ic_out"
         app:layout_constraintBottom_toBottomOf="@+id/iv_chat_room_back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/iv_chat_room_back" />
+        app:layout_constraintTop_toTopOf="@+id/iv_chat_room_back"
+        android:contentDescription="@string/image_decoration"/>
 
     <LinearLayout
         android:id="@+id/btn_departure"
@@ -242,7 +243,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:gravity="center"
-            android:text="출발"
+            android:text="@string/chat_start"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -254,21 +255,24 @@
             android:id="@+id/iv_departure"
             android:layout_width="27dp"
             android:layout_height="27dp"
-            android:src="@drawable/ic_start" />
+            android:src="@drawable/ic_start"
+            android:contentDescription="@string/image_decoration"/>
 
         <ImageView
             android:id="@+id/iv_room_map"
             android:layout_width="27dp"
             android:layout_height="27dp"
             android:src="@drawable/ic_map"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:contentDescription="@string/image_decoration"/>
 
         <ImageView
             android:id="@+id/btn_arrived"
             android:layout_width="27dp"
             android:layout_height="27dp"
             android:src="@drawable/ic_check"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:contentDescription="@string/image_decoration"/>
 
     </LinearLayout>
 
