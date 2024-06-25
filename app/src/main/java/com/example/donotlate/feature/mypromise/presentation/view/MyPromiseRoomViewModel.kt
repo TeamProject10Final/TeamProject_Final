@@ -19,6 +19,7 @@ import com.example.donotlate.feature.directionRoute.presentation.toModel
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageReceivingUseCase
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseCase
 import com.example.donotlate.feature.mypromise.domain.usecase.UpdateArrivalStatusUseCase
+import com.example.donotlate.feature.mypromise.domain.usecase.UpdateDepartureStatusUseCase
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageEntity
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageModel
 import com.example.donotlate.feature.mypromise.presentation.mapper.toViewType
@@ -55,7 +56,8 @@ class MyPromiseRoomViewModel(
     private val getDirectionsUseCase: GetDirectionsUseCase,
     private val removeParticipantsUseCase: RemoveParticipantsUseCase,
     private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase
 ) : ViewModel() {
     private var checkArrivalStatusJob: Job? = null
     private var foundCountry: String? = null
@@ -116,6 +118,12 @@ class MyPromiseRoomViewModel(
     private val _lateUsers = MutableStateFlow<List<String>>(value = emptyList())
     val lateUsers: StateFlow<List<String>> get() = _lateUsers
 
+    private val _updateDepartureStatus = MutableStateFlow<Boolean?>(null)
+    val updateDepartureStatus: StateFlow<Boolean?> get() = _updateDepartureStatus
+
+    private val _hasDeparture = MutableStateFlow<Map<String, Boolean>>(emptyMap())
+    val hasDeparture: StateFlow<Map<String, Boolean>> get() = _hasDeparture
+
     private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 
     init {
@@ -140,6 +148,16 @@ class MyPromiseRoomViewModel(
     private suspend fun sendWrongAccessMessage(message: String = "잘못된 접근입니다.") {
         _error.send(element = message)
     }
+
+//TODO
+//    fun getDesCountry(): String? {
+//        if (desCountry.value != null) {
+//            return desCountry.value!!
+//        } else {
+//            _error.postValue("다시 시도해 주세요.")
+//            return null
+//        }
+//    }
 
     private suspend fun checkIsUserHasArrived() {
         if (this.promiseRoom.value?.hasArrived?.get(CurrentUser.userData?.uId) == true) {
@@ -492,6 +510,18 @@ class MyPromiseRoomViewModel(
         private const val SOUTH_KOREA_KR = "대한민국"
         private const val SOUTH_KOREA_EN = "South Korea"
     }
+
+    fun updateDepartureStatus(roomId: String, uid: String) {
+        viewModelScope.launch {
+            updateDepartureStatusUseCase(roomId, uid).collect { success ->
+                _updateDepartureStatus.value = success
+
+                val currentDeparture = _hasDeparture.value.toMutableMap()
+                currentDeparture[uid] = true
+                _hasDeparture.value = currentDeparture
+            }
+        }
+    }
 }
 
 sealed interface DistanceState {
@@ -511,7 +541,9 @@ class MyPromiseRoomViewModelFactory(
     private val messageReceivingUseCase: MessageReceivingUseCase,
     private val getDirectionsUseCase: GetDirectionsUseCase,
     private val removeParticipantsUseCase: RemoveParticipantsUseCase,
-    private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase
+    private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase,
+//    private val savedStateHandle: SavedStateHandle = SavedStateHandle(),
+    private val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
@@ -523,7 +555,9 @@ class MyPromiseRoomViewModelFactory(
                 getDirectionsUseCase,
                 removeParticipantsUseCase,
                 updateArrivalStatusUseCase,
-                extras.createSavedStateHandle()
+                extras.createSavedStateHandle(),
+//                savedStateHandle,
+                updateDepartureStatusUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

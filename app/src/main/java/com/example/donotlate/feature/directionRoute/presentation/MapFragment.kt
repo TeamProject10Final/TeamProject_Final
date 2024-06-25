@@ -2,7 +2,6 @@ package com.example.donotlate.feature.directionRoute.presentation
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.TimePickerDialog
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -44,7 +43,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.Calendar
 import java.util.Locale
 
 class MapFragment : Fragment(), OnMapReadyCallback, TimePickerInterface {
@@ -171,6 +169,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, TimePickerInterface {
             when (mode) {
                 "transit" -> {
                     if (sharedViewModel.getCountry() == null) {
+                        return@observe
+                    }
+                    if (sharedViewModel.getDesCountry() == null) {
                         return@observe
                     }
                     binding.spinner2tm.visibility = View.VISIBLE

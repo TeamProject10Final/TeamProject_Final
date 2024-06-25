@@ -113,7 +113,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun observeViewModel() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             roomViewModel.makeARoomResult.collect{ it ->
                 if (it == true) {
                     openPromiseRoomFragment(roomInfo)
@@ -125,7 +125,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun makeARoom(roomInfo: PromiseModel) {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             roomViewModel.makeAPromiseRoom(roomInfo)
         }
 
@@ -148,7 +148,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             roomId = UUID.randomUUID().toString(),
             roomTitle = inputData?.title ?: "",
             promiseDate = inputData?.date ?: "",
-            destination = locationData?.name ?: "",
+            destination = locationData?.address ?: "",
             destinationLat = locationData?.lat ?: 0.0,
             destinationLng = locationData?.lng ?: 0.0,
             penalty = inputData?.penalty ?: "",
@@ -156,7 +156,8 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             promiseTime = inputData?.time ?: "",
             roomCreatedAt = Timestamp.now(),
             hasArrived = (userData ?: emptyList()).associateWith { false }.toMutableMap(),
-            participantsNames = participantsNamesMap
+            participantsNames = participantsNamesMap,
+            hasDeparture = (userData).associateWith { false }.toMutableMap()
         )
 
         makeARoom(roomInfo)

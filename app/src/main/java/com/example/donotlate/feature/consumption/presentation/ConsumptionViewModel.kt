@@ -72,10 +72,6 @@ class ConsumptionViewModel(
         fetchFinishedConsumptions()
         fetchUnfinishedConsumptions()
         fetchLiveDataCount()
-//        if (liveDataCount.value >= 1){
-//            Log.d("확인 지출", "${liveDataCount.value}")
-//            fetchTotalPrice()
-//        }
         fetchTotalPrice()
         getCurrentUserData()
 
@@ -129,23 +125,6 @@ class ConsumptionViewModel(
                     Log.d("확인 long? 0", "${e.message}")
                 }
             }
-//            getTotalPriceUseCase()
-//                .onStart {
-//                    // Loading state 처리
-//                }
-//                .catch { exception ->
-//                    Log.d("확인 long?", "${exception.message}")
-//                    _errorState.send(exception.message ?: "Unknown error")
-//                }
-//                .collect { price ->
-//                    if(price != 0L){
-//                        _totalPrice.value = price
-//                        Log.d("확인 longerror Notnull", "${price}")
-//                    }else{
-//                        _errorState.send("price is 0L")
-//                        Log.d("확인 longerror null", "${price}")
-//                    }
-//                }
         }
     }
 
@@ -171,6 +150,18 @@ class ConsumptionViewModel(
                 toggleIsFinishedUseCase(consumption.toEntity())
             } catch (e: Exception) {
                 _error.value = e.message ?: "An unexpected error occurred"
+            }
+        }
+    }
+
+    fun deleteConsumption(consumption: ConsumptionModel) {
+        viewModelScope.launch {
+            try {
+                Log.d("확인 delete 성공", "${consumption.toEntity()}")
+                deleteConsumptionUseCase(consumption.toEntity())
+            } catch (e: Exception) {
+                _error.postValue("Failed to delete consumption: ${e.message}")
+                Log.d("확인 delete", "${e.message}")
             }
         }
     }

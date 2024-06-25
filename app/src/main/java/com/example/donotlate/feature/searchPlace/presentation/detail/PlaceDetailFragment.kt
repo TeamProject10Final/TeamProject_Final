@@ -94,6 +94,8 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
     private fun passDestination() {
         val intent = Intent(requireContext(), DirectionRouteActivity::class.java)
         intent.putExtra("destination", "${searchViewModel.data.value?.name}")
+        intent.putExtra("des lat", "${searchViewModel.data.value?.lat}")
+        intent.putExtra("des lng", "${searchViewModel.data.value?.lng}")
         Log.d("확인 확인 확인", "${searchViewModel.data.value?.name}")
         startActivity(intent)
     }

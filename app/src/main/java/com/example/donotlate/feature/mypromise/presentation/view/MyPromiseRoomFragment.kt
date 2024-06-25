@@ -42,7 +42,8 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
             appContainer.messageReceivingUseCase,
             appContainer.getDirectionsUseCase,
             appContainer.removeParticipantsUseCase,
-            appContainer.updateArrivalStatusUseCase
+            appContainer.updateArrivalStatusUseCase,
+            appContainer.updateDepartureStatusUseCase
         )
     }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -171,6 +172,19 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
 
         binding.ivRoomMap.setOnClickListener {
             //TODO 4 대한민국일 때 이 부분은 건너뜀... showModeDialog 전까지 다 주석처리하고 에러 잡은 뒤 다시 살리기
+            checkPermissionAndProceed()
+
+
+
+
+            //TODO 나라 비교하는 코드 추가하기
+
+
+
+
+
+
+
             myPromiseViewModel.checkCountryAndGetRouteSelection()
         }
 
