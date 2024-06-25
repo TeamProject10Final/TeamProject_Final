@@ -14,7 +14,8 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

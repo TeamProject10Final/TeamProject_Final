@@ -13,7 +13,8 @@
         android:layout_margin="10dp"
         android:background="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -33,7 +34,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="40dp"
                 android:text="@string/friend_request_top_title"
-                android:textSize="25dp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -51,12 +52,14 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:maxLines="1"
-                android:paddingLeft="15dp"
-                android:textSize="20dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="0dp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toStartOf="@+id/btn_Friend_Search"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_Friend_Title"
-                app:theme="@style/EditTextStyle" />
+                app:theme="@style/EditTextStyle"
+                android:importantForAutofill="no"/>
 
             <android.widget.Button
                 android:id="@+id/btn_Friend_Search"
@@ -66,7 +69,7 @@
                 android:background="@drawable/btn_radius_arctic"
                 android:text="@string/friend_request_btn_text"
                 android:textColor="@color/black"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@id/et_Friend_Search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/et_Friend_Search" />

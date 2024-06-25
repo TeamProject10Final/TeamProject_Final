@@ -15,7 +15,8 @@
         android:layout_margin="10dp"
         android:background="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 
 
     <ImageView
@@ -28,7 +29,8 @@
         android:background="@drawable/rounded_edittext2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_promise_back" />
+        app:layout_constraintTop_toBottomOf="@id/iv_promise_back"
+        android:contentDescription="@string/image_decoration"/>
 
     <TextView
         android:id="@+id/tv_title_date"
@@ -36,7 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="20dp"
-        android:text="24.06.05"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@id/iv_title_background"
         app:layout_constraintTop_toTopOf="@id/iv_title_background" />
@@ -50,7 +51,6 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:text="아무내용이나 계속 넣는 중입니다 어떻게 되는것인지"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@id/tv_title_defult"
         app:layout_constraintEnd_toEndOf="@id/tv_title_defult"
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="25dp"
-        android:text="의 약속이 얼마남지 않았습니다"
+        android:text="@string/list_text1"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@id/iv_title_background"
         app:layout_constraintEnd_toEndOf="@id/iv_title_background" />
@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="예정되어 있는 \n약속이 없습니다."
+        android:text="@string/list_text2"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

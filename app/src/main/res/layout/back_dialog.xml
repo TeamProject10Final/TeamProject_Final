@@ -45,7 +45,7 @@
             android:layout_marginBottom="25dp"
             android:text="@string/dialog_back_text3"
             android:textColor="@color/blue_violet"
-            android:textSize="17dp"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -57,7 +57,7 @@
             android:layout_marginEnd="30dp"
             android:text="@string/dialog_back_text4"
             android:textColor="@color/pink"
-            android:textSize="17dp"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/tv_Dl_Confirm"
             app:layout_constraintEnd_toStartOf="@id/tv_Dl_Confirm"

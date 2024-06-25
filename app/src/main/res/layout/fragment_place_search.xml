@@ -16,7 +16,8 @@
         android:layout_marginTop="15dp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 
     <EditText
         android:id="@+id/et_SearchBox"
@@ -29,6 +30,7 @@
         android:ems="10"
         android:imeOptions="actionSearch"
         android:paddingStart="3dp"
+        android:paddingEnd="0dp"
         android:hint="@string/search_edit_text1"
         android:inputType="text"
         android:paddingBottom="15dp"
@@ -36,7 +38,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_SearchButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:theme="@style/EditTextStyle" />
+        app:theme="@style/EditTextStyle"
+        android:importantForAutofill="no"/>
 
 
 
@@ -48,7 +51,8 @@
         android:src="@drawable/ic_map_mark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_SearchBox" />
+        app:layout_constraintTop_toBottomOf="@+id/et_SearchBox"
+        android:contentDescription="@string/image_decoration"/>
 
     <TextView
         android:id="@+id/tv_defaultText"

@@ -66,7 +66,6 @@ class FriendsFragment : Fragment() {
         observeViewModel()
         backButton()
 
-        binding.tvTopUserName.text = userData?.name
     }
 
     private fun backButton() {

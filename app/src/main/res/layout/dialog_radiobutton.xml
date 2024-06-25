@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/dialog_radio_text1"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/dialog_radio_text2"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/dialog_radio_text3"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/dialog_radio_text4"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
             </RadioGroup>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -92,7 +92,7 @@
                 android:text="@string/dialog_back_text4"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="17dp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/btn_Radio_Confirm"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -107,7 +107,7 @@
                 android:text="@string/dialog_back_text3"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="17dp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

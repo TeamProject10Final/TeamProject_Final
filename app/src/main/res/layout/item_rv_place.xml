@@ -12,7 +12,8 @@
         android:backgroundTint="@color/backGround"
         android:src="@drawable/no_picture_background"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_decoration"/>
 
     <TextView
         android:id="@+id/tv_Item_Map_Title"
@@ -34,7 +35,8 @@
         android:layout_marginEnd="5dp"
         android:src="@drawable/ic_star_color"
         app:layout_constraintBottom_toBottomOf="@+id/tv_Item_Map_Title"
-        app:layout_constraintEnd_toStartOf="@+id/tv_Item_Map_Rating"/>
+        app:layout_constraintEnd_toStartOf="@+id/tv_Item_Map_Rating"
+        android:contentDescription="@string/image_decoration"/>
 
     <TextView
         android:id="@+id/tv_Item_Map_Rating"

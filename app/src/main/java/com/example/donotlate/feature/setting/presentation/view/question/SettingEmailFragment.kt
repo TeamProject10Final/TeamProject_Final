@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.donotlate.R
+import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.databinding.FragmentSettingEmailBinding
 import com.example.donotlate.feature.main.presentation.view.MainFragment
 
@@ -16,6 +17,8 @@ class SettingEmailFragment : Fragment() {
 
     private var _binding: FragmentSettingEmailBinding? = null
     private val binding get() = _binding!!
+
+    private val userData = CurrentUser.userData
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +39,8 @@ class SettingEmailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         backButton()
+
+        binding.tvSettingQName.text = userData?.name
 
     }
 
