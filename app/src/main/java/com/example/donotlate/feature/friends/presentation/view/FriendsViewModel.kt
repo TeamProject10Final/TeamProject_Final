@@ -13,6 +13,7 @@ import com.example.donotlate.core.domain.usecase.SearchUserByIdUseCase
 import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.feature.friends.presentation.mapper.toModel
 import com.example.donotlate.feature.friends.presentation.mapper.toModelList
+import com.example.donotlate.feature.friends.presentation.mapper.toUserModelList
 import com.example.donotlate.feature.friends.presentation.model.FriendRequestModel
 import com.example.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
 import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
@@ -58,7 +59,7 @@ class FriendsViewModel(
                 if (uid.isNotBlank()) {
                     getFriendsListFromFirebaseUseCase(uid).collect { friends ->
                         Log.d("FriendsViewModel", "Fetched friends: $friends")
-                        _friendsList.value = friends.map { it.toModel() }
+                        _friendsList.value = friends.toUserModelList()
                     }
                 }
             }

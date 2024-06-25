@@ -27,6 +27,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 
 class FirebaseDataSourceImpl(
@@ -75,22 +76,47 @@ class FirebaseDataSourceImpl(
         }
     }
 
-    override suspend fun getFriendsListFromFirebase(uid: String): Flow<List<UserEntity>> = flow {
-        try {
-            val document = db.collection("users").document(uid).get().await()
-            val user = document.toObject(UserResponse::class.java)
-            val friends = user?.friends ?: emptyList()
-            val friendsList = friends.mapNotNull { friendId ->
-                val friendDoc = db.collection("users").document(friendId).get().await()
-                friendDoc.toObject(UserResponse::class.java)
+    override suspend fun getFriendsListFromFirebase(uid: String): Flow<List<UserEntity>> =
+//        flow {
+        callbackFlow {
+            try {
+                val documentRef = db.collection("users").document(uid)
+                val listener = documentRef.addSnapshotListener { snapshot, error ->
+                    if (error != null) {
+                        close(error)
+                        return@addSnapshotListener
+                    }
+                    if (snapshot != null && snapshot.exists()) {
+                        val user = snapshot.toObject(UserResponse::class.java)
+                        val friends = user?.friends ?: emptyList()
+                        val friendsList = runBlocking {
+                            friends.mapNotNull { friendId ->
+                                val friendDoc =
+                                    db.collection("users").document(friendId).get().await()
+                                friendDoc.toObject(UserResponse::class.java)
+                            }
+                        }
+                        trySend(friendsList.toUserEntityList()).isSuccess
+                    }
+                }
+                awaitClose { listener.remove() }
+            } catch (e: Exception) {
+                close(e)
             }
-            Log.d("FirebaseRepositoryImpl", "Fetched Friends List: $friendsList")
-            emit(friendsList.toUserEntityList())
-        } catch (e: Exception) {
-            Log.e("FirebaseRepositoryImpl", "Error fetching friends list", e)
-            emit(emptyList())
+//            try {
+//                val document = db.collection("users").document(uid).get().await()
+//                val user = document.toObject(UserResponse::class.java)
+//                val friends = user?.friends ?: emptyList()
+//                val friendsList = friends.mapNotNull { friendId ->
+//                    val friendDoc = db.collection("users").document(friendId).get().await()
+//                    friendDoc.toObject(UserResponse::class.java)
+//                }
+//                Log.d("FirebaseRepositoryImpl", "Fetched Friends List: $friendsList")
+//                emit(friendsList.toUserEntityList())
+//            } catch (e: Exception) {
+//                Log.e("FirebaseRepositoryImpl", "Error fetching friends list", e)
+//            }
         }
-    }
 
 
     override suspend fun acceptFriendRequest(requestId: String): Flow<Boolean> = flow {
