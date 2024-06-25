@@ -300,7 +300,13 @@
     <string name="toast_room_text6">친구를 선택해 주세요.</string>
     <string name="toast_room_text7">벌칙은 따로 없어요!</string>
     <string name="toast_room_text8">방을 생성하지 못했습니다.</string>
-
+    <string name="toast_cal_text1">입력한 내용을 다시 확인해주세요.</string>
+    <string name="toast_cal_text2">인원수를 다시 확인해주세요.</string>
+    <string name="toast_cal_text3">입력한 금액을 다시 확인해주세요.</string>
+    <string name="toast_cal_text4">다시 정산해 주세요.</string>
+    <string name="toast_login_text1">로그인에 실패하였습니다.</string>
+    <string name="toast_login_text2">회원 가입 성공!</string>
+    <string name="toast_login_text3">회원 가입 실패!</string>
 
     <!--법령-->
     <string name="info">

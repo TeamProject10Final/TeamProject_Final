@@ -46,7 +46,7 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
                 tvRes32.text = date ?: ""
             }
             viewModel.number.observe(viewLifecycleOwner) { number ->
-                tvRes33.text = "${number} 명"
+                tvRes33.text = "${number} ${resources.getString(R.string.cal3_text4)}"
             }
             viewModel.category.observe(viewLifecycleOwner) { category ->
                 tvRes34.text = category ?: ""
@@ -58,7 +58,7 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
                     binding.btnCalExit.isVisible = true
                     binding.btnCalFinish.isVisible = true
                 } else {
-                    binding.tvRes35.text = "다시 정산해 주세요."
+                    binding.tvRes35.text = "${resources.getString(R.string.toast_cal_text4)}"
                     binding.btnCalExit.isVisible = false
                     binding.btnCalFinish.isVisible = false
                 }

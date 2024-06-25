@@ -300,6 +300,13 @@
     <string name="toast_room_text6">Please select a friend.</string>
     <string name="toast_room_text7">There is no penalty!</string>
     <string name="toast_room_text8">Failed to create room.</string>
+    <string name="toast_cal_text1">Please check the\ninformation you entered again.</string>
+    <string name="toast_cal_text2">Please check the\nnumber of people again.</string>
+    <string name="toast_cal_text3">Please check the\namount you entered again.</string>
+    <string name="toast_cal_text4">Please settle the bill again.</string>
+    <string name="toast_login_text1">Login failed.</string>
+    <string name="toast_login_text2">Sign up successful!</string>
+    <string name="toast_login_text3">Sign up failed!</string>
 
     <!--법령-->
     <string name="info">
