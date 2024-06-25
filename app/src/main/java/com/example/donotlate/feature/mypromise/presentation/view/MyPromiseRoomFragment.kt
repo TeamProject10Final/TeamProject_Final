@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -165,6 +164,17 @@ class MyPromiseRoomFragment : Fragment() {
 
             myPromiseViewModel.setDestinationLatLng(room.destinationLat, room.destinationLng)
 
+            val locationUtils = LocationUtils()
+            val destCountry = locationUtils.getCountryFromLatLng(
+                requireContext(),
+                room.destinationLat,
+                room.destinationLng
+            )
+            destCountry?.let {
+                Log.d("확인 도착지 나라", it)
+                myPromiseViewModel.setDesCountry(it)
+            }
+
             binding.tvRoomTitleDetail.text = room.roomTitle
             binding.tvRoomTitle.text = room.roomTitle
             binding.tvRoomPromiseDate.text = room.promiseDate
@@ -224,7 +234,7 @@ class MyPromiseRoomFragment : Fragment() {
 //TODO 4 대한민국일 때 이 부분은 건너뜀... showModeDialog 전까지 다 주석처리하고 에러 잡은 뒤 다시 살리기
                     checkPermissionAndProceed()
 
-                    if (myPromiseViewModel.getCountry() == null) {
+                    if (myPromiseViewModel.getCountry() == null || myPromiseViewModel.getDesCountry() == null || myPromiseViewModel.getCountry() != myPromiseViewModel.getDesCountry()) {
                         Toast.makeText(context, "다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
                     } else if (myPromiseViewModel.getCountry() == "대한민국" || myPromiseViewModel.getCountry() == "South Korea") {
                         myPromiseViewModel.routeSelectionText.observe(viewLifecycleOwner) {
@@ -476,6 +486,7 @@ private fun getCurrentLocation() {
 
 private fun getDirectionsAndSelection() {
     val currentUserLocation = myPromiseViewModel.originString.value
+
     myPromiseViewModel.getDirections()
 
     Log.d("확인 확인 확인", "${currentUserLocation}")

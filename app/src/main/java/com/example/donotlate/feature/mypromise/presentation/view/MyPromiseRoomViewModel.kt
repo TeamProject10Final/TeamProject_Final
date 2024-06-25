@@ -104,6 +104,9 @@ class MyPromiseRoomViewModel(
     private val _country = MutableLiveData<String>()
     val country: LiveData<String> = _country
 
+    private val _destCountry = MutableLiveData<String>()
+    val desCountry: LiveData<String> = _destCountry
+
     private val _updateStatus = MutableStateFlow<Boolean?>(null)
     val updateStatus: StateFlow<Boolean?> get() = _updateStatus
 
@@ -133,8 +136,21 @@ class MyPromiseRoomViewModel(
         }
     }
 
+    fun getDesCountry(): String? {
+        if (desCountry.value != null) {
+            return desCountry.value!!
+        } else {
+            _error.postValue("다시 시도해 주세요.")
+            return null
+        }
+    }
+
     fun setCountry(country: String) {
         _country.value = country
+    }
+
+    fun setDesCountry(country: String) {
+        _destCountry.value = country
     }
 
     fun refreshIndex() {
