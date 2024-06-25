@@ -13,7 +13,8 @@
         android:layout_margin="10dp"
         android:background="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 
     <TextView
         android:id="@+id/tv_game_manual"
@@ -71,7 +72,8 @@
         android:src="@drawable/ic_top_arrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_game_roulette" />
+        app:layout_constraintTop_toTopOf="@id/iv_game_roulette"
+        android:contentDescription="@string/image_decoration"/>
 
     <Button
         android:id="@+id/btn_game_button"

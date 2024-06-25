@@ -14,6 +14,7 @@
         android:layout_height="25dp"
         android:layout_margin="10dp"
         android:background="@drawable/ic_back"
+        android:contentDescription="@string/image_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +47,6 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:text="아무 제목이나 계속 넣는 중입니다 길어지는 어떻게 되는 것인지? 쭉쭉 써보겠씁니다"
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="visible"
@@ -97,7 +97,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="center_vertical"
-            android:text="아무 제목이나 계속 넣는 중입니다 길어지는 어떻게 되는 것인지? 쭉쭉 써보겠씁니다"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/cl_Top_Title_Border_Detail"
@@ -110,7 +109,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:text="24.06.02"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="@+id/tv_Room_Title_Detail"
             app:layout_constraintTop_toBottomOf="@+id/tv_Room_Title_Detail" />
@@ -120,7 +118,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="오전 02시 : 30분"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_Room_Promise_Date"
             app:layout_constraintStart_toEndOf="@id/tv_Room_Promise_Date"
@@ -131,7 +128,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="홍길동, 홍길동"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="@id/tv_Room_Promise_Date"
             app:layout_constraintTop_toBottomOf="@+id/tv_Room_Promise_Date" />
@@ -140,7 +136,6 @@
             android:id="@+id/tv_Room_Promise1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="벌칙 : "
             android:layout_marginTop="5dp"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="@id/tv_Room_Promise_Participants"
@@ -150,10 +145,9 @@
             android:id="@+id/tv_Room_Promise_Penalty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="돈 뽑아오기"
             android:textSize="17sp"
-            app:layout_constraintStart_toEndOf="@id/tv_Room_Promise1"
             app:layout_constraintBottom_toBottomOf="@+id/tv_Room_Promise1"
+            app:layout_constraintStart_toEndOf="@id/tv_Room_Promise1"
             app:layout_constraintTop_toTopOf="@+id/tv_Room_Promise1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -162,11 +156,12 @@
         android:id="@+id/iv_Promise_Room"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/baseline_arrow_drop_down_24"
         android:layout_marginEnd="20dp"
+        android:background="@drawable/baseline_arrow_drop_down_24"
+        android:contentDescription="@string/image_more"
+        app:layout_constraintBottom_toBottomOf="@id/cl_Top_Title_Border"
         app:layout_constraintEnd_toEndOf="@+id/cl_Top_Title_Border"
-        app:layout_constraintTop_toTopOf="@id/cl_Top_Title_Border"
-        app:layout_constraintBottom_toBottomOf="@id/cl_Top_Title_Border"/>
+        app:layout_constraintTop_toTopOf="@id/cl_Top_Title_Border" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -188,8 +183,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15sp"
             android:layout_marginEnd="15dp"
+            android:hint="@null"
+            android:importantForAutofill="no"
+            android:inputType="text"
             android:maxLines="2"
             android:paddingStart="3dp"
+            android:paddingEnd="0dp"
             android:paddingBottom="15dp"
             android:scrollbars="vertical"
             android:textSize="20sp"
@@ -201,10 +200,10 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_send"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:layout_marginEnd="15sp"
             android:background="@drawable/btn_radius_arctic"
-            android:text="보내기"
+            android:text="@string/chat_send"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -223,7 +222,8 @@
         android:src="@drawable/ic_out"
         app:layout_constraintBottom_toBottomOf="@+id/iv_chat_room_back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/iv_chat_room_back" />
+        app:layout_constraintTop_toTopOf="@+id/iv_chat_room_back"
+        android:contentDescription="@string/image_decoration"/>
 
     <LinearLayout
         android:id="@+id/btn_departure"
@@ -243,7 +243,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:gravity="center"
-            android:text="출발"
+            android:text="@string/chat_start"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -255,21 +255,24 @@
             android:id="@+id/iv_departure"
             android:layout_width="27dp"
             android:layout_height="27dp"
-            android:src="@drawable/ic_start" />
+            android:src="@drawable/ic_start"
+            android:contentDescription="@string/image_decoration"/>
 
         <ImageView
             android:id="@+id/iv_room_map"
             android:layout_width="27dp"
             android:layout_height="27dp"
             android:src="@drawable/ic_map"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:contentDescription="@string/image_decoration"/>
 
         <ImageView
             android:id="@+id/btn_arrived"
             android:layout_width="27dp"
             android:layout_height="27dp"
             android:src="@drawable/ic_check"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:contentDescription="@string/image_decoration"/>
 
     </LinearLayout>
 

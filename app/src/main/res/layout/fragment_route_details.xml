@@ -18,7 +18,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/image_decoration"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -47,28 +48,24 @@
                 android:id="@+id/routeDetailsTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Routes Details"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/boundsTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bounds"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/geocodedWaypointsTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Geocoded Waypoints"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/routeDetailsText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="여기에 경로 보여줌" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

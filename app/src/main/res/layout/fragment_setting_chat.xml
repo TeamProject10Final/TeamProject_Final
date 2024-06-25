@@ -13,7 +13,8 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,7 +25,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="40dp"
                     android:text="@string/setting_chat_text1"
-                    android:textSize="25dp"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/setting_chat_text2"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/tv_Setting_Chat_1"
                     app:layout_constraintTop_toBottomOf="@+id/tv_Setting_Chat_1" />
@@ -59,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/setting_chat_text3"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/tv_Setting_Chat_2"
                     app:layout_constraintTop_toBottomOf="@+id/tv_Setting_Chat_2" />
@@ -68,10 +69,10 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="5dp"
-
                     android:background="@drawable/ic_smile"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_Setting_Chat1"
-                    app:layout_constraintStart_toEndOf="@+id/tv_Setting_Chat1" />
+                    app:layout_constraintStart_toEndOf="@+id/tv_Setting_Chat1"
+                    android:contentDescription="@string/image_decoration"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -92,7 +93,8 @@
                     android:layout_marginStart="10dp"
                     android:background="@drawable/ic_kakao"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/image_decoration"/>
 
                 <TextView
                     android:id="@+id/tv_Setting_Chat2"
@@ -134,7 +136,8 @@
                     android:layout_marginStart="10dp"
                     android:background="@drawable/ic_discord"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/image_decoration"/>
 
                 <TextView
                     android:id="@+id/tv_Setting_Chat4"

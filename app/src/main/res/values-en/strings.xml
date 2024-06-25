@@ -4,6 +4,102 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loading">Loading</string>
 
+    <!--Content Description-->
+    <string name="image_back">back button</string>
+    <string name="image_calendar">date picker</string>
+    <string name="image_time">time picker</string>
+    <string name="image_line">line</string>
+    <string name="image_decoration">decoration</string>
+    <string name="image_logo">logo</string>
+    <string name="image_password">hide password</string>
+    <string name="image_google">google image</string>
+    <string name="image_kakao">kakao image</string>
+    <string name="image_button">button image</string>
+    <string name="image_setting">setting button image</string>
+    <string name="image_notification">notification button image</string>
+    <string name="image_more">see more</string>
+    <string name="image_map">map image</string>
+    <string name="image_user">user image</string>
+    <string name="image_share">share image</string>
+    <string name="image_exit">exit image</string>
+
+
+
+
+    <!--약속 잡기(장소)-->
+    <string name="room_start_text1">let\'s meet now,</string>
+    <string name="room_start_text2">Please make</string>
+    <string name="room_start_text3">appointment.</string>
+    <string name="room_start_text4">Title</string>
+    <string name="room_start_text5">Please enter the Subject</string>
+    <string name="room_start_text6">Date</string>
+    <string name="room_start_text7">Please select the Date</string>
+    <string name="room_start_text8">Time</string>
+    <string name="room_start_text9">Please select the Time</string>
+    <string name="room_start_text10">Penalty</string>
+    <string name="room_start_text11">ex) Pay transportation expenses</string>
+    <string name="room_start_text12">Please decide the punishment!</string>
+    <string name="room_start_text13">Next</string>
+
+    <!--약속 잡기(장소)-->
+    <string name="room_map_text1">See you Right away,</string>
+    <string name="room_map_text2">Choose</string>
+    <string name="room_map_text3">Destination</string>
+    <string name="room_map_text4">Please Search Destination</string>
+    <string name="room_map_text5">search</string>
+    <string name="room_map_text6">Next</string>
+    <string name="room_map_text7">Search Results</string>
+
+
+    <!--약속 잡기(친구)-->
+    <string name="room_friend_text1">Our Friend\'s kid!</string>
+    <string name="room_friend_text2">Choose</string>
+    <string name="room_friend_text3">Friends.</string>
+    <string name="room_friend_text4">Please search Friends</string>
+    <string name="room_friend_text5">search</string>
+    <string name="room_friend_text6">This is a list of friends who can be invited.</string>
+    <string name="room_friend_text7">Next</string>
+
+    <!--약속 잡기(친구)-->
+    <string name="room_result_text1">Please Confirm</string>
+    <string name="room_result_text2">Appointment</string>
+    <string name="room_result_text3">Result</string>
+    <string name="room_result_text4">Title</string>
+    <string name="room_result_text5">Date</string>
+    <string name="room_result_text6">Penalty</string>
+    <string name="room_result_text7">Friends</string>
+    <string name="room_result_text8">Place</string>
+    <string name="room_result_text9">Confirm</string>
+
+    <!--채팅방-->
+    <string name="chat_start">Start</string>
+    <string name="chat_arrive">Arrive</string>
+    <string name="chat_send">Send</string>
+
+
+    <!--채팅방 리스트-->
+    <string name="list_text1">is coming</string>
+    <string name="list_text2">Have no scheduled Appointment</string>
+
+
+
+    <!--길찾기-->
+    <string name="map_select">Please select a time</string>
+    <string name="map_start">Start</string>
+    <string name="map_complete">Complete</string>
+    <string name="map_detail">Details</string>
+
+    <!--미니 게임-->
+    <string name="number1">no.1</string>
+    <string name="number2">no.1</string>
+    <string name="number3">no.1</string>
+    <string name="number4">no.1</string>
+    <string name="number5">no.1</string>
+    <string name="number6">no.1</string>
+    <string name="number7">no.1</string>
+    <string name="number8">no.1</string>
+    <string name="complete">Finish</string>
+
     <!--로그인 페이지-->
     <string name="login_top_title1">Welcome</string>
     <string name="login_top_title2"></string>
@@ -142,7 +238,7 @@
     <string name="setting_chat_text5">Don\'t Be Late Company\nhttps://open.kakao.com/o/g5qJY8xg</string>
     <string name="setting_chat_text6">Discord Dev Server</string>
     <string name="setting_chat_text7">Don\'t Be Late Company Server\nhttps://discord.gg/CTQaZPnG</string>
-    <string name="setting_email_text1">User!</string>
+    <string name="setting_email_text1">!</string>
     <string name="setting_email_text2">Please send us an email with anything</string>
     <string name="setting_email_text3">you found inconvenient or needed!</string>
     <string name="setting_email_text4">sp10nomorelateness@gmail.com</string>
@@ -154,13 +250,14 @@
     <string name="setting_info_text4">Location information terms\n and conditions</string>
     <string name="setting_info_text5">Personal information collection\n and use guide</string>
     <string name="setting_info_text6">Terms of Service</string>
+    <string name="setting_info_version">ver. Beta</string>
     <string name="setting_question_text1">Hello.</string>
     <string name="setting_question_text2">Don\'t Be Late company!</string>
     <string name="setting_question_text3">How can I help you?</string>
     <string name="setting_question_text4">Contact us by e-mail</string>
     <string name="setting_question_text5">Contact us through open chat room</string>
 
-    <!--다디얼로그-->
+    <!--다이얼로그-->
     <string name="dialog_info_text1">Please agree to the terms and conditions.</string>
     <string name="dialog_info_text2">If you do not agree,\n it is difficult to sign up.</string>
     <string name="dialog_info_text3">I agree to the terms\n and conditions.</string>
@@ -172,6 +269,7 @@
     <string name="dialog_back_text2">Shall we go back to the main island?</string>
     <string name="dialog_back_text3">Check</string>
     <string name="dialog_back_text4">Cancel</string>
+    <string name="dialog_back_text5">Agree</string>
     <string name="dialog_radio_text1">Public transport</string>
     <string name="dialog_radio_text2">Driving</string>
     <string name="dialog_radio_text3">Walking</string>
@@ -181,6 +279,9 @@
     <string name="dialog_friend_text2">Friend status</string>
     <string name="dialog_friend_text3">Friend request</string>
     <string name="dialog_time_text">Please select a time.</string>
+    <string name="dialog_late_text1">Come Quickly!</string>
+    <string name="dialog_late_text2">Today\'s tardy 😅</string>
+    <string name="dialog_late_text3">agree</string>
 
 
     <!--법령-->

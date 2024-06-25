@@ -17,7 +17,8 @@
         android:layout_marginTop="15dp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 
 
     <androidx.core.widget.NestedScrollView
@@ -43,7 +44,8 @@
                 android:background="@drawable/no_picture_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/image_decoration"/>
 
 
             <TextView
@@ -66,7 +68,8 @@
                 android:layout_marginTop="25dp"
                 android:src="@drawable/ic_map_pin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Place_Detail_Title" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_Place_Detail_Title"
+                android:contentDescription="@string/image_decoration"/>
 
             <TextView
                 android:id="@+id/tv_Place_Detail_Address"
@@ -88,7 +91,8 @@
                 android:layout_marginTop="25dp"
                 android:src="@drawable/ic_phone"
                 app:layout_constraintStart_toStartOf="@+id/imageView3"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                android:contentDescription="@string/image_decoration"/>
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -97,7 +101,8 @@
                 android:layout_marginTop="25dp"
                 android:src="@drawable/ic_time_blue"
                 app:layout_constraintTop_toBottomOf="@id/imageView4"
-                app:layout_constraintStart_toStartOf="@id/imageView4" />
+                app:layout_constraintStart_toStartOf="@id/imageView4"
+                android:contentDescription="@string/image_decoration"/>
 
             <TextView
                 android:id="@+id/tv_Place_Detail_PhoneNumber"
@@ -135,7 +140,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_Place_Detail_Description" />
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/layout_Place_Detail"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"

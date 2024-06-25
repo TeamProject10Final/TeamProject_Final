@@ -24,7 +24,8 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 
     <ImageView
         android:id="@+id/btnCalShare"
@@ -32,10 +33,10 @@
         android:layout_height="27.8dp"
         android:layout_margin="10dp"
         android:background="@drawable/ic_share"
-        android:text="공유하기"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_share"/>
 
 
     <!--    <androidx.appcompat.widget.AppCompatButton-->

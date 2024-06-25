@@ -50,8 +50,7 @@
                     android:id="@+id/rb_first"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:visibility="visible" />
 
                 <View
@@ -65,8 +64,7 @@
                     android:id="@+id/rb_second"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:visibility="visible" />
 
                 <View
@@ -80,8 +78,7 @@
                     android:id="@+id/rb_third"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:visibility="visible" />
 
                 <View
@@ -95,8 +92,7 @@
                     android:id="@+id/rb_fourth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:visibility="visible" />
 
                 <View
@@ -110,8 +106,7 @@
                     android:id="@+id/rb_fifth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:visibility="visible" />
 
                 <View
@@ -125,8 +120,7 @@
                     android:id="@+id/rb_sixth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:visibility="visible" />
 
             </RadioGroup>
@@ -150,7 +144,7 @@
             android:text="@string/dialog_back_text4"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="17dp"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/btn_Radio_Confirm01"
             app:layout_constraintHorizontal_bias="0.5"
@@ -165,7 +159,7 @@
             android:text="@string/dialog_back_text3"
             android:textColor="@color/white"
             android:textAllCaps="false"
-            android:textSize="17dp"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
