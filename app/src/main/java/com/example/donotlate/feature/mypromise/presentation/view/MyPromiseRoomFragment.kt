@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
@@ -354,7 +353,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
                     myPromiseViewModel.removeParticipantIdResult.collect {
                         if (it == true) {
                             Toast.makeText(requireContext(), "나가기 성공", Toast.LENGTH_SHORT).show()
-                        } else {
+                        } else if (it == false) {
                             Toast.makeText(requireContext(), "나가기 실패", Toast.LENGTH_SHORT).show()
                         }
                     }

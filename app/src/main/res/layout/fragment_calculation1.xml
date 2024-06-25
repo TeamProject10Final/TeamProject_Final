@@ -68,7 +68,6 @@
 
             <EditText
                 android:id="@+id/etDes11"
-                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
@@ -83,7 +82,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:theme="@style/EditTextStyle"
                 android:importantForAutofill="no"/>
 
 
@@ -99,7 +97,6 @@
 
             <TextView
                 android:id="@+id/etDes12"
-                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
@@ -116,7 +113,6 @@
                 app:layout_constraintEnd_toEndOf="@id/etDes11"
                 app:layout_constraintStart_toStartOf="@id/etDes11"
                 app:layout_constraintTop_toBottomOf="@id/etDes11"
-                app:theme="@style/EditTextStyle"
                 tools:ignore="RtlSymmetry" />
 
             <ImageView
