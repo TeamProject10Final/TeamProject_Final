@@ -19,7 +19,8 @@
         android:layout_height="50dp"
         android:background="@drawable/ic_user"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_user"/>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@id/layout_Item2"
         app:layout_constraintStart_toEndOf="@id/layout_Item2" />
 

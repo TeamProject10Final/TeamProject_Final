@@ -4,6 +4,103 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loading">로딩중</string>
 
+    <!--Content Description-->
+    <string name="image_back">뒤로가기 이미지 입니다</string>
+    <string name="image_calendar">날짜 선택 이미지 입니다</string>
+    <string name="image_time">시간 선택 이미지 입니다</string>
+    <string name="image_line">구분선 이미지 입니다</string>
+    <string name="image_decoration">장식용 이미지 입니다</string>
+    <string name="image_logo">로고 이미지 입니다</string>
+    <string name="image_password">비밀번호 가림 이미지 입니다</string>
+    <string name="image_google">구글 로고 이미지 입니다</string>
+    <string name="image_kakao">카카오 로고 이미지 입니다</string>
+    <string name="image_button">버튼 이미지 입니다</string>
+    <string name="image_setting">설정 버튼 이미지 입니다</string>
+    <string name="image_notification">알림 버튼 이미지 입니다</string>
+    <string name="image_more">더보기 이미지 입니다</string>
+    <string name="image_map">지도 이미지 입니다</string>
+    <string name="image_user">유저 이미지 입니다</string>
+    <string name="image_share">공유 이미지 입니다</string>
+    <string name="image_exit">나가기 이미지 입니다</string>
+
+
+    <!--약속 잡기(장소)-->
+    <string name="room_start_text1">우리 지금 만나,</string>
+    <string name="room_start_text2">약속</string>
+    <string name="room_start_text3">을 잡아주세요.</string>
+    <string name="room_start_text4">약속 제목</string>
+    <string name="room_start_text5">제목을 입력해 주세요</string>
+    <string name="room_start_text6">약속 날짜</string>
+    <string name="room_start_text7">아이콘을 눌러 날짜를 선택 해주세요</string>
+    <string name="room_start_text8">약속 시간</string>
+    <string name="room_start_text9">아이콘을 눌러 시간을 선택 해주세요</string>
+    <string name="room_start_text10">벌칙 내용</string>
+    <string name="room_start_text11">예) 교통비 내주기</string>
+    <string name="room_start_text12">늦는 친구에게 주어질 벌칙을 정해 주세요!</string>
+    <string name="room_start_text13">다음</string>
+
+    <!--약속 잡기(장소)-->
+    <string name="room_map_text1">당장 만나,</string>
+    <string name="room_map_text2">목적지</string>
+    <string name="room_map_text3">를 정해주세요.</string>
+    <string name="room_map_text4">목적지를 검색해주세요</string>
+    <string name="room_map_text5">검색</string>
+    <string name="room_map_text6">다음</string>
+    <string name="room_map_text7">검색 결과</string>
+
+
+    <!--약속 잡기(친구)-->
+    <string name="room_friend_text1">우리, 친구 아이가!</string>
+    <string name="room_friend_text2">친구</string>
+    <string name="room_friend_text3">를 선택해 주세요.</string>
+    <string name="room_friend_text4">친구를 검색해 보세요</string>
+    <string name="room_friend_text5">검색</string>
+    <string name="room_friend_text6">초대 가능한 친구 목록 입니다.</string>
+    <string name="room_friend_text7">다음</string>
+
+    <!--약속 잡기(친구)-->
+    <string name="room_result_text1">약속결과</string>
+    <string name="room_result_text2">입니다.</string>
+    <string name="room_result_text3">확인해주세요.</string>
+    <string name="room_result_text4">약속 이름</string>
+    <string name="room_result_text5">약속 날짜</string>
+    <string name="room_result_text6">벌칙 내용</string>
+    <string name="room_result_text7">참여자</string>
+    <string name="room_result_text8">약속 장소</string>
+    <string name="room_result_text9">확인</string>
+
+
+
+
+    <!--채팅방-->
+    <string name="chat_start">출발</string>
+    <string name="chat_arrive">도착</string>
+    <string name="chat_send">보내기</string>
+
+
+    <!--채팅방 리스트-->
+    <string name="list_text1">의 약속이 얼마남지 않았습니다</string>
+    <string name="list_text2">예정되어 있는 \n약속이 없습니다.</string>
+
+
+    <!--길찾기-->
+    <string name="map_select">시간을 선택해 주세요</string>
+    <string name="map_start">출발</string>
+    <string name="map_complete">완료</string>
+    <string name="map_detail">자세히</string>
+
+
+    <!--미니 게임-->
+    <string name="number1">1번</string>
+    <string name="number2">2번</string>
+    <string name="number3">3번</string>
+    <string name="number4">4번</string>
+    <string name="number5">5번</string>
+    <string name="number6">6번</string>
+    <string name="number7">7번</string>
+    <string name="number8">8번</string>
+    <string name="complete">입력 완료</string>
+
     <!--로그인 페이지-->
     <string name="login_top_title1">환영합니다.</string>
     <string name="login_top_title2">로그인</string>
@@ -143,7 +240,7 @@
     <string name="setting_chat_text5">늦지마 컴퍼니\nhttps://open.kakao.com/o/g5qJY8xg</string>
     <string name="setting_chat_text6">디스코드 개발진 서버</string>
     <string name="setting_chat_text7">늦지마 컴퍼니 서버\nhttps://discord.gg/CTQaZPnG</string>
-    <string name="setting_email_text1">사용자님!</string>
+    <string name="setting_email_text1">님!</string>
     <string name="setting_email_text2">불편하셨거나 필요하신 부분을</string>
     <string name="setting_email_text3">이메일로 보내주세요!</string>
     <string name="setting_email_text4">sp10nomorelateness@gmail.com</string>
@@ -155,13 +252,14 @@
     <string name="setting_info_text4">위치정보 이용약관</string>
     <string name="setting_info_text5">개인정보 수집 ‧및 이용안내</string>
     <string name="setting_info_text6">서비스 이용약관</string>
+    <string name="setting_info_version">ver. Beta</string>
     <string name="setting_question_text1">안녕하세요.</string>
     <string name="setting_question_text2">늦지마 컴퍼니 입니다!</string>
     <string name="setting_question_text3">무엇을 도와드릴까요?</string>
     <string name="setting_question_text4">E-mail로 문의하기</string>
     <string name="setting_question_text5">오픈 채팅방으로 문의하기</string>
 
-    <!--다디얼로그-->
+    <!--다이얼로그-->
     <string name="dialog_info_text1">약관에 동의해 주세요.</string>
     <string name="dialog_info_text2">미동의 시 가입이 어렵습니다.</string>
     <string name="dialog_info_text3">약관에 동의합니다.</string>
@@ -173,6 +271,7 @@
     <string name="dialog_back_text2">취소하고 메인으로 돌아갈까요?</string>
     <string name="dialog_back_text3">확인</string>
     <string name="dialog_back_text4">취소</string>
+    <string name="dialog_back_text5">동의</string>
     <string name="dialog_radio_text1">대중교통</string>
     <string name="dialog_radio_text2">자동차</string>
     <string name="dialog_radio_text3">도보</string>
@@ -182,6 +281,26 @@
     <string name="dialog_friend_text2">친구 상태</string>
     <string name="dialog_friend_text3">친구 요청</string>
     <string name="dialog_time_text">시간을 선택해 주세요.</string>
+    <string name="dialog_late_text1">얼른 오세요!</string>
+    <string name="dialog_late_text2">오늘의 지각자 😅</string>
+    <string name="dialog_late_text3">확인</string>
+    <string name="dialog_late_text4">수정이 불가능해요</string>
+    <string name="dialog_late_text5">확인을 누르시면 수정이 불가능합니다!\n정말 이대로 진행할까요?</string>
+    <string name="dialog_late_text6">메인으로 돌아갈까요?</string>
+    <string name="dialog_late_text7">작성중인 게시물이 삭제되고\n메인으로 돌아갑니다.</string>
+    <string name="dialog_logout_text1">로그아웃</string>
+    <string name="dialog_logout_text2">로그아웃 하시겠습니까?</string>
+
+    <!--토스트 메시지-->
+    <string name="toast_room_text1">모든 필드를 입력하세요.</string>
+    <string name="toast_room_text2">오전</string>
+    <string name="toast_room_text3">오후</string>
+    <string name="toast_room_text4">목적지를 검색해 주세요.</string>
+    <string name="toast_room_text5">검색어를 입력해 주세요.</string>
+    <string name="toast_room_text6">친구를 선택해 주세요.</string>
+    <string name="toast_room_text7">벌칙은 따로 없어요!</string>
+    <string name="toast_room_text8">방을 생성하지 못했습니다.</string>
+
 
     <!--법령-->
     <string name="info">

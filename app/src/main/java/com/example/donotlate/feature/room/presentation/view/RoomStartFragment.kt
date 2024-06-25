@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.donotlate.DoNotLateApplication
+import com.example.donotlate.R
 import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentRoomStartBinding
 import com.example.donotlate.feature.room.presentation.dialog.DatePickerInterface
@@ -141,7 +142,7 @@ class RoomStartFragment : Fragment(), TimePickerInterface, DatePickerInterface {
                 roomViewModel.updateText(roomList)
                 roomViewModel.setCurrentItem(current = 1)
             } else {
-                Toast.makeText(requireContext(), "모든 필드를 입력하세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "${resources.getString(R.string.toast_room_text1)}", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -149,7 +150,7 @@ class RoomStartFragment : Fragment(), TimePickerInterface, DatePickerInterface {
     }
 
     override fun onClickTimeButton(ampm: Int, hour: Int, minute: Int) {
-        val setAmpm = if (ampm == 0) "오전" else "오후"
+        val setAmpm = if (ampm == 0) "${resources.getString(R.string.toast_room_text2)}" else "${resources.getString(R.string.toast_room_text3)}"
         mAmpm = ampm
         mHour = hour
         mMinute = minute
@@ -158,7 +159,7 @@ class RoomStartFragment : Fragment(), TimePickerInterface, DatePickerInterface {
 
         if (timeText != null) {
             val setHour = if (hour < 10) "0${hour}" else hour
-            val setMinute = if (minute < 10) "0${minute}" else minute
+            val setMinute = if (minute < 2) "0${minute}" else minute
             val result = "${setAmpm}  ${setHour} : ${setMinute}"
             timeText.setText(result)
 

@@ -26,7 +26,10 @@ fun PromiseRoomEntity.toModel() = PromiseModel(
     destinationLat = destinationLat,
     destinationLng = destinationLng,
     penalty = penalty,
-    participants = participants
+    participants = participants,
+    hasArrived = hasArrived,
+    participantsNames = participantsNames,
+    hasDeparture = hasDeparture
 )
 
 fun PromiseRoomEntity.toEntity() = PromiseRoomEntity(
@@ -39,5 +42,8 @@ fun PromiseRoomEntity.toEntity() = PromiseRoomEntity(
     destinationLat = destinationLat,
     destinationLng = destinationLng,
     penalty = penalty,
-    participants = participants
+    participants = participants,
+    hasArrived = hasArrived,
+    participantsNames = participantsNames,
+    hasDeparture = hasDeparture
 )

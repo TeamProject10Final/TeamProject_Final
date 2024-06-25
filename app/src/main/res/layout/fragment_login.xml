@@ -15,7 +15,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tv_Login_Title"
@@ -24,7 +24,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="40dp"
                 android:text="@string/login_top_title1"
-                android:textSize="25dp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login_top_title2"
-                android:textSize="35dp"
+                android:textSize="35sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tv_Login_Title"
                 app:layout_constraintTop_toBottomOf="@id/tv_Login_Title" />
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@string/login_top_title3"
-                android:textSize="25dp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_Login_Title2"
                 app:layout_constraintStart_toEndOf="@id/tv_Login_Title2" />
@@ -58,7 +58,8 @@
                 android:src="@drawable/ic_main_logo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Login_Title" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_Login_Title"
+                android:contentDescription="@string/image_logo"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_Login1"
@@ -82,11 +83,13 @@
                     android:hint="@string/login_edit_text1"
                     android:inputType="textEmailAddress"
                     android:nextFocusDown="@id/et_Login_Password"
-                    android:paddingLeft="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
                     android:textCursorDrawable="@drawable/item_cursor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:importantForAutofill="no"/>
 
                 <TextView
                     android:id="@+id/tv_Email_Check"
@@ -115,11 +118,13 @@
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLength="20"
-                    android:paddingLeft="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
                     android:textCursorDrawable="@drawable/item_cursor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/et_Login_Email" />
+                    app:layout_constraintTop_toBottomOf="@id/et_Login_Email"
+                    android:importantForAutofill="no"/>
 
                 <ImageView
                     android:id="@+id/iv_Login_Hide"
@@ -132,7 +137,8 @@
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/et_Login_Password"
                     app:layout_constraintEnd_toEndOf="@+id/et_Login_Password"
-                    app:layout_constraintTop_toTopOf="@+id/et_Login_Password" />
+                    app:layout_constraintTop_toTopOf="@+id/et_Login_Password"
+                    android:contentDescription="@string/image_password"/>
 
                 <TextView
                     android:id="@+id/tv_Password_Check"
@@ -213,7 +219,8 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_Login1" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_Login1"
+                    android:contentDescription="@string/image_google"/>
 
                 <ImageView
                     android:id="@+id/iv_login_icon2"
@@ -225,7 +232,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/iv_login_icon1"
-                    app:layout_constraintTop_toTopOf="@+id/iv_login_icon1" />
+                    app:layout_constraintTop_toTopOf="@+id/iv_login_icon1"
+                    android:contentDescription="@string/image_kakao"/>
 
                 <TextView
                     android:id="@+id/tv_Login2"

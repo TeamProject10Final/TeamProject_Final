@@ -24,7 +24,7 @@ class RoomTimeDialog(
 
     private val meridiemArr = arrayOf("오전", "오후") // am, pm
     private val hoursArr = Array(12) { (it+1).toString() }
-    private val minutesArr = Array(60) { (it).toString() }
+    private val minutesArr = arrayOf("0","5", "10","15", "20","25", "30","35", "40","45", "50","55")
 
     private var timePickerInterface: TimePickerInterface? = null
 
@@ -67,7 +67,7 @@ class RoomTimeDialog(
         binding.btnTimeConfirm.setOnClickListener {
             ampm = ampmPick.value
             hour = hourPick.value
-            minute = minutePick.value
+            minute = minutePick.value * 5
 
             this.timePickerInterface?.onClickTimeButton(ampm!!, hour!!, minute!!)
             dismiss()
@@ -85,7 +85,6 @@ class RoomTimeDialog(
         ampmPick.maxValue = meridiemArr.size - 1
         hourPick.maxValue = 12
         minutePick.maxValue = minutesArr.size - 1
-
         //  array 값 넣기
         ampmPick.displayedValues = meridiemArr
         hourPick.displayedValues = hoursArr

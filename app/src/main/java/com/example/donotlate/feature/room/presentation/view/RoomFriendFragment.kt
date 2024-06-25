@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
+import com.example.donotlate.R
 import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentRoomFriendBinding
@@ -70,7 +71,7 @@ class RoomFriendFragment : Fragment() {
 
     private fun getAllUserList() {
         try {
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 roomViewModel.friendsList.collect { result ->
                     Log.d("RoomFriendFragment", "User Data: $result")
                     friendAdapter.submitList(result)
@@ -131,7 +132,7 @@ class RoomFriendFragment : Fragment() {
     }
 
     private fun getFriendsList() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             roomViewModel.getFriendsList()
         }
     }
@@ -144,7 +145,7 @@ class RoomFriendFragment : Fragment() {
                 val dialog = ResultFragmentDialog()
                 dialog.show(requireActivity().supportFragmentManager, "ResultFragmentDialog")
             } else {
-                Toast.makeText(requireContext(), "친구를 선택해 주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "${resources.getString(R.string.toast_room_text6)}", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.donotlate.DoNotLateApplication
@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class FriendsFragment : Fragment() {
 
-    private val friendsViewModel: FriendsViewModel by activityViewModels {
+    private val friendsViewModel: FriendsViewModel by viewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         FriendsViewModelFactory(
             appContainer.getFriendsListFromFirebaseUseCase,
@@ -48,8 +48,8 @@ class FriendsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFriendsBinding.inflate(layoutInflater)
-        initRecyclerView()
         getFriendsList()
+        initRecyclerView()
         observeViewModel()
         return binding.root
     }
@@ -60,13 +60,8 @@ class FriendsFragment : Fragment() {
             setFragment(FriendsRequestListFragment())
         }
 
-
-        initRecyclerView()
-        getFriendsList()
-        observeViewModel()
         backButton()
 
-        binding.tvTopUserName.text = userData?.name
     }
 
     private fun backButton() {
@@ -106,7 +101,7 @@ class FriendsFragment : Fragment() {
 
 
     private fun observeViewModel() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             friendsViewModel.friendsList.collect { friends ->
                 friendsAdapter.submitList(friends)
                 Log.d("FriendsFragment", "Observed friends: $friends")
@@ -115,7 +110,7 @@ class FriendsFragment : Fragment() {
     }
 
     private fun getFriendsList() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             friendsViewModel.getFriendsList()
         }
     }

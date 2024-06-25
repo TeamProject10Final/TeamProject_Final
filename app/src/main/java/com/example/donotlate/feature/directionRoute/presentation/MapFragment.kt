@@ -28,6 +28,8 @@ import com.example.donotlate.AppContainer
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentMapBinding
+import com.example.donotlate.feature.room.presentation.dialog.RoomTimeDialog
+import com.example.donotlate.feature.room.presentation.dialog.TimePickerInterface
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -45,7 +47,7 @@ import kotlinx.coroutines.withContext
 import java.util.Calendar
 import java.util.Locale
 
-class MapFragment : Fragment(), OnMapReadyCallback {
+class MapFragment : Fragment(), OnMapReadyCallback, TimePickerInterface {
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
@@ -56,6 +58,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private val handler = Handler(Looper.getMainLooper())
     private var checkBoundsRunnable: Runnable? = null
+
+    private var mAmpm = 0
+    private var mMinute = 0
+    private var mHour = 0
 
 
     private lateinit var locationPermission: ActivityResultLauncher<Array<String>>
@@ -270,23 +276,28 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setUpTimePicker() {
+
         binding.etTime.setOnClickListener {
             showTimePickerDialog()
         }
     }
 
     private fun showTimePickerDialog() {
-        val currentTime = Calendar.getInstance()
-        val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
-        val currentMinute = currentTime.get(Calendar.MINUTE)
 
-        TimePickerDialog(requireContext(), { _, hourOfDay, minute ->
-            val selectedTime = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute)
-            binding.etTime.setText(selectedTime)
+        val dialog = RoomTimeDialog(this, mAmpm, mHour, mMinute)
+        dialog.show(childFragmentManager, "tag")
 
-            sharedViewModel.setTime(hourOfDay, minute)
-
-        }, currentHour, currentMinute, true).show()
+    //        val currentTime = Calendar.getInstance()
+//        val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
+//        val currentMinute = currentTime.get(Calendar.MINUTE)
+//
+//        TimePickerDialog(requireContext(), { _, hourOfDay, minute ->
+//            val selectedTime = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute)
+//            binding.etTime.setText(selectedTime)
+//
+//            sharedViewModel.setTime(hourOfDay, minute)
+//
+//        }, currentHour, currentMinute, true).show()
     }
 
     private fun setUpSpinners() {
@@ -669,5 +680,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
         }
         Log.d("확인", "4")
+    }
+
+    override fun onClickTimeButton(ampm: Int, hour: Int, minute: Int) {
+        val setAmpm = if (ampm == 0) "오전" else "오후"
+        mAmpm = ampm
+        mHour = hour
+        mMinute = minute
+
+        val timeText = binding.etTime
+        sharedViewModel.setTime(hour, minute)
+
+        if (timeText != null) {
+            val setHour = if (hour < 10) "0${hour}" else hour
+            val setMinute = if (minute < 2) "0${minute}" else minute
+            val result = "${setAmpm}  ${setHour} : ${setMinute}"
+            timeText.setText(result)
+
+        }
     }
 }

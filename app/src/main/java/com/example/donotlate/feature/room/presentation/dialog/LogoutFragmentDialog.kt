@@ -39,8 +39,8 @@ class LogoutFragmentDialog() : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvDl1.text = "로그아웃"
-        binding.tvDl2.text = "로그아웃 하시겠습니까?"
+        binding.tvDl1.text = "${resources.getString(R.string.dialog_logout_text1)}"
+        binding.tvDl2.text = "${resources.getString(R.string.dialog_logout_text2)}"
 
         binding.tvDlCancel.setOnClickListener {
             setFragmentResult("logoutRequestKey", bundleOf("result" to "cancel"))

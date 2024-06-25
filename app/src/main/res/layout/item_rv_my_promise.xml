@@ -11,7 +11,8 @@
         android:layout_height="60dp"
         android:background="@drawable/rounded_edittext1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_decoration"/>
 
     <TextView
         android:id="@+id/tv_promise_date"
@@ -19,6 +20,7 @@
         android:layout_height="0dp"
         android:gravity="center_vertical"
         android:padding="10dp"
+        android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_promis_title"
@@ -32,6 +34,7 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_promise_date"
         app:layout_constraintEnd_toEndOf="parent"

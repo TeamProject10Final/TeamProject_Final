@@ -1,11 +1,14 @@
 package com.example.donotlate.feature.auth.data.model
 
+import com.google.firebase.Timestamp
+
 data class RegisterUserDTO(
     val name: String,
     val email: String,
-    val uId: String,
+    val uid: String,
+    val friends: List<String> = listOf(),
     val count:Int = 0,
-    val friend: List<String> = listOf(),
-    val currentCount:Int = 0,
-    val createdAt: com.google.firebase.Timestamp
+    val continuousCounter: Int = 0,
+    val createdAt: Timestamp,
+    val profileImgUrl: String = "",
 )

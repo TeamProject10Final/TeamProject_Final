@@ -69,12 +69,13 @@
             android:focusable="false"
             android:ems="10"
             android:inputType="none"
-            android:hint="시간을 선택해주세요"
+            android:hint="@string/map_select"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnSelectTime"
             app:layout_constraintTop_toBottomOf="@+id/spinner3rp"
             app:layout_constraintBottom_toBottomOf="@+id/btnSelectTime"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:importantForAutofill="no"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSelectTime"
@@ -84,7 +85,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/btn_radius_malibu"
-            android:text="출발"
+            android:text="@string/map_start"
             android:textColor="@color/black"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +99,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/btn_radius_malibu"
-            android:text="완료"
+            android:text="@string/map_complete"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -119,7 +120,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraint">
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/mapView"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
@@ -133,7 +134,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/baseline_arrow_circle_down_24"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:contentDescription="@string/image_more"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnMapBottomSheet"
@@ -143,7 +145,7 @@
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/btn_radius_malibu"
-            android:text="자세히"
+            android:text="@string/map_detail"
             android:textColor="@color/black"
             android:visibility="visible" />
 

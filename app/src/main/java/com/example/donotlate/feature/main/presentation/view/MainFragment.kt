@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
@@ -25,7 +26,7 @@ import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
 
-    private val mainPageViewModel: MainPageViewModel by activityViewModels {
+    private val mainPageViewModel: MainPageViewModel by viewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MainPageViewModelFactory(
             appContainer.getCurrentUserDataUseCase,
@@ -156,7 +157,7 @@ class MainFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             mainPageViewModel.currentUserData.collect { userData ->
                 if (userData != null) {
                     binding.tvMainTitle.text = userData.name
