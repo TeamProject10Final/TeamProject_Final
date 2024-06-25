@@ -20,7 +20,8 @@ fun PromiseRoomEntity.toPromiseModel() = PromiseModel(
     penalty = penalty,
     participants = participants,
     hasArrived = hasArrived,
-    participantsNames = participantsNames
+    participantsNames = participantsNames,
+    hasDeparture = hasDeparture
 )
 
 fun PromiseModel.toPromiseEntity() = PromiseRoomEntity(
@@ -35,7 +36,8 @@ fun PromiseModel.toPromiseEntity() = PromiseRoomEntity(
     penalty = penalty,
     participants = participants,
     hasArrived = hasArrived,
-    participantsNames = participantsNames
+    participantsNames = participantsNames,
+    hasDeparture = hasDeparture
 )
 
 fun List<PromiseRoomEntity>.toPromiseModelList(): List<PromiseModel> {

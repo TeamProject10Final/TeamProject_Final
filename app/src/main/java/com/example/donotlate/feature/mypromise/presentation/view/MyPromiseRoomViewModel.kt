@@ -17,6 +17,7 @@ import com.example.donotlate.feature.directionRoute.presentation.toModel
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageReceivingUseCase
 import com.example.donotlate.feature.mypromise.domain.usecase.MessageSendingUseCase
 import com.example.donotlate.feature.mypromise.domain.usecase.UpdateArrivalStatusUseCase
+import com.example.donotlate.feature.mypromise.domain.usecase.UpdateDepartureStatusUseCase
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageEntity
 import com.example.donotlate.feature.mypromise.presentation.mapper.toMessageModel
 import com.example.donotlate.feature.mypromise.presentation.mapper.toViewType
@@ -41,7 +42,8 @@ class MyPromiseRoomViewModel(
     private val messageReceivingUseCase: MessageReceivingUseCase,
     private val getDirectionsUseCase: GetDirectionsUseCase,
     private val removeParticipantsUseCase: RemoveParticipantsUseCase,
-    private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase
+    private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase,
+    private val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase
 ) : ViewModel() {
 
     private var currentRoomId: String? = null
@@ -110,6 +112,12 @@ class MyPromiseRoomViewModel(
 
     private val _lateUsers = MutableStateFlow<List<String>>(emptyList())
     val lateUsers: StateFlow<List<String>> get() = _lateUsers
+
+    private val _updateDepartureStatus = MutableStateFlow<Boolean?>(null)
+    val updateDepartureStatus: StateFlow<Boolean?> get() = _updateDepartureStatus
+
+    private val _hasDeparture = MutableStateFlow<Map<String, Boolean>>(emptyMap())
+    val hasDeparture: StateFlow<Map<String, Boolean>> get() = _hasDeparture
 
     private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 
@@ -403,6 +411,18 @@ class MyPromiseRoomViewModel(
     fun stopCheckingArrivalStatus() {
         handler.removeCallbacks(checkRunnable)
     }
+
+    fun updateDepartureStatus(roomId: String, uid: String) {
+        viewModelScope.launch {
+            updateDepartureStatusUseCase(roomId, uid).collect { success ->
+                _updateDepartureStatus.value = success
+
+                val currentDeparture = _hasDeparture.value.toMutableMap()
+                currentDeparture[uid] = true
+                _hasDeparture.value = currentDeparture
+            }
+        }
+    }
 }
 
 
@@ -412,7 +432,8 @@ class MyPromiseRoomViewModelFactory(
     private val messageReceivingUseCase: MessageReceivingUseCase,
     private val getDirectionsUseCase: GetDirectionsUseCase,
     private val removeParticipantsUseCase: RemoveParticipantsUseCase,
-    private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase
+    private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase,
+    private val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -423,7 +444,8 @@ class MyPromiseRoomViewModelFactory(
                 messageReceivingUseCase,
                 getDirectionsUseCase,
                 removeParticipantsUseCase,
-                updateArrivalStatusUseCase
+                updateArrivalStatusUseCase,
+                updateDepartureStatusUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
