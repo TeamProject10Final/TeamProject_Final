@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -129,7 +130,6 @@ class MyPromiseRoomFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMyPromiseRoomBinding.inflate(layoutInflater)
-
         return binding.root
     }
 
@@ -140,7 +140,7 @@ class MyPromiseRoomFragment : Fragment() {
         backButton()
 
         observeViewModel()
-        updateArrived()
+//        updateArrived()
         observeViewModel2()
 
         setViewMore()
@@ -152,10 +152,9 @@ class MyPromiseRoomFragment : Fragment() {
 
             hasArrived = room.hasArrived[currentUserData?.uId]
             if (hasArrived == true) {
-                binding.btnArrived.setBackgroundColor(R.color.gray)
                 binding.btnArrived.isClickable = false
                 binding.ivRoomMap.visibility = View.GONE
-                binding.btnDeparture.visibility = View.GONE
+                binding.ivDeparture.visibility = View.GONE
             }
 
             myPromiseViewModel.startCheckingArrivalStatus(room)
@@ -207,37 +206,59 @@ class MyPromiseRoomFragment : Fragment() {
             observeViewModel1()
         }
 
-        binding.ivRoomMap.setOnClickListener {
+        binding.btnDeparture.setOnClickListener {
+            var text = binding.tvText.text.toString()
+            when (text) {
+                "출 발" -> {
+                    //TODO 여기서도 checkPermissionAndProceed를 쓰는 게 나은거 맞겠지..?
+                    checkPermissionAndProceed()
+                    myPromiseViewModel.setIsDepart(true)
+                    //여기에 출발 대한 동작 추가하기
+                    binding.ivDeparture.isVisible = false
+                    binding.ivRoomMap.isVisible = true
+                    binding.btnArrived.isVisible = false
+                }
 
+                "내 위치" -> {
 //TODO 4 대한민국일 때 이 부분은 건너뜀... showModeDialog 전까지 다 주석처리하고 에러 잡은 뒤 다시 살리기
-            checkPermissionAndProceed()
+                    checkPermissionAndProceed()
 
-            if (myPromiseViewModel.getCountry() == null) {
-                Toast.makeText(context, "다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-            } else if (myPromiseViewModel.getCountry() == "대한민국" || myPromiseViewModel.getCountry() == "South Korea") {
-                myPromiseViewModel.routeSelectionText.observe(viewLifecycleOwner) {
-                    Log.d("확인 routeS 한국", "몇번?")
-                    if (it != null) {
-                        showDialogSelection(it)
+                    if (myPromiseViewModel.getCountry() == null) {
+                        Toast.makeText(context, "다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                    } else if (myPromiseViewModel.getCountry() == "대한민국" || myPromiseViewModel.getCountry() == "South Korea") {
+                        myPromiseViewModel.routeSelectionText.observe(viewLifecycleOwner) {
+                            Log.d("확인 routeS 한국", "몇번?")
+                            if (it != null) {
+                                showDialogSelection(it)
+                            } else {
+                                Log.d("확인 routeS", "$it")
+                            }
+                        }
                     } else {
-                        Log.d("확인 routeS", "$it")
+                        showModeDialog()
                     }
                 }
-            } else {
-                showModeDialog()
+
+                "도 착" -> {
+                    val roomId = roomId!!
+                    val uid = currentUserData?.uId!!
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        myPromiseViewModel.updateArrived(roomId, uid)
+                    }
+                }
             }
         }
 
 
-        binding.btnDeparture.setOnClickListener {
-            //TODO 여기서도 checkPermissionAndProceed를 쓰는 게 나은거 맞겠지..?
-            checkPermissionAndProceed()
-            myPromiseViewModel.setIsDepart(true)
-            //여기에 출발 대한 동작 추가하기
-            binding.btnDeparture.isVisible = false
-            binding.ivRoomMap.isVisible = true
-            binding.btnArrived.isVisible = false
-        }
+//        binding.btnDeparture.setOnClickListener {
+//            //TODO 여기서도 checkPermissionAndProceed를 쓰는 게 나은거 맞겠지..?
+//            checkPermissionAndProceed()
+//            myPromiseViewModel.setIsDepart(true)
+//            //여기에 출발 대한 동작 추가하기
+//            binding.ivDeparture.isVisible = false
+//            binding.ivRoomMap.isVisible = true
+//            binding.btnArrived.isVisible = false
+//        }
     }
 
     private fun showModeDialog() {
@@ -279,15 +300,17 @@ class MyPromiseRoomFragment : Fragment() {
             } else {
                 if (myPromiseViewModel.getIsDepart()) {
                     //출발했다면
-                    binding.btnDeparture.isVisible = false
-                    binding.btnArrived.isVisible = false
-                    binding.ivRoomMap.isVisible = true
+                    binding.tvText.setText("내 위치")
+                    binding.ivDeparture.visibility = View.GONE
+                    binding.btnArrived.visibility = View.GONE
+                    binding.ivRoomMap.visibility = View.VISIBLE
                     //도착 버튼이 보이지 않게
                     //지도 버튼만 보이게
                 } else {
-                    binding.btnDeparture.isVisible = true
-                    binding.ivRoomMap.isVisible = false
-                    binding.btnArrived.isVisible = false
+                    binding.tvText.setText("출 발")
+                    binding.ivDeparture.visibility = View.VISIBLE
+                    binding.ivRoomMap.visibility = View.GONE
+                    binding.btnArrived.visibility = View.GONE
                 }
             }
         }
@@ -314,9 +337,8 @@ class MyPromiseRoomFragment : Fragment() {
                 if (isArrived) {
                     Toast.makeText(requireContext(), "약속장소에 도착하였습니다.", Toast.LENGTH_SHORT).show()
 
-                    binding.btnArrived.setBackgroundColor(R.color.gray)
                     binding.btnArrived.isClickable = false
-                    binding.btnDeparture.visibility = View.GONE
+                    binding.ivDeparture.visibility = View.GONE
                     binding.ivRoomMap.visibility = View.GONE
                 }
             }
@@ -481,6 +503,7 @@ class MyPromiseRoomFragment : Fragment() {
         Log.d("확인 denied", "권한 x")
         parentFragmentManager.popBackStack()
     }
+
     private fun setViewMore() {
         binding.clTopTitleBorder.setOnClickListener {
             if (binding.clTopTitleBorderDetail.visibility == View.VISIBLE) {

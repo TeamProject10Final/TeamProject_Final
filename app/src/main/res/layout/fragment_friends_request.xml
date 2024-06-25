@@ -61,6 +61,7 @@
                 app:theme="@style/EditTextStyle"
                 android:importantForAutofill="no"/>
 
+
             <android.widget.Button
                 android:id="@+id/btn_Friend_Search"
                 android:layout_width="wrap_content"
@@ -68,7 +69,7 @@
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/btn_radius_arctic"
                 android:text="@string/friend_request_btn_text"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@id/et_Friend_Search"
                 app:layout_constraintEnd_toEndOf="parent"

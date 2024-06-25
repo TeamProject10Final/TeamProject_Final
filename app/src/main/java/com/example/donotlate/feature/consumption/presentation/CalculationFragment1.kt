@@ -192,7 +192,7 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1), DatePicke
 
         binding.etDes12.text = "${year}-${getMonth}-${getDay}"
 
-        binding.ivDate.setOnClickListener {
+        binding.etDes12.setOnClickListener {
             val dialog = RoomDateDialog(this, mYear, mMonth, mDay)
             dialog.show(childFragmentManager, "tag")
 //            ConsumptionActivity.hideKeyboard(view)
