@@ -437,23 +437,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, TimePickerInterface {
             bottomSheetDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
             bottomSheetDialogFragment.show(parentFragmentManager, "tag")
         }
-//        binding.btnSendIndex.setOnClickListener {
-//
-//            val selectedIndex = binding.etSelectionIndex.text.toString()
-//            if (selectedIndex != "") {
-//                val thisIndex = selectedIndex.toInt()
-//                sharedViewModel.setSelectedRouteIndex(thisIndex)
-//                if (sharedViewModel.mode.value.toString() == "transit") {
-//                    Log.d("확인 화살표", "${sharedViewModel.mode.value.toString()}")
-//                    binding.ivDetailView.isVisible = true
-//                } else {
-//                    Log.d("확인 화살표 else", "${sharedViewModel.mode.value.toString()}")
-//                    binding.ivDetailView.isVisible = false
-//                }
-//            } else {
-//                Log.d("확인 인덱스 오류", "$selectedIndex")
-//            }
-//        }
 
         binding.btnSelectTime.setOnClickListener {
             sharedViewModel.changeIsDepArrNone()
