@@ -219,27 +219,23 @@ class FirebaseDataSourceImpl(
 
     override suspend fun getMyPromiseListFromFireBase(uid: String): Flow<List<PromiseRoomEntity>> =
         callbackFlow {
-            try {
-                val query = db.collection("PromiseRooms")
-                    .whereArrayContains("participants", uid)
-                    .orderBy("promiseDate", Query.Direction.ASCENDING)
+            val query = db.collection("PromiseRooms")
+                .whereArrayContains("participants", uid)
+                .orderBy("promiseDate", Query.Direction.ASCENDING)
 
-                val listenerRegistration = query.addSnapshotListener { snapshot, error ->
-                    if (error != null) {
-                        trySend(emptyList()).isSuccess
-                        return@addSnapshotListener
-                    }
+            val listenerRegistration = query.addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    trySend(emptyList()).isSuccess
+                    return@addSnapshotListener
+                }
 
-                    if (snapshot != null && !snapshot.isEmpty) {
-                        val promiseRoom = snapshot.toObjects(PromiseRoomResponse::class.java)
-                        trySend(promiseRoom.toPromiseEntityList()).isSuccess
-                    }
+                if (snapshot != null && !snapshot.isEmpty) {
+                    val promiseRoom = snapshot.toObjects(PromiseRoomResponse::class.java)
+                    trySend(promiseRoom.toPromiseEntityList()).isSuccess
                 }
-                awaitClose {
-                    listenerRegistration.remove()
-                }
-            } catch (e: Exception) {
-                trySend(emptyList())
+            }
+            awaitClose {
+                listenerRegistration.remove()
             }
         }
 
@@ -280,26 +276,8 @@ class FirebaseDataSourceImpl(
             }
             awaitClose { listener.remove() }
         } catch (e: Exception) {
-            trySend(emptyList())
+            close(e)
         }
-
-        val documents = db.collection("PromiseRooms").document(roomId).collection("Messages")
-            .orderBy("sendTimestamp")
-
-        val listener = documents.addSnapshotListener { snapshots, error ->
-            if (error != null) {
-                close(error)
-                return@addSnapshotListener
-            }
-            if (snapshots != null) {
-                val messages = snapshots.documents.mapNotNull { document ->
-                    document.toObject(MessageResponse::class.java)?.copy(messageId = document.id)
-                        ?.toMessageEntity()
-                }
-                trySend(messages).isSuccess
-            }
-        }
-        awaitClose { listener.remove() }
     }
 
     override suspend fun sendToMessage(roomId: String, message: MessageEntity): Flow<Boolean> =
