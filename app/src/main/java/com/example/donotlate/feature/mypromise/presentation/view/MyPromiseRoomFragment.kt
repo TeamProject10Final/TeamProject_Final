@@ -365,21 +365,10 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
 
     private fun showModeDialog() {
         val selectionDialog = RadioButtonDialog {
-            //     lifecycleScope.launch {
-//            checkPermissionAndProceed()
-            //      yield()
+
             myPromiseViewModel.setMode(it)
             myPromiseViewModel.getDirections()
 //            myPromiseViewModel.showDialogSelectionAction()
-            /*myPromiseViewModel.routeSelectionText.observe(viewLifecycleOwner) {
-                Log.d("확인 routeS", "몇번?")
-                if (it != null) {
-                    showDialogSelection(it)
-                } else {
-                    Log.d("확인 routeS", "$it")
-                }
-            }*/
-            //    }
         }
         selectionDialog.show(childFragmentManager, "RadioButtonDialog")
     }
@@ -389,6 +378,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
         if (selections.isEmpty()) return
         val routeSelectionDialog = RadioButtonSelectionDialog(selections) {
             //라디오 버튼 선택 뒤의 로직
+            myPromiseViewModel.setSelectedRouteIndex(it)
             myPromiseViewModel.afterSelecting()
         }
         routeSelectionDialog.show(childFragmentManager, "RadioButtonSelectionDialog")

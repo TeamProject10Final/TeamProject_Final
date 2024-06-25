@@ -206,7 +206,7 @@ class MyPromiseRoomViewModel(
 
     fun setSelectedRouteIndex(indexNum: Int) {
         _selectedRouteIndex.value = indexNum ?: 0
-        Log.d("123123", "$indexNum")
+        Log.d("123123123123", "$indexNum")
     }
 
     // LatLng 위치를 문자열로 반환하는 메서드 추가
@@ -308,7 +308,8 @@ class MyPromiseRoomViewModel(
         //선택하면 그거에 대해 1번 출력되게
         val resultText = StringBuilder()
         //아래 코드로 수정하기
-        val temp = directions.routes[_selectedRouteIndex.value!!].legs[0]
+        Log.d("확인 selected 인덱스", "${selectedRouteIndex.value}")
+        val temp = directions.routes[selectedRouteIndex.value!!].legs[0]
 
         resultText.append("🗺️목적지까지 ${temp.totalDistance.text},\n")
         resultText.append("앞으로 ${temp.totalDuration.text} 뒤")
