@@ -177,7 +177,7 @@ class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface, DeleteD
     }
 
     private fun showConfirmationDialog(item: ConsumptionModel) {
-        val dialog = ConsumptionConfirmDialog(this, item)
+        val dialog = ConsumptionConfirmDialog(this, this, item)
         dialog.show(this.supportFragmentManager, "tag")
     }
 

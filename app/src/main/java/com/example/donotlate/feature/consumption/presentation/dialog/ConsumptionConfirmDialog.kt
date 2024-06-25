@@ -14,6 +14,7 @@ import com.example.donotlate.feature.consumption.presentation.ConsumptionModel
 
 class ConsumptionConfirmDialog(
     confirmDialogInterface: ConfirmDialogInterface,
+    deleteDialogInterface: DeleteDialogInterface,
     model: ConsumptionModel
 ) : DialogFragment() {
 
@@ -26,6 +27,7 @@ class ConsumptionConfirmDialog(
 
     init {
         this.confirmDialogInterface = confirmDialogInterface
+        this.deleteDialogInterface = deleteDialogInterface
         this.model = model
     }
 
