@@ -54,8 +54,7 @@ class MyPromiseRoomViewModel(
     private val getDirectionsUseCase: GetDirectionsUseCase,
     private val removeParticipantsUseCase: RemoveParticipantsUseCase,
     private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase,
-    private val savedStateHandle: SavedStateHandle = SavedStateHandle()
-    private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase,
+    private val savedStateHandle: SavedStateHandle = SavedStateHandle(),
     private val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase
 ) : ViewModel() {
     private var checkArrivalStatusJob: Job? = null
@@ -530,6 +529,7 @@ class MyPromiseRoomViewModelFactory(
     private val getDirectionsUseCase: GetDirectionsUseCase,
     private val removeParticipantsUseCase: RemoveParticipantsUseCase,
     private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase,
+    private val savedStateHandle: SavedStateHandle = SavedStateHandle(),
     private val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase
 ) :
     ViewModelProvider.Factory {
@@ -542,6 +542,7 @@ class MyPromiseRoomViewModelFactory(
                 getDirectionsUseCase,
                 removeParticipantsUseCase,
                 updateArrivalStatusUseCase,
+                savedStateHandle,
                 updateDepartureStatusUseCase
             ) as T
         }
