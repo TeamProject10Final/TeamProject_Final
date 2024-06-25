@@ -16,7 +16,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tv_Sign_Title"
@@ -70,9 +70,12 @@
                     android:background="@drawable/et_custom"
                     android:fontFamily="@font/pretendard_regular"
                     android:hint="@string/sign_up_edit_text1"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
                     android:maxLength="10"
                     android:nextFocusDown="@id/et_Sign_Email"
-                    android:paddingLeft="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
                     android:textCursorDrawable="@drawable/item_cursor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -103,8 +106,11 @@
                     android:background="@drawable/et_custom"
                     android:fontFamily="@font/pretendard_regular"
                     android:hint="@string/login_edit_text1"
+                    android:importantForAutofill="no"
+                    android:inputType="textEmailAddress"
                     android:nextFocusDown="@id/et_Sign_Password"
-                    android:paddingLeft="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
                     android:textCursorDrawable="@drawable/item_cursor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -134,10 +140,12 @@
                     android:background="@drawable/et_custom"
                     android:fontFamily="@font/pretendard_regular"
                     android:hint="@string/login_edit_text2"
+                    android:importantForAutofill="no"
                     android:inputType="textPassword"
                     android:maxLength="20"
                     android:nextFocusDown="@id/et_Sign_Confirm"
-                    android:paddingLeft="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
                     android:textCursorDrawable="@drawable/item_cursor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -149,6 +157,7 @@
                     android:layout_height="30dp"
                     android:layout_marginEnd="15dp"
                     android:backgroundTint="@color/black"
+                    android:contentDescription="@string/image_password"
                     android:tag="0"
                     app:layout_constraintBottom_toBottomOf="@+id/et_Sign_Password"
                     app:layout_constraintEnd_toEndOf="@+id/et_Sign_Password"
@@ -179,9 +188,11 @@
                     android:fontFamily="@font/pretendard_regular"
                     android:hint="@string/sign_up_edit_text2"
                     android:imeOptions="actionDone"
+                    android:importantForAutofill="no"
                     android:inputType="textPassword"
                     android:maxLength="20"
-                    android:paddingLeft="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
                     android:textCursorDrawable="@drawable/item_cursor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -226,6 +237,7 @@
         android:text="@string/sign_up_top_title1"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/tv_Sign"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -254,5 +266,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_Sign"
         app:layout_constraintStart_toEndOf="@+id/tv_Sign"
         app:layout_constraintTop_toTopOf="@+id/tv_Sign" />
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,8 @@
         android:layout_margin="10dp"
         android:background="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,7 +27,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tv_top_title"
@@ -35,7 +36,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="40dp"
                 android:text="@string/game_top_title1"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/game_top_title2"
-                android:textSize="30dp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tv_top_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_top_title" />
@@ -61,7 +62,8 @@
                 android:backgroundTint="@color/colorMain1"
                 app:layout_constraintEnd_toStartOf="@id/btn_game_background_ladder"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_top_user_name" />
+                app:layout_constraintTop_toBottomOf="@id/tv_top_user_name"
+                android:contentDescription="@string/image_button"/>
 
             <ImageView
                 android:id="@+id/iv_game_icon_wheel"
@@ -71,7 +73,8 @@
                 app:layout_constraintBottom_toTopOf="@id/tv_title_wheel"
                 app:layout_constraintEnd_toEndOf="@id/btn_game_background_wheel"
                 app:layout_constraintStart_toStartOf="@id/btn_game_background_wheel"
-                app:layout_constraintTop_toTopOf="@id/btn_game_background_wheel" />
+                app:layout_constraintTop_toTopOf="@id/btn_game_background_wheel"
+                android:contentDescription="@string/image_decoration"/>
 
             <TextView
                 android:id="@+id/tv_title_wheel"
@@ -96,7 +99,8 @@
                 android:backgroundTint="@color/colorMain2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/btn_game_background_wheel"
-                app:layout_constraintTop_toBottomOf="@id/tv_top_user_name" />
+                app:layout_constraintTop_toBottomOf="@id/tv_top_user_name"
+                android:contentDescription="@string/image_button"/>
 
 
             <ImageView
@@ -107,7 +111,8 @@
                 app:layout_constraintBottom_toTopOf="@id/tv_title_ladder"
                 app:layout_constraintEnd_toEndOf="@id/btn_game_background_ladder"
                 app:layout_constraintStart_toStartOf="@id/btn_game_background_ladder"
-                app:layout_constraintTop_toTopOf="@id/btn_game_background_ladder" />
+                app:layout_constraintTop_toTopOf="@id/btn_game_background_ladder"
+                android:contentDescription="@string/image_decoration"/>
 
             <TextView
                 android:id="@+id/tv_title_ladder"

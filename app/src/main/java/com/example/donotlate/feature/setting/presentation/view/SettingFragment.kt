@@ -8,6 +8,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -43,12 +44,15 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
     private val viewModel: SettingsViewModel by viewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         SettingsViewModelFactory(
-            sessionManager = appContainer.sessionManager
+            sessionManager = appContainer.sessionManager,
+            deleteUserUseCase = appContainer.deleteUserUseCase
         )
     }
 
     private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!
+
+    private val useData = CurrentUser.userData
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,6 +65,7 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
         switchMode()
         initView()
         backBt()
+        deleteUser()
 
         collectFlows()
     }
@@ -96,6 +101,17 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
                                 .replace(R.id.frame, LoginFragment())
                                 .commit()
                         }
+
+                        SettingsEvent.UserDeleted -> {
+                            CurrentUser.clearData()
+                            parentFragmentManager.popBackStack(
+                                null,
+                                FragmentManager.POP_BACK_STACK_INCLUSIVE
+                            )
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.frame, LoginFragment())
+                                .commit()
+                        }
                     }
                 }
             }
@@ -122,9 +138,8 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
 
     //이름, 이메일 보여주기
     private fun setUserData() {
-        val useData = CurrentUser.userData
 
-        if(useData != null){
+        if (useData != null) {
             binding.tvName.text = useData.name
             binding.tvEmail.text = useData.email
         }
@@ -134,6 +149,12 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
         val dialog = LogoutFragmentDialog()
         dialog.show(requireActivity().supportFragmentManager, "BackFragmentDialog")
         //firebase 로그아웃 기능 추가
+    }
+
+    private fun deleteUser() {
+        binding.tvDeleteUser.setOnClickListener {
+            showDeleteDialog()
+        }
     }
 
     //다크 모드 on/off
@@ -243,6 +264,21 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
                 )
                 .replace(R.id.frame, MainFragment())
                 .commit()
+        }
+    }
+
+    private fun showDeleteDialog() {
+        val userId = useData?.uId
+        if (userId != null) {
+            AlertDialog.Builder(requireContext())
+                .setTitle("회원 탈퇴")
+                .setMessage("정말로 탈퇴하시겠습니까?")
+                .setPositiveButton("확인") { _, _ ->
+                    viewModel.deleteUser(userId)
+                }
+                .setNegativeButton("취소", null)
+                .create()
+                .show()
         }
     }
 }
