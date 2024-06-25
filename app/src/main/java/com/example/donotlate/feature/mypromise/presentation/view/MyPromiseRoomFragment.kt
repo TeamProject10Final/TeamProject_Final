@@ -218,7 +218,6 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
                     }
                 }*/
 
-
     }
 
     private fun collectFlows() {
@@ -236,6 +235,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
 
                             DistanceState.Departed -> {
                                 //출발했다면
+                                Log.d("확인 출발완료", "러댜ㅐㅈㅁ럳;ㅑㅣ머ㅏㄹ;ㅣㅁ")
                                 binding.btnDeparture.isVisible = false
                                 binding.btnArrived.isVisible = false
                                 binding.ivRoomMap.isVisible = true
