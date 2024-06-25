@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.setting.presentation.view.information.SettingInformationPersonalFragment">
+    tools:context=".feature.setting.presentation.view.information.SettingInformationPersonalFragment"
+    android:background="@color/backGround">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_Setting_Personal1"
