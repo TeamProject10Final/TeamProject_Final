@@ -14,7 +14,8 @@ data class PromiseRoomResponse(
     val penalty: String,
     val participants: List<String>,
     val hasArrived: Map<String, Boolean> = mutableMapOf(),
-    val participantsNames: Map<String, String> = mutableMapOf()
+    val participantsNames: Map<String, String> = mutableMapOf(),
+    val hasDeparture: Map<String, Boolean> = mutableMapOf()
 ) {
     constructor() : this(
         "",
