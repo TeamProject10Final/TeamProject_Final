@@ -26,6 +26,7 @@ import com.example.donotlate.feature.directionRoute.presentation.LocationUtils
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
 import com.example.donotlate.feature.mypromise.presentation.view.dialog.RadioButtonDialog
 import com.example.donotlate.feature.mypromise.presentation.view.dialog.RadioButtonSelectionDialog
+import com.example.donotlate.feature.mypromise.presentation.view.dialog.RoomLateDialog
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -105,6 +106,21 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
         listenToObservers()
         collectFlows()
         startLocationUpdates()
+
+        setDestinationCountry()
+    }
+
+    private fun setDestinationCountry() {
+        val destination = myPromiseViewModel.getDestinationLatLng()
+        if (destination != null) {
+            val destinationCountry = locationUtils.getCountryFromLatLng(
+                context = requireContext(),
+                lat = destination.latitude,
+                lng = destination.longitude
+            )
+            Log.d("확인 나라 destCountry", "$destinationCountry")
+            myPromiseViewModel.setDestCountry(destCountry = destinationCountry)
+        }
     }
 
     private fun setLocationCallbacks() {
@@ -172,6 +188,8 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
 
         binding.ivRoomMap.setOnClickListener {
             //TODO 4 대한민국일 때 이 부분은 건너뜀... showModeDialog 전까지 다 주석처리하고 에러 잡은 뒤 다시 살리기
+
+
             checkPermissionAndProceed()
 
 
@@ -208,16 +226,6 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
             Log.d("확인", "shortMessage $it")
             sendMessage(contents = it)
         }
-
-        /*        myPromiseViewModel.routeSelectionText.observe(viewLifecycleOwner) {
-                    Log.d("확인 routeS", "몇번?")
-                    if (it != null) {
-                        showDialogSelection(it)
-                    } else {
-                        Log.d("확인 routeS", "$it")
-                    }
-                }*/
-
     }
 
     private fun collectFlows() {
@@ -365,14 +373,6 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
                         }
                     }
                 }
-                launch {
-                    myPromiseViewModel.messageSendResult.collect {
-                        if (it) {
-                            Toast.makeText(requireContext(), "Message sent!", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    }
-                }
             }
         }
     }
@@ -500,8 +500,9 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
     }
 
     private fun showNotArriveDialog(userNames: List<String>) {
-        dialog.setMessage("지각자를 공개합니다!\n${userNames.joinToString(", ")}")
-        dialog.show()
+
+        val dialog = RoomLateDialog(userNames)
+        dialog.show(childFragmentManager, "tag")
     }
 }
 

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature.room.presentation.dialog.RoomLateDialog">
+    tools:context=".feature.mypromise.presentation.view.dialog.RoomLateDialog">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_Dl"
         android:layout_width="300dp"
@@ -38,16 +38,25 @@
             app:layout_constraintStart_toStartOf="@id/tv_Dl1"
             app:layout_constraintTop_toBottomOf="@id/tv_Dl1" />
 
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="3dp"
+            android:background="@drawable/ic_fireworks"
+            app:layout_constraintBottom_toBottomOf="@id/tv_Dl2"
+            app:layout_constraintStart_toEndOf="@id/tv_Dl2" />
+
         <TextView
             android:id="@+id/tv_Dl_Late_People"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:textColor="@color/dark_gray"
+            android:textColor="@color/bright_black"
             android:textSize="18sp"
             android:maxLines="3"
-            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@+id/tv_Dl2"
             app:layout_constraintStart_toStartOf="@+id/tv_Dl2" />
 
