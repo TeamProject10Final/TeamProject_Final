@@ -9,12 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.databinding.ActivityDirectionRouteBinding
-import com.example.donotlate.databinding.ActivityMainBinding
 
 class DirectionRouteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDirectionRouteBinding
-
 
     val sharedViewModel: DirectionsViewModel1 by lazy {
         val appContainer = (application as DoNotLateApplication).appContainer
@@ -38,9 +36,15 @@ class DirectionRouteActivity : AppCompatActivity() {
         val delayFragment = DelayFragment()
         var currentUserLocation = intent.getStringExtra("userLocation")
         var destination = intent.getStringExtra("destination")
+        val currentDestLat = intent.getStringExtra("des lat").toString().toDouble()
+        val currentDestLng = intent.getStringExtra("des lng").toString().toDouble()
+
+
         val args = Bundle().apply {
             putString("currentUserlocation", currentUserLocation)
             putString("destination", destination)
+            putDouble("des lat", currentDestLat)
+            putDouble("des lng", currentDestLng)
         }
         delayFragment.arguments = args
 

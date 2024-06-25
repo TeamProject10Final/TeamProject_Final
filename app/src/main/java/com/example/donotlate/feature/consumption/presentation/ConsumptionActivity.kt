@@ -20,9 +20,10 @@ import com.example.donotlate.R
 import com.example.donotlate.databinding.ActivityConsumptionBinding
 import com.example.donotlate.feature.consumption.presentation.dialog.ConfirmDialogInterface
 import com.example.donotlate.feature.consumption.presentation.dialog.ConsumptionConfirmDialog
+import com.example.donotlate.feature.consumption.presentation.dialog.DeleteDialogInterface
 import kotlinx.coroutines.launch
 
-class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface {
+class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface, DeleteDialogInterface {
 
 
     private lateinit var binding: ActivityConsumptionBinding
@@ -176,7 +177,7 @@ class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface {
     }
 
     private fun showConfirmationDialog(item: ConsumptionModel) {
-        val dialog = ConsumptionConfirmDialog(this, item)
+        val dialog = ConsumptionConfirmDialog(this, this, item)
         dialog.show(this.supportFragmentManager, "tag")
     }
 
@@ -212,6 +213,10 @@ class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface {
         consumptionViewModel.toggleIsFinished(model)
     }
 
+    override fun onDeleteButtonClicked(model: ConsumptionModel) {
+        Log.d("확인 delete clicked", "$model")
+        consumptionViewModel.deleteConsumption(model)
+    }
 
 }
 

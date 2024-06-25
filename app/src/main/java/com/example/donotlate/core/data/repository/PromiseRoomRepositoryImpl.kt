@@ -14,13 +14,11 @@ class PromiseRoomRepositoryImpl(private val db: FirebaseFirestore) : PromiseRoom
         TODO("Not yet implemented")
     }
 
-    override suspend fun removeParticipant(roomId: String, participantId: String): Flow<Boolean> =
+    override fun removeParticipant(roomId: String, participantId: String): Flow<Boolean> =
         flow {
             try {
                 val roomRef = db.collection("PromiseRooms").document(roomId)
-
                 db.runTransaction { transaction ->
-
                     val snapshot = transaction.get(roomRef)
                     val participants = snapshot.get("participants") as? List<String> ?: listOf()
                     val mutableParticipants = participants.toMutableList()
@@ -33,9 +31,9 @@ class PromiseRoomRepositoryImpl(private val db: FirebaseFirestore) : PromiseRoom
                         transaction.update(roomRef, "participants", mutableParticipants)
                     }
                 }.await()
-                emit(true)
+                emit(value = true)
             } catch (e: Exception) {
-                emit(false)
+                emit(value = false)
             }
         }
 }
