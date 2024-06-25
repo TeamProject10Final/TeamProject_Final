@@ -27,15 +27,6 @@ class WithdrawDialog(
         this.userInterface = userInterface
     }
 
-
-    private val viewModel: SettingsViewModel by viewModels {
-        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        SettingsViewModelFactory(
-            sessionManager = appContainer.sessionManager,
-            deleteUserUseCase = appContainer.deleteUserUseCase
-        )
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

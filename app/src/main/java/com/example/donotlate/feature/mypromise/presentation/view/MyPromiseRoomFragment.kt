@@ -26,6 +26,8 @@ import com.example.donotlate.feature.directionRoute.presentation.LocationUtils
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
 import com.example.donotlate.feature.mypromise.presentation.view.dialog.RadioButtonDialog
 import com.example.donotlate.feature.mypromise.presentation.view.dialog.RadioButtonSelectionDialog
+import com.example.donotlate.feature.mypromise.presentation.view.dialog.RoomExitDialog
+import com.example.donotlate.feature.mypromise.presentation.view.dialog.RoomExitInterface
 import com.example.donotlate.feature.mypromise.presentation.view.dialog.RoomLateDialog
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -34,7 +36,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
 
-class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
+class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomExitInterface {
 
     private val myPromiseViewModel: MyPromiseRoomViewModel by viewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
@@ -182,8 +184,9 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
         }
 
         binding.btnRoomExit.setOnClickListener {
-            Log.d("나가기", "실행")
-            myPromiseViewModel.exitRoom()
+            showExitDialog()
+//            Log.d("나가기", "실행")
+//            myPromiseViewModel.exitRoom()
         }
 
         binding.ivRoomMap.setOnClickListener {
@@ -503,6 +506,15 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
 
         val dialog = RoomLateDialog(userNames)
         dialog.show(childFragmentManager, "tag")
+    }
+
+    private fun showExitDialog() {
+        val dialog = RoomExitDialog(this)
+        dialog.show(childFragmentManager, "tag")
+    }
+
+    override fun onClickExitRoom() {
+        myPromiseViewModel.exitRoom()
     }
 }
 
