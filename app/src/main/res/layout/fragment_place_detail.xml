@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:clickable="false"
     tools:context=".feature.searchPlace.presentation.detail.PlaceDetailFragment"
-    android:id="@+id/constraint">
+    android:id="@+id/constraint"
+    android:background="@color/backGround">
 
 
     <ImageView

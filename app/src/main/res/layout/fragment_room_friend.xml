@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    tools:context=".feature.room.presentation.view.RoomFriendFragment">
+    tools:context=".feature.room.presentation.view.RoomFriendFragment"
+    android:background="@color/backGround">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

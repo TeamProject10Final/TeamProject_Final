@@ -57,7 +57,7 @@ class RoomFriendAdapter(
             binding.apply {
                 ivItemFriend.setImageResource(R.drawable.ic_user)
                 tvItemFriend.text = item.name
-                itemView.setBackgroundResource(if (isSelected) R.drawable.radius_rounded2 else R.color.white)
+                itemView.setBackgroundResource(if (isSelected) R.drawable.radius_rounded2 else R.color.backGround)
             }
             itemView.setOnClickListener {
                 onItemClick(item)
