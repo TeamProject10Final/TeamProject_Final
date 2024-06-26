@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         collectFlows()
+
     }
 
     private fun collectFlows() {
