@@ -1,5 +1,6 @@
 package com.example.donotlate.feature.directionRoute.data.network
 
+import com.example.donotlate.BuildConfig
 import com.example.donotlate.feature.directionRoute.data.model.DirectionsResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,8 +15,7 @@ interface DirectionsApiService {
         @Query("mode") mode: String,
         @Query("alternatives") alternatives: Boolean = true,
         @Query("language") language: String = "ko",
-//        @Query("key") apiKey: String = "AIzaSyCAOdeHz6erGcY_sbcEqbEgAETVpirfiV8"
-        @Query("key") apiKey: String = "AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U"
+        @Query("key") apiKey: String = BuildConfig.API_KEY
     ): DirectionsResponse
 
 
@@ -30,8 +30,7 @@ interface DirectionsApiService {
         @Query("mode") mode: String = "transit",
         @Query("alternatives") alternatives: Boolean = true,
         @Query("language") language: String = "ko",
-//        @Query("key") apiKey: String = "AIzaSyCAOdeHz6erGcY_sbcEqbEgAETVpirfiV8"
-        @Query("key") apiKey: String = "AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U"
+        @Query("key") apiKey: String = BuildConfig.API_KEY
     ): DirectionsResponse
 
     //출발시간
@@ -45,8 +44,7 @@ interface DirectionsApiService {
         @Query("mode") mode: String = "transit",
         @Query("alternatives") alternatives: Boolean = true,
         @Query("language") language: String = "ko",
-        @Query("key") apiKey: String = "AIzaSyCAOdeHz6erGcY_sbcEqbEgAETVpirfiV8"
-//        @Query("key") apiKey: String = "AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U"
+        @Query("key") apiKey: String = BuildConfig.API_KEY
     ): DirectionsResponse
 
 
@@ -60,8 +58,7 @@ interface DirectionsApiService {
         @Query("mode") mode: String = "transit",
         @Query("alternatives") alternatives: Boolean = true,
         @Query("language") language: String = "ko",
-        @Query("key") apiKey: String = "AIzaSyCAOdeHz6erGcY_sbcEqbEgAETVpirfiV8"
-//        @Query("key") apiKey: String = "AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U"
+        @Query("key") apiKey: String = BuildConfig.API_KEY
     ): DirectionsResponse
 
 }
