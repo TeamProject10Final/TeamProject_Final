@@ -73,7 +73,6 @@
 
                 <EditText
                     android:id="@+id/et_Room_Title"
-                    style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40dp"
@@ -89,8 +88,7 @@
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:theme="@style/EditTextStyle" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
                 <TextView
@@ -105,7 +103,6 @@
 
                 <EditText
                     android:id="@+id/tv_Room_Date"
-                    style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40dp"
@@ -124,8 +121,7 @@
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/et_Room_Title"
-                    app:theme="@style/EditTextStyle" />
+                    app:layout_constraintTop_toBottomOf="@+id/et_Room_Title" />
 
 
                 <ImageView
@@ -170,8 +166,7 @@
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_Room_Date"
-                    app:theme="@style/EditTextStyle" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_Room_Date" />
 
                 <ImageView
                     android:id="@+id/iv_Time"
@@ -196,7 +191,7 @@
 
                 <EditText
                     android:id="@+id/et_Room_Penalty"
-                    style="@style/EditTextStyle"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40dp"
@@ -212,8 +207,7 @@
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_Room_Time"
-                    app:theme="@style/EditTextStyle" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_Room_Time" />
 
                 <TextView
                     android:layout_width="wrap_content"

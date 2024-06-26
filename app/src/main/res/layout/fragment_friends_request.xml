@@ -42,7 +42,6 @@
 
             <EditText
                 android:id="@+id/et_Friend_Search"
-                style="@style/EditTextStyle"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -59,7 +58,6 @@
                 app:layout_constraintEnd_toStartOf="@+id/btn_Friend_Search"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_Friend_Title"
-                app:theme="@style/EditTextStyle"
                 android:importantForAutofill="no"/>
 
 
