@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
     <application
-        android:name=".DoNotLateApplication"
+        android:name="com.nomorelateness.donotlate.DoNotLateApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
@@ -47,7 +47,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.nomorelateness.donotlate.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
