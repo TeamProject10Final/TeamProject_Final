@@ -962,5 +962,9 @@ Article 1 (Enforcement Date)\n
 These terms and conditions take effect from 2024.06.21.
 
     </string>
+    <string name="time_pm_kr">PM</string>
+    <string name="time_am_kr">AM</string>
+    <string name="time_am_en">오전</string>
+    <string name="time_pm_en">오후</string>
 
 </resources>

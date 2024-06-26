@@ -52,8 +52,12 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            val data = it.getParcelable("data", PlaceModel::class.java)
-            Log.d("debug1", "$data")
+            val data: PlaceModel? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                it.getParcelable("data", PlaceModel::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                it.getParcelable("data")
+            }
             if (data != null) {
                 searchViewModel.setSelectedItem(data)
             }

@@ -312,6 +312,11 @@
     <string name="toast_login_text2">회원 가입 성공!</string>
     <string name="toast_login_text3">회원 가입 실패!</string>
 
+    <string name="time_pm_kr">오후</string>
+    <string name="time_am_kr">오전</string>
+    <string name="time_pm_en">PM</string>
+    <string name="time_am_en">AM</string>
+
 
     <!--법령-->
     <string name="info">
