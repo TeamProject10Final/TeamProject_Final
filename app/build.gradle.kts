@@ -11,24 +11,28 @@ plugins {
 }
 
 android {
-    namespace = "com.example.donotlate"
+    namespace = "com.nomorelateness.donotlate"
     compileSdk = 34
 
     val properties = Properties()
     properties.load(FileInputStream(rootProject.file("local.properties")))
 
     defaultConfig {
-        applicationId = "com.example.donotlate"
+        applicationId = "com.nomorelateness.donotlate"
         minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", properties.getProperty("api_key"))
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+            buildConfigField("String", "API_KEY", properties.getProperty("api_key_debug"))
+        }
         release {
+            buildConfigField("String", "API_KEY", properties.getProperty("api_key_release"))
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
