@@ -268,8 +268,11 @@ class MyPromiseRoomViewModel(
     }
 
     private fun calculateIsIn200Meters(distance: Double) {
-        if (distance <= 0.2) { // 200m
+        val uid = CurrentUser.userData?.uId
+        if (distance <= 0.2 && hasArrived.value[uid] != true) { // 200m
             _distanceStatus.value = DistanceState.In200Meters
+        } else if (hasArrived.value[uid] == true) {
+            _distanceStatus.value = DistanceState.Arrived
         } else {
             if (isDeparted) {
                 _distanceStatus.value = DistanceState.Departed
@@ -482,21 +485,22 @@ class MyPromiseRoomViewModel(
         }
 
     }
-    fun observeDeparted() {
-        val uid = CurrentUser.userData?.uId ?: return
-        viewModelScope.launch {
-            hasDeparture.collect() { departureMap ->
-                val isDeparted = departureMap[uid] == true
-                if (isDeparted) {
-                    _distanceStatus.value = DistanceState.Departed
-                }
-            }
-        }
-    }
 
     private fun setInitialArrivalStatus() {
+        val uid = CurrentUser.userData?.uId
+
         val arrivalStatus = this.promiseRoom.value?.hasArrived ?: return
         _hasArrived.value = arrivalStatus
+
+        if (uid != null) {
+            if (arrivalStatus[uid] == true) {
+                _distanceStatus.value = DistanceState.Arrived
+                Log.d("확인 도착2", "${_distanceStatus.value}")
+            }
+        }
+
+
+        Log.d("확인 도착1", "$arrivalStatus")
     }
 
     private fun checkArrivalStatus(room: PromiseModel) {
@@ -576,6 +580,7 @@ sealed interface DistanceState {
     data object Departed : DistanceState
     data object NotDeparted : DistanceState
     data object Nothing : DistanceState
+    data object Arrived : DistanceState
 }
 
 sealed interface MyPromiseRoomEvent {
