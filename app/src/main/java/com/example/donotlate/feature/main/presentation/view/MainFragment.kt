@@ -9,11 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
+import com.example.donotlate.core.presentation.CurrentUser
 import com.example.donotlate.databinding.FragmentMainBinding
 import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.example.donotlate.feature.friends.presentation.view.FriendsFragment
@@ -60,6 +60,7 @@ class MainFragment : Fragment() {
         observeViewModel()
         initButton()
         initDarMode()
+        setTextUserName()
     }
 
     private fun startRoom() {
@@ -154,6 +155,12 @@ class MainFragment : Fragment() {
 //                .addToBackStack(null).commit()
 //
 //        }
+    }
+
+    private fun setTextUserName() {
+        if (CurrentUser.userData?.name != null) {
+            binding.tvMainTitle.text = CurrentUser.userData?.name
+        }
     }
 
     private fun observeViewModel() {
