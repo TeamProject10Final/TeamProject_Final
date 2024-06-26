@@ -8,6 +8,7 @@ plugins {
     id("kotlin-parcelize")
     //firebase sdk
     id("com.google.gms.google-services")
+    alias(libs.plugins.googleFirebaseCrashlytics)
 }
 
 android {
@@ -38,6 +39,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -63,6 +65,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.google.material)
     implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.firebase.crashlytics)
     testImplementation(libs.junit)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.activity.ktx)
@@ -86,6 +89,8 @@ dependencies {
     //firebase bom
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+    implementation(libs.google.firebase.crashlytics)
+
 
     //viewpager2
     implementation(libs.androidx.viewpager2)
