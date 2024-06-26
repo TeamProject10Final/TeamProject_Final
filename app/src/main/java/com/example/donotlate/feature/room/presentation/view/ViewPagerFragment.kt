@@ -1,6 +1,8 @@
 package com.example.donotlate.feature.room.presentation.view
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,8 +65,7 @@ class ViewPagerFragment : Fragment() {
                     when (position) {
                         0 -> {
                             ivRoomBack.setOnClickListener {
-                                val dialog = BackFragmentDialog()
-                                dialog.show(childFragmentManager, "BackFragmentDialog")
+                                showBackFragmentDialog()
                             }
 
                         }
@@ -98,6 +99,16 @@ class ViewPagerFragment : Fragment() {
         val viewPager = binding.viewPager
         val current = viewPager.currentItem
         viewPager.setCurrentItem(current-1, true)
+    }
+
+    private fun showBackFragmentDialog(){
+        Handler(Looper.getMainLooper()).post{
+            val dialog = BackFragmentDialog()
+
+            if(isAdded && !isStateSaved){
+                dialog.show(childFragmentManager, "BackFragmentDialog")
+            }
+        }
     }
 
     override fun onDestroyView() {

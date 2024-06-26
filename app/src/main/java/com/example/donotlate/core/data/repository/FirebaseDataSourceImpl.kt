@@ -77,7 +77,6 @@ class FirebaseDataSourceImpl(
     }
 
     override suspend fun getFriendsListFromFirebase(uid: String): Flow<List<UserEntity>> =
-//        flow {
         callbackFlow {
             try {
                 val documentRef = db.collection("users").document(uid)
@@ -103,20 +102,6 @@ class FirebaseDataSourceImpl(
             } catch (e: Exception) {
                 close(e)
             }
-//        try {
-//            val document = db.collection("users").document(uid).get().await()
-//            val user = document.toObject(UserResponse::class.java)
-//            val friends = user?.friends ?: emptyList()
-//            val friendsList = friends.mapNotNull { friendId ->
-//                val friendDoc = db.collection("users").document(friendId).get().await()
-//                friendDoc.toObject(UserResponse::class.java)
-//            }
-//            Log.d("FirebaseRepositoryImpl", "Fetched Friends List: $friendsList")
-//            emit(friendsList.toUserEntityList())
-//        } catch (e: Exception) {
-//            Log.e("FirebaseRepositoryImpl", "Error fetching friends list", e)
-//            emit(emptyList())
-//        }
         }
 
 
@@ -258,6 +243,8 @@ class FirebaseDataSourceImpl(
                 if (snapshot != null && !snapshot.isEmpty) {
                     val promiseRoom = snapshot.toObjects(PromiseRoomResponse::class.java)
                     trySend(promiseRoom.toPromiseEntityList()).isSuccess
+                } else {
+                    trySend(emptyList()).isSuccess
                 }
             }
             awaitClose {
@@ -339,7 +326,7 @@ class FirebaseDataSourceImpl(
         }
     }
 
-    override suspend fun updateDepartureStatus(roomId: String, uid: String): Flow<Boolean> = flow {
+    override fun updateDepartureStatus(roomId: String, uid: String): Flow<Boolean> = flow {
         try {
             val roomRef = db.collection("PromiseRooms").document(roomId)
             db.runTransaction { transaction ->
@@ -352,9 +339,9 @@ class FirebaseDataSourceImpl(
                     transaction.update(roomRef, "hasDeparture", isDeparture)
                 }
             }.await()
-            emit(true)
+            emit(value = true)
         } catch (e: Exception) {
-            emit(false)
+            emit(value = false)
         }
     }
 

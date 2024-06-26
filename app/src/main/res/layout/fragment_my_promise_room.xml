@@ -172,7 +172,6 @@
 
         <EditText
             android:id="@+id/et_input_message"
-            style="@style/EditTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15sp"
@@ -188,8 +187,7 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_send"
-            app:layout_constraintStart_toStartOf="parent"
-            app:theme="@style/EditTextStyle" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_send"

@@ -28,9 +28,10 @@ interface FirebaseDataRepository {
     suspend fun loadToMessage(roomId: String): Flow<List<MessageEntity>>
 //    suspend fun sendToMessage(roomId: String, message: MessageEntity): Flow<Boolean>
 //    suspend fun updateArrivalStatus(roomId: String, uid: String): Flow<Boolean>
-    suspend fun updateDepartureStatus(roomId: String, uid: String): Flow<Boolean>
+//    suspend fun updateDepartureStatus(roomId: String, uid: String): Flow<Boolean>
     fun sendToMessage(roomId: String, message: MessageEntity): Flow<Boolean>
     fun updateArrivalStatus(roomId: String, uid: String): Flow<Boolean>
+    fun updateDepartureStatus(roomId: String, uid: String): Flow<Boolean>
     suspend fun updatePromiseRoom()
 }
 

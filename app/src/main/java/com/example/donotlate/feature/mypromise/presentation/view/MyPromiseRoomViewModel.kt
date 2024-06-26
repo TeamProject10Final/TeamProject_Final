@@ -122,11 +122,14 @@ class MyPromiseRoomViewModel(
     private val _lateUsers = MutableStateFlow<List<String>>(value = emptyList())
     val lateUsers: StateFlow<List<String>> get() = _lateUsers
 
-    private val _updateDepartureStatus = MutableStateFlow<Boolean?>(null)
-    val updateDepartureStatus: StateFlow<Boolean?> get() = _updateDepartureStatus
+    private val _departureStatus = MutableLiveData<Boolean>(false)
+    val departureStatus: LiveData<Boolean> get() = _departureStatus
 
     private val _hasDeparture = MutableStateFlow<Map<String, Boolean>>(emptyMap())
     val hasDeparture: StateFlow<Map<String, Boolean>> get() = _hasDeparture
+
+    private val _isDeparture = Channel<Boolean>()
+    val isDeparture = _isDeparture.receiveAsFlow()
 
     private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 
@@ -137,11 +140,14 @@ class MyPromiseRoomViewModel(
                 if (CurrentUser.userData == null) {
                     null
                 } else {
+
                     checkIsUserHasArrived()
                     startCheckingArrivalStatus()
+                    setInitialDepartureStatus() // 출발 상태 설정
                     setInitialArrivalStatus()
                     setDestinationLatLng()
                     loadMessage()
+
                 }
             } ?: run {
                 sendWrongAccessMessage("feioaje;oajgo;jfk")
@@ -474,6 +480,18 @@ class MyPromiseRoomViewModel(
                 sendWrongAccessMessage("2nd")
             }.collect()
         }
+
+    }
+    fun observeDeparted() {
+        val uid = CurrentUser.userData?.uId ?: return
+        viewModelScope.launch {
+            hasDeparture.collect() { departureMap ->
+                val isDeparted = departureMap[uid] == true
+                if (isDeparted) {
+                    _distanceStatus.value = DistanceState.Departed
+                }
+            }
+        }
     }
 
     private fun setInitialArrivalStatus() {
@@ -524,17 +542,33 @@ class MyPromiseRoomViewModel(
         private const val SOUTH_KOREA_EN = "South Korea"
     }
 
-    fun updateDepartureStatus(roomId: String, uid: String) {
+    fun updateDeparture() {
         viewModelScope.launch {
+            val roomId = _promiseRoom.value?.roomId ?: return@launch
+            val uid = CurrentUser.userData?.uId ?: return@launch
             updateDepartureStatusUseCase(roomId, uid).collect { success ->
-                _updateDepartureStatus.value = success
-
-                val currentDeparture = _hasDeparture.value.toMutableMap()
-                currentDeparture[uid] = true
-                _hasDeparture.value = currentDeparture
+                if (success) {
+                    val currentDeparture = _hasDeparture.value.toMutableMap()
+                    currentDeparture[uid] = true
+                    _hasDeparture.value = currentDeparture.toMap()
+                    _isDeparture.send(element = true)
+                    Log.d("MyPromiseRoomViewModel", "Updated Departure Status: true")
+                } else {
+                    Log.d("MyPromiseRoomViewModel", "Failed to update departure status")
+                }
             }
         }
     }
+
+    private fun setInitialDepartureStatus() {
+        val uid = CurrentUser.userData?.uId
+        val departureStatus = _promiseRoom.value?.hasDeparture?.get(uid) ?: false
+        Log.d("MyPromiseRoomViewModel2", "Initial Departure Status: ${departureStatus}")
+
+        isDeparted = departureStatus
+        Log.d("MyPromiseRoomViewModel2", "Initial Departure Status: ${_departureStatus.value}")
+    }
+
 }
 
 sealed interface DistanceState {

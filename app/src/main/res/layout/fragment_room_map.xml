@@ -68,7 +68,7 @@
 
                 <EditText
                     android:id="@+id/et_Room_Map_Search"
-                    style="@style/EditTextStyle"
+
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="40dp"
@@ -85,7 +85,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/btn_Room_Map_Search"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:theme="@style/EditTextStyle"
+
                     android:importantForAutofill="no"/>
 
                 <android.widget.Button

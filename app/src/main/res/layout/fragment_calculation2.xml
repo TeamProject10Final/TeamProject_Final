@@ -63,7 +63,7 @@
         android:id="@+id/etDes21"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/EditTextStyle"
+
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
@@ -80,7 +80,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:theme="@style/EditTextStyle"
         android:importantForAutofill="no"/>
 
 
@@ -105,7 +104,6 @@
         android:id="@+id/etDes22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/EditTextStyle"
         android:layout_marginStart="40dp"
         android:layout_marginTop="55dp"
         android:ems="10"
@@ -122,7 +120,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:theme="@style/EditTextStyle"
+
         android:importantForAutofill="no"/>
     <!--    android:hint="@string/cal3_edit_text2"-->
     <!--    TODO : 혜란님 수정-->
@@ -167,7 +165,6 @@
         android:id="@+id/etDes23"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/EditTextStyle"
         android:layout_marginStart="40dp"
         android:layout_marginTop="55dp"
         android:ems="10"
@@ -183,7 +180,6 @@
         app:layout_constraintTop_toBottomOf="@id/etDes22"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:theme="@style/EditTextStyle"
         android:importantForAutofill="no"/>
 
     <TextView
@@ -213,7 +209,6 @@
 
     <EditText
         android:id="@+id/etDes24"
-        style="@style/EditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -232,7 +227,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etDes23"
-        app:theme="@style/EditTextStyle"
         android:importantForAutofill="no"/>
 
     <TextView
