@@ -143,6 +143,7 @@
     <string name="cal_activity_text5">No</string>
 
     <!--정산하기 두번째 페이지-->
+    <string name="cal_activity_text6">Delete</string>
     <string name="cal2_top_title1">Shall we start the settlement?</string>
     <string name="cal2_top_title2"></string>
     <string name="cal2_top_title3">Please enter settlement history.</string>
