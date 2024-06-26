@@ -64,18 +64,11 @@ class PlaceSearchFragment : Fragment() {
         binding.btnSearchButton.setOnClickListener {
             searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
             binding.imageView2.visibility = View.INVISIBLE
+            binding.rvMap.visibility = View.VISIBLE
             binding.tvDefaultText.visibility = View.INVISIBLE
             hideKeyboard(binding.root.windowToken)
 
-            val loading = LoadingDialog()
-            loading.show(childFragmentManager, "tag")
-            thread(start = true) {
-                Thread.sleep(3000)
-                activity?.runOnUiThread {
-                    binding.rvMap.visibility = View.VISIBLE
-                    loading.dismiss()
-                }
-            }
+
         }
 //        searchViewModel.getSearchMapList(binding.etSearchBox.text.toString())
 //        binding.rvMap.visibility = View.VISIBLE

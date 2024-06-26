@@ -13,8 +13,6 @@ object NetWorkClient {
 //    private const val GOOGLE_BASE_URL = "https://maps.googleapis.com"
     private const val SEARCH_BASE_URL = "https://places.googleapis.com"
 
-    const val API_KEY = "AIzaSyAl7nz1KScbyyDNKUeYz4rrePkFZBDvhkc" // 김재현
-
     private fun createOkHttpClient(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
 
