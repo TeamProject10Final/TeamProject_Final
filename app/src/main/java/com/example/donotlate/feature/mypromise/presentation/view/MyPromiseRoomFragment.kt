@@ -26,15 +26,19 @@ import com.example.donotlate.feature.directionRoute.presentation.LocationUtils
 import com.example.donotlate.feature.mypromise.presentation.adapter.PromiseMessageAdapter
 import com.example.donotlate.feature.mypromise.presentation.view.dialog.RadioButtonDialog
 import com.example.donotlate.feature.mypromise.presentation.view.dialog.RadioButtonSelectionDialog
+import com.example.donotlate.feature.mypromise.presentation.view.dialog.RoomExitDialog
+import com.example.donotlate.feature.mypromise.presentation.view.dialog.RoomExitInterface
 import com.example.donotlate.feature.mypromise.presentation.view.dialog.RoomLateDialog
+import com.example.donotlate.feature.setting.presentation.view.dialog.LoadingDialog
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
+import kotlin.concurrent.thread
 
-class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
+class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomExitInterface {
 
     private val myPromiseViewModel: MyPromiseRoomViewModel by viewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
@@ -183,8 +187,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
         }
 
         binding.btnRoomExit.setOnClickListener {
-            Log.d("나가기", "실행")
-            myPromiseViewModel.exitRoom()
+            showExitDialog()
         }
 
         binding.ivRoomMap.setOnClickListener {
@@ -393,12 +396,20 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
     private fun showDialogSelection(selections: List<String>) {
         Log.d("확인 selection empty", "${selections.isEmpty()}")
         if (selections.isEmpty()) return
-        val routeSelectionDialog = RadioButtonSelectionDialog(selections) {
-            //라디오 버튼 선택 뒤의 로직
-            myPromiseViewModel.setSelectedRouteIndex(it)
-            myPromiseViewModel.afterSelecting()
+        val loading = LoadingDialog()
+        loading.show(childFragmentManager, "tag")
+        thread(start = true) {
+            Thread.sleep(2000)
+            activity?.runOnUiThread {
+                val routeSelectionDialog = RadioButtonSelectionDialog(selections) {
+                    //라디오 버튼 선택 뒤의 로직
+                    myPromiseViewModel.setSelectedRouteIndex(it)
+                    myPromiseViewModel.afterSelecting()
+                }
+                routeSelectionDialog.show(childFragmentManager, "RadioButtonSelectionDialog")
+                loading.dismiss()
+            }
         }
-        routeSelectionDialog.show(childFragmentManager, "RadioButtonSelectionDialog")
     }
 
     private fun sendMessage(contents: String) {
@@ -506,6 +517,18 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
 
         val dialog = RoomLateDialog(userNames)
         dialog.show(childFragmentManager, "tag")
+    }
+
+    private fun showExitDialog() {
+        val dialog = RoomExitDialog(this)
+        dialog.show(childFragmentManager, "tag")
+    }
+
+    override fun onClickExitRoom() {
+        myPromiseViewModel.exitRoom()
+        parentFragmentManager.beginTransaction()
+            .remove(this)
+            .commit()
     }
 }
 

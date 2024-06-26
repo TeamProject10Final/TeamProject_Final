@@ -478,11 +478,23 @@ class DirectionsViewModel1(
             var num = 1
             val resultText1 = StringBuilder()
             leg.steps.forEach { step ->
-                resultText1.append("🔷${num}:\n")
-                resultText1.append("*  상세설명: ${step.htmlInstructions}\n")
+                resultText1.append("🔷${num}\n")
+                resultText1.append("*  상세설명:")
+
+                if (step.travelMode == "TRANSIT") {
+                    if (step.transitDetails.line.shortName != "") {
+                        resultText1.append(" [${step.transitDetails.line.shortName}]")
+                    } else if (step.transitDetails.line.name != "") {
+                        resultText1.append(" [${step.transitDetails.line.name}]")
+                    } else {
+                        //
+                    }
+                }
+                Log.d("확인 travelMode", "${step.travelMode.toString()}")
+
+                resultText1.append(" ${step.htmlInstructions}\n")
                 resultText1.append("*  소요시간: ${step.stepDuration.text}\n")
                 resultText1.append("*  구간거리: ${step.distance.text}\n")
-                resultText1.append("*  이동수단: ${step.travelMode}")
 
                 if (step.transitDetails != DirectionsTransitDetailsModel(
                         DirectionsTransitStopModel(LatLngModel(0.0, 0.0), ""),
@@ -505,8 +517,6 @@ class DirectionsViewModel1(
                         ""
                     )
                 ) {
-                    resultText1.append(" : ${step.transitDetails.line.shortName}, ${step.transitDetails.line.name}\n")
-                    resultText1.append("|    ${step.transitDetails.headSign} 행\n")
                     resultText1.append("|    탑승 장소: ${step.transitDetails.departureStop.name}\n")
                     resultText1.append("|    하차 장소: ${step.transitDetails.arrivalStop.name}\n")
                     resultText1.append("|    ${step.transitDetails.numStops}")

@@ -1,5 +1,6 @@
 package com.example.donotlate.feature.room.presentation.view
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -42,6 +44,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
 
     private val LOCATION_PERMISSION_REQUEST_CODE = 1000
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -59,7 +62,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         _binding = FragmentRoomMapBinding.inflate(inflater, container, false)
 
-//        setTitle()
+
         initMap()
 
         binding.root.setOnClickListener {

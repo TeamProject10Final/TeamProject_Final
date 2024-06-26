@@ -8,7 +8,6 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -29,11 +28,13 @@ import com.example.donotlate.feature.main.presentation.view.MainPageViewModel
 import com.example.donotlate.feature.main.presentation.view.MainPageViewModelFactory
 import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
 import com.example.donotlate.feature.setting.presentation.adapter.SettingAdapter
+import com.example.donotlate.feature.setting.presentation.view.dialog.UserInterface
+import com.example.donotlate.feature.setting.presentation.view.dialog.WithdrawDialog
 import com.example.donotlate.feature.setting.presentation.view.information.SettingInformationFragment
 import com.example.donotlate.feature.setting.presentation.view.question.SettingQuestionFragment
 import kotlinx.coroutines.launch
 
-class SettingFragment : Fragment(R.layout.fragment_setting) {
+class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {
     private val mainPageViewModel: MainPageViewModel by activityViewModels {
         val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
         MainPageViewModelFactory(
@@ -268,17 +269,29 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
     }
 
     private fun showDeleteDialog() {
+
         val userId = useData?.uId
         if (userId != null) {
-            AlertDialog.Builder(requireContext())
-                .setTitle("회원 탈퇴")
-                .setMessage("정말로 탈퇴하시겠습니까?")
-                .setPositiveButton("확인") { _, _ ->
-                    viewModel.deleteUser(userId)
-                }
-                .setNegativeButton("취소", null)
-                .create()
-                .show()
+            val dialog = WithdrawDialog(this, userId)
+            dialog.show(parentFragmentManager, "WithdrawDialog")
+        } else {
+            Toast.makeText(requireContext(), "실패", Toast.LENGTH_SHORT).show()
         }
+
+//        if (userId != null) {
+//            AlertDialog.Builder(requireContext())
+//                .setTitle("회원 탈퇴")
+//                .setMessage("정말로 탈퇴하시겠습니까?")
+//                .setPositiveButton("확인") { _, _ ->
+//                    viewModel.deleteUser(userId)
+//                }
+//                .setNegativeButton("취소", null)
+//                .create()
+//                .show()
+//        }
+    }
+
+    override fun onClickUserButton(userId: String) {
+        viewModel.deleteUser(userId)
     }
 }
