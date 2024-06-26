@@ -150,7 +150,7 @@ class MyPromiseRoomViewModel(
 
                 }
             } ?: run {
-                sendWrongAccessMessage("feioaje;oajgo;jfk")
+                sendWrongAccessMessage("다시 시도해 주세요.")
             }
         }
     }
@@ -453,7 +453,7 @@ class MyPromiseRoomViewModel(
             ).onEach { result ->
                 _messageSendResults.value = result
             }.catch {
-                sendWrongAccessMessage("4th")
+                sendWrongAccessMessage("다시 시도해 주세요.")
             }.launchIn(scope = viewModelScope)
         }
     }
@@ -466,7 +466,7 @@ class MyPromiseRoomViewModel(
             removeParticipantsUseCase(roomId = roomId, participantId = uid).onEach {
                 _removeParticipantIdResult.value = it
             }.catch {
-                sendWrongAccessMessage("5th")
+                sendWrongAccessMessage("다시 시도해 주세요.")
             }.collect()
         }
     }
@@ -480,7 +480,7 @@ class MyPromiseRoomViewModel(
                 currentArrivals[uid] = true
                 _hasArrived.value = currentArrivals.toMap()
             }.catch {
-                sendWrongAccessMessage("2nd")
+                sendWrongAccessMessage("다시 시도해 주세요.")
             }.collect()
         }
 
