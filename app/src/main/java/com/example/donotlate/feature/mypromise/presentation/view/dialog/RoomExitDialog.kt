@@ -11,46 +11,32 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
-import com.example.donotlate.R
 import com.example.donotlate.databinding.BackDialogBinding
-import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseListFragment
-import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomFragment
 import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModel
 import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomViewModelFactory
-import com.example.donotlate.feature.setting.presentation.view.dialog.LoadingDialog
+import com.example.donotlate.feature.setting.presentation.view.dialog.UserInterface
 import kotlinx.coroutines.launch
 
-class ExitDialog(
-    private val roomId: String,
-    private val participantId: String
+class RoomExitDialog(
+    roomExitInterface: RoomExitInterface,
 ) : DialogFragment() {
 
-    private val myPromiseViewModel: MyPromiseRoomViewModel by viewModels {
-        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-        MyPromiseRoomViewModelFactory(
-            appContainer.messageSendingUseCase,
-            appContainer.messageReceivingUseCase,
-            appContainer.getDirectionsUseCase,
-            appContainer.removeParticipantsUseCase,
-            appContainer.updateArrivalStatusUseCase,
-            appContainer.updateDepartureStatusUseCase
-        )
+
+    private var _binding: BackDialogBinding? = null
+    private val binding get() = _binding!!
+
+    private var roomExitInterface: RoomExitInterface? = null
+
+    init {
+        this.roomExitInterface = roomExitInterface
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        isCancelable = true
-    }
-
-    private lateinit var binding: BackDialogBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = BackDialogBinding.inflate(inflater, container, false)
+        _binding = BackDialogBinding.inflate(inflater, container, false)
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
@@ -68,11 +54,18 @@ class ExitDialog(
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
-            viewLifecycleOwner.lifecycleScope.launch {
-//                myPromiseViewModel.exitRoom(roomId = roomId, participantId =  participantId)
-            }
+            this.roomExitInterface?.onClickExitRoom()
             dismiss()
-            //수정 필요
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+
+
+interface RoomExitInterface {
+    fun onClickExitRoom()
 }

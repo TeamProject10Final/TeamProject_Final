@@ -140,12 +140,13 @@ class RoomFriendFragment : Fragment() {
     private fun checkSelectUser() {
         binding.btnRoomFriendNext.setOnClickListener {
             val userUId = roomViewModel.selectedUserUIds.value
+            val userName = roomViewModel.selectedUserNames.value
             Log.d("123123", "${userUId}")
-            if (userUId != null) {
+            if (userUId.isNullOrEmpty() && userName.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "${resources.getString(R.string.toast_room_text6)}", Toast.LENGTH_SHORT).show()
+            } else {
                 val dialog = ResultFragmentDialog()
                 dialog.show(requireActivity().supportFragmentManager, "ResultFragmentDialog")
-            } else {
-                Toast.makeText(requireContext(), "${resources.getString(R.string.toast_room_text6)}", Toast.LENGTH_SHORT).show()
             }
         }
     }
