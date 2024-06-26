@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.donotlate.DoNotLateApplication
@@ -48,6 +47,7 @@ class FriendsRequestDialogFragment : DialogFragment() {
         super.onCreate(savedInstanceState)
         user = arguments?.getParcelable(ARG_USER)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,13 +62,15 @@ class FriendsRequestDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         user?.let { user ->
             toId = user.uid
+
+            friendsViewModel.loadFriendRequestList()
             requestID =
                 if (fromId > toId) "${fromId}_${toId}" else "${toId}_${fromId} "// 요청 ID 생성
 
             viewLifecycleOwner.lifecycleScope.launch {
                 friendsViewModel.checkFriendRequestStatus(requestID)
             }
-             // 친구 요청 상태 확인
+            // 친구 요청 상태 확인
 
             binding.tvNameTitle.text = user.name
             binding.tvEmail.text = user.email
