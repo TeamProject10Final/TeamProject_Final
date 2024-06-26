@@ -21,17 +21,6 @@ class RadioButtonSelectionDialog(
     private val callback: (Int) -> Unit
 ) : DialogFragment() {
 
-//    private val myPromiseViewModel: MyPromiseRoomViewModel by activityViewModels {
-//        val appContainer = (requireActivity().application as DoNotLateApplication).appContainer
-//        MyPromiseRoomViewModelFactory(
-//            appContainer.messageSendingUseCase,
-//            appContainer.messageReceivingUseCase,
-//            appContainer.getDirectionsUseCase,
-//            appContainer.removeParticipantsUseCase,
-//            appContainer.updateArrivalStatusUseCase
-//        )
-//    }
-
     private var _binding: DialogRadiobuttonSelectionBinding? = null
     private val binding get() = _binding!!
 
