@@ -2,7 +2,6 @@ package com.example.donotlate.feature.room.presentation.view
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import com.example.donotlate.DoNotLateApplication
 import com.example.donotlate.R
 import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.example.donotlate.databinding.FragmentRoomMapBinding
-import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -47,13 +45,14 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            val data = it.getParcelable("data", PlaceModel::class.java)
-            Log.d("debug3", "${data}")
-            if (data != null) {
-                roomViewModel.setMapData(data)
-            }
-        }
+//        arguments?.let {
+//            val data = it.getParcelable("data", PlaceModel::class.java)
+//            Log.d("debug3", "${data}")
+//            if (data != null) {
+//                roomViewModel.setMapData(data)
+//                Log.d("확인 setMapData", "${data}")
+//            }
+//        }
     }
 
     override fun onCreateView(

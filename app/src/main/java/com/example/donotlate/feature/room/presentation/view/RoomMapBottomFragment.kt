@@ -69,15 +69,20 @@ class RoomMapBottomFragment : BottomSheetDialogFragment() {
 
         mapAdapter.setOnItemClickListener(object : MapAdapter.OnItemClickListener {
             override fun onItemClick(mapData: PlaceModel) {
-                val fragment = RoomMapFragment()
-                val bundle = Bundle()
-                bundle.putParcelable("data", mapData)
-                Log.d("debug3", "${mapData}")
-                fragment.arguments = bundle
-                requireActivity().supportFragmentManager
-                    .beginTransaction().add(fragment, "tag")
-                    .commit()
-
+                mapData.let {
+                    roomViewModel.setMapData(it)
+                    Log.d("확인 setMapData", "${it}")
+                }
+//sdk 33
+//                val fragment = RoomMapFragment()
+//                val bundle = Bundle()
+//                bundle.putParcelable("data", mapData)
+//                Log.d("debug3", "${mapData}")
+//                fragment.arguments = bundle
+//                requireActivity().supportFragmentManager
+//                    .beginTransaction().add(fragment, "tag")
+//                    .commit()
+//
                 dismiss()
             }
         })
