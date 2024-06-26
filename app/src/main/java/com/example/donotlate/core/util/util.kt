@@ -33,11 +33,11 @@ fun parseTime(timeStr: String): LocalTime? {
 
         // 오전/오후를 처리하여 24시간 형식으로 변환
         // 오후 상태이며, 시간이 12가 아니면 12시간을 더한다.
-        if (amPm == "오후" && localTime.hour != 12) {
+        if (amPm == "오후" || amPm == "PM" && localTime.hour != 12) {
             localTime = localTime.plusHours(12)
         }
         // 오전 상태이며, 12이면 시간을 0으로 설정(자정을 나타냄)
-        else if (amPm == "오전" && localTime.hour == 12) {
+        else if (amPm == "오전" || amPm == "AM" && localTime.hour == 12) {
             localTime = localTime.minusHours(12)
         }
 
