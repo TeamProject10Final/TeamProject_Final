@@ -140,6 +140,7 @@
     <string name="cal_activity_text3">정산 상태를 변경할까요?</string>
     <string name="cal_activity_text4">네</string>
     <string name="cal_activity_text5">아니오</string>
+    <string name="cal_activity_text6">삭제하기</string>
 
     <!--정산하기 두번째 페이지-->
     <string name="cal2_top_title1">정산을 시작해볼까요?</string>
