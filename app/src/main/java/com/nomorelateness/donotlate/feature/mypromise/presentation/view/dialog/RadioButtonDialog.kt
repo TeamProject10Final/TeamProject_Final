@@ -11,9 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import com.example.donotlate.R
-import com.example.donotlate.databinding.DialogRadiobuttonBinding
-import com.example.donotlate.feature.mypromise.presentation.model.Mode
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.DialogRadiobuttonBinding
+import com.nomorelateness.donotlate.feature.mypromise.presentation.model.Mode
 
 class RadioButtonDialog(private val callback: (String) -> Unit) :
     DialogFragment() {

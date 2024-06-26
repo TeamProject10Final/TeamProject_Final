@@ -1,6 +1,6 @@
 package com.nomorelateness.donotlate.feature.consumption.domain.usecase
 
-import com.example.donotlate.feature.consumption.domain.repository.ConsumptionRepository
+import com.nomorelateness.donotlate.feature.consumption.domain.repository.ConsumptionRepository
 
 class GetConsumptionByIdUseCase
 constructor(private val repository: ConsumptionRepository) {

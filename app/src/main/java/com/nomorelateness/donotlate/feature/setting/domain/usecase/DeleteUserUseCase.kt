@@ -1,6 +1,7 @@
 package com.nomorelateness.donotlate.feature.setting.domain.usecase
 
-import com.example.donotlate.core.domain.repository.UserRepository
+import com.nomorelateness.donotlate.core.domain.repository.UserRepository
+import com.nomorelateness.donotlate.feature.main.presentation.model.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

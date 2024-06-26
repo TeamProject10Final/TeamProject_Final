@@ -1,9 +1,9 @@
 package com.nomorelateness.donotlate.feature.room.presentation.mapper
 
-import com.example.donotlate.core.domain.model.PromiseRoomEntity
-import com.example.donotlate.core.domain.model.UserEntity
-import com.example.donotlate.feature.room.presentation.model.PromiseRoomModel
-import com.example.donotlate.feature.room.presentation.model.RoomUserModel
+import com.nomorelateness.donotlate.core.domain.model.PromiseRoomEntity
+import com.nomorelateness.donotlate.core.domain.model.UserEntity
+import com.nomorelateness.donotlate.feature.room.presentation.model.PromiseRoomModel
+import com.nomorelateness.donotlate.feature.room.presentation.model.RoomUserModel
 
 fun List<UserEntity>.toModelList(): List<RoomUserModel> {
     return this.map { it.toRoomUserModel() }

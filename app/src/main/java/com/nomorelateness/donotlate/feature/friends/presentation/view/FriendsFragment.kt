@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.donotlate.R
-import com.example.donotlate.core.presentation.CurrentUser
-import com.example.donotlate.databinding.FragmentFriendsBinding
-import com.example.donotlate.feature.friends.presentation.adapter.FriendsAdapter
-import com.example.donotlate.feature.main.presentation.view.MainFragment
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.core.presentation.CurrentUser
+import com.nomorelateness.donotlate.databinding.FragmentFriendsBinding
+import com.nomorelateness.donotlate.feature.friends.presentation.adapter.FriendsAdapter
+import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
 import kotlinx.coroutines.launch
 
 class FriendsFragment : Fragment() {

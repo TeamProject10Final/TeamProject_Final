@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.example.donotlate.databinding.ItemSettingBinding
+import com.nomorelateness.donotlate.databinding.ItemSettingBinding
 
 class SettingAdapter(private val settingItem: ArrayList<String>, private val dateItem: String?) :
     RecyclerView.Adapter<SettingAdapter.Holder>() {

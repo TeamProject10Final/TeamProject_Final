@@ -1,6 +1,6 @@
 package com.nomorelateness.donotlate.core.presentation
 
-import com.example.donotlate.feature.main.presentation.model.UserModel
+import com.nomorelateness.donotlate.feature.main.presentation.model.UserModel
 
 
 object CurrentUser {

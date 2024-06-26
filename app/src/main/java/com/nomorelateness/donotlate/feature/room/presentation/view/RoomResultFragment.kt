@@ -9,11 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentRoomResultBinding
-import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
-import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseRoomFragment
-import com.example.donotlate.feature.room.presentation.dialog.CancelFragmentDialog
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -23,6 +18,11 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.Timestamp
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.FragmentRoomResultBinding
+import com.nomorelateness.donotlate.feature.mypromise.presentation.model.PromiseModel
+import com.nomorelateness.donotlate.feature.mypromise.presentation.view.MyPromiseRoomFragment
+import com.nomorelateness.donotlate.feature.room.presentation.dialog.CancelFragmentDialog
 import kotlinx.coroutines.launch
 import java.util.UUID
 

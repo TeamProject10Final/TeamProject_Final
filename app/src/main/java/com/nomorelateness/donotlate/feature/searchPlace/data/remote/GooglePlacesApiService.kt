@@ -1,6 +1,6 @@
 package com.nomorelateness.donotlate.feature.searchPlace.data.remote
 
-import com.example.donotlate.feature.searchPlace.data.response.SearchPlaces
+import com.nomorelateness.donotlate.feature.searchPlace.data.response.SearchPlaces
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query

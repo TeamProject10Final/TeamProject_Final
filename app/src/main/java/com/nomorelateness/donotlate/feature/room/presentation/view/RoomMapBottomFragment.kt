@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.donotlate.databinding.FragmentRoomMapBottomBinding
-import com.example.donotlate.feature.searchPlace.presentation.adapter.MapAdapter
-import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nomorelateness.donotlate.databinding.FragmentRoomMapBottomBinding
+import com.nomorelateness.donotlate.feature.searchPlace.presentation.adapter.MapAdapter
+import com.nomorelateness.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 
 class RoomMapBottomFragment : BottomSheetDialogFragment() {
 

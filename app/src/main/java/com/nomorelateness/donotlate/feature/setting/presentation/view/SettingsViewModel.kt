@@ -3,8 +3,9 @@ package com.nomorelateness.donotlate.feature.setting.presentation.view
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.core.domain.session.SessionManager
-import com.example.donotlate.feature.setting.domain.usecase.DeleteUserUseCase
+import com.nomorelateness.donotlate.core.domain.session.SessionManager
+import com.nomorelateness.donotlate.feature.main.presentation.model.Result
+import com.nomorelateness.donotlate.feature.setting.domain.usecase.DeleteUserUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch

@@ -1,7 +1,7 @@
 package com.nomorelateness.donotlate.feature.room.domain.usecase
 
-import com.example.donotlate.core.domain.model.PromiseRoomEntity
-import com.example.donotlate.core.domain.repository.FirebaseDataRepository
+import com.nomorelateness.donotlate.core.domain.model.PromiseRoomEntity
+import com.nomorelateness.donotlate.core.domain.repository.FirebaseDataRepository
 import kotlinx.coroutines.flow.Flow
 
 class MakeAPromiseRoomUseCase(private val firebaseDataRepository: FirebaseDataRepository) {

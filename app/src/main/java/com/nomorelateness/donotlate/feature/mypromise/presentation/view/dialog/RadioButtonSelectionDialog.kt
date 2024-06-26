@@ -12,8 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
-import com.example.donotlate.databinding.DialogRadiobuttonSelectionBinding
+import com.nomorelateness.donotlate.databinding.DialogRadiobuttonSelectionBinding
 
 class RadioButtonSelectionDialog(
     private val selections: List<String>,

@@ -9,14 +9,14 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.donotlate.R
-import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
-import com.example.donotlate.databinding.FragmentRoomStartBinding
-import com.example.donotlate.feature.room.presentation.dialog.DatePickerInterface
-import com.example.donotlate.feature.room.presentation.dialog.RoomDateDialog
-import com.example.donotlate.feature.room.presentation.dialog.RoomTimeDialog
-import com.example.donotlate.feature.room.presentation.dialog.TimePickerInterface
-import com.example.donotlate.feature.room.presentation.model.RoomModel
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
+import com.nomorelateness.donotlate.databinding.FragmentRoomStartBinding
+import com.nomorelateness.donotlate.feature.room.presentation.dialog.DatePickerInterface
+import com.nomorelateness.donotlate.feature.room.presentation.dialog.RoomDateDialog
+import com.nomorelateness.donotlate.feature.room.presentation.dialog.RoomTimeDialog
+import com.nomorelateness.donotlate.feature.room.presentation.dialog.TimePickerInterface
+import com.nomorelateness.donotlate.feature.room.presentation.model.RoomModel
 import java.util.Calendar
 
 class RoomStartFragment : Fragment(), TimePickerInterface, DatePickerInterface {

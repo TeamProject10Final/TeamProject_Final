@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.donotlate.databinding.ItemRvMyPromiseBinding
-import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
+import com.nomorelateness.donotlate.databinding.ItemRvMyPromiseBinding
+import com.nomorelateness.donotlate.feature.mypromise.presentation.model.PromiseModel
 
 class MyPromiseAdapter(private val onItemClick: (PromiseModel) -> Unit) :
     ListAdapter<PromiseModel, MyPromiseAdapter.MyPromiseViewHolder>(DiffCallback()) {

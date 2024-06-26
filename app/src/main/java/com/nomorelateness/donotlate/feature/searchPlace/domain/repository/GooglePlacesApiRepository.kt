@@ -1,6 +1,6 @@
 package com.nomorelateness.donotlate.feature.searchPlace.domain.repository
 
-import com.example.donotlate.feature.searchPlace.domain.model.SearchPlacesEntity
+import com.nomorelateness.donotlate.feature.searchPlace.domain.model.SearchPlacesEntity
 
 interface GooglePlacesApiRepository {
 

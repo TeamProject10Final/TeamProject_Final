@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.donotlate.R
-import com.example.donotlate.databinding.ActivityDirectionRouteBinding
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.ActivityDirectionRouteBinding
 
 class DirectionRouteActivity : AppCompatActivity() {
 

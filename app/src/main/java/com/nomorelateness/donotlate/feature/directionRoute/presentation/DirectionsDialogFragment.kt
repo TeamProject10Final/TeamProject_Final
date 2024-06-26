@@ -11,7 +11,7 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.donotlate.databinding.FragmentDirectionsDialogBinding
+import com.nomorelateness.donotlate.databinding.FragmentDirectionsDialogBinding
 
 
 class DirectionsDialogFragment : DialogFragment() {

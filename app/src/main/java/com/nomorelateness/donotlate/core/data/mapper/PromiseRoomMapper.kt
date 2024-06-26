@@ -1,7 +1,7 @@
 package com.nomorelateness.donotlate.core.data.mapper
 
-import com.example.donotlate.core.data.response.PromiseRoomResponse
-import com.example.donotlate.core.domain.model.PromiseRoomEntity
+import com.nomorelateness.donotlate.core.data.response.PromiseRoomResponse
+import com.nomorelateness.donotlate.core.domain.model.PromiseRoomEntity
 
 fun PromiseRoomEntity.toPromiseRoomResponse() = PromiseRoomResponse(
     roomId = roomId,

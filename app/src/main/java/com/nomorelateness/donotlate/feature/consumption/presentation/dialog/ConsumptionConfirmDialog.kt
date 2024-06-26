@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import com.example.donotlate.databinding.BackDialogConsumptionBinding
-import com.example.donotlate.feature.consumption.presentation.ConsumptionModel
+import com.nomorelateness.donotlate.databinding.BackDialogConsumptionBinding
+import com.nomorelateness.donotlate.feature.consumption.presentation.ConsumptionModel
 
 class ConsumptionConfirmDialog(
     confirmDialogInterface: ConfirmDialogInterface,

@@ -10,9 +10,9 @@ import android.view.Window
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
-import com.example.donotlate.R
-import com.example.donotlate.databinding.BackDialogBinding
-import com.example.donotlate.feature.auth.presentation.view.LoginFragment
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.BackDialogBinding
+import com.nomorelateness.donotlate.feature.auth.presentation.view.LoginFragment
 
 class LogoutFragmentDialog() : DialogFragment() {
 

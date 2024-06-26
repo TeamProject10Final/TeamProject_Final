@@ -1,9 +1,9 @@
 package com.nomorelateness.donotlate.feature.searchPlace.data.repository
 
-import com.example.donotlate.feature.searchPlace.data.mapper.toEntity
-import com.example.donotlate.feature.searchPlace.data.remote.GooglePlacesApiService
-import com.example.donotlate.feature.searchPlace.domain.model.SearchPlacesEntity
-import com.example.donotlate.feature.searchPlace.domain.repository.GooglePlacesApiRepository
+import com.nomorelateness.donotlate.feature.searchPlace.data.mapper.toEntity
+import com.nomorelateness.donotlate.feature.searchPlace.data.remote.GooglePlacesApiService
+import com.nomorelateness.donotlate.feature.searchPlace.domain.model.SearchPlacesEntity
+import com.nomorelateness.donotlate.feature.searchPlace.domain.repository.GooglePlacesApiRepository
 
 class GooglePlacesApiRepositoryImpl (
     private val googlePlacesApiService: GooglePlacesApiService

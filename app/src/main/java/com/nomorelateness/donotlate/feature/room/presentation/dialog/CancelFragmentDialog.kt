@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import com.example.donotlate.R
-import com.example.donotlate.databinding.BackDialogBinding
-import com.example.donotlate.feature.main.presentation.view.MainFragment
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.BackDialogBinding
+import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
 
 class CancelFragmentDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {

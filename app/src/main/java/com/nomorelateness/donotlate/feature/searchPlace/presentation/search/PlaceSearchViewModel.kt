@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
-import com.example.donotlate.feature.searchPlace.domain.usecase.GetSearchListUseCase
-import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
+import com.nomorelateness.donotlate.feature.searchPlace.domain.usecase.GetSearchListUseCase
+import com.nomorelateness.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 import kotlinx.coroutines.launch
 
 class PlaceSearchViewModel(

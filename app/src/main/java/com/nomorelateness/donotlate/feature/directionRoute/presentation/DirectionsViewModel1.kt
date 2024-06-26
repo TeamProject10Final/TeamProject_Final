@@ -7,13 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirWithDepTmRpUseCase
-import com.example.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
-import com.example.finaldirectionexample01.domain.usecase.GetDirWithArrTmRpUseCase
-import com.example.finaldirectionexample01.domain.usecase.GetDirWithTmRpUseCase
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.PolyUtil
+import com.nomorelateness.donotlate.feature.directionRoute.domain.usecase.GetDirWithArrTmRpUseCase
+import com.nomorelateness.donotlate.feature.directionRoute.domain.usecase.GetDirWithDepTmRpUseCase
+import com.nomorelateness.donotlate.feature.directionRoute.domain.usecase.GetDirWithTmRpUseCase
+import com.nomorelateness.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.LocalTime

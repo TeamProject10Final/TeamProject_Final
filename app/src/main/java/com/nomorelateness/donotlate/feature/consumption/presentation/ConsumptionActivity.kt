@@ -14,11 +14,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.donotlate.R
-import com.example.donotlate.databinding.ActivityConsumptionBinding
-import com.example.donotlate.feature.consumption.presentation.dialog.ConfirmDialogInterface
-import com.example.donotlate.feature.consumption.presentation.dialog.ConsumptionConfirmDialog
-import com.example.donotlate.feature.consumption.presentation.dialog.DeleteDialogInterface
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.ActivityConsumptionBinding
+import com.nomorelateness.donotlate.feature.consumption.presentation.dialog.ConfirmDialogInterface
+import com.nomorelateness.donotlate.feature.consumption.presentation.dialog.ConsumptionConfirmDialog
+import com.nomorelateness.donotlate.feature.consumption.presentation.dialog.DeleteDialogInterface
 import kotlinx.coroutines.launch
 
 class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface, DeleteDialogInterface {

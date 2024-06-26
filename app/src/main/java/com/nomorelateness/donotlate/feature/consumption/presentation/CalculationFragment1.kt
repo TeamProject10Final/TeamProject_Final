@@ -14,11 +14,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.donotlate.R
-import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
-import com.example.donotlate.databinding.FragmentCalculation1Binding
-import com.example.donotlate.feature.room.presentation.dialog.DatePickerInterface
-import com.example.donotlate.feature.room.presentation.dialog.RoomDateDialog
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
+import com.nomorelateness.donotlate.databinding.FragmentCalculation1Binding
+import com.nomorelateness.donotlate.feature.room.presentation.dialog.DatePickerInterface
+import com.nomorelateness.donotlate.feature.room.presentation.dialog.RoomDateDialog
 import java.util.Calendar
 
 class CalculationFragment1 : Fragment(R.layout.fragment_calculation1), DatePickerInterface {

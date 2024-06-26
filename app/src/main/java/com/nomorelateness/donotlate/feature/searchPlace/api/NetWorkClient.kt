@@ -1,6 +1,6 @@
 package com.nomorelateness.donotlate.feature.searchPlace.api
 
-import com.example.donotlate.feature.searchPlace.data.remote.GooglePlacesApiService
+import com.nomorelateness.donotlate.feature.searchPlace.data.remote.GooglePlacesApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

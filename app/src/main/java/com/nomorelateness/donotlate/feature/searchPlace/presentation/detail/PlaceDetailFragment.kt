@@ -15,10 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentPlaceDetailBinding
-import com.example.donotlate.feature.directionRoute.presentation.DirectionRouteActivity
-import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationServices
@@ -30,7 +26,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.nomorelateness.donotlate.BuildConfig
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.FragmentPlaceDetailBinding
+import com.nomorelateness.donotlate.feature.directionRoute.presentation.DirectionRouteActivity
+import com.nomorelateness.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 
 
 class PlaceDetailFragment : Fragment(), OnMapReadyCallback {

@@ -1,7 +1,7 @@
 package com.nomorelateness.donotlate.core.data.mapper
 
-import com.example.donotlate.core.data.response.UserResponse
-import com.example.donotlate.core.domain.model.UserEntity
+import com.nomorelateness.donotlate.core.data.response.UserResponse
+import com.nomorelateness.donotlate.core.domain.model.UserEntity
 
 fun List<UserResponse>.toUserEntityList(): List<UserEntity> {
     return this.map { it.toUserEntity() }

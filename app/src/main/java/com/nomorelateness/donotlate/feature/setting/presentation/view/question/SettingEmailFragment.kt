@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.donotlate.R
-import com.example.donotlate.core.presentation.CurrentUser
-import com.example.donotlate.databinding.FragmentSettingEmailBinding
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.core.presentation.CurrentUser
+import com.nomorelateness.donotlate.databinding.FragmentSettingEmailBinding
 
 
 class SettingEmailFragment : Fragment() {

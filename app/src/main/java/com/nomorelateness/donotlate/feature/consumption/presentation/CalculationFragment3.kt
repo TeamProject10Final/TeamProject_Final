@@ -10,9 +10,9 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentCalculation3Binding
-import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity.Companion.addCommas
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.FragmentCalculation3Binding
+import com.nomorelateness.donotlate.feature.consumption.presentation.ConsumptionActivity.Companion.addCommas
 
 class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
 

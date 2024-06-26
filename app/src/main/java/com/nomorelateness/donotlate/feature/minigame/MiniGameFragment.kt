@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentMiniGameBinding
-import com.example.donotlate.feature.main.presentation.view.MainFragment
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.FragmentMiniGameBinding
+import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
 
 
 class MiniGameFragment : Fragment() {

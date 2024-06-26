@@ -10,13 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.donotlate.R
-import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
-import com.example.donotlate.databinding.FragmentPlaceSearchBinding
-import com.example.donotlate.feature.main.presentation.view.MainFragment
-import com.example.donotlate.feature.searchPlace.presentation.adapter.MapAdapter
-import com.example.donotlate.feature.searchPlace.presentation.detail.PlaceDetailFragment
-import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
+import com.nomorelateness.donotlate.databinding.FragmentPlaceSearchBinding
+import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
+import com.nomorelateness.donotlate.feature.searchPlace.presentation.adapter.MapAdapter
+import com.nomorelateness.donotlate.feature.searchPlace.presentation.detail.PlaceDetailFragment
+import com.nomorelateness.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 
 
 class PlaceSearchFragment : Fragment() {

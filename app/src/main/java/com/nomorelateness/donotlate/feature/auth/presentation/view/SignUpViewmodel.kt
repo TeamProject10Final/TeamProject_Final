@@ -10,8 +10,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.feature.auth.domain.useCase.SignUpUseCase
 import com.google.android.material.snackbar.Snackbar
+import com.nomorelateness.donotlate.feature.auth.domain.useCase.SignUpUseCase
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 

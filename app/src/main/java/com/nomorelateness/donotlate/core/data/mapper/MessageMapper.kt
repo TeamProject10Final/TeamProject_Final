@@ -1,7 +1,7 @@
 package com.nomorelateness.donotlate.core.data.mapper
 
-import com.example.donotlate.core.data.response.MessageResponse
-import com.example.donotlate.core.domain.model.MessageEntity
+import com.nomorelateness.donotlate.core.data.response.MessageResponse
+import com.nomorelateness.donotlate.core.domain.model.MessageEntity
 
 fun MessageResponse.toMessageEntity() = MessageEntity(
     messageId = messageId,

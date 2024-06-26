@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.donotlate.databinding.ActivityMainBinding
-import com.example.donotlate.feature.auth.presentation.view.LoginFragment
-import com.example.donotlate.feature.main.presentation.view.MainFragment
+import com.nomorelateness.donotlate.databinding.ActivityMainBinding
+import com.nomorelateness.donotlate.feature.auth.presentation.view.LoginFragment
+import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(com.example.donotlate.R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(com.nomorelateness.donotlate.R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -56,19 +56,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToMainScreen() {
         supportFragmentManager.beginTransaction()
-            .add(com.example.donotlate.R.id.frame, MainFragment())
+            .add(com.nomorelateness.donotlate.R.id.frame, MainFragment())
             .commit()
     }
 
     private fun navigateToLoginScreen() {
         supportFragmentManager.beginTransaction()
-            .add(com.example.donotlate.R.id.frame, LoginFragment())
+            .add(com.nomorelateness.donotlate.R.id.frame, LoginFragment())
             .commit()
     }
 
     fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .add(com.example.donotlate.R.id.frame, fragment)
+            .add(com.nomorelateness.donotlate.R.id.frame, fragment)
             .commit()
     }
 
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
     fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(com.example.donotlate.R.id.frame, fragment)
+            .replace(com.nomorelateness.donotlate.R.id.frame, fragment)
             .commit()
     }
 }

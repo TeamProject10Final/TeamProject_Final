@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.donotlate.core.util.toFormattedHMString
-import com.example.donotlate.databinding.ItemReceiveMessageBinding
-import com.example.donotlate.databinding.ItemSentMessageBinding
-import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
-import com.example.donotlate.feature.mypromise.presentation.model.MessageViewType
-import com.example.donotlate.feature.mypromise.presentation.model.getMessageId
+import com.nomorelateness.donotlate.core.util.toFormattedHMString
+import com.nomorelateness.donotlate.databinding.ItemReceiveMessageBinding
+import com.nomorelateness.donotlate.databinding.ItemSentMessageBinding
+import com.nomorelateness.donotlate.feature.mypromise.presentation.model.MessageModel
+import com.nomorelateness.donotlate.feature.mypromise.presentation.model.MessageViewType
+import com.nomorelateness.donotlate.feature.mypromise.presentation.model.getMessageId
 
 class PromiseMessageAdapter() :
     ListAdapter<MessageViewType, RecyclerView.ViewHolder>(MessageDiffCallback()) {

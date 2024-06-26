@@ -3,7 +3,7 @@ package com.nomorelateness.donotlate.feature.auth.presentation.view
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.feature.auth.domain.useCase.LogInUseCase
+import com.nomorelateness.donotlate.feature.auth.domain.useCase.LogInUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch

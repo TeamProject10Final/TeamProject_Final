@@ -1,7 +1,7 @@
 package com.nomorelateness.donotlate.feature.mypromise.domain.usecase
 
-import com.example.donotlate.core.domain.model.MessageEntity
-import com.example.donotlate.core.domain.repository.FirebaseDataRepository
+import com.nomorelateness.donotlate.core.domain.model.MessageEntity
+import com.nomorelateness.donotlate.core.domain.repository.FirebaseDataRepository
 import kotlinx.coroutines.flow.Flow
 
 class MessageSendingUseCase(private val firebaseDataRepository: FirebaseDataRepository) {

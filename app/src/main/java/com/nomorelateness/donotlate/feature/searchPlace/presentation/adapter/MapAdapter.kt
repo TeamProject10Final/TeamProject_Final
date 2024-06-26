@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.donotlate.databinding.ItemRvPlaceBinding
-import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
+import com.nomorelateness.donotlate.databinding.ItemRvPlaceBinding
+import com.nomorelateness.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
 
 class MapAdapter : RecyclerView.Adapter<MapAdapter.MyViewHolder>() {
 

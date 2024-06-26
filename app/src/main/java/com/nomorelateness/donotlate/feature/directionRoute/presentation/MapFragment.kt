@@ -23,10 +23,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentMapBinding
-import com.example.donotlate.feature.room.presentation.dialog.RoomTimeDialog
-import com.example.donotlate.feature.room.presentation.dialog.TimePickerInterface
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -38,6 +34,10 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.FragmentMapBinding
+import com.nomorelateness.donotlate.feature.room.presentation.dialog.RoomTimeDialog
+import com.nomorelateness.donotlate.feature.room.presentation.dialog.TimePickerInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

@@ -11,15 +11,15 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentMainBinding
-import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity
-import com.example.donotlate.feature.friends.presentation.view.FriendsFragment
-import com.example.donotlate.feature.minigame.MiniGameFragment
-import com.example.donotlate.feature.mypromise.presentation.view.MyPromiseListFragment
-import com.example.donotlate.feature.room.presentation.view.ViewPagerFragment
-import com.example.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
-import com.example.donotlate.feature.setting.presentation.view.SettingFragment
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.FragmentMainBinding
+import com.nomorelateness.donotlate.feature.consumption.presentation.ConsumptionActivity
+import com.nomorelateness.donotlate.feature.friends.presentation.view.FriendsFragment
+import com.nomorelateness.donotlate.feature.minigame.MiniGameFragment
+import com.nomorelateness.donotlate.feature.mypromise.presentation.view.MyPromiseListFragment
+import com.nomorelateness.donotlate.feature.room.presentation.view.ViewPagerFragment
+import com.nomorelateness.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
+import com.nomorelateness.donotlate.feature.setting.presentation.view.SettingFragment
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {

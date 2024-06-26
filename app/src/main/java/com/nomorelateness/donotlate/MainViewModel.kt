@@ -3,7 +3,7 @@ package com.nomorelateness.donotlate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.core.domain.session.SessionManager
+import com.nomorelateness.donotlate.core.domain.session.SessionManager
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch

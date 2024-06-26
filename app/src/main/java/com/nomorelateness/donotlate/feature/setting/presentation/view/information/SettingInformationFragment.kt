@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentSettingInformationBinding
-import com.example.donotlate.feature.setting.presentation.adapter.SettingAdapter
-import com.example.donotlate.feature.setting.presentation.view.SettingFragment
-import com.example.donotlate.feature.setting.presentation.view.viewmodel.SettingViewModel
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.FragmentSettingInformationBinding
+import com.nomorelateness.donotlate.feature.setting.presentation.adapter.SettingAdapter
+import com.nomorelateness.donotlate.feature.setting.presentation.view.SettingFragment
+import com.nomorelateness.donotlate.feature.setting.presentation.view.viewmodel.SettingViewModel
 
 
 class SettingInformationFragment : Fragment() {

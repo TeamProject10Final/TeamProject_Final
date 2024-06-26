@@ -1,8 +1,8 @@
 package com.nomorelateness.donotlate.feature.friends.data.repository
 
-import com.example.donotlate.feature.friends.domain.repository.FriendRequestRepository
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.nomorelateness.donotlate.feature.friends.domain.repository.FriendRequestRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await

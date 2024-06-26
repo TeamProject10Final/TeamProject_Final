@@ -1,12 +1,12 @@
 package com.nomorelateness.donotlate.feature.mypromise.presentation.mapper
 
-import com.example.donotlate.core.domain.model.MessageEntity
-import com.example.donotlate.core.domain.model.PromiseRoomEntity
-import com.example.donotlate.core.domain.model.UserEntity
-import com.example.donotlate.feature.mypromise.presentation.model.MessageModel
-import com.example.donotlate.feature.mypromise.presentation.model.MessageViewType
-import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
-import com.example.donotlate.feature.mypromise.presentation.model.UserModel
+import com.nomorelateness.donotlate.core.domain.model.MessageEntity
+import com.nomorelateness.donotlate.core.domain.model.PromiseRoomEntity
+import com.nomorelateness.donotlate.core.domain.model.UserEntity
+import com.nomorelateness.donotlate.feature.mypromise.presentation.model.MessageModel
+import com.nomorelateness.donotlate.feature.mypromise.presentation.model.MessageViewType
+import com.nomorelateness.donotlate.feature.mypromise.presentation.model.PromiseModel
+import com.nomorelateness.donotlate.feature.mypromise.presentation.model.UserModel
 
 fun PromiseRoomEntity.toPromiseModel() = PromiseModel(
     roomId = roomId,

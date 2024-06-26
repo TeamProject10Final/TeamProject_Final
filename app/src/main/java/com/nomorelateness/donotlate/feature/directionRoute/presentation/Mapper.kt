@@ -1,23 +1,23 @@
 package com.nomorelateness.donotlate.feature.directionRoute.presentation
 
-import com.example.donotlate.feature.directionRoute.domain.BoundsEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsGeocodedWaypointEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsLegEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsPolylineEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsRouteEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsStepEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsTrafficSpeedEntryEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsTransitAgencyEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsTransitDetailsEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsTransitLineEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsTransitStopEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsTransitVehicleEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsViaWaypointEntity
-import com.example.donotlate.feature.directionRoute.domain.FareEntity
-import com.example.donotlate.feature.directionRoute.domain.LatLngEntity
-import com.example.donotlate.feature.directionRoute.domain.TextValueObjectEntity
-import com.example.donotlate.feature.directionRoute.domain.TimeZoneTextValueObjectEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.BoundsEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsGeocodedWaypointEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsLegEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsPolylineEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsRouteEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsStepEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsTrafficSpeedEntryEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsTransitAgencyEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsTransitDetailsEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsTransitLineEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsTransitStopEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsTransitVehicleEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsViaWaypointEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.FareEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.LatLngEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.TextValueObjectEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.TimeZoneTextValueObjectEntity
 
 fun DirectionsEntity.toModel() = DirectionsModel(
     routes = routes.map {

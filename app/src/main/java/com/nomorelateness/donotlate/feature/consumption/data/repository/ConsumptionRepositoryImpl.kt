@@ -1,12 +1,12 @@
 package com.nomorelateness.donotlate.feature.consumption.data.repository
 
 import android.content.Context
-import com.example.donotlate.feature.consumption.data.database.ConsumptionRoomDatabase
-import com.example.donotlate.feature.consumption.data.database.RoomDao
-import com.example.donotlate.feature.consumption.data.database.RoomEntity
-import com.example.donotlate.feature.consumption.data.database.asConsumptionEntity
-import com.example.donotlate.feature.consumption.domain.entity.ConsumptionEntity
-import com.example.donotlate.feature.consumption.domain.repository.ConsumptionRepository
+import com.nomorelateness.donotlate.feature.consumption.data.database.ConsumptionRoomDatabase
+import com.nomorelateness.donotlate.feature.consumption.data.database.RoomDao
+import com.nomorelateness.donotlate.feature.consumption.data.database.RoomEntity
+import com.nomorelateness.donotlate.feature.consumption.data.database.asConsumptionEntity
+import com.nomorelateness.donotlate.feature.consumption.domain.entity.ConsumptionEntity
+import com.nomorelateness.donotlate.feature.consumption.domain.repository.ConsumptionRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map

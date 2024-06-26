@@ -1,9 +1,9 @@
 package com.nomorelateness.donotlate.feature.directionRoute.data
 
 import android.util.Log
-import com.example.donotlate.feature.directionRoute.data.network.DirectionsApiService
-import com.example.donotlate.feature.directionRoute.domain.DirectionsEntity
-import com.example.donotlate.feature.directionRoute.domain.DirectionsRepository
+import com.nomorelateness.donotlate.feature.directionRoute.data.network.DirectionsApiService
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsEntity
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsRepository
 
 class DirectionsRepositoryImpl(
     private val apiService: DirectionsApiService

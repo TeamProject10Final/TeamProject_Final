@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import com.example.donotlate.databinding.FragmentRoomTimeDialogBinding
+import com.nomorelateness.donotlate.databinding.FragmentRoomTimeDialogBinding
 
 class RoomTimeDialog(
     timePickerInterface: TimePickerInterface,

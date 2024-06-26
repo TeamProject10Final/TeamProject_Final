@@ -11,10 +11,10 @@ import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentInformationDialogBinding
-import com.example.donotlate.feature.auth.presentation.view.LoginFragment
-import com.example.donotlate.feature.setting.presentation.view.viewmodel.SettingViewModel
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.FragmentInformationDialogBinding
+import com.nomorelateness.donotlate.feature.auth.presentation.view.LoginFragment
+import com.nomorelateness.donotlate.feature.setting.presentation.view.viewmodel.SettingViewModel
 import java.util.Calendar
 
 

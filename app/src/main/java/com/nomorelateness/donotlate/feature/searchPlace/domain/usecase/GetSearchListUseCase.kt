@@ -1,7 +1,7 @@
 package com.nomorelateness.donotlate.feature.searchPlace.domain.usecase
 
-import com.example.donotlate.feature.searchPlace.domain.model.SearchPlacesEntity
-import com.example.donotlate.feature.searchPlace.domain.repository.GooglePlacesApiRepository
+import com.nomorelateness.donotlate.feature.searchPlace.domain.model.SearchPlacesEntity
+import com.nomorelateness.donotlate.feature.searchPlace.domain.repository.GooglePlacesApiRepository
 
 class GetSearchListUseCase(private val googlePlacesApiRepository: GooglePlacesApiRepository) {
     suspend operator fun invoke(query: String, language: String, pageSize: Int): SearchPlacesEntity {

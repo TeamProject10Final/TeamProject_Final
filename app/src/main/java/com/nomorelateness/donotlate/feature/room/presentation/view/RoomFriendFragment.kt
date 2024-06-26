@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.donotlate.R
-import com.example.donotlate.core.presentation.CurrentUser
-import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
-import com.example.donotlate.databinding.FragmentRoomFriendBinding
-import com.example.donotlate.feature.room.presentation.adapter.RoomFriendAdapter
-import com.example.donotlate.feature.room.presentation.dialog.ResultFragmentDialog
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.core.presentation.CurrentUser
+import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
+import com.nomorelateness.donotlate.databinding.FragmentRoomFriendBinding
+import com.nomorelateness.donotlate.feature.room.presentation.adapter.RoomFriendAdapter
+import com.nomorelateness.donotlate.feature.room.presentation.dialog.ResultFragmentDialog
 import kotlinx.coroutines.launch
 
 class RoomFriendFragment : Fragment() {

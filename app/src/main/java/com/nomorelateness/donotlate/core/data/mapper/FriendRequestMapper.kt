@@ -1,7 +1,7 @@
 package com.nomorelateness.donotlate.core.data.mapper
 
-import com.example.donotlate.core.data.response.FriendRequestDTO
-import com.example.donotlate.core.domain.model.FriendRequestEntity
+import com.nomorelateness.donotlate.core.data.response.FriendRequestDTO
+import com.nomorelateness.donotlate.core.domain.model.FriendRequestEntity
 
 
 fun FriendRequestDTO.toEntity() = FriendRequestEntity(

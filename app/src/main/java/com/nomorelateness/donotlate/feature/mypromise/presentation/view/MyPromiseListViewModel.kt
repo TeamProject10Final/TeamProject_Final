@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.core.domain.usecase.LoadToMyPromiseListUseCase
-import com.example.donotlate.core.presentation.CurrentUser
-import com.example.donotlate.core.util.parseTime
-import com.example.donotlate.feature.mypromise.presentation.mapper.toPromiseModelList
-import com.example.donotlate.feature.mypromise.presentation.model.PromiseModel
+import com.nomorelateness.donotlate.core.domain.usecase.LoadToMyPromiseListUseCase
+import com.nomorelateness.donotlate.core.presentation.CurrentUser
+import com.nomorelateness.donotlate.core.util.parseTime
+import com.nomorelateness.donotlate.feature.mypromise.presentation.mapper.toPromiseModelList
+import com.nomorelateness.donotlate.feature.mypromise.presentation.model.PromiseModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

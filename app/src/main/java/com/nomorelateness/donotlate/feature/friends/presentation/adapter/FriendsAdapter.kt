@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.donotlate.R
-import com.example.donotlate.databinding.ItemRvFriendBinding
-import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.ItemRvFriendBinding
+import com.nomorelateness.donotlate.feature.friends.presentation.model.FriendsUserModel
 
 class FriendsAdapter(
     private val onAddFriendClick: () -> Unit,

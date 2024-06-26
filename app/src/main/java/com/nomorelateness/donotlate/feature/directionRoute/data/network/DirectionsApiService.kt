@@ -1,6 +1,6 @@
 package com.nomorelateness.donotlate.feature.directionRoute.data.network
 
-import com.example.donotlate.feature.directionRoute.data.model.DirectionsResponse
+import com.nomorelateness.donotlate.feature.directionRoute.data.model.DirectionsResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

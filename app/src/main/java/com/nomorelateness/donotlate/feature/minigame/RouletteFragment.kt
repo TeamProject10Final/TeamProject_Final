@@ -12,8 +12,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentRouletteBinding
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.FragmentRouletteBinding
 
 class RouletteFragment : Fragment(), Animation.AnimationListener {
 

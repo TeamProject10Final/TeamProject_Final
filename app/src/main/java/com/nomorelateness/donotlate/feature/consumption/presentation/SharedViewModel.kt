@@ -8,10 +8,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.feature.consumption.domain.usecase.DeleteConsumptionUseCase
-import com.example.donotlate.feature.consumption.domain.usecase.GetDataCountUseCase
-import com.example.donotlate.feature.consumption.domain.usecase.InsertConsumptionUseCase
-import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity.Companion.addCommas
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.DeleteConsumptionUseCase
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetDataCountUseCase
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.InsertConsumptionUseCase
+import com.nomorelateness.donotlate.feature.consumption.presentation.ConsumptionActivity.Companion.addCommas
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch

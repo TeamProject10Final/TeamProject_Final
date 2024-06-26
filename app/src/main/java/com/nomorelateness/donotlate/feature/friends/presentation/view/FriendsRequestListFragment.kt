@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentFriendsRequestListBinding
-import com.example.donotlate.feature.friends.presentation.adapter.FriendRequestsAdapter
-import com.example.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.FragmentFriendsRequestListBinding
+import com.nomorelateness.donotlate.feature.friends.presentation.adapter.FriendRequestsAdapter
+import com.nomorelateness.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
 import kotlinx.coroutines.launch
 
 class FriendsRequestListFragment : Fragment() {

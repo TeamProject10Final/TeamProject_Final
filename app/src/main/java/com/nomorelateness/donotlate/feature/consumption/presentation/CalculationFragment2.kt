@@ -10,9 +10,9 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.donotlate.R
-import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
-import com.example.donotlate.databinding.FragmentCalculation2Binding
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
+import com.nomorelateness.donotlate.databinding.FragmentCalculation2Binding
 
 class CalculationFragment2 : Fragment(R.layout.fragment_calculation2) {
 

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import com.example.donotlate.databinding.FragmentRoomDateDialogBinding
+import com.nomorelateness.donotlate.databinding.FragmentRoomDateDialogBinding
 
 
 class RoomDateDialog(

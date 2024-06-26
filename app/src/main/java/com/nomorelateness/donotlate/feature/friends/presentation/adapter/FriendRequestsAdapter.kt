@@ -3,9 +3,9 @@ package com.nomorelateness.donotlate.feature.friends.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.donotlate.core.util.toFormattedString
-import com.example.donotlate.databinding.ItemFirendRequestBinding
-import com.example.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
+import com.nomorelateness.donotlate.core.util.toFormattedString
+import com.nomorelateness.donotlate.databinding.ItemFirendRequestBinding
+import com.nomorelateness.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
 
 class FriendRequestsAdapter(
     private var friendRequestList: List<FriendRequestWithUserDataModel>,

@@ -1,8 +1,8 @@
 package com.nomorelateness.donotlate.feature.setting.domain.usecase
 
 import android.net.Uri
-import com.example.donotlate.core.presentation.CurrentUser
-import com.example.donotlate.feature.setting.domain.repository.SettingRepository
+import com.nomorelateness.donotlate.core.presentation.CurrentUser
+import com.nomorelateness.donotlate.feature.setting.domain.repository.SettingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow

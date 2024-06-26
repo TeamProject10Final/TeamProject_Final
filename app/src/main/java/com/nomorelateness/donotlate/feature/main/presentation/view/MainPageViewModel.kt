@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.donotlate.core.domain.usecase.GetCurrentUserDataUseCase
-import com.example.donotlate.core.presentation.CurrentUser
-import com.example.donotlate.feature.main.presentation.mapper.toModel
-import com.example.donotlate.feature.main.presentation.model.UserModel
+import com.nomorelateness.donotlate.core.domain.usecase.GetCurrentUserDataUseCase
+import com.nomorelateness.donotlate.core.presentation.CurrentUser
+import com.nomorelateness.donotlate.feature.main.presentation.mapper.toModel
+import com.nomorelateness.donotlate.feature.main.presentation.model.UserModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

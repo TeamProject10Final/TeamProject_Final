@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.viewpager2.widget.ViewPager2
-import com.example.donotlate.databinding.FragmentViewPagerBinding
+import com.nomorelateness.donotlate.databinding.FragmentViewPagerBinding
 
 class CalculationActivity : AppCompatActivity() {
 

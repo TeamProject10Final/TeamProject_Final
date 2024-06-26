@@ -1,7 +1,7 @@
 package com.nomorelateness.donotlate.feature.consumption.domain.usecase
 
-import com.example.donotlate.feature.consumption.domain.entity.ConsumptionEntity
-import com.example.donotlate.feature.consumption.domain.repository.ConsumptionRepository
+import com.nomorelateness.donotlate.feature.consumption.domain.entity.ConsumptionEntity
+import com.nomorelateness.donotlate.feature.consumption.domain.repository.ConsumptionRepository
 
 class DeleteConsumptionUseCase
 constructor(private val repository: ConsumptionRepository) {

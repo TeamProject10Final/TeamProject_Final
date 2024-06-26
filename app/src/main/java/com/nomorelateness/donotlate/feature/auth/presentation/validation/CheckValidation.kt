@@ -1,4 +1,4 @@
-//package com.example.donotlate.feature.auth.presentation.validation
+//package com.nomorelateness.donotlate.feature.auth.presentation.validation
 //
 //import android.widget.EditText
 //import android.widget.TextView

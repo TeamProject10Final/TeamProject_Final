@@ -11,10 +11,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.donotlate.R
-import com.example.donotlate.core.presentation.CurrentUser
-import com.example.donotlate.databinding.FragmentRequestDialogBinding
-import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.core.presentation.CurrentUser
+import com.nomorelateness.donotlate.databinding.FragmentRequestDialogBinding
+import com.nomorelateness.donotlate.feature.friends.presentation.model.FriendsUserModel
 import kotlinx.coroutines.launch
 
 class FriendsRequestDialogFragment : DialogFragment() {

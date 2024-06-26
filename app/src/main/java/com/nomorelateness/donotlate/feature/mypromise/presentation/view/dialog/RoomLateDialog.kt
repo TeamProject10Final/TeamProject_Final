@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import com.example.donotlate.databinding.FragmentRoomLateDialogBinding
+import com.nomorelateness.donotlate.databinding.FragmentRoomLateDialogBinding
 
 class RoomLateDialog(private val userList : List<String>) : DialogFragment() {
 

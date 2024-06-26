@@ -3,8 +3,8 @@ package com.nomorelateness.donotlate.feature.consumption.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.donotlate.databinding.ItemConsumptionBinding
-import com.example.donotlate.feature.consumption.presentation.ConsumptionActivity.Companion.addCommas
+import com.nomorelateness.donotlate.databinding.ItemConsumptionBinding
+import com.nomorelateness.donotlate.feature.consumption.presentation.ConsumptionActivity.Companion.addCommas
 
 class ConsumptionAdapter(private val onItemClick: (ConsumptionModel)-> Unit) : RecyclerView.Adapter<ConsumptionAdapter.ViewHolder>() {
     private val items = mutableListOf<ConsumptionModel>()

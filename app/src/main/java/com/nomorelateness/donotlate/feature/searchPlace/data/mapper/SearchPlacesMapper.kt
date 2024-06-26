@@ -1,25 +1,25 @@
 package com.nomorelateness.donotlate.feature.searchPlace.data.mapper
 
-import com.example.donotlate.feature.searchPlace.data.response.AuthorAttributions
-import com.example.donotlate.feature.searchPlace.data.response.Close
-import com.example.donotlate.feature.searchPlace.data.response.DisplayName
-import com.example.donotlate.feature.searchPlace.data.response.Open
-import com.example.donotlate.feature.searchPlace.data.response.Periods
-import com.example.donotlate.feature.searchPlace.data.response.Places
-import com.example.donotlate.feature.searchPlace.data.response.RegularOpeningHours
-import com.example.donotlate.feature.searchPlace.data.response.SearchLocation
-import com.example.donotlate.feature.searchPlace.data.response.SearchPhotos
-import com.example.donotlate.feature.searchPlace.data.response.SearchPlaces
-import com.example.donotlate.feature.searchPlace.domain.model.AuthorAttributionsEntity
-import com.example.donotlate.feature.searchPlace.domain.model.CloseEntity
-import com.example.donotlate.feature.searchPlace.domain.model.DisplayNameEntity
-import com.example.donotlate.feature.searchPlace.domain.model.OpenEntity
-import com.example.donotlate.feature.searchPlace.domain.model.PeriodsEntity
-import com.example.donotlate.feature.searchPlace.domain.model.PlacesEntity
-import com.example.donotlate.feature.searchPlace.domain.model.RegularOpeningHoursEntity
-import com.example.donotlate.feature.searchPlace.domain.model.SearchLocationEntity
-import com.example.donotlate.feature.searchPlace.domain.model.SearchPhotosEntity
-import com.example.donotlate.feature.searchPlace.domain.model.SearchPlacesEntity
+import com.nomorelateness.donotlate.feature.searchPlace.data.response.AuthorAttributions
+import com.nomorelateness.donotlate.feature.searchPlace.data.response.Close
+import com.nomorelateness.donotlate.feature.searchPlace.data.response.DisplayName
+import com.nomorelateness.donotlate.feature.searchPlace.data.response.Open
+import com.nomorelateness.donotlate.feature.searchPlace.data.response.Periods
+import com.nomorelateness.donotlate.feature.searchPlace.data.response.Places
+import com.nomorelateness.donotlate.feature.searchPlace.data.response.RegularOpeningHours
+import com.nomorelateness.donotlate.feature.searchPlace.data.response.SearchLocation
+import com.nomorelateness.donotlate.feature.searchPlace.data.response.SearchPhotos
+import com.nomorelateness.donotlate.feature.searchPlace.data.response.SearchPlaces
+import com.nomorelateness.donotlate.feature.searchPlace.domain.model.AuthorAttributionsEntity
+import com.nomorelateness.donotlate.feature.searchPlace.domain.model.CloseEntity
+import com.nomorelateness.donotlate.feature.searchPlace.domain.model.DisplayNameEntity
+import com.nomorelateness.donotlate.feature.searchPlace.domain.model.OpenEntity
+import com.nomorelateness.donotlate.feature.searchPlace.domain.model.PeriodsEntity
+import com.nomorelateness.donotlate.feature.searchPlace.domain.model.PlacesEntity
+import com.nomorelateness.donotlate.feature.searchPlace.domain.model.RegularOpeningHoursEntity
+import com.nomorelateness.donotlate.feature.searchPlace.domain.model.SearchLocationEntity
+import com.nomorelateness.donotlate.feature.searchPlace.domain.model.SearchPhotosEntity
+import com.nomorelateness.donotlate.feature.searchPlace.domain.model.SearchPlacesEntity
 
 
 fun SearchPlaces.toEntity() = SearchPlacesEntity(

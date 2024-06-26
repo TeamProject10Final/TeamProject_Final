@@ -1,8 +1,8 @@
 package com.nomorelateness.donotlate.core.data.repository
 
-import com.example.donotlate.core.domain.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.nomorelateness.donotlate.core.domain.repository.UserRepository
 import kotlinx.coroutines.tasks.await
 
 class UserRepositoryImpl(

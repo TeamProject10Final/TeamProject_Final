@@ -11,10 +11,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.donotlate.R
-import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
-import com.example.donotlate.databinding.FragmentLoginBinding
-import com.example.donotlate.feature.main.presentation.view.MainFragment
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
+import com.nomorelateness.donotlate.databinding.FragmentLoginBinding
+import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
 import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.donotlate.databinding.ItemDirectionBinding
+import com.nomorelateness.donotlate.databinding.ItemDirectionBinding
 
 class DirectionsAdapter() : RecyclerView.Adapter<DirectionsAdapter.MyViewHolder>() {
 

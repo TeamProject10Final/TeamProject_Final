@@ -1,6 +1,6 @@
 package com.nomorelateness.donotlate.feature.directionRoute.api
 
-import com.example.donotlate.feature.directionRoute.data.network.DirectionsApiService
+import com.nomorelateness.donotlate.feature.directionRoute.data.network.DirectionsApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

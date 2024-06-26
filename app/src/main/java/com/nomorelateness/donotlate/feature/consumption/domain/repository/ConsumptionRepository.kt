@@ -1,6 +1,6 @@
 package com.nomorelateness.donotlate.feature.consumption.domain.repository
 
-import com.example.donotlate.feature.consumption.domain.entity.ConsumptionEntity
+import com.nomorelateness.donotlate.feature.consumption.domain.entity.ConsumptionEntity
 import kotlinx.coroutines.flow.Flow
 
 interface ConsumptionRepository {

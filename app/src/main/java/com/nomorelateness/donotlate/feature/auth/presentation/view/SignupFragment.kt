@@ -11,10 +11,10 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.donotlate.R
-import com.example.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
-import com.example.donotlate.databinding.FragmentSignupBinding
-import com.example.donotlate.feature.auth.presentation.dialog.InformationDialogFragment
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
+import com.nomorelateness.donotlate.databinding.FragmentSignupBinding
+import com.nomorelateness.donotlate.feature.auth.presentation.dialog.InformationDialogFragment
 
 class SignupFragment : Fragment() {
 

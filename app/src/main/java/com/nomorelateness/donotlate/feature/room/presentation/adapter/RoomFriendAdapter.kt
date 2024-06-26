@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.donotlate.R
-import com.example.donotlate.databinding.ItemRvFriendBinding
-import com.example.donotlate.feature.room.presentation.model.RoomUserModel
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.ItemRvFriendBinding
+import com.nomorelateness.donotlate.feature.room.presentation.model.RoomUserModel
 
 class RoomFriendAdapter(
     private val onItemClick: (RoomUserModel) -> Unit

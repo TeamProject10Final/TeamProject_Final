@@ -18,19 +18,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.donotlate.R
-import com.example.donotlate.core.presentation.CurrentUser
-import com.example.donotlate.databinding.FragmentSettingBinding
-import com.example.donotlate.feature.auth.presentation.view.LoginFragment
-import com.example.donotlate.feature.main.presentation.view.MainFragment
-import com.example.donotlate.feature.main.presentation.view.MainPageViewModel
-import com.example.donotlate.feature.main.presentation.view.MainPageViewModelFactory
-import com.example.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
-import com.example.donotlate.feature.setting.presentation.adapter.SettingAdapter
-import com.example.donotlate.feature.setting.presentation.view.dialog.UserInterface
-import com.example.donotlate.feature.setting.presentation.view.dialog.WithdrawDialog
-import com.example.donotlate.feature.setting.presentation.view.information.SettingInformationFragment
-import com.example.donotlate.feature.setting.presentation.view.question.SettingQuestionFragment
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.core.presentation.CurrentUser
+import com.nomorelateness.donotlate.databinding.FragmentSettingBinding
+import com.nomorelateness.donotlate.feature.auth.presentation.view.LoginFragment
+import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
+import com.nomorelateness.donotlate.feature.main.presentation.view.MainPageViewModel
+import com.nomorelateness.donotlate.feature.main.presentation.view.MainPageViewModelFactory
+import com.nomorelateness.donotlate.feature.room.presentation.dialog.LogoutFragmentDialog
+import com.nomorelateness.donotlate.feature.setting.presentation.adapter.SettingAdapter
+import com.nomorelateness.donotlate.feature.setting.presentation.view.dialog.UserInterface
+import com.nomorelateness.donotlate.feature.setting.presentation.view.dialog.WithdrawDialog
+import com.nomorelateness.donotlate.feature.setting.presentation.view.information.SettingInformationFragment
+import com.nomorelateness.donotlate.feature.setting.presentation.view.question.SettingQuestionFragment
 import kotlinx.coroutines.launch
 
 class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {

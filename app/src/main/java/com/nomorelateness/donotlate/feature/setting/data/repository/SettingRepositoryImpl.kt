@@ -1,10 +1,10 @@
 package com.nomorelateness.donotlate.feature.setting.data.repository
 
 import android.net.Uri
-import com.example.donotlate.feature.setting.domain.repository.SettingRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.nomorelateness.donotlate.feature.setting.domain.repository.SettingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await

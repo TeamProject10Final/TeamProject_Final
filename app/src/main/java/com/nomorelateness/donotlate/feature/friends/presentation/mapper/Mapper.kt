@@ -1,11 +1,11 @@
 package com.nomorelateness.donotlate.feature.friends.presentation.mapper
 
-import com.example.donotlate.core.domain.model.FriendRequestEntity
-import com.example.donotlate.core.domain.model.FriendRequestWithUserDataEntity
-import com.example.donotlate.core.domain.model.UserEntity
-import com.example.donotlate.feature.friends.presentation.model.FriendRequestModel
-import com.example.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
-import com.example.donotlate.feature.friends.presentation.model.FriendsUserModel
+import com.nomorelateness.donotlate.core.domain.model.FriendRequestEntity
+import com.nomorelateness.donotlate.core.domain.model.FriendRequestWithUserDataEntity
+import com.nomorelateness.donotlate.core.domain.model.UserEntity
+import com.nomorelateness.donotlate.feature.friends.presentation.model.FriendRequestModel
+import com.nomorelateness.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
+import com.nomorelateness.donotlate.feature.friends.presentation.model.FriendsUserModel
 
 
 fun List<FriendRequestEntity>.toFriendRequestModelList(): List<FriendRequestModel> {

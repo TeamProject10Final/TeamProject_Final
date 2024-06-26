@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentDelayBinding
 import com.google.android.gms.maps.model.LatLng
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.FragmentDelayBinding
 
 class DelayFragment : Fragment() {
 

@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.example.donotlate.databinding.FragmentRouteDetailsBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nomorelateness.donotlate.databinding.FragmentRouteDetailsBinding
 
 class RouteDetailsBottomSheet : BottomSheetDialogFragment() {
     private var _binding: FragmentRouteDetailsBinding? = null

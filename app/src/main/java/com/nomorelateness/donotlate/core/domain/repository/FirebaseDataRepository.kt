@@ -1,10 +1,10 @@
 package com.nomorelateness.donotlate.core.domain.repository
 
 
-import com.example.donotlate.core.domain.model.FriendRequestEntity
-import com.example.donotlate.core.domain.model.MessageEntity
-import com.example.donotlate.core.domain.model.PromiseRoomEntity
-import com.example.donotlate.core.domain.model.UserEntity
+import com.nomorelateness.donotlate.core.domain.model.FriendRequestEntity
+import com.nomorelateness.donotlate.core.domain.model.MessageEntity
+import com.nomorelateness.donotlate.core.domain.model.PromiseRoomEntity
+import com.nomorelateness.donotlate.core.domain.model.UserEntity
 import kotlinx.coroutines.flow.Flow
 
 interface FirebaseDataRepository {

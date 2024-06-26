@@ -1,13 +1,13 @@
 package com.nomorelateness.donotlate.feature.auth.data.repository
 
 import android.content.Context
-import com.example.donotlate.feature.auth.data.model.RegisterUserDTO
-import com.example.donotlate.feature.auth.domain.repository.AuthRepository
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.nomorelateness.donotlate.feature.auth.data.model.RegisterUserDTO
+import com.nomorelateness.donotlate.feature.auth.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await

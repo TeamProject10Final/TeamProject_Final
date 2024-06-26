@@ -1,8 +1,8 @@
 package com.nomorelateness.donotlate.core.data.session
 
-import com.example.donotlate.core.domain.session.FirebaseUid
-import com.example.donotlate.core.domain.session.SessionManager
 import com.google.firebase.auth.FirebaseAuth
+import com.nomorelateness.donotlate.core.domain.session.FirebaseUid
+import com.nomorelateness.donotlate.core.domain.session.SessionManager
 
 class SessionManagerImpl : SessionManager {
     override suspend fun get(): FirebaseUid {

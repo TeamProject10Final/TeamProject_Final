@@ -1,6 +1,6 @@
 package com.nomorelateness.donotlate.feature.directionRoute.domain.usecase
 
-import com.example.donotlate.feature.directionRoute.domain.DirectionsRepository
+import com.nomorelateness.donotlate.feature.directionRoute.domain.DirectionsRepository
 
 class GetDirWithDepTmRpUseCase
 constructor(private val repository: DirectionsRepository) {

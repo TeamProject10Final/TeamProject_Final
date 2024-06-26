@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentSettingQuestionBinding
-import com.example.donotlate.feature.setting.presentation.view.SettingFragment
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.FragmentSettingQuestionBinding
+import com.nomorelateness.donotlate.feature.setting.presentation.view.SettingFragment
 
 class SettingQuestionFragment : Fragment() {
 

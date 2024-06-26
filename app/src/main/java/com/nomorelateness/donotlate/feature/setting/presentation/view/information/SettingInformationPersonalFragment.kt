@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.donotlate.R
-import com.example.donotlate.databinding.FragmentSettingInformationPersonalBinding
+import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.databinding.FragmentSettingInformationPersonalBinding
 
 
 class SettingInformationPersonalFragment : Fragment() {

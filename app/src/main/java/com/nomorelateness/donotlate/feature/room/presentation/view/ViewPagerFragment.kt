@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
-import com.example.donotlate.databinding.FragmentViewPagerBinding
-import com.example.donotlate.feature.room.presentation.adapter.RoomViewPagerAdapter
-import com.example.donotlate.feature.room.presentation.dialog.BackFragmentDialog
+import com.nomorelateness.donotlate.databinding.FragmentViewPagerBinding
+import com.nomorelateness.donotlate.feature.room.presentation.adapter.RoomViewPagerAdapter
+import com.nomorelateness.donotlate.feature.room.presentation.dialog.BackFragmentDialog
 
 class ViewPagerFragment : Fragment() {
 

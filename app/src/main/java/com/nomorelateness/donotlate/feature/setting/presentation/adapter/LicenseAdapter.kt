@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.donotlate.databinding.ItemLicenseBinding
-import com.example.donotlate.feature.setting.presentation.view.model.LicenseModel
+import com.nomorelateness.donotlate.databinding.ItemLicenseBinding
+import com.nomorelateness.donotlate.feature.setting.presentation.view.model.LicenseModel
 
 class LicenseAdapter() :
     RecyclerView.Adapter<LicenseAdapter.Holder>() {

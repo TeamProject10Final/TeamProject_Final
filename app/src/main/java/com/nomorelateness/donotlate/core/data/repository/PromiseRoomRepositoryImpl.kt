@@ -1,7 +1,7 @@
 package com.nomorelateness.donotlate.core.data.repository
 
-import com.example.donotlate.core.domain.repository.PromiseRoomRepository
 import com.google.firebase.firestore.FirebaseFirestore
+import com.nomorelateness.donotlate.core.domain.repository.PromiseRoomRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
