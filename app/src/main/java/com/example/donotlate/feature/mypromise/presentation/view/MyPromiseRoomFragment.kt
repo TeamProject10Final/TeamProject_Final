@@ -106,8 +106,8 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
         listenToObservers()
         collectFlows()
         startLocationUpdates()
-
         setDestinationCountry()
+
     }
 
     private fun setDestinationCountry() {
@@ -214,6 +214,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
             binding.btnDeparture.isVisible = false
             binding.ivRoomMap.isVisible = true
             binding.btnArrived.isVisible = false
+            myPromiseViewModel.updateDeparture()
         }
     }
 
@@ -361,7 +362,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
                     myPromiseViewModel.removeParticipantIdResult.collect {
                         if (it == true) {
                             Toast.makeText(requireContext(), "나가기 성공", Toast.LENGTH_SHORT).show()
-                        } else {
+                        } else if (it == false) {
                             Toast.makeText(requireContext(), "나가기 실패", Toast.LENGTH_SHORT).show()
                         }
                     }

@@ -64,7 +64,6 @@
 
                 <EditText
                     android:id="@+id/et_Room_Friend_Search"
-                    style="@style/EditTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="40dp"
@@ -81,8 +80,7 @@
                     android:textSize="18sp"
                     app:layout_constraintEnd_toStartOf="@+id/btn_Room_Friend_Search"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:theme="@style/EditTextStyle" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <android.widget.Button
                     android:id="@+id/btn_Room_Friend_Search"
