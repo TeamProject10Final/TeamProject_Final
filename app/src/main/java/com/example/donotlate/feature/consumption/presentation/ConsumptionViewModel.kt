@@ -24,6 +24,9 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -77,10 +80,11 @@ class ConsumptionViewModel(
 
     }
 
-    private fun getCurrentUserData(){
+    private fun getCurrentUserData() {
         viewModelScope.launch {
-            getCurrentUserDataUseCase().collect{ userData ->
-                _currentUserData.value = userData?.toModel() ?: throw NullPointerException("user data null")
+            getCurrentUserDataUseCase().collect { userData ->
+                _currentUserData.value =
+                    userData?.toModel() ?: throw NullPointerException("user data null")
             }
         }
     }
@@ -102,30 +106,25 @@ class ConsumptionViewModel(
     }
 
     private fun fetchTotalPrice() {
-        viewModelScope.launch {
-            try {
-                getTotalPriceUseCase()
-                    .onStart {
-                        // Loading state 처리
-                    }.collect { price ->
-                        if (price != null) {
-                            _totalPrice.value = price
-                            Log.d("확인 longerror Notnull", "${price}")
-                        } else {
-                            _errorState.send("price is 0L")
-                            Log.d("확인 longerror null", "${price}")
-                        }
-                    }
 
-            } catch (e: Exception) {
-                if (liveDataCount.value >= 1) {
-                    Log.d("확인 long? 1", "${e.message}")
-                    _errorState.send(e.message ?: "Unknown error")
-                } else {
-                    Log.d("확인 long? 0", "${e.message}")
-                }
+        getTotalPriceUseCase()
+            .catch {
+                //위에 있는 usecase에 관해 catch
             }
-        }
+
+            .onStart {
+                // Loading state 처리
+            }.onCompletion {
+                // 끝났을 때 (로딩 끝내기) - 오류가 나와도 실행됨
+            }.onEach { price ->
+                _totalPrice.value = price
+                Log.d("확인 longerror Notnull", "${price}")
+                //이 위에 있는
+            }.catch {
+                _totalPrice.value = 0L
+            }.launchIn(viewModelScope)
+
+
     }
 
     private fun fetchLiveDataCount() {
@@ -140,7 +139,7 @@ class ConsumptionViewModel(
                 }
                 .collect { count ->
                     _liveDataCount.value = count
-                }
+                }//collect 안에서 오류 발생 시 위처럼 변경하기
         }
     }
 

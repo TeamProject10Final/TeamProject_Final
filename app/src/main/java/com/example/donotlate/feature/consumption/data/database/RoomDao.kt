@@ -26,7 +26,7 @@ interface RoomDao {
     suspend fun getDataByCategory(category: String): List<RoomEntity>
 
     @Query("SELECT COUNT(*) FROM calculation_history")
-    suspend fun getDataCount(): Int
+    fun getDataCount(): Flow<Int>
 
     @Query("SELECT * FROM calculation_history WHERE isFinished = 1 ORDER BY date DESC LIMIT 5")
     fun getRecentFinishedConsumptions(): Flow<List<RoomEntity>>
@@ -35,7 +35,7 @@ interface RoomDao {
     fun getRecentUnfinishedConsumptions(): Flow<List<RoomEntity>>
 
     @Query("SELECT SUM(price) FROM calculation_history")
-    suspend fun getTotalPriceFromData(): Long
+    fun getTotalPriceFromData(): Flow<Long>
 
     @Update
     suspend fun updateData(roomData: RoomEntity)
