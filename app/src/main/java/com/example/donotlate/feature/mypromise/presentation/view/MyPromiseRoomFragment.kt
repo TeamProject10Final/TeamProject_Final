@@ -165,6 +165,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
         }
         binding.btnArrived.setOnClickListener {
             myPromiseViewModel.updateArrived()
+            sendMessage("${currentUserData?.name}님께서 목적지에 도착하였습니다.")
         }
 
         binding.ivChatRoomBack.setOnClickListener {
@@ -241,13 +242,17 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
                             DistanceState.In200Meters -> {
                                 binding.btnArrived.isVisible = true
                                 binding.ivRoomMap.isVisible = false
+                                Toast.makeText(
+                                    requireContext(),
+                                    "목적지로 부터 200m 이내 입니다.",
+                                    Toast.LENGTH_LONG
+                                ).show()
                                 //도착 버튼이 보이게
                                 //메시지가 발송되게
                             }
 
                             DistanceState.Departed -> {
                                 //출발했다면
-                                Log.d("확인 출발완료", "러댜ㅐㅈㅁ럳;ㅑㅣ머ㅏㄹ;ㅣㅁ")
                                 binding.btnDeparture.isVisible = false
                                 binding.btnArrived.isVisible = false
                                 binding.ivRoomMap.isVisible = true
@@ -262,6 +267,12 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
                             }
 
                             DistanceState.Nothing -> Unit
+
+                            DistanceState.Arrived -> {
+                                binding.btnDeparture.isVisible = false
+                                binding.ivRoomMap.isVisible = false
+                                binding.btnArrived.isVisible = false
+                            }
                         }
                     }
                 }
@@ -279,13 +290,13 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
                 launch {
                     myPromiseViewModel.isArrived.collect {
                         if (it) {
-                            binding.btnArrived.setBackgroundColor(
-                                resources.getColor(
-                                    R.color.gray,
-                                    requireContext().theme
-                                )
-                            )
-                            binding.btnArrived.isClickable = false
+//                            binding.btnArrived.setBackgroundColor(
+//                                resources.getColor(
+//                                    R.color.gray,
+//                                    requireContext().theme
+//                                )
+//                            )
+                            binding.btnArrived.visibility = View.GONE
                             binding.ivRoomMap.visibility = View.GONE
                             binding.btnDeparture.visibility = View.GONE
                         }
@@ -303,12 +314,10 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
                             } else {
                                 binding.tvRoomPromisePenalty.text = room.penalty
                             }
-                            Log.d("확인해보자", "${room.participantsNames.values}")
                             val participantNames =
                                 room.participantsNames.values.toList().joinToString(", ")
                             val roomPromiseParticipants = "참여자: $participantNames"
                             binding.tvRoomPromiseParticipants.text = roomPromiseParticipants
-                            Log.d("확인해보자1", participantNames)
                         }
                     }
                 }
@@ -319,13 +328,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
                         if (isArrived) {
                             Toast.makeText(requireContext(), "약속장소에 도착하였습니다.", Toast.LENGTH_SHORT)
                                 .show()
-                            binding.btnArrived.setBackgroundColor(
-                                resources.getColor(
-                                    R.color.gray,
-                                    requireContext().theme
-                                )
-                            )
-                            binding.btnArrived.isClickable = false
+                            binding.btnArrived.visibility = View.GONE
                             binding.btnDeparture.visibility = View.GONE
                             binding.ivRoomMap.visibility = View.GONE
                         }
@@ -334,7 +337,6 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
                 launch {
                     myPromiseViewModel.message.collect { message ->
                         Log.d("MyPromiseRoomFragment", "Collected messages: $message")
-                        // old item count 구하기
                         if (message.isEmpty() || promiseMessageAdapter == null) return@collect
                         promiseMessageAdapter!!.submitList(message) {
                             binding.rvMessage.scrollToPosition(promiseMessageAdapter!!.itemCount - 1)
