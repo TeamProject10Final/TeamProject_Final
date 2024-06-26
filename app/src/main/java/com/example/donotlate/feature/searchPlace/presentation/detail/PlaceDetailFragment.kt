@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.example.donotlate.BuildConfig
 import com.example.donotlate.R
 import com.example.donotlate.databinding.FragmentPlaceDetailBinding
 import com.example.donotlate.feature.directionRoute.presentation.DirectionRouteActivity
@@ -153,7 +154,7 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
             if (it != null) {
                 with(binding) {
                     ivPlaceDetailTitle.load(
-                        "https://places.googleapis.com/v1/${it.img}/media?key=${NetWorkClient.API_KEY}&maxHeightPx=500&maxWidthPx=750"
+                        "https://places.googleapis.com/v1/${it.img}/media?key=${BuildConfig.API_KEY}&maxHeightPx=500&maxWidthPx=750"
                     ) {
                         crossfade(true)
                         transformations(RoundedCornersTransformation(30f))

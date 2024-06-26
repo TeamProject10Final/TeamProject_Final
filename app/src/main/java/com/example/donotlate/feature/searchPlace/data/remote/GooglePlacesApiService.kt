@@ -1,6 +1,6 @@
 package com.example.donotlate.feature.searchPlace.data.remote
 
-import com.example.donotlate.feature.searchPlace.api.NetWorkClient
+import com.example.donotlate.BuildConfig
 import com.example.donotlate.feature.searchPlace.data.response.SearchPlaces
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -15,7 +15,7 @@ interface GooglePlacesApiService {
         @Query("languageCode") language: String = "ko",
         @Query("pageSize") pageSize: Int,
         @Header("Content-Type") contentType: String = "application/json",
-        @Header("X-Goog-Api-Key") apiKey: String = NetWorkClient.API_KEY,
+        @Header("X-Goog-Api-Key") apiKey: String = BuildConfig.API_KEY,
         @Header("X-Goog-FieldMask") displayName: String = "places.displayName",
         @Header("X-Goog-FieldMask") address: String = "places.formattedAddress",
         @Header("X-Goog-FieldMask") photos: String = "places.photos",
