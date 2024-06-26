@@ -106,8 +106,8 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
         listenToObservers()
         collectFlows()
         startLocationUpdates()
-
         setDestinationCountry()
+
     }
 
     private fun setDestinationCountry() {
@@ -214,6 +214,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room) {
             binding.btnDeparture.isVisible = false
             binding.ivRoomMap.isVisible = true
             binding.btnArrived.isVisible = false
+            myPromiseViewModel.updateDeparture()
         }
     }
 

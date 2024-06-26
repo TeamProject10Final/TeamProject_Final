@@ -2,7 +2,6 @@ package com.example.donotlate.core.data.repository
 
 
 import android.util.Log
-import android.widget.Toast
 import com.example.donotlate.core.data.mapper.toEntity
 import com.example.donotlate.core.data.mapper.toMessageEntity
 import com.example.donotlate.core.data.mapper.toPromiseEntityList
@@ -28,7 +27,6 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 
@@ -328,7 +326,7 @@ class FirebaseDataSourceImpl(
         }
     }
 
-    override suspend fun updateDepartureStatus(roomId: String, uid: String): Flow<Boolean> = flow {
+    override fun updateDepartureStatus(roomId: String, uid: String): Flow<Boolean> = flow {
         try {
             val roomRef = db.collection("PromiseRooms").document(roomId)
             db.runTransaction { transaction ->
@@ -341,9 +339,9 @@ class FirebaseDataSourceImpl(
                     transaction.update(roomRef, "hasDeparture", isDeparture)
                 }
             }.await()
-            emit(true)
+            emit(value = true)
         } catch (e: Exception) {
-            emit(false)
+            emit(value = false)
         }
     }
 
