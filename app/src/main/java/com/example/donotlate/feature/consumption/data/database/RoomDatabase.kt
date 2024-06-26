@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = arrayOf(RoomEntity::class), version = 1)
+@Database(entities = arrayOf(RoomEntity::class), version = 2)
 
 abstract class ConsumptionRoomDatabase : RoomDatabase() {
 

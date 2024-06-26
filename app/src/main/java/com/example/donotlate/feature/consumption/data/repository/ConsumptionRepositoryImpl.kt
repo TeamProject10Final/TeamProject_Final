@@ -8,7 +8,7 @@ import com.example.donotlate.feature.consumption.data.database.asConsumptionEnti
 import com.example.donotlate.feature.consumption.domain.entity.ConsumptionEntity
 import com.example.donotlate.feature.consumption.domain.repository.ConsumptionRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class ConsumptionRepositoryImpl(val context: Context) : ConsumptionRepository {
@@ -64,7 +64,7 @@ class ConsumptionRepositoryImpl(val context: Context) : ConsumptionRepository {
     }
 
     override suspend fun getDataCount(): Int {
-        return roomDao.getDataCount()
+        return roomDao.getDataCount().first()
     }
 
 
@@ -73,7 +73,6 @@ class ConsumptionRepositoryImpl(val context: Context) : ConsumptionRepository {
             it.map(RoomEntity::asConsumptionEntity)
         }
     }
-
 
 
     override fun getRecentUnfinishedConsumption(): Flow<List<ConsumptionEntity>> {
@@ -85,18 +84,12 @@ class ConsumptionRepositoryImpl(val context: Context) : ConsumptionRepository {
 
     // 데이터베이스에서 데이터의 총 가격을 반환하는 메서드
     override fun getTotalPrice(): Flow<Long> {
-        return flow {
-            val totalPrice = roomDao.getTotalPriceFromData()
-            emit(totalPrice)
-        }
+        return roomDao.getTotalPriceFromData()
     }
 
     // 데이터베이스에서 데이터의 개수를 반환하는 메서드
     override fun getLiveDataCount(): Flow<Int> {
-        return flow {
-            val totalCount = roomDao.getDataCount()
-            emit(totalCount)
-        }
+        return roomDao.getDataCount()
     }
 
     override suspend fun toggleIsFinished(consumption: ConsumptionEntity) {

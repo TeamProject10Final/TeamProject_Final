@@ -36,6 +36,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
@@ -288,7 +289,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, TimePickerInterface {
         val dialog = RoomTimeDialog(this, mAmpm, mHour, mMinute)
         dialog.show(childFragmentManager, "tag")
 
-    //        val currentTime = Calendar.getInstance()
+        //        val currentTime = Calendar.getInstance()
 //        val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
 //        val currentMinute = currentTime.get(Calendar.MINUTE)
 //
@@ -434,7 +435,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, TimePickerInterface {
     private fun setupClickListener() {
         binding.btnMapBottomSheet.setOnClickListener {
             val bottomSheetDialogFragment = RouteDetailsBottomSheet()
-            bottomSheetDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme)
+            bottomSheetDialogFragment.setStyle(
+                DialogFragment.STYLE_NORMAL,
+                R.style.BottomSheetTheme
+            )
             bottomSheetDialogFragment.show(parentFragmentManager, "tag")
         }
 
@@ -471,7 +475,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, TimePickerInterface {
             }
 
 
-
         }
         binding.ivDetailView.setOnClickListener {
             binding.spinner2tm.visibility = View.VISIBLE
@@ -505,10 +508,14 @@ class MapFragment : Fragment(), OnMapReadyCallback, TimePickerInterface {
 
                     // 경로를 포함하는 영역 계산하여 지도의 중심을 이동
                     val latLngBounds = LatLngBounds.builder()
+                    var isIncluded = false
                     sharedViewModel.latLngBounds.value?.forEach {
                         latLngBounds.include(LatLng(it.lat, it.lng))
+                        isIncluded = true
                     }
-
+                    if (!isIncluded) {
+                        return@Runnable
+                    }
                     val routeBounds = latLngBounds.build()
                     if (!currentBounds.contains(routeBounds.northeast) || !currentBounds.contains(
                             routeBounds.southwest
@@ -608,6 +615,13 @@ class MapFragment : Fragment(), OnMapReadyCallback, TimePickerInterface {
         setLine(myMap)
 
         setupMapListeners()
+
+        val location = LatLng(37.5664056, 126.9778222)
+        val cameraPosition = CameraPosition.Builder().target(location).zoom(15f).build()
+        if (googleMap != null) {
+            googleMap!!.mapType = GoogleMap.MAP_TYPE_NORMAL // default 노말 생략 가능
+            googleMap!!.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        }
     }
 
 
