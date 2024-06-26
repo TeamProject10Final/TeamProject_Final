@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.example.donotlate.BuildConfig
 import com.example.donotlate.databinding.ItemRvPlaceBinding
 import com.example.donotlate.feature.searchPlace.api.NetWorkClient
 import com.example.donotlate.feature.searchPlace.presentation.mapper.PlaceModel
@@ -32,7 +33,7 @@ class MapAdapter : RecyclerView.Adapter<MapAdapter.MyViewHolder>() {
         fun bind(item: PlaceModel) {
 
 
-            binding.ivItemMap.load("https://places.googleapis.com/v1/${item.img}/media?key=${NetWorkClient.API_KEY}&maxHeightPx=500&maxWidthPx=750") {
+            binding.ivItemMap.load("https://places.googleapis.com/v1/${item.img}/media?key=${BuildConfig.API_KEY}&maxHeightPx=500&maxWidthPx=750") {
                 crossfade(true)
                 transformations(RoundedCornersTransformation(20f))
             }

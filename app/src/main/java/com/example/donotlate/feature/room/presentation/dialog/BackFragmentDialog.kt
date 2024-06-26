@@ -12,6 +12,7 @@ import com.example.donotlate.MainActivity
 import com.example.donotlate.R
 import com.example.donotlate.databinding.BackDialogBinding
 import com.example.donotlate.feature.main.presentation.view.MainFragment
+import com.example.donotlate.feature.room.presentation.view.ViewPagerFragment
 
 
 class BackFragmentDialog : DialogFragment() {
@@ -43,8 +44,13 @@ class BackFragmentDialog : DialogFragment() {
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
-            val activity = requireActivity()
-            activity.supportFragmentManager.beginTransaction().replace(R.id.frame, MainFragment()).commit()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    /* enter = */ R.anim.fade_in,
+                    /* exit = */ R.anim.slide_out
+                )
+                .replace(R.id.frame, MainFragment())
+                .commit()
             dismiss()
             //수정 필요
         }

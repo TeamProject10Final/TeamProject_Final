@@ -39,12 +39,12 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:layout_marginStart="15dp"
             android:gravity="center_vertical"
             android:maxLines="1"
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="@id/cl_Top_Title_Border"
             app:layout_constraintStart_toStartOf="@id/cl_Top_Title_Border"
             app:layout_constraintTop_toTopOf="@id/cl_Top_Title_Border" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -93,7 +93,7 @@
             android:gravity="center_vertical"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/cl_Top_Title_Border_Detail"
+            android:layout_marginStart="15dp"
             app:layout_constraintStart_toStartOf="@id/cl_Top_Title_Border_Detail"
             app:layout_constraintTop_toTopOf="@id/cl_Top_Title_Border_Detail" />
 
