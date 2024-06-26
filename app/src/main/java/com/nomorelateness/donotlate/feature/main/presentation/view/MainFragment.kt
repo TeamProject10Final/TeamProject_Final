@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.nomorelateness.donotlate.R
+import com.nomorelateness.donotlate.core.presentation.CurrentUser
 import com.nomorelateness.donotlate.databinding.FragmentMainBinding
 import com.nomorelateness.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.nomorelateness.donotlate.feature.friends.presentation.view.FriendsFragment
@@ -44,7 +45,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         mainPageViewModel.getCurrentUserData()
         Log.d("MainFragment", "onCreateView")
@@ -59,6 +60,7 @@ class MainFragment : Fragment() {
         observeViewModel()
         initButton()
         initDarMode()
+        setTextUserName()
     }
 
     private fun startRoom() {
@@ -153,6 +155,12 @@ class MainFragment : Fragment() {
 //                .addToBackStack(null).commit()
 //
 //        }
+    }
+
+    private fun setTextUserName() {
+        if (CurrentUser.userData?.name != null) {
+            binding.tvMainTitle.text = CurrentUser.userData?.name
+        }
     }
 
     private fun observeViewModel() {
