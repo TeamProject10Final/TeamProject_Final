@@ -30,13 +30,10 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="true" />
-        <uses-library
-            android:name="org.apache.http.legacy"
-            android:required="true" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBqe8TQyjF1ndxlzGoZ6GYiWokc8Mi-77U" />
+            android:value="@string/API_KEY" />
 
         <meta-data
             android:name="com.google.android.gms.version"
