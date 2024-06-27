@@ -31,6 +31,7 @@ android {
         debug {
             isMinifyEnabled = false
             buildConfigField("String", "API_KEY", properties.getProperty("api_key_debug"))
+            resValue("string", "API_KEY", properties.getProperty("api_key_debug"))
         }
         release {
             buildConfigField("String", "API_KEY", properties.getProperty("api_key_release"))
