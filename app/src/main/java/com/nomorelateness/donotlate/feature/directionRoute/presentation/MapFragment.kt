@@ -684,8 +684,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, TimePickerInterface {
         mHour = hour
         mMinute = minute
 
+
+        //TODO 지원님 이 부분 확인 부탁드립니다.
+        val ampmHour = if (setAmpm == "오후") hour + 12 else hour
         val timeText = binding.etTime
-        sharedViewModel.setTime(hour, minute)
+
+        sharedViewModel.setTime(ampmHour, minute)
 
         if (timeText != null) {
             val setHour = if (hour < 10) "0${hour}" else hour
