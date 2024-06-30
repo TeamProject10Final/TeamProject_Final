@@ -1,5 +1,6 @@
 package com.nomorelateness.donotlate
 
+import SignUpViewmodelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -22,7 +23,6 @@ import com.nomorelateness.donotlate.feature.auth.data.repository.AuthRepositoryI
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.LogInUseCase
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.SignUpUseCase
 import com.nomorelateness.donotlate.feature.auth.presentation.view.LogInViewModelFactory
-import com.nomorelateness.donotlate.feature.auth.presentation.view.SignUpViewmodelFactory
 import com.nomorelateness.donotlate.feature.consumption.data.repository.ConsumptionRepositoryImpl
 import com.nomorelateness.donotlate.feature.consumption.domain.repository.ConsumptionRepository
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.DeleteConsumptionUseCase

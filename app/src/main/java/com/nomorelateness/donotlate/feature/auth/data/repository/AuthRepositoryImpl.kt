@@ -4,8 +4,10 @@ import android.content.Context
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.nomorelateness.donotlate.feature.auth.data.model.RegisterUserDTO
 import com.nomorelateness.donotlate.feature.auth.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
@@ -22,11 +24,18 @@ class AuthRepositoryImpl(
         return try {
             val result = auth.createUserWithEmailAndPassword(email, password).await()
             val user = result.user
-            addUserToFireStore(name, email, user?.uid!!)
-            Result.success("SignUp Success")
-
+            if (user != null) {
+                addUserToFireStore(name, email, user?.uid!!)
+                Result.success("SignUp Success")
+            } else {
+                Result.failure(Exception("User creation failed"))
+            }
+        } catch (e: FirebaseAuthException) {
+            Result.failure(Exception("FirebaseAuthException: ${e.message}"))
+        } catch (e: FirebaseFirestoreException) {
+            Result.failure(Exception("FirebaseFirestoreException: ${e.message}"))
         } catch (e: Exception) {
-            Result.failure(e)
+            Result.failure(Exception("Exception: ${e.message}"))
         }
     }
 
@@ -39,7 +48,7 @@ class AuthRepositoryImpl(
         }
     }
 
-    override suspend fun getCurrentUser(): Flow<String> = flow{
+    override suspend fun getCurrentUser(): Flow<String> = flow {
         try {
             val currentUserUId: String = auth.currentUser?.uid ?: ""
             emit(currentUserUId)
@@ -49,7 +58,6 @@ class AuthRepositoryImpl(
 
         }
     }
-
 
     private fun addUserToFireStore(name: String, email: String, uId: String) {
         val user = RegisterUserDTO(name, email, Firebase.auth.uid!!, createdAt = Timestamp.now())
