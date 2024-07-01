@@ -295,6 +295,10 @@
     <string name="dialog_logout_text1">로그아웃</string>
     <string name="dialog_logout_text2">로그아웃 하시겠습니까?</string>
     <string name="dialog_progress_text">잠시만 기다려 주세요...</string>
+    <string name="dialog_email_confirm_title" translatable="false">환영합니다! 이메일 주소를 인증해 주세요</string>
+    <string name="dialog_email_confirm_text1" translatable="false">이메일 인증을 위한 메일이 발송되었습니다. \n 회원가입 완료를 위한 이메일 인증을 진행해 주세요</string>
+    <string name="dialog_email_confirm_text2" translatable="false">이메일 주소를 잘못 입력하신 경우\n회원탈퇴 후 재가입을 진행해 주세요</string>
+
 
     <!--토스트 메시지-->
     <string name="toast_room_text1">모든 필드를 입력하세요.</string>
