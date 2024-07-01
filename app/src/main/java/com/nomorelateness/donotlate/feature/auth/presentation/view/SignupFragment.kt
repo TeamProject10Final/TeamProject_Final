@@ -18,6 +18,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.nomorelateness.donotlate.R
 import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.nomorelateness.donotlate.databinding.FragmentSignupBinding
+import com.nomorelateness.donotlate.feature.auth.presentation.dialog.InformationDialogFragment
 import kotlinx.coroutines.launch
 
 class SignupFragment : Fragment(R.layout.fragment_signup), View.OnClickListener {
@@ -43,6 +44,7 @@ class SignupFragment : Fragment(R.layout.fragment_signup), View.OnClickListener 
             hideKeyboard(binding.root.windowToken)
         }
         editTextProcess()
+        infoDialog()
     }
 
     // 뷰 초기화 및 클릭 리스너 설정
@@ -90,7 +92,7 @@ class SignupFragment : Fragment(R.layout.fragment_signup), View.OnClickListener 
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 signUpViewModel.eventFlow.collect { event ->
                     when (event) {
-                        SignUpEvent.SignUpSuccess -> {
+                        is SignUpEvent.SignUpSuccess -> {
                             Toast.makeText(
                                 requireContext(),
                                 resources.getString(R.string.toast_login_text2),
@@ -105,7 +107,7 @@ class SignupFragment : Fragment(R.layout.fragment_signup), View.OnClickListener 
                                 .commit()
                         }
 
-                        SignUpEvent.SignUpFail -> {
+                        is SignUpEvent.SignUpFail -> {
                             Toast.makeText(
                                 requireContext(),
                                 resources.getString(R.string.toast_login_text3),
@@ -125,6 +127,11 @@ class SignupFragment : Fragment(R.layout.fragment_signup), View.OnClickListener 
                 }
             }
         }
+    }
+
+    fun infoDialog() {
+        val dialog = InformationDialogFragment()
+        dialog.show(requireActivity().supportFragmentManager, "InformationDialogFragment")
     }
 
     override fun onDestroyView() {
