@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         val appContainer =
             (application as com.nomorelateness.donotlate.DoNotLateApplication).appContainer
         com.nomorelateness.donotlate.MainViewModelFactory(
-            sessionManager = appContainer.sessionManager
+            sessionManager = appContainer.sessionManager,
+            checkUserEmailVerificationUseCase = appContainer.checkUserEmailVerificationUseCase
         )
     }
 
@@ -47,8 +48,9 @@ class MainActivity : AppCompatActivity() {
             repeatOnLifecycle(state = Lifecycle.State.STARTED) {
                 viewModel.channel.collect {
                     when (it) {
-                        com.nomorelateness.donotlate.MainAction.LoggedIn -> navigateToMainScreen()
-                        com.nomorelateness.donotlate.MainAction.NotLoggedIn -> navigateToLoginScreen()
+                        MainAction.LoggedIn -> navigateToMainScreen()
+                        MainAction.NotLoggedIn -> navigateToLoginScreen()
+                        MainAction.EmailNotVerified -> navigateToLoginScreen()
                     }
                 }
             }

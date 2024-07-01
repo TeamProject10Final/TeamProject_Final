@@ -85,6 +85,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <TextView
             android:id="@+id/tv_Room_Title_Detail"
             android:layout_width="280dp"
@@ -93,12 +94,12 @@
             android:gravity="center_vertical"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="5dp"
             app:layout_constraintStart_toStartOf="@id/cl_Top_Title_Border_Detail"
             app:layout_constraintTop_toTopOf="@id/cl_Top_Title_Border_Detail" />
 
         <TextView
-            android:id="@+id/tv_Room_Promise_Date"
+            android:id="@+id/tv_Room_Destination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -106,6 +107,15 @@
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="@+id/tv_Room_Title_Detail"
             app:layout_constraintTop_toBottomOf="@+id/tv_Room_Title_Detail" />
+
+        <TextView
+            android:id="@+id/tv_Room_Promise_Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_Room_Destination"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Room_Destination" />
 
         <TextView
             android:id="@+id/tv_Room_Promise_Time"

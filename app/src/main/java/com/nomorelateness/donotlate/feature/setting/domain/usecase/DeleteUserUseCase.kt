@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class DeleteUserUseCase(private val userRepository: UserRepository) {
-    suspend operator fun invoke(userId: String): Flow<Result<Unit>> = flow{
+    suspend operator fun invoke(): Flow<Result<Unit>> = flow {
         try {
-            userRepository.deleteUserData(userId)
+            userRepository.deleteUserData()
             userRepository.deleteUserAccount()
             emit(Result.Success(Unit))
         }catch (e:Exception){
