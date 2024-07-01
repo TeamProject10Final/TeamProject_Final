@@ -293,6 +293,6 @@ class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {
     }
 
     override fun onClickUserButton(userId: String) {
-        viewModel.deleteUser(userId)
+        viewModel.deleteUser()
     }
 }

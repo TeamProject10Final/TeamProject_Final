@@ -31,9 +31,9 @@ class SettingsViewModel(
         }
     }
 
-    fun deleteUser(userId: String) {
+    fun deleteUser() {
         viewModelScope.launch {
-            deleteUserUseCase(userId).collect { result ->
+            deleteUserUseCase().collect { result ->
                 when (result) {
                     is Result.Success -> {
                         sessionManager.logOut()
