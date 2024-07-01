@@ -32,8 +32,9 @@ class MainViewModel(
             } else {
                 _channel.send(element = MainAction.EmailNotVerified)
             }
+        } else {
+            _channel.send(element = MainAction.NotLoggedIn)
         }
-        _channel.send(element = MainAction.NotLoggedIn)
     }
 }
 
