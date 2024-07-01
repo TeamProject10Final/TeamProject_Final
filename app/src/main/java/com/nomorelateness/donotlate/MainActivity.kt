@@ -1,5 +1,6 @@
 package com.nomorelateness.donotlate
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
         enableEdgeToEdge()
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(com.nomorelateness.donotlate.R.id.main)) { v, insets ->
@@ -66,24 +68,6 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToLoginScreen() {
         supportFragmentManager.beginTransaction()
             .add(com.nomorelateness.donotlate.R.id.frame, LoginFragment())
-            .commit()
-    }
-
-    fun changeFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .add(com.nomorelateness.donotlate.R.id.frame, fragment)
-            .commit()
-    }
-
-    fun removeFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .remove(fragment)
-            .commit()
-    }
-
-    fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(com.nomorelateness.donotlate.R.id.frame, fragment)
             .commit()
     }
 }

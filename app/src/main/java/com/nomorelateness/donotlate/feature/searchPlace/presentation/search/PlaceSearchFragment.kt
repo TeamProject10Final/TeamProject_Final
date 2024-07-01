@@ -27,7 +27,6 @@ class PlaceSearchFragment : Fragment() {
 
     private lateinit var mapAdapter: MapAdapter
 
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1000
 
     private val searchViewModel: PlaceSearchViewModel by activityViewModels {
         val appContainer =
@@ -172,68 +171,6 @@ class PlaceSearchFragment : Fragment() {
         })
     }
 
-
-//    private fun clickChip() {
-//        binding.cgChipGroup.setOnCheckedStateChangeListener { chipGroup, ints ->
-//            val selectChip = chipGroup.checkedChipId
-//            document = selectChip
-//            when (selectChip) {
-//                R.id.tv_restaurant -> {
-//                    getChipGroupType(ChipType.RESTAURANT)
-//                }
-//
-//                R.id.tv_cafe -> {
-//                    getChipGroupType(ChipType.CAFE)
-//                }
-//
-//                R.id.tv_cinema -> {
-//                    getChipGroupType(ChipType.MOVIETHEATER)
-//                }
-//
-//                R.id.tv_park -> {
-//                    getChipGroupType(ChipType.PARK)
-//                }
-//
-//                R.id.tv_shoppingMall -> {
-//                    getChipGroupType(ChipType.SHOPPINGMALL)
-//                }
-//            }
-//        }
-//    }
-
-//    private fun getChipGroupType(type: ChipType) {
-//
-//        if (binding.etSeachBox.text.isEmpty()) {
-//            binding.tvDefaultText.isVisible = true
-//        } else {
-//            binding.tvDefaultText.isVisible = false
-//
-//        }
-//
-//        when (type) {
-//            ChipType.RESTAURANT -> {
-//                viewModel.getSearchType(location = "", types = "restaurant")
-//            }
-//
-//            ChipType.CAFE -> {
-//                viewModel.getSearchType(location = "", types = "cafe")
-//            }
-//
-//            ChipType.MOVIETHEATER -> {
-//                viewModel.getSearchType(location = "", types = "movieTheater")
-//            }
-//
-//            ChipType.PARK -> {
-//                viewModel.getSearchType(location = "", types = "park")
-//            }
-//
-//            ChipType.SHOPPINGMALL -> {
-//                viewModel.getSearchType(location = "", types = "shoppingMall")
-//            }
-//        }
-//
-//        바텀시트와 연결
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

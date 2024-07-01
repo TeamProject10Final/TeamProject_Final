@@ -3,6 +3,7 @@ package com.nomorelateness.donotlate.feature.consumption.presentation
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -34,8 +35,7 @@ class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface, DeleteD
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
         enableEdgeToEdge()
         binding = ActivityConsumptionBinding.inflate(layoutInflater)
         setContentView(binding.root)

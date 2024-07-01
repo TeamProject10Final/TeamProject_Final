@@ -1,5 +1,6 @@
 package com.nomorelateness.donotlate.feature.directionRoute.presentation
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +25,7 @@ class DirectionRouteActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
         binding = ActivityDirectionRouteBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
