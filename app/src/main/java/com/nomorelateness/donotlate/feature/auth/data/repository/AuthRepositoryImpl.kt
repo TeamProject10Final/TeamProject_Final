@@ -1,6 +1,7 @@
 package com.nomorelateness.donotlate.feature.auth.data.repository
 
 import android.content.Context
+import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +27,8 @@ class AuthRepositoryImpl(
             val user = result.user
             if (user != null) {
                 addUserToFireStore(name, email, user?.uid!!)
+                sendVerification()
+                auth.signOut()
                 Result.success("SignUp Success")
             } else {
                 Result.failure(Exception("User creation failed"))
@@ -56,6 +59,41 @@ class AuthRepositoryImpl(
         } catch (e: Exception) {
             Result.failure<Exception>(e)
 
+        }
+    }
+
+    override suspend fun sendVerification() {
+        try {
+            val user = auth.currentUser
+            Log.d("AuthRepositoryImpl", "${user}")
+            if (user != null) {
+                user.sendEmailVerification().await()
+                Log.d("AuthRepositoryImpl", "Verification email sent")
+            } else {
+                Log.d("AuthRepositoryImpl", "No current user found")
+            }
+        } catch (e: Exception) {
+            Log.e("AuthRepositoryImpl", "Error sending verification email: ${e.message}")
+        }
+    }
+
+    override suspend fun checkUserEmailVerification(): Boolean {
+        auth.currentUser?.reload()?.await()
+        return auth.currentUser?.isEmailVerified == true
+    }
+
+    override suspend fun deleteUser(): Result<String> {
+        return try {
+            val userId = auth.currentUser?.uid
+            if (userId != null) {
+                db.collection("users").document(userId).delete().await()
+                auth.currentUser?.delete()
+                Result.success("Delete Success")
+            } else {
+                Result.failure(Exception("Delete Failure"))
+            }
+        } catch (e: Exception) {
+            return Result.failure(e)
         }
     }
 

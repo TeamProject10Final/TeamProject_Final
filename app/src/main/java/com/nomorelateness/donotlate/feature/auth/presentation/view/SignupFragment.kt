@@ -29,7 +29,7 @@ class SignupFragment : Fragment(R.layout.fragment_signup), View.OnClickListener 
     private val signUpViewModel: SignUpViewModel by viewModels {
         val appContainer =
             (requireActivity().application as com.nomorelateness.donotlate.DoNotLateApplication).appContainer
-        SignUpViewmodelFactory(appContainer.signUpUseCase)
+        SignUpViewmodelFactory(appContainer.signUpUseCase, appContainer.sessionManager)
     }
 
     // onViewCreated를 재정의하여 뷰와 옵저버 설정

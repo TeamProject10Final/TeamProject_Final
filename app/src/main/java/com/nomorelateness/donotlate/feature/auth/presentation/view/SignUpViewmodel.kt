@@ -7,13 +7,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.nomorelateness.donotlate.core.domain.session.SessionManager
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.SignUpUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
-class SignUpViewModel(private val signUpUseCase: SignUpUseCase) : ViewModel() {
+class SignUpViewModel(
+    private val signUpUseCase: SignUpUseCase,
+    private val sessionManager: SessionManager
+) : ViewModel() {
 
     private val _signUpResult = MutableLiveData<Result<String>>()
     val signUpResult: LiveData<Result<String>> get() = _signUpResult
@@ -149,13 +153,16 @@ sealed class SignUpEvent {
     data class ValidationError(val message: String) : SignUpEvent()
 }
 
-class SignUpViewmodelFactory(private val signUpUseCase: SignUpUseCase) :
+class SignUpViewmodelFactory(
+    private val signUpUseCase: SignUpUseCase,
+    private val sessionManager: SessionManager
+) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SignUpViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return SignUpViewModel(signUpUseCase) as T
+            return SignUpViewModel(signUpUseCase, sessionManager) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

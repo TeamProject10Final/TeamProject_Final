@@ -10,6 +10,7 @@ import com.nomorelateness.donotlate.core.data.repository.UserRepositoryImpl
 import com.nomorelateness.donotlate.core.data.session.SessionManagerImpl
 import com.nomorelateness.donotlate.core.domain.repository.PromiseRoomRepository
 import com.nomorelateness.donotlate.core.domain.repository.UserRepository
+import com.nomorelateness.donotlate.core.domain.session.SessionManager
 import com.nomorelateness.donotlate.core.domain.usecase.AcceptFriendRequestsUseCase
 import com.nomorelateness.donotlate.core.domain.usecase.GetCurrentUserDataUseCase
 import com.nomorelateness.donotlate.core.domain.usecase.GetFriendRequestsListUseCase
@@ -20,7 +21,10 @@ import com.nomorelateness.donotlate.core.domain.usecase.MakeAFriendRequestUseCas
 import com.nomorelateness.donotlate.core.domain.usecase.SearchUserByIdUseCase
 import com.nomorelateness.donotlate.core.domain.usecase.promiseusecase.RemoveParticipantsUseCase
 import com.nomorelateness.donotlate.feature.auth.data.repository.AuthRepositoryImpl
+import com.nomorelateness.donotlate.feature.auth.domain.useCase.CheckUserEmailVerificationUseCase
+import com.nomorelateness.donotlate.feature.auth.domain.useCase.DeleteUseCase
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.LogInUseCase
+import com.nomorelateness.donotlate.feature.auth.domain.useCase.SendEmailVerificationUseCase
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.SignUpUseCase
 import com.nomorelateness.donotlate.feature.auth.presentation.view.LogInViewModelFactory
 import com.nomorelateness.donotlate.feature.consumption.data.repository.ConsumptionRepositoryImpl
@@ -257,15 +261,15 @@ class AppContainer {
 
 
     // 임시
-    private val promiseRoomRepository:PromiseRoomRepository by lazy {
+    private val promiseRoomRepository: PromiseRoomRepository by lazy {
         PromiseRoomRepositoryImpl(firebaseFireStore)
     }
 
-    private val userRepository: UserRepository by  lazy {
+    private val userRepository: UserRepository by lazy {
         UserRepositoryImpl(firebaseFireStore, firebaseAuth)
     }
 
-    val removeParticipantsUseCase:RemoveParticipantsUseCase by lazy {
+    val removeParticipantsUseCase: RemoveParticipantsUseCase by lazy {
         RemoveParticipantsUseCase(promiseRoomRepository)
     }
 
@@ -277,22 +281,45 @@ class AppContainer {
         UpdateDepartureStatusUseCase(firebaseDataRepository)
     }
 
-    val deleteUserUseCase:DeleteUserUseCase by lazy {
+    val deleteUserUseCase: DeleteUserUseCase by lazy {
         DeleteUserUseCase(userRepository)
+    }
+
+    val sendEmailVerificationUseCase: SendEmailVerificationUseCase by lazy {
+        SendEmailVerificationUseCase(authRepository)
+    }
+
+    val checkUserEmailVerificationUseCase: CheckUserEmailVerificationUseCase by lazy {
+        CheckUserEmailVerificationUseCase(authRepository)
+    }
+
+    val deleteUseCase: DeleteUseCase by lazy {
+        DeleteUseCase(authRepository)
     }
 
 }
 
 class LogInContainer(
-    private val logInUseCase: LogInUseCase
+    private val logInUseCase: LogInUseCase,
+    private val checkUserEmailVerificationUseCase: CheckUserEmailVerificationUseCase,
+    private val sendVerificationUseCase: SendEmailVerificationUseCase,
+    private val sessionManager: SessionManager,
+    private val deleteUseCase: DeleteUseCase
 ) {
-    val logInViewModelFactory = LogInViewModelFactory(logInUseCase)
+    val logInViewModelFactory = LogInViewModelFactory(
+        logInUseCase,
+        checkUserEmailVerificationUseCase,
+        sendVerificationUseCase,
+        sessionManager,
+        deleteUseCase
+    )
 }
 
 class SignUpContainer(
-    private val signUpUseCase: SignUpUseCase
+    private val signUpUseCase: SignUpUseCase,
+    private val sessionManager: SessionManager
 ) {
-    val signUpViewModelFactory = SignUpViewmodelFactory(signUpUseCase)
+    val signUpViewModelFactory = SignUpViewmodelFactory(signUpUseCase, sessionManager)
 }
 
 class MainPageContainer(
@@ -408,7 +435,7 @@ class MyPromiseRoomContainer(
     val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase,
     val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase
 
-    ) {
+) {
     val myPromiseViewModelFactory = MyPromiseRoomViewModelFactory(
         messageSendingUseCase,
         messageReceivingUseCase,
