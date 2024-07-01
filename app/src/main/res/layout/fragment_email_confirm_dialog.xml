@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/light_gray"
+    android:background="@drawable/bg_radius_lightblue"
+    android:paddingHorizontal="20dp"
     tools:context=".feature.auth.presentation.dialog.EmailConfirmDialogFragment">
 
 
@@ -11,7 +14,7 @@
         android:id="@+id/imageView7"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/ic_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +25,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="환영합니다! 이메일 주소를 인증해 주세요"
-        android:textSize="20sp"
+        android:text="@string/dialog_email_confirm_title"
+        android:textSize="18sp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView7" />
@@ -34,7 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="이메일 인증을 위한 메일이 발송되었습니다. \n 회원가입 완료를 위한 이메일 인증을 진행해 주세요"
+        android:text="@string/dialog_email_confirm_text1"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -45,7 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="이메일 주소를 잘못 입력하신 경우\n회원 탈퇴 후 재가입을 진행해 주세요"
+        android:text="@string/dialog_email_confirm_text2"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -70,15 +76,16 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button2"
         android:layout_width="wrap_content"
-        android:minWidth="150dp"
         android:layout_height="48dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/bg_radius_lightblue"
         android:backgroundTint="@color/colorMain2"
+        android:minWidth="150dp"
         android:text="회원탈퇴"
         android:textAllCaps="false"
-        android:textColor="@color/textColor"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button"
@@ -90,6 +97,7 @@
         android:id="@+id/imageView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:src="@android:drawable/ic_delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
