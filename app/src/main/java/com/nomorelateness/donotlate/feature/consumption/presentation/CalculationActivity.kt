@@ -1,6 +1,7 @@
 package com.nomorelateness.donotlate.feature.consumption.presentation
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -28,6 +29,7 @@ class CalculationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
         enableEdgeToEdge()
         setContentView(binding.root)
 
