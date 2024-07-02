@@ -487,13 +487,17 @@ class MyPromiseRoomViewModel(
     }
 
     fun updateArrived() {
+
         viewModelScope.launch {
             val roomId = currentRoomId ?: return@launch sendWrongAccessMessage()
             val uid = CurrentUser.userData?.uId ?: return@launch sendWrongAccessMessage()
+
             updateArrivalStatusUseCase(roomId = roomId, uid = uid).onEach { success ->
                 val currentArrivals = _hasArrived.value.toMutableMap()
                 currentArrivals[uid] = true
                 _hasArrived.value = currentArrivals.toMap()
+
+                //
             }.catch {
                 sendWrongAccessMessage("다시 시도해 주세요.")
             }.collect()
@@ -565,6 +569,9 @@ class MyPromiseRoomViewModel(
         viewModelScope.launch {
             val roomId = _promiseRoom.value?.roomId ?: return@launch
             val uid = CurrentUser.userData?.uId ?: return@launch
+
+            //
+
             updateDepartureStatusUseCase(roomId, uid).collect { success ->
                 if (success) {
                     val currentDeparture = _hasDeparture.value.toMutableMap()

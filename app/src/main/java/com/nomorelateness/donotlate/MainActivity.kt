@@ -17,7 +17,7 @@ import com.nomorelateness.donotlate.databinding.ActivityMainBinding
 import com.nomorelateness.donotlate.feature.auth.presentation.view.LoginFragment
 import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
 import com.nomorelateness.donotlate.feature.mypromise.presentation.model.PromiseModel
-import com.nomorelateness.donotlate.feature.mypromise.presentation.view.MyPromiseListFragment
+import com.nomorelateness.donotlate.feature.mypromise.presentation.view.MyPromiseRoomFragment
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -86,9 +86,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openPromiseRoomFragment(roomInfo: PromiseModel) {
-        val fragment = MyPromiseListFragment()
+        val fragment = MyPromiseRoomFragment()
         val bundle = Bundle()
         bundle.putParcelable("promiseRoom", roomInfo)
+        bundle.putBoolean("isWidget", true)
         fragment.arguments = bundle
 
         supportFragmentManager.beginTransaction()
@@ -97,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                 R.anim.fade_out,
             )
             .replace(R.id.frame, fragment)
-            .addToBackStack(null)
+            .addToBackStack("myPromiseRoomFragment")
             .commit()
     }
 
