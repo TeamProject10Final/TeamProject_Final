@@ -52,7 +52,8 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
             appContainer.getDirectionsUseCase,
             appContainer.removeParticipantsUseCase,
             appContainer.updateArrivalStatusUseCase,
-            appContainer.updateDepartureStatusUseCase
+            appContainer.updateDepartureStatusUseCase,
+            appContainer.getCurrentUserDataUseCase
         )
     }
     private val widgetViewModel: WidgetViewModel by activityViewModels()

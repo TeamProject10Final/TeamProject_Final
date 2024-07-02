@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.Timestamp
+import com.nomorelateness.donotlate.core.domain.usecase.GetCurrentUserDataUseCase
 import com.nomorelateness.donotlate.core.domain.usecase.promiseusecase.RemoveParticipantsUseCase
 import com.nomorelateness.donotlate.core.presentation.CurrentUser
 import com.nomorelateness.donotlate.core.util.parseTime
@@ -19,6 +20,7 @@ import com.nomorelateness.donotlate.feature.directionRoute.domain.usecase.GetDir
 import com.nomorelateness.donotlate.feature.directionRoute.presentation.DirectionsModel
 import com.nomorelateness.donotlate.feature.directionRoute.presentation.LocationUtils
 import com.nomorelateness.donotlate.feature.directionRoute.presentation.toModel
+import com.nomorelateness.donotlate.feature.main.presentation.mapper.toModel
 import com.nomorelateness.donotlate.feature.mypromise.domain.usecase.MessageReceivingUseCase
 import com.nomorelateness.donotlate.feature.mypromise.domain.usecase.MessageSendingUseCase
 import com.nomorelateness.donotlate.feature.mypromise.domain.usecase.UpdateArrivalStatusUseCase
@@ -43,6 +45,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.atan2
@@ -58,7 +61,8 @@ class MyPromiseRoomViewModel(
     private val removeParticipantsUseCase: RemoveParticipantsUseCase,
     private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase,
     private val savedStateHandle: SavedStateHandle,
-    private val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase
+    private val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase,
+    private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase,
 ) : ViewModel() {
     private var checkArrivalStatusJob: Job? = null
     private var foundCountry: String? = null
@@ -157,17 +161,24 @@ class MyPromiseRoomViewModel(
             savedStateHandle.get<PromiseModel>("promiseRoom")?.let {
                 _promiseRoom.value = it
                 if (CurrentUser.userData == null) {
-                    null
-                } else {
-
+                    launch {
+                        getCurrentUserData()
+                    }
+                    yield()
+                    Log.d("확인 null userdata", "${CurrentUser.userData}")
+                }
+//                    null
+//                } else {
+                launch {
                     checkIsUserHasArrived()
                     startCheckingArrivalStatus()
                     setInitialDepartureStatus() // 출발 상태 설정
                     setInitialArrivalStatus()
                     setDestinationLatLng()
                     loadMessage()
-
                 }
+
+
             } ?: run {
                 sendWrongAccessMessage("다시 시도해 주세요. 1")
             }
@@ -179,6 +190,10 @@ class MyPromiseRoomViewModel(
     }
 
     private suspend fun checkIsUserHasArrived() {
+        //        if (CurrentUser.userData?.uId == null) {
+//            getCurrentUserData()
+//        }
+        Log.d("확인 userdata1", "${CurrentUser.userData?.uId}")
         if (this.promiseRoom.value?.hasArrived?.get(CurrentUser.userData?.uId) == true) {
             _isArrived.send(element = true)
 //        } else {
@@ -292,6 +307,10 @@ class MyPromiseRoomViewModel(
     }
 
     private fun calculateIsIn200Meters(distance: Double) {
+        //        if (CurrentUser.userData?.uId == null) {
+//            getCurrentUserData()
+//        }
+        Log.d("확인 userdata2", "${CurrentUser.userData?.uId}")
         val uid = CurrentUser.userData?.uId
         if (distance <= 0.2 && hasArrived.value[uid] != true) { // 200m
             _distanceStatus.value = DistanceState.In200Meters
@@ -363,6 +382,26 @@ class MyPromiseRoomViewModel(
     //index 정해진 뒤에 text를 만들어야 함
     fun afterSelecting() {
         setShortDirectionsResult()
+    }
+
+    suspend fun getCurrentUserData() {
+        Log.d("getCurrentUserData", "stared getCurrentUserData()")
+        try {
+            viewModelScope.launch {
+                getCurrentUserDataUseCase().collect { userEntity ->
+                    val userModel = userEntity?.toModel()
+                    if (userModel != null) {
+                        CurrentUser.userData = userModel
+                        yield()
+                        Log.d("getCurrentUserData", "CurrentUser.userData :${CurrentUser.userData}")
+                    } else {
+                        //  TODO - 예외 처리 해야함.
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            throw NullPointerException("오류 터짐")
+        }
     }
 
     private fun setShortDirectionsResult() {
@@ -452,6 +491,10 @@ class MyPromiseRoomViewModel(
 
     private suspend fun loadMessage() {
         val roomId = promiseRoom.value?.roomId ?: return
+        //        if (CurrentUser.userData?.uId == null) {
+//            getCurrentUserData()
+//        }
+        Log.d("확인 userdata3", "${CurrentUser.userData?.uId}")
         val mAuth = CurrentUser.userData?.uId
         if (currentRoomId != roomId) {
             currentRoomId = roomId
@@ -466,6 +509,10 @@ class MyPromiseRoomViewModel(
     }
 
     fun sendMessage(contents: String) {
+//        if (CurrentUser.userData?.uId == null) {
+//            getCurrentUserData()
+//        }
+        Log.d("확인 userdata4", "${CurrentUser.userData?.uId}")
         viewModelScope.launch {
             val currentUser = CurrentUser.userData ?: throw NullPointerException("User Data Null!")
             val message = MessageModel(
@@ -507,6 +554,9 @@ class MyPromiseRoomViewModel(
 
         viewModelScope.launch {
             val roomId = currentRoomId ?: return@launch sendWrongAccessMessage()
+            if (CurrentUser.userData?.uId == null) {
+                getCurrentUserData()
+            }
             val uid = CurrentUser.userData?.uId ?: return@launch sendWrongAccessMessage()
 
             updateArrivalStatusUseCase(roomId = roomId, uid = uid).onEach { success ->
@@ -531,6 +581,10 @@ class MyPromiseRoomViewModel(
     }
 
     private fun setInitialArrivalStatus() {
+        //        if (CurrentUser.userData?.uId == null) {
+//            getCurrentUserData()
+//        }
+        Log.d("확인 userdata5", "${CurrentUser.userData?.uId}")
         val uid = CurrentUser.userData?.uId
 
         val arrivalStatus = this.promiseRoom.value?.hasArrived ?: return
@@ -593,6 +647,9 @@ class MyPromiseRoomViewModel(
     fun updateDeparture() {
         viewModelScope.launch {
             val roomId = _promiseRoom.value?.roomId ?: return@launch
+            if (CurrentUser.userData?.uId == null) {
+                getCurrentUserData()
+            }
             val uid = CurrentUser.userData?.uId ?: return@launch
             updateDepartureStatusUseCase(roomId, uid).collect { success ->
                 if (success) {
@@ -622,6 +679,10 @@ class MyPromiseRoomViewModel(
     }
 
     private fun setInitialDepartureStatus() {
+        //        if (CurrentUser.userData?.uId == null) {
+//            getCurrentUserData()
+//        }
+        Log.d("확인 userdata6", "${CurrentUser.userData?.uId}")
         val uid = CurrentUser.userData?.uId
         Log.d("확인 uid", "$uid")
         val departureStatus = _promiseRoom.value?.hasDeparture?.get(uid) ?: false
@@ -654,7 +715,8 @@ class MyPromiseRoomViewModelFactory(
     private val removeParticipantsUseCase: RemoveParticipantsUseCase,
     private val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase,
 //    private val savedStateHandle: SavedStateHandle = SavedStateHandle(),
-    private val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase
+    private val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase,
+    private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
@@ -668,7 +730,8 @@ class MyPromiseRoomViewModelFactory(
                 updateArrivalStatusUseCase,
                 extras.createSavedStateHandle(),
 //                savedStateHandle,
-                updateDepartureStatusUseCase
+                updateDepartureStatusUseCase,
+                getCurrentUserDataUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
