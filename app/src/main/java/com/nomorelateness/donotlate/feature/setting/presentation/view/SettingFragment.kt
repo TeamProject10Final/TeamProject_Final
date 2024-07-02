@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
@@ -49,7 +48,8 @@ class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {
             (requireActivity().application as com.nomorelateness.donotlate.DoNotLateApplication).appContainer
         SettingsViewModelFactory(
             sessionManager = appContainer.sessionManager,
-            deleteUserUseCase = appContainer.deleteUserUseCase
+            deleteUserUseCase = appContainer.deleteUserUseCase,
+            clearAllConsumptionsUseCase = appContainer.clearAllConsumptionsUseCase
         )
     }
 
@@ -166,9 +166,9 @@ class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private fun darkMode() {
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
-        val sharedPrefValue = resources.getString(R.string.preference_file_key)
+        val sharedPrefValue = resources.getString(R.string.preference_darkMode_key)
         val darkModeValue =
-            sharedPref.getString(getString(R.string.preference_file_key), sharedPrefValue)
+            sharedPref.getString(getString(R.string.preference_darkMode_key), sharedPrefValue)
         val switch = binding.swDarkMode
         switch.setOnClickListener {
             if (darkModeValue == "darkModeOff") {
@@ -180,7 +180,7 @@ class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {
 
                 //앱을 꺼도 다크모드on/off 적용
                 with(sharedPref.edit()) {
-                    putString(getString(R.string.preference_file_key), "darkModeOn")
+                    putString(getString(R.string.preference_darkMode_key), "darkModeOn")
                     apply()
                 }
                 mainPageViewModel.dakeModeChange(false)
@@ -192,7 +192,7 @@ class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {
                 }, 200)
 
                 with(sharedPref.edit()) {
-                    putString(getString(R.string.preference_file_key), "darkModeOff")
+                    putString(getString(R.string.preference_darkMode_key), "darkModeOff")
                     apply()
                 }
                 mainPageViewModel.dakeModeChange(true)

@@ -89,9 +89,9 @@ class SignupFragment : Fragment(R.layout.fragment_signup), View.OnClickListener 
     // Flows를 수집하고 유효성 검사 결과를 관찰
     private fun collectFlows() {
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                signUpViewModel.eventFlow.collect { event ->
-                    when (event) {
+            repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+                signUpViewModel.eventFlow.collect {
+                    when (it) {
                         is SignUpEvent.SignUpSuccess -> {
                             Toast.makeText(
                                 requireContext(),
@@ -114,22 +114,13 @@ class SignupFragment : Fragment(R.layout.fragment_signup), View.OnClickListener 
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-
-                        is SignUpEvent.ValidationError -> {
-                            Toast.makeText(requireContext(), event.message, Toast.LENGTH_SHORT)
-                                .show()
-                        }
-
-                        else -> {
-                            // 아무 행동도 하지 않음.. 이게 왜 계속 뜨는 지 모르겠음..
-                        }
                     }
                 }
             }
         }
     }
 
-    fun infoDialog() {
+    private fun infoDialog() {
         val dialog = InformationDialogFragment()
         dialog.show(requireActivity().supportFragmentManager, "InformationDialogFragment")
     }

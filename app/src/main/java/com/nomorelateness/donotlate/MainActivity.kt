@@ -1,5 +1,6 @@
 package com.nomorelateness.donotlate
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        loadingInit()
         collectFlows()
 
 //        handleIntent(intent)
@@ -119,5 +121,14 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .add(com.nomorelateness.donotlate.R.id.frame, LoginFragment())
             .commit()
+    }
+
+    //앱 실행 시 메인프래그먼트 로딩
+    private fun loadingInit(){
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putString(getString(com.nomorelateness.donotlate.R.string.preference_loading_key), "1")
+            apply()
+        }
     }
 }

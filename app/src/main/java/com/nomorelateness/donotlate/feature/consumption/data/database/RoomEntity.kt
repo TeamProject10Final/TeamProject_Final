@@ -8,7 +8,7 @@ import com.nomorelateness.donotlate.feature.consumption.domain.entity.Consumptio
 @Entity(tableName = "calculation_history")
 data class RoomEntity(
 
-    @PrimaryKey val historyId: Int,
+    @PrimaryKey(autoGenerate = false) val historyId: String,
     @ColumnInfo(name = "detail") val detail: String,
     @ColumnInfo(name = "date") val date: String,
     @ColumnInfo(name = "category") val category: String,
@@ -32,3 +32,4 @@ fun RoomEntity.asConsumptionEntity() = ConsumptionEntity(
     price = this.price,
     isFinished = this.isFinished
 )
+

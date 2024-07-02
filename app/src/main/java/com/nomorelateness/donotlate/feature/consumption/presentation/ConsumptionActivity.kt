@@ -20,6 +20,7 @@ import com.nomorelateness.donotlate.databinding.ActivityConsumptionBinding
 import com.nomorelateness.donotlate.feature.consumption.presentation.dialog.ConfirmDialogInterface
 import com.nomorelateness.donotlate.feature.consumption.presentation.dialog.ConsumptionConfirmDialog
 import com.nomorelateness.donotlate.feature.consumption.presentation.dialog.DeleteDialogInterface
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface, DeleteDialogInterface {
@@ -66,7 +67,11 @@ class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface, DeleteD
             appContainer.getDataCountUseCase,
             appContainer.getLiveDataCountUseCase,
             appContainer.toggleIsFinishedUseCase,
-            appContainer.getCurrentUserDataUseCase
+            appContainer.getCurrentUserDataUseCase,
+            appContainer.deleteConsumptionFromFirebaseUseCase,
+            appContainer.insertConsumptionDataToFirebaseUseCase,
+            appContainer.updateFriendsListFromFirebaseUseCase,
+            appContainer.consumptionDataSyncUseCase
         )
 
         appContainer.consumptionContainer?.let {
@@ -78,6 +83,7 @@ class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface, DeleteD
 
         setupRecyclerViews()
         observeViewModel()
+        checkAndSyncData()
 
         binding.btnBackActivity.setOnClickListener {
             onBackPressed()
@@ -155,6 +161,16 @@ class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface, DeleteD
             }
         }
     }
+
+    private fun checkAndSyncData() {
+        lifecycleScope.launch {
+            val count = consumptionViewModel.liveDataCount.first()
+            if (count == 0) {
+                consumptionViewModel.syncData()
+            }
+        }
+    }
+
 
     private fun setupRecyclerViews() {
         finishedAdapter = ConsumptionAdapter { model ->

@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/tv_promise_date"
-        android:layout_width="110dp"
+        android:layout_width="125dp"
         android:layout_height="0dp"
         android:gravity="center_vertical"
         android:padding="10dp"

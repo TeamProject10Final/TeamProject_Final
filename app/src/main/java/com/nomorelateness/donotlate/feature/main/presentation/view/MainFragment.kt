@@ -1,12 +1,17 @@
 package com.nomorelateness.donotlate.feature.main.presentation.view
 
+import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import com.nomorelateness.donotlate.R
 import com.nomorelateness.donotlate.core.presentation.CurrentUser
 import com.nomorelateness.donotlate.databinding.FragmentMainBinding
+import com.nomorelateness.donotlate.databinding.FragmentPlaceSearchBinding
 import com.nomorelateness.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.nomorelateness.donotlate.feature.friends.presentation.view.FriendsFragment
 import com.nomorelateness.donotlate.feature.minigame.MiniGameFragment
@@ -21,9 +27,14 @@ import com.nomorelateness.donotlate.feature.mypromise.presentation.view.MyPromis
 import com.nomorelateness.donotlate.feature.room.presentation.view.ViewPagerFragment
 import com.nomorelateness.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import com.nomorelateness.donotlate.feature.setting.presentation.view.SettingFragment
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+
 class MainFragment : Fragment() {
+    private var _binding: FragmentMainBinding? = null
+    private val binding: FragmentMainBinding
+        get() = _binding!!
 
     private val mainPageViewModel: MainPageViewModel by viewModels {
         val appContainer =
@@ -33,28 +44,26 @@ class MainFragment : Fragment() {
         )
     }
 
-    private lateinit var binding: FragmentMainBinding
-
     private var name: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("MainFragment", "onCreate")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        firstLoading()
+
         mainPageViewModel.getCurrentUserData()
-        Log.d("MainFragment", "onCreateView")
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("MainFragment", "onViewCreated")
 //        getCurrentUserData()
 
         observeViewModel()
@@ -62,6 +71,16 @@ class MainFragment : Fragment() {
         initDarMode()
         setTextUserName()
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+
+
+    }
+
+    private var backPressedTime = 0L
+
 
     private fun startRoom() {
         binding.layoutMainRoom.setOnClickListener {
@@ -86,15 +105,16 @@ class MainFragment : Fragment() {
         startFriends()
     }
 
-    private fun initDarMode(){
+    private fun initDarMode() {
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
 
-        val sharedPrefValue = resources.getString(R.string.preference_file_key)
-        val darkModeValue = sharedPref.getString(getString(R.string.preference_file_key), sharedPrefValue)
+        val sharedPrefValue = resources.getString(R.string.preference_darkMode_key)
+        val darkModeValue =
+            sharedPref.getString(getString(R.string.preference_darkMode_key), sharedPrefValue)
 
-        if (darkModeValue == "darkModeOn"){
+        if (darkModeValue == "darkModeOn") {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }else{
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
@@ -196,6 +216,35 @@ class MainFragment : Fragment() {
                 .replace(R.id.frame, MyPromiseListFragment())
                 .addToBackStack(null).commit()
 
+        }
+    }
+
+    //딜레이로 로딩 넣어두기
+    private fun firstLoading() {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPrefValue = resources.getString(R.string.preference_loading_key)
+        val loadingValue =
+            sharedPref.getString(getString(R.string.preference_loading_key), sharedPrefValue)
+
+        if (loadingValue == "1") {
+            with(sharedPref.edit()) {
+                putString(getString(R.string.preference_loading_key), "2")
+                apply()
+            }
+
+            binding.constraint.visibility = View.GONE
+            binding.constraint2.visibility = View.GONE
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.shimmerLayout.visibility = View.GONE
+                binding.shimmerLayout2.visibility = View.GONE
+                binding.constraint.visibility = View.VISIBLE
+                binding.constraint2.visibility = View.VISIBLE
+            }, 1000)
+        } else {
+            binding.shimmerLayout.visibility = View.GONE
+            binding.shimmerLayout2.visibility = View.GONE
+            binding.constraint.visibility = View.VISIBLE
+            binding.constraint2.visibility = View.VISIBLE
         }
     }
 }

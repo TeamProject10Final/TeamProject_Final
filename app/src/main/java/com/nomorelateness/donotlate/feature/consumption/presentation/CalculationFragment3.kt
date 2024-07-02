@@ -23,7 +23,8 @@ class CalculationFragment3 : Fragment(R.layout.fragment_calculation3) {
         SharedViewModelFactory(
             appContainer.insertConsumptionUseCase,
             appContainer.deleteConsumptionUseCase,
-            appContainer.getDataCountUseCase
+            appContainer.getDataCountUseCase,
+            appContainer.insertConsumptionDataToFirebaseUseCase
         )
     }
 

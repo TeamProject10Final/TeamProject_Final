@@ -129,6 +129,11 @@ dependencies {
     //polyline?
     implementation(libs.android.maps.utils)
 
+    //스켈레톤 UI
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+    //lottie 애니메이션
+    implementation("com.airbnb.android:lottie:5.0.2")
 
     implementation(libs.androidx.core.ktx.v170)
     implementation(libs.androidx.appcompat.v141)
@@ -139,6 +144,7 @@ dependencies {
     implementation(libs.androidx.viewbinding)
 
     implementation(libs.gson.v288)
+
 }
 
 
