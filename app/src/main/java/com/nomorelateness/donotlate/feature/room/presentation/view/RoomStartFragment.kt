@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.nomorelateness.donotlate.R
-import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
+import com.nomorelateness.donotlate.core.presentation.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.nomorelateness.donotlate.databinding.FragmentRoomStartBinding
 import com.nomorelateness.donotlate.feature.room.presentation.dialog.DatePickerInterface
 import com.nomorelateness.donotlate.feature.room.presentation.dialog.RoomDateDialog

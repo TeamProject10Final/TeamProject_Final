@@ -1,4 +1,4 @@
-package com.nomorelateness.donotlate.core.util
+package com.nomorelateness.donotlate.core.presentation.util
 
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat

@@ -20,7 +20,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.nomorelateness.donotlate.R
-import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
+import com.nomorelateness.donotlate.core.presentation.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.nomorelateness.donotlate.databinding.FragmentRoomMapBinding
 
 class RoomMapFragment : Fragment(), OnMapReadyCallback {

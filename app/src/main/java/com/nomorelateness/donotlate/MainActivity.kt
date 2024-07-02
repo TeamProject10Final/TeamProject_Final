@@ -18,10 +18,11 @@ import com.nomorelateness.donotlate.feature.auth.presentation.view.LoginFragment
 import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
 import com.nomorelateness.donotlate.feature.mypromise.presentation.model.PromiseModel
 import com.nomorelateness.donotlate.feature.mypromise.presentation.view.MyPromiseRoomFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 

@@ -16,7 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.nomorelateness.donotlate.R
-import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
+import com.nomorelateness.donotlate.core.presentation.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.nomorelateness.donotlate.databinding.FragmentSignupBinding
 import com.nomorelateness.donotlate.feature.auth.presentation.dialog.InformationDialogFragment
 import kotlinx.coroutines.launch

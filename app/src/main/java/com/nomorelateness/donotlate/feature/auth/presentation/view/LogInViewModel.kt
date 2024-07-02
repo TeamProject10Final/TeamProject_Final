@@ -4,20 +4,23 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.nomorelateness.donotlate.core.domain.session.SessionManager
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.CheckUserEmailVerificationUseCase
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.DeleteUseCase
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.LogInUseCase
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.SendEmailVerificationUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LogInViewModel(
+@HiltViewModel
+class LogInViewModel
+@Inject
+constructor(
     private val logInUseCase: LogInUseCase,
     private val checkUserEmailVerificationUseCase: CheckUserEmailVerificationUseCase,
     private val sendVerificationUseCase: SendEmailVerificationUseCase,
-    private val sessionManager: SessionManager,
     private val deleteUseCase: DeleteUseCase
 ) : ViewModel() {
 
@@ -77,7 +80,6 @@ class LogInViewModelFactory(
     private val logInUseCase: LogInUseCase,
     private val checkUserEmailVerificationUseCase: CheckUserEmailVerificationUseCase,
     private val sendVerificationUseCase: SendEmailVerificationUseCase,
-    private val sessionManager: SessionManager,
     private val deleteUseCase: DeleteUseCase
 ) :
     ViewModelProvider.Factory {
@@ -89,7 +91,6 @@ class LogInViewModelFactory(
                 logInUseCase,
                 checkUserEmailVerificationUseCase,
                 sendVerificationUseCase,
-                sessionManager,
                 deleteUseCase
             ) as T
         }

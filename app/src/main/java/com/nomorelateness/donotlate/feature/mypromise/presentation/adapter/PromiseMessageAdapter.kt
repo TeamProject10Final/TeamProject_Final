@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.nomorelateness.donotlate.core.util.toFormattedHMString
+import com.nomorelateness.donotlate.core.presentation.util.toFormattedHMString
 import com.nomorelateness.donotlate.databinding.ItemReceiveMessageBinding
 import com.nomorelateness.donotlate.databinding.ItemSentMessageBinding
 import com.nomorelateness.donotlate.feature.mypromise.presentation.model.MessageModel

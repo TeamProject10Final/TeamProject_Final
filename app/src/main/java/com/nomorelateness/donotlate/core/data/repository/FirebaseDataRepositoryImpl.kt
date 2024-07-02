@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 
-class FirebaseDataSourceImpl(
+class FirebaseDataRepositoryImpl(
     private val db: FirebaseFirestore,
     private val auth: FirebaseAuth
 ) : FirebaseDataRepository {

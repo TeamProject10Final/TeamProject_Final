@@ -9,6 +9,8 @@ plugins {
     //firebase sdk
     id("com.google.gms.google-services")
     alias(libs.plugins.googleFirebaseCrashlytics)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.googleDaggerHiltAndroid)
 }
 
 android {
@@ -139,6 +141,10 @@ dependencies {
     implementation(libs.androidx.viewbinding)
 
     implementation(libs.gson.v288)
+
+    // hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
 }
 
 

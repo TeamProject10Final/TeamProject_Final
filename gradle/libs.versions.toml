@@ -54,6 +54,7 @@ coil = "2.6.0"
 googleGmsGoogleServices = "4.4.2"
 firebaseCrashlytics = "19.0.2"
 googleFirebaseCrashlytics = "3.0.2"
+hiltVersion = "2.51"
 
 [libraries]
 android-maps-utils = { module = "com.google.maps.android:android-maps-utils", version.ref = "androidMapsUtils" }
@@ -110,6 +111,8 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -117,3 +120,4 @@ jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "k
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 googleGmsGoogleServices = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 googleFirebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlytics" }
+googleDaggerHiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }

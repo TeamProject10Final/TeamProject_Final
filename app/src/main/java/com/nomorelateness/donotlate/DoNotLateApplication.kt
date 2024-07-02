@@ -4,8 +4,10 @@ import android.app.Application
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
+import dagger.hilt.android.HiltAndroidApp
 
-class DoNotLateApplication:Application() {
+@HiltAndroidApp
+class DoNotLateApplication : Application() {
 
     val appContainer = com.nomorelateness.donotlate.AppContainer()
 
@@ -19,7 +21,8 @@ class DoNotLateApplication:Application() {
 
         super.onCreate()
     }
-    companion object{
+
+    companion object {
         private var APPINSTANCE: com.nomorelateness.donotlate.DoNotLateApplication? = null
         fun getInstance() =
             com.nomorelateness.donotlate.DoNotLateApplication.Companion.APPINSTANCE!!

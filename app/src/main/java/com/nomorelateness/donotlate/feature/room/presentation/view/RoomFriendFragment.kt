@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nomorelateness.donotlate.R
 import com.nomorelateness.donotlate.core.presentation.CurrentUser
-import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
+import com.nomorelateness.donotlate.core.presentation.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.nomorelateness.donotlate.databinding.FragmentRoomFriendBinding
 import com.nomorelateness.donotlate.feature.room.presentation.adapter.RoomFriendAdapter
 import com.nomorelateness.donotlate.feature.room.presentation.dialog.ResultFragmentDialog

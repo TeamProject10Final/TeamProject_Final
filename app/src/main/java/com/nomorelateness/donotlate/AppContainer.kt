@@ -4,7 +4,7 @@ import SignUpViewmodelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.nomorelateness.donotlate.core.data.repository.FirebaseDataSourceImpl
+import com.nomorelateness.donotlate.core.data.repository.FirebaseDataRepositoryImpl
 import com.nomorelateness.donotlate.core.data.repository.PromiseRoomRepositoryImpl
 import com.nomorelateness.donotlate.core.data.repository.UserRepositoryImpl
 import com.nomorelateness.donotlate.core.data.session.SessionManagerImpl
@@ -77,7 +77,7 @@ import com.nomorelateness.donotlate.feature.setting.data.repository.SettingRepos
 import com.nomorelateness.donotlate.feature.setting.domain.usecase.DeleteUserUseCase
 import com.nomorelateness.donotlate.feature.setting.domain.usecase.ImageUploadUseCase
 
-
+// Service Locator
 class AppContainer {
 
     val consumptionRepository: ConsumptionRepository by lazy {
@@ -160,7 +160,7 @@ class AppContainer {
     }
 
     private val firebaseDataRepository by lazy {
-        FirebaseDataSourceImpl(firebaseFireStore, firebaseAuth)
+        FirebaseDataRepositoryImpl(firebaseFireStore, firebaseAuth)
     }
 
     private val settingRepository by lazy {
@@ -335,14 +335,12 @@ class LogInContainer(
     private val logInUseCase: LogInUseCase,
     private val checkUserEmailVerificationUseCase: CheckUserEmailVerificationUseCase,
     private val sendVerificationUseCase: SendEmailVerificationUseCase,
-    private val sessionManager: SessionManager,
     private val deleteUseCase: DeleteUseCase
 ) {
     val logInViewModelFactory = LogInViewModelFactory(
         logInUseCase,
         checkUserEmailVerificationUseCase,
         sendVerificationUseCase,
-        sessionManager,
         deleteUseCase
     )
 }

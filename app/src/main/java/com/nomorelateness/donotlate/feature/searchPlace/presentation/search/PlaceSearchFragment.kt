@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nomorelateness.donotlate.R
-import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
+import com.nomorelateness.donotlate.core.presentation.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.nomorelateness.donotlate.databinding.FragmentPlaceSearchBinding
 import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
 import com.nomorelateness.donotlate.feature.searchPlace.presentation.adapter.MapAdapter

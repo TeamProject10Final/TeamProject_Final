@@ -14,7 +14,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.Timestamp
 import com.nomorelateness.donotlate.core.domain.usecase.promiseusecase.RemoveParticipantsUseCase
 import com.nomorelateness.donotlate.core.presentation.CurrentUser
-import com.nomorelateness.donotlate.core.util.parseTime
+import com.nomorelateness.donotlate.core.presentation.util.parseTime
 import com.nomorelateness.donotlate.feature.directionRoute.domain.usecase.GetDirectionsUseCase
 import com.nomorelateness.donotlate.feature.directionRoute.presentation.DirectionsModel
 import com.nomorelateness.donotlate.feature.directionRoute.presentation.LocationUtils

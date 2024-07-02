@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.nomorelateness.donotlate.core.domain.usecase.LoadToMyPromiseListUseCase
 import com.nomorelateness.donotlate.core.presentation.CurrentUser
-import com.nomorelateness.donotlate.core.util.parseTime
+import com.nomorelateness.donotlate.core.presentation.util.parseTime
 import com.nomorelateness.donotlate.feature.mypromise.presentation.mapper.toPromiseModelList
 import com.nomorelateness.donotlate.feature.mypromise.presentation.model.PromiseModel
 import kotlinx.coroutines.Job

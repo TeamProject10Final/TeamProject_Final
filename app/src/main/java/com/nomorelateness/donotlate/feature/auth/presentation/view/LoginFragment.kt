@@ -7,20 +7,21 @@ import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.nomorelateness.donotlate.R
-import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
+import com.nomorelateness.donotlate.core.presentation.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.nomorelateness.donotlate.databinding.FragmentLoginBinding
 import com.nomorelateness.donotlate.feature.auth.presentation.dialog.EmailConfirmDialogFragment
 import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
 import com.nomorelateness.donotlate.feature.tutorial.TutorialViewPagerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
 
     private var _binding: FragmentLoginBinding? = null
@@ -33,7 +34,6 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
             appContainer.logInUseCase,
             appContainer.checkUserEmailVerificationUseCase,
             appContainer.sendEmailVerificationUseCase,
-            appContainer.sessionManager,
             appContainer.deleteUseCase
         )
     }

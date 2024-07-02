@@ -3,7 +3,7 @@ package com.nomorelateness.donotlate.feature.friends.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nomorelateness.donotlate.core.util.toFormattedString
+import com.nomorelateness.donotlate.core.presentation.util.toFormattedString
 import com.nomorelateness.donotlate.databinding.ItemFirendRequestBinding
 import com.nomorelateness.donotlate.feature.friends.presentation.model.FriendRequestWithUserDataModel
 
