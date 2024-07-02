@@ -1,6 +1,10 @@
 package com.nomorelateness.donotlate
 
+import android.app.Service
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -39,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        loadingInit()
         collectFlows()
 
     }
@@ -69,6 +74,15 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    //앱 실행 시 메인프래그먼트 로딩
+    private fun loadingInit(){
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putString(getString(com.nomorelateness.donotlate.R.string.preference_loading_key), "1")
+            apply()
+        }
+    }
+
     fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .add(com.nomorelateness.donotlate.R.id.frame, fragment)
@@ -85,5 +99,17 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(com.nomorelateness.donotlate.R.id.frame, fragment)
             .commit()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Log.d("메인 엑티비티","onDestroy()")
+    }
+
+    override fun finish() {
+        super.finish()
+
+        Log.d("메인 엑티비티","finish()")
     }
 }

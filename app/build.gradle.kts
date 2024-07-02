@@ -129,7 +129,11 @@ dependencies {
     //polyline?
     implementation("com.google.maps.android:android-maps-utils:2.2.3")
 
+    //스켈레톤 UI
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
 
+    //lottie 애니메이션
+    implementation("com.airbnb.android:lottie:5.0.2")
 }
 
 
