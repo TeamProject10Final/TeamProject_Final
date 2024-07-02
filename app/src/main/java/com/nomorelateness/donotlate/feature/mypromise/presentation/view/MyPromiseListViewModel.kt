@@ -1,6 +1,8 @@
 package com.nomorelateness.donotlate.feature.mypromise.presentation.view
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -33,6 +35,8 @@ class MyPromiseListViewModel(
     private val _errorState = MutableStateFlow<String?>(null)
     val errorState: StateFlow<String?> get() = _errorState
 
+    private val _selectedPromiseModel = MutableLiveData<PromiseModel>()
+    val selectedPromiseModel: LiveData<PromiseModel> get() = _selectedPromiseModel
 
     fun loadPromiseRooms() {
         val uid = CurrentUser.userData?.uId
@@ -80,6 +84,13 @@ class MyPromiseListViewModel(
                     }
                 }
             }
+        }
+    }
+
+    fun updateSelectedPromise(selectedPromise: PromiseModel?) {
+        selectedPromise?.let {
+            _selectedPromiseModel.value = it
+            Log.d("확인 모델", "${_selectedPromiseModel.value}")
         }
     }
 }

@@ -1,13 +1,19 @@
 [versions]
 agp = "8.3.1"
+androidMapsUtils = "2.2.3"
 androidxFragmentKtx = "1.3.6"
 androidxFragmentKtxVersion = "1.7.1"
+appcompatVersion = "1.4.1"
 circleimageview = "3.1.0"
 coilTransformations = "2.1.0"
 coilVersion = "2.1.0"
+coreKtxVersion = "1.7.0"
 dotsindicator = "5.0"
 firebaseBom = "33.1.0"
+fragmentKtxVersion = "1.4.1"
+googleMaterial = "1.5.0"
 gson = "2.10.1"
+gsonVersion = "2.8.8"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -15,6 +21,7 @@ junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 appcompat = "1.6.1"
 kotlinBom = "1.9.0"
+lifecycleViewmodelKtx = "2.8.2"
 material = "1.12.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
@@ -32,6 +39,7 @@ retrofit = "2.11.0"
 converterGson = "2.11.0"
 okhttp = "5.0.0-alpha.14"
 recyclerview = "1.4.0-alpha01"
+viewbinding = "8.5.0"
 viewpager2 = "1.1.0"
 volley = "1.2.1"
 materialVersion = "1.13.0-alpha02"
@@ -48,9 +56,16 @@ firebaseCrashlytics = "19.0.2"
 googleFirebaseCrashlytics = "3.0.2"
 
 [libraries]
+android-maps-utils = { module = "com.google.maps.android:android-maps-utils", version.ref = "androidMapsUtils" }
+androidx-appcompat-v141 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-ktx-v170 = { module = "androidx.core:core-ktx", version.ref = "coreKtxVersion" }
 androidx-fragment-ktx-v136 = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragmentKtx" }
+androidx-fragment-ktx-v141 = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtxVersion" }
 androidx-fragment-ktx-v171 = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragmentKtxVersion" }
+androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleViewmodelKtx" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+androidx-viewbinding = { module = "androidx.databinding:viewbinding", version.ref = "viewbinding" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 coil-transformations = { module = "io.coil-kt:coil-transformations", version.ref = "coilTransformations" }
 coil-v210 = { module = "io.coil-kt:coil", version.ref = "coilVersion" }
@@ -60,6 +75,7 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 google-firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
 google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+gson-v288 = { module = "com.google.code.gson:gson", version.ref = "gsonVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -68,6 +84,7 @@ kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+material-v150 = { module = "com.google.android.material:material", version.ref = "googleMaterial" }
 places = { module = "com.google.android.libraries.places:places", version.ref = "places" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
