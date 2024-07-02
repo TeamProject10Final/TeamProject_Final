@@ -122,6 +122,9 @@ class MyPromiseRoomViewModel(
     private val _hasArrived = MutableStateFlow<Map<String, Boolean>>(emptyMap())
     val hasArrived: StateFlow<Map<String, Boolean>> get() = _hasArrived
 
+    private val _widgetArrived = MutableLiveData<Pair<String, Boolean>>()
+    val widgetArrived: LiveData<Pair<String, Boolean>> get() = _widgetArrived
+
     private val _lateUsers = MutableStateFlow<List<String>>(value = emptyList())
     val lateUsers: StateFlow<List<String>> get() = _lateUsers
 
@@ -130,6 +133,9 @@ class MyPromiseRoomViewModel(
 
     private val _hasDeparture = MutableStateFlow<Map<String, Boolean>>(emptyMap())
     val hasDeparture: StateFlow<Map<String, Boolean>> get() = _hasDeparture
+
+    private val _widgetDeparture = MutableLiveData<Pair<String, Boolean>>()
+    val widgetDeparture: LiveData<Pair<String, Boolean>> get() = _widgetDeparture
 
     private val _isDeparture = Channel<Boolean>()
     val isDeparture = _isDeparture.receiveAsFlow()
@@ -142,6 +148,12 @@ class MyPromiseRoomViewModel(
 
     init {
         viewModelScope.launch {
+            launch {
+                widgetFlow.collect {
+                    Log.d("확인 widgetflow", "${it}")
+                    isThisWidget = true
+                }
+            }
             savedStateHandle.get<PromiseModel>("promiseRoom")?.let {
                 _promiseRoom.value = it
                 if (CurrentUser.userData == null) {
@@ -158,9 +170,6 @@ class MyPromiseRoomViewModel(
                 }
             } ?: run {
                 sendWrongAccessMessage("다시 시도해 주세요.")
-            }
-            widgetFlow.collect {
-                isThisWidget = true
             }
         }
     }
@@ -281,6 +290,7 @@ class MyPromiseRoomViewModel(
     fun updateRemainingDistance(distance: Double) {
         _distanceDouble.value = distance
     }
+
     private fun calculateIsIn200Meters(distance: Double) {
         val uid = CurrentUser.userData?.uId
         if (distance <= 0.2 && hasArrived.value[uid] != true) { // 200m
@@ -503,8 +513,16 @@ class MyPromiseRoomViewModel(
                 val currentArrivals = _hasArrived.value.toMutableMap()
                 currentArrivals[uid] = true
                 _hasArrived.value = currentArrivals.toMap()
+                Log.d("확인 도착버튼 has", "${hasArrived.value}")
 
                 //
+                if (isThisWidget) {
+                    val pairs = Pair<String, Boolean>(uid, true)
+                    _widgetArrived.value = pairs
+                    Log.d("확인 pairs", "${pairs.first}")
+                    Log.d("확인 pairs", "${pairs.second}")
+                    Log.d("확인 도착버튼 widget", "${widgetArrived.value}")
+                }
             }.catch {
                 sendWrongAccessMessage("다시 시도해 주세요.")
             }.collect()
@@ -576,16 +594,26 @@ class MyPromiseRoomViewModel(
         viewModelScope.launch {
             val roomId = _promiseRoom.value?.roomId ?: return@launch
             val uid = CurrentUser.userData?.uId ?: return@launch
-
-            //
-
             updateDepartureStatusUseCase(roomId, uid).collect { success ->
                 if (success) {
                     val currentDeparture = _hasDeparture.value.toMutableMap()
                     currentDeparture[uid] = true
+                    Log.d("확인 current departure", "${currentDeparture}")
                     _hasDeparture.value = currentDeparture.toMap()
-                    _isDeparture.send(element = true)
                     Log.d("MyPromiseRoomViewModel", "Updated Departure Status: true")
+                    Log.d("확인 출발버튼 has", "${hasDeparture.value}")
+
+                    Log.d("확인 isthiswidget", "${isThisWidget}")
+                    if (isThisWidget) {
+                        // TODO 여기 수정하기 shared
+                        val pairs = Pair<String, Boolean>(uid, true)
+                        _widgetDeparture.value = pairs
+                        Log.d("확인 pairs", "${pairs.first}")
+                        Log.d("확인 pairs", "${pairs.second}")
+                        Log.d("확인 출발버튼 widget", "${widgetDeparture.value}")
+                    }
+                    _isDeparture.send(element = true)
+
                 } else {
                     Log.d("MyPromiseRoomViewModel", "Failed to update departure status")
                 }
@@ -595,11 +623,13 @@ class MyPromiseRoomViewModel(
 
     private fun setInitialDepartureStatus() {
         val uid = CurrentUser.userData?.uId
+        Log.d("확인 uid", "$uid")
         val departureStatus = _promiseRoom.value?.hasDeparture?.get(uid) ?: false
-        Log.d("MyPromiseRoomViewModel2", "Initial Departure Status: ${departureStatus}")
+        Log.d("확인 pref room", "${promiseRoom.value?.hasDeparture?.get(uid)}")
+        Log.d("MyPromiseRoomViewModel2 1", "Initial Departure Status: ${departureStatus}")
 
         isDeparted = departureStatus
-        Log.d("MyPromiseRoomViewModel2", "Initial Departure Status: ${_departureStatus.value}")
+        Log.d("MyPromiseRoomViewModel2 2", "Initial Departure Status: ${_departureStatus.value}")
     }
 
 }

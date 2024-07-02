@@ -97,6 +97,12 @@ class MyPromiseListFragment : Fragment() {
         }
     }
 
+    //TODO 채명님 RoomId로 정보들 검색해 가져와서 room 열게 부탁드립니당
+//    fun getPromiseModel(roomId: String){
+//        promiseModel
+//        openPromiseRoomFragment(promiseModel)
+//    }
+
     private fun openPromiseRoomFragment(roomInfo: PromiseModel) {
         val fragment = MyPromiseRoomFragment()
         val bundle = Bundle()

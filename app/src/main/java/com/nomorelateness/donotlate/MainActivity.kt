@@ -88,6 +88,7 @@ class MainActivity : AppCompatActivity() {
     private fun openPromiseRoomFragment(roomInfo: PromiseModel) {
         val fragment = MyPromiseRoomFragment()
         val bundle = Bundle()
+        Log.d("확인 intent 전체", "${roomInfo}")
         bundle.putParcelable("promiseRoom", roomInfo)
         bundle.putBoolean("isWidget", true)
         fragment.arguments = bundle
