@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.nomorelateness.donotlate.core.domain.session.SessionManager
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.ClearAllConsumptionsUseCase
 import com.nomorelateness.donotlate.feature.main.presentation.model.Result
 import com.nomorelateness.donotlate.feature.setting.domain.usecase.DeleteUserUseCase
 import kotlinx.coroutines.channels.Channel
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
 class SettingsViewModel(
     private val sessionManager: SessionManager,
     private val deleteUserUseCase: DeleteUserUseCase,
+    private val clearAllConsumptionsUseCase: ClearAllConsumptionsUseCase
 ) : ViewModel() {
     private val _channel = Channel<SettingsEvent> { }
     val channel = _channel.receiveAsFlow()
@@ -20,6 +22,7 @@ class SettingsViewModel(
         viewModelScope.launch {
             try {
                 sessionManager.logOut()
+                clearAllConsumptionsUseCase.invoke()
                 _channel.send(element = SettingsEvent.LoggedOut)
             } catch (e: Exception) {
                 _channel.send(
@@ -63,6 +66,7 @@ sealed interface SettingsEvent {
 class SettingsViewModelFactory(
     private val sessionManager: SessionManager,
     private val deleteUserUseCase: DeleteUserUseCase,
+    private val clearAllConsumptionsUseCase: ClearAllConsumptionsUseCase
 ) :
     ViewModelProvider.Factory {
 
@@ -71,7 +75,8 @@ class SettingsViewModelFactory(
             @Suppress("UNCHECKED_CAST")
             return SettingsViewModel(
                 sessionManager = sessionManager,
-                deleteUserUseCase = deleteUserUseCase
+                deleteUserUseCase = deleteUserUseCase,
+                clearAllConsumptionsUseCase = clearAllConsumptionsUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

@@ -127,13 +127,24 @@ dependencies {
     implementation(libs.circleimageview)
 
     //polyline?
-    implementation("com.google.maps.android:android-maps-utils:2.2.3")
+    implementation(libs.android.maps.utils)
 
     //스켈레톤 UI
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
     //lottie 애니메이션
     implementation("com.airbnb.android:lottie:5.0.2")
+
+    implementation(libs.androidx.core.ktx.v170)
+    implementation(libs.androidx.appcompat.v141)
+    implementation(libs.material.v150)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.fragment.ktx.v141)
+    implementation(libs.androidx.viewbinding)
+
+    implementation(libs.gson.v288)
+
 }
 
 

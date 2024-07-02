@@ -17,7 +17,8 @@
         android:src="@drawable/ic_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_decoration"/>
 
     <TextView
         android:id="@+id/title"
@@ -62,7 +63,7 @@
         android:layout_height="48dp"
         android:background="@drawable/bg_radius_lightblue"
         android:backgroundTint="@color/colorMain1"
-        android:text="이메일 재전송"
+        android:text="@string/dialog_email_confirm_text3"
         android:textAllCaps="false"
         android:textColor="@color/textColor"
         android:textSize="18sp"
@@ -82,7 +83,7 @@
         android:background="@drawable/bg_radius_lightblue"
         android:backgroundTint="@color/colorMain2"
         android:minWidth="150dp"
-        android:text="회원탈퇴"
+        android:text="@string/dialog_email_confirm_text4"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -99,5 +100,6 @@
         android:layout_marginTop="10dp"
         android:src="@android:drawable/ic_delete"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_back"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

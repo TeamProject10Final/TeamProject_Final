@@ -316,6 +316,10 @@
     <string name="toast_login_text2">Sign up successful!</string>
     <string name="toast_login_text3">Sign up failed!</string>
 
+    <!-- 튜토리얼 페이지 -->
+    <string name="tuto_skip">skip</string>
+    <string name="tuto_start">start</string>
+
 
     <!--법령-->
     <string name="info">

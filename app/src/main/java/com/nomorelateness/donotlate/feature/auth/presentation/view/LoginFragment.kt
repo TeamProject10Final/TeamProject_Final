@@ -1,5 +1,6 @@
 package com.nomorelateness.donotlate.feature.auth.presentation.view
 
+import android.content.Context
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -17,6 +18,7 @@ import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hi
 import com.nomorelateness.donotlate.databinding.FragmentLoginBinding
 import com.nomorelateness.donotlate.feature.auth.presentation.dialog.EmailConfirmDialogFragment
 import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
+import com.nomorelateness.donotlate.feature.tutorial.TutorialViewPagerFragment
 import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
@@ -40,7 +42,6 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentLoginBinding.bind(view)
         initViews()
-        collectFlows()
 
         binding.root.setOnClickListener {
             hideKeyboard(binding.root.windowToken)
@@ -133,6 +134,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
                     val email = binding.etLoginEmail.text.toString()
                     val password = binding.etLoginPassword.text.toString()
                     logInViewModel.logIn(email = email, password = password)
+                    checkFirst()
                     hideKeyboard(binding.root.windowToken)
                 }
 
@@ -169,6 +171,25 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
 
                 else -> Unit
             }
+        }
+    }
+
+    private fun checkFirst() {
+        val sharedPref =
+            activity?.getSharedPreferences("checkFirst", Context.MODE_PRIVATE) ?: return
+        val sharedprefValue = sharedPref.getBoolean("checkFirst", false)
+
+        if (!sharedprefValue) {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame, TutorialViewPagerFragment())
+                .commit()
+            with(sharedPref.edit()) {
+                putBoolean("checkFirst", true)
+                apply()
+
+            }
+        } else {
+            collectFlows()
         }
     }
 }

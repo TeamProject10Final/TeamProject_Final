@@ -36,7 +36,8 @@ class CalculationFragment1 : Fragment(R.layout.fragment_calculation1), DatePicke
         SharedViewModelFactory(
             appContainer.insertConsumptionUseCase,
             appContainer.deleteConsumptionUseCase,
-            appContainer.getDataCountUseCase
+            appContainer.getDataCountUseCase,
+            appContainer.insertConsumptionDataToFirebaseUseCase
         )
     }
 

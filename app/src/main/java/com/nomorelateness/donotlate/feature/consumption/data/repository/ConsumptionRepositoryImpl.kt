@@ -107,4 +107,8 @@ class ConsumptionRepositoryImpl(val context: Context) : ConsumptionRepository {
         )
         roomDao.updateData(roomData)
     }
+
+    override suspend fun ClearAllConsumptions() {
+        roomDao.clearAll()
+    }
 }

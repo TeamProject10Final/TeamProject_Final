@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.nomorelateness.donotlate.core.domain.session.SessionManager
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.SignUpUseCase
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
@@ -22,17 +22,17 @@ class SignUpViewModel(
     private val _signUpResult = MutableLiveData<Result<String>>()
     val signUpResult: LiveData<Result<String>> get() = _signUpResult
 
-    private val _eventFlow = MutableSharedFlow<SignUpEvent>()
-    val eventFlow: SharedFlow<SignUpEvent> get() = _eventFlow
+    private val _eventFlow = Channel<SignUpEvent> { }
+    val eventFlow = _eventFlow.receiveAsFlow()
 
     fun signUp(name: String, email: String, password: String) {
         viewModelScope.launch {
             val result = signUpUseCase(name, email, password)
             _signUpResult.value = result
             if (result.isSuccess) {
-                _eventFlow.emit(SignUpEvent.SignUpSuccess)
+                _eventFlow.send(SignUpEvent.SignUpSuccess)
             } else {
-                _eventFlow.emit(SignUpEvent.SignUpFail)
+                _eventFlow.send(SignUpEvent.SignUpFail("회원가입에 실패하였습니다."))
             }
         }
     }
@@ -88,7 +88,7 @@ class SignUpViewModel(
         }
     }
 
-    fun nullCheck(text: String): Boolean {
+    private fun nullCheck(text: String): Boolean {
         return text.isEmpty()
     }
 
@@ -110,35 +110,35 @@ class SignUpViewModel(
             )
         ) {
             viewModelScope.launch {
-                _eventFlow.emit(SignUpEvent.ValidationError("모든 필드를 입력하세요."))
+                _eventFlow.send(SignUpEvent.SignUpFail("모든 필드를 입력하세요."))
             }
             return
         }
 
         if (!checkName(name, nameCheck)) {
             viewModelScope.launch {
-                _eventFlow.emit(SignUpEvent.ValidationError("유효하지 않은 이름입니다."))
+                _eventFlow.send(SignUpEvent.SignUpFail("유효하지 않은 이름입니다."))
             }
             return
         }
 
         if (!checkEmail(email, emailCheck)) {
             viewModelScope.launch {
-                _eventFlow.emit(SignUpEvent.ValidationError("유효하지 않은 이메일입니다."))
+                _eventFlow.send(SignUpEvent.SignUpFail("유효하지 않은 이메일입니다."))
             }
             return
         }
 
         if (!checkPw(password, passwordCheck)) {
             viewModelScope.launch {
-                _eventFlow.emit(SignUpEvent.ValidationError("비밀번호는 8~20자 영문과 숫자 조합이어야 합니다."))
+                _eventFlow.send(SignUpEvent.SignUpFail("비밀번호는 8~20자 영문과 숫자 조합이어야 합니다."))
             }
             return
         }
 
         if (!checkConfirmPw(password, confirmPw, confirmCheck)) {
             viewModelScope.launch {
-                _eventFlow.emit(SignUpEvent.ValidationError("비밀번호가 일치하지 않습니다."))
+                _eventFlow.send(SignUpEvent.SignUpFail("비밀번호가 일치하지 않습니다."))
             }
             return
         }
@@ -147,10 +147,9 @@ class SignUpViewModel(
     }
 }
 
-sealed class SignUpEvent {
-    object SignUpSuccess : SignUpEvent()
-    object SignUpFail : SignUpEvent()
-    data class ValidationError(val message: String) : SignUpEvent()
+sealed interface SignUpEvent {
+    data object SignUpSuccess : SignUpEvent
+    data class SignUpFail(val message: String) : SignUpEvent
 }
 
 class SignUpViewmodelFactory(
