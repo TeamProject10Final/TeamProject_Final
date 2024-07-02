@@ -1,6 +1,8 @@
 package com.nomorelateness.donotlate
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.gson.Gson
 import com.nomorelateness.donotlate.databinding.ActivityMainBinding
 import com.nomorelateness.donotlate.feature.auth.presentation.view.LoginFragment
 import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
+import com.nomorelateness.donotlate.feature.mypromise.presentation.model.PromiseModel
+import com.nomorelateness.donotlate.feature.mypromise.presentation.view.MyPromiseListFragment
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         collectFlows()
 
+        handleIntent(intent)
     }
 
     private fun collectFlows() {
@@ -53,6 +59,36 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent) {
+        val promiseJson = intent.getStringExtra("promiseRoom")
+        if (promiseJson != null) {
+            Log.d("확인 인텐트", "${promiseJson}")
+            val promiseModel = Gson().fromJson(promiseJson, PromiseModel::class.java)
+            openPromiseRoomFragment(promiseModel)
+            // Intent 데이터를 초기화하여 다시 앱이 열릴 때 자동으로 이동하지 않게 함
+            intent.removeExtra("promiseRoom")
+        }
+    }
+
+    private fun openPromiseRoomFragment(roomInfo: PromiseModel) {
+        val fragment = MyPromiseListFragment()
+
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.fade_out,
+            )
+            .replace(R.id.frame, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun navigateToMainScreen() {

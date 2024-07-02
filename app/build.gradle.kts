@@ -127,9 +127,18 @@ dependencies {
     implementation(libs.circleimageview)
 
     //polyline?
-    implementation("com.google.maps.android:android-maps-utils:2.2.3")
+    implementation(libs.android.maps.utils)
 
 
+    implementation(libs.androidx.core.ktx.v170)
+    implementation(libs.androidx.appcompat.v141)
+    implementation(libs.material.v150)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.fragment.ktx.v141)
+    implementation(libs.androidx.viewbinding)
+
+    implementation(libs.gson.v288)
 }
 
 

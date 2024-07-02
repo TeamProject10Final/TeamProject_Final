@@ -100,6 +100,9 @@ class MyPromiseRoomViewModel(
     private val _distanceStatus = MutableStateFlow<DistanceState>(value = DistanceState.Nothing)
     val distanceStatus: StateFlow<DistanceState> = _distanceStatus
 
+    private val _distanceDouble = MutableLiveData<Double>(0.0)
+    val distanceDouble: LiveData<Double> get() = _distanceDouble
+
     //임시
     private val _removeParticipantIdResult = MutableStateFlow<Boolean?>(null)
     val removeParticipantIdResult: StateFlow<Boolean?> get() = _removeParticipantIdResult
@@ -264,9 +267,13 @@ class MyPromiseRoomViewModel(
             val destinationBetween = earthRadius * c
             Log.d("확인 거리", "$destinationBetween")
             calculateIsIn200Meters(distance = destinationBetween)
+            updateRemainingDistance(destinationBetween)
         }
     }
 
+    fun updateRemainingDistance(distance: Double) {
+        _distanceDouble.value = distance
+    }
     private fun calculateIsIn200Meters(distance: Double) {
         val uid = CurrentUser.userData?.uId
         if (distance <= 0.2 && hasArrived.value[uid] != true) { // 200m
@@ -279,6 +286,14 @@ class MyPromiseRoomViewModel(
             } else {
                 _distanceStatus.value = DistanceState.NotDeparted
             }
+        }
+    }
+
+    fun getButtonText(): String {
+        return if ((_distanceDouble.value ?: Double.MAX_VALUE) <= 20.0) {
+            "도착"
+        } else {
+            "위치공유"
         }
     }
 
