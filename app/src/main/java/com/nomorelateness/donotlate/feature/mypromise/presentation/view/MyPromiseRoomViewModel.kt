@@ -169,7 +169,7 @@ class MyPromiseRoomViewModel(
 
                 }
             } ?: run {
-                sendWrongAccessMessage("다시 시도해 주세요.")
+                sendWrongAccessMessage("다시 시도해 주세요. 1")
             }
         }
     }
@@ -498,7 +498,7 @@ class MyPromiseRoomViewModel(
             removeParticipantsUseCase(roomId = roomId, participantId = uid).onEach {
                 _removeParticipantIdResult.value = it
             }.catch {
-                sendWrongAccessMessage("다시 시도해 주세요.")
+                sendWrongAccessMessage("다시 시도해 주세요.3")
             }.collect()
         }
     }
@@ -524,7 +524,7 @@ class MyPromiseRoomViewModel(
                     Log.d("확인 도착버튼 widget", "${widgetArrived.value}")
                 }
             }.catch {
-                sendWrongAccessMessage("다시 시도해 주세요.")
+                sendWrongAccessMessage("다시 시도해 주세요.4")
             }.collect()
         }
 

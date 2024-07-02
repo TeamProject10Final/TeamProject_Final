@@ -1,7 +1,9 @@
 package com.nomorelateness.donotlate.feature.widget
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
-import android.util.Log
+import android.content.Intent
 import com.google.gson.Gson
 import com.nomorelateness.donotlate.feature.mypromise.presentation.model.PromiseModel
 
@@ -15,6 +17,9 @@ object SharedPreferencesHelper {
         val promiseJson = Gson().toJson(promise)
         editor.putString(KEY_PROMISE, promiseJson)
         editor.apply()
+
+        // 위젯 업데이트 트리거
+        triggerWidgetUpdate(context)
     }
 
     fun getPromise(context: Context): PromiseModel? {
@@ -25,6 +30,16 @@ object SharedPreferencesHelper {
         } else {
             null
         }
+    }
+
+    private fun triggerWidgetUpdate(context: Context) {
+        val intent = Intent(context, WidgetProvider::class.java).apply {
+            action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+        }
+        val ids = AppWidgetManager.getInstance(context)
+            .getAppWidgetIds(ComponentName(context, WidgetProvider::class.java))
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        context.sendBroadcast(intent)
     }
 
     fun updateHasArrived(context: Context, userId: String, hasArrived: Boolean) {
@@ -39,13 +54,11 @@ object SharedPreferencesHelper {
 
     fun updateHasDeparture(context: Context, userId: String, hasDeparture: Boolean) {
         val currentPromise = getPromise(context)
-        Log.d("확인 getPromise", "${currentPromise}")
         if (currentPromise != null) {
             val updatedHasDeparture = currentPromise.hasDeparture.toMutableMap()
             updatedHasDeparture[userId] = hasDeparture
             val updatedPromise = currentPromise.copy(hasDeparture = updatedHasDeparture)
             savePromise(context, updatedPromise)
-            Log.d("확인 pref departure", "${updatedPromise}")
         }
     }
 }
