@@ -8,14 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nomorelateness.donotlate.databinding.ItemRvMyPromiseBinding
 import com.nomorelateness.donotlate.feature.mypromise.presentation.model.PromiseModel
 
-class MyPromiseAdapter(private val onItemClick: (PromiseModel) -> Unit) :
+class MyPromiseAdapter(
+    private val onItemClick: (PromiseModel) -> Unit,
+    private val onItemLongClick: (PromiseModel) -> Unit
+) :
     ListAdapter<PromiseModel, MyPromiseAdapter.MyPromiseViewHolder>(DiffCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPromiseViewHolder {
         val binding =
             ItemRvMyPromiseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyPromiseViewHolder(binding, onItemClick)
+        return MyPromiseViewHolder(binding, onItemClick, onItemLongClick)
     }
 
     override fun onBindViewHolder(holder: MyPromiseViewHolder, position: Int) {
@@ -25,7 +28,8 @@ class MyPromiseAdapter(private val onItemClick: (PromiseModel) -> Unit) :
 
     class MyPromiseViewHolder(
         private val binding: ItemRvMyPromiseBinding,
-        private val onItemClick: (PromiseModel) -> Unit
+        private val onItemClick: (PromiseModel) -> Unit,
+        private val onItemLongClick: (PromiseModel) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: PromiseModel) {
@@ -34,6 +38,11 @@ class MyPromiseAdapter(private val onItemClick: (PromiseModel) -> Unit) :
             binding.root.setOnClickListener {
                 onItemClick(item)
             }
+            binding.root.setOnLongClickListener {
+                onItemLongClick(item)
+                true // true를 반환하여 이벤트 소비된거 알리기
+            }
+
         }
 
 
