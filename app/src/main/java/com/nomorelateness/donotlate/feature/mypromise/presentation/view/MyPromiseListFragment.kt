@@ -66,6 +66,7 @@ class MyPromiseListFragment : Fragment() {
         },
             onItemLongClick = { promiseRoom ->
                 myPromiseListViewModel.updateSelectedPromise(promiseRoom)
+                //TODO @재현님 위젯에 설정하겠냐고 다이얼로그로 물어봐주세요
             })
         binding.rvMyPromise.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvMyPromise.adapter = adapter
