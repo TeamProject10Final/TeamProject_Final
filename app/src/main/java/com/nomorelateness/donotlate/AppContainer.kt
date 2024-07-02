@@ -28,7 +28,12 @@ import com.nomorelateness.donotlate.feature.auth.domain.useCase.SendEmailVerific
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.SignUpUseCase
 import com.nomorelateness.donotlate.feature.auth.presentation.view.LogInViewModelFactory
 import com.nomorelateness.donotlate.feature.consumption.data.repository.ConsumptionRepositoryImpl
+import com.nomorelateness.donotlate.feature.consumption.data.repository.ConsumptionRepositoryImpl2
 import com.nomorelateness.donotlate.feature.consumption.domain.repository.ConsumptionRepository
+import com.nomorelateness.donotlate.feature.consumption.domain.repository.ConsumptionRepository2
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.ClearAllConsumptionsUseCase
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.ConsumptionDataSyncUseCase
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.DeleteConsumptionDataFromFirebaseUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.DeleteConsumptionUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetConsumptionByCategoryUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetConsumptionByIdUseCase
@@ -38,8 +43,10 @@ import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetFinish
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetLiveDataCountUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetTotalPriceUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetUnfinishedConsumptionUseCase
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.InsertConsumptionDataToFirebaseUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.InsertConsumptionUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.ToggleIsFinishedUseCase
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.UpdateFinishedFromFirebaseUseCase
 import com.nomorelateness.donotlate.feature.consumption.presentation.ConsumptionViewModelFactory
 import com.nomorelateness.donotlate.feature.consumption.presentation.SharedViewModelFactory
 import com.nomorelateness.donotlate.feature.directionRoute.api.RouteNetworkClient
@@ -269,6 +276,10 @@ class AppContainer {
         UserRepositoryImpl(firebaseFireStore, firebaseAuth)
     }
 
+    private val consumptionRepository2: ConsumptionRepository2 by lazy {
+        ConsumptionRepositoryImpl2(firebaseFireStore, firebaseAuth)
+    }
+
     val removeParticipantsUseCase: RemoveParticipantsUseCase by lazy {
         RemoveParticipantsUseCase(promiseRoomRepository)
     }
@@ -295,6 +306,27 @@ class AppContainer {
 
     val deleteUseCase: DeleteUseCase by lazy {
         DeleteUseCase(authRepository)
+    }
+
+    val deleteConsumptionFromFirebaseUseCase: DeleteConsumptionDataFromFirebaseUseCase by lazy {
+        DeleteConsumptionDataFromFirebaseUseCase(repository2 = consumptionRepository2)
+    }
+
+    val insertConsumptionDataToFirebaseUseCase: InsertConsumptionDataToFirebaseUseCase by lazy {
+        InsertConsumptionDataToFirebaseUseCase(repository2 = consumptionRepository2)
+    }
+
+    val updateFriendsListFromFirebaseUseCase: UpdateFinishedFromFirebaseUseCase by lazy {
+        UpdateFinishedFromFirebaseUseCase(repository2 = consumptionRepository2)
+    }
+    val clearAllConsumptionsUseCase: ClearAllConsumptionsUseCase by lazy {
+        ClearAllConsumptionsUseCase(repository = consumptionRepository)
+    }
+    val consumptionDataSyncUseCase: ConsumptionDataSyncUseCase by lazy {
+        ConsumptionDataSyncUseCase(
+            repository = consumptionRepository,
+            repository2 = consumptionRepository2
+        )
     }
 
 }
@@ -355,7 +387,8 @@ class CalculationContainer(
 //    val getConsumptionByIdUseCase: GetConsumptionByIdUseCase,
 //    val getConsumptionDataUseCase: GetConsumptionDataUseCase,
 //    val getTotalPriceUseCase: GetTotalPriceUseCase,
-    val getDataCountUseCase: GetDataCountUseCase
+    val getDataCountUseCase: GetDataCountUseCase,
+    val insertConsumptionDataToFirebaseUseCase: InsertConsumptionDataToFirebaseUseCase
 ) {
     val sharedViewModelFactory = SharedViewModelFactory(
 //        consumptionRepository,
@@ -367,7 +400,8 @@ class CalculationContainer(
 //        getConsumptionByIdUseCase,
 //        getConsumptionDataUseCase,
 //        getTotalPriceUseCase,
-        getDataCountUseCase
+        getDataCountUseCase,
+        insertConsumptionDataToFirebaseUseCase
     )
 }
 
@@ -383,7 +417,11 @@ class ConsumptionContainer(
     val getDataCountUseCase: GetDataCountUseCase,
     val getLiveDataCountUseCase: GetLiveDataCountUseCase,
     val toggleIsFinishedUseCase: ToggleIsFinishedUseCase,
-    val getCurrentUserDataUseCase: GetCurrentUserDataUseCase
+    val getCurrentUserDataUseCase: GetCurrentUserDataUseCase,
+    val deleteConsumptionFromFirebaseUseCase: DeleteConsumptionDataFromFirebaseUseCase,
+    val insertConsumptionDataToFirebaseUseCase: InsertConsumptionDataToFirebaseUseCase,
+    val updateFriendsListFromFirebaseUseCase: UpdateFinishedFromFirebaseUseCase,
+    val consumptionDataSyncUseCase: ConsumptionDataSyncUseCase
 ) {
     val consumptionViewModelFactory = ConsumptionViewModelFactory(
         getFinishedConsumptionUseCase,
@@ -397,7 +435,11 @@ class ConsumptionContainer(
         getDataCountUseCase,
         getLiveDataCountUseCase,
         toggleIsFinishedUseCase,
-        getCurrentUserDataUseCase
+        getCurrentUserDataUseCase,
+        deleteConsumptionFromFirebaseUseCase,
+        insertConsumptionDataToFirebaseUseCase,
+        updateFriendsListFromFirebaseUseCase,
+        consumptionDataSyncUseCase
     )
 }
 

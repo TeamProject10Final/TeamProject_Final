@@ -8,8 +8,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.Timestamp
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.DeleteConsumptionUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetDataCountUseCase
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.InsertConsumptionDataToFirebaseUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.InsertConsumptionUseCase
 import com.nomorelateness.donotlate.feature.consumption.presentation.ConsumptionActivity.Companion.addCommas
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -27,11 +29,12 @@ constructor(
 //    private val getConsumptionByIdUseCase: GetConsumptionByIdUseCase,
 //    private val getConsumptionDataUseCase: GetConsumptionDataUseCase,
 //    private val getTotalPriceUseCase: GetTotalPriceUseCase,
-    private val getDataCountUseCase: GetDataCountUseCase
+    private val getDataCountUseCase: GetDataCountUseCase,
+    private val insertConsumptionDataToFirebaseUseCase: InsertConsumptionDataToFirebaseUseCase
 ) : ViewModel() {
 
-    private val _historyId = MutableLiveData<Int>()
-    val historyId: LiveData<Int> = _historyId
+    private val _historyId = MutableLiveData<String>()
+    val historyId: LiveData<String> = _historyId
 
     private val _detail = MutableLiveData<String?>()
     val detail: LiveData<String?> = _detail
@@ -81,9 +84,10 @@ constructor(
 
     init {
         //historyId 는 database의 개수 세어서 넣기!!!!
-        viewModelScope.launch {
-            _historyId.value = getDataCountUseCase()
-        }
+//        viewModelScope.launch {
+//            _historyId.value = getDataCountUseCase()
+//        }
+        _historyId.value = Timestamp.now().toString()
         _detail.value = null
         _date.value = null
         _category.value = null
@@ -172,30 +176,30 @@ constructor(
     fun setPenaltyNumber(input: String) {
         _penaltyNumberString.value = input
     }
-
-    fun insertConsumption(consumption: ConsumptionModel) {
-        viewModelScope.launch {
-            try {
-                insertConsumptionUseCase(consumption.toEntity())
-            } catch (e: Exception) {
-                _errorState.emit("Failed to insert consumption: ${e.message}")
-            }
-        }
-    }
-
-    fun deleteConsumption(consumption: ConsumptionModel) {
-        viewModelScope.launch {
-            try {
-                deleteConsumptionUseCase(consumption.toEntity())
-            } catch (e: Exception) {
-                _errorState.emit("Failed to delete consumption: ${e.message}")
-            }
-        }
-    }
+//
+//    fun insertConsumption(consumption: ConsumptionModel) {
+//        viewModelScope.launch {
+//            try {
+//                insertConsumptionUseCase(consumption.toEntity())
+//            } catch (e: Exception) {
+//                _errorState.emit("Failed to insert consumption: ${e.message}")
+//            }
+//        }
+//    }
+//
+//    fun deleteConsumption(consumption: ConsumptionModel) {
+//        viewModelScope.launch {
+//            try {
+//                deleteConsumptionUseCase(consumption.toEntity())
+//            } catch (e: Exception) {
+//                _errorState.emit("Failed to delete consumption: ${e.message}")
+//            }
+//        }
+//    }
 
     fun saveConsumption(context: Context) {
         val newConsumption = ConsumptionModel(
-            _historyId.value ?: 0,
+            _historyId.value ?: "",
             _detail.value ?: "",
             _date.value ?: "",
             _category.value ?: "",
@@ -207,8 +211,20 @@ constructor(
             _isFinished.value ?: false
         ).toEntity()
         viewModelScope.launch {
+            Log.d("확인 히스토리", " ${_historyId.value}")
             try {
                 insertConsumptionUseCase(newConsumption)
+                Log.d("SharedViewModel", "Inserting consumption into Firestore")
+                insertConsumptionDataToFirebaseUseCase(
+                    newConsumption.toModel().toFirebaseConsumptionModel().toEntity()
+                ).collect { result ->
+                    result.onSuccess {
+                        Log.d("SharedViewModel", "Consumption saved to Firestore successfully")
+                    }.onFailure { e ->
+                        Log.e("SharedViewModel", "Failed to save consumption to Firestore", e)
+                        _error.postValue(e.message)
+                    }
+                }
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }
@@ -307,7 +323,8 @@ constructor(
 class SharedViewModelFactory(
     private val insertConsumptionUseCase: InsertConsumptionUseCase,
     private val deleteConsumptionUseCase: DeleteConsumptionUseCase,
-    private val getDataCountUseCase: GetDataCountUseCase
+    private val getDataCountUseCase: GetDataCountUseCase,
+    private val insertConsumptionDataToFirebaseUseCase: InsertConsumptionDataToFirebaseUseCase
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -315,7 +332,8 @@ class SharedViewModelFactory(
             return SharedViewModel(
                 insertConsumptionUseCase,
                 deleteConsumptionUseCase,
-                getDataCountUseCase
+                getDataCountUseCase,
+                insertConsumptionDataToFirebaseUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

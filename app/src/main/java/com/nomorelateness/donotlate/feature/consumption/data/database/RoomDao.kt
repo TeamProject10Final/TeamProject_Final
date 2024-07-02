@@ -39,4 +39,7 @@ interface RoomDao {
 
     @Update
     suspend fun updateData(roomData: RoomEntity)
+
+    @Query("DELETE FROM calculation_history")
+    suspend fun clearAll()
 }
