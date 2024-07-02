@@ -230,7 +230,9 @@
     <string name="search_detail_btn_text">Get Directions</string>
 
     <!--설정 페이지-->
-    <string name="preference_file_key" translatable="false">darkModeOff</string>
+    <string name="preference_darkMode_key" translatable="false">darkModeOff</string>
+    <string name="preference_loading_key" translatable="false">1</string>
+
     <string name="setting_text1">Setting</string>
     <string name="setting_text2">Profile settings</string>
     <string name="setting_text3">App settings</string>

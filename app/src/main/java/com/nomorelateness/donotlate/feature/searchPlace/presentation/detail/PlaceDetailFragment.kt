@@ -135,9 +135,9 @@ class PlaceDetailFragment : Fragment(), OnMapReadyCallback {
     //투명 배경 없애기
     private fun initBackground() {
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
-        val sharedPrefValue = resources.getString(R.string.preference_file_key)
+        val sharedPrefValue = resources.getString(R.string.preference_darkMode_key)
         val darkModeValue =
-            sharedPref.getString(getString(R.string.preference_file_key), sharedPrefValue)
+            sharedPref.getString(getString(R.string.preference_darkMode_key), sharedPrefValue)
 
         if (darkModeValue == "darkModeOn") {
             binding.constraint.setBackgroundColor(Color.BLACK)

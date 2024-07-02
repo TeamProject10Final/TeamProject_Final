@@ -26,56 +26,95 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
+                android:contentDescription="@string/image_setting"
                 android:src="@drawable/ic_settings"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/image_setting"/>
-
-<!--            <ImageView-->
-<!--                android:id="@+id/iv_Main_Notification"-->
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:layout_margin="10dp"-->
-<!--                android:src="@drawable/ic_notification"-->
-<!--                app:layout_constraintEnd_toStartOf="@id/iv_Main_Setting"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                android:contentDescription="@string/image_notification"/>-->
-
-
-            <TextView
-                android:id="@+id/tv_Main1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="40dp"
-                android:text="@string/main_top_title1"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_Main_Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="33dp"
-                android:text=""
-                android:textSize="35sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/tv_Main1"
-                app:layout_constraintTop_toTopOf="@id/tv_Main1" />
+            <!--            <ImageView-->
+            <!--                android:id="@+id/iv_Main_Notification"-->
+            <!--                android:layout_width="30dp"-->
+            <!--                android:layout_height="30dp"-->
+            <!--                android:layout_margin="10dp"-->
+            <!--                android:src="@drawable/ic_notification"-->
+            <!--                app:layout_constraintEnd_toStartOf="@id/iv_Main_Setting"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"-->
+            <!--                android:contentDescription="@string/image_notification"/>-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <TextView
+                    android:id="@+id/tv_Main1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/main_top_title1"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_Main2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/main_top_title2"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/tv_Main_Title"
-                app:layout_constraintStart_toEndOf="@id/tv_Main_Title" />
+                <TextView
+                    android:id="@+id/tv_Main_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="33dp"
+                    android:text=""
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tv_Main1"
+                    app:layout_constraintTop_toTopOf="@id/tv_Main1" />
+
+                <TextView
+                    android:id="@+id/tv_Main2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/main_top_title2"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_Main_Title"
+                    app:layout_constraintStart_toEndOf="@id/tv_Main_Title" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/tv_Main12"
+                        android:layout_width="220dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="40dp"
+                        android:backgroundTint="@color/colorMain3"
+                        android:background="@drawable/bg_radius_lightblue"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/tv_Main_Title22"
+                        android:layout_width="220dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_radius_lightblue"
+                        android:backgroundTint="@color/colorMain3"
+                        app:layout_constraintStart_toStartOf="@id/tv_Main12"
+                        app:layout_constraintTop_toBottomOf="@id/tv_Main12" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -86,7 +125,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_Main1">
+            app:layout_constraintTop_toBottomOf="@id/layout_Main1"
+            tools:ignore="ScrollViewCount">
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -95,252 +136,362 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/layout_Main_Room"
-                    android:layout_width="0dp"
-                    android:layout_height="250dp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/btn_radius_arctic"
-                    android:backgroundTint="@color/colorMain1"
-                    android:contentDescription="@string/image_button"
-                    app:layout_constraintEnd_toStartOf="@id/layout_Main_Reservation"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/iv_Main1"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:contentDescription="@string/image_decoration"
-                    android:src="@drawable/ic_main_room"
-                    app:layout_constraintBottom_toTopOf="@+id/textView9"
-                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Room"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@id/layout_Main_Room"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Main_Room" />
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="@string/main_text1"
-                    android:textColor="@color/textColor"
-                    android:textSize="23sp"
-                    app:layout_constraintBottom_toTopOf="@+id/layout_Main_Room"
-                    app:layout_constraintEnd_toEndOf="@id/iv_Main1"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@id/iv_Main1"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_Main1" />
-
-
-                <ImageView
-                    android:id="@+id/layout_Main_Place"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/btn_radius_lilac"
-                    android:backgroundTint="@color/colorMain2"
-                    android:contentDescription="@string/image_button"
-                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Room"
-                    app:layout_constraintStart_toStartOf="@id/layout_Main_Room"
-                    app:layout_constraintTop_toBottomOf="@id/layout_Main_Room" />
-
-                <ImageView
-                    android:id="@+id/iv_Main2"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:contentDescription="@string/image_decoration"
-                    android:src="@drawable/ic_main_location"
-                    app:layout_constraintBottom_toTopOf="@+id/textView13"
-                    app:layout_constraintEnd_toEndOf="@+id/layout_Main_Place"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@id/layout_Main_Place"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Main_Place" />
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="@string/main_text3"
-                    android:textColor="@color/black"
-                    android:textSize="23sp"
-                    app:layout_constraintBottom_toTopOf="@+id/layout_Main_Place"
-                    app:layout_constraintEnd_toEndOf="@id/iv_Main2"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@id/iv_Main2"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_Main2" />
-
-                <ImageView
-                    android:id="@+id/layout_Main_Game"
-                    android:layout_width="0dp"
-                    android:layout_height="170dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/btn_radius_arctic"
-                    android:backgroundTint="@color/colorMain1"
-                    android:contentDescription="@string/image_button"
-                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Place"
-                    app:layout_constraintStart_toStartOf="@id/layout_Main_Place"
-                    app:layout_constraintTop_toBottomOf="@id/layout_Main_Place" />
-
-                <ImageView
-                    android:id="@+id/iv_Main3"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:contentDescription="@string/image_decoration"
-                    android:src="@drawable/ic_main_game"
-                    app:layout_constraintBottom_toTopOf="@+id/textView15"
-                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Game"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@id/layout_Main_Game"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Main_Game" />
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="@string/main_text5"
-                    android:textColor="@color/textColor"
-                    android:textSize="23sp"
-                    app:layout_constraintBottom_toTopOf="@+id/layout_Main_Game"
-                    app:layout_constraintEnd_toEndOf="@id/iv_Main3"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@id/iv_Main3"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_Main3" />
-
-
-                <ImageView
-                    android:id="@+id/layout_Main_Reservation"
-                    android:layout_width="0dp"
-                    android:layout_height="250dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="40dp"
-                    android:background="@drawable/btn_radius_lilac"
-                    android:backgroundTint="@color/colorMain2"
-                    android:contentDescription="@string/image_button"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/layout_Main_Room"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/iv_Main4"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:contentDescription="@string/image_decoration"
-                    android:src="@drawable/ic_main_calendar"
-                    app:layout_constraintBottom_toTopOf="@+id/textView12"
-                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Reservation"
-                    app:layout_constraintStart_toStartOf="@id/layout_Main_Reservation"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Main_Reservation" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="@string/main_text2"
-                    android:textColor="@color/black"
-                    android:textSize="23sp"
-                    app:layout_constraintBottom_toTopOf="@+id/layout_Main_Reservation"
-                    app:layout_constraintEnd_toEndOf="@id/iv_Main4"
-                    app:layout_constraintHorizontal_bias="0.466"
-                    app:layout_constraintStart_toStartOf="@id/iv_Main4"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_Main4" />
-
-
-                <ImageView
-                    android:id="@+id/layout_Main_Settle"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/btn_radius_arctic"
-                    android:backgroundTint="@color/colorMain1"
-                    android:contentDescription="@string/image_button"
-                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Reservation"
-                    app:layout_constraintStart_toStartOf="@id/layout_Main_Reservation"
-                    app:layout_constraintTop_toBottomOf="@id/layout_Main_Reservation" />
-
-                <ImageView
-                    android:id="@+id/iv_Main5"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:contentDescription="@string/image_decoration"
-                    android:src="@drawable/ic_main_money"
-                    app:layout_constraintBottom_toTopOf="@+id/textView14"
-                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Settle"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@id/layout_Main_Settle"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Main_Settle" />
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="@string/main_text4"
-                    android:textColor="@color/textColor"
-                    android:textSize="23sp"
-                    app:layout_constraintBottom_toTopOf="@+id/layout_Main_Settle"
-                    app:layout_constraintEnd_toEndOf="@id/iv_Main5"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@id/iv_Main5"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_Main5" />
-
-                <ImageView
-                    android:id="@+id/layout_Main_Friend"
-                    android:layout_width="0dp"
-                    android:layout_height="170dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/btn_radius_lilac"
-                    android:backgroundTint="@color/colorMain2"
-                    android:contentDescription="@string/image_button"
-                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Settle"
-                    app:layout_constraintStart_toStartOf="@id/layout_Main_Settle"
-                    app:layout_constraintTop_toBottomOf="@id/layout_Main_Settle" />
-
-                <ImageView
-                    android:id="@+id/iv_Main6"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:contentDescription="@string/image_decoration"
-                    android:src="@drawable/ic_main_friend"
-                    app:layout_constraintBottom_toTopOf="@+id/textView16"
-                    app:layout_constraintEnd_toEndOf="@id/layout_Main_Friend"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@id/layout_Main_Friend"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Main_Friend" />
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="@string/main_text6"
-                    android:textColor="@color/black"
-                    android:textSize="23sp"
-                    app:layout_constraintBottom_toTopOf="@+id/layout_Main_Friend"
-                    app:layout_constraintEnd_toEndOf="@id/iv_Main6"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@id/iv_Main6"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_Main6" />
-
-                <View
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint2"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/layout_Main_Game" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/layout_Main_Room"
+                        android:layout_width="0dp"
+                        android:layout_height="250dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/btn_radius_arctic"
+                        android:backgroundTint="@color/colorMain1"
+                        android:contentDescription="@string/image_button"
+                        app:layout_constraintEnd_toStartOf="@id/layout_Main_Reservation"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_Main1"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/image_decoration"
+                        android:src="@drawable/ic_main_room"
+                        app:layout_constraintBottom_toTopOf="@+id/textView9"
+                        app:layout_constraintEnd_toEndOf="@id/layout_Main_Room"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@id/layout_Main_Room"
+                        app:layout_constraintTop_toBottomOf="@+id/layout_Main_Room" />
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="@string/main_text1"
+                        android:textColor="@color/textColor"
+                        android:textSize="23sp"
+                        app:layout_constraintBottom_toTopOf="@+id/layout_Main_Room"
+                        app:layout_constraintEnd_toEndOf="@id/iv_Main1"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@id/iv_Main1"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_Main1" />
+
+
+                    <ImageView
+                        android:id="@+id/layout_Main_Place"
+                        android:layout_width="0dp"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_radius_lilac"
+                        android:backgroundTint="@color/colorMain2"
+                        android:contentDescription="@string/image_button"
+                        app:layout_constraintEnd_toEndOf="@id/layout_Main_Room"
+                        app:layout_constraintStart_toStartOf="@id/layout_Main_Room"
+                        app:layout_constraintTop_toBottomOf="@id/layout_Main_Room" />
+
+                    <ImageView
+                        android:id="@+id/iv_Main2"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/image_decoration"
+                        android:src="@drawable/ic_main_location"
+                        app:layout_constraintBottom_toTopOf="@+id/textView13"
+                        app:layout_constraintEnd_toEndOf="@+id/layout_Main_Place"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@id/layout_Main_Place"
+                        app:layout_constraintTop_toBottomOf="@+id/layout_Main_Place" />
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="@string/main_text3"
+                        android:textColor="@color/black"
+                        android:textSize="23sp"
+                        app:layout_constraintBottom_toTopOf="@+id/layout_Main_Place"
+                        app:layout_constraintEnd_toEndOf="@id/iv_Main2"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@id/iv_Main2"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_Main2" />
+
+                    <ImageView
+                        android:id="@+id/layout_Main_Game"
+                        android:layout_width="0dp"
+                        android:layout_height="170dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_radius_arctic"
+                        android:backgroundTint="@color/colorMain1"
+                        android:contentDescription="@string/image_button"
+                        app:layout_constraintEnd_toEndOf="@id/layout_Main_Place"
+                        app:layout_constraintStart_toStartOf="@id/layout_Main_Place"
+                        app:layout_constraintTop_toBottomOf="@id/layout_Main_Place" />
+
+                    <ImageView
+                        android:id="@+id/iv_Main3"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/image_decoration"
+                        android:src="@drawable/ic_main_game"
+                        app:layout_constraintBottom_toTopOf="@+id/textView15"
+                        app:layout_constraintEnd_toEndOf="@id/layout_Main_Game"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@id/layout_Main_Game"
+                        app:layout_constraintTop_toBottomOf="@+id/layout_Main_Game" />
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="@string/main_text5"
+                        android:textColor="@color/textColor"
+                        android:textSize="23sp"
+                        app:layout_constraintBottom_toTopOf="@+id/layout_Main_Game"
+                        app:layout_constraintEnd_toEndOf="@id/iv_Main3"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@id/iv_Main3"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_Main3" />
+
+
+                    <ImageView
+                        android:id="@+id/layout_Main_Reservation"
+                        android:layout_width="0dp"
+                        android:layout_height="250dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="40dp"
+                        android:background="@drawable/btn_radius_lilac"
+                        android:backgroundTint="@color/colorMain2"
+                        android:contentDescription="@string/image_button"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/layout_Main_Room"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_Main4"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/image_decoration"
+                        android:src="@drawable/ic_main_calendar"
+                        app:layout_constraintBottom_toTopOf="@+id/textView12"
+                        app:layout_constraintEnd_toEndOf="@id/layout_Main_Reservation"
+                        app:layout_constraintStart_toStartOf="@id/layout_Main_Reservation"
+                        app:layout_constraintTop_toBottomOf="@+id/layout_Main_Reservation" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="@string/main_text2"
+                        android:textColor="@color/black"
+                        android:textSize="23sp"
+                        app:layout_constraintBottom_toTopOf="@+id/layout_Main_Reservation"
+                        app:layout_constraintEnd_toEndOf="@id/iv_Main4"
+                        app:layout_constraintHorizontal_bias="0.466"
+                        app:layout_constraintStart_toStartOf="@id/iv_Main4"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_Main4" />
+
+
+                    <ImageView
+                        android:id="@+id/layout_Main_Settle"
+                        android:layout_width="0dp"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_radius_arctic"
+                        android:backgroundTint="@color/colorMain1"
+                        android:contentDescription="@string/image_button"
+                        app:layout_constraintEnd_toEndOf="@id/layout_Main_Reservation"
+                        app:layout_constraintStart_toStartOf="@id/layout_Main_Reservation"
+                        app:layout_constraintTop_toBottomOf="@id/layout_Main_Reservation" />
+
+                    <ImageView
+                        android:id="@+id/iv_Main5"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/image_decoration"
+                        android:src="@drawable/ic_main_money"
+                        app:layout_constraintBottom_toTopOf="@+id/textView14"
+                        app:layout_constraintEnd_toEndOf="@id/layout_Main_Settle"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@id/layout_Main_Settle"
+                        app:layout_constraintTop_toBottomOf="@+id/layout_Main_Settle" />
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="@string/main_text4"
+                        android:textColor="@color/textColor"
+                        android:textSize="23sp"
+                        app:layout_constraintBottom_toTopOf="@+id/layout_Main_Settle"
+                        app:layout_constraintEnd_toEndOf="@id/iv_Main5"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@id/iv_Main5"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_Main5" />
+
+                    <ImageView
+                        android:id="@+id/layout_Main_Friend"
+                        android:layout_width="0dp"
+                        android:layout_height="170dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_radius_lilac"
+                        android:backgroundTint="@color/colorMain2"
+                        android:contentDescription="@string/image_button"
+                        app:layout_constraintEnd_toEndOf="@id/layout_Main_Settle"
+                        app:layout_constraintStart_toStartOf="@id/layout_Main_Settle"
+                        app:layout_constraintTop_toBottomOf="@id/layout_Main_Settle" />
+
+                    <ImageView
+                        android:id="@+id/iv_Main6"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/image_decoration"
+                        android:src="@drawable/ic_main_friend"
+                        app:layout_constraintBottom_toTopOf="@+id/textView16"
+                        app:layout_constraintEnd_toEndOf="@id/layout_Main_Friend"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@id/layout_Main_Friend"
+                        app:layout_constraintTop_toBottomOf="@+id/layout_Main_Friend" />
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="@string/main_text6"
+                        android:textColor="@color/black"
+                        android:textSize="23sp"
+                        app:layout_constraintBottom_toTopOf="@+id/layout_Main_Friend"
+                        app:layout_constraintEnd_toEndOf="@id/iv_Main6"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@id/iv_Main6"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_Main6" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_Main_Game" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_layout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/layout_Main_Room2"
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/btn_radius_arctic"
+                            android:backgroundTint="@color/colorMain1"
+                            android:contentDescription="@string/image_button"
+                            app:layout_constraintEnd_toStartOf="@id/layout_Main_Reservation2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/layout_Main_Place2"
+                            android:layout_width="0dp"
+                            android:layout_height="200dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/btn_radius_lilac"
+                            android:backgroundTint="@color/colorMain2"
+                            android:contentDescription="@string/image_button"
+                            app:layout_constraintEnd_toEndOf="@id/layout_Main_Room2"
+                            app:layout_constraintStart_toStartOf="@id/layout_Main_Room2"
+                            app:layout_constraintTop_toBottomOf="@id/layout_Main_Room2" />
+
+                        <ImageView
+                            android:id="@+id/layout_Main_Game2"
+                            android:layout_width="0dp"
+                            android:layout_height="170dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/btn_radius_arctic"
+                            android:backgroundTint="@color/colorMain1"
+                            android:contentDescription="@string/image_button"
+                            app:layout_constraintEnd_toEndOf="@id/layout_Main_Place2"
+                            app:layout_constraintStart_toStartOf="@id/layout_Main_Place2"
+                            app:layout_constraintTop_toBottomOf="@id/layout_Main_Place2" />
+
+                        <ImageView
+                            android:id="@+id/layout_Main_Reservation2"
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="40dp"
+                            android:background="@drawable/btn_radius_lilac"
+                            android:backgroundTint="@color/colorMain2"
+                            android:contentDescription="@string/image_button"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/layout_Main_Room2"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/layout_Main_Settle2"
+                            android:layout_width="0dp"
+                            android:layout_height="200dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/btn_radius_arctic"
+                            android:backgroundTint="@color/colorMain1"
+                            android:contentDescription="@string/image_button"
+                            app:layout_constraintEnd_toEndOf="@id/layout_Main_Reservation2"
+                            app:layout_constraintStart_toStartOf="@id/layout_Main_Reservation2"
+                            app:layout_constraintTop_toBottomOf="@id/layout_Main_Reservation2" />
+
+                        <ImageView
+                            android:id="@+id/layout_Main_Friend2"
+                            android:layout_width="0dp"
+                            android:layout_height="170dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/btn_radius_lilac"
+                            android:backgroundTint="@color/colorMain2"
+                            android:contentDescription="@string/image_button"
+                            app:layout_constraintEnd_toEndOf="@id/layout_Main_Settle2"
+                            app:layout_constraintStart_toStartOf="@id/layout_Main_Settle2"
+                            app:layout_constraintTop_toBottomOf="@id/layout_Main_Settle2" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/layout_Main_Game2" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
