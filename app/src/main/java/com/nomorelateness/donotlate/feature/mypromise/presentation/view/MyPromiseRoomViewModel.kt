@@ -134,6 +134,10 @@ class MyPromiseRoomViewModel(
     private val _isDeparture = Channel<Boolean>()
     val isDeparture = _isDeparture.receiveAsFlow()
 
+    private val widgetFlow = savedStateHandle.getStateFlow("isWidget", false)
+
+    private var isThisWidget: Boolean = false
+
     private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 
     init {
@@ -154,6 +158,9 @@ class MyPromiseRoomViewModel(
                 }
             } ?: run {
                 sendWrongAccessMessage("다시 시도해 주세요.")
+            }
+            widgetFlow.collect {
+                isThisWidget = true
             }
         }
     }
