@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BFBFBF"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".feature.tutorial.TutorialViewPagerFragment">
+
+
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_Tutorial"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/indicator_Tutorial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/btn_Tutorial_Skip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:dotsColor="@color/colorMain1"
+        app:dotsCornerRadius="8dp"
+        app:dotsSize="16dp"
+        app:dotsSpacing="4dp"
+        app:dotsWidthFactor="2.5"
+        android:clickable="false"
+        app:selectedDotColor="@color/colorMain2"
+        app:progressMode="true" />
+
+
+    <ImageView
+        android:id="@+id/iv_Tutorial_Right"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/ic_arrow"
+        android:scaleX="-1"
+        android:contentDescription="@string/image_decoration"/>
+
+    <ImageView
+        android:id="@+id/iv_Tutorial_Left"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/ic_arrow"
+        android:contentDescription="@string/image_decoration"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_Tutorial_Skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tuto_skip"
+        android:textStyle="bold"
+        android:layout_margin="5dp"
+        android:background="@drawable/btn_radius_arctic"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_Tutorial_Start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tuto_start"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        android:layout_margin="5dp"
+        android:background="@drawable/btn_radius_arctic"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

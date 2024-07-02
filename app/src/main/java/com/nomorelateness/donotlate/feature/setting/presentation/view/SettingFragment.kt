@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
@@ -31,6 +32,7 @@ import com.nomorelateness.donotlate.feature.setting.presentation.view.dialog.Use
 import com.nomorelateness.donotlate.feature.setting.presentation.view.dialog.WithdrawDialog
 import com.nomorelateness.donotlate.feature.setting.presentation.view.information.SettingInformationFragment
 import com.nomorelateness.donotlate.feature.setting.presentation.view.question.SettingQuestionFragment
+import com.nomorelateness.donotlate.feature.tutorial.TutorialViewPagerFragment
 import kotlinx.coroutines.launch
 
 class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {
@@ -55,6 +57,7 @@ class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {
     private val binding get() = _binding!!
 
     private val useData = CurrentUser.userData
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -213,7 +216,7 @@ class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {
     //어뎁터 연결
     private fun initView() {
 //        val settingItemList = arrayListOf("폰트 변경")
-        val settingItemList2 = arrayListOf("문의 하기", "앱 정보", "로그 아웃")
+        val settingItemList2 = arrayListOf("문의 하기", "앱 정보", "앱 사용 설명서", "로그 아웃")
 
 //        val adapter1 = SettingAdapter(settingItemList, null)
 //        binding.recyclerSetting.adapter = adapter1
@@ -239,7 +242,8 @@ class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {
                 when (position) {
                     0 -> initFragment(SettingQuestionFragment())
                     1 -> initFragment(SettingInformationFragment())
-                    2 -> logoutButton()
+                    2 -> popFragment(TutorialViewPagerFragment())
+                    3 -> logoutButton()
                 }
             }
         }
@@ -249,6 +253,17 @@ class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {
         parentFragmentManager.beginTransaction()
             .setCustomAnimations(
                 /* enter = */ R.anim.slide_in,
+                /* exit = */ R.anim.fade_out
+            )
+            .replace(R.id.frame, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun popFragment(fragment: Fragment) {
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                /* enter = */ R.anim.fade_in,
                 /* exit = */ R.anim.fade_out
             )
             .replace(R.id.frame, fragment)
@@ -293,6 +308,6 @@ class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {
     }
 
     override fun onClickUserButton(userId: String) {
-        viewModel.deleteUser(userId)
+        viewModel.deleteUser()
     }
 }

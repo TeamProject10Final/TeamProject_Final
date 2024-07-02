@@ -1,190 +1,135 @@
 package com.nomorelateness.donotlate.feature.auth.presentation.view
 
+import SignUpEvent
+import SignUpViewModel
+import SignUpViewmodelFactory
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.nomorelateness.donotlate.R
 import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.nomorelateness.donotlate.databinding.FragmentSignupBinding
 import com.nomorelateness.donotlate.feature.auth.presentation.dialog.InformationDialogFragment
+import kotlinx.coroutines.launch
 
-class SignupFragment : Fragment() {
+class SignupFragment : Fragment(R.layout.fragment_signup), View.OnClickListener {
 
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
 
-    private val signUpViewmodel: SignUpViewModel by viewModels {
+    // SignUpViewModel 초기화
+    private val signUpViewModel: SignUpViewModel by viewModels {
         val appContainer =
             (requireActivity().application as com.nomorelateness.donotlate.DoNotLateApplication).appContainer
-        SignUpViewmodelFactory(appContainer.signUpUseCase)
+        SignUpViewmodelFactory(appContainer.signUpUseCase, appContainer.sessionManager)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSignupBinding.inflate(inflater, container, false)
+    // onViewCreated를 재정의하여 뷰와 옵저버 설정
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentSignupBinding.bind(view)
+        initViews()
+        collectFlows()
 
         binding.root.setOnClickListener {
             hideKeyboard(binding.root.windowToken)
-//            requireActivity().currentFocus!!.clearFocus()
         }
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        startLogin()
-        checkSingup()
-        passwordHide()
-        checkedSignUpResult()
-        infoDialog()
-
-        binding.btnSignUp.setOnClickListener {
-            clickToSignUpButton()
-        }
-
         editTextProcess()
-
-
+        infoDialog()
     }
 
-    private fun editTextProcess() {
-        binding.etSignConfirm.setOnEditorActionListener { textView, action, keyEvent ->
-            var handled = false
+    // 뷰 초기화 및 클릭 리스너 설정
+    private fun initViews() {
+        binding.tvSignLogin.setOnClickListener(this)
+        binding.btnSignUp.setOnClickListener(this)
+        binding.ivSignHide.setOnClickListener(this)
 
+        // 비밀번호 숨김 버튼 초기 상태 설정
+        binding.ivSignHide.tag = "0"
+        binding.ivSignHide.setImageResource(R.drawable.ic_hide)
+    }
+
+    // EditText 액션 리스너 설정
+    private fun editTextProcess() {
+        binding.etSignName.doAfterTextChanged {
+            signUpViewModel.checkName(binding.etSignName, binding.tvNameCheck)
+        }
+        binding.etSignEmail.doAfterTextChanged {
+            signUpViewModel.checkEmail(binding.etSignEmail, binding.tvEmailCheck)
+        }
+        binding.etSignPassword.doAfterTextChanged {
+            signUpViewModel.checkPw(binding.etSignPassword, binding.tvPasswordCheck)
+        }
+        binding.etSignConfirm.doAfterTextChanged {
+            signUpViewModel.checkConfirmPw(
+                binding.etSignPassword,
+                binding.etSignConfirm,
+                binding.tvConfirmCheck
+            )
+        }
+        binding.etSignConfirm.setOnEditorActionListener { _, action, _ ->
+            var handled = false
             if (action == EditorInfo.IME_ACTION_DONE) {
                 hideKeyboard(binding.root.windowToken)
-                //requireActivity().currentFocus!!.clearFocus()
                 handled = true
             }
             handled
         }
     }
 
+    // Flows를 수집하고 유효성 검사 결과를 관찰
+    private fun collectFlows() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                signUpViewModel.eventFlow.collect { event ->
+                    when (event) {
+                        is SignUpEvent.SignUpSuccess -> {
+                            Toast.makeText(
+                                requireContext(),
+                                resources.getString(R.string.toast_login_text2),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            parentFragmentManager.beginTransaction()
+                                .setCustomAnimations(
+                                    R.anim.fade_in,
+                                    R.anim.fade_out
+                                )
+                                .replace(R.id.frame, LoginFragment())
+                                .commit()
+                        }
 
-    private fun startLogin() {
-        binding.tvSignLogin.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    /* enter = */ R.anim.fade_in,
-                    /* exit = */ R.anim.slide_out
-                )
-                .replace(R.id.frame, LoginFragment())
-                .commit()
-        }
-    }
+                        is SignUpEvent.SignUpFail -> {
+                            Toast.makeText(
+                                requireContext(),
+                                resources.getString(R.string.toast_login_text3),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
 
-    private fun checkSingup() {
+                        is SignUpEvent.ValidationError -> {
+                            Toast.makeText(requireContext(), event.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
 
-        val name = binding.etSignName
-        val email = binding.etSignEmail
-        val password = binding.etSignPassword
-        val confirm = binding.etSignConfirm
-
-        val nameCheck = binding.tvNameCheck
-        val emailCheck = binding.tvEmailCheck
-        val passwordCheck = binding.tvPasswordCheck
-        val confirmCheck = binding.tvConfirmCheck
-
-
-        name.doAfterTextChanged { signUpViewmodel.checkName(name, nameCheck) }
-        email.doAfterTextChanged { signUpViewmodel.checkEmail(email, emailCheck) }
-        password.doAfterTextChanged { signUpViewmodel.checkPw(password, passwordCheck) }
-        confirm.doAfterTextChanged {
-            signUpViewmodel.checkConfirmPw(
-                password,
-                confirm,
-                confirmCheck
-            )
-        }
-
-
-
-        binding.btnSignUp.setOnClickListener {
-
-            signUpViewmodel.checkSignUp(
-                name,
-                email,
-                password,
-                confirm,
-                nameCheck,
-                emailCheck,
-                passwordCheck,
-                confirmCheck,
-                it
-            )
-            requireActivity().supportFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    /* enter = */ R.anim.fade_in,
-                    /* exit = */ R.anim.slide_out
-                )
-                .remove(this)
-                .commit()
-        }
-    }
-
-    private fun passwordHide() {
-        val password = binding.etSignPassword
-        val hide = binding.ivSignHide
-        hide.tag = "0"
-        hide.setImageResource(R.drawable.ic_hide)
-        hide.setOnClickListener {
-            when (it.tag) {
-                "0" -> {
-                    hide.tag = "1"
-                    password.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                    hide.setImageResource(R.drawable.show)
-                }
-
-                "1" -> {
-                    hide.tag = "0"
-                    password.transformationMethod = PasswordTransformationMethod.getInstance()
-                    hide.setImageResource(R.drawable.ic_hide)
+                        else -> {
+                            // 아무 행동도 하지 않음.. 이게 왜 계속 뜨는 지 모르겠음..
+                        }
+                    }
                 }
             }
         }
     }
 
-    private fun clickToSignUpButton() {
-        val email = binding.etSignEmail.text.toString().trim()
-        val name = binding.etSignName.text.toString().trim()
-        val password = binding.etSignPassword.text.toString().trim()
-
-        signUpViewmodel.signUp(name, email, password)
-    }
-
-    private fun checkedSignUpResult() {
-        signUpViewmodel.signUpResult.observe(viewLifecycleOwner) { result ->
-            if (result.isSuccess) {
-                Toast.makeText(
-                    requireContext(),
-                    "${resources.getString(R.string.toast_login_text2)}",
-                    Toast.LENGTH_SHORT
-                ).show()
-                parentFragmentManager.beginTransaction().replace(R.id.frame, LoginFragment())
-                    .commit()
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "${resources.getString(R.string.toast_login_text3)}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
-
-    private fun infoDialog() {
+    fun infoDialog() {
         val dialog = InformationDialogFragment()
         dialog.show(requireActivity().supportFragmentManager, "InformationDialogFragment")
     }
@@ -192,5 +137,57 @@ class SignupFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onClick(p0: View?) {
+        p0?.let {
+            when (it) {
+                // 회원가입 버튼 클릭 시
+                binding.btnSignUp -> {
+
+                    signUpViewModel.checkSignUp(
+                        binding.etSignName,
+                        binding.etSignEmail,
+                        binding.etSignPassword,
+                        binding.etSignConfirm,
+                        binding.tvNameCheck,
+                        binding.tvEmailCheck,
+                        binding.tvPasswordCheck,
+                        binding.tvConfirmCheck,
+                        it
+                    )
+                    hideKeyboard(binding.root.windowToken)
+                }
+
+                // 로그인 텍스트 클릭 시
+                binding.tvSignLogin -> {
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in,
+                            R.anim.fade_out
+                        )
+                        .replace(R.id.frame, LoginFragment())
+                        .addToBackStack("LoginFragment")
+                        .commit()
+                }
+
+                // 비밀번호 표시/숨기기 아이콘 클릭 시
+                binding.ivSignHide -> {
+                    if (binding.ivSignHide.tag == "0") {
+                        binding.ivSignHide.tag = "1"
+                        binding.etSignPassword.transformationMethod =
+                            HideReturnsTransformationMethod.getInstance()
+                        binding.ivSignHide.setImageResource(R.drawable.show)
+                    } else {
+                        binding.ivSignHide.tag = "0"
+                        binding.etSignPassword.transformationMethod =
+                            PasswordTransformationMethod.getInstance()
+                        binding.ivSignHide.setImageResource(R.drawable.ic_hide)
+                    }
+                }
+
+                else -> Unit
+            }
+        }
     }
 }

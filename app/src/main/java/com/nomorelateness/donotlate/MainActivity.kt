@@ -1,5 +1,6 @@
 package com.nomorelateness.donotlate
 
+import android.content.pm.ActivityInfo
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -29,12 +30,14 @@ class MainActivity : AppCompatActivity() {
         val appContainer =
             (application as com.nomorelateness.donotlate.DoNotLateApplication).appContainer
         com.nomorelateness.donotlate.MainViewModelFactory(
-            sessionManager = appContainer.sessionManager
+            sessionManager = appContainer.sessionManager,
+            checkUserEmailVerificationUseCase = appContainer.checkUserEmailVerificationUseCase
         )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
         enableEdgeToEdge()
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(com.nomorelateness.donotlate.R.id.main)) { v, insets ->
@@ -53,8 +56,9 @@ class MainActivity : AppCompatActivity() {
             repeatOnLifecycle(state = Lifecycle.State.STARTED) {
                 viewModel.channel.collect {
                     when (it) {
-                        com.nomorelateness.donotlate.MainAction.LoggedIn -> navigateToMainScreen()
-                        com.nomorelateness.donotlate.MainAction.NotLoggedIn -> navigateToLoginScreen()
+                        MainAction.LoggedIn -> navigateToMainScreen()
+                        MainAction.NotLoggedIn -> navigateToLoginScreen()
+                        MainAction.EmailNotVerified -> navigateToLoginScreen()
                     }
                 }
             }
@@ -100,24 +104,6 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToLoginScreen() {
         supportFragmentManager.beginTransaction()
             .add(com.nomorelateness.donotlate.R.id.frame, LoginFragment())
-            .commit()
-    }
-
-    fun changeFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .add(com.nomorelateness.donotlate.R.id.frame, fragment)
-            .commit()
-    }
-
-    fun removeFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .remove(fragment)
-            .commit()
-    }
-
-    fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(com.nomorelateness.donotlate.R.id.frame, fragment)
             .commit()
     }
 }

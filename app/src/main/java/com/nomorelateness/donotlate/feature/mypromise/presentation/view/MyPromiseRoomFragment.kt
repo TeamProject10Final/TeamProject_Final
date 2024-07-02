@@ -217,6 +217,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
             //TODO 여기서도 checkPermissionAndProceed를 쓰는 게 나은거 맞겠지..?
             checkPermissionAndProceed()
             myPromiseViewModel.setIsDepart(true)
+            sendMessage("${currentUserData?.name}님께서 출발하셨습니다.")
             //여기에 출발 대한 동작 추가하기
             binding.btnDeparture.isVisible = false
             binding.ivRoomMap.isVisible = true
@@ -310,6 +311,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
                     myPromiseViewModel.promiseRoom.collect { room ->
                         if (room != null) {
                             binding.tvRoomTitleDetail.text = room.roomTitle
+                            binding.tvRoomDestination.text = room.destination
                             binding.tvRoomTitle.text = room.roomTitle
                             binding.tvRoomPromiseDate.text = room.promiseDate
                             binding.tvRoomPromiseTime.text = room.promiseTime
