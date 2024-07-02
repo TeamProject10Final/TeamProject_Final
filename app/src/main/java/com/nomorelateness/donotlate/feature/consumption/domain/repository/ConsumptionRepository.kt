@@ -25,4 +25,5 @@ interface ConsumptionRepository {
     fun getTotalPrice(): Flow<Long>
 
     suspend fun toggleIsFinished(consumption: ConsumptionEntity)
+    suspend fun ClearAllConsumptions()
 }

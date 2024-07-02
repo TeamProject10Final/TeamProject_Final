@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.nomorelateness.donotlate.core.domain.usecase.GetCurrentUserDataUseCase
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.ConsumptionDataSyncUseCase
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.DeleteConsumptionDataFromFirebaseUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.DeleteConsumptionUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetConsumptionByCategoryUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetConsumptionByIdUseCase
@@ -16,8 +18,10 @@ import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetFinish
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetLiveDataCountUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetTotalPriceUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.GetUnfinishedConsumptionUseCase
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.InsertConsumptionDataToFirebaseUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.InsertConsumptionUseCase
 import com.nomorelateness.donotlate.feature.consumption.domain.usecase.ToggleIsFinishedUseCase
+import com.nomorelateness.donotlate.feature.consumption.domain.usecase.UpdateFinishedFromFirebaseUseCase
 import com.nomorelateness.donotlate.feature.main.presentation.mapper.toModel
 import com.nomorelateness.donotlate.feature.main.presentation.model.UserModel
 import kotlinx.coroutines.channels.Channel
@@ -43,7 +47,11 @@ class ConsumptionViewModel(
     private val getDataCountUseCase: GetDataCountUseCase,
     private val getLiveDataCountUseCase: GetLiveDataCountUseCase,
     private val toggleIsFinishedUseCase: ToggleIsFinishedUseCase,
-    private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase
+    private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase,
+    private val deleteConsumptionFromFirebaseUseCase: DeleteConsumptionDataFromFirebaseUseCase,
+    private val insertConsumptionDataToFirebaseUseCase: InsertConsumptionDataToFirebaseUseCase,
+    private val updateFriendsListFromFirebaseUseCase: UpdateFinishedFromFirebaseUseCase,
+    private val consumptionDataSyncUseCase: ConsumptionDataSyncUseCase
 
 
 ) : ViewModel() {
@@ -104,6 +112,12 @@ class ConsumptionViewModel(
             }
         }
     }
+    
+    fun syncData() {
+        viewModelScope.launch {
+            consumptionDataSyncUseCase()
+        }
+    }
 
     private fun fetchTotalPrice() {
 
@@ -147,6 +161,10 @@ class ConsumptionViewModel(
         viewModelScope.launch {
             try {
                 toggleIsFinishedUseCase(consumption.toEntity())
+                updateFriendsListFromFirebaseUseCase(
+                    consumption.toFirebaseConsumptionModel().toEntity()
+                )
+
             } catch (e: Exception) {
                 _error.value = e.message ?: "An unexpected error occurred"
             }
@@ -158,6 +176,23 @@ class ConsumptionViewModel(
             try {
                 Log.d("확인 delete 성공", "${consumption.toEntity()}")
                 deleteConsumptionUseCase(consumption.toEntity())
+                deleteConsumptionFromFirebaseUseCase(
+                    consumption.toFirebaseConsumptionModel().toEntity()
+                ).collect { result ->
+                    result.onSuccess {
+                        Log.d(
+                            "ConsumptionViewModel",
+                            "Consumption deleted from Firestore successfully"
+                        )
+                    }.onFailure { e ->
+                        Log.e(
+                            "ConsumptionViewModel",
+                            "Failed to delete consumption from Firestore",
+                            e
+                        )
+                        _error.postValue(e.message)
+                    }
+                }
             } catch (e: Exception) {
                 _error.postValue("Failed to delete consumption: ${e.message}")
                 Log.d("확인 delete", "${e.message}")
@@ -182,7 +217,11 @@ class ConsumptionViewModelFactory(
     private val getDataCountUseCase: GetDataCountUseCase,
     private val getLiveDataCountUseCase: GetLiveDataCountUseCase,
     private val toggleIsFinishedUseCase: ToggleIsFinishedUseCase,
-    private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase
+    private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase,
+    private val deleteConsumptionFromFirebaseUseCase: DeleteConsumptionDataFromFirebaseUseCase,
+    private val insertConsumptionDataToFirebaseUseCase: InsertConsumptionDataToFirebaseUseCase,
+    private val updateFriendsListFromFirebaseUseCase: UpdateFinishedFromFirebaseUseCase,
+    private val consumptionDataSyncUseCase: ConsumptionDataSyncUseCase
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -199,7 +238,11 @@ class ConsumptionViewModelFactory(
                 getDataCountUseCase,
                 getLiveDataCountUseCase,
                 toggleIsFinishedUseCase,
-                getCurrentUserDataUseCase
+                getCurrentUserDataUseCase,
+                deleteConsumptionFromFirebaseUseCase,
+                insertConsumptionDataToFirebaseUseCase,
+                updateFriendsListFromFirebaseUseCase,
+                consumptionDataSyncUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

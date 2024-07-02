@@ -1,7 +1,7 @@
 package com.nomorelateness.donotlate.feature.consumption.domain.entity
 
 data class ConsumptionEntity(
-    val historyId: Int,
+    val historyId: String,
     val detail: String,
     val date: String,
     val category: String,

@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
@@ -49,7 +48,8 @@ class SettingFragment : Fragment(R.layout.fragment_setting), UserInterface {
             (requireActivity().application as com.nomorelateness.donotlate.DoNotLateApplication).appContainer
         SettingsViewModelFactory(
             sessionManager = appContainer.sessionManager,
-            deleteUserUseCase = appContainer.deleteUserUseCase
+            deleteUserUseCase = appContainer.deleteUserUseCase,
+            clearAllConsumptionsUseCase = appContainer.clearAllConsumptionsUseCase
         )
     }
 

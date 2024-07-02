@@ -18,6 +18,7 @@ class LoadingDialog : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        isCancelable = false
 
     }
 
@@ -28,7 +29,6 @@ class LoadingDialog : DialogFragment() {
 
         _binding = FragmentLoadingBinding.inflate(inflater, container, false)
 
-        isCancelable = true
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 
@@ -37,7 +37,6 @@ class LoadingDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
 
     }

@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ConsumptionModel(
-    val historyId: Int,
+    val historyId: String,
     val detail: String,
     val date: String,
     val category: String,

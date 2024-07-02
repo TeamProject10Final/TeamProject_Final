@@ -23,7 +23,8 @@ class CalculationActivity : AppCompatActivity() {
         SharedViewModelFactory(
             appContainer.insertConsumptionUseCase,
             appContainer.deleteConsumptionUseCase,
-            appContainer.getDataCountUseCase
+            appContainer.getDataCountUseCase,
+            appContainer.insertConsumptionDataToFirebaseUseCase
         )
     }
 
