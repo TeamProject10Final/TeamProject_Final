@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
@@ -203,14 +204,7 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
             checkPermissionAndProceed()
 
 
-
-
             //TODO 나라 비교하는 코드 추가하기
-
-
-
-
-
 
 
             myPromiseViewModel.checkCountryAndGetRouteSelection()
@@ -526,7 +520,11 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
         myPromiseViewModel.stopCheckingArrivalStatus()
         promiseMessageAdapter = null
         _binding = null
-        parentFragmentManager.popBackStack()
+        Handler(Looper.getMainLooper()).post {
+            if (isAdded && isDetached) {
+                parentFragmentManager.popBackStack()
+            }
+        }
     }
 
     override fun onStart() {
