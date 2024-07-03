@@ -45,7 +45,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.yield
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.atan2
@@ -161,22 +160,17 @@ class MyPromiseRoomViewModel(
             savedStateHandle.get<PromiseModel>("promiseRoom")?.let {
                 _promiseRoom.value = it
                 if (CurrentUser.userData == null) {
-                    launch {
-                        getCurrentUserData()
-                    }
-                    yield()
+                    getCurrentUserData()
                     Log.d("확인 null userdata", "${CurrentUser.userData}")
                 }
 //                    null
 //                } else {
-                launch {
-                    checkIsUserHasArrived()
-                    startCheckingArrivalStatus()
-                    setInitialDepartureStatus() // 출발 상태 설정
-                    setInitialArrivalStatus()
-                    setDestinationLatLng()
-                    loadMessage()
-                }
+                checkIsUserHasArrived()
+                startCheckingArrivalStatus()
+                setInitialDepartureStatus() // 출발 상태 설정
+                setInitialArrivalStatus()
+                setDestinationLatLng()
+                loadMessage()
 
 
             } ?: run {
@@ -384,26 +378,42 @@ class MyPromiseRoomViewModel(
         setShortDirectionsResult()
     }
 
+//    suspend fun getCurrentUserData() {
+//        Log.d("getCurrentUserData", "stared getCurrentUserData()")
+//        try {
+//            viewModelScope.launch {
+//                getCurrentUserDataUseCase().collect { userEntity ->
+//                    val userModel = userEntity?.toModel()
+//                    if (userModel != null) {
+//                        CurrentUser.userData = userModel
+//                        yield()
+//                        Log.d("getCurrentUserData", "CurrentUser.userData :${CurrentUser.userData}")
+//                    } else {
+//                        //  TODO - 예외 처리 해야함.
+//                    }
+//                }
+//            }
+//        } catch (e: Exception) {
+//            throw NullPointerException("오류 터짐")
+//        }
+//    }
+
     suspend fun getCurrentUserData() {
         Log.d("getCurrentUserData", "stared getCurrentUserData()")
         try {
-            viewModelScope.launch {
-                getCurrentUserDataUseCase().collect { userEntity ->
-                    val userModel = userEntity?.toModel()
-                    if (userModel != null) {
-                        CurrentUser.userData = userModel
-                        yield()
-                        Log.d("getCurrentUserData", "CurrentUser.userData :${CurrentUser.userData}")
-                    } else {
-                        //  TODO - 예외 처리 해야함.
-                    }
+            getCurrentUserDataUseCase().collect { userEntity ->
+                val userModel = userEntity?.toModel()
+                if (userModel != null) {
+                    CurrentUser.userData = userModel
+                    Log.d("getCurrentUserData", "CurrentUser.userData :${CurrentUser.userData}")
+                } else {
+                    // TODO - 예외 처리 해야함.
                 }
             }
         } catch (e: Exception) {
             throw NullPointerException("오류 터짐")
         }
     }
-
     private fun setShortDirectionsResult() {
         viewModelScope.launch {
             if (directionsResult != null) {

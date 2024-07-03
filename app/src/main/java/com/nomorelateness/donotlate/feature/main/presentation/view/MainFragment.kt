@@ -1,17 +1,13 @@
 package com.nomorelateness.donotlate.feature.main.presentation.view
 
-import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,7 +15,6 @@ import androidx.lifecycle.lifecycleScope
 import com.nomorelateness.donotlate.R
 import com.nomorelateness.donotlate.core.presentation.CurrentUser
 import com.nomorelateness.donotlate.databinding.FragmentMainBinding
-import com.nomorelateness.donotlate.databinding.FragmentPlaceSearchBinding
 import com.nomorelateness.donotlate.feature.consumption.presentation.ConsumptionActivity
 import com.nomorelateness.donotlate.feature.friends.presentation.view.FriendsFragment
 import com.nomorelateness.donotlate.feature.minigame.MiniGameFragment
@@ -27,7 +22,6 @@ import com.nomorelateness.donotlate.feature.mypromise.presentation.view.MyPromis
 import com.nomorelateness.donotlate.feature.room.presentation.view.ViewPagerFragment
 import com.nomorelateness.donotlate.feature.searchPlace.presentation.search.PlaceSearchFragment
 import com.nomorelateness.donotlate.feature.setting.presentation.view.SettingFragment
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -58,7 +52,7 @@ class MainFragment : Fragment() {
         firstLoading()
 
         mainPageViewModel.getCurrentUserData()
-
+//
         return binding.root
     }
 

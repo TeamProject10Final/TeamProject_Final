@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    //private var Intent
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
@@ -100,19 +101,25 @@ class MainActivity : AppCompatActivity() {
                 R.anim.slide_in,
                 R.anim.fade_out,
             )
-            .replace(R.id.frame, fragment)
+            //add로 하기
+            .add(R.id.frame, fragment)
             .addToBackStack("myPromiseRoomFragment")
             .commit()
     }
 
     private fun navigateToMainScreen() {
         //handleIntent(intent)
-        if (isIntentNull(intent)) {
+
+        supportFragmentManager.beginTransaction()
+            .add(com.nomorelateness.donotlate.R.id.frame, MainFragment())
+            .commit()
+
+        if (!isIntentNull(intent)) {
             //null
-            supportFragmentManager.beginTransaction()
-                .add(com.nomorelateness.donotlate.R.id.frame, MainFragment())
-                .commit()
-        } else {
+//            supportFragmentManager.beginTransaction()
+//                .add(com.nomorelateness.donotlate.R.id.frame, MainFragment())
+//                .commit()
+//        } else {
             handleIntent(intent)
         }
     }
