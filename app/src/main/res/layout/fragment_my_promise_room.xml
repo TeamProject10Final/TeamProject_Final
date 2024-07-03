@@ -45,6 +45,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="visible"
+            android:layout_marginBottom="8dp"
             app:layout_constraintStart_toStartOf="@id/cl_Top_Title_Border"
             app:layout_constraintBottom_toBottomOf="@id/cl_Top_Title_Border"
             app:layout_constraintTop_toTopOf="@id/cl_Top_Title_Border" />
@@ -95,7 +96,7 @@
             android:gravity="center_vertical"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="15dp"
             app:layout_constraintStart_toStartOf="@id/cl_Top_Title_Border_Detail"
             app:layout_constraintTop_toTopOf="@id/cl_Top_Title_Border_Detail" />
 

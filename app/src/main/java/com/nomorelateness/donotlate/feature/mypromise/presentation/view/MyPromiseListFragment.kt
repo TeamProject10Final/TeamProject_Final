@@ -76,9 +76,11 @@ class MyPromiseListFragment : Fragment() {
                 adapter.submitList(promiseRooms)
 
                 if (promiseRooms.isEmpty()) {
+                    binding.ivTitleBackground.isVisible = false
                     binding.rvMyPromise.isVisible = false
                     binding.tvDefaultCenter.isVisible = true
                 } else {
+                    binding.ivTitleBackground.isVisible = true
                     binding.rvMyPromise.isVisible = true
                     binding.tvDefaultCenter.isVisible = false
                 }
