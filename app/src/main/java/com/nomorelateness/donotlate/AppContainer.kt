@@ -475,7 +475,8 @@ class MyPromiseRoomContainer(
     private val getDirectionsUseCase: GetDirectionsUseCase,
     val removeParticipantsUseCase: RemoveParticipantsUseCase,
     val updateArrivalStatusUseCase: UpdateArrivalStatusUseCase,
-    val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase
+    val updateDepartureStatusUseCase: UpdateDepartureStatusUseCase,
+    val getCurrentUserDataUseCase: GetCurrentUserDataUseCase
 
 ) {
     val myPromiseViewModelFactory = MyPromiseRoomViewModelFactory(
@@ -484,7 +485,8 @@ class MyPromiseRoomContainer(
         getDirectionsUseCase,
         removeParticipantsUseCase,
         updateArrivalStatusUseCase,
-        updateDepartureStatusUseCase
+        updateDepartureStatusUseCase,
+        getCurrentUserDataUseCase
     )
 }
 

@@ -102,7 +102,7 @@ class DirectionsViewModel1(
         if (country.value != null) {
             return country.value!!
         } else {
-            _error.postValue("다시 시도해 주세요.")
+            _error.postValue("다시 시도해 주세요.2")
             return null
         }
     }

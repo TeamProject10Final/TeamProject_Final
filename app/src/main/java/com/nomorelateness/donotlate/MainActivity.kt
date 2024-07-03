@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -76,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         val promiseJson = intent.getStringExtra("promiseRoom")
         return promiseJson == null
     }
+
     private fun handleIntent(intent: Intent) {
         val promiseJson = intent.getStringExtra("promiseRoom")
         if (promiseJson != null) {
@@ -90,6 +93,7 @@ class MainActivity : AppCompatActivity() {
     private fun openPromiseRoomFragment(roomInfo: PromiseModel) {
         val fragment = MyPromiseRoomFragment()
         val bundle = Bundle()
+        Log.d("확인 intent 전체", "${roomInfo}")
         bundle.putParcelable("promiseRoom", roomInfo)
         bundle.putBoolean("isWidget", true)
         fragment.arguments = bundle
@@ -99,20 +103,23 @@ class MainActivity : AppCompatActivity() {
                 R.anim.slide_in,
                 R.anim.fade_out,
             )
-            .replace(R.id.frame, fragment)
+            //add로 하기
+            .add(R.id.frame, fragment)
             .addToBackStack("myPromiseRoomFragment")
             .commit()
     }
 
     private fun navigateToMainScreen() {
-        //handleIntent(intent)
-        if (isIntentNull(intent)) {
+
+        supportFragmentManager.beginTransaction()
+            .add(com.nomorelateness.donotlate.R.id.frame, MainFragment())
+            .commit()
+
+        if (!isIntentNull(intent)) {
             //null
-            supportFragmentManager.beginTransaction()
-                .add(com.nomorelateness.donotlate.R.id.frame, MainFragment())
-                .commit()
-        } else {
-            handleIntent(intent)
+            Handler(Looper.getMainLooper()).postDelayed({
+                handleIntent(intent)
+            }, 1000)
         }
     }
 
@@ -123,7 +130,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //앱 실행 시 메인프래그먼트 로딩
-    private fun loadingInit(){
+    private fun loadingInit() {
         val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
         with(sharedPref.edit()) {
             putString(getString(com.nomorelateness.donotlate.R.string.preference_loading_key), "1")

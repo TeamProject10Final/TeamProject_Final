@@ -2,6 +2,7 @@ package com.nomorelateness.donotlate.feature.mypromise.presentation.view
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -35,6 +36,7 @@ import com.nomorelateness.donotlate.feature.mypromise.presentation.view.dialog.R
 import com.nomorelateness.donotlate.feature.mypromise.presentation.view.dialog.RoomExitInterface
 import com.nomorelateness.donotlate.feature.mypromise.presentation.view.dialog.RoomLateDialog
 import com.nomorelateness.donotlate.feature.setting.presentation.view.dialog.LoadingDialog
+import com.nomorelateness.donotlate.feature.widget.SharedPreferencesHelper
 import com.nomorelateness.donotlate.feature.widget.viewmodel.WidgetViewModel
 import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
@@ -50,7 +52,8 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
             appContainer.getDirectionsUseCase,
             appContainer.removeParticipantsUseCase,
             appContainer.updateArrivalStatusUseCase,
-            appContainer.updateDepartureStatusUseCase
+            appContainer.updateDepartureStatusUseCase,
+            appContainer.getCurrentUserDataUseCase
         )
     }
     private val widgetViewModel: WidgetViewModel by activityViewModels()
@@ -236,6 +239,15 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
             sendMessage(contents = it)
         }
 
+        myPromiseViewModel.widgetDeparture.observe(viewLifecycleOwner) {
+            updateHasDeparture(requireContext(), it.first, it.second)
+            Log.d("확인 출발 버튼", "${it}")
+        }
+
+        myPromiseViewModel.widgetArrived.observe(viewLifecycleOwner) {
+            updateHasArrived(requireContext(), it.first, it.second)
+        }
+
     }
 
     private fun collectFlows() {
@@ -387,6 +399,14 @@ class MyPromiseRoomFragment : Fragment(R.layout.fragment_my_promise_room), RoomE
                 }
             }
         }
+    }
+
+    private fun updateHasArrived(context: Context, userId: String, hasArrived: Boolean) {
+        SharedPreferencesHelper.updateHasArrived(context, userId, hasArrived)
+    }
+
+    private fun updateHasDeparture(context: Context, userId: String, hasDeparture: Boolean) {
+        SharedPreferencesHelper.updateHasDeparture(context, userId, hasDeparture)
     }
 
     private fun showModeDialog() {
