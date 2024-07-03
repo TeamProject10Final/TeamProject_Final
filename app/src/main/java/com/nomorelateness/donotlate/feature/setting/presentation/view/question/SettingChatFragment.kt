@@ -57,7 +57,7 @@ class SettingChatFragment : Fragment() {
 
     private fun initView() {
         binding.clSettingChatKakao.setOnClickListener {
-            var intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://open.kakao.com/o/g5qJY8xg"))
+            var intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://open.kakao.com/o/s7Gq0MAg"))
             requireActivity().startActivity(intent)
         }
 
