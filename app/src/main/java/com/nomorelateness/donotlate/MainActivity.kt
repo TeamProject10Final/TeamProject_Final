@@ -109,6 +109,16 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (!isIntentNull(intent)) {
+            //null
+            Handler(Looper.getMainLooper()).postDelayed({
+                handleIntent(intent)
+            }, 1000)
+        }
+    }
+
     private fun navigateToMainScreen() {
 
         supportFragmentManager.beginTransaction()
