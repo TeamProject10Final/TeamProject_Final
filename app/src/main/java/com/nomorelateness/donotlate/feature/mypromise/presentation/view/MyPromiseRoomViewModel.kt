@@ -163,8 +163,7 @@ class MyPromiseRoomViewModel(
                     getCurrentUserData()
                     Log.d("확인 null userdata", "${CurrentUser.userData}")
                 }
-//                    null
-//                } else {
+
                 checkIsUserHasArrived()
                 startCheckingArrivalStatus()
                 setInitialDepartureStatus() // 출발 상태 설정
@@ -184,9 +183,7 @@ class MyPromiseRoomViewModel(
     }
 
     private suspend fun checkIsUserHasArrived() {
-        //        if (CurrentUser.userData?.uId == null) {
-//            getCurrentUserData()
-//        }
+
         Log.d("확인 userdata1", "${CurrentUser.userData?.uId}")
         if (this.promiseRoom.value?.hasArrived?.get(CurrentUser.userData?.uId) == true) {
             _isArrived.send(element = true)
@@ -301,9 +298,7 @@ class MyPromiseRoomViewModel(
     }
 
     private fun calculateIsIn200Meters(distance: Double) {
-        //        if (CurrentUser.userData?.uId == null) {
-//            getCurrentUserData()
-//        }
+
         Log.d("확인 userdata2", "${CurrentUser.userData?.uId}")
         val uid = CurrentUser.userData?.uId
         if (distance <= 0.2 && hasArrived.value[uid] != true) { // 200m
@@ -319,6 +314,7 @@ class MyPromiseRoomViewModel(
         }
     }
 
+    //위젯에 버튼 빼낼 때 사용 예정...
     fun getButtonText(): String {
         return if ((_distanceDouble.value ?: Double.MAX_VALUE) <= 20.0) {
             "도착"
@@ -378,27 +374,7 @@ class MyPromiseRoomViewModel(
         setShortDirectionsResult()
     }
 
-//    suspend fun getCurrentUserData() {
-//        Log.d("getCurrentUserData", "stared getCurrentUserData()")
-//        try {
-//            viewModelScope.launch {
-//                getCurrentUserDataUseCase().collect { userEntity ->
-//                    val userModel = userEntity?.toModel()
-//                    if (userModel != null) {
-//                        CurrentUser.userData = userModel
-//                        yield()
-//                        Log.d("getCurrentUserData", "CurrentUser.userData :${CurrentUser.userData}")
-//                    } else {
-//                        //  TODO - 예외 처리 해야함.
-//                    }
-//                }
-//            }
-//        } catch (e: Exception) {
-//            throw NullPointerException("오류 터짐")
-//        }
-//    }
-
-    suspend fun getCurrentUserData() {
+    private suspend fun getCurrentUserData() {
         Log.d("getCurrentUserData", "stared getCurrentUserData()")
         try {
             getCurrentUserDataUseCase().collect { userEntity ->
@@ -426,7 +402,7 @@ class MyPromiseRoomViewModel(
     }
 
     private fun formatShortDirectionsExplanations(directions: DirectionsModel) {
-        //선택하면 그거에 대해 1번 출력되게
+
         val resultText = StringBuilder()
         //아래 코드로 수정하기
         Log.d("확인 selected 인덱스", "${selectedRouteIndex.value}")
@@ -501,9 +477,7 @@ class MyPromiseRoomViewModel(
 
     private suspend fun loadMessage() {
         val roomId = promiseRoom.value?.roomId ?: return
-        //        if (CurrentUser.userData?.uId == null) {
-//            getCurrentUserData()
-//        }
+
         Log.d("확인 userdata3", "${CurrentUser.userData?.uId}")
         val mAuth = CurrentUser.userData?.uId
         if (currentRoomId != roomId) {
@@ -519,9 +493,7 @@ class MyPromiseRoomViewModel(
     }
 
     fun sendMessage(contents: String) {
-//        if (CurrentUser.userData?.uId == null) {
-//            getCurrentUserData()
-//        }
+
         Log.d("확인 userdata4", "${CurrentUser.userData?.uId}")
         viewModelScope.launch {
             val currentUser = CurrentUser.userData ?: throw NullPointerException("User Data Null!")
@@ -575,7 +547,6 @@ class MyPromiseRoomViewModel(
                 _hasArrived.value = currentArrivals.toMap()
                 Log.d("확인 도착버튼 has", "${hasArrived.value}")
 
-                //
                 if (isThisWidget) {
                     val pairs = Pair<String, Boolean>(uid, true)
                     _widgetArrived.value = pairs
@@ -591,9 +562,7 @@ class MyPromiseRoomViewModel(
     }
 
     private fun setInitialArrivalStatus() {
-        //        if (CurrentUser.userData?.uId == null) {
-//            getCurrentUserData()
-//        }
+
         Log.d("확인 userdata5", "${CurrentUser.userData?.uId}")
         val uid = CurrentUser.userData?.uId
 
@@ -672,7 +641,7 @@ class MyPromiseRoomViewModel(
 
                     Log.d("확인 isthiswidget", "${isThisWidget}")
                     if (isThisWidget) {
-                        // TODO 여기 수정하기 shared
+
                         val pairs = Pair<String, Boolean>(uid, true)
                         _widgetDeparture.value = pairs
                         Log.d("확인 pairs", "${pairs.first}")
@@ -689,9 +658,7 @@ class MyPromiseRoomViewModel(
     }
 
     private fun setInitialDepartureStatus() {
-        //        if (CurrentUser.userData?.uId == null) {
-//            getCurrentUserData()
-//        }
+
         Log.d("확인 userdata6", "${CurrentUser.userData?.uId}")
         val uid = CurrentUser.userData?.uId
         Log.d("확인 uid", "$uid")

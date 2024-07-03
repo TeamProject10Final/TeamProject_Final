@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -35,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    //private var Intent
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         val promiseJson = intent.getStringExtra("promiseRoom")
         return promiseJson == null
     }
+
     private fun handleIntent(intent: Intent) {
         val promiseJson = intent.getStringExtra("promiseRoom")
         if (promiseJson != null) {
@@ -108,7 +110,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToMainScreen() {
-        //handleIntent(intent)
 
         supportFragmentManager.beginTransaction()
             .add(com.nomorelateness.donotlate.R.id.frame, MainFragment())
@@ -116,11 +117,9 @@ class MainActivity : AppCompatActivity() {
 
         if (!isIntentNull(intent)) {
             //null
-//            supportFragmentManager.beginTransaction()
-//                .add(com.nomorelateness.donotlate.R.id.frame, MainFragment())
-//                .commit()
-//        } else {
-            handleIntent(intent)
+            Handler(Looper.getMainLooper()).postDelayed({
+                handleIntent(intent)
+            }, 1000)
         }
     }
 
@@ -131,7 +130,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //앱 실행 시 메인프래그먼트 로딩
-    private fun loadingInit(){
+    private fun loadingInit() {
         val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
         with(sharedPref.edit()) {
             putString(getString(com.nomorelateness.donotlate.R.string.preference_loading_key), "1")
