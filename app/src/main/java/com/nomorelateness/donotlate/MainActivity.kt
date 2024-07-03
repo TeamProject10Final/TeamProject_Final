@@ -109,6 +109,21 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    //TODO 다른 프래그먼트, 액티비티 위에서 위젯 클릭 시의 동작 처리하기 (현재 uid 못받아옴)
+//    override fun onResume() {
+//        super.onResume()
+//        Log.d("확인 onresume", "rejoiwa;jfoiajf")
+////        supportFragmentManager.beginTransaction()
+////            .add(com.nomorelateness.donotlate.R.id.frame, MainFragment())
+////            .commit()
+//        if (!isIntentNull(intent)) {
+//            //null
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                handleIntent(intent)
+//            }, 1000)
+//        }
+//    }
+
     private fun navigateToMainScreen() {
 
         supportFragmentManager.beginTransaction()
