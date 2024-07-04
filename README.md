@@ -81,12 +81,13 @@
 
 ## Mini Game Screen
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/4b8921a7-1022-4806-ae87-b19d0b880184)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/329467bc-1e76-4584-a4d0-0605009c47ab)
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B0%EB%A0%9B%20%EA%B2%B0%EA%B3%BC.jpg?raw=true" width="40%" height="40%"/>
+
 
 - 여러 상황에서 이용하는 미니 게임
 
 ## Setting & My Page Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/938616e6-5758-4657-b687-9a67daa62e70)
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%9D%BC%EB%B0%98%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="40%" height="40%"/>
 
 다크모드
 
