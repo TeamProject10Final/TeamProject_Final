@@ -23,7 +23,7 @@
 
 # 화면구성
 ## Splash Screen
-<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/JnagGyuSik-patch-1/ic_main_logo2.png  width="50%" height="50%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/JnagGyuSik-patch-1/ic_main_logo2.png width="50%" height="50%"/>
 
 ## Login & Sign Up Screen
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/8e4077bc-11a4-4c20-9b1d-e6595dcc52d3)
