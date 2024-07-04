@@ -62,7 +62,6 @@ class MainFragment : Fragment() {
 
         observeViewModel()
         initButton()
-        initDarMode()
         setTextUserName()
     }
 
@@ -99,19 +98,7 @@ class MainFragment : Fragment() {
         startFriends()
     }
 
-    private fun initDarMode() {
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
 
-        val sharedPrefValue = resources.getString(R.string.preference_darkMode_key)
-        val darkModeValue =
-            sharedPref.getString(getString(R.string.preference_darkMode_key), sharedPrefValue)
-
-        if (darkModeValue == "darkModeOn") {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-    }
 
     private fun startPlace() {
 
