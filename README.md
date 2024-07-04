@@ -31,7 +31,12 @@
 - 회원가입 및 구글 로그인 연동
 
 ## Main Screen
+튜토리얼
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC.jpg?raw=true" width="30%" height="30%"/>
+
+메인화면
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.jpg?raw=true" width="30%" height="30%"/>
+
 
 - 약속 잡기 : 사용자들과 약속을 정하고, 채팅방을 통하여 소통하며 목적지까지의 거리 및 도착 예정 시간을 알림
 - 내 약속 : 진행 중인 혹은 진행 예정 될 여러 약속들을 관리
