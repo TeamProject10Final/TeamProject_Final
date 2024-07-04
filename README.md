@@ -66,6 +66,8 @@
 - 친구 요청, 거절, 차단
 
 ## Settlement Management Screen
+https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B9%9C%EA%B5%AC%20%EC%8B%A0%EC%B2%AD%20(2).jpg?raw=true
+https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B9%9C%EA%B5%AC%20%EC%9A%94%EC%B2%AD%20%EB%AA%A9%EB%A1%9D.jpg?raw=true
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/acd6c5f5-2cc2-4bf3-b7c4-c464d91e7b0b)
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/30afe583-909d-4a18-ae67-cea5db20cf6c)
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/6a9345cc-7cf5-4e34-9b39-be4b9aa478a3)
@@ -83,17 +85,17 @@
 
 ## Mini Game Screen
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/4b8921a7-1022-4806-ae87-b19d0b880184)
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B0%EB%A0%9B%20%EA%B2%B0%EA%B3%BC.jpg?raw=true" width="40%" height="40%"/>
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B0%EB%A0%9B%20%EA%B2%B0%EA%B3%BC.jpg?raw=true" width="30%" height="30%"/>
 
 
 - 여러 상황에서 이용하는 미니 게임
 
 ## Setting & My Page Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%9D%BC%EB%B0%98%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="40%" height="40%"/>
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%9D%BC%EB%B0%98%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="30%" height="30%"/>
 
 다크모드
 
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="40%" height="40%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EB%A9%94%EC%9D%B8.jpg?raw=true" width="40%" height="40%"/>
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EB%A9%94%EC%9D%B8.jpg?raw=true" width="30%" height="30%"/>
 
 
 - 내 정보 확인
