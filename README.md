@@ -31,10 +31,10 @@
 - 회원가입 및 구글 로그인 연동
 
 ## Main Screen
-튜토리얼
+튜토리얼<br>
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC.jpg?raw=true" width="30%" height="30%"/>
 
-메인화면
+메인화면<br>
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.jpg?raw=true" width="30%" height="30%"/>
 
 
