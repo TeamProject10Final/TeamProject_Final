@@ -128,6 +128,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
 
         roomViewModel.locationData.observe(viewLifecycleOwner) {
 
+            if (it == null) return@observe
             val lat = it.lat
             val lng = it.lng
             val title = it.address
@@ -152,7 +153,7 @@ class RoomMapFragment : Fragment(), OnMapReadyCallback {
         binding.btnRoomMapNext.setOnClickListener {
             val location = roomViewModel.locationData.value
             if (location != null) {
-                roomViewModel.setCurrentItem(current = 2)
+                roomViewModel.nextPage()
             } else {
                 Toast.makeText(requireContext(), "${resources.getString(R.string.toast_room_text4)}", Toast.LENGTH_SHORT).show()
             }

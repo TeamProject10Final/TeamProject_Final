@@ -23,11 +23,12 @@ import com.nomorelateness.donotlate.databinding.FragmentRoomResultBinding
 import com.nomorelateness.donotlate.feature.mypromise.presentation.model.PromiseModel
 import com.nomorelateness.donotlate.feature.mypromise.presentation.view.MyPromiseRoomFragment
 import com.nomorelateness.donotlate.feature.room.presentation.dialog.CancelFragmentDialog
+import com.nomorelateness.donotlate.feature.room.presentation.dialog.RoomCancelInterface
 import kotlinx.coroutines.launch
 import java.util.UUID
 
 
-class RoomResultFragment : Fragment(), OnMapReadyCallback {
+class RoomResultFragment : Fragment(), OnMapReadyCallback, RoomCancelInterface {
 
     private val roomViewModel: RoomViewModel by activityViewModels {
         val appContainer =
@@ -78,6 +79,7 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
 
     private fun initView() {
         roomViewModel.inputText.observe(viewLifecycleOwner) {
+            if (it == null) return@observe
             binding.tvResultDetailTitle.text = it.title
             binding.tvResultDetailDate.text = it.date
             binding.tvResultDetailTime.text = it.time
@@ -85,7 +87,8 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
             if (it.penalty?.isNotEmpty() == true) {
                 binding.tvResultDetailPenalty.text = it.penalty
             } else {
-                binding.tvResultDetailPenalty.text = "${resources.getString(R.string.toast_room_text7)}"
+                binding.tvResultDetailPenalty.text =
+                    "${resources.getString(R.string.toast_room_text7)}"
             }
         }
 
@@ -107,18 +110,22 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
 
     private fun initCancel() {
         binding.ivResultBack.setOnClickListener {
-            val dialog = CancelFragmentDialog()
+            val dialog = CancelFragmentDialog(this)
             dialog.show(requireActivity().supportFragmentManager, "CancelFragmentDialog")
         }
     }
 
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
-            roomViewModel.makeARoomResult.collect{ it ->
+            roomViewModel.makeARoomResult.collect { it ->
                 if (it == true) {
                     openPromiseRoomFragment(roomInfo)
                 } else if (it == false) {
-                    Toast.makeText(requireActivity(), "${resources.getString(R.string.toast_room_text8)}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireActivity(),
+                        "${resources.getString(R.string.toast_room_text8)}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -165,9 +172,10 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
 
 
     override fun onMapReady(googleMap: GoogleMap) {
+        mGoogleMap = googleMap
         roomViewModel.locationData.observe(viewLifecycleOwner) {
-            mGoogleMap = googleMap
 
+            if (it == null) return@observe
             val lat = it.lat
             val lng = it.lng
             val title = it.name
@@ -209,5 +217,9 @@ class RoomResultFragment : Fragment(), OnMapReadyCallback {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onClick() {
+        roomViewModel.onCleared()
     }
 }
