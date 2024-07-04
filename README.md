@@ -23,7 +23,6 @@
 
 # 화면구성
 ## Splash Screen
-![image](https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/JnagGyuSik-patch-1/ic_main_logo2.png)
 <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/JnagGyuSik-patch-1/ic_main_logo2.png" width="50%" height="50%"/>
 
 ## Login & Sign Up Screen
@@ -88,6 +87,10 @@
 
 ## Setting & My Page Screen
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/938616e6-5758-4657-b687-9a67daa62e70)
+
+다크모드
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="50%" height="50%"/>
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EB%A9%94%EC%9D%B8.jpg?raw=true" width="50%" height="50%"/>
 
 - 내 정보 확인
 - 다크 모드 및 로그 아웃, 회원탈퇴
