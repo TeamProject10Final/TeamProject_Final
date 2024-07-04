@@ -23,7 +23,7 @@
 
 # 화면구성
 ## Splash Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/ba8fcce6-5a34-4acd-bbfc-f8b4420b9316)
+![image](https://github.com/TeamProject10Final/TeamProject_Final/commit/b2ff9a3e9b188fd9221fc74740a9b6821407618c)
 
 ## Login & Sign Up Screen
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/8e4077bc-11a4-4c20-9b1d-e6595dcc52d3)
