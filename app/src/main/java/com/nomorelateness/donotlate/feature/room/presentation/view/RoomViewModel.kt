@@ -43,9 +43,19 @@ class RoomViewModel(
     private val _friendsList = MutableStateFlow<List<RoomUserModel>>(listOf())
     val friendsList: StateFlow<List<RoomUserModel>> get() = _friendsList
 
-    private val _modelCurrent = MutableLiveData<Int>()
+    private val _modelCurrent = MutableLiveData<Int>(0)
     val modelCurrent: LiveData<Int> = _modelCurrent
 
+
+    fun nextPage() {
+        if (_modelCurrent.value == 2) return
+        _modelCurrent.value = modelCurrent.value?.plus(1)
+    }
+
+    fun prevPage() {
+        if (_modelCurrent.value == 0) return
+        _modelCurrent.value = modelCurrent.value?.minus(1)
+    }
     fun setCurrentItem(current: Int) {
         _modelCurrent.value = current
     }
@@ -62,16 +72,16 @@ class RoomViewModel(
     }
 
     //텍스트 정보
-    private val _inputText = MutableLiveData<RoomModel>()
-    val inputText: LiveData<RoomModel> get() = _inputText
+    private val _inputText = MutableLiveData<RoomModel?>()
+    val inputText: LiveData<RoomModel?> get() = _inputText
     fun updateText(input: RoomModel) {
         _inputText.value = input
         Log.d("data55", "${_inputText.value}")
     }
 
     //넘겨준 위치 정보
-    private val _locationData = MutableLiveData<PlaceModel>()
-    val locationData: LiveData<PlaceModel> get() = _locationData
+    private val _locationData = MutableLiveData<PlaceModel?>()
+    val locationData: LiveData<PlaceModel?> get() = _locationData
     fun setMapData(location: PlaceModel) {
         _locationData.value = location
         Log.d("data55", "${_locationData.value}")
@@ -128,6 +138,14 @@ class RoomViewModel(
                 }
             }
         }
+    }
+
+    public override fun onCleared() {
+        super.onCleared()
+        _inputText.value = null
+        _locationData.value = null
+        _modelCurrent.value = 0
+
     }
 }
 
