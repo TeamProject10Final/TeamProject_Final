@@ -1,4 +1,4 @@
-# 늦지마(DoNotLate)
+![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/31716619/3e4cbb3d-cd54-405e-aa9c-48979f5d51e4)![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/31716619/e67db5b5-53c8-43a1-aad6-429410c0b8d4)# 늦지마(DoNotLate)
 기획 표지
 
 <br>
@@ -26,7 +26,7 @@
 <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/JnagGyuSik-patch-1/ic_main_logo2.png" width="30%" height="30%"/>
 
 ## Login & Sign Up Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A1%9C%EA%B7%B8%EC%9D%B8.jpg?raw=true" width="30%" height="30%"/><img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%EC%95%BD%EA%B4%80.jpg?raw=true" width="30%" height="30%"/><img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A1%9C%EA%B7%B8%EC%9D%B8.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%EC%95%BD%EA%B4%80.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.jpg?raw=true" width="30%" height="30%"/>
 
 - 회원가입 및 구글 로그인 연동
 
@@ -41,10 +41,8 @@
 - 미니 게임 : 간단한 내기, 술자리 등의 상황에서 이용
 
 ## Make Appointment Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/049e490e-fbc9-462f-bd16-2dd8c0edc6b1)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/ccb9cf5d-2286-4e1b-b9e7-b16c73abaa04)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/d3b40fdb-61d2-48ce-8342-d73511e96931)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/510e1b0a-a26d-48dc-b271-2c8d2948bc32)
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B1.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B11.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B12.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B13.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B14.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B15.jpg?raw=true" width="30%" height="30%"/>
+
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B8%20%EC%83%9D%EC%84%B1%20%EC%A7%80%EB%8F%84.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B8%20%EC%83%9D%EC%84%B1%20%EC%A7%80%EB%8F%84%20%EA%B2%80%EC%83%89.jpg?raw=true" width="30%" height="30%"/>
 
 
