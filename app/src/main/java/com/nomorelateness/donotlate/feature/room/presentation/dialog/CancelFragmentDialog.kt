@@ -12,21 +12,30 @@ import com.nomorelateness.donotlate.R
 import com.nomorelateness.donotlate.databinding.BackDialogBinding
 import com.nomorelateness.donotlate.feature.main.presentation.view.MainFragment
 
-class CancelFragmentDialog : DialogFragment() {
+class CancelFragmentDialog(
+    roomCancelInterface: RoomCancelInterface
+) : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         isCancelable = true
     }
 
-    private lateinit var binding: BackDialogBinding
+    private var _binding: BackDialogBinding? = null
+    private val binding get() = _binding!!
+
+    private var roomCancelInterface: RoomCancelInterface? = null
+
+    init {
+        this.roomCancelInterface = roomCancelInterface
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = BackDialogBinding.inflate(inflater, container, false)
+        _binding = BackDialogBinding.inflate(inflater, container, false)
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
@@ -44,10 +53,20 @@ class CancelFragmentDialog : DialogFragment() {
             dismiss()
         }
         binding.tvDlConfirm.setOnClickListener {
+            this.roomCancelInterface?.onClick()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame, MainFragment())
                 .commit()
             dismiss()
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+
+interface RoomCancelInterface {
+    fun onClick()
 }

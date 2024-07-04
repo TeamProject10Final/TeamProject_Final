@@ -140,7 +140,7 @@ class RoomStartFragment : Fragment(), TimePickerInterface, DatePickerInterface {
             Log.d("123123", "${roomList}")
             if (title.isNotBlank() && date.isNotBlank() && time.isNotBlank()) {
                 roomViewModel.updateText(roomList)
-                roomViewModel.setCurrentItem(current = 1)
+                roomViewModel.nextPage()
             } else {
                 Toast.makeText(requireContext(), "${resources.getString(R.string.toast_room_text1)}", Toast.LENGTH_SHORT).show()
             }
