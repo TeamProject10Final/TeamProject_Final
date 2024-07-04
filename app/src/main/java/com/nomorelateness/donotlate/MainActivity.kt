@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         loadingInit()
         collectFlows()
+        initDarMode()
 
 //        handleIntent(intent)
     }
@@ -150,6 +152,20 @@ class MainActivity : AppCompatActivity() {
         with(sharedPref.edit()) {
             putString(getString(com.nomorelateness.donotlate.R.string.preference_loading_key), "1")
             apply()
+        }
+    }
+
+    private fun initDarMode() {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+
+        val sharedPrefValue = resources.getString(R.string.preference_darkMode_key)
+        val darkModeValue =
+            sharedPref.getString(getString(R.string.preference_darkMode_key), sharedPrefValue)
+
+        if (darkModeValue == "darkModeOn") {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 }
