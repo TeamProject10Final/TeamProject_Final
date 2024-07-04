@@ -55,13 +55,7 @@
 - 목적지까지의 거리 및 도착 예정 시간을 공유하여 상대방의 도착을 짐작
 
 ## Search Place Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A4.jpg?raw=true" width="30%" height="30%"/>
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A41.jpg?raw=true" width="30%" height="30%"/>
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A42.jpg?raw=true" width="30%" height="30%"/>
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A43.jpg?raw=true" width="30%" height="30%"/>
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A44.jpg?raw=true" width="30%" height="30%"/>
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A45.jpg?raw=true" width="30%" height="30%"/>
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A46.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A4.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A41.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A42.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A43.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A44.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A45.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A46.jpg?raw=true" width="30%" height="30%"/>
 
 
 - 장소 검색 및 길찾기 기능
