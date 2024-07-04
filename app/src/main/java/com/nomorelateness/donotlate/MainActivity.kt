@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         loadingInit()
         collectFlows()
-        initDarMode()
+        initDarkMode()
 
 //        handleIntent(intent)
     }
@@ -155,7 +155,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initDarMode() {
+    private fun initDarkMode() {
         val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
 
         val sharedPrefValue = resources.getString(R.string.preference_darkMode_key)
