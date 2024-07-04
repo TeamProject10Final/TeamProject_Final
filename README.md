@@ -23,7 +23,7 @@
 
 # 화면구성
 ## Splash Screen
-<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/JnagGyuSik-patch-1/ic_main_logo2.png" width="50%" height="50%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/JnagGyuSik-patch-1/ic_main_logo2.png" width="30%" height="30%"/>
 
 ## Login & Sign Up Screen
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/8e4077bc-11a4-4c20-9b1d-e6595dcc52d3)
@@ -46,6 +46,10 @@
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/ccb9cf5d-2286-4e1b-b9e7-b16c73abaa04)
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/d3b40fdb-61d2-48ce-8342-d73511e96931)
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/510e1b0a-a26d-48dc-b271-2c8d2948bc32)
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B8%20%EC%83%9D%EC%84%B1%20%EC%A7%80%EB%8F%84.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B8%20%EC%83%9D%EC%84%B1%20%EC%A7%80%EB%8F%84%20%EA%B2%80%EC%83%89.jpg?raw=true" width="30%" height="30%"/>
+
+
+
 
 - 안내에 따라 약속을 잡고 실시간 채팅을 통해 사용자들과 소통
 - 목적지까지의 거리 및 도착 예정 시간을 공유하여 상대방의 도착을 짐작
