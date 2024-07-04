@@ -149,6 +149,7 @@ class MyPromiseListFragment : Fragment() {
         }
         myPromiseListViewModel.selectedPromiseModel.observe(viewLifecycleOwner) {
             updateWidget(it)
+            Toast.makeText(context, "\"${it.roomTitle}\" 약속이 위젯에 설정되었습니다.", Toast.LENGTH_LONG).show()
             SharedPreferencesHelper.savePromise(requireContext(), it)
         }
 
