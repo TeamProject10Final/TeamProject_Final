@@ -1,4 +1,4 @@
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/31716619/3e4cbb3d-cd54-405e-aa9c-48979f5d51e4)![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/31716619/e67db5b5-53c8-43a1-aad6-429410c0b8d4)# 늦지마(DoNotLate)
+# 늦지마(DoNotLate)
 기획 표지
 
 <br>
@@ -41,10 +41,8 @@
 - 미니 게임 : 간단한 내기, 술자리 등의 상황에서 이용
 
 ## Make Appointment Screen
+
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B1.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B11.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B12.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B13.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B14.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B15.jpg?raw=true" width="30%" height="30%"/>
-
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B8%20%EC%83%9D%EC%84%B1%20%EC%A7%80%EB%8F%84.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B8%20%EC%83%9D%EC%84%B1%20%EC%A7%80%EB%8F%84%20%EA%B2%80%EC%83%89.jpg?raw=true" width="30%" height="30%"/>
-
 
 
 
