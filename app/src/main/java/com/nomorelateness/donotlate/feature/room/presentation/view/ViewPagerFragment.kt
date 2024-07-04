@@ -44,8 +44,13 @@ class ViewPagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        nextPage()
         initViewPager()
+
+        roomViewModel.modelCurrent.observe(viewLifecycleOwner) {
+
+            binding.viewPager.setCurrentItem(it, true)
+
+        }
 
     }
 
@@ -87,18 +92,8 @@ class ViewPagerFragment : Fragment() {
 
     //관찰할때랑 collect할 때에는 항상 view의 lifecycle을 따라야 함
 
-    private fun nextPage() {
-        roomViewModel.modelCurrent.observe(viewLifecycleOwner) {
-            val viewPager = binding.viewPager
-            val current = viewPager.currentItem
-            viewPager.setCurrentItem(current + 1, true)
-        }
-    }
-
     private fun prevPage() {
-        val viewPager = binding.viewPager
-        val current = viewPager.currentItem
-        viewPager.setCurrentItem(current-1, true)
+        roomViewModel.prevPage()
     }
 
     private fun showBackFragmentDialog(){
