@@ -47,6 +47,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
             hideKeyboard(binding.root.windowToken)
 //            requireActivity().currentFocus!!.clearFocus()
         }
+        loadingInit()
         editTextProcess()
     }
 
@@ -170,6 +171,15 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
                 )
                 .replace(R.id.frame, MainFragment())
                 .commit()
+        }
+    }
+
+    //앱 실행 시 메인프래그먼트 로딩
+    private fun loadingInit() {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putString(getString(com.nomorelateness.donotlate.R.string.preference_loading_key), "1")
+            apply()
         }
     }
 }
