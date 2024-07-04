@@ -26,8 +26,7 @@
 <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/JnagGyuSik-patch-1/ic_main_logo2.png" width="30%" height="30%"/>
 
 ## Login & Sign Up Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/8e4077bc-11a4-4c20-9b1d-e6595dcc52d3)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/3c2c6ab3-0851-4063-9f9c-6ed65b498882)
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A1%9C%EA%B7%B8%EC%9D%B8.jpg?raw=true" width="30%" height="30%"/><img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%EC%95%BD%EA%B4%80.jpg?raw=true" width="30%" height="30%"/><img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.jpg?raw=true" width="30%" height="30%"/>
 
 - 회원가입 및 구글 로그인 연동
 
