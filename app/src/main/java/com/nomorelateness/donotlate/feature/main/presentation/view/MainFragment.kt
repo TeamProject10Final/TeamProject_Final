@@ -87,7 +87,6 @@ class MainFragment : Fragment() {
         }
     }
 
-
     private fun initButton() {
         startRoom()
         startPlace()
@@ -97,8 +96,6 @@ class MainFragment : Fragment() {
         startMyPromise()
         startFriends()
     }
-
-
 
     private fun startPlace() {
 
@@ -220,7 +217,7 @@ class MainFragment : Fragment() {
                 binding.shimmerLayout2.visibility = View.GONE
                 binding.constraint.visibility = View.VISIBLE
                 binding.constraint2.visibility = View.VISIBLE
-            }, 1000)
+            }, 1500)
         } else {
             binding.shimmerLayout.visibility = View.GONE
             binding.shimmerLayout2.visibility = View.GONE
