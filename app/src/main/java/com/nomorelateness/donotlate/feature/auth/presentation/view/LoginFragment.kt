@@ -81,13 +81,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
                         ).show()
 
                         LoginEvent.LoginSuccess -> {
-                            parentFragmentManager.beginTransaction()
-                                .setCustomAnimations(
-                                    R.anim.fade_in,
-                                    R.anim.fade_out
-                                )
-                                .replace(R.id.frame, MainFragment())
-                                .commit()
+                            checkFirst()
                         }
 
                         LoginEvent.EmailNotVerified -> {
@@ -101,25 +95,6 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
 
     fun showEmailVerificationDialog() {
         EmailConfirmDialogFragment().show(childFragmentManager, "EmailConfirmDialogFragment")
-//        AlertDialog.Builder(requireContext())
-//            .setTitle("이메일 인증을 진행해주세요.")
-//            .setMessage("이메일 인증이 필요합니다.\n입력하신 email로 전송된 인증을 진행해 주세요.\n\n인증을 원치 않으시면 회원탈퇴를 눌러주세요.")
-//            .setPositiveButton("재전송") { _, _ ->
-//                val email = binding.etLoginEmail.text.toString()
-//                val password = binding.etLoginPassword.text.toString()
-//                logInViewModel.sendEmailVerification()
-//                Toast.makeText(
-//                    requireContext(),
-//                    "E-Mail이 재전송 되었습니다. 메일을 확인해주세요.",
-//                    Toast.LENGTH_LONG
-//                ).show()
-//            }
-//            .setNegativeButton("회원 탈퇴") { _, _ ->
-//                logInViewModel.deleteUser()
-//
-//                Toast.makeText(requireContext(), "회원 탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show()
-//            }
-//            .show()
     }
 
     override fun onDestroyView() {
@@ -131,10 +106,10 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
         p0?.let {
             when (it) {
                 binding.btnLogin -> {
+                    collectFlows()
                     val email = binding.etLoginEmail.text.toString()
                     val password = binding.etLoginPassword.text.toString()
                     logInViewModel.logIn(email = email, password = password)
-                    checkFirst()
                     hideKeyboard(binding.root.windowToken)
                 }
 
@@ -186,10 +161,15 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
             with(sharedPref.edit()) {
                 putBoolean("checkFirst", true)
                 apply()
-
             }
         } else {
-            collectFlows()
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                .replace(R.id.frame, MainFragment())
+                .commit()
         }
     }
 }
