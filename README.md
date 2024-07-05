@@ -108,7 +108,7 @@
 
 
 
-개인청보처리
+개인정보처리
 
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%84%B8%ED%8C%851.jpg?raw=true" width="30%" height="30%"/>
 
