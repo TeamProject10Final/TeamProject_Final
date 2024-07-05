@@ -26,7 +26,7 @@
 <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/JnagGyuSik-patch-1/ic_main_logo2.png" width="30%" height="30%"/>
 
 ## Login & Sign Up Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A1%9C%EA%B7%B8%EC%9D%B8.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%EC%95%BD%EA%B4%80.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%A1%9C%EA%B7%B8%EC%9D%B8.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%EC%95%BD%EA%B4%80.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.jpg" width="30%" height="30%"/>
 
 - 회원가입 및 구글 로그인 연동
 
@@ -47,7 +47,7 @@
 
 ## Make Appointment Screen
 
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B11.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B12.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B14.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B15.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%B0%A9%EC%83%9D%EC%84%B1.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%B0%A9%EC%83%9D%EC%84%B12.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%B0%A9%EC%83%9D%EC%84%B14.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%B0%A9%EC%83%9D%EC%84%B15.jpg" width="30%" height="30%"/>
 
 
 
