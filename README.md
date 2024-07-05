@@ -32,10 +32,10 @@
 
 ## Main Screen
 튜토리얼<br>
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC.jpg" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC.jpg" width="30%" height="30%"/>
 
 메인화면<br>
-<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%A1%9C%EA%B7%B8%EC%9D%B8.jpg" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.jpg" width="30%" height="30%"/>
 
 
 - 약속 잡기 : 사용자들과 약속을 정하고, 채팅방을 통하여 소통하며 목적지까지의 거리 및 도착 예정 시간을 알림
