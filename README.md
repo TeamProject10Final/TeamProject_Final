@@ -96,8 +96,13 @@
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%9D%BC%EB%B0%98%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="30%" height="30%"/>
 
 다크모드
-
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EB%A9%94%EC%9D%B8.jpg?raw=true" width="30%" height="30%"/>
+
+문의하기
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%84%B8%ED%8C%852.jpg?raw=true" width="30%" height="30%"/>
+
+개인청보처리
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%84%B8%ED%8C%851.jpg?raw=true" width="30%" height="30%"/>
 
 
 - 내 정보 확인
@@ -111,13 +116,14 @@
 ## Login & Sign Up Screen
 - 비밀번호 번호 숨김 처리
 - 회원가입 시, 이메일 중복 및 비밀번호 유효성 검사
+- 이메일 인증
 - 구글 및 카카오 로그인 연동 (comming soon)
 
 <br>
 
 ## Main Screen
 - 테마 클릭 시, 해당 기능으로 이동
-- 우측 상단의 종모양 아이콘으로 알림 확인 
+- 최초 접속 시 튜토리얼 보여줌
 
 <br>
 
@@ -163,8 +169,10 @@
 ## Setting & My Page Screen
 - 내 정보 확인
 - 로그아웃 가능
-- 개발자에게 문의 기능 (comming soon)
-- 컬리 테마 변경 (comming soon)
+- 다크모드
+- 개발자에게 문의 기능
+- 개인정보처리
+- 앱 사용 설명서
 
 <br>
   
