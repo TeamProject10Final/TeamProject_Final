@@ -79,6 +79,7 @@
 
 ## Appointment management Screen
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%82%B4%EC%95%BD%EC%86%8D.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B1%84%ED%8C%85%EB%B0%A91.jpg?raw=true" width="30%" height="30%"/>
+
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B1%84%ED%8C%85%EB%B0%A92.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B1%84%ED%8C%85%EB%B0%A93.jpg?raw=true" width="30%" height="30%"/>
 
 - 진행 중인 혹은 진행 예정 될 여러 약속을 리스트로 확인
