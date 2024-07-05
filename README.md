@@ -86,8 +86,7 @@
 - 임박한 약속에 대해 상단에 표시
 
 ## Mini Game Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%AF%B8%EB%8B%88%EA%B2%8C%EC%9E%84.jpg?raw=true" width="30%" height="30%"/>
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B0%EB%A0%9B%20%EA%B2%B0%EA%B3%BC.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%AF%B8%EB%8B%88%EA%B2%8C%EC%9E%84.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B0%EB%A0%9B%20%EA%B2%B0%EA%B3%BC.jpg?raw=true" width="30%" height="30%"/>
 
 
 - 여러 상황에서 이용하는 미니 게임
@@ -96,12 +95,15 @@
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%9D%BC%EB%B0%98%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="30%" height="30%"/>
 
 다크모드
+
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EB%A9%94%EC%9D%B8.jpg?raw=true" width="30%" height="30%"/>
 
 문의하기
+
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%84%B8%ED%8C%852.jpg?raw=true" width="30%" height="30%"/>
 
 개인청보처리
+
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%84%B8%ED%8C%851.jpg?raw=true" width="30%" height="30%"/>
 
 
