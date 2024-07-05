@@ -61,7 +61,7 @@
 - 장소 검색 및 길찾기 기능
 
 ## Friend Menagement Screen 
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B9%9C%EA%B5%AC%20%EC%8B%A0%EC%B2%AD%20(2).jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B9%9C%EA%B5%AC%20%EC%9A%94%EC%B2%AD%20%EB%AA%A9%EB%A1%9D.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B9%9C%EA%B5%AC%20%EC%8B%A0%EC%B2%AD%20(2).jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B9%9C%EA%B5%AC%20%EC%9A%94%EC%B2%AD%20%EB%AA%A9%EB%A1%9D.jpg" width="30%" height="30%"/>
 
 
 - 친구 요청, 거절, 차단
