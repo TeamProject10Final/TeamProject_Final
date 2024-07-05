@@ -78,9 +78,9 @@
 - 약속에 따른 총 지출액과 내역을 한 눈에 확인
 
 ## Appointment management Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%82%B4%EC%95%BD%EC%86%8D.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B1%84%ED%8C%85%EB%B0%A91.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A9.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A91.jpg" width="30%" height="30%"/>
 
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B1%84%ED%8C%85%EB%B0%A92.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B1%84%ED%8C%85%EB%B0%A93.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A92.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A93.jpg" width="30%" height="30%"/>
 
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/readme/%EC%9C%84%EC%A0%AF.jpg?raw=true" width="30%" height="30%"/>
 
