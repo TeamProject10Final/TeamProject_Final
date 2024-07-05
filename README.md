@@ -26,16 +26,16 @@
 <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/JnagGyuSik-patch-1/ic_main_logo2.png" width="30%" height="30%"/>
 
 ## Login & Sign Up Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A1%9C%EA%B7%B8%EC%9D%B8.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%EC%95%BD%EA%B4%80.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%A1%9C%EA%B7%B8%EC%9D%B8.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%EC%95%BD%EA%B4%80.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.jpg" width="30%" height="30%"/>
 
 - 회원가입 및 구글 로그인 연동
 
 ## Main Screen
 튜토리얼<br>
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC.jpg" width="30%" height="30%"/>
 
 메인화면<br>
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.jpg" width="30%" height="30%"/>
 
 
 - 약속 잡기 : 사용자들과 약속을 정하고, 채팅방을 통하여 소통하며 목적지까지의 거리 및 도착 예정 시간을 알림
@@ -47,7 +47,9 @@
 
 ## Make Appointment Screen
 
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B11.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B12.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B14.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%B0%A9%EC%83%9D%EC%84%B15.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%B0%A9%EC%83%9D%EC%84%B1.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%B0%A9%EC%83%9D%EC%84%B12.jpg" width="30%" height="30%"/>
+
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%B0%A9%EC%83%9D%EC%84%B14.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%B0%A9%EC%83%9D%EC%84%B15.jpg" width="30%" height="30%"/>
 
 
 
@@ -55,13 +57,13 @@
 - 목적지까지의 거리 및 도착 예정 시간을 공유하여 상대방의 도착을 짐작
 
 ## Search Place Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A4.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A41.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A42.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A43.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A44.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A45.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A46.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A4.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A41.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A42.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A43.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A44.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A45.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A46.jpg" width="30%" height="30%"/>
 
 
 - 장소 검색 및 길찾기 기능
 
 ## Friend Menagement Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B9%9C%EA%B5%AC%20%EC%8B%A0%EC%B2%AD%20(2).jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B9%9C%EA%B5%AC%20%EC%9A%94%EC%B2%AD%20%EB%AA%A9%EB%A1%9D.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B9%9C%EA%B5%AC%20%EC%8B%A0%EC%B2%AD%20(2).jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B9%9C%EA%B5%AC%20%EC%9A%94%EC%B2%AD%20%EB%AA%A9%EB%A1%9D.jpg" width="30%" height="30%"/>
 
 
 - 친구 요청, 거절, 차단
@@ -78,39 +80,45 @@
 - 약속에 따른 총 지출액과 내역을 한 눈에 확인
 
 ## Appointment management Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%82%B4%EC%95%BD%EC%86%8D.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B1%84%ED%8C%85%EB%B0%A91.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A9.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A91.jpg" width="30%" height="30%"/>
 
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B1%84%ED%8C%85%EB%B0%A92.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B1%84%ED%8C%85%EB%B0%A93.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A92.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A93.jpg" width="30%" height="30%"/>
+
+
+위젯
+
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%9C%84%EC%A0%AF.jpg" width="30%" height="30%"/>
 
 - 진행 중인 혹은 진행 예정 될 여러 약속을 리스트로 확인
 - 임박한 약속에 대해 상단에 표시
+- 위젯생성
 
 ## Mini Game Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%AF%B8%EB%8B%88%EA%B2%8C%EC%9E%84.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B0%EB%A0%9B%20%EA%B2%B0%EA%B3%BC.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%AF%B8%EB%8B%88%EA%B2%8C%EC%9E%84.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%A3%B0%EB%A0%9B%20%EA%B2%B0%EA%B3%BC.jpg" width="30%" height="30%"/>
 
 
 - 여러 상황에서 이용하는 미니 게임
 
 ## Setting & My Page Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%9D%BC%EB%B0%98%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%9D%BC%EB%B0%98%20%EC%84%A4%EC%A0%95.jpg" width="30%" height="30%"/>
 
 
 
 다크모드
 
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EB%A9%94%EC%9D%B8.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EC%84%A4%EC%A0%95.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EB%A9%94%EC%9D%B8.jpg" width="30%" height="30%"/>
 
 
 
 문의하기
 
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%84%B8%ED%8C%852.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%84%B8%ED%8C%852.jpg" width="30%" height="30%"/>
 
 
 
-개인정보처리
+개인청보처리
 
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%84%B8%ED%8C%851.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%84%B8%ED%8C%851.jpg" width="30%" height="30%"/>
 
 
 - 내 정보 확인
