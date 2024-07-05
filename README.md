@@ -82,38 +82,41 @@
 
 <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A92.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A93.jpg" width="30%" height="30%"/>
 
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/readme/%EC%9C%84%EC%A0%AF.jpg?raw=true" width="30%" height="30%"/>
+
+위젯
+
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%9C%84%EC%A0%AF.jpg" width="30%" height="30%"/>
 
 - 진행 중인 혹은 진행 예정 될 여러 약속을 리스트로 확인
 - 임박한 약속에 대해 상단에 표시
-- 위젯
+- 위젯생성
 
 ## Mini Game Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%AF%B8%EB%8B%88%EA%B2%8C%EC%9E%84.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B0%EB%A0%9B%20%EA%B2%B0%EA%B3%BC.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%AF%B8%EB%8B%88%EA%B2%8C%EC%9E%84.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%A3%B0%EB%A0%9B%20%EA%B2%B0%EA%B3%BC.jpg" width="30%" height="30%"/>
 
 
 - 여러 상황에서 이용하는 미니 게임
 
 ## Setting & My Page Screen
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%9D%BC%EB%B0%98%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%9D%BC%EB%B0%98%20%EC%84%A4%EC%A0%95.jpg" width="30%" height="30%"/>
 
 
 
 다크모드
 
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EC%84%A4%EC%A0%95.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EB%A9%94%EC%9D%B8.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EC%84%A4%EC%A0%95.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EB%A9%94%EC%9D%B8.jpg" width="30%" height="30%"/>
 
 
 
 문의하기
 
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%84%B8%ED%8C%852.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%84%B8%ED%8C%852.jpg" width="30%" height="30%"/>
 
 
 
 개인청보처리
 
-<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%84%B8%ED%8C%851.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%84%B8%ED%8C%851.jpg" width="30%" height="30%"/>
 
 
 - 내 정보 확인
