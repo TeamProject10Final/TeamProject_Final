@@ -86,7 +86,7 @@
 - 임박한 약속에 대해 상단에 표시
 
 ## Mini Game Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/4b8921a7-1022-4806-ae87-b19d0b880184)
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%AF%B8%EB%8B%88%EA%B2%8C%EC%9E%84.jpg?raw=true" width="30%" height="30%"/>
 <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%A3%B0%EB%A0%9B%20%EA%B2%B0%EA%B3%BC.jpg?raw=true" width="30%" height="30%"/>
 
 
