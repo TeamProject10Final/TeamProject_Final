@@ -116,7 +116,7 @@
 
 
 
-개인청보처리
+개인정보처리
 
 <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%84%B8%ED%8C%851.jpg" width="30%" height="30%"/>
 
