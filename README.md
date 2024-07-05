@@ -78,8 +78,8 @@
 - 약속에 따른 총 지출액과 내역을 한 눈에 확인
 
 ## Appointment management Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/209bf72a-b8ba-43a0-9653-681ac6c5e4a8)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/b9d8965a-6423-47bb-bd3b-2434a41590e0)
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EB%82%B4%EC%95%BD%EC%86%8D.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B1%84%ED%8C%85%EB%B0%A91.jpg?raw=true" width="30%" height="30%"/>
+<img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B1%84%ED%8C%85%EB%B0%A92.jpg?raw=true" width="30%" height="30%"/> <img src="https://github.com/TeamProject10Final/TeamProject_Final/blob/JnagGyuSik-patch-1/%EC%B1%84%ED%8C%85%EB%B0%A93.jpg?raw=true" width="30%" height="30%"/>
 
 - 진행 중인 혹은 진행 예정 될 여러 약속을 리스트로 확인
 - 임박한 약속에 대해 상단에 표시
