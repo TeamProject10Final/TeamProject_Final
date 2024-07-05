@@ -23,16 +23,20 @@
 
 # 화면구성
 ## Splash Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/ba8fcce6-5a34-4acd-bbfc-f8b4420b9316)
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/JnagGyuSik-patch-1/ic_main_logo2.png" width="30%" height="30%"/>
 
 ## Login & Sign Up Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/8e4077bc-11a4-4c20-9b1d-e6595dcc52d3)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/3c2c6ab3-0851-4063-9f9c-6ed65b498882)
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%A1%9C%EA%B7%B8%EC%9D%B8.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%EC%95%BD%EA%B4%80.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.jpg" width="30%" height="30%"/>
 
 - 회원가입 및 구글 로그인 연동
 
 ## Main Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/774fb989-7859-45fd-a57a-766ea382781f)
+튜토리얼<br>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC.jpg" width="30%" height="30%"/>
+
+메인화면<br>
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.jpg" width="30%" height="30%"/>
+
 
 - 약속 잡기 : 사용자들과 약속을 정하고, 채팅방을 통하여 소통하며 목적지까지의 거리 및 도착 예정 시간을 알림
 - 내 약속 : 진행 중인 혹은 진행 예정 될 여러 약속들을 관리
@@ -42,28 +46,31 @@
 - 미니 게임 : 간단한 내기, 술자리 등의 상황에서 이용
 
 ## Make Appointment Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/049e490e-fbc9-462f-bd16-2dd8c0edc6b1)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/ccb9cf5d-2286-4e1b-b9e7-b16c73abaa04)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/d3b40fdb-61d2-48ce-8342-d73511e96931)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/510e1b0a-a26d-48dc-b271-2c8d2948bc32)
+
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%B0%A9%EC%83%9D%EC%84%B1.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%B0%A9%EC%83%9D%EC%84%B12.jpg" width="30%" height="30%"/>
+
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%B0%A9%EC%83%9D%EC%84%B14.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%B0%A9%EC%83%9D%EC%84%B15.jpg" width="30%" height="30%"/>
+
+
 
 - 안내에 따라 약속을 잡고 실시간 채팅을 통해 사용자들과 소통
 - 목적지까지의 거리 및 도착 예정 시간을 공유하여 상대방의 도착을 짐작
 
 ## Search Place Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/8f7cd44e-d0b8-4d50-979b-9fe1781909e6)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/815a5851-6e54-4d61-83f0-db220d24d7c7)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/edc774df-3a52-4ab4-b64b-54df9a9679ea)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/fa054f63-546a-4492-bab7-f0a9d398634b)
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A4.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A41.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A42.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A43.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A44.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A45.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%8A%A46.jpg" width="30%" height="30%"/>
+
 
 - 장소 검색 및 길찾기 기능
 
-## Friend Menagement Screen 
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/5fbb96d7-1a0d-46ce-99c2-e79862523186)
+## Friend Menagement Screen
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B9%9C%EA%B5%AC%20%EC%8B%A0%EC%B2%AD%20(2).jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B9%9C%EA%B5%AC%20%EC%9A%94%EC%B2%AD%20%EB%AA%A9%EB%A1%9D.jpg" width="30%" height="30%"/>
+
 
 - 친구 요청, 거절, 차단
 
 ## Settlement Management Screen
+
+
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/acd6c5f5-2cc2-4bf3-b7c4-c464d91e7b0b)
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/30afe583-909d-4a18-ae67-cea5db20cf6c)
 ![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/6a9345cc-7cf5-4e34-9b39-be4b9aa478a3)
@@ -73,25 +80,51 @@
 - 약속에 따른 총 지출액과 내역을 한 눈에 확인
 
 ## Appointment management Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/209bf72a-b8ba-43a0-9653-681ac6c5e4a8)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/b9d8965a-6423-47bb-bd3b-2434a41590e0)
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A9.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A91.jpg" width="30%" height="30%"/>
+
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A92.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%B1%84%ED%8C%85%EB%B0%A93.jpg" width="30%" height="30%"/>
+
+
+위젯
+
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%9C%84%EC%A0%AF.jpg" width="30%" height="30%"/>
 
 - 진행 중인 혹은 진행 예정 될 여러 약속을 리스트로 확인
 - 임박한 약속에 대해 상단에 표시
+- 위젯생성
 
 ## Mini Game Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/4b8921a7-1022-4806-ae87-b19d0b880184)
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/329467bc-1e76-4584-a4d0-0605009c47ab)
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%AF%B8%EB%8B%88%EA%B2%8C%EC%9E%84.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%A3%B0%EB%A0%9B%20%EA%B2%B0%EA%B3%BC.jpg" width="30%" height="30%"/>
+
 
 - 여러 상황에서 이용하는 미니 게임
 
 ## Setting & My Page Screen
-![image](https://github.com/TeamProject10Final/TeamProject_Final/assets/161275717/938616e6-5758-4657-b687-9a67daa62e70)
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%9D%BC%EB%B0%98%20%EC%84%A4%EC%A0%95.jpg" width="30%" height="30%"/>
+
+
+
+다크모드
+
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EC%84%A4%EC%A0%95.jpg" width="30%" height="30%"/> <img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C%20%EB%A9%94%EC%9D%B8.jpg" width="30%" height="30%"/>
+
+
+
+문의하기
+
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%84%B8%ED%8C%852.jpg" width="30%" height="30%"/>
+
+
+
+개인정보처리
+
+<img src="https://raw.githubusercontent.com/TeamProject10Final/TeamProject_Final/readme/%EC%84%B8%ED%8C%851.jpg" width="30%" height="30%"/>
+
 
 - 내 정보 확인
 - 다크 모드 및 로그 아웃, 회원탈퇴
 - 사용자들의 의견을 수립할 수 있는 개발진들과 소통 가능한 공간
-<br>
+  <br>
 
 <br>
 
@@ -99,13 +132,14 @@
 ## Login & Sign Up Screen
 - 비밀번호 번호 숨김 처리
 - 회원가입 시, 이메일 중복 및 비밀번호 유효성 검사
+- 이메일 인증
 - 구글 및 카카오 로그인 연동 (comming soon)
 
 <br>
 
 ## Main Screen
 - 테마 클릭 시, 해당 기능으로 이동
-- 우측 상단의 종모양 아이콘으로 알림 확인 
+- 최초 접속 시 튜토리얼 보여줌
 
 <br>
 
@@ -151,11 +185,13 @@
 ## Setting & My Page Screen
 - 내 정보 확인
 - 로그아웃 가능
-- 개발자에게 문의 기능 (comming soon)
-- 컬리 테마 변경 (comming soon)
+- 다크모드
+- 개발자에게 문의 기능
+- 개인정보처리
+- 앱 사용 설명서
 
 <br>
-  
+
 # 라이브러리
 - **RecyclerView**
 - **ViewPager2**
