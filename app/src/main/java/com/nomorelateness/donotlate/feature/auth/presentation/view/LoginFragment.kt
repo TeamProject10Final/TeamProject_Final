@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
@@ -13,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.kakao.sdk.user.UserApiClient
 import com.nomorelateness.donotlate.R
 import com.nomorelateness.donotlate.core.util.UtilityKeyboard.UtilityKeyboard.hideKeyboard
 import com.nomorelateness.donotlate.databinding.FragmentLoginBinding
@@ -30,11 +32,14 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
         val appContainer =
             (requireActivity().application as com.nomorelateness.donotlate.DoNotLateApplication).appContainer
         LogInViewModelFactory(
-            appContainer.logInUseCase,
-            appContainer.checkUserEmailVerificationUseCase,
-            appContainer.sendEmailVerificationUseCase,
-            appContainer.sessionManager,
-            appContainer.deleteUseCase
+            logInUseCase = appContainer.logInUseCase,
+            checkUserEmailVerificationUseCase = appContainer.checkUserEmailVerificationUseCase,
+            sendVerificationUseCase = appContainer.sendEmailVerificationUseCase,
+            sessionManager = appContainer.sessionManager,
+            deleteUseCase = appContainer.deleteUseCase,
+            getCurrentUserDataUseCase = appContainer.getCurrentUserDataUseCase,
+            signUpWithKakaoUseCase = appContainer.signUpWithKakaoUseCase,
+            getCurrentUserWithKakaoUseCase = appContainer.getCurrentUserWithKakaoUseCase,
         )
     }
 
@@ -68,6 +73,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
         binding.tvLoginSign.setOnClickListener(this)
         binding.btnLogin.setOnClickListener(this)
         binding.ivLoginHide.setOnClickListener(this)
+        binding.ivLoginIcon2.setOnClickListener(this)
     }
 
     private fun collectFlows() {
@@ -87,6 +93,16 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
 
                         LoginEvent.EmailNotVerified -> {
                             showEmailVerificationDialog()
+                        }
+
+                        LoginEvent.KakaoLoginSuccess -> {
+                            Log.d("Login", "카카오 로그인 성공")
+                            checkFirst()
+                        }
+
+                        LoginEvent.KakaoSignUpFail -> {
+                            Log.d("Login", "로그인실패")
+                            Toast.makeText(requireContext(), "카카오 회원 가입에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -142,6 +158,16 @@ class LoginFragment : Fragment(R.layout.fragment_login), View.OnClickListener {
                         }
 
                         else -> Unit
+                    }
+                }
+                binding.ivLoginIcon2 -> {
+                    collectFlows()
+                    UserApiClient.instance.loginWithKakaoTalk(requireContext()) {token, error ->
+                        if(error != null) {
+                            logInViewModel.handleKakaoLoginResult(token, error)
+                        }else if (token != null) {
+                            logInViewModel.handleKakaoLoginResult(token, null)
+                        }
                     }
                 }
 

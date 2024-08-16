@@ -25,6 +25,9 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "KAKAO_APP_KEY", properties.getProperty("kakao_app_key"))
+        resValue("string", "kakao_app_key", properties.getProperty("kakao_app_key"))
     }
 
     buildTypes {
@@ -144,6 +147,10 @@ dependencies {
     implementation(libs.androidx.viewbinding)
 
     implementation(libs.gson.v288)
+
+    // Kakao
+    implementation(libs.v2.all)
+
 
 }
 

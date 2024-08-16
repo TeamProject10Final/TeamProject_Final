@@ -4,6 +4,7 @@ import android.app.Application
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.kakao.sdk.common.KakaoSdk
 
 class DoNotLateApplication:Application() {
 
@@ -16,6 +17,8 @@ class DoNotLateApplication:Application() {
             .setPersistenceEnabled(false)
             .build()
         FirebaseFirestore.getInstance().firestoreSettings = settings
+
+        KakaoSdk.init(this, "8287ebd1cfaacf911923f0f5d484fc38")
 
         super.onCreate()
     }

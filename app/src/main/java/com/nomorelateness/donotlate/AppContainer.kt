@@ -23,9 +23,11 @@ import com.nomorelateness.donotlate.core.domain.usecase.promiseusecase.RemovePar
 import com.nomorelateness.donotlate.feature.auth.data.repository.AuthRepositoryImpl
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.CheckUserEmailVerificationUseCase
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.DeleteUseCase
+import com.nomorelateness.donotlate.feature.auth.domain.useCase.GetCurrentUserWithKakaoUseCase
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.LogInUseCase
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.SendEmailVerificationUseCase
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.SignUpUseCase
+import com.nomorelateness.donotlate.feature.auth.domain.useCase.SignUpWithKakaoUseCase
 import com.nomorelateness.donotlate.feature.auth.presentation.view.LogInViewModelFactory
 import com.nomorelateness.donotlate.feature.consumption.data.repository.ConsumptionRepositoryImpl
 import com.nomorelateness.donotlate.feature.consumption.data.repository.ConsumptionRepositoryImpl2
@@ -134,9 +136,11 @@ class AppContainer {
     val getTotalPriceUseCase: GetTotalPriceUseCase by lazy {
         GetTotalPriceUseCase(consumptionRepository)
     }
+
     val getDataCountUseCase: GetDataCountUseCase by lazy {
         GetDataCountUseCase(consumptionRepository)
     }
+
     val getLiveDataCountUseCase: GetLiveDataCountUseCase by lazy {
         GetLiveDataCountUseCase(consumptionRepository)
     }
@@ -328,7 +332,13 @@ class AppContainer {
             repository2 = consumptionRepository2
         )
     }
+    val signUpWithKakaoUseCase: SignUpWithKakaoUseCase by lazy {
+        SignUpWithKakaoUseCase(authRepository = authRepository)
+    }
 
+    val getCurrentUserWithKakaoUseCase: GetCurrentUserWithKakaoUseCase by lazy {
+        GetCurrentUserWithKakaoUseCase(authRepository = authRepository)
+    }
 }
 
 class LogInContainer(
@@ -336,14 +346,20 @@ class LogInContainer(
     private val checkUserEmailVerificationUseCase: CheckUserEmailVerificationUseCase,
     private val sendVerificationUseCase: SendEmailVerificationUseCase,
     private val sessionManager: SessionManager,
-    private val deleteUseCase: DeleteUseCase
+    private val deleteUseCase: DeleteUseCase,
+    private val getCurrentUserDataUseCase: GetCurrentUserDataUseCase,
+    private val signUpWithKakaoUseCase: SignUpWithKakaoUseCase,
+    private val getCurrentUserWithKakaoUseCase: GetCurrentUserWithKakaoUseCase
 ) {
     val logInViewModelFactory = LogInViewModelFactory(
-        logInUseCase,
-        checkUserEmailVerificationUseCase,
-        sendVerificationUseCase,
-        sessionManager,
-        deleteUseCase
+        logInUseCase = logInUseCase,
+        checkUserEmailVerificationUseCase = checkUserEmailVerificationUseCase,
+        sendVerificationUseCase = sendVerificationUseCase,
+        sessionManager = sessionManager,
+        deleteUseCase = deleteUseCase,
+        getCurrentUserDataUseCase = getCurrentUserDataUseCase,
+        signUpWithKakaoUseCase = signUpWithKakaoUseCase,
+        getCurrentUserWithKakaoUseCase,
     )
 }
 

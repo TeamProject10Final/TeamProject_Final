@@ -4,6 +4,7 @@ package com.nomorelateness.donotlate.feature.consumption.presentation
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -84,6 +85,7 @@ class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface, DeleteD
         setupRecyclerViews()
         observeViewModel()
         checkAndSyncData()
+        initbutton()
 
         binding.btnBackActivity.setOnClickListener {
             onBackPressed()
@@ -231,6 +233,15 @@ class ConsumptionActivity : AppCompatActivity(), ConfirmDialogInterface, DeleteD
     override fun onDeleteButtonClicked(model: ConsumptionModel) {
         Log.d("확인 delete clicked", "$model")
         consumptionViewModel.deleteConsumption(model)
+    }
+
+    private fun initbutton(){
+        binding.kakaopay.setOnClickListener {
+            val url = "https://link.kakaopay.com/_/0anUDM9"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
     }
 
 }

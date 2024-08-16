@@ -377,7 +377,7 @@ class MyPromiseRoomViewModel(
     private suspend fun getCurrentUserData() {
         Log.d("getCurrentUserData", "stared getCurrentUserData()")
         try {
-            getCurrentUserDataUseCase().collect { userEntity ->
+            getCurrentUserDataUseCase(uid = "").collect { userEntity ->
                 val userModel = userEntity?.toModel()
                 if (userModel != null) {
                     CurrentUser.userData = userModel

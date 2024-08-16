@@ -1,8 +1,10 @@
 package com.nomorelateness.donotlate
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.kakao.sdk.user.UserApiClient
 import com.nomorelateness.donotlate.core.domain.session.SessionManager
 import com.nomorelateness.donotlate.feature.auth.domain.useCase.CheckUserEmailVerificationUseCase
 import kotlinx.coroutines.channels.Channel
@@ -25,16 +27,48 @@ class MainViewModel(
     }
 
     private suspend fun checkUserLoginStatus() {
-        if (sessionManager.get() != null) {
-            val isVerified = checkUserEmailVerificationUseCase()
-            if (isVerified) {
-                _channel.send(element = MainAction.LoggedIn)
-            } else {
-                _channel.send(element = MainAction.EmailNotVerified)
-            }
-        } else {
-            _channel.send(element = MainAction.NotLoggedIn)
+
+        val kakaoToken = sessionManager.get1()
+        val firebaseUid = try {
+            sessionManager.get()
+        } catch (e: Exception) {
+            null
         }
+
+        when {
+            kakaoToken != null -> {
+                _channel.send(element = MainAction.LoggedIn)
+            }
+            firebaseUid != null -> {
+                val isVerified = checkUserEmailVerificationUseCase()
+                if (isVerified) {
+                    _channel.send(element = MainAction.LoggedIn)
+                } else {
+                    _channel.send(element = MainAction.EmailNotVerified)
+                }
+            }
+            else -> {
+                _channel.send(element = MainAction.NotLoggedIn)
+            }
+
+        }
+//        if (sessionManager.get1() != null) {
+//            _channel.send(element = MainAction.LoggedIn)
+//            Log.d("KakaoLogin", "1${sessionManager.get1()}")
+//        } else if (sessionManager.get1() == null) {
+//            Log.d("KakaoLogin", "2${sessionManager.get1()}")
+//            _channel.send(element = MainAction.NotLoggedIn)
+//
+//        } else if (sessionManager.get() != null) {
+//            val isVerified = checkUserEmailVerificationUseCase()
+//            if (isVerified) {
+//                _channel.send(element = MainAction.LoggedIn)
+//            } else {
+//                _channel.send(element = MainAction.EmailNotVerified)
+//            }
+//        } else {
+//            _channel.send(element = MainAction.NotLoggedIn)
+//        }
     }
 }
 

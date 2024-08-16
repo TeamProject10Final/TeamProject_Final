@@ -5,7 +5,7 @@ import com.nomorelateness.donotlate.core.domain.repository.FirebaseDataRepositor
 import kotlinx.coroutines.flow.Flow
 
 class GetCurrentUserDataUseCase(private val firebaseDataRepository: FirebaseDataRepository) {
-    suspend operator fun invoke(): Flow<UserEntity?> {
+    suspend operator fun invoke(uid: String): Flow<UserEntity?> {
         return firebaseDataRepository.getCurrentUserDataFromFireBase()
     }
 }

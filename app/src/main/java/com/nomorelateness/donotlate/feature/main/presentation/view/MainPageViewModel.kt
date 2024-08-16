@@ -32,10 +32,10 @@ class MainPageViewModel(
     }
 
     fun getCurrentUserData(){
-        Log.d("getCurrentUserData", "stared getCurrentUserData()")
+        Log.d("getCurrentUserData", "started getCurrentUserData()")
         try {
             viewModelScope.launch {
-                getCurrentUserDataUseCase().collect{userEntity->
+                getCurrentUserDataUseCase(uid = "").collect{userEntity->
                     val userModel = userEntity?.toModel()
                     if(userModel != null){
                         _currentUserData.value = userModel

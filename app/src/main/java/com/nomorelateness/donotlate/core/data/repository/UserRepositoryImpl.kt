@@ -1,9 +1,13 @@
 package com.nomorelateness.donotlate.core.data.repository
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.kakao.sdk.user.UserApiClient
 import com.nomorelateness.donotlate.core.domain.repository.UserRepository
 import kotlinx.coroutines.tasks.await
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class UserRepositoryImpl(
     private val db: FirebaseFirestore,
@@ -14,11 +18,18 @@ class UserRepositoryImpl(
 
         val batch = db.batch()
         val userId = auth.currentUser?.uid
+        val kakaoUid = getKakaoUid()
 
-        if (userId != null) {
+        val userIdentifier = when {
+            userId != null -> userId
+            kakaoUid != null -> kakaoUid
+            else -> null
+        }
+
+        if (userIdentifier != null) {
             // 모든 유저들 친구 정보 삭제
             val friendsQuerySnapshot = db.collection("users")
-                .whereArrayContains("friends", userId)
+                .whereArrayContains("friends", userIdentifier)
                 .get()
                 .await()
 
@@ -29,7 +40,7 @@ class UserRepositoryImpl(
             }
             // 방 탈출 (? 방에서 나가기 처리)
             val roomsQuerySnapshot = db.collection("PromiseRooms")
-                .whereArrayContains("participants", userId)
+                .whereArrayContains("participants", userIdentifier)
                 .get()
                 .await()
 
@@ -52,9 +63,33 @@ class UserRepositoryImpl(
 
             }
 
-            batch.delete(db.collection("users").document(userId))
+            batch.delete(db.collection("users").document(userIdentifier))
+
+            UserApiClient.instance.unlink { error ->
+                if (error != null) {
+                    Log.e("KakaoUnlink", "Unlink failed", error)
+                } else {
+                    Log.i("KakaoUnlink", "Unlink successful")
+                }
+            }
 
             batch.commit().await()
+        }
+
+
+    }
+
+    suspend fun getKakaoUid(): String? {
+        return suspendCoroutine { continuation ->
+            UserApiClient.instance.me { user, error ->
+                if (error != null) {
+                    continuation.resume(null)
+                } else if (user != null) {
+                    continuation.resume(user.id.toString())
+                } else {
+                    continuation.resume(null)
+                }
+            }
         }
     }
 

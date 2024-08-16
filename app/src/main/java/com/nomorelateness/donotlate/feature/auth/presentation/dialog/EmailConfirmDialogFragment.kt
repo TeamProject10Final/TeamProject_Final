@@ -22,11 +22,14 @@ class EmailConfirmDialogFragment : DialogFragment() {
         val appContainer =
             (requireActivity().application as com.nomorelateness.donotlate.DoNotLateApplication).appContainer
         LogInViewModelFactory(
-            appContainer.logInUseCase,
-            appContainer.checkUserEmailVerificationUseCase,
-            appContainer.sendEmailVerificationUseCase,
-            appContainer.sessionManager,
-            appContainer.deleteUseCase
+            logInUseCase = appContainer.logInUseCase,
+            checkUserEmailVerificationUseCase = appContainer.checkUserEmailVerificationUseCase,
+            sendVerificationUseCase = appContainer.sendEmailVerificationUseCase,
+            sessionManager = appContainer.sessionManager,
+            deleteUseCase = appContainer.deleteUseCase,
+            getCurrentUserDataUseCase = appContainer.getCurrentUserDataUseCase,
+            signUpWithKakaoUseCase = appContainer.signUpWithKakaoUseCase,
+            getCurrentUserWithKakaoUseCase = appContainer.getCurrentUserWithKakaoUseCase,
         )
     }
 

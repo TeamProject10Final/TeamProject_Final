@@ -90,7 +90,7 @@ class ConsumptionViewModel(
 
     private fun getCurrentUserData() {
         viewModelScope.launch {
-            getCurrentUserDataUseCase().collect { userData ->
+            getCurrentUserDataUseCase(uid = "").collect { userData ->
                 _currentUserData.value =
                     userData?.toModel() ?: throw NullPointerException("user data null")
             }

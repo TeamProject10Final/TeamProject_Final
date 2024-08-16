@@ -20,10 +20,25 @@ class SettingsViewModel(
     val channel = _channel.receiveAsFlow()
     fun logout() {
         viewModelScope.launch {
+            val kakaoToken = sessionManager.get1()
+            val firebaseUid = try{
+                sessionManager.get()
+            }catch (e: Exception){
+                null
+            }
             try {
-                sessionManager.logOut()
-                clearAllConsumptionsUseCase.invoke()
-                _channel.send(element = SettingsEvent.LoggedOut)
+                when {
+                    kakaoToken != null -> {
+                        sessionManager.logOutWithKakao()
+                        clearAllConsumptionsUseCase.invoke()
+                        _channel.send(element = SettingsEvent.LoggedOut)
+                    }
+                    firebaseUid != null -> {
+                        sessionManager.logOut()
+                        clearAllConsumptionsUseCase.invoke()
+                        _channel.send(element = SettingsEvent.LoggedOut)
+                    }
+                }
             } catch (e: Exception) {
                 _channel.send(
                     element = SettingsEvent.Error(

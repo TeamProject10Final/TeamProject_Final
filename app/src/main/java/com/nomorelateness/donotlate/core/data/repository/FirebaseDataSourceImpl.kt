@@ -7,6 +7,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.kakao.sdk.user.UserApiClient
 import com.nomorelateness.donotlate.core.data.mapper.toEntity
 import com.nomorelateness.donotlate.core.data.mapper.toMessageEntity
 import com.nomorelateness.donotlate.core.data.mapper.toPromiseEntityList
@@ -29,6 +30,8 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class FirebaseDataSourceImpl(
     private val db: FirebaseFirestore,
@@ -254,9 +257,16 @@ class FirebaseDataSourceImpl(
 
     override suspend fun getCurrentUserDataFromFireBase(): Flow<UserEntity?> = flow {
         val mAuth = auth.currentUser?.uid
+        val kakaoUid = getKakaoUid()
 
-        if (mAuth != null) {
-            val documentSnapshot = db.collection("users").document(mAuth).get().await()
+        val uid = when {
+            mAuth != null -> mAuth
+            kakaoUid != null -> kakaoUid
+            else -> null
+        }
+
+        if (uid != null) {
+            val documentSnapshot = db.collection("users").document(uid).get().await()
             val userResponse = documentSnapshot.toObject(UserResponse::class.java)
             if (userResponse != null) {
                 emit(userResponse.toUserEntity())
@@ -345,6 +355,8 @@ class FirebaseDataSourceImpl(
         }
     }
 
+//    override fun getCurrentUserDataForKakao
+
     override suspend fun updatePromiseRoom() {
         TODO("Not yet implemented")
     }
@@ -366,6 +378,20 @@ class FirebaseDataSourceImpl(
             transaction.update(fromUserRef, "friends", FieldValue.arrayUnion(toId))
             transaction.update(toUserRef, "friends", FieldValue.arrayUnion(fromId))
         }.await()
+    }
+
+    suspend fun getKakaoUid(): String? {
+        return suspendCoroutine { continuation ->
+            UserApiClient.instance.me { user, error ->
+                if(error != null){
+                    continuation.resume(null)
+                }else if(user != null) {
+                    continuation.resume(user.id.toString())
+                }else{
+                    continuation.resume(null)
+                }
+            }
+        }
     }
 }
 

@@ -7,6 +7,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.nomorelateness.donotlate.feature.auth.data.model.RegisterUserDTO
@@ -26,7 +27,7 @@ class AuthRepositoryImpl(
             val result = auth.createUserWithEmailAndPassword(email, password).await()
             val user = result.user
             if (user != null) {
-                addUserToFireStore(name, email, user?.uid!!)
+                addUserToFireStore(name, email, user.uid)
                 sendVerification()
                 auth.signOut()
                 Result.success("SignUp Success")
@@ -96,6 +97,27 @@ class AuthRepositoryImpl(
             return Result.failure(e)
         }
     }
+
+    override suspend fun getCurrentUserWithKakao(uid: String): Flow<DocumentSnapshot?> = flow {
+        try {
+            val document = db.collection("users").document(uid).get().await()
+            emit(document)
+        } catch (e: Exception) {
+            emit(null)
+        }
+
+    }
+
+    override suspend fun signUpWithKakao(name: String, email: String, uId: String): Result<String> {
+        return try {
+            val user = RegisterUserDTO(name,email, uId, createdAt = Timestamp.now())
+            db.collection("users").document(uId).set(user).await()
+            Result.success("SignUp Success")
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 
     private fun addUserToFireStore(name: String, email: String, uId: String) {
         val user = RegisterUserDTO(name, email, Firebase.auth.uid!!, createdAt = Timestamp.now())
